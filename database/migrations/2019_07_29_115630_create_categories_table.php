@@ -12,7 +12,7 @@ class CreateCategoriesTable extends Migration {
 			$table->string('title', 255);
 			$table->string('icon', 255);
 			$table->boolean('has_default_image');
-			$table->string('default_image', 255);
+			$table->string('default_image', 255)->nullable();
 			$table->timestamps();
 		});
 	}

@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "bolechen/nova-activitylog": "^0.1.4",
+        "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/nova": "*",
