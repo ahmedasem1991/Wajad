@@ -6,6 +6,8 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Remipou\NovaPageManager\PageResource;
+
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -17,16 +19,24 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-        \OptimistDigital\NovaPageManager\NovaPageManager::configure([
-            'templates' => [
-                \App\Nova\Templates\AboutUs::class
-            ],
-            'locales' => [
-                'en_US' => 'English',
-                'ar_EG' => 'Arabic'
-            ]
-        ]);
+        // \OptimistDigital\NovaPageManager\NovaPageManager::configure([
+        //     'templates' => [
+        //         \App\Nova\Templates\AboutUs::class
+        //     ],
+        //     'locales' => [
+        //         'en_US' => 'English',
+        //         'ar_EG' => 'Arabic'
+        //     ]
+        // ]);
     }
+   
+protected function resources() {
+    Nova::resourcesIn(app_path('Nova'));
+
+    Nova::resources([
+        PageResource::class,
+    ]);
+}
 
     /**
      * Register the Nova routes.
@@ -79,7 +89,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
             new \Bolechen\NovaActivitylog\NovaActivitylog(),
-            new \OptimistDigital\NovaPageManager\NovaPageManager,
+           // new \OptimistDigital\NovaPageManager\NovaPageManager,
             new \Mydnic\NovaKustomer\NovaKustomer,
 
 
