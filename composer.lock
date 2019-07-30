@@ -1,14 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "1bb81cf64fcd2d79223520a63136648e",
-=======
-    "content-hash": "7df6076a0792d6706e795a7d691394ca",
->>>>>>> development
+    "content-hash": "eb764a4b82ae3553193e2b27b3e5efe5",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1174,11 +1170,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-<<<<<<< HEAD
-                "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07",
-=======
                 "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8",
->>>>>>> development
                 "shasum": null
             },
             "require": {
