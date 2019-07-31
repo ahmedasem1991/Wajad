@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "1bb81cf64fcd2d79223520a63136648e",
-=======
-    "content-hash": "7df6076a0792d6706e795a7d691394ca",
->>>>>>> development
+    "content-hash": "7cdee5dd6af0faae42beddea42b2b3c0",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1174,11 +1170,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-<<<<<<< HEAD
                 "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07",
-=======
-                "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8",
->>>>>>> development
                 "shasum": null
             },
             "require": {
@@ -1787,6 +1779,122 @@
                 "serialize"
             ],
             "time": "2019-07-09T21:58:11+00:00"
+        },
+        {
+            "name": "optimistdigital/nova-locale-field",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/optimistdigital/nova-locale-field.git",
+                "reference": "9b58f7d1d3e1e26fb296a8f0780b9613b5b6615c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/optimistdigital/nova-locale-field/zipball/9b58f7d1d3e1e26fb296a8f0780b9613b5b6615c",
+                "reference": "9b58f7d1d3e1e26fb296a8f0780b9613b5b6615c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OptimistDigital\\NovaLocaleField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OptimistDigital\\NovaLocaleField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tarvo Reinpalu",
+                    "email": "tarvoreinpalu@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Optimist Digital",
+                    "email": "info@optimistdigital.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "field",
+                "laravel",
+                "nova",
+                "optimistdigital"
+            ],
+            "time": "2019-06-12T08:18:11+00:00"
+        },
+        {
+            "name": "optimistdigital/nova-page-manager",
+            "version": "1.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/optimistdigital/nova-page-manager.git",
+                "reference": "f8cdbf2de4c995c49979af2d81411230f6f245e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/optimistdigital/nova-page-manager/zipball/f8cdbf2de4c995c49979af2d81411230f6f245e9",
+                "reference": "f8cdbf2de4c995c49979af2d81411230f6f245e9",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.9",
+                "optimistdigital/nova-locale-field": "^1.1.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OptimistDigital\\NovaPageManager\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OptimistDigital\\NovaPageManager\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tarvo Reinpalu",
+                    "email": "tarvoreinpalu@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Optimist Digital",
+                    "email": "info@optimistdigital.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Page(s) and region(s) manager for Laravel Nova.",
+            "keywords": [
+                "laravel",
+                "manager",
+                "nova",
+                "optimistdigital",
+                "page"
+            ],
+            "time": "2019-07-18T08:59:47+00:00"
         },
         {
             "name": "paragonie/random_compat",

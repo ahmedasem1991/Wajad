@@ -18,11 +18,18 @@ class BannerTypes extends Resource
     public static $model = 'App\BannerTypes';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Banners';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'type';
 
     /**
      * The columns that should be searched.
@@ -32,6 +39,16 @@ class BannerTypes extends Resource
     public static $search = [
         'id',
     ];
+
+    /**
+     * Edit Showing Name In Listing
+     *
+     * @return void
+     */
+    public static function label()
+    {
+        return 'Types';
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -45,11 +62,11 @@ class BannerTypes extends Resource
             ID::make()->sortable(),
             Text::make('Banner Type', 'type')->creationRules([
                 'required', 'unique:banner_types,type', 'max:255', 'min:3'
-            ])
-            ->updateRules([
+            ])->updateRules([
                 'required', 'unique:banner_types,type,{{ resourceId }}', 'max:255', 'min:3'
             ]),
-            HasMany::make(Banners::class)
+
+            HasMany::make('Banners', 'banners', Banners::class)
         ];
     }
 

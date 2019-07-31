@@ -17,6 +17,7 @@
         "laravel/tinker": "^1.0",
         "mydnic/laravel-kustomer": "^1.3",
         "mydnic/nova-kustomer": "^1.2",
+        "optimistdigital/nova-page-manager": "^1.9",
         "remipou/nova-page-manager": "^1.0",
         "spatie/laravel-permission": "^2.37",
         "vyuldashev/nova-permission": "^1.9"
