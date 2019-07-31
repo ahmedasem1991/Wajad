@@ -1,4 +1,6 @@
 <?php
+use App\Settings;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,9 +13,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/test', function(){
+// 	return Settings::find('about-us');
+// });
 
 Route::resource('user', 'UserController');
 Route::resource('item', 'ItemController');
