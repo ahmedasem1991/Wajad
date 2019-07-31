@@ -10,7 +10,8 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
-
+use Kristories\Qrcode\Qrcode;
+use Laravel\Nova\Fields\HasMany;
 class Item extends Resource
 {
     /**
@@ -44,12 +45,24 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
+        
         return [
             ID::make()->sortable(),
             Text::make('Title'),
+           // Text::make('status'),
             Trix::make('Details'),
             Number::make('Radius'),
-            Image::make('')
+            Image::make(''),
+            Qrcode::make('QR Code')
+            ->text('http://laravel.com')
+            ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
+            ->exceptOnForms(),
+             BelongsTo::make('User','owner'),
+           
+
+            
+
+            
 
         ];
     }
