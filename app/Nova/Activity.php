@@ -5,27 +5,28 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Image;
+use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
-use Themsaid\CashierTool\CashierResourceTool;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-
-class User extends Resource
+class Activity extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = 'App\Activity';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -33,7 +34,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
     ];
 
     /**
@@ -44,33 +45,20 @@ class User extends Resource
      */
     public function fields(Request $request)
     {
+        
         return [
             ID::make()->sortable(),
+            Text::make('DESCRIPTION'),
+            Text::make('SUBJECT ID'),
+            Text::make('SUBJECT TYPE'),
+            Text::make('CAUSER ID'),
+            Text::make('CREATED_AT'),
+            BelongsTo::make('User'),
+           
 
-            Gravatar::make(),
+            
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
-
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{ resourceId }}'),
-
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
-            HasMany::make('Items'),
-
-            CashierResourceTool::make()->onlyOnDetail(),
-
-            HasMany::make('Activity', 'activities')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
-
+            
 
         ];
     }
@@ -116,8 +104,6 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new DownloadExcel,
-        ];
+        return [];
     }
 }
