@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ItemRequests::class, 'user_id');
     }
+
+    public function corporate()
+    {
+        return $this->belongsToMany(Corporate::class, 'corporate_users', 'user_id', 'corporate_id');
+    }
 }

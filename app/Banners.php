@@ -7,9 +7,9 @@ use Illuminate\Support\Str;
 
 class Banners extends Model
 {
-    public function type()
+    public function BannerTypes()
     {
-        return $this->belongsTo(BannerTypes::class);
+        return $this->belongsTo(BannerTypes::class, 'type_id');
     }
 
     public function setTypeAttribute($value)

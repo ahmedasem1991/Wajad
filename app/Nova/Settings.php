@@ -5,31 +5,24 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\HasMany;
 
-class BannerTypes extends Resource
+class Settings extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\BannerTypes';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Banners';
+    public static $model = 'App\Settings';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'type';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -41,16 +34,6 @@ class BannerTypes extends Resource
     ];
 
     /**
-     * Edit Showing Name In Listing
-     *
-     * @return void
-     */
-    public static function label()
-    {
-        return 'Types';
-    }
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,13 +43,12 @@ class BannerTypes extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Banner Type', 'type')->creationRules([
-                'required', 'unique:banner_types,type', 'max:255', 'min:3'
-            ])->updateRules([
-                'required', 'unique:banner_types,type,{{ resourceId }}', 'max:255', 'min:3'
+            Text::make('Key', 'key')->creationRules([
+                'required', 'min:3', 'max:255', 'unique:settings,key'
+            ])->hideWhenUpdating(),
+            Trix::make('Value', 'value')->creationRules([
+                'required', 'min:6'
             ]),
-
-            HasMany::make('Banners', 'banners', Banners::class)
         ];
     }
 

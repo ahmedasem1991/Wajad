@@ -20,6 +20,28 @@ class Banners extends Resource
     public static $model = 'App\Banners';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = true;
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Banners';
+
+    /**
+     * Indicates if the resoruce should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
+
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
@@ -36,6 +58,16 @@ class Banners extends Resource
     ];
 
     /**
+     * Edit Showing Name In Listing
+     *
+     * @return void
+     */
+    public static function label()
+    {
+        return 'Images';
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,7 +77,6 @@ class Banners extends Resource
     {
         return [
             ID::make()->sortable(),
-            Select::make('Type', 'type_id')->options(BannerTypes::get()->pluck('type', 'id'))->hideFromIndex()->hideFromDetail(),
             Image::make('Banner Image', 'image')
                 ->creationRules([
                     'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
@@ -54,10 +85,9 @@ class Banners extends Resource
                     'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
                 ->disk('public')
-                ->disableDownload()
-                ->deletable(),
+                ->disableDownload(),
 
-            // BelongsTo::make(BannerTypes::class, 'types')
+            BelongsTo::make('BannerTypes', 'BannerTypes', \App\Nova\BannerTypes::class)
         ];
     }
     /**
