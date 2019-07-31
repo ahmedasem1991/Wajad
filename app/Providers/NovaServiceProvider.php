@@ -7,7 +7,7 @@ use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Remipou\NovaPageManager\PageResource;
-
+use Kristories\QrcodeManager\QrcodeManager;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -76,6 +76,7 @@ protected function resources() {
     {
         return [
             new Help,
+            new \Marianvlad\NovaEnvCard\NovaEnvCard,
         ];
     }
 
@@ -91,6 +92,7 @@ protected function resources() {
             new \Bolechen\NovaActivitylog\NovaActivitylog(),
            // new \OptimistDigital\NovaPageManager\NovaPageManager,
             new \Mydnic\NovaKustomer\NovaKustomer,
+            new QrcodeManager(),
 
 
         ];

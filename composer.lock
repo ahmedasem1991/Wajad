@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb764a4b82ae3553193e2b27b3e5efe5",
+    "content-hash": "536827111a977548d1ef49644c3b0c73",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1018,6 +1018,95 @@
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
+            "name": "kristories/nova-qrcode-field",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kristories/nova-qrcode-field.git",
+                "reference": "e29c5e43d644504b6093ad9b16de5a824926137d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kristories/nova-qrcode-field/zipball/e29c5e43d644504b6093ad9b16de5a824926137d",
+                "reference": "e29c5e43d644504b6093ad9b16de5a824926137d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kristories\\Qrcode\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kristories\\Qrcode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Nova QR code field",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-10-09T15:15:58+00:00"
+        },
+        {
+            "name": "kristories/nova-qrcode-manager",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kristories/nova-qrcode-manager.git",
+                "reference": "f85147f56c32af693b7c1fbcc8291eaef74e2e22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kristories/nova-qrcode-manager/zipball/f85147f56c32af693b7c1fbcc8291eaef74e2e22",
+                "reference": "f85147f56c32af693b7c1fbcc8291eaef74e2e22",
+                "shasum": ""
+            },
+            "require": {
+                "kristories/nova-qrcode-field": "^0.0.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kristories\\QrcodeManager\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kristories\\QrcodeManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool to manage QR code.",
+            "keywords": [
+                "barcode",
+                "laravel",
+                "nova",
+                "qr",
+                "qr-code",
+                "qr-codes",
+                "qrcode",
+                "qrcodes"
+            ],
+            "time": "2018-10-09T16:15:41+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.8.29",
             "source": {
@@ -1374,6 +1463,56 @@
                 "storage"
             ],
             "time": "2019-06-18T20:09:29+00:00"
+        },
+        {
+            "name": "marianvlad/nova-env-card",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marianvlad/nova-env-card.git",
+                "reference": "8c0c7701e1583c1fbb1d9aca0f5f24fad871f5d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marianvlad/nova-env-card/zipball/8c0c7701e1583c1fbb1d9aca0f5f24fad871f5d3",
+                "reference": "8c0c7701e1583c1fbb1d9aca0f5f24fad871f5d3",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Marianvlad\\NovaEnvCard\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Marianvlad\\NovaEnvCard\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marian Gabriel",
+                    "role": "Developer",
+                    "email": "vladmariang@gmail.com"
+                }
+            ],
+            "description": "A Laravel Nova card for editing .env file .",
+            "homepage": "https://github.com/marianvlad/nova-env-card",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-08-24T22:04:46+00:00"
         },
         {
             "name": "monolog/monolog",

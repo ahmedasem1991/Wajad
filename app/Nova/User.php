@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\HasMany;
+use Spatie\Activitylog\Models\Activity;
 
 class User extends Resource
 {
@@ -60,6 +62,12 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+                HasMany::make('Items'),
+                HasMany::make('Spatie\Activitylog\Models\Activity'),
+                HasMany::make('Spatie\Activitylog\Models\Activity'),
+                HasMany::make('Activity', 'activity', Activity::class)
+
+                
         ];
     }
 
