@@ -93,7 +93,7 @@ protected function resources() {
            // new \OptimistDigital\NovaPageManager\NovaPageManager,
             new \Mydnic\NovaKustomer\NovaKustomer,
             new QrcodeManager(),
-
+            new \Themsaid\CashierTool\CashierTool(),
 
         ];
     }

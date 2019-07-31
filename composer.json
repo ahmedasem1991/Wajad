@@ -24,6 +24,7 @@
         "optimistdigital/nova-page-manager": "^1.9",
         "remipou/nova-page-manager": "^1.0",
         "spatie/laravel-permission": "^2.37",
+        "themsaid/nova-cashier-manager": "^0.2.1",
         "vyuldashev/nova-permission": "^1.9"
     },
     "require-dev": {

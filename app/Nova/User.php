@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Themsaid\CashierTool\CashierResourceTool;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class User extends Resource
@@ -63,6 +64,9 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
                 HasMany::make('Items'),
+
+            CashierResourceTool::make()->onlyOnDetail()
+
                 
         ];
     }

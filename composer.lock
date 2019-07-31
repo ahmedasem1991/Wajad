@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a1f44a5bfe275dec767aff0a8120f32",
+    "content-hash": "8ce4803c1b8f6999ae4ba8600563163c",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4529,6 +4529,55 @@
                 "dump"
             ],
             "time": "2019-07-27T06:42:46+00:00"
+        },
+        {
+            "name": "themsaid/nova-cashier-manager",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/themsaid/nova-cashier-manager.git",
+                "reference": "f9a48bdd3fa84d498221bdc534e928542f639e11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/themsaid/nova-cashier-manager/zipball/f9a48bdd3fa84d498221bdc534e928542f639e11",
+                "reference": "f9a48bdd3fa84d498221bdc534e928542f639e11",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Themsaid\\CashierTool\\CashierToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Themsaid\\CashierTool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Said",
+                    "email": "mohamed@laravel.com"
+                }
+            ],
+            "description": "Managing Stripe subscriptions inside the incredible Laravel Nova admin panel.",
+            "keywords": [
+                "cashier",
+                "laravel",
+                "nova",
+                "stripe"
+            ],
+            "time": "2018-09-03T19:00:16+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

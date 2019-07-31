@@ -4,22 +4,16 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
-class Item extends Resource
+
+class Packages extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Item';
+    public static $model = 'App\Packages';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -45,27 +39,8 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
-        
         return [
             ID::make()->sortable(),
-            Text::make('Title')->creationRules([
-                'required', 
-            ]),
-           // Text::make('status'),
-            Trix::make('Details'),
-            Number::make('Radius'),
-            Image::make(''),
-            Qrcode::make('QR Code')
-            ->text('http://laravel.com')
-            ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
-            ->exceptOnForms(),
-             BelongsTo::make('User','owner'),
-           
-
-            
-
-            
-
         ];
     }
 
