@@ -3,30 +3,31 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
-class Activity extends Resource
+
+
+
+use Illuminate\Http\Request;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+class Area extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Activity';
-    public static $displayInNavigation = false;
+    public static $model = 'App\Region';
+    public static $group = 'Locations';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name_ar';
 
     /**
      * The columns that should be searched.
@@ -45,20 +46,14 @@ class Activity extends Resource
      */
     public function fields(Request $request)
     {
-        
         return [
             ID::make()->sortable(),
-            Text::make('DESCRIPTION'),
-            Text::make('SUBJECT ID'),
-            Text::make('SUBJECT TYPE'),
-            Text::make('CAUSER ID'),
-            Text::make('CREATED_AT'),
-            BelongsTo::make('User'),
+            Text::make('name_ar'),
+            Text::make('name_en'),
+            BelongsTo::make('Country','country'),
+            //HasMany::make('Cities')
+            HasMany::make('Cities', 'cities', 'App\Nova\Cities'),
            
-
-            
-
-            
 
         ];
     }

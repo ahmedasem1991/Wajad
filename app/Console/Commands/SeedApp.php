@@ -52,6 +52,7 @@ class SeedApp extends Command
             'password' => bcrypt($password)
         ]);
         $this->info('Nova User Created Successfully');
+
         
     }
 }

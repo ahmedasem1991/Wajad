@@ -1,6 +1,7 @@
 <?php
 use App\Settings;
 use Illuminate\Support\Str;
+use App\Region;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Route::resource('itemrequests', 'ItemRequestsController');
 Route::resource('products', 'ProductsController');
 Route::resource('cards', 'CardsController');
 Auth::routes();
+
+Route::get('/test', function(){
+	dd(Region::all());
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
