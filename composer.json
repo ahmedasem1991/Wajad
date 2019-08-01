@@ -21,9 +21,12 @@
         "marianvlad/nova-env-card": "^1.0",
         "mydnic/laravel-kustomer": "^1.3",
         "mydnic/nova-kustomer": "^1.2",
+        "naif/map_address": "^1.4",
         "optimistdigital/nova-page-manager": "^1.9",
         "remipou/nova-page-manager": "^1.0",
         "spatie/laravel-permission": "^2.37",
+        "spatie/laravel-translatable": "^4.1",
+        "spatie/nova-translatable": "^2.0",
         "themsaid/nova-cashier-manager": "^0.2.1",
         "vyuldashev/nova-permission": "^1.9"
     },
@@ -77,6 +80,34 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorpoate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorporate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorporate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorporate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorporate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorporate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Wajadcorporate"
         }
     ]
 }

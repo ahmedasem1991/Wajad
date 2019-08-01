@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Themsaid\CashierTool\CashierResourceTool;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\BelongsToMany;
 
 class User extends Resource
 {
@@ -65,13 +67,13 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
             HasMany::make('Items'),
 
-            CashierResourceTool::make()->onlyOnDetail(),
+            // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-
-
+            
+            // BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules()('required')
         ];
     }
 
@@ -83,7 +85,9 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new NewUsers
+        ];
     }
 
     /**
