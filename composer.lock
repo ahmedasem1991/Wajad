@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b58bf0869b8eb436099591f6fd084cf7",
+    "content-hash": "500bbddc1b8d1876f91ff984fa7e5ae3",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1183,6 +1183,58 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "itainathaniel/nova-nexmo",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itainathaniel/nova-nexmo.git",
+                "reference": "4da5c22aace09d35e82f23b0d63c1818f32b6bf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itainathaniel/nova-nexmo/zipball/4da5c22aace09d35e82f23b0d63c1818f32b6bf7",
+                "reference": "4da5c22aace09d35e82f23b0d63c1818f32b6bf7",
+                "shasum": ""
+            },
+            "require": {
+                "nexmo/laravel": "^1.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Itainathaniel\\NovaNexmo\\NovaNexmoServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Itainathaniel\\NovaNexmo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Itai Nathaniel",
+                    "role": "Developer",
+                    "email": "itainathaniel@gmail.com",
+                    "homepage": "http://it.ai"
+                }
+            ],
+            "description": "Laravel Nova card & tool to interact with Nexmo.com",
+            "homepage": "https://github.com/itainathaniel/nova-nexmo",
+            "keywords": [
+                "laravel",
+                "nexmo",
+                "nova"
+            ],
+            "time": "2018-09-10T23:32:26+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

@@ -12,6 +12,7 @@
         "bolechen/nova-activitylog": "^0.1.4",
         "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
+        "itainathaniel/nova-nexmo": "^1.0",
         "kristories/nova-qrcode-field": "^0.0.1",
         "kristories/nova-qrcode-manager": "^1.0",
         "laravel/cashier": "^9.3",

@@ -77,6 +77,7 @@ protected function resources() {
         return [
             new Help,
             new \Marianvlad\NovaEnvCard\NovaEnvCard,
+            new \Itainathaniel\NovaNexmo\NovaNexmoCard(),
         ];
     }
 
@@ -95,6 +96,7 @@ protected function resources() {
             new QrcodeManager(),
             new \Tightenco\NovaStripe\NovaStripe,
             new \Themsaid\CashierTool\CashierTool(),
+            new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
 
 
         ];
