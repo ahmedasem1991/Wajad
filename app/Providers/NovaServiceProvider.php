@@ -93,6 +93,8 @@ protected function resources() {
            // new \OptimistDigital\NovaPageManager\NovaPageManager,
             new \Mydnic\NovaKustomer\NovaKustomer,
             new QrcodeManager(),
+            new \Tightenco\NovaStripe\NovaStripe,
+            new \Themsaid\CashierTool\CashierTool(),
 
 
         ];

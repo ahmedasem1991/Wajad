@@ -30,7 +30,14 @@ Route::resource('cards', 'CardsController');
 Auth::routes();
 
 Route::get('/test', function(){
-	dd(Region::all());
+	$nexmo = app('Nexmo\Client');
+	$nexmo->message()->send([
+		'to'   => '201142416124',
+		'from' => 'nexmo',
+		'text' => 'Using the facade to send a message.'
+	]);
+	 
+	
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

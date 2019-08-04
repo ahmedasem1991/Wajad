@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Themsaid\CashierTool\CashierResourceTool;
 
 class User extends Resource
 {
@@ -67,6 +68,7 @@ class User extends Resource
                 HasMany::make('Activity','activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
+                CashierResourceTool::make()->onlyOnDetail(),
 
                 
         ];
