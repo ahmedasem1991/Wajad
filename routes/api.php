@@ -21,4 +21,9 @@ Route::get('/getQr/{id}', function (Request $request,$id) {
     $QRCode=App\Qrcodes::with('user')->with('item')->find($id);
    
     return response()->json([$QRCode]);
+    return $id;
+});
+
+Route::get('test', function(){
+    return 'test';
 });

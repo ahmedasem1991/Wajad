@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'name' => 'Nova Site',
+    'name' => 'Wajad Admin Panel',
 
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', '/'),
+    'url' => env('ADMIN_URL', '/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'path' => '/nova',
+    'path' => '/wajad',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,6 +77,7 @@ return [
         BootTools::class,
         Authorize::class,
         \Vyuldashev\NovaPermission\ForgetCachedPermissions::class,
+        \App\Http\Middleware\Admin::class,
     ],
 
     /*

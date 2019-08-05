@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCorporatesTable extends Migration
+class CreatePackagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,8 @@ class CreateCorporatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('corporates', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->json('name');
-            $table->text('image')->nullable();
-            $table->json('details');
-            $table->json('address');
-            // $table->json('geo_location');
+        Schema::create('packages', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ class CreateCorporatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('corporates');
+        Schema::dropIfExists('packages');
     }
 }

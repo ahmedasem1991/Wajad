@@ -8,8 +8,10 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Themsaid\CashierTool\CashierResourceTool;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\BelongsToMany;
 
 class User extends Resource
 {
@@ -63,18 +65,22 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-                HasMany::make('Items'),
-               
-                HasMany::make('Activity','activities')
+            HasMany::make('Items'),
+
+            // CashierResourceTool::make()->onlyOnDetail(),
+
+            HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-                CashierResourceTool::make()->onlyOnDetail(),
 
-               
-                HasMany::make('Qrcodes', 'qrcodes', 'App\Nova\Qrcodes'),
-                
+            BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),
+            CashierResourceTool::make()->onlyOnDetail(),
 
-                
+
+            HasMany::make('Qrcodes', 'qrcodes', 'App\Nova\Qrcodes'),
+
+
+
         ];
     }
 
@@ -86,7 +92,9 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new NewUsers
+        ];
     }
 
     /**

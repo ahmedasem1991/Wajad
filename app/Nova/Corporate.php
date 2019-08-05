@@ -5,28 +5,35 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
+use Naif\MapAddress\MapAddress;
+use Spatie\NovaTranslatable\Translatable;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Image;
-//use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
-class Item extends Resource
+
+class Corporate extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Item';
+    public static $model = 'App\Corporate';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'name';
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
 
     /**
      * The columns that should be searched.
@@ -45,29 +52,45 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
-        
         return [
             ID::make()->sortable(),
-            Text::make('Title')->creationRules([
-                'required', 
+            Translatable::make([
+                Text::make('Corporate Name', 'name')->rules(
+                    'required',
+                    'string',
+                    'max:255',
+                    'min:6'
+                ),
+                Trix::make('Corporate Details', 'details')
+                    ->rules(
+                        'required',
+                        'string',
+                        'max:255',
+                        'min:6'
+                    ),
+                Text::make('Corporate Address', 'address')->rules(
+                    'required',
+                    'string',
+                    'max:255',
+                    'min:6'
+                ),
             ]),
-           // Text::make('status'),
-            Trix::make('Details'),
-            Number::make('Radius'),
-            Image::make(''),
-            // Qrcode::make('QR Code')
-            // ->text('http://laravel.com')
-            // ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
-            // ->exceptOnForms(),
-             BelongsTo::make('User','owner'),
-             
-             BelongsTo::make('QR Code','qrcode','App\Nova\Qrcodes'),
-           
-
+            Image::make('Corporate Image', 'image')->creationRules(
+                'required',
+                'image',
+                'mimes:jpeg,bmp,png',
+                'max:5012'
+            )->updateRules(
+                'image',
+                'mimes:jpeg,bmp,png',
+                'max:5012'
+            )->disk('public')->disableDownload()->deletable(false),
             
+            // MapAddress::make('Corporate Location' ,'geo_location')
+            // ->initLocation(40.730610,-98.935242)
+            // ->zoom(12),
 
-            
-
+            BelongsToMany::make('User', 'users', User::class)->rules('required'),
         ];
     }
 
