@@ -24,7 +24,7 @@ class AuthController extends Controller
      */
     public function login()
     {
-        if (!$token = auth()->attempt(request(['email', 'password']))) {
+        if (!$token = auth('api')->attempt(request(['email', 'password']))) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -48,7 +48,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -60,7 +60,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth('api')->refresh());
     }
 
     /**
@@ -79,6 +79,10 @@ class AuthController extends Controller
             'expires_in' => config('jwt.ttl') * 60,
           
            // 'refresh_token' => auth()->refresh()
+            'user' => auth('api')->user(),
+            'expires_in' => config('jwt.ttl') * 60,
+            'access_token' => $token,
+            'refresh_token' => auth('api')->refresh()
         ]);
     }
 }

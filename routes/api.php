@@ -16,6 +16,7 @@ Route::get('/getQr/{id}', function (Request $request,$id) {
     return response()->json([$QRCode]);
     return $id;
 });
+# Sliders Starts
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', function (Request $request) {

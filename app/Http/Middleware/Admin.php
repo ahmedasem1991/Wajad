@@ -17,7 +17,7 @@ class Admin
     {
         if (auth()->user()->is_admin()) {
             return $next($request);
-        }
+        } 
         auth()->logout();
         return redirect()->route('nova.login');
     }
