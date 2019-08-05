@@ -37,7 +37,9 @@ Route::get('/test', function(){
 	// 	'text' => 'Using the facade to send a message.'
 	// ]);
 	//getimagesize('');
-	
+
+	$result = Str::endsWith('Thisismynam', 'name');
+	  dd($result);
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
