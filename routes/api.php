@@ -13,13 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::get('/getQr/{id}', function (Request $request,$id) {
-    return $id;
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
-Route::get('test', function(){
-    return 'test';
+Route::get('/getQr/{id}', function (Request $request,$id) {
+    return $id;
 });

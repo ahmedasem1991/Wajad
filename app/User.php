@@ -2,14 +2,15 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasRoles, Notifiable, LogsActivity;
+    use HasRoles, Notifiable, LogsActivity, HasApiTokens;
 
     protected $fillable = [
         'name', 'email', 'password', 'type'
@@ -39,7 +40,12 @@ class User extends Authenticatable
 
     public function is_corporate()
     {
-        return (bool) $this->type === self::Type['corporate'];
+        return $this->type === self::Type['corporate'];
+    }
+
+    public function is_user()
+    {
+        return $this->type === self::Type['user'];
     }
 
     public function scopeCorporates($query)
