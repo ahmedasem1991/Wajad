@@ -20,7 +20,6 @@
         "laravel/cashier": "^9.3",
         "laravel/framework": "5.8.*",
         "laravel/nova": "*",
-        "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "marianvlad/nova-env-card": "^1.0",
@@ -36,6 +35,7 @@
         "spatie/nova-translatable": "^2.0",
         "themsaid/nova-cashier-manager": "^0.2.1",
         "tightenco/nova-stripe": "^0.2.2",
+        "tymon/jwt-auth": "1.0.*",
         "vyuldashev/nova-permission": "^1.9"
     },
     "require-dev": {
