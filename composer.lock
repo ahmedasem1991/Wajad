@@ -1,14 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "6e8a71885f275a3f16fe540e613fc56a",
-=======
-    "content-hash": "36be5127db7f17cbd49d5d0348794b68",
->>>>>>> 20190730-add-resources
+    "content-hash": "be234c44e8cf413dfd2fa3418c47246f",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1773,7 +1769,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-                "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8",
+                "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07",
                 "shasum": null
             },
             "require": {
@@ -2985,16 +2981,16 @@
         },
         {
             "name": "optimistdigital/nova-page-manager",
-            "version": "1.9.2",
+            "version": "1.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/optimistdigital/nova-page-manager.git",
-                "reference": "f8cdbf2de4c995c49979af2d81411230f6f245e9"
+                "reference": "ad57afd3ac81d5c977ade0e98336b8c16f8b0bc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/optimistdigital/nova-page-manager/zipball/f8cdbf2de4c995c49979af2d81411230f6f245e9",
-                "reference": "f8cdbf2de4c995c49979af2d81411230f6f245e9",
+                "url": "https://api.github.com/repos/optimistdigital/nova-page-manager/zipball/ad57afd3ac81d5c977ade0e98336b8c16f8b0bc5",
+                "reference": "ad57afd3ac81d5c977ade0e98336b8c16f8b0bc5",
                 "shasum": ""
             },
             "require": {
@@ -3025,13 +3021,13 @@
             "authors": [
                 {
                     "name": "Tarvo Reinpalu",
-                    "email": "tarvoreinpalu@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "tarvoreinpalu@gmail.com"
                 },
                 {
                     "name": "Optimist Digital",
-                    "email": "info@optimistdigital.com",
-                    "role": "Maintainer"
+                    "role": "Maintainer",
+                    "email": "info@optimistdigital.com"
                 }
             ],
             "description": "Page(s) and region(s) manager for Laravel Nova.",
@@ -3042,7 +3038,7 @@
                 "optimistdigital",
                 "page"
             ],
-            "time": "2019-07-18T08:59:47+00:00"
+            "time": "2019-08-02T08:43:47+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -5962,8 +5958,6 @@
             "time": "2018-09-03T19:00:16+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "tightenco/nova-stripe",
             "version": "v0.2.2",
             "source": {
@@ -6013,7 +6007,6 @@
             "time": "2019-05-14T19:37:19+00:00"
         },
         {
->>>>>>> 20190730-add-resources
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.1",
             "source": {

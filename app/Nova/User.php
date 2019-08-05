@@ -73,7 +73,7 @@ class User extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules()('required'),
+            BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),
             CashierResourceTool::make()->onlyOnDetail(),
 
 

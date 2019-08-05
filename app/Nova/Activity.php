@@ -20,7 +20,6 @@ class Activity extends Resource
      * @var string
      */
     public static $model = 'App\Activity';
-    public static $displayInNavigation = false;
     /**
      * Indicates if the resource should be displayed in the sidebar.
      *
