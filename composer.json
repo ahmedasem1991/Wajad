@@ -26,15 +26,16 @@
         "mydnic/laravel-kustomer": "^1.3",
         "mydnic/nova-kustomer": "^1.2",
         "naif/map_address": "^1.4",
-        "spatie/laravel-translatable": "^4.1",
-        "spatie/nova-translatable": "^2.0",
         "nexmo/laravel": "^1.1",
         "optimistdigital/nova-page-manager": "^1.9",
         "remipou/nova-page-manager": "^1.0",
         "simplesoftwareio/simple-qrcode": "^2.0",
         "spatie/laravel-permission": "^2.37",
+        "spatie/laravel-translatable": "^4.1",
+        "spatie/nova-translatable": "^2.0",
         "themsaid/nova-cashier-manager": "^0.2.1",
         "tightenco/nova-stripe": "^0.2.2",
+        "tymon/jwt-auth": "1.0.*",
         "vyuldashev/nova-permission": "^1.9"
     },
     "require-dev": {
@@ -115,6 +116,10 @@
         {
             "type": "path",
             "url": "./nova-components/Wajadcorporate"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/CustomNexmo"
         }
     ]
 }

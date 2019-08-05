@@ -2,12 +2,14 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Activitylog\Traits\LogsActivity;
 
-class User extends Authenticatable
+use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements JWTSubject
 {
     use HasRoles, Notifiable, LogsActivity;
 
@@ -39,7 +41,12 @@ class User extends Authenticatable
 
     public function is_corporate()
     {
-        return (bool) $this->type === self::Type['corporate'];
+        return $this->type === self::Type['corporate'];
+    }
+
+    public function is_user()
+    {
+        return $this->type === self::Type['user'];
     }
 
     public function scopeCorporates($query)
@@ -78,9 +85,28 @@ class User extends Authenticatable
         return $this->hasMany(Qrcodes::class, 'user_id');
     }
 
-
     public function corporate()
     {
         return $this->belongsToMany(Corporate::class, 'corporate_users', 'user_id', 'corporate_id');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

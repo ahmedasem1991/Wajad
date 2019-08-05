@@ -49,7 +49,8 @@ class SeedApp extends Command
         User::create([
             'name' => $username,
             'email' => $email,
-            'password' => bcrypt($password)
+            'password' => bcrypt($password),
+            'type' => 3 // Admin
         ]);
         $this->info('Nova User Created Successfully');
 
