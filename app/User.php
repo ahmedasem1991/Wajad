@@ -80,6 +80,12 @@ class User extends Authenticatable
         return $this->hasMany(ItemRequests::class, 'user_id');
     }
 
+    public function qrcodes()
+    {
+        return $this->hasMany(Qrcodes::class, 'user_id');
+    }
+
+
     public function corporate()
     {
         return $this->belongsToMany(Corporate::class, 'corporate_users', 'user_id', 'corporate_id');

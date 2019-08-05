@@ -10,7 +10,7 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
+//use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
 class Item extends Resource
 {
@@ -26,7 +26,7 @@ class Item extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -55,11 +55,13 @@ class Item extends Resource
             Trix::make('Details'),
             Number::make('Radius'),
             Image::make(''),
-            Qrcode::make('QR Code')
-            ->text('http://laravel.com')
-            ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
-            ->exceptOnForms(),
+            // Qrcode::make('QR Code')
+            // ->text('http://laravel.com')
+            // ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
+            // ->exceptOnForms(),
              BelongsTo::make('User','owner'),
+             
+             BelongsTo::make('QR Code','qrcode','App\Nova\Qrcodes'),
            
 
             
