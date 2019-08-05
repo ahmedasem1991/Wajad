@@ -25,4 +25,5 @@ Route::group(['middleware' => 'auth:api'], function () {
         return 'test';
     });
     Route::post('details', 'DetailsController@index');
+    Route::get('categories', 'CategoriesController@index');
 });
