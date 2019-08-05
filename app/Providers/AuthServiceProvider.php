@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Activity' => 'App\Policies\ActivityPolicy',
+       // 'App\Qrcodes' => 'App\Policies\QRCodepolicy',
     ];
 
     /**

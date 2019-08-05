@@ -14,6 +14,11 @@ class Item extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    public function qrcode()
+    {
+        return $this->belongsTo(Qrcodes::class, 'item_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

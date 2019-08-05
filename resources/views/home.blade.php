@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    {!! QrCode::size(250)->generate('ItSolutionStuff.com'); !!}
                     You are logged in!
                 </div>
             </div>

@@ -70,6 +70,10 @@ class User extends Resource
                 ->hideWhenUpdating(),
                 CashierResourceTool::make()->onlyOnDetail(),
 
+               
+                HasMany::make('Qrcodes', 'qrcodes', 'App\Nova\Qrcodes'),
+                
+
                 
         ];
     }

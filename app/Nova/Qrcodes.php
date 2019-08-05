@@ -10,23 +10,26 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
-//use Kristories\Qrcode\Qrcode;
+use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
-class Item extends Resource
+use Laravel\Nova\Fields\Boolean;
+use Khalin\Nova\Field\Link;
+class Qrcodes extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Item';
+    public static $model = 'App\Qrcodes';
+    public static $group = 'QR';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -45,21 +48,44 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
+         
         
         return [
             ID::make()->sortable(),
-            Text::make('Title'),
-           // Text::make('status'),
-            Trix::make('Details'),
-            Number::make('Radius'),
-            Image::make(''),
-            // Qrcode::make('QR Code')
-            // ->text('http://laravel.com')
-            // ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
-            // ->exceptOnForms(),
-             BelongsTo::make('User','owner'),
-             
-             BelongsTo::make('QR Code','qrcode','App\Nova\Qrcodes'),
+            Text::make('name'),
+            
+            Qrcode::make('QR Code')
+            ->text($this->text)
+            ->logo($this->logo)
+            ->exceptOnForms(),
+
+
+
+
+
+            
+             Link::make('Link', 'link')
+                ->url(function () {
+                    return $this->text.'/'.$this->id;
+                })->withMeta(["value" => URL('/api/getQr/'.$this->id)])->hideWhenCreating()->hideWhenUpdating(),
+
+               
+           
+            Boolean::make('Active'),
+           // Text::make('background'),
+            Text::make('logo')->hideFromIndex(),
+            
+            Text::make('Text')->withMeta(["value" => URL('/api/getQr/'.$this->id)])
+            ->hideFromIndex()
+            ->withMeta(['extraAttributes' => [
+                'readonly' => true
+          ]]),
+
+
+
+             BelongsTo::make('User','user'),
+             BelongsTo::make('Item','item'),
+
            
 
             
