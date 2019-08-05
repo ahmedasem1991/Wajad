@@ -19,3 +19,7 @@ use Illuminate\Http\Request;
 Route::get('/getQr/{id}', function (Request $request,$id) {
     return $id;
 });
+
+Route::get('test', function(){
+    return 'test';
+});
