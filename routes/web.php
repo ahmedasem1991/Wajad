@@ -1,6 +1,7 @@
 <?php
 use App\Settings;
 use Illuminate\Support\Str;
+use App\Region;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,17 @@ Route::resource('itemrequests', 'ItemRequestsController');
 Route::resource('products', 'ProductsController');
 Route::resource('cards', 'CardsController');
 Auth::routes();
+
+Route::get('/test', function(){
+	$nexmo = app('Nexmo\Client');
+	$nexmo->message()->send([
+		'to'   => '201095781611',
+		'from' => 'nexmo',
+		'text' => 'Using the facade to send a message.'
+	]);
+	 
+	
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')

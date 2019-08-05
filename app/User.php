@@ -5,11 +5,18 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+<<<<<<< HEAD
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use HasRoles, Notifiable, LogsActivity;
+=======
+use Laravel\Cashier\Billable;
+class User extends Authenticatable
+{
+    use HasRoles, Notifiable,Billable;
+>>>>>>> 20190730-add-resources
 
     protected $fillable = [
         'name', 'email', 'password', 'type'

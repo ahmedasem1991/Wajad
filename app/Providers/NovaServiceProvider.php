@@ -81,9 +81,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new UsersActivity,
-            new PostsCount
+            new PostsCount,
             // new Help,    
             // new \Marianvlad\NovaEnvCard\NovaEnvCard,
+            // new Help,
+            new \Marianvlad\NovaEnvCard\NovaEnvCard,
+            new \Itainathaniel\NovaNexmo\NovaNexmoCard(),
         ];
     }
 
@@ -101,6 +104,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Mydnic\NovaKustomer\NovaKustomer,
             new QrcodeManager(),
             new \Themsaid\CashierTool\CashierTool(),
+            new \Tightenco\NovaStripe\NovaStripe,
+            new \Themsaid\CashierTool\CashierTool(),
+            new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
+
+
         ];
     }
 
