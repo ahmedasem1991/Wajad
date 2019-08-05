@@ -22,14 +22,14 @@ class Qrcodes extends Resource
      * @var string
      */
     public static $model = 'App\Qrcodes';
-    public static $group = 'QR';
+    public static $group = 'Item QR Codes';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -84,7 +84,7 @@ class Qrcodes extends Resource
 
 
              BelongsTo::make('User','user'),
-             BelongsTo::make('Item','item'),
+             BelongsTo::make('Item','item')->nullable(),
 
            
 

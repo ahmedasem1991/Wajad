@@ -17,11 +17,11 @@ class AddFieldsToQrcodeTable extends Migration
             $table->string('name')->nullable();
             $table->integer('item_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('item_id')->unsigned()->nullable();
+           
             $table->Boolean('active')->default(1);
             $table->string('link')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('set null');
+          //  $table->foreign('item_id')->references('id')->on('items')->onDelete('set null');
             
             
         });
@@ -37,7 +37,7 @@ class AddFieldsToQrcodeTable extends Migration
         Schema::table('qrcodes', function (Blueprint $table) {
             $table->dropColumn('name');
             $table->dropColumn('user_id');
-            $table->dropColumn('item_id');
+           // $table->dropColumn('item_id');
         });
     }
 }

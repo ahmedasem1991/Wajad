@@ -30,13 +30,13 @@ Route::resource('cards', 'CardsController');
 Auth::routes();
 
 Route::get('/test', function(){
-	$nexmo = app('Nexmo\Client');
-	$nexmo->message()->send([
-		'to'   => '201095781611',
-		'from' => 'nexmo',
-		'text' => 'Using the facade to send a message.'
-	]);
-	 
+	// $nexmo = app('Nexmo\Client');
+	// $nexmo->message()->send([
+	// 	'to'   => '201095781611',
+	// 	'from' => 'nexmo',
+	// 	'text' => 'Using the facade to send a message.'
+	// ]);
+	//getimagesize('');
 	
 });
 

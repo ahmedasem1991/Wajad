@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use function GuzzleHttp\json_encode;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +18,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 Route::get('/getQr/{id}', function (Request $request,$id) {
-    return $id;
+    $QRCode=App\Qrcodes::with('user')->with('item')->find($id);
+   
+    return response()->json([$QRCode]);
 });
