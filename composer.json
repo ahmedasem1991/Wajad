@@ -31,6 +31,7 @@
         "remipou/nova-page-manager": "^1.0",
         "simplesoftwareio/simple-qrcode": "^2.0",
         "spatie/laravel-permission": "^2.37",
+        "spatie/laravel-query-builder": "^1.17",
         "spatie/laravel-translatable": "^4.1",
         "spatie/nova-translatable": "^2.0",
         "themsaid/nova-cashier-manager": "^0.2.1",

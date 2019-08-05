@@ -76,7 +76,8 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60,
             'access_token' => $token,
-            'refresh_token' => auth()->refresh()
+            'refresh_token' => auth()->refresh(),
+            'user' => auth()->user()
         ]);
     }
 }
