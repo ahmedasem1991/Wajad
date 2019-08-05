@@ -8,9 +8,9 @@ Route::post('/register', 'Auth\AuthController@register');
 
 # Sliders Starts
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return auth('api')->user();
     });
     Route::get('/', function () {
         return 'test';

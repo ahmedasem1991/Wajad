@@ -41,12 +41,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function is_corporate()
     {
-        return $this->type === self::Type['corporate'];
+        return $this->type === self::Types['corporate'];
     }
 
     public function is_user()
     {
-        return $this->type === self::Type['user'];
+        return $this->type === self::Types['user'];
     }
 
     public function scopeCorporates($query)
