@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function is_admin()
     {
-        return (bool) $this->type === self::Types['admin'];
+        return $this->type === self::Types['admin'];
     }
 
     public function is_corporate()

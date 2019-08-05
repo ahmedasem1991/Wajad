@@ -35,7 +35,7 @@ class PendingRouteRegistration
 
         Route::namespace('Laravel\Nova\Http\Controllers')
             ->domain(config('nova.domain', null))
-            ->middleware(config('nova.middleware', []))
+            ->middleware(config('nova.middleware', ['admin']))
             ->as('nova.')
             ->prefix(Nova::path())
             ->group(function () {

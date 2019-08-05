@@ -185,7 +185,7 @@ class Nova
     {
         return collect(static::$resources)->filter(function ($resource) use ($request) {
             return $resource::authorizedToViewAny($request) &&
-                   $resource::availableForNavigation($request);
+                $resource::availableForNavigation($request);
         })->all();
     }
 
@@ -198,9 +198,9 @@ class Nova
     public static function globallySearchableResources(Request $request)
     {
         return collect(static::availableResources($request))
-                    ->filter(function ($resource) {
-                        return $resource::$globallySearchable;
-                    });
+            ->filter(function ($resource) {
+                return $resource::$globallySearchable;
+            });
     }
 
     /**
@@ -225,9 +225,9 @@ class Nova
     public static function groups(Request $request)
     {
         return collect(static::availableResources($request))
-                    ->map(function ($item, $key) {
-                        return $item::group();
-                    })->unique()->values();
+            ->map(function ($item, $key) {
+                return $item::group();
+            })->unique()->values();
     }
 
     /**
@@ -239,9 +239,9 @@ class Nova
     public static function groupedResources(Request $request)
     {
         return collect(static::availableResources($request))
-                    ->groupBy(function ($item, $key) {
-                        return $item::group();
-                    })->sortKeys()->all();
+            ->groupBy(function ($item, $key) {
+                return $item::group();
+            })->sortKeys()->all();
     }
 
     /**
@@ -257,14 +257,16 @@ class Nova
         $resources = [];
 
         foreach ((new Finder)->in($directory)->files() as $resource) {
-            $resource = $namespace.str_replace(
+            $resource = $namespace . str_replace(
                 ['/', '.php'],
                 ['\\', ''],
-                Str::after($resource->getPathname(), app_path().DIRECTORY_SEPARATOR)
+                Str::after($resource->getPathname(), app_path() . DIRECTORY_SEPARATOR)
             );
 
-            if (is_subclass_of($resource, Resource::class) &&
-                ! (new ReflectionClass($resource))->isAbstract()) {
+            if (
+                is_subclass_of($resource, Resource::class) &&
+                !(new ReflectionClass($resource))->isAbstract()
+            ) {
                 $resources[] = $resource;
             }
         }
@@ -368,7 +370,7 @@ class Nova
      */
     public static function createUser($command)
     {
-        if (! static::$createUserCallback) {
+        if (!static::$createUserCallback) {
             static::createUserUsing();
         }
 
@@ -387,16 +389,16 @@ class Nova
      */
     public static function createUserUsing($createUserCommandCallback = null, $createUserCallback = null)
     {
-        if (! $createUserCallback) {
+        if (!$createUserCallback) {
             $createUserCallback = $createUserCommandCallback;
             $createUserCommandCallback = null;
         }
 
         static::$createUserCommandCallback = $createUserCommandCallback ??
-                  static::defaultCreateUserCommandCallback();
+            static::defaultCreateUserCommandCallback();
 
         static::$createUserCallback = $createUserCallback ??
-                  static::defaultCreateUserCallback();
+            static::defaultCreateUserCallback();
 
         return new static;
     }
@@ -702,7 +704,7 @@ class Nova
      */
     public static function __callStatic($method, $parameters)
     {
-        if (! property_exists(get_called_class(), $method)) {
+        if (!property_exists(get_called_class(), $method)) {
             throw new BadMethodCallException("Method {$method} does not exist.");
         }
 

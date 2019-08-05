@@ -13,11 +13,6 @@ use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
         parent::boot();
@@ -43,11 +38,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         ]);
     }
 
-    /**
-     * Register the Nova routes.
-     *
-     * @return void
-     */
     protected function routes()
     {
         Nova::routes()
@@ -56,13 +46,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ->register();
     }
 
-    /**
-     * Register the Nova gate.
-     *
-     * This gate determines who can access Nova in non-local environments.
-     *
-     * @return void
-     */
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
@@ -72,51 +55,29 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         });
     }
 
-    /**
-     * Get the cards that should be displayed on the Nova dashboard.
-     *
-     * @return array
-     */
     protected function cards()
     {
         return [
             new UsersActivity,
             new PostsCount,
-            // new Help,    
-            // new \Marianvlad\NovaEnvCard\NovaEnvCard,
-            // new Help,
             new \Marianvlad\NovaEnvCard\NovaEnvCard,
             new \Itainathaniel\NovaNexmo\NovaNexmoCard(),
         ];
     }
 
-    /**
-     * Get the tools that should be listed in the Nova sidebar.
-     *
-     * @return array
-     */
     public function tools()
     {
         return [
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
-            // new \Bolechen\NovaActivitylog\NovaActivitylog(),
-            // new \OptimistDigital\NovaPageManager\NovaPageManager,
             new \Mydnic\NovaKustomer\NovaKustomer,
-            new QrcodeManager(),
+            new \Kristories\QrcodeManager\QrcodeManager(),
             new \Themsaid\CashierTool\CashierTool(),
             new \Tightenco\NovaStripe\NovaStripe,
             new \Themsaid\CashierTool\CashierTool(),
             new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
-
-
         ];
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         //
