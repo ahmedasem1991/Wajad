@@ -27,8 +27,9 @@ class CreateActionEventsTable extends Migration
             $table->text('fields');
             $table->string('status', 25)->default('running');
             $table->text('exception');
+            $table->text('original')->nullable();
+            $table->text('changes')->nullable();
             $table->timestamps();
-
             $table->index(['actionable_type', 'actionable_id']);
             $table->index(['batch_id', 'model_type', 'model_id']);
         });

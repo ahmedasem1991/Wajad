@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use App\Exceptions\LoginAuthException;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -37,25 +38,60 @@ class AuthController extends Controller
         }
 
         if (!$token = auth('api')->attempt(request(['email', 'password']))) {
-            $this->addResponse('Unauthorized.')->addStatusCode(401);
+            $this->addResponse($this->un_authorized)->addStatusCode(401);
             return $this->response();
         }
 
         if (!auth('api')->user()->is_user()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            $this->addResponse($this->un_authorized)->addStausCode(401);
+            return $this->response();
         }
 
         return $this->respondWithToken($token);
     }
 
     /**
-     * Get the authenticated User.
+     * Register New User
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return void
      */
-    public function me()
+    public function register()
     {
-        return response()->json(auth()->user());
+        $validate_request = Validator::make(request()->all(), [
+            'name' => ['required', 'min:6', 'max:255'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'min:6', 'max:255'],
+            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
+            'city_id' => ['required', 'integer', 'exists:cities,id'],
+            'mobile_country_id' => ['required', 'integer', 'exists:countries,id']
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addResponse($validate_request->errors())->addStatusCode(401);
+            return $this->response();
+        }
+
+        $new_user = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => bcrypt(request('password')),
+            'mobile_number' => request('mobile_number'),
+            'city_id' => request('city_id'),
+            'mobile_country_id' => request('mobile_country_id'),
+            'type' => 1 // Normal User
+        ]);
+
+        if (!$new_user) {
+            $this->addResponse($this->unexpected_error)->addStatusCode(409);
+            return $this->response();
+        }
+
+        if (!$token = auth('api')->attempt(request(['email', 'password']))) {
+            $this->addResponse($this->un_authorized)->addStatusCode(401);
+            return $this->response();
+        }
+
+        return $this->respondWithToken($token);
     }
 
     /**

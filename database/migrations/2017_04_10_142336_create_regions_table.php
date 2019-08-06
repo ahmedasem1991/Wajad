@@ -13,17 +13,13 @@ class CreateRegionsTable extends Migration
      */
     public function up()
     {
-      Schema::create('regions', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('name_ar');
-          $table->string('name_en');
-
-          $table->timestamps();
-
-          $table->engine = 'InnoDB';
-          $table->charset = 'utf8';
-          $table->collation = 'utf8_unicode_ci';
-      });
+        Schema::create('regions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name_ar');
+            $table->string('name_en');
+            $table->integer('country_id')->unsigned();
+            $table->timestamps();
+        });
     }
 
     /**
