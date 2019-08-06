@@ -13,8 +13,8 @@ class CreateItemsTable extends Migration {
 			$table->mediumText('details');
 			$table->integer('status')->unsigned()->default('1');
 			$table->mediumText('details_if_lost')->nullable();
-			$table->geometry('longitude')->nullable();
-			$table->geometry('latitude')->nullable();
+			$table->float('longitude')->nullable();
+			$table->float('latitude')->nullable();
 			$table->integer('radius')->unsigned()->nullable();
 			$table->integer('owner_id')->unsigned()->nullable();
 			$table->integer('category_id')->unsigned()->nullable();
