@@ -68,7 +68,7 @@ trait ResponseTrait
     {
         return response()->json(
             [
-                'message' => $this->response,
+                'data' => $this->response,
             ],
             (int) $this->status_code
         );
