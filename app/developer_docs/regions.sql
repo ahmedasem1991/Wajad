@@ -25,7 +25,7 @@ INSERT INTO `regions` (`id`, `name_en`, `name_ar`) VALUES
 (5, 'Eastern Province', 'المنطقة الشرقية'),
 (6, 'Asir Region', 'منطقة عسير'),
 (7, 'Tabuk Region', 'منطقة تبوك'),
-(8, 'Ha\'il Region', 'منطقة حائل'),
+(8, 'Hail Region', 'منطقة حائل'),
 (9, 'Northern Borders Region', 'منطقة الحدود الشمالية'),
 (10, 'Jizan Region', 'منطقة جازان'),
 (11, 'Najran Region', 'منطقة نجران'),

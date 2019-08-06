@@ -7,9 +7,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
+    use LogsActivity;
+    
     protected $images_path = "/images/categories/images/";
     protected $icons_path = "/images/categories/icons/";
-    use LogsActivity;
 
 
     protected $hidden = [];

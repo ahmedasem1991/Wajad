@@ -50,10 +50,10 @@ class SeedApp extends Command
             'name' => $username,
             'email' => $email,
             'password' => bcrypt($password),
-            'type' => 3 // Admin
+            'type' => 3, // Admin
+            'mobile_number' => '01111086890',
+            'mobile_country_id' => 1
         ]);
         $this->info('Nova User Created Successfully');
-
-        
     }
 }

@@ -14,7 +14,7 @@ class User extends Authenticatable implements JWTSubject
     use HasRoles, Notifiable, LogsActivity;
 
     protected $fillable = [
-        'name', 'email', 'password', 'type'
+        'name', 'email', 'password', 'type', 'mobile_number', 'mobile_country_id'
     ];
 
     protected $hidden = [
