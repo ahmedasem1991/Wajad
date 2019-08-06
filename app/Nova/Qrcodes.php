@@ -14,6 +14,7 @@ use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Boolean;
 use Khalin\Nova\Field\Link;
+use Illuminate\Support\Str;
 class Qrcodes extends Resource
 {
     /**
@@ -22,14 +23,14 @@ class Qrcodes extends Resource
      * @var string
      */
     public static $model = 'App\Qrcodes';
-    public static $group = 'QR';
+    public static $group = 'Item QR Codes';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -48,26 +49,29 @@ class Qrcodes extends Resource
      */
     public function fields(Request $request)
     {
-         
-        
+        if(!Str::endsWith($this->logo, 'png') || !Str::endsWith($this->logo, 'jpg') || !Str::endsWith($this->logo, 'jpeg'))
+        {
+            $this->logo='https://cdn4.iconfinder.com/data/icons/logos-3/504/Laravel-512.png';
+        }
+       
         return [
             ID::make()->sortable(),
             Text::make('name'),
-            
+
+           
+
+
             Qrcode::make('QR Code')
-            ->text($this->text)
+            ->text($this->text.$this->id)
             ->logo($this->logo)
             ->exceptOnForms(),
-
-
-
 
 
             
              Link::make('Link', 'link')
                 ->url(function () {
-                    return $this->text.'/'.$this->id;
-                })->withMeta(["value" => URL('/api/getQr/'.$this->id)])->hideWhenCreating()->hideWhenUpdating(),
+                    return $this->text.$this->id;
+                })->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])->hideWhenCreating()->hideWhenUpdating(),
 
                
            
@@ -75,7 +79,7 @@ class Qrcodes extends Resource
            // Text::make('background'),
             Text::make('logo')->hideFromIndex(),
             
-            Text::make('Text')->withMeta(["value" => URL('/api/getQr/'.$this->id)])
+            Text::make('Text')->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])
             ->hideFromIndex()
             ->withMeta(['extraAttributes' => [
                 'readonly' => true
@@ -84,7 +88,7 @@ class Qrcodes extends Resource
 
 
              BelongsTo::make('User','user'),
-             BelongsTo::make('Item','item'),
+             BelongsTo::make('Item','item')->nullable(),
 
            
 

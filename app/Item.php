@@ -51,7 +51,7 @@ class Item extends Model
      */
     public function qrcode()
     {
-        return $this->belongsTo(Qrcodes::class, 'item_id');
+        return $this->belongsTo(Qrcodes::class, 'qrcode_id');
     }
 
     /**

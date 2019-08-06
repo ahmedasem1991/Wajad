@@ -9,6 +9,8 @@ class DatabaseSeeder extends Seeder {
 
 	public function run()
 	{
+		Model::unguard();
+		 
 		factory(Item::class, 100)->create();
 	}
 }

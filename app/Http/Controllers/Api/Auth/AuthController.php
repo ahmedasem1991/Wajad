@@ -126,10 +126,16 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
+
             'token_type' => 'bearer',
+            'access_token' => $token,
+            'expires_in' => config('jwt.ttl') * 60,
+          
+           // 'refresh_token' => auth()->refresh()
             'user' => auth('api')->user(),
             'expires_in' => config('jwt.ttl') * 60,
             'access_token' => $token,
+           // 'refresh_token' => auth('api')->refresh()
         ]);
     }
 }
