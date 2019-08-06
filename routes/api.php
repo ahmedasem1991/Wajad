@@ -18,7 +18,8 @@ Route::get('/getQr/{id}', function (Request $request,$id) {
 });
 # Sliders Starts
 
-Route::group(['middleware' => 'auth:api'], function () {
+ 
+
 Route::group(['middleware' => ['auth:api']], function(){
     # Categories 
     Route::get('/categories', 'CategoriesController@index');
