@@ -82,7 +82,7 @@ class AuthController extends Controller
             'user' => auth('api')->user(),
             'expires_in' => config('jwt.ttl') * 60,
             'access_token' => $token,
-            'refresh_token' => auth('api')->refresh()
+           // 'refresh_token' => auth('api')->refresh()
         ]);
     }
 }
