@@ -10,6 +10,15 @@ class Item extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    const ItemStatus = [
+        1 => 'lost',
+        2 => 'found',
+        3 => 'mine',
+        'lost' => 1,
+        'found' => 2,
+        'mine' => 3
+    ];
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
