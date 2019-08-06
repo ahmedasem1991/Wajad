@@ -16,6 +16,13 @@ class CategoriesController extends Controller
         //$this->middleware('auth');
     }
 
+use App\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Spatie\QueryBuilder\QueryBuilder;
+
+class CategoriesController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -31,6 +38,15 @@ class CategoriesController extends Controller
         //    ->get()
              
         ));
+    public function index(Request $request)
+    {
+        $categories = QueryBuilder::for(Category::class)
+            ->allowedIncludes('items')
+            ->paginate($request->get('per_page', 15));
+
+        $this->addResponse($categories)->addStatusCode(200);
+
+        return $this->response();
     }
 
     /**

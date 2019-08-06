@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Exceptions\LoginAuthException;
 
 class AuthController extends Controller
 {
@@ -24,7 +26,22 @@ class AuthController extends Controller
      */
     public function login()
     {
+        $validate_inputs = Validator::make(request()->all(), [
+            'email' => ['required', 'email'],
+            'password' => ['required', 'max:255', 'min:6']
+        ]);
+
+        if ($validate_inputs->fails()) {
+            $this->addResponse($validate_inputs->errors())->addStatusCode(401);
+            return $this->response();
+        }
+
         if (!$token = auth('api')->attempt(request(['email', 'password']))) {
+            $this->addResponse('Unauthorized.')->addStatusCode(401);
+            return $this->response();
+        }
+
+        if (!auth('api')->user()->is_user()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
