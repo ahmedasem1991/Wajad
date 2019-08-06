@@ -21,6 +21,9 @@ class CategoriesController extends Controller
         $categories = QueryBuilder::for(Category::class)
             ->allowedIncludes('items')
             ->withCount('items')
+            ->allowedFields('id', 'title')
+            ->allowedFilters('id','title')
+            
             ->paginate($request->get('per_page', 15));
             //->makeHidden(['has_default_image', 'default_image','updated_at','created_at']);
 
