@@ -43,7 +43,7 @@ class AuthController extends Controller
         }
 
         if (!auth('api')->user()->is_user()) {
-            $this->addResponse($this->un_authorized)->addStausCode(401);
+            $this->addResponse($this->un_authorized)->addStatusCode(401);
             return $this->response();
         }
 
