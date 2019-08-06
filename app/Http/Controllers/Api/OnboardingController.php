@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Category;
+use App\Onboarding;
 use Response;
 use Spatie\QueryBuilder\QueryBuilder;
-class CategoriesController extends Controller
+class OnboardingController extends Controller
 {
 
 
@@ -16,17 +16,15 @@ class CategoriesController extends Controller
  
     public function index(Request $request)
     {
-        //'categories' => Category::withCount('items')->get()->makeHidden(['has_default_image', 'default_image','updated_at']),
-
-        $categories = QueryBuilder::for(Category::class)
-            ->allowedIncludes('items')
-            ->withCount('items')
-            ->allowedFields('id', 'title')
-            ->allowedFilters('id','title')
+        
+        $Onboardings = QueryBuilder::for(Onboarding::class)
+            
+        
+            ->allowedFields('id', 'title','body')
+            ->allowedFilters('id','title','body')
             ->paginate($request->get('per_page', 15));
-            //->makeHidden(['has_default_image', 'default_image','updated_at','created_at']);
-
-        $this->addResponse($categories)->addStatusCode(200);
+            
+        $this->addResponse($Onboardings)->addStatusCode(200);
 
         return $this->response();
     }

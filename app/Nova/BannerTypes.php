@@ -16,7 +16,7 @@ class BannerTypes extends Resource
      * @var string
      */
     public static $model = 'App\BannerTypes';
-
+    public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
      *

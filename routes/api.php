@@ -8,8 +8,10 @@ Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
 # Categories 
 Route::get('/categories', 'CategoriesController@index');
+Route::get('/onboarding', 'OnboardingController@index');
+Route::get('/items', 'ItemsController@index');
 
-<<<<<<< HEAD
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
@@ -25,7 +27,7 @@ Route::get('/getQr/{id}', function (Request $request,$id) {
 
 Route::group(['middleware' => ['auth:api']], function(){
     # Categories 
-    Route::get('/categories', 'CategoriesController@index');
+   // Route::get('/categories', 'CategoriesController@index');
     
 });
 Route::group(['middleware' => ['auth:api']], function () {
@@ -36,13 +38,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         return 'test';
     });
     Route::post('details', 'DetailsController@index');
-    Route::get('categories', 'CategoriesController@index');
-=======
-# Items
-Route::get('/items', 'ItemsController@index');
+   // Route::get('categories', 'CategoriesController@index');
+ 
 
-
-# Authenticated Routes
-Route::group(['middleware' => ['auth:api']], function(){
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
+ 
 });

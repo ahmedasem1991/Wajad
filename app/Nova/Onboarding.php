@@ -2,51 +2,34 @@
 
 namespace App\Nova;
 
-use App\BannerTypes;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Image;
 
-class Banners extends Resource
+
+
+use Illuminate\Http\Request;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+class Onboarding extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Banners';
-
-    /**
-     * Indicates if the resource should be displayed in the sidebar.
-     *
-     * @var bool
-     */
-    public static $displayInNavigation = false;
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
+    public static $model = 'App\Onboarding';
     public static $group = 'Banners';
-
-    /**
-     * Indicates if the resoruce should be globally searchable.
-     *
-     * @var bool
-     */
-    public static $globallySearchable = false;
-
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -58,16 +41,6 @@ class Banners extends Resource
     ];
 
     /**
-     * Edit Showing Name In Listing
-     *
-     * @return void
-     */
-    public static function label()
-    {
-        return 'Images';
-    }
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,19 +50,23 @@ class Banners extends Resource
     {
         return [
             ID::make()->sortable(),
-            Image::make('Banner Image', 'image')
-                ->creationRules([
-                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->updateRules([
-                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->disk('public'),
-               
+            Text::make('title')->creationRules([
+                'required' , 'min:6'
+            ]),
+            Textarea::make('body') ->creationRules([
+                'required' , 'min:20'
+            ]),
+            Image::make('Image', 'image')
+            ->creationRules([
+                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+            ]),
+            
+            
+           
 
-            BelongsTo::make('BannerTypes', 'BannerTypes', \App\Nova\BannerTypes::class)
         ];
     }
+
     /**
      * Get the cards available for the request.
      *
