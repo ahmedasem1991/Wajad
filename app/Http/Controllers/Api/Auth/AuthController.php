@@ -38,7 +38,7 @@ class AuthController extends Controller
         }
 
         if (!$token = auth('api')->attempt(request(['email', 'password']))) {
-            $this->addResponse($this->un_authorized)->addStatusCode(401);
+            $this->addResponse($this->invalid_data)->addStatusCode(401);
             return $this->response();
         }
 

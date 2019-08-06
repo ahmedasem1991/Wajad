@@ -35,6 +35,13 @@ trait ResponseTrait
     protected $un_authorized = 'You Are Not Authorized To Handle This Request';
     
     /**
+     * Define Invalid Data
+     *
+     * @var string
+     */
+    protected $invalid_data = 'Invalid Request. Data Are Invalid , Or Don\'t Match Our Records';
+
+    /**
      * Add Response
      *
      * @param array $response
