@@ -23,14 +23,6 @@ class CreateCitiesTable extends Migration
             $table->integer('region_id')->unsigned()->nullable();
             $table->timestamps();
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('city_id')->unsigned()->nullable();
-            $table->foreign('city_id')
-                ->references('id')
-                ->on('cities')
-                ->onDelete('set null');
-        });
     }
 
     /**
