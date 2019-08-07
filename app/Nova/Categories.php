@@ -64,7 +64,10 @@ class Categories extends Resource
                 Image::make('Category Default Image', 'default_image')->rules([
                     'required_if:has_default_image,1', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
+                    ->disk('public')
+                    ->path('images/categories/images')
                     ->disableDownload()
+                    ->prunable()
                     ->deletable(),
             ])->dependsOn('has_default_image', true),
             Image::make('Category Icon', 'icon')
@@ -75,7 +78,9 @@ class Categories extends Resource
                     'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
                 ->disk('public')
+                ->path('images/categories/icons')
                 ->disableDownload()
+                ->prunable()
                 ->deletable(),
 
             HasMany::make('Items')

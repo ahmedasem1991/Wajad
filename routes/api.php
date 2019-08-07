@@ -6,9 +6,14 @@ use function GuzzleHttp\json_encode;
 # Auth Routes
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
+
 # Categories 
 Route::get('/categories', 'CategoriesController@index');
+
+# On Boarding Sliders
 Route::get('/onboarding', 'OnboardingController@index');
+
+# Items
 Route::get('/items', 'ItemsController@index');
 
 

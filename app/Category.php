@@ -8,28 +8,40 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Category extends Model
 {
     use LogsActivity;
-    
+
+    /**
+     * Define Image Path For Categories
+     *
+     * @var string
+     */
     protected $images_path = "/images/categories/images/";
+
+    /**
+     * Define Icon Path For Categories
+     *
+     * @var string
+     */
     protected $icons_path = "/images/categories/icons/";
 
-
-    protected $hidden = [];
-    
+    /**
+     * Define Items Relation With Each Category
+     *
+     * @return object
+     */
     public function items()
     {
         return $this->hasMany(Item::class);
     }
 
-    public function itemsCount(){
-        return $this->items()->count();
-    }
-    public function getIconAttribute($value)
+    /**
+     * Scope For Single Category
+     *
+     * @param object $query
+     * @param integer $category_id
+     * @return object
+     */
+    public function scopeCategory($query, $category_id)
     {
-        return $this->icons_path . $value;
-    }
-
-    public function getDefaultImageAttribute($value)
-    {
-        return $this->images_path . $value;
+        return $query->where('id', $category_id) ?? null;
     }
 }

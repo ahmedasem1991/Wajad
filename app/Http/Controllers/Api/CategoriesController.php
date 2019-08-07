@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Category;
 use Response;
+use App\Category;
+use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
+use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
+
 class CategoriesController extends Controller
 {
-
-
-    
- 
- 
     public function index(Request $request)
     {
-        //'categories' => Category::withCount('items')->get()->makeHidden(['has_default_image', 'default_image','updated_at']),
-
         $categories = QueryBuilder::for(Category::class)
-            ->allowedIncludes('items')
             ->withCount('items')
-            ->allowedFields('id', 'title')
-            ->allowedFilters('id','title')
-            ->paginate($request->get('per_page', 15));
-            //->makeHidden(['has_default_image', 'default_image','updated_at','created_at']);
+            ->allowedIncludes('items')
+            ->allowedFilters([
+                Filter::scope('category'), 
+                'title',
+            ])
+            ->paginate($request->get('per_page', 15), '*', 'current_page');
 
         $this->addResponse($categories)->addStatusCode(200);
 
