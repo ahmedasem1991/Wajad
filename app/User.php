@@ -2,39 +2,111 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasRoles, Notifiable;
+    use HasRoles, Notifiable, LogsActivity;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'type', 'mobile_number', 'mobile_country_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    const Types = [
+        1 => 'user',
+        2 => 'corporate',
+        3 => 'admin',
+        'user' => 1,
+        'corporate' => 2,
+        'admin' => 3
+    ];
+
+    public function is_admin()
+    {
+        return $this->type === self::Types['admin'];
+    }
+
+    public function is_corporate()
+    {
+        return $this->type === self::Types['corporate'];
+    }
+
+    public function is_user()
+    {
+        return $this->type === self::Types['user'];
+    }
+
+    public function scopeCorporates($query)
+    {
+        return $query->where('type', self::Types['corporate']);
+    }
+
+    # Relations Starts
+    public function answers()
+    {
+        return $this->hasMany(Answers::class, 'user_id');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Questions::class, 'user_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'owner_id');
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'causer_id');
+    }
+
+    public function items_requests()
+    {
+        return $this->hasMany(ItemRequests::class, 'user_id');
+    }
+
+    public function qrcodes()
+    {
+        return $this->hasMany(Qrcodes::class, 'user_id');
+    }
+
+    public function corporate()
+    {
+        return $this->belongsToMany(Corporate::class, 'corporate_users', 'user_id', 'corporate_id');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

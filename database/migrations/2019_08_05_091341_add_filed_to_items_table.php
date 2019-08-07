@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTitleDecriptionToPostsTable extends Migration
+class AddFiledToItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddTitleDecriptionToPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->string('title');
-            $table->string('decription');
+        Schema::table('items', function (Blueprint $table) {
+            $table->integer('qrcode_id')->unsigned()->nullable();
+            $table->foreign('qrcode_id')->references('id')->on('qrcodes')->onDelete('set null');
         });
     }
 
@@ -26,9 +26,8 @@ class AddTitleDecriptionToPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('title');
-            $table->dropColumn('decription');
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropColumn('qrcode_id');
         });
     }
 }

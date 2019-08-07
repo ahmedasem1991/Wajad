@@ -2,12 +2,16 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\MorphToMany;
-use Laravel\Nova\Fields\Password;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\Password;
+use Themsaid\CashierTool\CashierResourceTool;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\BelongsToMany;
 
 class User extends Resource
 {
@@ -55,15 +59,28 @@ class User extends Resource
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+                ->updateRules('unique:users,email,{{ resourceId }}'),
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+            HasMany::make('Items'),
 
-             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
-            MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+            // CashierResourceTool::make()->onlyOnDetail(),
+
+            HasMany::make('Activity', 'activities')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),
+            CashierResourceTool::make()->onlyOnDetail(),
+
+
+            HasMany::make('Qrcodes', 'qrcodes', 'App\Nova\Qrcodes'),
+
+
+
         ];
     }
 
@@ -75,7 +92,9 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new NewUsers
+        ];
     }
 
     /**
@@ -108,6 +127,8 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new DownloadExcel,
+        ];
     }
 }
