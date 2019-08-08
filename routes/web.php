@@ -2,6 +2,7 @@
 use App\Settings;
 use Illuminate\Support\Str;
 use App\Region;
+use App\Package;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +39,7 @@ Route::get('/test', function(){
 	// ]);
 	//getimagesize('');
 
-	$result = Str::endsWith('Thisismynam', 'name');
-	  dd($result);
+	return Package::packagesPeriod();
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
