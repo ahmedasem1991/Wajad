@@ -3,25 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 
-/**
- * This Class Is for Wajad Products.
- */
-class Products extends Model 
+class Products extends Model
 {
-    use LogsActivity;
-    
-    protected $table = 'wajada_products';
+    /**
+     * Define Associated Packges For Products
+     *
+     * @return void
+     */
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class, 'package_product_table', 'product_id', 'package_id')->withPivot('start_date');
+    }
 
     /**
-     * This function is used to return the user items which purchashed
-     * for a specific wajad product..
+     * Define Morph Relation
      *
-     * @return Relation
+     * @return void
      */
-    public function products_items()
+    public function media()
     {
-        return $this->belongsToMany(Item::class,'cards', 'product_id', 'item_id');
+        return $this->morphMany(PackageProductMedia::class, 'package_product_media');
     }
 }
