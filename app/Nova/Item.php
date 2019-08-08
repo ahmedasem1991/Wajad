@@ -12,6 +12,8 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
 //use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
+use Halimtuhu\ArrayImages\ArrayImages;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 class Item extends Resource
 {
     /**
@@ -54,14 +56,39 @@ class Item extends Resource
            // Text::make('status'),
             Trix::make('Details'),
             Number::make('Radius'),
-            Image::make(''),
+            
             // Qrcode::make('QR Code')
             // ->text('http://laravel.com')
             // ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
             // ->exceptOnForms(),
-             BelongsTo::make('User','owner'),
+            
+            //  ArrayImages::make('Images', 'images')
+            //  ->disk('public')
+            //  ->path('images/itmes'),
+              
              
-             BelongsTo::make('QR Code','qrcode','App\Nova\Qrcodes'),
+             
+            // BelongsTo::make('User','owner'),
+            // BelongsTo::make('QR Code','qrcode','App\Nova\Qrcodes'),
+            
+            
+            //HasMany::make('Item Images', 'images', 'App\Nova\Item_Images'),
+
+             NovaBelongsToDepend::make('User','owner')
+             ->placeholder('User') // Add this just if you want to customize the placeholder
+               ->options(\App\User::all()),
+               // BelongsTo::make('Item','item')->nullable(),
+   
+              
+                NovaBelongsToDepend::make('QR Code' ,'qrcode','App\Nova\Qrcodes')
+                ->placeholder('QR Code') // Add this just if you want to customize the placeholder
+                ->optionsResolve(function ($owner) {
+                    // Reduce the amount of unnecessary data sent
+                    return $owner->qrcodes()->where('item_id',null)->get(['id','name']);
+                })
+                ->dependsOn('owner')->nullable(),
+
+
            
 
             

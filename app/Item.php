@@ -23,6 +23,7 @@ class Item extends Model
         'found' => 2,
         'mine' => 3
     ];
+    protected $images_path = "/images/items/";
 
     /**
      * Define Owner OF The Item

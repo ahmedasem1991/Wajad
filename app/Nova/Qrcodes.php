@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Boolean;
 use Khalin\Nova\Field\Link;
 use Illuminate\Support\Str;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 class Qrcodes extends Resource
 {
     /**
@@ -64,6 +65,8 @@ class Qrcodes extends Resource
             Qrcode::make('QR Code')
             ->text($this->text.$this->id)
             ->logo($this->logo)
+            
+            
             ->exceptOnForms(),
 
 
@@ -87,11 +90,20 @@ class Qrcodes extends Resource
 
 
 
-             BelongsTo::make('User','user'),
-             BelongsTo::make('Item','item')->nullable(),
+          NovaBelongsToDepend::make('User','user')
+          ->placeholder('User') // Add this just if you want to customize the placeholder
+            ->options(\App\User::all()),
+            // BelongsTo::make('Item','item')->nullable(),
 
            
+             NovaBelongsToDepend::make('Item')
+             ->placeholder('Item') // Add this just if you want to customize the placeholder
+             ->optionsResolve(function ($user) {
+                 // Reduce the amount of unnecessary data sent
 
+                 
+                 return $user->items()->where('qrcode_id',null)->get(['id','title']);
+             }) ->dependsOn('user')->nullable(),
             
 
             
