@@ -11,7 +11,7 @@ class Package extends Model
      *  
      * @return array
      */
-    const PackagesPeriods = [
+    const PACKAGES_PERIOD = [
         // 1 => 1,
         // 2 => 7,
         // 3 => 30,
@@ -47,9 +47,9 @@ class Package extends Model
      *
      * @return array
      */
-    public static function PackagesPeriods()
+    public static function packagesPeriod()
     {
-        return self::PackagesPeriods;
+        return self::PACKAGES_PERIOD;
     }
 
     /**
@@ -61,6 +61,6 @@ class Package extends Model
      */
     public function getPeriodAttribute($value)
     {
-        return self::PackagesPeriods[$value];
+        return self::PACKAGES_PERIOD[$value] ?? $value;
     }
 }

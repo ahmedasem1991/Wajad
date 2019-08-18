@@ -32,6 +32,13 @@ class Products extends Resource
         return $this->id . ' - ' . $this->title;
     }
 
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
 
     /**
      * The columns that should be searched.
