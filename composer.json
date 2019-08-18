@@ -41,7 +41,8 @@
         "themsaid/nova-cashier-manager": "^0.2.1",
         "tightenco/nova-stripe": "^0.2.2",
         "tymon/jwt-auth": "1.0.*",
-        "vyuldashev/nova-permission": "^1.9"
+        "vyuldashev/nova-permission": "^1.9",
+        "smartappco/packages_and_products": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -125,6 +126,10 @@
         {
             "type": "path",
             "url": "./nova-components/CustomNexmo"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/PackagesAndProducts"
         }
     ]
 }

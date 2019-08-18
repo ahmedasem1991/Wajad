@@ -29,7 +29,7 @@ class ItemsController extends Controller
                 Filter::scope('item'),
                 'title', 'details', 'longitude', 'latitude',
             ])
-            ->paginate($request->get('per_page', 15));
+            ->paginate($request->get('per_page', 15), '*', 'current_page');
 
         $this->addResponse($items)->addStatusCode(200);
 
