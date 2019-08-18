@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Gate;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use Smartappco\PackagesAndProducts\PackagesAndProducts;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -69,7 +68,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new PackagesAndProducts(),    
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
             new \Mydnic\NovaKustomer\NovaKustomer,
             new \Kristories\QrcodeManager\QrcodeManager(),
