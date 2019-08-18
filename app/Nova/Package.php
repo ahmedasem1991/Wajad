@@ -36,6 +36,13 @@ class Package extends Resource
         return $this->id . ' - ' . $this->name;
     }
 
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+    
 
     /**
      * The columns that should be searched.

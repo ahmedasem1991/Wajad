@@ -13,7 +13,9 @@
         "build-wajadcorporate": "cd nova-components/Wajadcorporate && npm run dev",
         "build-wajadcorporate-prod": "cd nova-components/Wajadcorporate && npm run prod",
         "build-custom-nexmo": "cd nova-components/CustomNexmo && npm run dev",
-        "build-custom-nexmo-prod": "cd nova-components/CustomNexmo && npm run prod"
+        "build-custom-nexmo-prod": "cd nova-components/CustomNexmo && npm run prod",
+        "build-packages_and_products": "cd nova-components/PackagesAndProducts && npm run dev",
+        "build-packages_and_products-prod": "cd nova-components/PackagesAndProducts && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.19",
