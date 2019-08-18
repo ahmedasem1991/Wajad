@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Onboarding extends Model
 {  
     protected $images_path = "/images/onboarding/";
-    public function getImageAttribute($value)
-    {
-        return $this->images_path . $value;
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return $this->images_path . $value;
+    // }
 }

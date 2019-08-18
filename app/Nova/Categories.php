@@ -79,7 +79,7 @@ class Categories extends Resource
                 ])
                 ->disk('public')
                 ->path('images/categories/icons')
-                ->disableDownload()
+                 ->disableDownload()
                 ->prunable()
                 ->deletable(),
 

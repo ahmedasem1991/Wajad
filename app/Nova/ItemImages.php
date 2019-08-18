@@ -14,22 +14,23 @@ use Laravel\Nova\Fields\Image;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Onboarding extends Resource
+class ItemImages extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Onboarding';
+    public static $model = 'App\ItemImages';
     public static $group = 'Banners';
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -50,19 +51,14 @@ class Onboarding extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('title')->creationRules([
-                'required' , 'min:6'
-            ]),
-            Textarea::make('body') ->creationRules([
-                'required' , 'min:20'
-            ]),
+ 
             Image::make('Image', 'image')
             ->creationRules([
                 'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
             ])
             ->disk('public')
              ->path('images/onboarding')
-           // ->disableDownload()
+            ->disableDownload()
             ->prunable()
             ->deletable(),
             

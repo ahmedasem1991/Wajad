@@ -18,6 +18,6 @@ class Qrcodes extends Model
 
     public function item()
     {
-        return $this->belongsTo(Item::class, 'item_id');
+        return $this->hasOne(Item::class,'qrcode_id');
     }
 }
