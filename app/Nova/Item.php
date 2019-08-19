@@ -80,13 +80,24 @@ class Item extends Resource
                // BelongsTo::make('Item','item')->nullable(),
    
               
-                NovaBelongsToDepend::make('QR Code' ,'qrcode','App\Nova\Qrcodes')
-                ->placeholder('QR Code') // Add this just if you want to customize the placeholder
-                ->optionsResolve(function ($owner) {
-                    // Reduce the amount of unnecessary data sent
-                    return $owner->qrcodes()->where('item_id',null)->get(['id','name']);
-                })
-                ->dependsOn('owner')->nullable(),
+               NovaBelongsToDepend::make('QR Code' ,'qrcode','App\Nova\Qrcodes')
+               ->placeholder('QR Code') // Add this just if you want to customize the placeholder
+               ->optionsResolve(function ($owner) {
+                   // Reduce the amount of unnecessary data sent
+                 //  return $owner->qrcodes()->where('item_id',null)->get(['id','name']);
+                 $array=array();
+                 $qrcodes= $owner->qrcodes()->where('item_id',null)->get(['id','name']);
+                 foreach( $qrcodes as $qrcode)
+                 {
+                     if(!$qrcode->item)
+                     array_push($array, $qrcode);
+    
+                 } 
+                return $array;
+
+
+               })
+               ->dependsOn('owner')->nullable(),
 
 
            
