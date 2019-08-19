@@ -55,5 +55,8 @@ class SeedApp extends Command
             'mobile_country_id' => 1
         ]);
         $this->info('Nova User Created Successfully');
+
+        Artisan::call('seed:locations');
+        Artisan::call('seed:settings');
     }
 }
