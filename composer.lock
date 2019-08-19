@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "50f2849ac49494b8f7615cdf1d9bb619",
+    "content-hash": "5a51f4b610c24aa2d3d3e84ba76805d8",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -914,7 +914,6 @@
         {
             "name": "dragonmantank/cron-expression",
             "version": "v2.3.0",
-<<<<<<< HEAD
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
@@ -969,8 +968,6 @@
         {
             "name": "ebess/advanced-nova-media-library",
             "version": "2.7.2",
-=======
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
             "source": {
                 "type": "git",
                 "url": "https://github.com/ebess/advanced-nova-media-library.git",
@@ -1840,7 +1837,6 @@
         },
         {
             "name": "laravel/framework",
-<<<<<<< HEAD
             "version": "v5.8.32",
             "source": {
                 "type": "git",
@@ -1851,18 +1847,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/ee16d719516dfd77ed6c9538000bca49ded284e2",
                 "reference": "ee16d719516dfd77ed6c9538000bca49ded284e2",
-=======
-            "version": "v5.8.31",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "24cc1786bd55876fa52380306354772355345efd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/24cc1786bd55876fa52380306354772355345efd",
-                "reference": "24cc1786bd55876fa52380306354772355345efd",
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
                 "shasum": ""
             },
             "require": {
@@ -1996,11 +1980,7 @@
                 "framework",
                 "laravel"
             ],
-<<<<<<< HEAD
             "time": "2019-08-13T14:11:52+00:00"
-=======
-            "time": "2019-08-06T15:09:02+00:00"
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
         },
         {
             "name": "laravel/nova",
@@ -3099,7 +3079,6 @@
         },
         {
             "name": "nesbot/carbon",
-<<<<<<< HEAD
             "version": "2.23.1",
             "source": {
                 "type": "git",
@@ -3110,18 +3089,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/767617a047e5b8b8b3b0b6023a2650847ed7df02",
                 "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02",
-=======
-            "version": "2.22.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "738fbd8d80b2c5e158fda76c29c2de432fcc6f7e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/738fbd8d80b2c5e158fda76c29c2de432fcc6f7e",
-                "reference": "738fbd8d80b2c5e158fda76c29c2de432fcc6f7e",
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
                 "shasum": ""
             },
             "require": {
@@ -3175,11 +3142,7 @@
                 "datetime",
                 "time"
             ],
-<<<<<<< HEAD
             "time": "2019-08-17T13:57:34+00:00"
-=======
-            "time": "2019-08-07T12:36:44+00:00"
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
         },
         {
             "name": "nexmo/client",
@@ -3519,16 +3482,16 @@
         },
         {
             "name": "orlyapps/nova-belongsto-depend",
-            "version": "2.0.5",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orlyapps/nova-belongsto-depend.git",
-                "reference": "da287a0c057963fd456e82c40c4f6fd755596f75"
+                "reference": "0fe39ee2d308cb58170999e69e0270cbdbcb3dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orlyapps/nova-belongsto-depend/zipball/da287a0c057963fd456e82c40c4f6fd755596f75",
-                "reference": "da287a0c057963fd456e82c40c4f6fd755596f75",
+                "url": "https://api.github.com/repos/orlyapps/nova-belongsto-depend/zipball/0fe39ee2d308cb58170999e69e0270cbdbcb3dbf",
+                "reference": "0fe39ee2d308cb58170999e69e0270cbdbcb3dbf",
                 "shasum": ""
             },
             "require": {
@@ -3556,7 +3519,7 @@
                 "laravel",
                 "nova"
             ],
-            "time": "2019-07-31T11:23:23+00:00"
+            "time": "2019-08-19T06:41:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4519,22 +4482,22 @@
             "time": "2017-11-26T15:27:12+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "spatie/image",
-            "version": "1.5.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "d4cb6afff1b98fd6e17396d91e0e584c3d91bb23"
+                "reference": "8aac77a3ee18d7e0e5cb51cd67eb9558f1f491ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/d4cb6afff1b98fd6e17396d91e0e584c3d91bb23",
-                "reference": "d4cb6afff1b98fd6e17396d91e0e584c3d91bb23",
+                "url": "https://api.github.com/repos/spatie/image/zipball/8aac77a3ee18d7e0e5cb51cd67eb9558f1f491ef",
+                "reference": "8aac77a3ee18d7e0e5cb51cd67eb9558f1f491ef",
                 "shasum": ""
             },
             "require": {
-                "league/glide": "^1.2",
+                "ext-exif": "*",
+                "league/glide": "^1.4",
                 "php": "^7.0",
                 "spatie/image-optimizer": "^1.0",
                 "spatie/temporary-directory": "^1.0.0",
@@ -4569,7 +4532,7 @@
                 "image",
                 "spatie"
             ],
-            "time": "2018-05-05T21:44:52+00:00"
+            "time": "2019-08-02T23:57:44+00:00"
         },
         {
             "name": "spatie/image-optimizer",
@@ -4608,9 +4571,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Easily optimize images using PHP",
@@ -4620,40 +4583,6 @@
                 "spatie"
             ],
             "time": "2019-02-15T12:11:38+00:00"
-=======
-            "name": "smartappco/packages_and_products",
-            "version": "dev-2019-07-29-SCHEMA-MODIFICATION",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/PackagesAndProducts",
-                "reference": "0a446459b0c239b720a9d420252e1beb1ca58e1b",
-                "shasum": null
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Smartappco\\PackagesAndProducts\\ToolServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Smartappco\\PackagesAndProducts\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova tool.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ]
->>>>>>> 2019-07-29-SCHEMA-MODIFICATION
         },
         {
             "name": "spatie/laravel-activitylog",
@@ -5237,9 +5166,9 @@
             "authors": [
                 {
                     "name": "Alex Vanderbist",
+                    "role": "Developer",
                     "email": "alex@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Easily create, use and destroy temporary directories",

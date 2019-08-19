@@ -31,9 +31,7 @@ class ItemsController extends Controller
             ])
             ->paginate($request->get('per_page', 15), '*', 'current_page');
 
-        $this->addResponse($items)->addStatusCode(200);
-
-        return $this->response();
+        return $this->jsonResponse($items);
     }
 
     /**

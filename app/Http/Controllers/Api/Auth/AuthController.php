@@ -33,7 +33,7 @@ class AuthController extends Controller
         ]);
 
         if ($validate_inputs->fails()) {
-            $this->addResponse($validate_inputs->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_inputs->errors())->addStatusCode(401);
             return $this->response();
         }
 
@@ -67,7 +67,7 @@ class AuthController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addResponse($validate_request->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
         }
 

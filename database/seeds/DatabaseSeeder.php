@@ -11,6 +11,5 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 		 
-		factory(Item::class, 100)->create();
 	}
 }
