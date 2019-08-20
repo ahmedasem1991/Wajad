@@ -62,6 +62,9 @@ class Qrcodes extends Resource
         return [
             ID::make()->sortable(),
             Text::make('name'),
+            NovaBelongsToDepend::make('User','user')
+            ->placeholder('User') // Add this just if you want to customize the placeholder
+            ->options(\App\User::all()),
 
            
 
@@ -94,27 +97,25 @@ class Qrcodes extends Resource
 
 
 
-          NovaBelongsToDepend::make('User','user')
-          ->placeholder('User') // Add this just if you want to customize the placeholder
-            ->options(\App\User::all()),
+
             // BelongsTo::make('Item','item')->nullable(),
 
            
-            NovaBelongsToDepend::make('Item')
-            ->placeholder('Item') // Add this just if you want to customize the placeholder
-            ->optionsResolve(function ($user) {
-                // Reduce the amount of unnecessary data sent
-            $array=array();
-            $items= $user->items()->where('qrcode_id',null)->get(['id','title']);
-            foreach( $items as $item)
-            {
-                if(!$item->qrcode)
-                array_push($array, $item);
+        //     NovaBelongsToDepend::make('Item')
+        //     ->placeholder('Item') // Add this just if you want to customize the placeholder
+        //     ->optionsResolve(function ($user) {
+        //         // Reduce the amount of unnecessary data sent
+        //     $array=array();
+        //     $items= $user->items()->where('qrcode_id',null)->get(['id','title']);
+        //     foreach( $items as $item)
+        //     {
+        //         if(!$item->qrcode)
+        //         array_push($array, $item);
 
-            } 
-           return $array;
+        //     } 
+        //    return $array;
 
-            }) ->dependsOn('user')->nullable(),
+        //     }) ->dependsOn('user')->nullable(),
 
 
 
