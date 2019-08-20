@@ -15,7 +15,11 @@
         "build-custom-nexmo": "cd nova-components/CustomNexmo && npm run dev",
         "build-custom-nexmo-prod": "cd nova-components/CustomNexmo && npm run prod",
         "build-packages_and_products": "cd nova-components/PackagesAndProducts && npm run dev",
-        "build-packages_and_products-prod": "cd nova-components/PackagesAndProducts && npm run prod"
+        "build-packages_and_products-prod": "cd nova-components/PackagesAndProducts && npm run prod",
+        "build-color-picker": "cd nova-components/ColorPicker && npm run dev",
+        "build-color-picker-prod": "cd nova-components/ColorPicker && npm run prod",
+        "build-generate-unique-qr-url": "cd nova-components/GenerateUniqueQrUrl && npm run dev",
+        "build-generate-unique-qr-url-prod": "cd nova-components/GenerateUniqueQrUrl && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.19",

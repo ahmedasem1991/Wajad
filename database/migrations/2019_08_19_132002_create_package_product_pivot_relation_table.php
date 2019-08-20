@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserItemPackageProductTable extends Migration
+class CreatePackageProductPivotRelationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateUserItemPackageProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_item_package_product', function (Blueprint $table) {
+        Schema::create('package_product_pivot_relation', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('package_product_pivot_id')->nullable()->unsigned();
-            $table->integer('item_id')->nullable()->unsigned();
-            $table->date('starts_at');
+            $table->integer('package_product_pivot_id');
+            $table->integer('item_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->date('start_date')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateUserItemPackageProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_item_package_product');
+        Schema::dropIfExists('package_product_pivot_relation');
     }
 }

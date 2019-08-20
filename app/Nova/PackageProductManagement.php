@@ -3,27 +3,19 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Image;
-
-
-
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsTo;
+use Smartappco\GenerateUniqueQrUrl\GenerateUniqueQrUrl;
 
-class ItemImages extends Resource
+class PackageProductManagement extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\ItemImages';
-    public static $group = 'Banners';
-    public static $displayInNavigation = false;
+    public static $model = 'App\PackageProductManagement';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,20 +43,15 @@ class ItemImages extends Resource
     {
         return [
             ID::make()->sortable(),
- 
-            Image::make('Image', 'image')
-            ->creationRules([
-                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])
-            ->disk('public')
-             ->path('images/onboarding')
-            ->disableDownload()
-            ->prunable()
-            ->deletable(),
-            
-            
-           
-
+            BelongsTo::make('Package'),
+            BelongsTo::make('Product', 'product', \App\Nova\Products::class),
+            // GenerateUniqueQrUrl::make('Name This Relation', 'title')
+            //     // ->onlyOnForms()
+            //     ->creationRules('required', 'string', 'min:15')
+            //     ->length(15)
+            //     ->excludeRules(['Symbols'])->help(
+            //         'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
+            //     )
         ];
     }
 

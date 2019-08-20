@@ -25,11 +25,6 @@
             Media
         </router-link>
     </li>
-    <li class="leading-tight mb-4 ml-8 text-sm">
-        <router-link :to="{name: 'packages_and_products'}" class="text-white text-justify no-underline dim">
-            Subscribed Users And Items
-        </router-link>
-    </li>
 </ul>
 
 

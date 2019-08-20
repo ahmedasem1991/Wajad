@@ -6,10 +6,11 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Smartappco\GenerateUniqueQrUrl\GenerateUniqueQrUrl;
 
 class Products extends Resource
 {
@@ -73,7 +74,7 @@ class Products extends Resource
                 'required', 'string'
             ]),
 
-            BelongsToMany::make('Package', 'packages', \App\Nova\Package::class),
+            BelongsToMany::make('Package', 'packages', \App\Nova\Package::class)->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

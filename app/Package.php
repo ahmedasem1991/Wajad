@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
+    protected $guarded = [];
+
     /**
      * Defin Packages Period Days
      *  
@@ -29,7 +31,7 @@ class Package extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Products::class, 'package_product_table', 'package_id', 'product_id')->withPivot('start_date');
+        return $this->belongsToMany(Products::class, 'package_product_table', 'package_id', 'product_id');
     }
 
     /**
@@ -59,8 +61,13 @@ class Package extends Model
      * @param integer $value
      * @return void
      */
-    public function getPeriodAttribute($value)
+    // public function getPeriodAttribute($value)
+    // {
+    //     return self::PACKAGES_PERIOD[$value] ?? $value;
+    // }
+
+    public function getPriceAttribute($value)
     {
-        return self::PACKAGES_PERIOD[$value] ?? $value;
+        return $value . ' - ' .env('CURRENCY', 'SR');
     }
 }
