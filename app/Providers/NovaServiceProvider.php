@@ -11,6 +11,7 @@ use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Smartappco\PackagesAndProducts\PackagesAndProducts;
+use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -18,7 +19,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
         \Spatie\NovaTranslatable\Translatable::defaultLocales(['en', 'ar']);
-
+        
         // \OptimistDigital\NovaPageManager\NovaPageManager::configure([
         //     'templates' => [
         //         \App\Nova\Templates\AboutUs::class
@@ -77,6 +78,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Tightenco\NovaStripe\NovaStripe,
             new \Themsaid\CashierTool\CashierTool(),
             new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
+            new NovaSidebarIcons,
         ];
     }
 

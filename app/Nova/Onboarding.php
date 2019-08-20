@@ -23,6 +23,7 @@ class Onboarding extends Resource
      */
     public static $model = 'App\Onboarding';
     public static $group = 'Banners';
+    
 
     /**
      * The single value that should be used to represent the resource when being displayed.
