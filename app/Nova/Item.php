@@ -2,33 +2,25 @@
 
 namespace App\Nova;
 
-use Illuminate\Support\Str;
-use Khalin\Nova\Field\Link;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\BelongsTo;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\GenerateUniqueQrUrl\GenerateUniqueQrUrl;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Qrcodes extends Resource
+class Item extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Qrcodes';
-    public static $group = 'Item QR Codes';
+    public static $model = 'App\Item';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -49,26 +41,6 @@ class Qrcodes extends Resource
     {
         return [
             ID::make()->sortable(),
-
-            Qrcode::make('QR Code')
-                ->text(route('api.scan-qrcode-api') . '/' . $this->qrcode_url)
-                ->logo(env('QRCODE_DEFAULT_IMAGE'))
-                ->exceptOnForms(),
-
-            GenerateUniqueQrUrl::make('QR CODE URL', 'qrcode_url')
-                // ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->excludeRules(['Symbols'])->help(
-                    'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
-                )->withMeta([
-                    'api_domain' => route('api.scan-qrcode-api'),
-                    'show_url' => true
-                ])->hideWhenUpdating(),
-
-            BelongsTo::make('PackageProductManagement', 'productPackagePivot', \App\Nova\PackageProductManagement::class)->hideWhenUpdating(),
-            
-            BelongsTo::make('User')->hideWhenUpdating()
         ];
     }
 

@@ -31,7 +31,9 @@ class Package extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Products::class, 'package_product_table', 'package_id', 'product_id');
+        return $this->belongsToMany(Products::class, 'package_product_table', 'package_id', 'product_id')
+            ->withPivot(['package_product_name'])
+            ;
     }
 
     /**
@@ -68,6 +70,6 @@ class Package extends Model
 
     public function getPriceAttribute($value)
     {
-        return $value . ' - ' .env('CURRENCY', 'SR');
+        return $value . ' - ' . env('CURRENCY', 'SR');
     }
 }

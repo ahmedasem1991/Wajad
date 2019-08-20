@@ -74,7 +74,19 @@ class Products extends Resource
                 'required', 'string'
             ]),
 
-            BelongsToMany::make('Package', 'packages', \App\Nova\Package::class)->hideWhenUpdating(),
+            BelongsToMany::make('Package', 'packages', \App\Nova\Package::class)
+                ->fields(function () {
+                    return [
+                        GenerateUniqueQrUrl::make('Relation CODE', 'package_product_name')
+                            // ->onlyOnForms()
+                            ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
+                            ->length(15)
+                            ->excludeRules(['Symbols'])->help(
+                                'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
+                            )
+                    ];
+                })
+                ->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

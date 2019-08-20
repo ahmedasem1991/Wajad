@@ -105,7 +105,7 @@ class PackageProductCommand extends Command
 
         foreach (Package::all() as $package) {
             $package->products()->attach(Products::first() , [
-                'title' => Str::random()
+                'package_product_name' => Str::random(15)
             ]);
         }
     }

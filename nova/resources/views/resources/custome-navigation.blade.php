@@ -6,7 +6,6 @@
     <span class="sidebar-label">Products And Packages</span>
 </h3>
 
-
 {{-- <h4 class="ml-8 mb-4 text-xs text-white-50% uppercase tracking-wide">{{ $group }}</h4> --}}
 
 <ul class="list-reset mb-8">
@@ -25,6 +24,11 @@
             Media
         </router-link>
     </li>
+    {{-- <li class="leading-tight mb-4 ml-8 text-sm">
+        <router-link to="/resources/package-product-managements" class="text-white text-justify no-underline dim">
+            Management System
+        </router-link>
+    </li> --}}
 </ul>
 
 

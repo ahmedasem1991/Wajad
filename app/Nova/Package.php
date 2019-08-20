@@ -39,7 +39,7 @@ class Package extends Resource
      * @var bool
      */
     public static $displayInNavigation = false;
-    
+
 
     /**
      * The columns that should be searched.
@@ -72,19 +72,26 @@ class Package extends Resource
             Trix::make('Package Description', 'description')->rules(
                 ['required', 'string']
             )->hideFromIndex(),
-
-            Number::make('QR-CODES | Products Per Packege', 'products_per_package')->rules(
+            Number::make('QR Codes Per Package', 'products_per_package')->rules(
                 ['required', 'integer']
             ),
-
             Number::make('Package Price', 'price')->rules(['required', 'integer'])->hideWhenUpdating(),
-
             Select::make('Select Package Period', 'period')->options(
                 PackageModel::packagesPeriod()
             )->displayUsingLabels(),
-
-
-            BelongsToMany::make('Products', 'products', \App\Nova\Products::class)->hideWhenUpdating(),
+            BelongsToMany::make('Products', 'products', \App\Nova\Products::class)
+                ->fields(function () {
+                    return [
+                        GenerateUniqueQrUrl::make('Relation CODE', 'package_product_name')
+                            // ->onlyOnForms()
+                            ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
+                            ->length(15)
+                            ->excludeRules(['Symbols'])->help(
+                                'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
+                            )
+                    ];
+                })
+                ->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

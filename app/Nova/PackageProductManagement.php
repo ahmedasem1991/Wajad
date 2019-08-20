@@ -18,11 +18,22 @@ class PackageProductManagement extends Resource
     public static $model = 'App\PackageProductManagement';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'id';
+    public function title()
+    {
+        return $this->package->name . '-' . $this->product->title . '-' .  $this->package_product_name;
+    }
 
     /**
      * The columns that should be searched.
@@ -45,13 +56,13 @@ class PackageProductManagement extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Package'),
             BelongsTo::make('Product', 'product', \App\Nova\Products::class),
-            // GenerateUniqueQrUrl::make('Name This Relation', 'title')
-            //     // ->onlyOnForms()
-            //     ->creationRules('required', 'string', 'min:15')
-            //     ->length(15)
-            //     ->excludeRules(['Symbols'])->help(
-            //         'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
-            //     )
+            GenerateUniqueQrUrl::make('Relation CODE', 'package_product_name')
+                // ->onlyOnForms()
+                ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
+                ->length(15)
+                ->excludeRules(['Symbols'])->help(
+                    'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
+                )
         ];
     }
 

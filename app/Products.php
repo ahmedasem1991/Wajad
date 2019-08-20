@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Products extends Model
 {
     protected $guarded = [];
-    
+
     /**
      * Define Associated Packges For Products
      *
@@ -15,7 +15,8 @@ class Products extends Model
      */
     public function packages()
     {
-        return $this->belongsToMany(Package::class, 'package_product_table', 'product_id', 'package_id');
+        return $this->belongsToMany(Package::class, 'package_product_table', 'product_id', 'package_id')
+            ->withPivot(['package_product_name']);
     }
 
     /**
