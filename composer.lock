@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aac55e79ea855b0c91d43f4463a477c1",
+    "content-hash": "2cf5f39862e7c8ecb2ac9dccf462e141",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -558,6 +558,47 @@
                 "paperclip"
             ],
             "time": "2019-07-02T09:25:35+00:00"
+        },
+        {
+            "name": "dillingham/nova-index-textarea",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dillingham/nova-index-textarea.git",
+                "reference": "1f38b4e425cb6e313b4d8a9581cc666ac9e358c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dillingham/nova-index-textarea/zipball/1f38b4e425cb6e313b4d8a9581cc666ac9e358c7",
+                "reference": "1f38b4e425cb6e313b4d8a9581cc666ac9e358c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dillingham\\NovaTextarea\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dillingham\\NovaTextarea\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Extends Nova textarea for index view",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-02-06T17:38:43+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

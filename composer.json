@@ -13,6 +13,7 @@
         "bolechen/nova-activitylog": "^0.1.4",
         "carlson/nova-link-field": "^1.0",
         "daniel-de-wit/nova-paperclip": "^0.1.0",
+        "dillingham/nova-index-textarea": "^1.0",
         "ebess/advanced-nova-media-library": "^2.7",
         "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",

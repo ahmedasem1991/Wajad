@@ -13,10 +13,12 @@ Route::get('/categories', 'CategoriesController@index');
 # On Boarding Sliders
 Route::get('/onboarding', 'OnboardingController@index');
 
+
 # Items
 Route::get('/items', 'ItemsController@index');
 
-
+# Support
+Route::post('/contact-us', 'SupportController@store');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

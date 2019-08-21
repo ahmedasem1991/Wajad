@@ -5,32 +5,24 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Image;
-
-
-
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Onboarding extends Resource
+class Support extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Onboarding';
-    public static $group = 'Banners';
-    
+    public static $model = 'App\Support';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -51,25 +43,16 @@ class Onboarding extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('title')->creationRules([
-                'required' , 'min:6'
-            ]),
-            Textarea::make('body') ->creationRules([
-                'required' , 'min:20'
-            ]),
-            Image::make('Image', 'image')
-            ->creationRules([
-                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])
-             ->disk('public')
-             ->path('images/onboarding')
-           // ->disableDownload()
-            ->prunable()
-            ->deletable(),
+            Text::make('Name')
+            ->rules('required', 'max:255'),
+            Text::make('Phone')
+            ->rules('required', 'max:15'),
+            Text::make('Email')
+            ->sortable()
+            ->rules('required', 'email', 'max:254'),
+            Textarea::make('message')->showOnIndex()->limit(50),
             
             
-           
-
         ];
     }
 

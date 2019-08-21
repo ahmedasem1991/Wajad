@@ -65,13 +65,10 @@ class Qrcodes extends Resource
             NovaBelongsToDepend::make('User','user')
             ->placeholder('User') // Add this just if you want to customize the placeholder
             ->options(\App\User::all()),
-          //  BelongsTo::make('Item','item')->nullable(),
-
-           
+          
             NovaBelongsToDepend::make('Item')
-            ->placeholder('Item') // Add this just if you want to customize the placeholder
+            ->placeholder('Item')  
             ->optionsResolve(function ($user) {
-                // Reduce the amount of unnecessary data sent
             $array=array();
             $items= $user->items()->where('qrcode_id',null)->get(['id','title']);
             foreach( $items as $item)
@@ -84,29 +81,27 @@ class Qrcodes extends Resource
 
             }) ->dependsOn('user')->nullable(),
 
+            
            
 
 
             Qrcode::make('QR Code')
             ->text($this->text.$this->id)
             ->logo($this->logo)
-            
-            
             ->exceptOnForms(),
-
-
-            
-             Link::make('Link', 'link')
-                ->url(function () {
-                    return $this->text.$this->id;
-                })->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])->hideWhenCreating()->hideWhenUpdating(),
+            Link::make('Link', 'link')
+            ->url(function () {
+            return $this->text.$this->id;
+                })
+                ->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])
+                ->hideWhenCreating()->hideWhenUpdating(),
 
                
-           
-            Boolean::make('Active'),
-           // Text::make('background'),
-            Text::make('logo')->hideFromIndex(),
             
+               
+                
+            Boolean::make('Active'),
+            Text::make('logo')->hideFromIndex(),
             Text::make('Text')->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])
             ->hideFromIndex()
             ->withMeta(['extraAttributes' => [
