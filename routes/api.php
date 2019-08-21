@@ -18,9 +18,7 @@ Route::get('/onboarding', 'OnboardingController@index');
 Route::get('/items', 'ItemsController@index');
 
 # Qr Code 
-Route::get('/scan-qr-code/{qr_code?}', function ($qr_code) {
-    return $qr_code;
-})->name('scan-qrcode-api');
+Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

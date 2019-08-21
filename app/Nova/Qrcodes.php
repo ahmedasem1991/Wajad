@@ -28,7 +28,7 @@ class Qrcodes extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'qrcode_url';
 
     /**
      * The columns that should be searched.
@@ -67,8 +67,23 @@ class Qrcodes extends Resource
                 ])->hideWhenUpdating(),
 
             BelongsTo::make('PackageProductManagement', 'productPackagePivot', \App\Nova\PackageProductManagement::class)->hideWhenUpdating(),
-            
-            BelongsTo::make('User')->hideWhenUpdating()
+
+            NovaBelongsToDepend::make('User', 'user')
+                ->placeholder('User') // Add this just if you want to customize the placeholder
+                ->options(\App\User::all()),
+
+            NovaBelongsToDepend::make('Item')
+                ->placeholder('Item')
+                ->optionsResolve(function ($user) {
+                    $array = array();
+                    $items = $user->items()->where('qrcode_id', null)->get(['id', 'title']);
+                    foreach ($items as $item) {
+                        if (!$item->qrcode)
+                            array_push($array, $item);
+                    }
+                    return $array;
+                })->dependsOn('user')->nullable(),
+
         ];
     }
 

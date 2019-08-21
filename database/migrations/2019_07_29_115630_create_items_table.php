@@ -20,7 +20,6 @@ class CreateItemsTable extends Migration
 			$table->integer('owner_id')->unsigned()->nullable();
 			$table->integer('category_id')->unsigned()->nullable();
 			$table->integer('founder_id')->unsigned()->nullable();
-			$table->integer('qrcode_id')->unsigned()->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		});
