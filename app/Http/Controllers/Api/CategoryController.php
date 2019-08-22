@@ -9,7 +9,7 @@ use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     public function index(Request $request)
     {
@@ -17,7 +17,7 @@ class CategoriesController extends Controller
             ->withCount('items')
             ->allowedIncludes('items')
             ->allowedFilters([
-                Filter::scope('category'), 
+                Filter::scope('category'),
                 'title',
             ])
             ->paginate($request->get('per_page', 15), '*', 'current_page');

@@ -40,7 +40,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \App\Http\Middleware\AddCustomHeadersToTheApiRequest::class,
+            \App\Http\Middleware\AddHeaders::class,
+            \App\Http\Middleware\SetLanguage::class,
         ],
     ];
 

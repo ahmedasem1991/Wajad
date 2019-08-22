@@ -9,7 +9,7 @@ Route::post('/register', 'Auth\AuthController@register');
 Route::post('/refresh-token', 'Auth\AuthController@refresh');
 
 # Categories 
-Route::get('/categories', 'CategoriesController@index');
+Route::get('/categories', 'CategoryController@index');
 
 # On Boarding Sliders
 Route::get('/onboarding', 'OnboardingController@index');
