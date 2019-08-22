@@ -14,6 +14,8 @@ Route::get('/categories', 'CategoriesController@index');
 # On Boarding Sliders
 Route::get('/onboarding', 'OnboardingController@index');
 
+# Posts
+Route::get('/getallposts', 'PostsController@index');
 
 # Items
 Route::get('/items', 'ItemsController@index');
@@ -23,32 +25,13 @@ Route::post('/contact-us', 'SupportController@store');
 # Qr Code 
 Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::get('/getQr/{id}', function (Request $request, $id) {
-    $QRCode = App\Qrcodes::with('user')->with('item')->find($id);
-
-    return response()->json([$QRCode]);
-    return $id;
-});
-# Sliders Starts
 
 
-
-
-Route::group(['middleware' => ['auth:api']], function () {
-    # Categories 
-    // Route::get('/categories', 'CategoriesController@index');
-
-});
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', function (Request $request) {
         return auth('api')->user();
     });
-    Route::get('/', function () {
-        return 'test';
-    });
     Route::post('details', 'DetailsController@index');
-    // Route::get('categories', 'CategoriesController@index');
+    Route::post('/userposts/{publisher_id}', 'PostsController@userposts');
+    Route::post('/addpost/{publisher_id}', 'PostsController@addpost');
 });

@@ -2,33 +2,51 @@
 
 namespace App\Nova;
 
+ 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Image;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\BelongsTo;
 
-class Post extends Resource
+class PostImages extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = 'App\PostImages';
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Posts';
+
+    /**
+     * Indicates if the resoruce should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
+
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -40,6 +58,16 @@ class Post extends Resource
     ];
 
     /**
+     * Edit Showing Name In Listing
+     *
+     * @return void
+     */
+    public static function label()
+    {
+        return 'Images';
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,36 +77,20 @@ class Post extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title'),
-            Textarea::make('Decription'),
-            Boolean::make('Status'),
-            DateTime::make('Losted At')->hideFromIndex(),
-            DateTime::make('Founded At')->hideFromIndex(),
-            NovaBelongsToDepend::make('User', 'publisher')
-            ->placeholder('User') // Add this just if you want to customize the placeholder
-            ->options(\App\User::all()),
-             NovaBelongsToDepend::make('Item')
-            ->placeholder('Item')
-            ->optionsResolve(function ($user) {
-                $user_items = [];
-                $user_items_with_qrcode = $user->items()
-                    ->Has('qrcode')
-                    ->get();
-                foreach ($user_items_with_qrcode as $user_item_with_qrcode) {
-                    array_push($user_items, $user_item_with_qrcode);
-                }
-                return $user_items;
-            })->dependsOn('publisher')->nullable(),
+            Image::make('Post Image', 'image')
+                ->creationRules([
+                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->updateRules([
+                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->disk('public')
+                ->path('images/postimages'),
+               
 
-
-
-
-            // BelongsTo::make('Item'),
-            // BelongsTo::make('User','publisher'),
-            HasMany::make('Images','images',\App\Nova\PostImages::class)
+            BelongsTo::make('Post', 'Post', \App\Nova\Post::class)
         ];
     }
-
     /**
      * Get the cards available for the request.
      *

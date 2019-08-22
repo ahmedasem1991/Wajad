@@ -64,6 +64,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Questions::class, 'user_id');
     }
+    public function posts()
+    {
+        return $this->hasMany(Post::class,'publisher_id');   
+    }
 
     public function items()
     {

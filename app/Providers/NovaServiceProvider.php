@@ -74,7 +74,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Tightenco\NovaStripe\NovaStripe,
             new \Themsaid\CashierTool\CashierTool(),
             new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
-            new NovaSidebarIcons,
         ];
     }
 

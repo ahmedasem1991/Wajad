@@ -19,9 +19,11 @@ class CreatePostsTable extends Migration
             $table->string('decription');
             $table->integer('item_id')->nullable();
             $table->boolean('status')->nullable();
+            $table->integer('publisher_id')->nullable();
             $table->timestamp('losted_at')->nullable();
             $table->timestamp('founded_at')->nullable();
             $table->integer('images_id')->nullable();
+          
             $table->timestamps();
         });
     }
