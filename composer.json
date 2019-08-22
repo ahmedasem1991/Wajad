@@ -100,46 +100,6 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/Wajadcorpoate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Wajadcorporate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Wajadcorporate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Wajadcorporate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Wajadcorporate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Wajadcorporate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Wajadcorporate"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/CustomNexmo"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/PackagesAndProducts"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/ColorPicker"
-        },
-        {
-            "type": "path",
             "url": "./nova-components/QrcodeGenerator"
         }
     ]
