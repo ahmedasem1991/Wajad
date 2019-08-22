@@ -11,12 +11,10 @@ class OnboardingController extends Controller
 {
     public function index(Request $request)
     {
-        $Onboardings = QueryBuilder::for(Onboarding::class)
+        $on_boarding = QueryBuilder::for(Onboarding::class)
             ->paginate($request->get('per_page', 15));
 
-        $this->addResponse($Onboardings)->addStatusCode(200);
-
-        return $this->response();
+        return $this->jsonResponse($on_boarding);
     }
 
     /**

@@ -9,12 +9,9 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use App\Package as PackageModel;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\BelongsToMany;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use OptimistDigital\NovaPageManager\NovaPageManager;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
 class Package extends Resource
 {
@@ -42,7 +39,7 @@ class Package extends Resource
      * @var bool
      */
     public static $displayInNavigation = false;
-    
+
 
     /**
      * The columns that should be searched.
@@ -50,7 +47,7 @@ class Package extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'name'
     ];
 
     /**
@@ -75,23 +72,26 @@ class Package extends Resource
             Trix::make('Package Description', 'description')->rules(
                 ['required', 'string']
             )->hideFromIndex(),
-
-            Number::make('Products Per Packege', 'products_per_package')->rules(
+            Number::make('QR Codes Per Package', 'products_per_package')->rules(
                 ['required', 'integer']
             ),
-
-            Number::make('Package Price', 'price')->rules(['required', 'integer']),
-
+            Number::make('Package Price', 'price')->rules(['required', 'integer'])->hideWhenUpdating(),
             Select::make('Select Package Period', 'period')->options(
                 PackageModel::packagesPeriod()
             )->displayUsingLabels(),
-
-            NovaDependencyContainer::make([
-                Number::make('Package Days', 'days')->rules(['required', 'integer']),
-            ])->dependsOn('custom_days', true),
-
-
-            BelongsToMany::make('Products', 'products', \App\Nova\Products::class),
+            BelongsToMany::make('Products', 'products', \App\Nova\Products::class)
+                ->fields(function () {
+                    return [
+                        QrcodeGenerator::make('Relation CODE', 'package_product_name')
+                            ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
+                            ->length(15)
+                            ->hideWhenUpdating()
+                            ->help(
+                                'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
+                            )
+                    ];
+                })
+                ->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

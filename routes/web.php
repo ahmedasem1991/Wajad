@@ -3,6 +3,7 @@ use App\Settings;
 use Illuminate\Support\Str;
 use App\Region;
 use App\Package;
+use App\Item;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::resource('cards', 'CardsController');
 Auth::routes();
 
 Route::get('/test', function(){
+	// return htmlspecialchars(Item::where('id', 100)->first());
 	// $nexmo = app('Nexmo\Client');
 	// $nexmo->message()->send([
 	// 	'to'   => '201095781611',

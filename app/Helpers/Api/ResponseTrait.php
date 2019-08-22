@@ -33,7 +33,7 @@ trait ResponseTrait
      * @var string
      */
     protected $un_authorized = 'You Are Not Authorized To Handle This Request';
-    
+
     /**
      * Define Invalid Data
      *
@@ -44,13 +44,28 @@ trait ResponseTrait
     /**
      * Add Response
      *
-     * @param array $response
+     * @param string $response
      * @param string $response
      * @return object
      */
     public function addResponse($response)
     {
         array_push($this->response, $response);
+        return $this; 
+    }
+
+    /**
+     * Add MultibleResponse As Single Array With Values
+     *
+     * @param array $responses
+     * @return void
+     */
+    public function addMultibleResponse($responses)
+    {
+        $responses = collect($responses);
+        $responses->eachSpread(function ($response) {
+            array_push($this->response, $response);
+        });
         return $this;
     }
 
@@ -67,6 +82,17 @@ trait ResponseTrait
     }
 
     /**
+     * Response With Json Format
+     *
+     * @param object $response
+     * @return void
+     */
+    public function jsonResponse($response)
+    {
+        return response()->json($response, 200);
+    }
+
+    /**
      * Return The Response Object
      *
      * @return object
@@ -75,7 +101,7 @@ trait ResponseTrait
     {
         return response()->json(
             [
-                'data' => $this->response,
+                'message' => $this->response,
             ],
             (int) $this->status_code
         );

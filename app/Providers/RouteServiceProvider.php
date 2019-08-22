@@ -12,7 +12,9 @@ class RouteServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        //
+        Route::bind('qr_code', function($qr_code){
+            return \App\Qrcodes::where('qrcode_url', $qr_code)->first() ?? abort(404);
+        });
 
         parent::boot();
     }
@@ -36,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
+            ->as('api.')
             ->middleware('api')
             ->domain(env('API_URL'))
             ->namespace($this->api_namespace)

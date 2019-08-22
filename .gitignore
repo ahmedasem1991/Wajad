@@ -10,4 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/nova-components
+/nova-components/QrcodeGenerator/node_modules/

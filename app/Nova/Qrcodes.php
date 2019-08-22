@@ -2,21 +2,17 @@
 
 namespace App\Nova;
 
+use Illuminate\Support\Str;
+use Khalin\Nova\Field\Link;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
 use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
-use Khalin\Nova\Field\Link;
-use Illuminate\Support\Str;
+use Laravel\Nova\Fields\BelongsTo;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Log;
+
 class Qrcodes extends Resource
 {
     /**
@@ -32,7 +28,7 @@ class Qrcodes extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'qrcode_url';
 
     /**
      * The columns that should be searched.
@@ -51,65 +47,39 @@ class Qrcodes extends Resource
      */
     public function fields(Request $request)
     {
-        if(!Str::endsWith($this->logo, 'png') || !Str::endsWith($this->logo, 'jpg') || !Str::endsWith($this->logo, 'jpeg'))
-        {
-            $this->logo='https://cdn4.iconfinder.com/data/icons/logos-3/504/Laravel-512.png';
-        }
-
- 
-       
-       
         return [
             ID::make()->sortable(),
-            Text::make('name'),
-
-           
-
 
             Qrcode::make('QR Code')
-            ->text($this->text.$this->id)
-            ->logo($this->logo)
-            
-            
-            ->exceptOnForms(),
+                ->text(route('api.scan-qrcode-api') . '/' . $this->qrcode_url)
+                ->logo(env('QRCODE_DEFAULT_IMAGE'))
+                ->exceptOnForms(),
 
+            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
+                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
+                ->length(15)
+                ->showUrl(true)
+                ->qrCodeRouteName(route('api.scan-qrcode-api'))
+                ->hideWhenUpdating(),
 
-            
-             Link::make('Link', 'link')
-                ->url(function () {
-                    return $this->text.$this->id;
-                })->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])->hideWhenCreating()->hideWhenUpdating(),
+            BelongsTo::make('PackageProductManagement', 'productPackagePivot', \App\Nova\PackageProductManagement::class)->hideWhenUpdating(),
 
-               
-           
-            Boolean::make('Active'),
-           // Text::make('background'),
-            Text::make('logo')->hideFromIndex(),
-            
-            Text::make('Text')->withMeta(["value" => env('API_URL') . '/api/getQr/'.$this->id])
-            ->hideFromIndex()
-            ->withMeta(['extraAttributes' => [
-                'readonly' => true
-          ]]),
+            NovaBelongsToDepend::make('User', 'user')
+                ->placeholder('User') // Add this just if you want to customize the placeholder
+                ->options(\App\User::all()),
 
-
-
-          NovaBelongsToDepend::make('User','user')
-          ->placeholder('User') // Add this just if you want to customize the placeholder
-            ->options(\App\User::all()),
-            // BelongsTo::make('Item','item')->nullable(),
-
-           
-             NovaBelongsToDepend::make('Item')
-             ->placeholder('Item') // Add this just if you want to customize the placeholder
-             ->optionsResolve(function ($user) {
-                 // Reduce the amount of unnecessary data sent
-             return $user->items()->where('qrcode_id',null)->get(['id','title']);
-
-             }) ->dependsOn('user')->nullable(),
-            
-
-            
+            NovaBelongsToDepend::make('Item')
+                ->placeholder('Item')
+                ->optionsResolve(function ($user) {
+                    $user_items = [];
+                    $user_items_without_qrcode = $user->items()
+                        ->whereDoesntHave('qrcode')
+                        ->get();
+                    foreach ($user_items_without_qrcode as $user_item_without_qrcode) {
+                        array_push($user_items, $user_item_without_qrcode);
+                    }
+                    return $user_items;
+                })->dependsOn('user')->nullable(),
 
         ];
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a51f4b610c24aa2d3d3e84ba76805d8",
+    "content-hash": "ddc0c0294ed986027defe1a1d3d0470e",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1788,54 +1788,6 @@
             "time": "2018-10-09T15:15:58+00:00"
         },
         {
-            "name": "kristories/nova-qrcode-manager",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Kristories/nova-qrcode-manager.git",
-                "reference": "f85147f56c32af693b7c1fbcc8291eaef74e2e22"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Kristories/nova-qrcode-manager/zipball/f85147f56c32af693b7c1fbcc8291eaef74e2e22",
-                "reference": "f85147f56c32af693b7c1fbcc8291eaef74e2e22",
-                "shasum": ""
-            },
-            "require": {
-                "kristories/nova-qrcode-field": "^0.0.1",
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Kristories\\QrcodeManager\\ToolServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Kristories\\QrcodeManager\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova tool to manage QR code.",
-            "keywords": [
-                "barcode",
-                "laravel",
-                "nova",
-                "qr",
-                "qr-code",
-                "qr-codes",
-                "qrcode",
-                "qrcodes"
-            ],
-            "time": "2018-10-09T16:15:41+00:00"
-        },
-        {
             "name": "laravel/framework",
             "version": "v5.8.33",
             "source": {
@@ -2967,6 +2919,48 @@
                 "nova"
             ],
             "time": "2018-11-14T16:50:05+00:00"
+        },
+        {
+            "name": "naif/generate-password",
+            "version": "v1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/naifalshaye/nova-random-password-generation.git",
+                "reference": "31cd3961580466bac3862b2f2f25c02ea17bd9d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/naifalshaye/nova-random-password-generation/zipball/31cd3961580466bac3862b2f2f25c02ea17bd9d2",
+                "reference": "31cd3961580466bac3862b2f2f25c02ea17bd9d2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Naif\\GeneratePassword\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Naif\\GeneratePassword\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova password field with generating random password option",
+            "keywords": [
+                "laravel",
+                "nova",
+                "password"
+            ],
+            "time": "2019-03-17T09:11:57+00:00"
         },
         {
             "name": "naif/map_address",
@@ -4480,6 +4474,40 @@
                 "wrapper"
             ],
             "time": "2017-11-26T15:27:12+00:00"
+        },
+        {
+            "name": "smartappco/qrcode-generator",
+            "version": "dev-2019-07-29-SCHEMA-MODIFICATION",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/QrcodeGenerator",
+                "reference": "844cf167bc786ad84ed3f74590b97606070792ca",
+                "shasum": null
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Smartappco\\QrcodeGenerator\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Smartappco\\QrcodeGenerator\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
         },
         {
             "name": "spatie/image",

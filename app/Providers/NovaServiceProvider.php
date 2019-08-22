@@ -70,7 +70,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
             new \Mydnic\NovaKustomer\NovaKustomer,
-            new \Kristories\QrcodeManager\QrcodeManager(),
             new \Themsaid\CashierTool\CashierTool(),
             new \Tightenco\NovaStripe\NovaStripe,
             new \Themsaid\CashierTool\CashierTool(),

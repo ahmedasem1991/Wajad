@@ -1,17 +1,14 @@
 <?php
 
 namespace App;
- 
+
 use Illuminate\Database\Eloquent\Model;
- 
+
 class Region extends Model
 {
- 
- 
-     
- 
-     protected $table = 'regions';
-		/**
+    protected $table = 'regions';
+
+    /**
      * Get the Cities for the region.
      */
     public function Cities()
@@ -23,6 +20,4 @@ class Region extends Model
     {
         return $this->belongsTo('App\Country');
     }
-
-    
 }

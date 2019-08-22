@@ -15,7 +15,7 @@ class Item extends Model
      * 
      * @var array
      */
-    const ItemStatus = [
+    const ITEM_STATUS = [
         1 => 'lost',
         2 => 'found',
         3 => 'mine',
@@ -52,7 +52,7 @@ class Item extends Model
      */
     public function qrcode()
     {
-        return $this->belongsTo(Qrcodes::class, 'qrcode_id');
+        return $this->hasOne(Qrcodes::class, 'item_id');
     }
 
     /**
@@ -104,7 +104,7 @@ class Item extends Model
      */
     public function scopeLost($query)
     {
-        return $query->where('status', self::ItemStatus['lost']);
+        return $query->where('status', self::ITEM_STATUS['lost']);
     }
 
     /**
@@ -115,7 +115,7 @@ class Item extends Model
      */
     public function scopeFound($query)
     {
-        return $query->where('status', self::ItemStatus['found']);
+        return $query->where('status', self::ITEM_STATUS['found']);
     }
 
     /**
@@ -152,6 +152,23 @@ class Item extends Model
     public function scopeFounder($query, $founder_id)
     {
         return $query->where('founder_id', $founder_id) ?? null;
+    }
+
+    /**
+     * Scope Public Items Only
+     *
+     * @param object $query
+     * @return void
+     */
+    public function scopePublicItems($query)
+    {
+        return $query->where('is_public', true);
+    }
+
+    
+    public function scopePrivateItemsForAuthUser($query, $user_id)
+    {
+        return $query->where('owner_id', $user_id)->orWhere('founder_id', $user_id);        
     }
 
     /**

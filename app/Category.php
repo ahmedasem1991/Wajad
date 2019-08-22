@@ -14,14 +14,14 @@ class Category extends Model
      *
      * @var string
      */
-    protected $images_path = "/images/categories/images/";
+    protected $images_path = "/images/categories/";
 
     /**
      * Define Icon Path For Categories
      *
      * @var string
      */
-    protected $icons_path = "/images/categories/icons/";
+    protected $icons_path = "/images/categories/";
 
     /**
      * Define Items Relation With Each Category
@@ -31,6 +31,22 @@ class Category extends Model
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function getDefaultImageAttribute($value)
+    {
+        if ($value == 'default-image.jpg') {
+            return $this->images_path . $value;
+        }
+        return $this->images_path . '/images/' . $value;
+    }
+    
+    public function getIconAttribute($value)
+    {
+        if ($value == "default-icon.png") {
+            return $this->icons_path . $value;
+        }
+        return $this->icons_path . '/icons/' . $value;
     }
 
     /**
