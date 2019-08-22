@@ -70,7 +70,7 @@ class Qrcodes extends Resource
             ->placeholder('Item')  
             ->optionsResolve(function ($user) {
             $array=array();
-            $items= $user->items()->where('qrcode_id',null)->get(['id','title']);
+            $items= $user->items()->get(['id','title']);
             foreach( $items as $item)
             {
                 if(!$item->qrcode)
