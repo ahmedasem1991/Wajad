@@ -10,8 +10,8 @@ use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\GenerateUniqueQrUrl\GenerateUniqueQrUrl;
 
 class Qrcodes extends Resource
 {
@@ -55,16 +55,12 @@ class Qrcodes extends Resource
                 ->logo(env('QRCODE_DEFAULT_IMAGE'))
                 ->exceptOnForms(),
 
-            GenerateUniqueQrUrl::make('QR CODE URL', 'qrcode_url')
-                // ->onlyOnForms()
+            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
                 ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
                 ->length(15)
-                ->excludeRules(['Symbols'])->help(
-                    'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
-                )->withMeta([
-                    'api_domain' => route('api.scan-qrcode-api'),
-                    'show_url' => true
-                ])->hideWhenUpdating(),
+                ->showUrl(true)
+                ->qrCodeRouteName(route('api.scan-qrcode-api'))
+                ->hideWhenUpdating(),
 
             BelongsTo::make('PackageProductManagement', 'productPackagePivot', \App\Nova\PackageProductManagement::class)->hideWhenUpdating(),
 

@@ -11,7 +11,7 @@ use Laravel\Nova\Fields\Select;
 use App\Package as PackageModel;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\BelongsToMany;
-use Smartappco\GenerateUniqueQrUrl\GenerateUniqueQrUrl;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
 class Package extends Resource
 {
@@ -82,11 +82,11 @@ class Package extends Resource
             BelongsToMany::make('Products', 'products', \App\Nova\Products::class)
                 ->fields(function () {
                     return [
-                        GenerateUniqueQrUrl::make('Relation CODE', 'package_product_name')
-                            // ->onlyOnForms()
+                        QrcodeGenerator::make('Relation CODE', 'package_product_name')
                             ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
                             ->length(15)
-                            ->excludeRules(['Symbols'])->help(
+                            ->hideWhenUpdating()
+                            ->help(
                                 'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
                             )
                     ];

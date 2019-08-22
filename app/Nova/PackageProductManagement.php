@@ -4,9 +4,8 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
-use Smartappco\GenerateUniqueQrUrl\GenerateUniqueQrUrl;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
 class PackageProductManagement extends Resource
 {
@@ -56,11 +55,11 @@ class PackageProductManagement extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Package'),
             BelongsTo::make('Product', 'product', \App\Nova\Products::class),
-            GenerateUniqueQrUrl::make('Relation CODE', 'package_product_name')
-                // ->onlyOnForms()
+            QrcodeGenerator::make('Relation CODE', 'package_product_name')
                 ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
                 ->length(15)
-                ->excludeRules(['Symbols'])->help(
+                ->hideWhenUpdating()
+                ->help(
                     'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
                 )
         ];

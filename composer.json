@@ -33,7 +33,6 @@
         "orlyapps/nova-belongsto-depend": "^2.0",
         "remipou/nova-page-manager": "^1.0",
         "simplesoftwareio/simple-qrcode": "^2.0",
-        "smartappco/generate-unique-qr-url": "*",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^2.37",
         "spatie/laravel-query-builder": "^1.17",
@@ -42,7 +41,8 @@
         "themsaid/nova-cashier-manager": "^0.2.1",
         "tightenco/nova-stripe": "^0.2.2",
         "tymon/jwt-auth": "1.0.*",
-        "vyuldashev/nova-permission": "^1.9"
+        "vyuldashev/nova-permission": "^1.9",
+        "smartappco/qrcode-generator": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -137,7 +137,7 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/GenerateUniqueQrUrl"
+            "url": "./nova-components/QrcodeGenerator"
         }
     ]
 }
