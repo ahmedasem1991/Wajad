@@ -17,9 +17,9 @@ class CreatePackageProductTable extends Migration
             $table->bigIncrements('id');
             $table->integer('package_id');
             $table->integer('product_id');
-            $table->integer('item_id')->nullable();
-            $table->date('start_date')->nullable();
+            $table->string('package_product_name')->unique();
             $table->timestamps();
+            $table->unique(['package_id', 'product_id']);
         });
     }
 

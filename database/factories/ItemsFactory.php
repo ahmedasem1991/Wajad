@@ -22,6 +22,7 @@ $factory->define(Item::class, function (Faker $faker) {
         },
         'founder_id' => function(){
             return factory(App\User::class)->create()->id;
-        }
+        },
+        'is_public' => $faker->boolean()
     ];
 });

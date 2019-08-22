@@ -5,15 +5,13 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
-//use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
-use Halimtuhu\ArrayImages\ArrayImages;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Laravel\Nova\Fields\HasOne;
+
 class Item extends Resource
 {
     /**
@@ -47,39 +45,41 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
-        
         return [
             ID::make()->sortable(),
             Text::make('Title')->creationRules([
-                'required', 
+                'required',
             ]),
-           // Text::make('status'),
+            // Text::make('status'),
             Trix::make('Details'),
             Number::make('Radius'),
-            
+
             // Qrcode::make('QR Code')
             // ->text('http://laravel.com')
             // ->logo('http://www.smartappco.net/frontend/images/remove/logo.png')
             // ->exceptOnForms(),
-            
+
             //  ArrayImages::make('Images', 'images')
             //  ->disk('public')
             //  ->path('images/itmes'),
-              
-             
-             
+
+
+
             // BelongsTo::make('User','owner'),
             // BelongsTo::make('QR Code','qrcode','App\Nova\Qrcodes'),
-            
-            
+
+
             //HasMany::make('Item Images', 'images', 'App\Nova\Item_Images'),
 
-             NovaBelongsToDepend::make('User','owner')
-             ->placeholder('User') // Add this just if you want to customize the placeholder
-               ->options(\App\User::all()),
-               // BelongsTo::make('Item','item')->nullable(),
-   
-              
+            NovaBelongsToDepend::make('User', 'owner')
+                ->placeholder('User') // Add this just if you want to customize the placeholder
+                ->options(\App\User::all()),
+
+            HasOne::make('Qrcodes', 'qrcode', Qrcodes::class)->rules([
+                'unique:items,qrcode_id'
+            ])->nullable(),
+
+
             //    NovaBelongsToDepend::make('QR Code' ,'qrcode','App\Nova\Qrcodes')
             //    ->placeholder('QR Code') // Add this just if you want to customize the placeholder
             //    ->optionsResolve(function ($owner) {
@@ -91,21 +91,13 @@ class Item extends Resource
             //      {
             //          if(!$qrcode->item)
             //          array_push($array, $qrcode);
-    
+
             //      } 
             //     return $array;
 
 
             //    })
             //    ->dependsOn('owner')->nullable(),
-
-
-           
-
-            
-
-            
-
         ];
     }
 

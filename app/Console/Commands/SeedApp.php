@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Item;
+use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use App\User;
 
 class SeedApp extends Command
 {
@@ -55,5 +56,12 @@ class SeedApp extends Command
             'mobile_country_id' => 1
         ]);
         $this->info('Nova User Created Successfully');
+
+        Artisan::call('seed:locations');
+        Artisan::call('seed:settings');
+
+        $create_items_question = $this->ask('Items Number ?', 100);
+
+        factory(Item::class, (int) $create_items_question)->create();
     }
 }

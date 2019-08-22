@@ -6,10 +6,11 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
 class Products extends Resource
 {
@@ -78,7 +79,18 @@ class Products extends Resource
                 'required', 'string'
             ]),
 
-            BelongsToMany::make('Package', 'packages', \App\Nova\Package::class),
+            BelongsToMany::make('Package', 'packages', \App\Nova\Package::class)
+                ->fields(function () {
+                    return [
+                        QrcodeGenerator::make('Relation CODE', 'package_product_name')
+                            ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
+                            ->hideWhenUpdating()
+                            ->help(
+                                'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
+                            )->length(15)
+                    ];
+                })
+                ->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

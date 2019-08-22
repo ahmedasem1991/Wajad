@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
 {
-     
-  protected  $table='activity_log';
+  protected  $table = 'activity_log';
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'causer_id');
-    }
-
- 
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'causer_id');
+  }
 }

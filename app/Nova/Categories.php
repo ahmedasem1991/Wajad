@@ -65,7 +65,7 @@ class Categories extends Resource
                     'required_if:has_default_image,1', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
                     ->disk('public')
-                    ->path('images/categories/images')
+                    ->path('/images/categories/images')
                     ->disableDownload()
                     ->prunable()
                     ->deletable(),
@@ -78,12 +78,12 @@ class Categories extends Resource
                     'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
                 ->disk('public')
-                ->path('images/categories/icons')
-                 ->disableDownload()
+                ->path('/images/categories/icons')
+                ->disableDownload()
                 ->prunable()
                 ->deletable(),
 
-            HasMany::make('Items')
+            HasMany::make('Item', 'items', \App\Nova\Item::class)
         ];
     }
 
