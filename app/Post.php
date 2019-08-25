@@ -9,7 +9,7 @@ class Post extends Model
 {
     use LogsActivity;
 
-    protected $fillable = ['title', 'decription'];
+    protected $fillable = ['title', 'decription', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at'];
     protected static $logAttributes = ['title', 'decription'];
     protected $casts = [
         'losted_at' => 'datetime',
@@ -31,6 +31,12 @@ class Post extends Model
     {
         return $this->status === self::Status['found'];
     }
+
+    public function scopeStatus($query, $status)
+    {
+        $status = ($status== 'lost') ? 0 : 1;
+        return $query->where('status', $status);
+    }
     
    
     public function scopePublisher($query, $publisher_id)
@@ -50,4 +56,9 @@ class Post extends Model
     {
         return $this->hasMany(PostImages::class);   
     }
+    public function scopeItem($query, $item_id)
+    {
+        return $query->where('id', $item_id) ?? null;
+    }
+ 
 }

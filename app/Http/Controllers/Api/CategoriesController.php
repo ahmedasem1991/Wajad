@@ -16,10 +16,7 @@ class CategoriesController extends Controller
         $categories = QueryBuilder::for(Category::class)
             ->withCount('items')
             ->allowedIncludes('items')
-            ->allowedFilters([
-                Filter::scope('category'), 
-                'title',
-            ])
+            ->allowedFilters([Filter::scope('category'), 'title'])
             ->paginate($request->get('per_page', 15), '*', 'current_page');
 
         return $this->jsonResponse($categories);

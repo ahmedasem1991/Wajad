@@ -34,7 +34,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::resourcesIn(app_path('Nova'));
 
         Nova::resources([
-            PageResource::class,
+            // PageResource::class,
         ]);
     }
 
