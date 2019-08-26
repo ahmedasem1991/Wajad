@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Illuminate\Support\Facades\Storage;
+use Spatie\NovaTranslatable\Translatable;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
@@ -52,14 +53,19 @@ class Categories extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Category Title', 'title')
-                ->creationRules([
-                    'required', 'max:255', 'min:3', 'unique:categories,title'
-                ])
-                ->updateRules([
-                    'max:255', 'min:3', 'unique:categories,title,{{resourceId}}'
-                ]),
+
+            Translatable::make([
+                Text::make('Category Title', 'title')
+                    ->creationRules([
+                        'required', 'max:255', 'min:3', 'unique:categories,title'
+                    ])
+                    ->updateRules([
+                        'max:255', 'min:3', 'unique:categories,title,{{resourceId}}'
+                    ])
+            ]),
+            
             Boolean::make('Has Default Image', 'has_default_image'),
+            
             NovaDependencyContainer::make([
                 Image::make('Category Default Image', 'default_image')->rules([
                     'required_if:has_default_image,1', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
@@ -70,6 +76,7 @@ class Categories extends Resource
                     ->prunable()
                     ->deletable(),
             ])->dependsOn('has_default_image', true),
+            
             Image::make('Category Icon', 'icon')
                 ->creationRules([
                     'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
