@@ -9,8 +9,8 @@ class Post extends Model
 {
     use LogsActivity;
 
-    protected $fillable = ['title', 'decription', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at'];
-    protected static $logAttributes = ['title', 'decription'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at'];
+    protected static $logAttributes = ['title', 'description'];
     protected $casts = [
         'losted_at' => 'datetime',
         'founded_at' => 'datetime'
@@ -58,7 +58,7 @@ class Post extends Model
     }
     public function scopeItem($query, $item_id)
     {
-        return $query->where('id', $item_id) ?? null;
+        return $query->where('item_id', $item_id);
     }
  
 }

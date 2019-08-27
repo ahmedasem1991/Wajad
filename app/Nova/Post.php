@@ -50,7 +50,7 @@ class Post extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Title'),
-            Textarea::make('Decription'),
+            Textarea::make('description'),
             Boolean::make('Status'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),

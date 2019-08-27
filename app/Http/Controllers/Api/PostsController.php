@@ -11,6 +11,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use Log;
 use App;
+use Carbon\Carbon;
 class PostsController extends Controller
 {
  
@@ -25,7 +26,7 @@ class PostsController extends Controller
             Filter::scope('status'),//lost or found
             Filter::scope('publisher'),//Publisher ID
             Filter::scope('item'),//Item ID
-            'title', 'details',
+           'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));
 
@@ -36,6 +37,7 @@ class PostsController extends Controller
 
     public function userposts(Request $request,$publisher_id)
     {
+        
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('item')
@@ -43,9 +45,8 @@ class PostsController extends Controller
         ->publisher($publisher_id)
         ->allowedFilters([
             Filter::scope('status'),//lost or found
-            Filter::scope('publisher'),//Publisher ID
             Filter::scope('item'),//Item ID
-            'title', 'details',
+            'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));
 
@@ -63,7 +64,7 @@ class PostsController extends Controller
 
         $validate_request = Validator::make(request()->all(), [
             'title' => ['required', 'min:6', 'max:255'],
-            'decription' => ['required', 'min:20', 'max:500'],
+            'description' => ['required', 'min:20', 'max:500'],
             'publisher_id' => ['required'],
             'status' => ['required'],
         ]);
@@ -72,16 +73,28 @@ class PostsController extends Controller
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
         }
-        $status = ($request->status== 'lost') ? 0 : 1;
+        //$status = ($request->status== 'lost') ? 0 : 1;
+       
+        if($request->status=='lost')
+        {
+            $status =0;
+            $losted_at=Carbon::now()->toDateTimeString();
+            $founded_at=Null;
+        }
+        else{
+            $status =1;
+            $losted_at=NULL;
+            $founded_at=Carbon::now()->toDateTimeString();
+        }
         try {
             $post = Post::create([
                 'title' => request('title'),
-                'decription' => request('decription'),
+                'description' => request('description'),
                 'publisher_id' => request('publisher_id'),
                 'item_id' => request('item_id'),
                 'status' => $status,
-                'losted_at' => request('losted_at'),
-                'founded_at' => request('founded_at'),
+                'losted_at' => $losted_at,
+                'founded_at' => $founded_at,
             ]);
     
             if ($post) {
@@ -106,16 +119,13 @@ class PostsController extends Controller
                 Log::ERROR($this->response());
                 return $this->response();
                 }
-    
-    
-          // App::setLocale($request->header('lang'));
           
            $this->addResponse(trans( 'messages.successfully_created' ))->addStatusCode(201);
            Log::INFO($this->response());
            return $this->response();
            
         } catch (Exception $e) {
-            $this->addResponse($e)->addStatusCode(409);
+            $this->addResponse($e->getMessage)->addStatusCode(409);
             Log::ERROR($this->response());
             return $this->response();
         }

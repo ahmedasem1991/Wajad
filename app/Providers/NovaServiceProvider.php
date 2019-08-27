@@ -34,7 +34,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::resourcesIn(app_path('Nova'));
 
         Nova::resources([
-            // PageResource::class,
+       // PageResource::class,
         ]);
     }
 
@@ -61,7 +61,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new UsersActivity,
             new PostsCount,
             new \Marianvlad\NovaEnvCard\NovaEnvCard,
-            new \Itainathaniel\NovaNexmo\NovaNexmoCard(),
+            new \Sms\Sendsms\NovaNexmoCard,
         ];
     }
 
@@ -73,7 +73,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Themsaid\CashierTool\CashierTool(),
             new \Tightenco\NovaStripe\NovaStripe,
             new \Themsaid\CashierTool\CashierTool(),
-            new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
+            new \Sms\Sendsms\NovaNexmoTool(),
         ];
     }
 
