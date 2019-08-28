@@ -21,11 +21,15 @@ class PostsController extends Controller
     {
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
+        ->with('owner')
+        ->with('founder')
         ->with('item')
         ->with('images')
         ->allowedFilters([
             Filter::scope('status'),//lost or found
             Filter::scope('publisher'),//Publisher ID
+            Filter::scope('owner'),//Owner ID
+            Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
            'id','title', 'description',
         ])
@@ -41,11 +45,15 @@ class PostsController extends Controller
         
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
+        ->with('owner')
+        ->with('founder')
         ->with('item')
         ->with('images')
         ->publisher($publisher_id)
         ->allowedFilters([
             Filter::scope('status'),//lost or found
+            Filter::scope('owner'),//Owner ID
+            Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
             'id','title', 'description',
         ])

@@ -79,6 +79,22 @@ class Post extends Model
     {
         return $query->where('publisher_id', $publisher_id);
     }
+        /**
+     * Define The Owner  Of Item
+     */
+
+    public function scopeOwner($query, $owner_id)
+    {
+        return $query->where('owner_id', $owner_id);
+    }
+        /**
+     * Define The Founder  Of Item
+     */
+
+    public function scopeFounder($query, $founder_id)
+    {
+        return $query->where('founder_id', $founder_id);
+    }
      /**
      * Define The Status Of Post
      * 0 is lost

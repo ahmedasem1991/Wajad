@@ -51,11 +51,11 @@ class Post extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            Boolean::make('Is Found','Status'),
+            Boolean::make('Is Found','status'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
             NovaBelongsToDepend::make('User', 'publisher')
-            ->placeholder('User') // Add this just if you want to customize the placeholder
+            ->placeholder('Publisher') // Add this just if you want to customize the placeholder
             ->options(\App\User::all()),
              NovaBelongsToDepend::make('Item')
             ->placeholder('Item')
