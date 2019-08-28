@@ -32,6 +32,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         return auth('api')->user();
     });
     Route::post('details', 'DetailsController@index');
-    Route::post('/user/{publisher_id}/posts', 'PostsController@userposts');
+    Route::get('/user/{publisher_id}/posts', 'PostsController@userposts');
     Route::post('/posts/create', 'PostsController@store');
 });

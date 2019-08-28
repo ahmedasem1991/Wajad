@@ -13,13 +13,10 @@ class CreateItemsTable extends Migration
 			$table->mediumText('details');
 			$table->integer('status')->unsigned()->default('1');
 			$table->mediumText('details_if_lost')->nullable();
-			$table->float('latitude', 12, 7)->unsigned()->nullable();
-			$table->float('longitude', 12, 7)->unsigned()->nullable();
 			$table->integer('radius')->unsigned()->nullable();
 			$table->boolean('is_public')->default(true);
 			$table->integer('owner_id')->unsigned()->nullable();
 			$table->integer('category_id')->unsigned()->nullable();
-			$table->integer('founder_id')->unsigned()->nullable();
 			$table->text('images')->nullable();
 			$table->softDeletes();
 			$table->timestamps();

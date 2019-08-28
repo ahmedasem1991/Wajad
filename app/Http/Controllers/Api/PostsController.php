@@ -11,6 +11,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use Log;
 use App;
+use App\Item;
 use Carbon\Carbon;
 class PostsController extends Controller
 {
@@ -67,34 +68,48 @@ class PostsController extends Controller
             'description' => ['required', 'min:20', 'max:500'],
             'publisher_id' => ['required'],
             'status' => ['required'],
+            'lat' => ['required'],
+            'lng' => ['required'],
         ]);
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
         }
-        //$status = ($request->status== 'lost') ? 0 : 1;
-       
-        if($request->status=='lost')
+    
+       if($request->status=='lost')
         {
             $status =0;
             $losted_at=Carbon::now()->toDateTimeString();
             $founded_at=Null;
+            $owner_id=$request->publisher_id;
+            $founder_id=NULL;
         }
         else{
             $status =1;
             $losted_at=NULL;
             $founded_at=Carbon::now()->toDateTimeString();
+            $owner_id=NULL;
+            $founder_id=$request->publisher_id;
+        }
+        if($Item=Item::find($request->item_id))
+        {
+            $Item->status=$status;
+            $Item->save();
         }
         try {
             $post = Post::create([
                 'title' => request('title'),
                 'description' => request('description'),
                 'publisher_id' => request('publisher_id'),
+                'owner_id' =>$owner_id,
+                'founder_id' => $founder_id,
                 'item_id' => request('item_id'),
                 'status' => $status,
                 'losted_at' => $losted_at,
                 'founded_at' => $founded_at,
+                'lat' => request('lat'),
+                'lng' => request('lng'),
             ]);
     
             if ($post) {
