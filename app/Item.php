@@ -34,16 +34,7 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
-
-    /**
-     * Define The Founder Of The Item "In Case Of Lost Item"
-     *
-     * @return void
-     */
-    public function founder()
-    {
-        return $this->belongsTo(User::class, 'founder_id');
-    }
+ 
 
     /**
      * Define QrCode Of The Item

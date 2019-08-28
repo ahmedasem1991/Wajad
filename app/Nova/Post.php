@@ -51,7 +51,7 @@ class Post extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            Boolean::make('Status'),
+            Boolean::make('Is Found','Status'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
             NovaBelongsToDepend::make('User', 'publisher')
