@@ -154,7 +154,6 @@ class Post extends Model
          $response['message']= 'Success Validations';
          return $response;
         
-  
     }
 
     /**
