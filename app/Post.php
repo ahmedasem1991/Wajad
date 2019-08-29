@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Log;
+use App\Nova\Categories;
+
 class Post extends Model
 {
     use LogsActivity;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id'];
     protected static $logAttributes = ['title', 'description'];
     protected $casts = [
         'losted_at' => 'datetime',
@@ -57,6 +59,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class,'owner_id');   
     }
+
+    /**
+     * Define The Category Of The Lost Item 
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'category_id');   
+    }
      /**
      * Images Of Post"
      */
@@ -95,6 +105,15 @@ class Post extends Model
     {
         return $query->where('founder_id', $founder_id);
     }
+
+     /**
+     * Define The Founder  Of Item
+     */
+
+    public function scopeCategory($query, $category_id)
+    {
+        return $query->where('category_id', $category_id);
+    }
      /**
      * Define The Status Of Post
      * 0 is lost
@@ -119,6 +138,7 @@ class Post extends Model
             'status' => ['required'],
             'lat' => ['required'],
             'lng' => ['required'],
+            'category_id' =>['required_without:item_id']
         ]);
 
         $response=[];
@@ -162,10 +182,12 @@ class Post extends Model
             $owner_id=NULL;
             $founder_id=$request->publisher_id;
         }
+        $category_id=$request->category_id;
         if($Item=Item::find($request->item_id))
         {
             $Item->status=$status;
             $Item->save();
+            $category_id= $Item->category_id;
         }
         try {
             $post = Post::create([
@@ -180,12 +202,12 @@ class Post extends Model
                 'founded_at' => $founded_at,
                 'lat' => request('lat'),
                 'lng' => request('lng'),
+                'category_id' => $category_id,
             ]);
     
             if ($post) {
                 foreach($request->images as $image)
                 { 
-                   
                     $file_name =  time().str_random(10).'.'.'png';
                     @list($type, $image) = explode(';', $image);
                     @list(, $image) = explode(',', $image); 

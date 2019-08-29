@@ -11,8 +11,10 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Image;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use OwenMelbz\RadioField\RadioButton;
 
 class Post extends Resource
 {
@@ -47,16 +49,25 @@ class Post extends Resource
      */
     public function fields(Request $request)
     {
+    
         return [
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            Boolean::make('Is Found','status'),
+           // Boolean::make('Is Found','status'),
+           RadioButton::make('Status')
+           ->options([
+               0 => 'Lost',
+               1 => 'Found',
+           ])->default(0), // optional
+
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
             NovaBelongsToDepend::make('User', 'publisher')
             ->placeholder('Publisher') // Add this just if you want to customize the placeholder
             ->options(\App\User::all()),
+            BelongsTo::make('Founder', 'founder', 'App\Nova\User'),
+            BelongsTo::make('Owner', 'owner', 'App\Nova\User'),
              NovaBelongsToDepend::make('Item')
             ->placeholder('Item')
             ->optionsResolve(function ($user) {
@@ -69,12 +80,6 @@ class Post extends Resource
                 }
                 return $user_items;
             })->dependsOn('publisher')->nullable(),
-
-
-
-
-            // BelongsTo::make('Item'),
-            // BelongsTo::make('User','publisher'),
             HasMany::make('Images','images',\App\Nova\PostImages::class)
         ];
     }

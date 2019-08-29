@@ -31,6 +31,7 @@ class PostsController extends Controller
             Filter::scope('owner'),//Owner ID
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
+            Filter::scope('category'),//Category ID
            'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));
@@ -55,6 +56,7 @@ class PostsController extends Controller
             Filter::scope('owner'),//Owner ID
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
+            Filter::scope('category'),//Category ID
             'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));

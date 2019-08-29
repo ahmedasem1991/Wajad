@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "662d1cf5d872ecc14052fdede6c3d4e8",
+    "content-hash": "ad9fa4efb2755d8231e2b8c943cc2d89",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -3503,6 +3503,47 @@
                 "nova"
             ],
             "time": "2019-08-19T06:41:33+00:00"
+        },
+        {
+            "name": "owenmelbz/nova-radio-field",
+            "version": "0.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OwenMelbz/nova-radio-field.git",
+                "reference": "e6d09f4b94bc8dd02ed3d63721bfa3b6a89773d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OwenMelbz/nova-radio-field/zipball/e6d09f4b94bc8dd02ed3d63721bfa3b6a89773d8",
+                "reference": "e6d09f4b94bc8dd02ed3d63721bfa3b6a89773d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OwenMelbz\\RadioField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OwenMelbz\\RadioField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova radio field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-09-01T21:41:08+00:00"
         },
         {
             "name": "paragonie/random_compat",
