@@ -29,7 +29,6 @@ class Post extends Model
     ];
 
 
-
      /**
      * Define The Relation Of The Item with Post
      */
