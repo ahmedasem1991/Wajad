@@ -20,7 +20,7 @@ class CategoryController extends Controller
                 Filter::scope('category'),
                 'title',
             ])
-            ->paginate($request->get('per_page', 15), '*', 'current_page');
+            ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
         return $this->jsonResponse($categories);
     }

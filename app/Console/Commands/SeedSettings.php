@@ -45,35 +45,50 @@ class SeedSettings extends Command
         $settings = [
             [
                 'key' => 'about-us',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.'
+                'title' => 'About us',
+                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'created_at' => null,
+                'updated_at' => null
             ],
             [
                 'key' => 'contact-us',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.'
+                'title' => 'Contact us',
+                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'created_at' => null,
+                'updated_at' => null
             ],
             [
                 'key' => 'privacy-policy',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.'
+                'title' => 'Privacy And Policy',
+                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'created_at' => null,
+                'updated_at' => null
             ],
             [
                 'key' => 'lorem-ipsum',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.'
+                // 'title' => 'Privacy And Policy',
+                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'created_at' => null,
+                'updated_at' => null
             ],
             [
                 'key' => 'facebook-link',
-                'value' => 'http://www.facebook.com'
+                'title' => 'Facebook Link',
+                'value' => 'http://www.facebook.com',
+                'created_at' => null,
+                'updated_at' => null
             ],
             [
                 'key' => 'twitter-link',
-                'value' => 'http://www.twitter.com'
+                'title' => 'Twitter Link',
+                'value' => 'http://www.twitter.com',
+                'created_at' => null,
+                'updated_at' => null
             ]
         ];
 
         foreach ($settings as $setting) {
-            Settings::create([
-                'key' => $setting['key'],
-                'value' => $setting['value']
-            ]);
+            Settings::create($setting);
         }
 
         $this->info('|------------------------------------|');

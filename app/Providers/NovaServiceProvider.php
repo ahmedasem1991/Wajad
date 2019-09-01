@@ -7,7 +7,6 @@ use Laravel\Nova\Cards\Help;
 use App\Nova\Metrics\PostsCount;
 use App\Nova\Metrics\UsersActivity;
 use Illuminate\Support\Facades\Gate;
-use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -69,11 +68,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
-            new \Mydnic\NovaKustomer\NovaKustomer,
-            new \Themsaid\CashierTool\CashierTool(),
-            new \Tightenco\NovaStripe\NovaStripe,
-            new \Themsaid\CashierTool\CashierTool(),
-            new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
         ];
     }
 

@@ -34,7 +34,7 @@ class User extends Authenticatable implements JWTSubject
         'admin' => 3
     ];
 
-    public function is_admin()
+    public function isAdmin()
     {
         return $this->type === self::Types['admin'];
     }
@@ -44,7 +44,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->type === self::Types['corporate'];
     }
 
-    public function is_user()
+    public function isUser()
     {
         return $this->type === self::Types['user'];
     }

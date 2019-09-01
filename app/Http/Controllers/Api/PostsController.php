@@ -27,7 +27,7 @@ class PostsController extends Controller
             Filter::scope('item'),//Item ID
             'title', 'details',
         ])
-        ->paginate($request->get('per_page', 15));
+        ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)));
 
         return $this->jsonResponse($Posts);
     }
