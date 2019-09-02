@@ -29,7 +29,7 @@ class ItemsController extends Controller
                 Filter::scope('item'),
                 'title', 'details', 'longitude', 'latitude',
             ])
-            ->paginate($request->get('per_page', 15), '*', 'current_page');
+            ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
         
         return $this->jsonResponse($items);
     }

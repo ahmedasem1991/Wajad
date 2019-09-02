@@ -30,7 +30,6 @@
         "naif/generate-password": "^1.4",
         "naif/map_address": "^1.4",
         "nexmo/laravel": "^1.1",
-        "optimistdigital/nova-page-manager": "^1.9",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "owenmelbz/nova-radio-field": "^0.0.5",
         "remipou/nova-page-manager": "^1.0",

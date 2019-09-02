@@ -52,6 +52,8 @@ class PostsController extends Controller
             return $Post->distance < $this->request['distance'];
         });
   
+ 
+
         return $this->jsonResponse($Posts);
     }
 

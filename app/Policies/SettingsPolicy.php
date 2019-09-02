@@ -27,7 +27,7 @@ class SettingsPolicy
 
     public function update(User $user, Settings $settings)
     {
-        return true;
+        return auth()->user()->isAdmin();
     }
 
     public function delete(User $user, Settings $settings)
@@ -37,7 +37,7 @@ class SettingsPolicy
 
     public function restore(User $user, Settings $settings)
     {
-        //
+        return false;
     }
 
     /**
@@ -49,6 +49,6 @@ class SettingsPolicy
      */
     public function forceDelete(User $user, Settings $settings)
     {
-        //
+        return false;
     }
 }

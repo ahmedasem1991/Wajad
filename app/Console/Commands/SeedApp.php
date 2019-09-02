@@ -41,6 +41,7 @@ class SeedApp extends Command
     public function handle()
     {
         Artisan::call('migrate:fresh');
+        
         $this->info('Database Migrated Successfully');
 
         $this->info('Create Nova User');
