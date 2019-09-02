@@ -20,6 +20,12 @@ Route::get('/posts', 'PostsController@index');
 # Items
 Route::get('/items', 'ItemsController@index');
 
+# Countries
+Route::get('/countries', 'LocationsController@index');
+
+# Regions
+Route::get('/regions', 'LocationsController@regions');
+
 # Support
 Route::post('/contact-us', 'SupportController@store');
 # Qr Code 

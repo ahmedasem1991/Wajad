@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Log;
+use DB;
 use App\Nova\Categories;
 
 class Post extends Model
@@ -124,38 +125,21 @@ class Post extends Model
         return $query->where('status', $status);
     }
 
-    /**
-     * Validation Of Post
-     */
-
-    public function postValidation(Request $request)
+     /**
+     * Get distance between  2 points
+     */ 
+    public function getDistance($query, $lat,$lng)
     {
-        $validate_request = Validator::make(request()->all(), [
-            'title' => ['required', 'min:6', 'max:255'],
-            'description' => ['required', 'min:20', 'max:500'],
-            'publisher_id' => ['required'],
-            'status' => ['required'],
-            'lat' => ['required'],
-            'lng' => ['required'],
-            'category_id' =>['required_without:item_id']
-        ]);
+     
+        $coordinate1 = new Coordinate($lat, $lng);  
+        $coordinate2 = new Coordinate($this->lat,$this->lng);  
+        $calculator = new Vincenty();
+        $calculator->getDistance($coordinate1, $coordinate2); 
 
-        $response=[];
-        if ($validate_request->fails()) 
-        {
-             
-            $response['status']= false;
-            $response['message']= $validate_request->errors();
-            return $response;
-        }
+        return 0 ;
        
-         $response['status']= true;
-         $response['message']= 'Success Validations';
-         return $response;
-        
-  
     }
-
+ 
     /**
      * Store a newly post  in storage.
      *
@@ -211,11 +195,11 @@ class Post extends Model
                     @list($type, $image) = explode(';', $image);
                     @list(, $image) = explode(',', $image); 
                     if($image!=""){
-                    \File::put( 'images/postimages/' . $file_name, base64_decode($image));
+                    \File::put( 'images/postsimages/' . $file_name, base64_decode($image));
                     } 
                     $image=PostImages::create([
                         'post_id' =>$post->id,
-                        'image' =>  'images/postimages/' .$file_name
+                        'image' =>  'images/postsimages/' .$file_name
                     ]);
                 }
                   
@@ -241,13 +225,6 @@ class Post extends Model
 
 
 
-        // public function is_lost()
-    // {
-    //     return $this->status === self::Status['lost'];
-    // }
-    // public function is_found()
-    // {
-    //     return $this->status === self::Status['found'];
-    // }
- 
+
+    
 }
