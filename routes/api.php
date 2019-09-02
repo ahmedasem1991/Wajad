@@ -12,10 +12,16 @@ Route::get('/categories', 'CategoryController@index');
 Route::get('/onboarding', 'OnboardingController@index');
 
 # Posts
-Route::get('/getallposts', 'PostsController@index');
+Route::get('/posts', 'PostsController@index');
 
 # Items
 Route::get('/items', 'ItemsController@index');
+
+# Countries
+Route::get('/countries', 'LocationsController@index');
+
+# Regions
+Route::get('/regions', 'LocationsController@regions');
 
 # Support
 Route::post('/contact-us', 'SupportController@store');
@@ -34,6 +40,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         return auth('api')->user();
     });
     Route::post('details', 'DetailsController@index');
-    Route::post('/userposts/{publisher_id}', 'PostsController@userposts');
-    Route::post('/addpost', 'PostsController@store');
+    Route::get('/user/{publisher_id}/posts', 'PostsController@userposts');
+    Route::post('/posts/create', 'PostsController@store');
 });

@@ -42,7 +42,8 @@ class SupportController extends Controller
             'message' => request('message'),
             
         ]);
-        $this->addResponse('Thanks For Contact Us.')->addStatusCode(200);
+        $this->addResponse(trans( 'messages.successfully_contactus' ))->addStatusCode(201);
+       
 
         return $this->response();
     }

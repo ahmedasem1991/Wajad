@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers\Api;
 
+use Response;
+use App\Country;
+use App\Region;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
-use App\Onboarding;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class OnboardingController extends Controller
+class LocationsController extends Controller
 {
     public function index(Request $request)
-    {  
-        $on_boarding = QueryBuilder::for(Onboarding::class)
-            ->paginate($request->get('per_page', 15));
+    {
+        $Country = QueryBuilder::for(Country::class)
+            ->withCount('regions')
+            ->with('regions')
+            ->paginate($request->get('per_page', 15), '*', 'current_page');
 
-        return $this->jsonResponse($on_boarding);
+        return $this->jsonResponse($Country);
+    }
+
+    public function regions(Request $request)
+    {
+        $Regions = QueryBuilder::for(Region::class)
+            ->withCount('cities')
+            ->with('cities')
+            ->paginate($request->get('per_page', 15), '*', 'current_page');
+
+        return $this->jsonResponse($Regions);
     }
 
     /**

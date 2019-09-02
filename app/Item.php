@@ -16,12 +16,12 @@ class Item extends Model
      * @var array
      */
     const ITEM_STATUS = [
-        1 => 'lost',
-        2 => 'found',
-        3 => 'mine',
-        'lost' => 1,
-        'found' => 2,
-        'mine' => 3
+        0 => 'lost',
+        1 => 'found',
+        2 => 'mine',
+        'lost' => 0,
+        'found' => 1,
+        'mine' => 2
     ];
     protected $images_path = "/images/items/";
 
@@ -34,16 +34,7 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
-
-    /**
-     * Define The Founder Of The Item "In Case Of Lost Item"
-     *
-     * @return void
-     */
-    public function founder()
-    {
-        return $this->belongsTo(User::class, 'founder_id');
-    }
+ 
 
     /**
      * Define QrCode Of The Item

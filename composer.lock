@@ -1479,58 +1479,6 @@
             "time": "2019-06-24T14:06:31+00:00"
         },
         {
-            "name": "itainathaniel/nova-nexmo",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/itainathaniel/nova-nexmo.git",
-                "reference": "4da5c22aace09d35e82f23b0d63c1818f32b6bf7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/itainathaniel/nova-nexmo/zipball/4da5c22aace09d35e82f23b0d63c1818f32b6bf7",
-                "reference": "4da5c22aace09d35e82f23b0d63c1818f32b6bf7",
-                "shasum": ""
-            },
-            "require": {
-                "nexmo/laravel": "^1.1",
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Itainathaniel\\NovaNexmo\\NovaNexmoServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Itainathaniel\\NovaNexmo\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Itai Nathaniel",
-                    "role": "Developer",
-                    "email": "itainathaniel@gmail.com",
-                    "homepage": "http://it.ai"
-                }
-            ],
-            "description": "Laravel Nova card & tool to interact with Nexmo.com",
-            "homepage": "https://github.com/itainathaniel/nova-nexmo",
-            "keywords": [
-                "laravel",
-                "nexmo",
-                "nova"
-            ],
-            "time": "2018-09-10T23:32:26+00:00"
-        },
-        {
             "name": "jakub-onderka/php-console-color",
             "version": "v0.2",
             "source": {
@@ -2563,6 +2511,74 @@
             "time": "2018-11-04T22:12:12+00:00"
         },
         {
+            "name": "mjaschen/phpgeo",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mjaschen/phpgeo.git",
+                "reference": "0aaec41e7aff030a55db30bb8f6c2671faf03892"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mjaschen/phpgeo/zipball/0aaec41e7aff030a55db30bb8f6c2671faf03892",
+                "reference": "0aaec41e7aff030a55db30bb8f6c2671faf03892",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "jakub-onderka/php-parallel-lint": "^1.0",
+                "phpmd/phpmd": "^2.6",
+                "phpunit/phpunit": "~6.0",
+                "squizlabs/php_codesniffer": "^3.2",
+                "vimeo/psalm": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Location\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Jaschen",
+                    "email": "mjaschen@gmail.com",
+                    "homepage": "https://www.marcusjaschen.de/"
+                }
+            ],
+            "description": "Simple Geo Library",
+            "homepage": "https://phpgeo.marcusjaschen.de/",
+            "keywords": [
+                "Polygon",
+                "area",
+                "bearing",
+                "bounds",
+                "calculation",
+                "coordinate",
+                "distance",
+                "earth",
+                "ellipsoid",
+                "geo",
+                "geofence",
+                "gis",
+                "gps",
+                "haversine",
+                "length",
+                "point",
+                "polyline",
+                "projection",
+                "simplify",
+                "track",
+                "vincenty"
+            ],
+            "time": "2019-03-21T18:53:24+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.24.0",
             "source": {
@@ -3170,6 +3186,47 @@
                 "nova"
             ],
             "time": "2019-08-19T06:41:33+00:00"
+        },
+        {
+            "name": "owenmelbz/nova-radio-field",
+            "version": "0.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OwenMelbz/nova-radio-field.git",
+                "reference": "e6d09f4b94bc8dd02ed3d63721bfa3b6a89773d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OwenMelbz/nova-radio-field/zipball/e6d09f4b94bc8dd02ed3d63721bfa3b6a89773d8",
+                "reference": "e6d09f4b94bc8dd02ed3d63721bfa3b6a89773d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OwenMelbz\\RadioField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OwenMelbz\\RadioField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova radio field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-09-01T21:41:08+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4118,6 +4175,51 @@
             "description": "A Laravel Nova field.",
             "keywords": [
                 "laravel",
+                "nova"
+            ]
+        },
+        {
+            "name": "sms/sendsms",
+            "version": "dev-20190730-add-resources",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/Sendsms",
+                "reference": "de4d97fe2ea143ef8fd96c9286aa32bb5918db26",
+                "shasum": null
+            },
+            "require": {
+                "nexmo/laravel": "^1.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sms\\Sendsms\\NovaNexmoServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sms\\Sendsms\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ibrahem Saber",
+                    "email": "ibrahim.saber512@outlook.com",
+                    "homepage": "http://it.ai",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Nova card & tool to interact with Nexmo.com",
+            "homepage": "https://github.com/itainathaniel/nova-nexmo",
+            "keywords": [
+                "laravel",
+                "nexmo",
                 "nova"
             ]
         },

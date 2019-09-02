@@ -11,23 +11,48 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use Log;
 use App;
+use App\Item;
+use Carbon\Carbon;
+use Location\Coordinate;
+use Location\Distance\Vincenty;
+use DB;
+use function GuzzleHttp\json_decode;
+
 class PostsController extends Controller
 {
+    private $request=[];
+    
  
 
     public function index(Request $request)
     {
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
+        ->with('owner')
+        ->with('founder')
         ->with('item')
         ->with('images')
         ->allowedFilters([
             Filter::scope('status'),//lost or found
             Filter::scope('publisher'),//Publisher ID
+            Filter::scope('owner'),//Owner ID
+            Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
-            'title', 'details',
-        ])
-        ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)));
+            Filter::scope('category'),//Category ID
+           'id','title', 'description',
+        ])->orderby('id','desc')->paginate($request->get('per_page', 15));
+            $this->request['lat']=$request->lat;
+            $this->request['lng']=$request->lng;
+            $this->request['distance']=$request->distance;
+            $Posts = $Posts->filter(function ($Post) {
+            $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
+            $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
+            $calculator  = new Vincenty();
+            $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
+            return $Post->distance < $this->request['distance'];
+        });
+  
+ 
 
         return $this->jsonResponse($Posts);
     }
@@ -36,16 +61,21 @@ class PostsController extends Controller
 
     public function userposts(Request $request,$publisher_id)
     {
+        
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
+        ->with('owner')
+        ->with('founder')
         ->with('item')
         ->with('images')
         ->publisher($publisher_id)
         ->allowedFilters([
             Filter::scope('status'),//lost or found
-            Filter::scope('publisher'),//Publisher ID
+            Filter::scope('owner'),//Owner ID
+            Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
-            'title', 'details',
+            Filter::scope('category'),//Category ID
+            'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));
 
@@ -60,67 +90,21 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-
         $validate_request = Validator::make(request()->all(), [
-            'title' => ['required', 'min:6', 'max:255'],
-            'decription' => ['required', 'min:20', 'max:500'],
-            'publisher_id' => ['required'],
-            'status' => ['required'],
-        ]);
-
-        if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
-            return $this->response();
-        }
-        $status = ($request->status== 'lost') ? 0 : 1;
-        try {
-            $post = Post::create([
-                'title' => request('title'),
-                'decription' => request('decription'),
-                'publisher_id' => request('publisher_id'),
-                'item_id' => request('item_id'),
-                'status' => $status,
-                'losted_at' => request('losted_at'),
-                'founded_at' => request('founded_at'),
-            ]);
+        'title' => ['required', 'min:6', 'max:255'],
+        'description' => ['required', 'min:20', 'max:500'],
+        'publisher_id' => ['required'],
+        'status' => ['required'],
+        'lat' => ['required'],
+        'lng' => ['required'],
+        'category_id' =>['required_without:item_id']
+    ]);
     
-            if ($post) {
-                foreach($request->images as $image)
-                { 
-                   
-                    $file_name =  time().str_random(10).'.'.'png';
-                    @list($type, $image) = explode(';', $image);
-                    @list(, $image) = explode(',', $image); 
-                    if($image!=""){
-                    \File::put( 'images/postimages/' . $file_name, base64_decode($image));
-                    } 
-                    $image=PostImages::create([
-                        'post_id' =>$post->id,
-                        'image' =>  'images/postimages/' .$file_name
-                    ]);
-                }
-                  
-            }
-            else{
-                $this->addResponse($this->unexpected_error)->addStatusCode(409);
-                Log::ERROR($this->response());
-                return $this->response();
-                }
-    
-    
-          // App::setLocale($request->header('lang'));
-          
-           $this->addResponse(trans( 'messages.successfully_created' ))->addStatusCode(201);
-           Log::INFO($this->response());
-           return $this->response();
-           
-        } catch (Exception $e) {
-            $this->addResponse($e)->addStatusCode(409);
-            Log::ERROR($this->response());
-            return $this->response();
-        }
-
- 
+    if ($validate_request->fails()) {
+        $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+        return $this->response();
+    }
+    return (new Post)->createPost($request);
     }
 
     /**
