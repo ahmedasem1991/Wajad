@@ -13,8 +13,15 @@ use Log;
 use App;
 use App\Item;
 use Carbon\Carbon;
+use Location\Coordinate;
+use Location\Distance\Vincenty;
+use DB;
+use function GuzzleHttp\json_decode;
+
 class PostsController extends Controller
 {
+    private $request=[];
+    
  
 
     public function index(Request $request)
@@ -33,9 +40,18 @@ class PostsController extends Controller
             Filter::scope('item'),//Item ID
             Filter::scope('category'),//Category ID
            'id','title', 'description',
-        ])
-        ->paginate($request->get('per_page', 15));
-
+        ])->orderby('id','desc')->paginate($request->get('per_page', 15));
+            $this->request['lat']=$request->lat;
+            $this->request['lng']=$request->lng;
+            $this->request['distance']=$request->distance;
+            $Posts = $Posts->filter(function ($Post) {
+            $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
+            $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
+            $calculator  = new Vincenty();
+            $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
+            return $Post->distance < $this->request['distance'];
+        });
+  
         return $this->jsonResponse($Posts);
     }
 
@@ -70,20 +86,23 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Post $post,Request $request)
+    public function store(Request $request)
     {
-
-    $ValidationResponse= $post->postValidation($request);
-   
-    if($ValidationResponse['status']==false)
-    {
-        $this->addMultibleResponse($ValidationResponse['message'])->addStatusCode(401);
-        return $this->response();   
-    }
+        $validate_request = Validator::make(request()->all(), [
+        'title' => ['required', 'min:6', 'max:255'],
+        'description' => ['required', 'min:20', 'max:500'],
+        'publisher_id' => ['required'],
+        'status' => ['required'],
+        'lat' => ['required'],
+        'lng' => ['required'],
+        'category_id' =>['required_without:item_id']
+    ]);
     
-   return $post->createPost($request);
-
- 
+    if ($validate_request->fails()) {
+        $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+        return $this->response();
+    }
+    return (new Post)->createPost($request);
     }
 
     /**

@@ -50,8 +50,7 @@ class Area extends Resource
             ID::make()->sortable(),
             Text::make('name_ar'),
             Text::make('name_en'),
-            BelongsTo::make('Country','country'),
-            //HasMany::make('Cities')
+            BelongsTo::make('Country'),
             HasMany::make('Cities', 'cities', 'App\Nova\Cities'),
            
 

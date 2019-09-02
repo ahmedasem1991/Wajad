@@ -85,7 +85,7 @@ class PostImages extends Resource
                     'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
                 ->disk('public')
-                ->path('images/postimages'),
+                ->path('images/postsimages'),
                
 
             BelongsTo::make('Post', 'Post', \App\Nova\Post::class)
