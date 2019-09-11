@@ -17,6 +17,7 @@ class Cities extends Resource
      */
     public static $model = 'App\Cities';
     public static $group = 'Locations';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

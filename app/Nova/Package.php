@@ -22,6 +22,7 @@ class Package extends Resource
      */
     public static $model = 'App\Package';
 
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

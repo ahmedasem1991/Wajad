@@ -2,13 +2,21 @@
 
 namespace App;
 
+use Log;
+use App\ItemImages;
+use Illuminate\Http\Request;
+use App\Helpers\Api\ResponseTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use SoftDeletes, LogsActivity,  ResponseTrait;
+
+    protected $fillable = ['title', 'details', 'owner_id', 'category_id'];
+ 
 
     /**
      * Define Items Status Const
@@ -16,12 +24,12 @@ class Item extends Model
      * @var array
      */
     const ITEM_STATUS = [
-        1 => 'lost',
-        2 => 'found',
-        3 => 'mine',
-        'lost' => 1,
-        'found' => 2,
-        'mine' => 3
+        0 => 'lost',
+        1 => 'found',
+        2 => 'mine',
+        'lost' => 0,
+        'found' => 1,
+        'mine' => 2
     ];
     protected $images_path = "/images/items/";
 
@@ -34,16 +42,7 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
-
-    /**
-     * Define The Founder Of The Item "In Case Of Lost Item"
-     *
-     * @return void
-     */
-    public function founder()
-    {
-        return $this->belongsTo(User::class, 'founder_id');
-    }
+ 
 
     /**
      * Define QrCode Of The Item
@@ -182,4 +181,67 @@ class Item extends Model
     {
         return $query->where('id', $item_id) ?? null;
     }
+
+
+
+        /**
+     * Store a newly item  in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function createItem(Request $request)
+    {
+       
+
+
+        try {
+            $Item = Item::create([
+            'title' => request('title'),
+            'details' => request('details'),
+            'owner_id' => request('owner_id'),
+            'category_id' =>request('category_id'),
+             ]);
+    
+            if ($Item) {
+                if(request('qrcode_id') != NULL)
+                {
+                   $QRCode= Qrcodes::find(request('qrcode_id') );
+                   $QRCode->item_id=$Item->id;
+                   $QRCode->save();
+                }
+                foreach($request->images as $image)
+                { 
+                    $file_name =  time().str_random(10).'.'.'png';
+                    @list($type, $image) = explode(';', $image);
+                    @list(, $image) = explode(',', $image); 
+                    if($image!=""){
+                    \File::put( 'images/items/' . $file_name, base64_decode($image));
+                    } 
+                    $image=ItemImages::create([
+                        'item_id' =>$Item->id,
+                        'image' =>  'images/items/' .$file_name
+                    ]);
+                }
+                  
+            }
+            else{
+                $this->addResponse($this->unexpected_error)->addStatusCode(409);
+                Log::ERROR($this->response());
+                return $this->response();
+                }
+          
+           $this->addResponse(trans( 'messages.successfully_created' ))->addStatusCode(201);
+           Log::INFO($this->response());
+           return $this->response();
+           
+        } catch (Exception $e) {
+            $this->addResponse($e->getMessage)->addStatusCode(409);
+            Log::ERROR($this->response());
+            return $this->response();
+        }
+ 
+    }
+
 }

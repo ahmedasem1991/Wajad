@@ -84,7 +84,8 @@ class Banners extends Resource
                 ->updateRules([
                     'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
-                ->disk('public'),
+                ->disk('public')
+                ->path('images/onboarding'),
                
 
             BelongsTo::make('BannerTypes', 'BannerTypes', \App\Nova\BannerTypes::class)

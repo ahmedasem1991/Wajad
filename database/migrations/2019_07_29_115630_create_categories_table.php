@@ -9,7 +9,7 @@ class CreateCategoriesTable extends Migration {
 	{
 		Schema::create('categories', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('title', 255);
+			$table->json('title');
 			$table->string('icon', 255);
 			$table->boolean('has_default_image');
 			$table->string('default_image', 255)->nullable();

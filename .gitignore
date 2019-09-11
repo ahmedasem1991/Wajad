@@ -11,3 +11,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /nova-components/QrcodeGenerator/node_modules/
+/nova-components/Sendsms/node_modules/

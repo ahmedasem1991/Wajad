@@ -22,9 +22,11 @@ class CreateUsersTable extends Migration
             $table->char('mobile_number')->unique()->nullable();
             $table->integer('mobile_country_id')->unsigned()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->integer('city_id')->unsigned()->nullable();            ;
+            $table->integer('city_id')->nullable();     
+           // $table->foreign('city_id')->references('id')->on('cities');       ;
             $table->rememberToken();
             $table->timestamps();
+           
         });
     }
 

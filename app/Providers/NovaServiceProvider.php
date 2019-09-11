@@ -7,9 +7,9 @@ use Laravel\Nova\Cards\Help;
 use App\Nova\Metrics\PostsCount;
 use App\Nova\Metrics\UsersActivity;
 use Illuminate\Support\Facades\Gate;
-use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Remipou\NovaPageManager\PageResource;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -17,7 +17,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
         \Spatie\NovaTranslatable\Translatable::defaultLocales(['en', 'ar']);
-
+        
         // \OptimistDigital\NovaPageManager\NovaPageManager::configure([
         //     'templates' => [
         //         \App\Nova\Templates\AboutUs::class
@@ -32,9 +32,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function resources()
     {
         Nova::resourcesIn(app_path('Nova'));
+         
 
         Nova::resources([
-            PageResource::class,
+        PageResource::class,
         ]);
     }
 
@@ -61,7 +62,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new UsersActivity,
             new PostsCount,
             new \Marianvlad\NovaEnvCard\NovaEnvCard,
-            new \Itainathaniel\NovaNexmo\NovaNexmoCard(),
+           // new \Sms\Sendsms\NovaNexmoCard,
         ];
     }
 
@@ -72,8 +73,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Mydnic\NovaKustomer\NovaKustomer,
             new \Themsaid\CashierTool\CashierTool(),
             new \Tightenco\NovaStripe\NovaStripe,
-            new \Themsaid\CashierTool\CashierTool(),
-            new \Itainathaniel\NovaNexmo\NovaNexmoTool(),
+           // new \OptimistDigital\NovaPageManager\NovaPageManager
+           // new \Sms\Sendsms\NovaNexmoTool(),
         ];
     }
 

@@ -20,8 +20,9 @@ class CreateCitiesTable extends Migration
             $table->float('latitude', 12, 7)->unsigned()->nullable();
             $table->float('longitude', 12, 7)->unsigned()->nullable();
             $table->integer('radius')->unsigned()->nullable();
-            $table->integer('region_id')->unsigned()->nullable();
+            $table->integer('region_id')->nullable();
             $table->timestamps();
+           // $table->foreign('region_id')->references('id')->on('regions');
         });
     }
 
@@ -32,14 +33,14 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        // Schema::table('users', function (Blueprint $table) {
 
-            $table->dropForeign(['city_id']);
-        });
+        //     $table->dropForeign(['city_id']);
+        // });
 
-        Schema::table('cities', function (Blueprint $table) {
-            $table->dropForeign(['region_id']);
-        });
+        // Schema::table('cities', function (Blueprint $table) {
+        //     $table->dropForeign(['region_id']);
+        // });
 
         Schema::dropIfExists('cities');
     }

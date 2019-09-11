@@ -64,7 +64,7 @@ trait ResponseTrait
     {
         $responses = collect($responses);
         $responses->eachSpread(function ($response) {
-            array_push($this->response, $response);
+            array_push($this->response, trans($response));
         });
         return $this;
     }

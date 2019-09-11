@@ -10,7 +10,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class OnboardingController extends Controller
 {
     public function index(Request $request)
-    {
+    {  
         $on_boarding = QueryBuilder::for(Onboarding::class)
             ->paginate($request->get('per_page', 15));
 

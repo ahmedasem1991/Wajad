@@ -38,12 +38,12 @@ class AuthController extends Controller
         }
 
         if (!$token = auth('api')->attempt(request(['email', 'password']))) {
-            $this->addResponse($this->invalid_data)->addStatusCode(401);
+            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
 
-        if (!auth('api')->user()->is_user()) {
-            $this->addResponse($this->un_authorized)->addStatusCode(401);
+        if (!auth('api')->user()->isUser()) {
+            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
 
@@ -82,12 +82,12 @@ class AuthController extends Controller
         ]);
 
         if (!$new_user) {
-            $this->addResponse($this->unexpected_error)->addStatusCode(409);
+            $this->addResponse(trans('messages.unexpected_error'))->addStatusCode(409);
             return $this->response();
         }
 
         if (!$token = auth('api')->attempt(request(['email', 'password']))) {
-            $this->addResponse($this->un_authorized)->addStatusCode(401);
+            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
 
@@ -126,16 +126,10 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-
             'token_type' => 'bearer',
             'access_token' => $token,
             'expires_in' => config('jwt.ttl') * 60,
-          
-           // 'refresh_token' => auth()->refresh()
-            'user' => auth('api')->user(),
-            'expires_in' => config('jwt.ttl') * 60,
-            'access_token' => $token,
-           // 'refresh_token' => auth('api')->refresh()
+            'user' => auth('api')->user()
         ]);
     }
 }

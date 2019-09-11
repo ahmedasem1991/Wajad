@@ -17,20 +17,20 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-INSERT INTO `regions` (`id`, `name_en`, `name_ar`) VALUES
-(1, 'Al Riyadh Region', 'منطقة الرياض'),
-(2, 'Makkah Region', 'منطقة مكة المكرمة'),
-(3, 'Al Madinah Region', 'منطقة المدينة المنورة'),
-(4, 'Al-Qassim Region', 'منطقة القصيم'),
-(5, 'Eastern Province', 'المنطقة الشرقية'),
-(6, 'Asir Region', 'منطقة عسير'),
-(7, 'Tabuk Region', 'منطقة تبوك'),
-(8, 'Hail Region', 'منطقة حائل'),
-(9, 'Northern Borders Region', 'منطقة الحدود الشمالية'),
-(10, 'Jizan Region', 'منطقة جازان'),
-(11, 'Najran Region', 'منطقة نجران'),
-(12, 'Al Bahah Region', 'منطقة الباحة'),
-(13, 'Al Jawf Region', 'منطقة الجوف');
+INSERT INTO `regions` (`id`, `name_en`, `name_ar`, `country_id`) VALUES
+(1, 'Al Riyadh Region', 'منطقة الرياض',189),
+(2, 'Makkah Region', 'منطقة مكة المكرمة',189),
+(3, 'Al Madinah Region', 'منطقة المدينة المنورة',189),
+(4, 'Al-Qassim Region', 'منطقة القصيم',189),
+(5, 'Eastern Province', 'المنطقة الشرقية',189),
+(6, 'Asir Region', 'منطقة عسير',189),
+(7, 'Tabuk Region', 'منطقة تبوك',189),
+(8, 'Hail Region', 'منطقة حائل',189),
+(9, 'Northern Borders Region', 'منطقة الحدود الشمالية',189),
+(10, 'Jizan Region', 'منطقة جازان',189),
+(11, 'Najran Region', 'منطقة نجران',189),
+(12, 'Al Bahah Region', 'منطقة الباحة',189),
+(13, 'Al Jawf Region', 'منطقة الجوف',189);
 
 INSERT INTO `cities` (`id`, `name_en`, `name_ar`, `region_id`) VALUES
 (1, 'Al Riyadh', 'الرياض', 1),

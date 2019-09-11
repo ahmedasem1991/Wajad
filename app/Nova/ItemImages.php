@@ -22,7 +22,7 @@ class ItemImages extends Resource
      * @var string
      */
     public static $model = 'App\ItemImages';
-    public static $group = 'Banners';
+    public static $group = 'Items';
     public static $displayInNavigation = false;
 
     /**
@@ -57,7 +57,7 @@ class ItemImages extends Resource
                 'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
             ])
             ->disk('public')
-             ->path('images/onboarding')
+            ->path('images/items')
             ->disableDownload()
             ->prunable()
             ->deletable(),
