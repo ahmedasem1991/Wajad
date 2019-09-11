@@ -22,17 +22,20 @@ class Categories extends Resource
      * @var string
      */
     public static $model = 'App\Category';
+    public static $group = 'Items';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    // public static $title = 'id';
-    public function title()
-    {
-        return $this->title;
-    }
+    public static $title = 'id';
+    // public function title()
+    // {
+    //     //  $obj = json_decode($this->title);
+    //     //  return $obj['en']; 
+    //    return $this->title;
+    // }
 
     /**
      * The columns that should be searched.

@@ -5,32 +5,25 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Image;
-
-
-
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ItemImages extends Resource
+class PostType extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\ItemImages';
-    public static $group = 'Items';
-    public static $displayInNavigation = false;
+    public static $model = 'App\PostType';
+    public static $group = 'Posts';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -51,20 +44,8 @@ class ItemImages extends Resource
     {
         return [
             ID::make()->sortable(),
- 
-            Image::make('Image', 'image')
-            ->creationRules([
-                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])
-            ->disk('public')
-            ->path('images/items')
-            ->disableDownload()
-            ->prunable()
-            ->deletable(),
-            
-            
-           
-
+            Text::make('Title'),
+            Textarea::make('description'),
         ];
     }
 

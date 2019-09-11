@@ -9,6 +9,7 @@ use App\Nova\Metrics\UsersActivity;
 use Illuminate\Support\Facades\Gate;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Remipou\NovaPageManager\PageResource;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -31,9 +32,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function resources()
     {
         Nova::resourcesIn(app_path('Nova'));
+         
 
         Nova::resources([
-       // PageResource::class,
+        PageResource::class,
         ]);
     }
 
@@ -60,7 +62,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new UsersActivity,
             new PostsCount,
             new \Marianvlad\NovaEnvCard\NovaEnvCard,
-            new \Sms\Sendsms\NovaNexmoCard,
+           // new \Sms\Sendsms\NovaNexmoCard,
         ];
     }
 
@@ -71,7 +73,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Mydnic\NovaKustomer\NovaKustomer,
             new \Themsaid\CashierTool\CashierTool(),
             new \Tightenco\NovaStripe\NovaStripe,
-            new \Sms\Sendsms\NovaNexmoTool(),
+           // new \OptimistDigital\NovaPageManager\NovaPageManager
+           // new \Sms\Sendsms\NovaNexmoTool(),
         ];
     }
 
