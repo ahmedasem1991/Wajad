@@ -14,7 +14,7 @@ class User extends Authenticatable implements JWTSubject
     use HasRoles, Notifiable, LogsActivity;
 
     protected $fillable = [
-        'name', 'email', 'password', 'type', 'mobile_number', 'mobile_country_id'
+        'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id'
     ];
 
     protected $hidden = [
@@ -33,6 +33,18 @@ class User extends Authenticatable implements JWTSubject
         'corporate' => 2,
         'admin' => 3
     ];
+
+    const Status = [
+        0 => 'Not Active',
+        1 => 'Active',
+        'Not Active' => 0,
+        'Active' => 1,
+    ];
+
+    // public function status($status)
+    // {
+    //     return $this->type === self::Types[$status];
+    // }
 
     public function isAdmin()
     {
