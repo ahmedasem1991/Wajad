@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use DB;
+use App;
+use Log;
+use App\Item;
 use App\Post;
+use App\PostType;
+use Carbon\Carbon;
 use App\PostImages;
+use Location\Coordinate;
+use Illuminate\Http\Request;
+use Location\Distance\Vincenty;
 use Spatie\QueryBuilder\Filter;
+use App\Http\Controllers\Controller;
+use function GuzzleHttp\json_decode;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
-use Log;
-use App;
-use App\Item;
-use Carbon\Carbon;
-use Location\Coordinate;
-use Location\Distance\Vincenty;
-use DB;
-use function GuzzleHttp\json_decode;
 
 class PostsController extends Controller
 {
@@ -32,6 +33,7 @@ class PostsController extends Controller
         ->with('founder')
         ->with('item')
         ->with('images')
+        ->with('postType')
         ->allowedFilters([
             Filter::scope('status'),//lost or found
             Filter::scope('publisher'),//Publisher ID
@@ -39,6 +41,7 @@ class PostsController extends Controller
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
             Filter::scope('category'),//Category ID
+            Filter::scope('postType'),//Post type ID
            'id','title', 'description',
         ])->orderby('id','desc')->paginate($request->get('per_page', 15));
             $this->request['lat']=$request->lat;
@@ -82,6 +85,16 @@ class PostsController extends Controller
         return $this->jsonResponse($Posts);
     }
 
+
+    public function postTypes(Request $request)
+    {
+        
+        $PostTypes = QueryBuilder::for(PostType::class)
+        ->paginate($request->get('per_page', 15));
+
+        return $this->jsonResponse($PostTypes);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -95,6 +108,7 @@ class PostsController extends Controller
         'description' => ['required', 'min:20', 'max:500'],
         'publisher_id' => ['required'],
         'status' => ['required'],
+        'post_type_id' => ['required'],
         'lat' => ['required'],
         'lng' => ['required'],
         'category_id' =>['required_without:item_id']

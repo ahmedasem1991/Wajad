@@ -60,7 +60,7 @@ class Post extends Resource
                0 => 'Lost',
                1 => 'Found',
            ])->default(0), // optional
-
+            BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
             NovaBelongsToDepend::make('User', 'publisher')

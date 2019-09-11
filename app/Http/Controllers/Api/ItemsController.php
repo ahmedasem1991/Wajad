@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Validator;
 
 class ItemsController extends Controller
 {
@@ -42,7 +43,19 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate_request = Validator::make(request()->all(), [
+            'title' => ['required', 'min:6', 'max:255'],
+            'details' => ['required', 'min:20', 'max:500'],
+            'owner_id' => ['required','exists:users,id'],
+            'category_id' => ['required','exists:categories,id'],
+            
+        ]);
+        
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            return $this->response();
+        }
+        return (new Item)->createItem($request);
     }
 
     /**

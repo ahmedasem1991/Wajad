@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\HasMany;
 
 class Item extends Resource
 {
@@ -20,6 +21,7 @@ class Item extends Resource
      * @var string
      */
     public static $model = 'App\Item';
+    public static $group = 'Items';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -58,7 +60,10 @@ class Item extends Resource
             HasOne::make('Qrcodes', 'qrcode', Qrcodes::class)->rules([
                 'unique:items,qrcode_id'
             ])->nullable(),
- 
+            BelongsTo::make('Category', 'category', Categories::class) ,
+            HasMany::make('Images', 'images', ItemImages::class) ,
+
+          
         ];
     }
 

@@ -29,6 +29,9 @@ Route::resource('answers', 'AnswersController');
 Route::resource('itemrequests', 'ItemRequestsController');
 Route::resource('products', 'ProductsController');
 Route::resource('cards', 'CardsController');
+Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
+	->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
+	->name('page-manager');
 Auth::routes();
 
 Route::get('/test', function(){

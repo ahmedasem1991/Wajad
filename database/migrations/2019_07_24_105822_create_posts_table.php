@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->Increments('id');
             $table->string('title');
             $table->text('description');
+            $table->integer('post_type_id')->nullable();
             $table->integer('item_id')->nullable();
             $table->boolean('status')->nullable();
             $table->integer('owner_id')->nullable();

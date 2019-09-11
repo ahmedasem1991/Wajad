@@ -14,6 +14,9 @@ Route::get('/onboarding', 'OnboardingController@index');
 # Posts
 Route::get('/posts', 'PostsController@index');
 
+# Post types
+Route::get('/post-types', 'PostsController@postTypes');
+
 # Items
 Route::get('/items', 'ItemsController@index');
 
@@ -42,4 +45,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('details', 'DetailsController@index');
     Route::get('/user/{publisher_id}/posts', 'PostsController@userposts');
     Route::post('/posts/create', 'PostsController@store');
+    Route::post('/items/create', 'ItemsController@store');
 });

@@ -10,12 +10,13 @@ use Carbon\Carbon;
 use Log;
 use DB;
 use App\Nova\Categories;
+use App\Helpers\Api\ResponseTrait;
 
 class Post extends Model
 {
-    use LogsActivity;
+    use LogsActivity, ResponseTrait;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id','post_type_id'];
     protected static $logAttributes = ['title', 'description'];
     protected $casts = [
         'losted_at' => 'datetime',
@@ -58,6 +59,14 @@ class Post extends Model
     public function owner()
     {
         return $this->belongsTo(User::class,'owner_id');   
+    }
+
+    /**
+     * Define The Owner Of The Item "In Case Of Lost Item"
+     */
+    public function postType()
+    {
+        return $this->belongsTo(PostType::class,'post_type_id');   
     }
 
     /**
@@ -125,6 +134,16 @@ class Post extends Model
         return $query->where('status', $status);
     }
 
+
+         /**
+     * Define The post type Of Post
+     * 0 is lost
+     * 1 is found
+     */ 
+    public function scopePostType($query, $post_type_id)
+    {
+        return $query->where('post_type_id', $post_type_id);
+    }
  
  
     /**

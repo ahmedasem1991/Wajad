@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSupportsTable extends Migration
+class CreatePostTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateSupportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('supports', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->text('message');
+        Schema::create('post_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->string('description', 500);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateSupportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supports');
+        Schema::dropIfExists('post_types');
     }
 }

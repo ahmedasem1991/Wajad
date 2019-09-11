@@ -8,21 +8,22 @@ use Laravel\Nova\Fields\Textarea;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Support extends Resource
+class PostType extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Support';
+    public static $model = 'App\PostType';
+    public static $group = 'Posts';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -43,16 +44,8 @@ class Support extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name')
-            ->rules('required', 'max:255'),
-            Text::make('Phone')
-            ->rules('required', 'max:15'),
-            Text::make('Email')
-            ->sortable()
-            ->rules('required', 'email', 'max:254'),
-            Textarea::make('message')->showOnIndex()->limit(50),
-            
-            
+            Text::make('Title'),
+            Textarea::make('description'),
         ];
     }
 
