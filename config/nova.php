@@ -76,7 +76,6 @@ return [
         DispatchServingNovaEvent::class,
         BootTools::class,
         Authorize::class,
-        \Vyuldashev\NovaPermission\ForgetCachedPermissions::class,
         \App\Http\Middleware\Admin::class,
     ],
 

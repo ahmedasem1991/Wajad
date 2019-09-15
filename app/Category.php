@@ -8,14 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
-    use LogsActivity, HasTranslations;
-
-    /**
-     * Define Translateable Fields
-     *
-     * @var array
-     */
-    public $translatable = ['title'];
+    use LogsActivity;
 
     /**
      * Define Image Path For Categories
@@ -39,17 +32,6 @@ class Category extends Model
     public function items()
     {
         return $this->hasMany(Item::class);
-    }
-
-    /**
-     * Get Category Based On Application Language
-     *
-     * @param object $value
-     * @return void
-     */
-    public function getTitleAttribute($value)
-    {
-        return json_decode($value, TRUE)[app()->getLocale()];
     }
 
     public function getDefaultImageAttribute($value)

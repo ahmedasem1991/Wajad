@@ -17,7 +17,6 @@ class Item extends Model
 
     protected $fillable = ['title', 'details', 'owner_id', 'category_id'];
  
-
     /**
      * Define Items Status Const
      * 
@@ -51,7 +50,7 @@ class Item extends Model
      */
     public function qrcode()
     {
-        return $this->hasOne(Qrcodes::class, 'item_id');
+        return $this->hasOne(Qrcode::class);
     }
 
     /**
@@ -71,7 +70,7 @@ class Item extends Model
      */
     public function images()
     {
-        return $this->hasMany(ItemImages::class);
+        return $this->hasMany(ItemImage::class);
     }
 
     /**
@@ -82,7 +81,7 @@ class Item extends Model
      */
     public function item_requests()
     {
-        return $this->hasMany(ItemRequests::class);
+        return $this->hasMany(ItemRequest::class);
     }
 
     /**
@@ -92,7 +91,7 @@ class Item extends Model
      */
     public function questions()
     {
-        return $this->hasMany(Questions::class);
+        return $this->hasMany(Question::class);
     }
 
     /**

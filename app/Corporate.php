@@ -8,9 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Corporate extends Model
 {
-    use HasTranslations, LogsActivity;
-
-    public $translatable = ['name', 'details', 'address'];
+    use LogsActivity;
     
     public function users()
     {

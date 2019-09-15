@@ -17,11 +17,11 @@ class PackageProductManagement extends Resource
     public static $model = 'App\PackageProductManagement';
 
     /**
-     * Indicates if the resource should be displayed in the sidebar.
+     * The logical group associated with the resource.
      *
-     * @var bool
+     * @var string
      */
-    public static $displayInNavigation = false;
+    public static $group = 'Packages And Products';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -29,10 +29,6 @@ class PackageProductManagement extends Resource
      * @var string
      */
     public static $title = 'id';
-    public function title()
-    {
-        return $this->package->name . '-' . $this->product->title . '-' .  $this->package_product_name;
-    }
 
     /**
      * The columns that should be searched.

@@ -24,7 +24,14 @@ class Post extends Resource
      * @var string
      */
     public static $model = 'App\Post';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Posts';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -49,38 +56,10 @@ class Post extends Resource
      */
     public function fields(Request $request)
     {
-    
+
         return [
             ID::make()->sortable(),
-            Text::make('Title'),
-            Textarea::make('description'),
-           // Boolean::make('Is Found','status'),
-           RadioButton::make('Status')
-           ->options([
-               0 => 'Lost',
-               1 => 'Found',
-           ])->default(0), // optional
-            BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-            DateTime::make('Losted At')->hideFromIndex(),
-            DateTime::make('Founded At')->hideFromIndex(),
-            NovaBelongsToDepend::make('User', 'publisher')
-            ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-            ->options(\App\User::all()),
-            BelongsTo::make('Founder', 'founder', 'App\Nova\User'),
-            BelongsTo::make('Owner', 'owner', 'App\Nova\User'),
-             NovaBelongsToDepend::make('Item')
-            ->placeholder('Item')
-            ->optionsResolve(function ($user) {
-                $user_items = [];
-                $user_items_with_qrcode = $user->items()
-                    ->Has('qrcode')
-                    ->get();
-                foreach ($user_items_with_qrcode as $user_item_with_qrcode) {
-                    array_push($user_items, $user_item_with_qrcode);
-                }
-                return $user_items;
-            })->dependsOn('publisher')->nullable(),
-            HasMany::make('Images','images',\App\Nova\PostImages::class)
+
         ];
     }
 

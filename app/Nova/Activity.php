@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
 use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
+
 class Activity extends Resource
 {
     /**
@@ -20,12 +21,14 @@ class Activity extends Resource
      * @var string
      */
     public static $model = 'App\Activity';
+
     /**
-     * Indicates if the resource should be displayed in the sidebar.
+     * The logical group associated with the resource.
      *
-     * @var bool
+     * @var string
      */
-    public static $displayInNavigation = false;
+    public static $group = 'Activities';
+
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,21 +54,14 @@ class Activity extends Resource
      */
     public function fields(Request $request)
     {
-        
         return [
             ID::make()->sortable(),
             Text::make('DESCRIPTION'),
             Text::make('SUBJECT ID'),
             Text::make('SUBJECT TYPE'),
-            Text::make('CAUSER ID'),
+            // Text::make('CAUSER ID'),
             Text::make('CREATED_AT'),
             BelongsTo::make('User'),
-           
-
-            
-
-            
-
         ];
     }
 

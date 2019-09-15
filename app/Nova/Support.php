@@ -18,6 +18,13 @@ class Support extends Resource
     public static $model = 'App\Support';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Supports';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
@@ -44,15 +51,14 @@ class Support extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')
-            ->rules('required', 'max:255'),
+                ->rules('required', 'max:255'),
             Text::make('Phone')
-            ->rules('required', 'max:15'),
+                ->rules('required', 'max:15'),
             Text::make('Email')
-            ->sortable()
-            ->rules('required', 'email', 'max:254'),
-            Textarea::make('message')->showOnIndex()->limit(50),
-            
-            
+                ->sortable()
+                ->rules('required', 'email', 'max:255'),
+            Textarea::make('Message')
+                ->rules('required', 'min:6')
         ];
     }
 

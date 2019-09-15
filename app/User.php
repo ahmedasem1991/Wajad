@@ -3,7 +3,6 @@
 namespace App;
 
 
-use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -11,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject 
 {
-    use HasRoles, Notifiable, LogsActivity;
+    use Notifiable, LogsActivity;
 
     protected $fillable = [
         'name', 'email', 'password', 'type', 'mobile_number', 'mobile_country_id'

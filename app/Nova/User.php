@@ -8,7 +8,6 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
-use Themsaid\CashierTool\CashierResourceTool;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -74,12 +73,8 @@ class User extends Resource
                 ->hideWhenUpdating(),
 
             BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),
-            CashierResourceTool::make()->onlyOnDetail(),
 
-
-            HasMany::make('Qrcodes', 'qrcodes', 'App\Nova\Qrcodes'),
-
-
+            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }

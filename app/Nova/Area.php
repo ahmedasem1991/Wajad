@@ -20,7 +20,14 @@ class Area extends Resource
      * @var string
      */
     public static $model = 'App\Region';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Locations';
+
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,9 +58,7 @@ class Area extends Resource
             Text::make('name_ar'),
             Text::make('name_en'),
             BelongsTo::make('Country'),
-            HasMany::make('Cities', 'cities', 'App\Nova\Cities'),
-           
-
+            HasMany::make('City', 'cities', 'App\Nova\City'),
         ];
     }
 

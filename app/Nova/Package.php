@@ -11,6 +11,8 @@ use Laravel\Nova\Fields\Select;
 use App\Package as PackageModel;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Textarea;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
 class Package extends Resource
@@ -22,25 +24,22 @@ class Package extends Resource
      */
     public static $model = 'App\Package';
 
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Packages And Products';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
     public function title()
     {
-        return $this->id . ' - ' . $this->name;
+        return $this->name_en . ' - ' . $this->name_ar;
     }
-
-    /**
-     * Indicates if the resource should be displayed in the sidebar.
-     *
-     * @var bool
-     */
-    public static $displayInNavigation = false;
-
 
     /**
      * The columns that should be searched.
@@ -52,13 +51,6 @@ class Package extends Resource
     ];
 
     /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Wajad Products And Packages';
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -68,31 +60,39 @@ class Package extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Package Name', 'name')->rules(['required', 'string', 'max:255']),
+            Text::make('Package English Name', 'name_en')
+                ->rules(['required', 'string', 'max:255']),
 
-            Trix::make('Package Description', 'description')->rules(
-                ['required', 'string']
-            )->hideFromIndex(),
-            Number::make('QR Codes Per Package', 'products_per_package')->rules(
-                ['required', 'integer']
-            ),
-            Number::make('Package Price', 'price')->rules(['required', 'integer'])->hideWhenUpdating(),
+            Text::make('Package Arabic Name', 'name_ar')
+                ->rules(['required', 'string', 'max:255']),
+
+            Textarea::make('Package English Description', 'description_en')
+                ->rules(
+                    ['required', 'string']
+                )->hideFromIndex(),
+
+            Textarea::make('Package Arabic Description', 'description_ar')
+                ->rules(
+                    ['required', 'string']
+                )->hideFromIndex(),
+
+            Number::make('Package Price', 'price')
+                ->rules(['required', 'integer'])
+                ->hideWhenUpdating(),
+
             Select::make('Select Package Period', 'period')->options(
                 PackageModel::packagesPeriod()
             )->displayUsingLabels(),
-            BelongsToMany::make('Products', 'products', \App\Nova\Products::class)
+
+            Boolean::make('Show Package', 'is_active'),
+
+            BelongsToMany::make('Product', 'products', Product::class)
                 ->fields(function () {
                     return [
-                        QrcodeGenerator::make('Relation CODE', 'package_product_name')
-                            ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
-                            ->length(15)
-                            ->hideWhenUpdating()
-                            ->help(
-                                'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
-                            )
+                        Number::make('Number Of Products In Package', 'product_count')
+                            ->rules(['required', 'integer'])
                     ];
-                })
-                ->hideWhenUpdating(),
+                })->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

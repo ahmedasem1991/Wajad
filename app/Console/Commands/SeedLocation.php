@@ -62,7 +62,7 @@ class SeedLocation extends Command
         $path = 'app/developer_docs/regions.sql';
         DB::unprepared( file_get_contents($path) );
 
-        $cities_ids = \App\Cities::pluck('id')->values()->toArray();
+        $cities_ids = \App\City::pluck('id')->values()->toArray();
         $countries_ids = \App\Country::pluck('id')->values()->toArray();
 
     }
