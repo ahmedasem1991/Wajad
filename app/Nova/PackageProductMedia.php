@@ -23,7 +23,7 @@ class PackageProductMedia extends Resource
      *
      * @var string
      */
-    public static $group = 'Wajad Products And Packages';
+    public static $group = 'Packages And Products';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,19 +31,6 @@ class PackageProductMedia extends Resource
      * @var string
      */
     public static $title = 'id';
-
-    public function title()
-    {
-        return $this->id . ' - ' . $this->title;
-    }
-
-    /**
-     * Indicates if the resource should be displayed in the sidebar.
-     *
-     * @var bool
-     */
-    public static $displayInNavigation = false;
-
 
     /**
      * The columns that should be searched.
@@ -72,7 +59,7 @@ class PackageProductMedia extends Resource
                 ->prunable(),
             MorphTo::make('package_product_media')->types([
                 Package::class,
-                Products::class
+                Product::class
             ])
         ];
     }

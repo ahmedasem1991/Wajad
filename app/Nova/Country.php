@@ -17,7 +17,14 @@ class Country extends Resource
      * @var string
      */
     public static $model = 'App\Country';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Locations';
+    
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -44,13 +51,11 @@ class Country extends Resource
     {
         return [
             ID::make()->sortable(),
-           
-            Text::make('name_en'),
-            Text::make('name_ar'),
-            Text::make('iso_code'),
-            Number::make('country_code'),
-            HasMany::make('Area','regions'),
-        
+            Text::make('Country English Name', 'name_en'),
+            Text::make('Country Arabic Name', 'name_ar'),
+            Text::make('Country Iso Code', 'iso_code'),
+            Number::make('Country Code', 'country_code'),
+            HasMany::make('Area', 'regions'),
         ];
     }
 

@@ -10,41 +10,19 @@
     "require": {
         "php": "^7.1.3",
         "bolechen/nova-activitylog": "^0.1.4",
-        "carlson/nova-link-field": "^1.0",
-        "daniel-de-wit/nova-paperclip": "^0.1.0",
-        "dillingham/nova-index-textarea": "^1.0",
-        "ebess/advanced-nova-media-library": "^2.7",
-        "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
         "halimtuhu/array-images": "^1.1",
         "khalin/nova-link-field": "^1.1",
-        "kristories/nova-qrcode-field": "^0.0.1",
         "laravel/framework": "5.8.*",
         "laravel/nova": "*",
         "laravel/tinker": "^1.0",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "marianvlad/nova-env-card": "^1.0",
         "mjaschen/phpgeo": "^2.1",
-        "mydnic/laravel-kustomer": "^1.3",
-        "mydnic/nova-kustomer": "^1.2",
-        "naif/generate-password": "^1.4",
-        "naif/map_address": "^1.4",
-        "nexmo/laravel": "^1.1",
         "orlyapps/nova-belongsto-depend": "^2.0",
-        "owenmelbz/nova-radio-field": "^0.0.5",
-        "remipou/nova-page-manager": "^1.0",
-        "simplesoftwareio/simple-qrcode": "^2.0",
         "smartappco/qrcode-generator": "*",
-        "sms/sendsms": "*",
-        "spatie/laravel-medialibrary": "^7.0.0",
-        "spatie/laravel-permission": "^2.37",
         "spatie/laravel-query-builder": "^1.17",
-        "spatie/laravel-translatable": "^4.1",
-        "spatie/nova-translatable": "^2.0",
-        "themsaid/nova-cashier-manager": "^0.2.1",
-        "tightenco/nova-stripe": "^0.2.2",
-        "tymon/jwt-auth": "1.0.*",
-        "vyuldashev/nova-permission": "^1.9"
+        "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -100,10 +78,6 @@
         {
             "type": "path",
             "url": "./nova-components/QrcodeGenerator"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Sendsms"
         }
     ]
 }
