@@ -3,16 +3,12 @@
 namespace App\Nova;
 
 use App\User;
-use Illuminate\Support\Str;
-use Khalin\Nova\Field\Link;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-// use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\BelongsTo;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
+use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
 class Qrcode extends Resource
 {
@@ -63,6 +59,10 @@ class Qrcode extends Resource
                 ->showUrl(true)
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
                 ->hideWhenUpdating(),
+
+            QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
+
+            DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
 
             NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
 

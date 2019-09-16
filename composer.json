@@ -22,9 +22,9 @@
         "mjaschen/phpgeo": "^2.1",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "smartappco/qrcode-generator": "*",
-        "smartappco/qrcode-link-generator": "*",
         "spatie/laravel-query-builder": "^1.17",
-        "tymon/jwt-auth": "1.0.*"
+        "tymon/jwt-auth": "1.0.*",
+        "smartappco/download-qrcode-image": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -83,7 +83,7 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/QrcodeLinkGenerator"
+            "url": "./nova-components/DownloadQrcodeImage"
         }
     ]
 }

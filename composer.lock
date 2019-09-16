@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a56e5f4a71c54956cddf5a987c710fab",
+    "content-hash": "fd2de12a024e0fb8bebdaca0709d8ed4",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2751,6 +2751,40 @@
             "time": "2018-07-19T23:38:55+00:00"
         },
         {
+            "name": "smartappco/download-qrcode-image",
+            "version": "dev-2019-11-11-ABDELHAMMIED-MASTER-BRANCH",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/DownloadQrcodeImage",
+                "reference": "22ba7327794830debf6b67792161edab15352f53",
+                "shasum": null
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Smartappco\\DownloadQrcodeImage\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Smartappco\\DownloadQrcodeImage\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
             "name": "smartappco/qrcode-generator",
             "version": "dev-2019-07-29-SCHEMA-MODIFICATION",
             "dist": {
@@ -2773,40 +2807,6 @@
             "autoload": {
                 "psr-4": {
                     "Smartappco\\QrcodeGenerator\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova field.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ]
-        },
-        {
-            "name": "smartappco/qrcode-link-generator",
-            "version": "dev-2019-11-11-ABDELHAMMIED-MASTER-BRANCH",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/QrcodeLinkGenerator",
-                "reference": "4edad7e7cd54fb63265058241e4b5884b9d38df3",
-                "shasum": null
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Smartappco\\QrcodeLinkGenerator\\FieldServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Smartappco\\QrcodeLinkGenerator\\": "src/"
                 }
             },
             "license": [
