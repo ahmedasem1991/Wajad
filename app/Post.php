@@ -17,7 +17,9 @@ class Post extends Model
     use LogsActivity, ResponseTrait;
 
     protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id','post_type_id','appearance_status'];
+ 
     protected static $logAttributes = ['title', 'description'];
+
     protected $casts = [
         'losted_at' => 'datetime',
         'founded_at' => 'datetime'

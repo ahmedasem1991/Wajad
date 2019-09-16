@@ -16,6 +16,12 @@ class PostType extends Resource
      * @var string
      */
     public static $model = 'App\PostType';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Posts';
 
     /**
@@ -45,7 +51,7 @@ class PostType extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Title'),
-            Textarea::make('description'),
+            Textarea::make('Description'),
         ];
     }
 

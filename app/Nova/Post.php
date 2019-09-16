@@ -24,7 +24,14 @@ class Post extends Resource
      * @var string
      */
     public static $model = 'App\Post';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Posts';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -49,7 +56,7 @@ class Post extends Resource
      */
     public function fields(Request $request)
     {
-    
+
         return [
             ID::make()->sortable(),
             Text::make('Title'),
@@ -82,6 +89,7 @@ class Post extends Resource
                 return $user_items;
             })->dependsOn('publisher')->nullable(),
             HasMany::make('Images','images',\App\Nova\PostImages::class)
+
         ];
     }
 

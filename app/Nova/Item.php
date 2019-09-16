@@ -5,13 +5,10 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Textarea;
 
 class Item extends Resource
 {
@@ -21,6 +18,12 @@ class Item extends Resource
      * @var string
      */
     public static $model = 'App\Item';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
     public static $group = 'Items';
 
     /**
@@ -49,21 +52,17 @@ class Item extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title')->creationRules([
-                'required',
+            Text::make('Title')->rules([
+                'required', 'min:6'
             ]),
-            Trix::make('Details'),
-            Number::make('Radius'), 
-            NovaBelongsToDepend::make('User', 'owner')
-            ->placeholder('User') // Add this just if you want to customize the placeholder
-            ->options(\App\User::all()),
-            HasOne::make('Qrcodes', 'qrcode', Qrcodes::class)->rules([
-                'unique:items,qrcode_id'
-            ])->nullable(),
-            BelongsTo::make('Category', 'category', Categories::class) ,
-            HasMany::make('Images', 'images', ItemImages::class) ,
-
-          
+            Textarea::make('Details')->rules([
+                'required', 'min:6'
+            ]),
+            BelongsTo::make('Category'),
+            BelongsTo::make('User', 'owner', User::class),
+            HasMany::make('Images', 'images', ItemImage::class),
+            
+            HasOne::make('Qrcode', 'qrcode', Qrcode::class),
         ];
     }
 

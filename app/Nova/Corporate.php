@@ -29,12 +29,11 @@ class Corporate extends Resource
     public static $title = 'name';
 
     /**
-     * Indicates if the resource should be displayed in the sidebar.
+     * The logical group associated with the resource.
      *
-     * @var bool
+     * @var string
      */
-    public static $displayInNavigation = false;
-
+    public static $group = 'Corporate And Users';
 
     /**
      * The columns that should be searched.
@@ -55,27 +54,44 @@ class Corporate extends Resource
     {
         return [
             ID::make()->sortable(),
-            Translatable::make([
-                Text::make('Corporate Name', 'name')->rules(
+            Text::make('Corporate English Name', 'name_en')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Text::make('Corporate Arabic Name', 'name_ar')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Trix::make('Corporate English Details', 'details_en')
+                ->rules(
                     'required',
                     'string',
                     'max:255',
                     'min:6'
                 ),
-                Trix::make('Corporate Details', 'details')
-                    ->rules(
-                        'required',
-                        'string',
-                        'max:255',
-                        'min:6'
-                    ),
-                Text::make('Corporate Address', 'address')->rules(
+            Trix::make('Corporate Arabic Details', 'details_ar')
+                ->rules(
                     'required',
                     'string',
                     'max:255',
                     'min:6'
                 ),
-            ]),
+            Text::make('Corporate English Address', 'address_en')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Text::make('Corporate Arabic Address', 'address_ar')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
             Image::make('Corporate Image', 'image')->creationRules(
                 'required',
                 'image',
@@ -86,10 +102,6 @@ class Corporate extends Resource
                 'mimes:jpeg,bmp,png',
                 'max:5012'
             )->disk('public')->disableDownload()->deletable(false),
-            
-            // MapAddress::make('Corporate Location' ,'geo_location')
-            // ->initLocation(40.730610,-98.935242)
-            // ->zoom(12),
 
             BelongsToMany::make('User', 'users', User::class)->rules('required'),
         ];

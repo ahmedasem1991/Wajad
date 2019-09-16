@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Setting;
 use App\Settings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -95,7 +96,7 @@ class SeedSettings extends Command
         ];
 
         foreach ($settings as $setting) {
-            Settings::create($setting);
+            Setting::create($setting);
         }
 
         $this->info('|------------------------------------|');

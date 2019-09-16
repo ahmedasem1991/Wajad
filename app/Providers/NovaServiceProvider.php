@@ -21,17 +21,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-        \Spatie\NovaTranslatable\Translatable::defaultLocales(['en', 'ar']);
-        
-        // \OptimistDigital\NovaPageManager\NovaPageManager::configure([
-        //     'templates' => [
-        //         \App\Nova\Templates\AboutUs::class
-        //     ],
-        //     'locales' => [
-        //         'en_US' => 'English',
-        //         'ar_EG' => 'Arabic'
-        //     ]
-        // ]);
+
     }
 
     protected function resources()
@@ -39,9 +29,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::resourcesIn(app_path('Nova'));
          
 
-        Nova::resources([
-        PageResource::class,
-        ]);
+        // Nova::resources([
+        // PageResource::class,
+        // ]);
     }
 
     protected function routes()
@@ -72,19 +62,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new QrCodes,
             //new QRCodeCount,
             new \Marianvlad\NovaEnvCard\NovaEnvCard,
-           // new \Sms\Sendsms\NovaNexmoCard,
         ];
     }
 
     public function tools()
     {
         return [
-            \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
-            new \Mydnic\NovaKustomer\NovaKustomer,
-            new \Themsaid\CashierTool\CashierTool(),
-            new \Tightenco\NovaStripe\NovaStripe,
-           // new \OptimistDigital\NovaPageManager\NovaPageManager
-           // new \Sms\Sendsms\NovaNexmoTool(),
         ];
     }
 
