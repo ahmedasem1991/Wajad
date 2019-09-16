@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "2c0d481c76365bb637c7a2ae81b39827",
@@ -1088,8 +1088,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-                "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07",
-                "shasum": null
+                "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8"
             },
             "require": {
                 "cakephp/chronos": "^1.0",
@@ -2711,12 +2710,11 @@
         },
         {
             "name": "smartappco/qrcode-generator",
-            "version": "dev-2019-07-29-SCHEMA-MODIFICATION",
+            "version": "dev-20190730-add-resources",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/QrcodeGenerator",
-                "reference": "844cf167bc786ad84ed3f74590b97606070792ca",
-                "shasum": null
+                "reference": "8a9733ae837c0404e876c27ad764c6d942650da5"
             },
             "require": {
                 "php": ">=7.1.0"

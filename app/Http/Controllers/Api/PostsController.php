@@ -41,6 +41,7 @@ class PostsController extends Controller
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
             Filter::scope('category'),//Category ID
+            Filter::scope('brand'),//Category ID
             Filter::scope('postType'),//Post type ID
            'id','title', 'description',
         ])->orderby('id','desc')->paginate($request->get('per_page', 15));
@@ -78,6 +79,7 @@ class PostsController extends Controller
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
             Filter::scope('category'),//Category ID
+            Filter::scope('brand'),//Brand ID
             'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));
@@ -111,7 +113,8 @@ class PostsController extends Controller
         'post_type_id' => ['required'],
         'lat' => ['required'],
         'lng' => ['required'],
-        'category_id' =>['required_without:item_id']
+        'category_id' =>['required_without:item_id'],
+        'brand_id' =>['required_without:item_id']
     ]);
     
     if ($validate_request->fails()) {

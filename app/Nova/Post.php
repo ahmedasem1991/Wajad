@@ -58,10 +58,9 @@ class Post extends Resource
     {
 
         return [
-            ID::make()->sortable(),
-            Text::make('Title'),
-            Textarea::make('description'),
-           // Boolean::make('Is Found','status'),
+           ID::make()->sortable(),
+           Text::make('Title'),
+           Textarea::make('description'),
            RadioButton::make('Status')
            ->options([
                0 => 'Lost',
@@ -76,7 +75,7 @@ class Post extends Resource
             ->options(\App\User::all()),
             BelongsTo::make('Founder', 'founder', 'App\Nova\User'),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User'),
-             NovaBelongsToDepend::make('Item')
+            NovaBelongsToDepend::make('Item')
             ->placeholder('Item')
             ->optionsResolve(function ($user) {
                 $user_items = [];

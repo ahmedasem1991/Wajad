@@ -2,15 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
-use Log;
 use DB;
+use Log;
+use App\Brand;
+use Carbon\Carbon;
 use App\Nova\Categories;
+use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Post extends Model
 {
@@ -79,11 +80,19 @@ class Post extends Model
     }
 
     /**
-     * Define The Category Of The Lost Item 
+     * Define The Category Of The Post
      */
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id');   
+    }
+    
+    /**
+     * Define The Brand Of The Post
+     */
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class,'brand_id');   
     }
      /**
      * Images Of Post"
@@ -124,14 +133,18 @@ class Post extends Model
         return $query->where('founder_id', $founder_id);
     }
 
-     /**
-     * Define The Founder  Of Item
-     */
+ 
 
     public function scopeCategory($query, $category_id)
     {
         return $query->where('category_id', $category_id);
     }
+
+    public function scopeBrand($query, $brand_id)
+    {
+        return $query->where('brand_id', $brand_id);
+    }
+
      /**
      * Define The Status Of Post
      * 0 is lost
@@ -181,11 +194,13 @@ class Post extends Model
             $founder_id=$request->publisher_id;
         }
         $category_id=$request->category_id;
+        $brand_id=$request->brand_id;
         if($Item=Item::find($request->item_id))
         {
             $Item->status=$status;
             $Item->save();
             $category_id= $Item->category_id;
+            $brand_id=$Item->brand_id;
         }
         try {
             $post = Post::create([
@@ -201,6 +216,7 @@ class Post extends Model
                 'lat' => request('lat'),
                 'lng' => request('lng'),
                 'category_id' => $category_id,
+                'brand_id' => $brand_id,
             ]);
     
             if ($post) {

@@ -2,34 +2,32 @@
 
 namespace App\Nova;
 
+use App\Nova\Category;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Setting extends Resource
+class Brand extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Setting';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Supports and Settings';
+    public static $model = 'App\Brand';
+    public static $group = 'Categories';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
@@ -50,22 +48,27 @@ class Setting extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Key', 'key')->creationRules([
-                'required', 'min:3', 'max:255', 'unique:settings,key'
+            Text::make('Brand English Name', 'name_en')->creationRules([
+                'required', 'min:6'
             ]),
-             Text::make('Title', 'title')->rules([
-                    'required', 'min:3', 'max:255', 'unique:settings,key'
+            Text::make('Brand Arabic Name', 'name_ar')->creationRules([
+                'required', 'min:6'
             ]),
-            Textarea::make('Value', 'value')->creationRules([
-                    'required', 'min:6'
+            Textarea::make('Brand English Body', 'description_en')->creationRules([
+                'required', 'min:6'
             ]),
-           
-            Image::make('Image', 'image')->rules([
-                'nullable', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])->disk('public')
-                ->path('images/pages/')
-                ->disableDownload()
+            Textarea::make('Brand Arabic Body', 'description_ar')->creationRules([
+                'required', 'min:6'
+            ]),
+            Image::make('Brand Image', 'image')
+                ->creationRules([
+                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->disk('public')
+                ->path('images/brands')
+                ->prunable()
                 ->deletable(),
+             BelongsTo::make('Category'),
         ];
     }
 

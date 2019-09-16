@@ -3,24 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use Response;
-use App\Category;
+use App\Brand;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = QueryBuilder::for(Category::class)
-            ->withCount('items')
-            ->withCount('brands')
-            ->allowedIncludes('items','brands')
+        $categories = QueryBuilder::for(Brand::class)
+            ->allowedIncludes('category')
             ->allowedFilters([
                 Filter::scope('category'),
-                Filter::scope('brand'),
-                'title',
+                'name_en','name_ar',
             ])
             ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 

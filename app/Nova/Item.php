@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Item extends Resource
 {
@@ -59,6 +60,12 @@ class Item extends Resource
                 'required', 'min:6'
             ]),
             BelongsTo::make('Category'),
+            NovaBelongsToDepend::make('Brand')
+                ->placeholder('Brand')
+                ->optionsResolve(function ($category) {
+                  return $category->brands();
+                })->dependsOn('category')->nullable(),
+
             BelongsTo::make('User', 'owner', User::class),
             HasMany::make('Images', 'images', ItemImage::class),
             

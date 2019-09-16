@@ -98,7 +98,8 @@ class Category extends Resource
                 ->prunable()
                 ->deletable(),
 
-            HasMany::make('Item', 'items', \App\Nova\Item::class)
+            HasMany::make('Item', 'items', \App\Nova\Item::class),
+            HasMany::make('Brand', 'brands', \App\Nova\Brand::class)
         ];
     }
 
