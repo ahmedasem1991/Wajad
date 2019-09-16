@@ -40,8 +40,14 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->as('api.')
             ->middleware('api')
-            ->domain(env('API_URL'))
+            ->domain(env('API_URL','api-wajad.smartappco.net'))
             ->namespace($this->api_namespace)
             ->group(base_path('routes/api.php'));
+
+        /*Route::prefix('v1')
+            ->middleware('api')
+            ->domain( env( 'API_URL', 'api.etabeb.dev' ) )
+            ->namespace($this->api_namespace)
+            ->group(base_path('routes/api.php'));*/
     }
 }
