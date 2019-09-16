@@ -45,21 +45,21 @@ class SeedSettings extends Command
         $settings = [
             [
                 'key' => 'about-us',
-                'title' => 'About us',
+                //'title' => 'About us',
                 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
                 'created_at' => null,
                 'updated_at' => null
             ],
             [
                 'key' => 'contact-us',
-                'title' => 'Contact us',
+                //'title' => 'Contact us',
                 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
                 'created_at' => null,
                 'updated_at' => null
             ],
             [
                 'key' => 'privacy-policy',
-                'title' => 'Privacy And Policy',
+                //'title' => 'Privacy And Policy',
                 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
                 'created_at' => null,
                 'updated_at' => null
@@ -73,15 +73,22 @@ class SeedSettings extends Command
             ],
             [
                 'key' => 'facebook-link',
-                'title' => 'Facebook Link',
+                //'title' => 'Facebook Link',
                 'value' => 'http://www.facebook.com',
                 'created_at' => null,
                 'updated_at' => null
             ],
             [
                 'key' => 'twitter-link',
-                'title' => 'Twitter Link',
+                //'title' => 'Twitter Link',
                 'value' => 'http://www.twitter.com',
+                'created_at' => null,
+                'updated_at' => null
+            ],
+            [
+                'key' => 'limited-posts',
+                //'title' => 'Limited Posts',
+                'value' => 50,
                 'created_at' => null,
                 'updated_at' => null
             ]

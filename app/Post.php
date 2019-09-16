@@ -16,7 +16,7 @@ class Post extends Model
 {
     use LogsActivity, ResponseTrait;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id','post_type_id'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id','post_type_id','appearance_status'];
     protected static $logAttributes = ['title', 'description'];
     protected $casts = [
         'losted_at' => 'datetime',
@@ -28,6 +28,13 @@ class Post extends Model
         1 => 'found',
         'lost' => 0,
         'found' => 1
+    ];
+
+    const AppearanceStatus = [
+        0 => 'Hidden',
+        1 => 'Show',
+        'Hidden' => 0,
+        'Show' => 1
     ];
 
 

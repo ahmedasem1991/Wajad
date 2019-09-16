@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Boolean;
 use Themsaid\CashierTool\CashierResourceTool;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use App\Nova\Metrics\NewUsers;
@@ -66,6 +67,7 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
             HasMany::make('Items'),
+            Boolean::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
 

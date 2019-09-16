@@ -2,11 +2,11 @@
 
 namespace App\Nova\Metrics;
 
-use App\Nova\Qrcodes;
+use App\Post;
 use Illuminate\Http\Request;
-use Laravel\Nova\Metrics\Value;
+use Laravel\Nova\Metrics\Partition;
 
-class QRCodeCount extends Value
+class Posts extends Partition
 {
     /**
      * Calculate the value of the metric.
@@ -16,24 +16,19 @@ class QRCodeCount extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Qrcodes::class);
-    }
-
-    /**
-     * Get the ranges available for the metric.
-     *
-     * @return array
-     */
-    public function ranges()
-    {
-        return [
-            30 => '30 Days',
-            60 => '60 Days',
-            365 => '365 Days',
-            'MTD' => 'Month To Date',
-            'QTD' => 'Quarter To Date',
-            'YTD' => 'Year To Date',
-        ];
+        return $this->count($request, Post::class, 'appearance_status')
+        ->label(function ($value) {
+            switch ($value) {
+                case 1:
+                    return 'Show';
+                case 0:
+                    return 'Hidden';
+                default:
+                    return ucfirst($value);
+            }
+        });
+        
+        ;
     }
 
     /**
@@ -53,6 +48,6 @@ class QRCodeCount extends Value
      */
     public function uriKey()
     {
-        return 'q-r-code-count';
+        return 'posts';
     }
 }
