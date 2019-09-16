@@ -9,22 +9,6 @@ class Package extends Model
     protected $guarded = [];
 
     /**
-     * Defin Packages Period Days
-     *  
-     * @return array
-     */
-    const PACKAGES_PERIOD = [
-        // 1 => 1,
-        // 2 => 7,
-        // 3 => 30,
-        // 4 => 365,
-        1 => 'Dialy',
-        2 => 'Weekly',
-        3 => 'Monthly',
-        4 => 'Yearly',
-    ];
-
-    /**
      * Define Associated Products In Package
      *
      * @return void
@@ -46,26 +30,16 @@ class Package extends Model
     }
 
     /**
-     * Define Const Packages PEriods
-     *
-     * @return array
-     */
-    public static function packagesPeriod()
-    {
-        return self::PACKAGES_PERIOD;
-    }
-
-    /**
      * Define Period Attribute
      * Mutate Period Row
      *
      * @param integer $value
      * @return void
      */
-    // public function getPeriodAttribute($value)
-    // {
-    //     return self::PACKAGES_PERIOD[$value] ?? $value;
-    // }
+    public function getPeriodAttribute($value)
+    {
+        return $value . ' Month/s';
+    }
 
     public function getPriceAttribute($value)
     {

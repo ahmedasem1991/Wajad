@@ -47,7 +47,11 @@ class Package extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id',
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar'
     ];
 
     /**
@@ -80,9 +84,7 @@ class Package extends Resource
                 ->rules(['required', 'integer'])
                 ->hideWhenUpdating(),
 
-            Select::make('Select Package Period', 'period')->options(
-                PackageModel::packagesPeriod()
-            )->displayUsingLabels(),
+            Number::make('Package Period', 'period'),
 
             Boolean::make('Show Package', 'is_active'),
 

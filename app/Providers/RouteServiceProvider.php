@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('qr_code', function($qr_code){
-            return \App\Qrcodes::where('qrcode_url', $qr_code)->first() ?? abort(404);
+            return \App\Qrcode::where('qrcode_url', $qr_code)->first() ?? abort(404);
         });
 
         parent::boot();

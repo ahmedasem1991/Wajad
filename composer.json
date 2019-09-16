@@ -13,6 +13,7 @@
         "fideloper/proxy": "^4.0",
         "halimtuhu/array-images": "^1.1",
         "khalin/nova-link-field": "^1.1",
+        "kristories/nova-qrcode-field": "^0.0.1",
         "laravel/framework": "5.8.*",
         "laravel/nova": "*",
         "laravel/tinker": "^1.0",
@@ -21,6 +22,7 @@
         "mjaschen/phpgeo": "^2.1",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "smartappco/qrcode-generator": "*",
+        "smartappco/qrcode-link-generator": "*",
         "spatie/laravel-query-builder": "^1.17",
         "tymon/jwt-auth": "1.0.*"
     },
@@ -78,6 +80,10 @@
         {
             "type": "path",
             "url": "./nova-components/QrcodeGenerator"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/QrcodeLinkGenerator"
         }
     ]
 }

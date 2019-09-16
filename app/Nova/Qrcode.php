@@ -2,10 +2,12 @@
 
 namespace App\Nova;
 
+use App\User;
 use Illuminate\Support\Str;
 use Khalin\Nova\Field\Link;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+// use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
@@ -62,21 +64,14 @@ class Qrcode extends Resource
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
                 ->hideWhenUpdating(),
 
-            // BelongsTo::make('PackageProductManagement', 'productPackagePivot', \App\Nova\PackageProductManagement::class)->hideWhenUpdating(),
-
-            BelongsTo::make('User'),
+            NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
 
             NovaBelongsToDepend::make('Item')
                 ->placeholder('Item')
                 ->optionsResolve(function ($user) {
-                    $user_items = [];
-                    $user_items_without_qrcode = $user->items()
+                    return $user->items()
                         ->whereDoesntHave('qrcode')
                         ->get();
-                    foreach ($user_items_without_qrcode as $user_item_without_qrcode) {
-                        array_push($user_items, $user_item_without_qrcode);
-                    }
-                    return $user_items;
                 })->dependsOn('user')->nullable(),
 
         ];

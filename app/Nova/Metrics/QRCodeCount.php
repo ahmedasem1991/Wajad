@@ -2,7 +2,7 @@
 
 namespace App\Nova\Metrics;
 
-use App\Nova\Qrcodes;
+use App\Nova\Qrcode;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Value;
 
@@ -16,7 +16,7 @@ class QRCodeCount extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Qrcodes::class);
+        return $this->count($request, Qrcode::class);
     }
 
     /**

@@ -97,7 +97,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function qrcodes()
     {
-        return $this->hasMany(Qrcodes::class, 'user_id');
+        return $this->hasMany(Qrcode::class, 'user_id');
     }
 
     public function corporate()

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c0d481c76365bb637c7a2ae81b39827",
+    "content-hash": "a56e5f4a71c54956cddf5a987c710fab",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -933,6 +933,47 @@
                 "nova"
             ],
             "time": "2019-05-03T16:49:56+00:00"
+        },
+        {
+            "name": "kristories/nova-qrcode-field",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kristories/nova-qrcode-field.git",
+                "reference": "e29c5e43d644504b6093ad9b16de5a824926137d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kristories/nova-qrcode-field/zipball/e29c5e43d644504b6093ad9b16de5a824926137d",
+                "reference": "e29c5e43d644504b6093ad9b16de5a824926137d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kristories\\Qrcode\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kristories\\Qrcode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Nova QR code field",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-10-09T15:15:58+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2732,6 +2773,40 @@
             "autoload": {
                 "psr-4": {
                     "Smartappco\\QrcodeGenerator\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
+            "name": "smartappco/qrcode-link-generator",
+            "version": "dev-2019-11-11-ABDELHAMMIED-MASTER-BRANCH",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/QrcodeLinkGenerator",
+                "reference": "4edad7e7cd54fb63265058241e4b5884b9d38df3",
+                "shasum": null
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Smartappco\\QrcodeLinkGenerator\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Smartappco\\QrcodeLinkGenerator\\": "src/"
                 }
             },
             "license": [
