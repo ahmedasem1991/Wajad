@@ -6,10 +6,11 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
@@ -38,7 +39,7 @@ class Product extends Resource
     {
         return $this->name_en . ' - ' . $this->name_ar;
     }
-    
+
     /**
      * The columns that should be searched.
      *
@@ -70,6 +71,13 @@ class Product extends Resource
             Textarea::make('Product Arabic Description', 'description_ar')->rules([
                 'required', 'string'
             ]),
+            BelongsToMany::make('Package', 'packages', Package::class)
+                ->fields(function () {
+                    return [
+                        Number::make('Number Of Products In Package', 'product_count')
+                            ->rules(['required', 'integer'])
+                    ];
+                })->hideWhenUpdating(),
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];
     }

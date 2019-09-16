@@ -22,6 +22,13 @@ class Qrcode extends Resource
     public static $model = 'App\Qrcode';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Qrcode';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string

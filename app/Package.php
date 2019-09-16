@@ -32,7 +32,7 @@ class Package extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'package_product_table', 'package_id', 'product_id')
-            ->withPivot(['product_count']);
+            ->withPivot('product_count');
     }
 
     /**

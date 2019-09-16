@@ -16,7 +16,7 @@ class Product extends Model
     public function packages()
     {
         return $this->belongsToMany(Package::class, 'package_product_table', 'product_id', 'package_id')
-            ->withPivot(['package_product_name']);
+            ->withPivot('product_count');
     }
 
     /**

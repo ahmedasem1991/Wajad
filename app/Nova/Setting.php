@@ -19,6 +19,13 @@ class Setting extends Resource
     public static $model = 'App\Setting';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Supports and Settings';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string

@@ -22,6 +22,13 @@ class User extends Resource
     public static $model = 'App\\User';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Corporate And Users';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
