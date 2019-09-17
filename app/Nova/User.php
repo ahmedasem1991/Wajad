@@ -2,12 +2,11 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
@@ -74,7 +73,7 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
             HasMany::make('Items'),
-            Boolean::make('Active', 'status'),
+            Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
 

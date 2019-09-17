@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd2de12a024e0fb8bebdaca0709d8ed4",
+    "content-hash": "3572f2c620d3a5639918e04eb8deeabe",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1919,6 +1919,47 @@
                 "math"
             ],
             "time": "2017-02-16T16:54:46+00:00"
+        },
+        {
+            "name": "naif/toggle",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/naifalshaye/toggle-switch.git",
+                "reference": "c159c309504755122f13a23eab2d97048b0ae240"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/naifalshaye/toggle-switch/zipball/c159c309504755122f13a23eab2d97048b0ae240",
+                "reference": "c159c309504755122f13a23eab2d97048b0ae240",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Naif\\Toggle\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Naif\\Toggle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova toggle switch field",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-09-04T21:01:33+00:00"
         },
         {
             "name": "namshi/jose",

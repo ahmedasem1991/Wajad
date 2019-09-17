@@ -2,22 +2,15 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use App\Package as PackageModel;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\BelongsToMany;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Laravel\Nova\Fields\BelongsToMany as LaravelBelongsToMany;
-use Laravel\Nova\Fields\BelongsToMany as LaravelNovaBelongsToMany;
 
 class Package extends Resource
 {
@@ -90,7 +83,7 @@ class Package extends Resource
 
             Number::make('Package Period', 'period'),
 
-            Boolean::make('Show Package', 'is_active'),
+            Toggle::make('Show Package', 'is_active')->color('#4099de'),
 
             BelongsToMany::make('Product', 'products', Product::class)
                 ->fields(function () {

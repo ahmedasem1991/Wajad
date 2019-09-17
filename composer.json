@@ -20,11 +20,12 @@
         "maatwebsite/laravel-nova-excel": "^1.1",
         "marianvlad/nova-env-card": "^1.0",
         "mjaschen/phpgeo": "^2.1",
+        "naif/toggle": "^1.2",
         "orlyapps/nova-belongsto-depend": "^2.0",
+        "smartappco/download-qrcode-image": "*",
         "smartappco/qrcode-generator": "*",
         "spatie/laravel-query-builder": "^1.17",
-        "tymon/jwt-auth": "1.0.*",
-        "smartappco/download-qrcode-image": "*"
+        "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
