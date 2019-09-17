@@ -2,15 +2,16 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\BelongsToMany;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class User extends Resource
 {
@@ -72,12 +73,15 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
             HasMany::make('Items'),
-            Boolean::make('Active', 'status'),
+            Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            HasMany::make('Subscription')
                 ->hideWhenUpdating(),
 
             BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),

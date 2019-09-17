@@ -2,18 +2,15 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use App\Package as PackageModel;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Textarea;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
 
 class Package extends Resource
 {
@@ -29,7 +26,7 @@ class Package extends Resource
      *
      * @var string
      */
-    public static $group = 'Packages And Products';
+    public static $group = 'Packages & Subscription';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -47,7 +44,11 @@ class Package extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id',
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar'
     ];
 
     /**
@@ -80,11 +81,9 @@ class Package extends Resource
                 ->rules(['required', 'integer'])
                 ->hideWhenUpdating(),
 
-            Select::make('Select Package Period', 'period')->options(
-                PackageModel::packagesPeriod()
-            )->displayUsingLabels(),
+            Number::make('Package Period', 'period'),
 
-            Boolean::make('Show Package', 'is_active'),
+            Toggle::make('Show Package', 'is_active')->color('#4099de'),
 
             BelongsToMany::make('Product', 'products', Product::class)
                 ->fields(function () {
@@ -93,6 +92,9 @@ class Package extends Resource
                             ->rules(['required', 'integer'])
                     ];
                 })->hideWhenUpdating(),
+
+            HasMany::make('Subscription')
+                ->hideWhenUpdating(),
 
             MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];

@@ -18,8 +18,8 @@ class QrcodeResource extends JsonResource
             'id' => $this->id,
             'url' => $this->qrcode_url,
             'user' => $this->user,
-            'package' => $this->package_product_pivot->package,
-            'product' => $this->package_product_pivot->product,
+            // 'package' => $this->package,
+            // 'product' => $this->package_product_pivot->product,
             'item' => $this->item
         ];
     }

@@ -2,19 +2,16 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Image;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use OwenMelbz\RadioField\RadioButton;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Post extends Resource
 {
@@ -67,7 +64,7 @@ class Post extends Resource
                0 => 'Lost',
                1 => 'Found',
            ])->default(0), // optional
-            Boolean::make('Appearance Status','appearance_status'),
+            Toggle::make('Appearance Status','appearance_status'),
             BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),

@@ -2,7 +2,7 @@
 
 namespace App\Nova\Metrics;
 
-use App\Qrcodes as AppQrcodes;
+use App\Qrcode as AppQrcodes;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Partition;
 

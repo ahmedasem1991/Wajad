@@ -4,24 +4,25 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\BelongsTo;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class PackageProductManagement extends Resource
+class Subscription extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\PackageProductManagement';
+    public static $model = 'App\Subscription';
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Packages And Products';
+    public static $group = 'Packages & Subscription';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -49,15 +50,15 @@ class PackageProductManagement extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Package'),
-            BelongsTo::make('Product', 'product', \App\Nova\Products::class),
-            QrcodeGenerator::make('Relation CODE', 'package_product_name')
-                ->creationRules('required', 'string', 'min:15', 'unique:package_product_table,package_product_name')
-                ->length(15)
-                ->hideWhenUpdating()
-                ->help(
-                    'Please Use Our Own Generator To Generate Unique URL For Each QR CODE'
-                )
+
+            Date::make('Start Date', 'start_date')->rules('required'),
+
+            Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
+
+            BelongsTo::make('User')->rules('required'),
+
+            BelongsTo::make('Package')->rules('required')
+
         ];
     }
 

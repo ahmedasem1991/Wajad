@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
-use Spatie\NovaTranslatable\Translatable;
 
 class Setting extends Resource
 {
@@ -54,14 +53,14 @@ class Setting extends Resource
             Text::make('Key', 'key')->creationRules([
                 'required', 'min:3', 'max:255', 'unique:settings,key'
             ]),
-            Translatable::make([
-                Text::make('Title', 'title')->rules([
-                    'required', 'min:3', 'max:255', 'unique:settings,key'
-                ]),
-                Textarea::make('Value', 'value')->creationRules([
-                    'required', 'min:6'
-                ]),
+
+            Text::make('Title', 'title')->rules([
+                'required', 'min:3', 'max:255', 'unique:settings,key'
             ]),
+            Textarea::make('Value', 'value')->creationRules([
+                'required', 'min:6'
+            ]),
+
             Image::make('Image', 'image')->rules([
                 'nullable', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
             ])->disk('public')
