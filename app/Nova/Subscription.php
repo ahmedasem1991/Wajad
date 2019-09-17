@@ -51,7 +51,9 @@ class Subscription extends Resource
         return [
             ID::make()->sortable(),
 
-            Date::make('starts_date')->rules('required'),
+            Date::make('Start Date', 'start_date')->rules('required'),
+
+            Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
 
             BelongsTo::make('User')->rules('required'),
 

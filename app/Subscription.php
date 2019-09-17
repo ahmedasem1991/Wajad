@@ -8,8 +8,13 @@ class Subscription extends Model
 {
     protected $table = 'package_user';
 
+    protected $fillable = [
+        'end_date'
+    ];
+
     protected $casts = [
-        'starts_date' => 'date' 
+        'start_date' => 'date', 
+        'end_date' => 'date' 
     ];
 
     public function user()

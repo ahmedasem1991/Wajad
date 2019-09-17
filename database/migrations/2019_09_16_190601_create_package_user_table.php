@@ -17,7 +17,8 @@ class CreatePackageUserTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->integer('package_id')->unsigned();
-            $table->date('starts_date');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
