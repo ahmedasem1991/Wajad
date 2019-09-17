@@ -23,7 +23,7 @@ class PackageProductMedia extends Resource
      *
      * @var string
      */
-    public static $group = 'Packages And Products';
+    public static $group = 'Packages & Subscription';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

@@ -18,6 +18,13 @@ class Subscription extends Resource
     public static $model = 'App\Subscription';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Packages & Subscription';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
@@ -45,7 +52,7 @@ class Subscription extends Resource
             ID::make()->sortable(),
 
             Date::make('starts_date')->rules('required'),
-            
+
             BelongsTo::make('User')->rules('required'),
 
             BelongsTo::make('Package')->rules('required')
