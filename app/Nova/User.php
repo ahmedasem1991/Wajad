@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\Boolean;
@@ -79,6 +80,9 @@ class User extends Resource
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            HasMany::make('Subscription')
                 ->hideWhenUpdating(),
 
             BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),

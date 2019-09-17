@@ -45,4 +45,14 @@ class Package extends Model
     {
         return $value . ' - ' . env('CURRENCY', 'SR');
     }
+
+    public function subscription()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('starts_date');
+    }
 }

@@ -100,6 +100,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Qrcode::class, 'user_id');
     }
 
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class)->withPivot('starts_date');
+    }
+
+    public function subscription()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
     public function corporate()
     {
         return $this->belongsToMany(Corporate::class, 'corporate_users', 'user_id', 'corporate_id');
