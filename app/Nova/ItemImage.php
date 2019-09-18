@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\ItemImages;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 
@@ -78,7 +79,9 @@ class ItemImage extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new ItemImages()
+        ];
     }
 
     /**

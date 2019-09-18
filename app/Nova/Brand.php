@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Category;
+use App\Nova\Metrics\Brands;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -80,7 +81,9 @@ class Brand extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Brands()
+        ];
     }
 
     /**

@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Spatie\Activitylog\Traits\LogsActivity;
 class Qrcode extends Model
 {
-
+use LogsActivity;
     public function productPackagePivot()
     {
         return $this->belongsTo(PackageProductManagement::class, 'package_product_pivot_id');

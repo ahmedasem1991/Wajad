@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Banners;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -80,7 +81,9 @@ class Banner extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Banners(),
+        ];
     }
 
     /**

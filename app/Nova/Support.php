@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Supports;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -70,7 +71,9 @@ class Support extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Supports()
+        ];
     }
 
     /**

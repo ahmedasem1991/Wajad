@@ -61,8 +61,8 @@ class SeedApp extends Command
         Artisan::call('seed:locations');
         Artisan::call('seed:settings');
 
-        $create_items_question = $this->ask('Items Number ?', 100);
+       // $create_items_question = $this->ask('Items Number ?', 100);
 
-        factory(Item::class, (int) $create_items_question)->create();
+        //factory(Item::class, (int) $create_items_question)->create();
     }
 }

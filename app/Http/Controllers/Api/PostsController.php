@@ -9,7 +9,7 @@ use App\Item;
 use App\Post;
 use App\PostType;
 use Carbon\Carbon;
-use App\PostImages;
+use App\PostImage;
 use Location\Coordinate;
 use Illuminate\Http\Request;
 use Location\Distance\Vincenty;

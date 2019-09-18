@@ -11,6 +11,7 @@ class Category extends Model
 {
     use LogsActivity;
 
+    protected $fillable=['name_en','name_ar','icon'];
     /**
      * Define Image Path For Categories
      *

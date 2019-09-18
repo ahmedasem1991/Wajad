@@ -2,14 +2,16 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Naif\MapAddress\MapAddress;
-use Spatie\NovaTranslatable\Translatable;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Image;
+use Naif\MapAddress\MapAddress;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsToMany;
+use Spatie\NovaTranslatable\Translatable;
 
 class Corporate extends Resource
 {
@@ -104,6 +106,7 @@ class Corporate extends Resource
             )->disk('public')->disableDownload()->deletable(false),
 
             BelongsToMany::make('User', 'users', User::class)->rules('required'),
+            Boolean::make('Active','status'),
         ];
     }
 
@@ -115,7 +118,9 @@ class Corporate extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Corporates()
+        ];
     }
 
     /**

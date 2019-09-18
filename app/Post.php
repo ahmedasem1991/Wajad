@@ -99,7 +99,7 @@ class Post extends Model
      */
     public function images()
     {
-        return $this->hasMany(PostImages::class);   
+        return $this->hasMany(PostImage::class);   
     }
      /**
      * Define The Item  Of Post
@@ -228,7 +228,7 @@ class Post extends Model
                     if($image!=""){
                     \File::put( 'images/postsimages/' . $file_name, base64_decode($image));
                     } 
-                    $image=PostImages::create([
+                    $image=PostImage::create([
                         'post_id' =>$post->id,
                         'image' =>  'images/postsimages/' .$file_name
                     ]);

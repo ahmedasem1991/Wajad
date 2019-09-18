@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Items;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -81,7 +82,9 @@ class Item extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Items()
+        ];
     }
 
     /**

@@ -16,7 +16,7 @@ class Item extends Model
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'category_id'];
+    protected $fillable = ['title', 'details', 'owner_id', 'category_id','brand_id'];
  
     /**
      * Define Items Status Const

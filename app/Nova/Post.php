@@ -2,19 +2,20 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Posts;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Image;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use OwenMelbz\RadioField\RadioButton;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Post extends Resource
 {
@@ -87,7 +88,7 @@ class Post extends Resource
                 }
                 return $user_items;
             })->dependsOn('publisher')->nullable(),
-            HasMany::make('Images','images',\App\Nova\PostImages::class)
+            HasMany::make('Images','images',\App\Nova\PostImage::class)
 
         ];
     }
@@ -100,7 +101,9 @@ class Post extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Posts,
+        ];
     }
 
     /**

@@ -21,6 +21,7 @@ class CreateCorporatesTable extends Migration
             $table->text('details_ar');
             $table->text('address_en');
             $table->text('address_ar');
+            $table->integer('status')->default(0);
             $table->text('image')->nullable();
             $table->timestamps();
         });

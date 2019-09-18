@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Khalin\Nova\Field\Link;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
@@ -90,7 +91,9 @@ class Qrcode extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new QrCodes,
+        ];
     }
 
     /**

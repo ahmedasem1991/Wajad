@@ -3,9 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Spatie\Activitylog\Traits\LogsActivity;
 class Region extends Model
 {
+    use LogsActivity;
     /**
      * Get the Cities for the region.
      */

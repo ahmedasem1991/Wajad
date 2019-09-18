@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Cities;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -52,7 +53,7 @@ class City extends Resource
             ID::make()->sortable(),
             Text::make('City English Name', 'name_en')->rules(['required', 'min:6']),
             Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:6']),
-            BelongsTo::make('Areas', 'region'),
+            BelongsTo::make('Area', 'region'),
         ];
     }
 
@@ -64,7 +65,9 @@ class City extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Cities()
+        ];
     }
 
     /**

@@ -6,10 +6,12 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
+use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
@@ -97,7 +99,9 @@ class User extends Resource
     public function cards(Request $request)
     {
         return [
-            new NewUsers
+            new NewUsers,
+            new UsersActivity,
+            new UsersTypes,
         ];
     }
 

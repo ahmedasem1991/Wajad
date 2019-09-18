@@ -4,9 +4,11 @@ namespace App;
 
 use App\Category;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Brand extends Model
 {
+  use LogsActivity;
   protected  $fillable=['name_en','name_ar','description_en','description_ar','image','category_id'];
 
   public function category()

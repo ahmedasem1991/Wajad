@@ -1,9 +1,10 @@
 <?php
-use App\Settings;
-use Illuminate\Support\Str;
+use App\Item;
+use App\User;
 use App\Region;
 use App\Package;
-use App\Item;
+use App\Settings;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,10 @@ use App\Item;
 |
 */
 
-// Route::get('/test', function(){
-// 	return Settings::find('about-us');
-// });
+Route::get('/test23', function(){
+	$users= User::all()->random(3);
+	return $users[0]->id;
+});
 
 Route::resource('user', 'UserController');
 Route::resource('item', 'ItemController');

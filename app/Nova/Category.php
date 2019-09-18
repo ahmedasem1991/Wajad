@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Categories;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -111,7 +112,9 @@ class Category extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Categories()
+        ];
     }
 
     /**
