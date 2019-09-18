@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('qr_code', function($qr_code){
-            return \App\Qrcodes::where('qrcode_url', $qr_code)->first() ?? abort(404);
+            return \App\Qrcode::where('qrcode_url', $qr_code)->first() ?? abort(404);
         });
 
         parent::boot();
@@ -40,8 +40,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->as('api.')
             ->middleware('api')
-            ->domain(env('API_URL'))
+            ->domain(env('API_URL','api-wajad.smartappco.net'))
             ->namespace($this->api_namespace)
             ->group(base_path('routes/api.php'));
+
     }
 }

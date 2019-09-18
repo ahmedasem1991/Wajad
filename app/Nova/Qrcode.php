@@ -2,8 +2,7 @@
 
 namespace App\Nova;
 
-use Illuminate\Support\Str;
-use Khalin\Nova\Field\Link;
+use App\User;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -11,7 +10,9 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
+use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
 class Qrcode extends Resource
 {
@@ -63,21 +64,18 @@ class Qrcode extends Resource
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
                 ->hideWhenUpdating(),
 
-            // BelongsTo::make('PackageProductManagement', 'productPackagePivot', \App\Nova\PackageProductManagement::class)->hideWhenUpdating(),
+            QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
 
-            BelongsTo::make('User'),
+            DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
+
+            NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
 
             NovaBelongsToDepend::make('Item')
                 ->placeholder('Item')
                 ->optionsResolve(function ($user) {
-                    $user_items = [];
-                    $user_items_without_qrcode = $user->items()
+                    return $user->items()
                         ->whereDoesntHave('qrcode')
                         ->get();
-                    foreach ($user_items_without_qrcode as $user_item_without_qrcode) {
-                        array_push($user_items, $user_item_without_qrcode);
-                    }
-                    return $user_items;
                 })->dependsOn('user')->nullable(),
 
         ];

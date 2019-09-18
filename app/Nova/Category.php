@@ -3,11 +3,11 @@
 namespace App\Nova;
 
 use App\Nova\Metrics\Categories;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 
 class Category extends Resource
@@ -64,7 +64,7 @@ class Category extends Resource
                     'required', 'max:255', 'min:3', 'unique:categories,name_en'
                 ])
                 ->updateRules([
-                    'max:255', 'min:3', 'unique:categories,title_en,{{resourceId}}'
+                    'max:255', 'min:3', 'unique:categories,name_en,{{resourceId}}'
                 ]),
 
             Text::make('Category Arabic Name', 'name_ar')
@@ -75,7 +75,7 @@ class Category extends Resource
                     'max:255', 'min:3', 'unique:categories,name_ar,{{resourceId}}'
                 ]),
 
-            Boolean::make('Use Default Image For Items In Category', 'items_has_default_image'),
+            Toggle::make('Use Default Image For Items In Category', 'items_has_default_image')->color('#4099de'),
 
             Image::make('Category Items Default Image', 'default_image')->rules([
                 'required_if:has_default_image,1', 'image', 'mimes:jpeg,bmp,png', 'max:5012'

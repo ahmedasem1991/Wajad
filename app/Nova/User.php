@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -75,12 +76,15 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
             HasMany::make('Items'),
-            Boolean::make('Active', 'status'),
+            Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            HasMany::make('Subscription')
                 ->hideWhenUpdating(),
 
             BelongsToMany::make('Corporate', 'corporate', Corporate::class)->creationRules('required'),
