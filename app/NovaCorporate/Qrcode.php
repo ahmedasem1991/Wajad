@@ -1,37 +1,42 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
-use App\Nova\Metrics\Countries;
+use App\User;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\HasMany;
+use App\Nova\Metrics\QrCodes;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Resource;
+use Smartappco\QrcodeGenerator\QrcodeGenerator;
+use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
-class Country extends Resource
+class Qrcode extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Country';
+    public static $model = 'App\Qrcode';
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Locations';
-    
+    public static $group = 'Qrcode';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name_ar';
+    public static $title = 'qrcode_url';
 
     /**
      * The columns that should be searched.
@@ -52,11 +57,28 @@ class Country extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Country English Name', 'name_en'),
-            Text::make('Country Arabic Name', 'name_ar'),
-            Text::make('Country Iso Code', 'iso_code'),
-            Number::make('Country Code', 'country_code'),
-            HasMany::make('Area', 'regions'),
+
+            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
+                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
+                ->length(15)
+                ->showUrl(true)
+                ->qrCodeRouteName(route('api.scan-qrcode-api'))
+                ->hideWhenUpdating(),
+
+            QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
+
+            DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
+
+            NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
+
+            NovaBelongsToDepend::make('Item')
+                ->placeholder('Item')
+                ->optionsResolve(function ($user) {
+                    return $user->items()
+                        ->whereDoesntHave('qrcode')
+                        ->get();
+                })->dependsOn('user')->nullable(),
+
         ];
     }
 
@@ -69,7 +91,7 @@ class Country extends Resource
     public function cards(Request $request)
     {
         return [
-            new Countries()
+            new QrCodes,
         ];
     }
 
@@ -105,6 +127,4 @@ class Country extends Resource
     {
         return [];
     }
-
-
 }

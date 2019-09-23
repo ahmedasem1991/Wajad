@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
 use App\Corporate;
+use App\Nova\Resource;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-
+use Laravel\Nova\Http\Requests\NovaRequest;
 class User extends Resource
 {
     /**
@@ -35,7 +36,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Corporate And Users';
+    public static $group = 'Users';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -80,26 +81,20 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            HasMany::make('Items'),
+            HasMany::make('Items','items',Item::class),
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
 
-            HasMany::make('Activity', 'activities')
+            HasMany::make('Activity', 'activities',Activity::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-
-            HasMany::make('Subscription')
-                ->hideWhenUpdating(),
-                Select::make('Type', 'type')->options([
-                   '3' => 'Super Admin',
+            Select::make('Type', 'type')->options([
                    '2' => 'Corpoare Admin',
-                ])->displayUsingLabels(),
-    
-                NovaDependencyContainer::make([
-                   BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate'),
-                ])->dependsOn('type', '2'),
-                
+                   '1' => 'User',
+                ])->displayUsingLabels()->creationRules('required')
+                ->updateRules('required'),
+         
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
@@ -117,9 +112,9 @@ class User extends Resource
     public function cards(Request $request)
     {
         return [
-            new NewUsers,
-            new UsersActivity,
-            new UsersTypes,
+            // new NewUsers,
+            // new UsersActivity,
+            // new UsersTypes,
         ];
     }
 
@@ -157,4 +152,10 @@ class User extends Resource
             new DownloadExcel,
         ];
     }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('corporate_id',Auth()->user()->corporate_id);
+    }
+    
 }

@@ -17,22 +17,7 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::get('/test23', function(){
-	// $users= User::all()->random(3);
-	// return $users[0]->id;
-	 return \App\Category::all()->pluck('name_en','id');
-});
-
-Route::resource('user', 'UserController');
-Route::resource('item', 'ItemController');
-Route::resource('category', 'CategoryController');
-Route::resource('itemimages', 'ItemImagesController');
-Route::resource('questions', 'QuestionsController');
-Route::resource('answers', 'AnswersController');
-Route::resource('itemrequests', 'ItemRequestsController');
-Route::resource('products', 'ProductsController');
-Route::resource('cards', 'CardsController');
-
+ 
 /*
 Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
 	->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
@@ -40,8 +25,11 @@ Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
 */
 
 Auth::routes();
-
-Route::get('/test500', function(){
+Route::get('/', function(){
+	return 'welcome';
+});
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test', function(){
 	// return htmlspecialchars(Item::where('id', 100)->first());
 	// $nexmo = app('Nexmo\Client');
 	// $nexmo->message()->send([
@@ -51,8 +39,7 @@ Route::get('/test500', function(){
 	// ]);
 	//getimagesize('');
 
-	//return Package::packagesPeriod();
-       return Auth()->user()->corporate->users->pluck('id');;
+	return Package::packagesPeriod();
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+ 

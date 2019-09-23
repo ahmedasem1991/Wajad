@@ -2,14 +2,15 @@
 
 namespace App\Nova;
 
-use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Image;
 use Naif\MapAddress\MapAddress;
+use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
 use Spatie\NovaTranslatable\Translatable;
 
@@ -28,7 +29,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'name_en';
 
     /**
      * The logical group associated with the resource.
@@ -105,7 +106,7 @@ class Corporate extends Resource
                 'max:5012'
             )->disk('public')->disableDownload()->deletable(false),
 
-            BelongsToMany::make('User', 'users', User::class)->rules('required'),
+            HasMany::make('Users', 'users'),
             Boolean::make('Active','status'),
         ];
     }

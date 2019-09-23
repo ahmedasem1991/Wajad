@@ -10,8 +10,12 @@ class Corporate extends Model
 {
     use LogsActivity;
     
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'corporate_users', 'corporate_id', 'user_id');
+    // }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'corporate_users', 'corporate_id', 'user_id');
+        return $this->hasMany(User::class);
     }
 }

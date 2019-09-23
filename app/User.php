@@ -50,7 +50,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->type === self::Types['admin'];
     }
 
-    public function is_corporate()
+    
+    public function isCorporateAdmin()
     {
         return $this->type === self::Types['corporate'];
     }
@@ -112,7 +113,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function corporate()
     {
-        return $this->belongsToMany(Corporate::class, 'corporate_users', 'user_id', 'corporate_id');
+        return $this->belongsTo(Corporate::class);
     }
 
     /**
@@ -133,5 +134,13 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /*
+    * Define The Corporate  Of Post
+    */
+    public function scopeCorporate($query, $corporate_id)
+    {
+        return $query->where('corporate_id', $corporate_id);
     }
 }

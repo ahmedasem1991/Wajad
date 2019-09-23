@@ -1,38 +1,39 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
-use App\Nova\Metrics\Countries;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
+use App\Nova\Metrics\PostTypes;
+use App\Nova\Metrics\PostImages;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\HasMany;
 
-class Country extends Resource
+class PostType extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Country';
+    public static $model = 'App\PostType';
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Locations';
-    
+    public static $group = 'Posts';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name_ar';
-
+    public static $title = 'title';
+    public static $displayInNavigation = false;
     /**
      * The columns that should be searched.
      *
@@ -52,11 +53,8 @@ class Country extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Country English Name', 'name_en'),
-            Text::make('Country Arabic Name', 'name_ar'),
-            Text::make('Country Iso Code', 'iso_code'),
-            Number::make('Country Code', 'country_code'),
-            HasMany::make('Area', 'regions'),
+            Text::make('Title'),
+            Textarea::make('Description'),
         ];
     }
 
@@ -69,7 +67,7 @@ class Country extends Resource
     public function cards(Request $request)
     {
         return [
-            new Countries()
+            new PostTypes()
         ];
     }
 
@@ -105,6 +103,4 @@ class Country extends Resource
     {
         return [];
     }
-
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
 use App\Nova\Metrics\Categories;
 use Naif\Toggle\Toggle;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\HasMany;
-
+use App\Nova\Resource;
 class Category extends Resource
 {
     /**
@@ -18,7 +18,7 @@ class Category extends Resource
      * @var string
      */
     public static $model = 'App\Category';
-
+    public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
      *

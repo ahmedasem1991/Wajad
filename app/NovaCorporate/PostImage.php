@@ -1,37 +1,38 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
-use App\Nova\Metrics\Countries;
+use App\Nova\Metrics\PostImages;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
+use App\Nova\Resource;
+use Laravel\Nova\Fields\BelongsTo;
 
-class Country extends Resource
+class PostImage extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Country';
+    public static $model = 'App\PostImage';
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Locations';
-    
+    public static $group = 'Posts';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name_ar';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -52,14 +53,20 @@ class Country extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Country English Name', 'name_en'),
-            Text::make('Country Arabic Name', 'name_ar'),
-            Text::make('Country Iso Code', 'iso_code'),
-            Number::make('Country Code', 'country_code'),
-            HasMany::make('Area', 'regions'),
+            Image::make('Post Image', 'image')
+                ->creationRules([
+                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->updateRules([
+                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->disk('public')
+                ->path('images/postsimages'),
+
+
+            BelongsTo::make('Post', 'Post', \App\NovaCorporate\Post::class)
         ];
     }
-
     /**
      * Get the cards available for the request.
      *
@@ -69,7 +76,7 @@ class Country extends Resource
     public function cards(Request $request)
     {
         return [
-            new Countries()
+         //   new PostImages()
         ];
     }
 
@@ -105,6 +112,4 @@ class Country extends Resource
     {
         return [];
     }
-
-
 }

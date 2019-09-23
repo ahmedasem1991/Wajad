@@ -60,11 +60,13 @@ class Item extends Resource
             Textarea::make('Details')->rules([
                 'required', 'min:6'
             ]),
-            BelongsTo::make('Category'),
+            NovaBelongsToDepend::make('Category')->placeholder('Category')
+            ->options(\App\Category::get(['name_en','id'])),
+
             NovaBelongsToDepend::make('Brand')
                 ->placeholder('Brand')
                 ->optionsResolve(function ($category) {
-                  return $category->brands();
+                  return $category->brands()->get(['id','name_en']);
                 })->dependsOn('category')->nullable(),
 
             BelongsTo::make('User', 'owner', User::class),

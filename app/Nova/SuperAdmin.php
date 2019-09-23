@@ -21,7 +21,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class User extends Resource
+class SuperAdmin extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -35,7 +35,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Corporate And Users';
+    public static $group = 'Super Admin';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -43,6 +43,7 @@ class User extends Resource
      * @var string
      */
     public static $title = 'name';
+
 
     /**
      * The columns that should be searched.
@@ -89,21 +90,21 @@ class User extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            HasMany::make('Subscription')
-                ->hideWhenUpdating(),
-                Select::make('Type', 'type')->options([
-                   '3' => 'Super Admin',
-                   '2' => 'Corpoare Admin',
-                ])->displayUsingLabels(),
+            // HasMany::make('Subscription')
+            //     ->hideWhenUpdating(),
+            //     Select::make('Type', 'type')->options([
+            //        '3' => 'Super Admin',
+            //        '2' => 'Corpoare Admin',
+            //     ])->displayUsingLabels(),
     
-                NovaDependencyContainer::make([
-                   BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate'),
-                ])->dependsOn('type', '2'),
+                // NovaDependencyContainer::make([
+                //    BelongsTo::make('Corporate','corporate', User::class),
+                // ])->dependsOn('type', '2'),
                 
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            // HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -157,4 +158,18 @@ class User extends Resource
             new DownloadExcel,
         ];
     }
+
+ 
+    
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    // public static function indexQuery(NovaRequest $request, $query)
+    // {
+    //    // return $query->where('user_id', $request->user()->id);
+    // }
 }
