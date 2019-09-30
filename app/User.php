@@ -65,6 +65,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->where('type', self::Types['corporate']);
     }
+    public function scopeNormalusers($query)
+    {
+        return $query->where('type', self::Types['user']);
+    }
 
     # Relations Starts
     public function answers()
@@ -142,5 +146,13 @@ class User extends Authenticatable implements JWTSubject
     public function scopeCorporate($query, $corporate_id)
     {
         return $query->where('corporate_id', $corporate_id);
+    }
+    public function scopeNotSuperAdmin($query, $user_id=3)
+    {
+        return $query->where('type','!=', $user_id);
+    }
+    public function scopeSuperAdmin($query, $user_id=3)
+    {
+        return $query->where('type', $user_id);
     }
 }

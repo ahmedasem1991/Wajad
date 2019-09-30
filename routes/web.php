@@ -5,6 +5,7 @@ use App\Region;
 use App\Package;
 use App\Settings;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,16 @@ Route::get('/test500', function(){
 	//getimagesize('');
 
 	//return Package::packagesPeriod();
-       return Auth()->user()->corporate->users->pluck('id');;
+	for ($x = 1; $x <= 20; $x++) {
+	\QrCode::size(1000000)
+			  ->format('png')
+			  ->merge('https://himsworthscott.com/content/uploads/2019/05/Apple-Logo-Png-Download-768x950.png', 0.3, true)
+			  ->generate('ItSolutionStuff.com', public_path('images/qrcodes/'.time().'.png'));
+	}
+	$now = Carbon\Carbon::now();
+       return 'N-'.$now->year.$now->month.$now->day;
+	   ;
 });
+ 
 
 Route::get('/home', 'HomeController@index')->name('home');

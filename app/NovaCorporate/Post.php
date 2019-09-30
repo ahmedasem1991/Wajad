@@ -73,13 +73,13 @@ class Post extends Resource
             ->hideWhenCreating()
             ->hideWhenUpdating(),
             BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If Post Is Lost.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
             DateTime::make('Losted At')->hideFromIndex()
             ->Rules('required_if:status,0'),
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If Post Is Found.')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
             DateTime::make('Founded At')->hideFromIndex()
             ->Rules('required_if:status,1'),
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of Post.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             NovaBelongsToDepend::make('User', 'publisher')
             ->placeholder('Publisher') 
             ->options(Auth()->User()->corporate->users),
@@ -91,12 +91,12 @@ class Post extends Resource
                     ->get();
                 return $user_items_with_qrcode;
             })->dependsOn('publisher')->nullable(),
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If Post Is Found.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
             BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
             ->creationRules('required_if:status,1','same:publisher')
             ->updateRules('required_if:status,1')
             ->nullable(),
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If Post Is Lost.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
             BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\User')
             ->creationRules('required_if:status,0','same:publisher')
             ->updateRules('required_if:status,0')

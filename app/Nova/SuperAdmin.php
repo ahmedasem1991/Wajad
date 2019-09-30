@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -81,7 +82,7 @@ class SuperAdmin extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            HasMany::make('Items'),
+            
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -89,22 +90,7 @@ class SuperAdmin extends Resource
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-
-            // HasMany::make('Subscription')
-            //     ->hideWhenUpdating(),
-            //     Select::make('Type', 'type')->options([
-            //        '3' => 'Super Admin',
-            //        '2' => 'Corpoare Admin',
-            //     ])->displayUsingLabels(),
-    
-                // NovaDependencyContainer::make([
-                //    BelongsTo::make('Corporate','corporate', User::class),
-                // ])->dependsOn('type', '2'),
-                
-            // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
-            // ->creationRules('required'),
-
-            // HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+ 
 
         ];
     }
@@ -118,8 +104,8 @@ class SuperAdmin extends Resource
     public function cards(Request $request)
     {
         return [
-            new NewUsers,
-            new UsersActivity,
+            // new NewUsers,
+            // new UsersActivity,
             new UsersTypes,
         ];
     }
@@ -168,8 +154,8 @@ class SuperAdmin extends Resource
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    // public static function indexQuery(NovaRequest $request, $query)
-    // {
-    //    // return $query->where('user_id', $request->user()->id);
-    // }
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->SuperAdmin();
+    }
 }

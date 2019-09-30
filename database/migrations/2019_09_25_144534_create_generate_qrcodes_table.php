@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateGenerateQrcodesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('generate_qrcodes', function (Blueprint $table) {
+            $table->Increments('id');
+            $table->string('reference_number')->nullable();
+            $table->integer('type')->default(1);//default  (single)
+            $table->string('status')->default('waiting');//finished
+            $table->integer('quantity')->default(1);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('generate_qrcodes');
+    }
+}

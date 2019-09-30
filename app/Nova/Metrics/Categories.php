@@ -16,7 +16,8 @@ class Categories extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Category::class);
+       // return $this->count($request, Category::class);
+       return $this->result(Category::count());
     }
 
     /**

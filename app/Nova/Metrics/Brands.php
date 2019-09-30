@@ -16,7 +16,9 @@ class Brands extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Brand::class);
+        //return $this->count($request, Brand::class);
+        return $this->result(Brand::count());
+        
     }
 
     /**

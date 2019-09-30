@@ -12,11 +12,13 @@ use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -92,13 +94,18 @@ class User extends Resource
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
                 Select::make('Type', 'type')->options([
-                   '3' => 'Super Admin',
+                  
                    '2' => 'Corpoare Admin',
+                   '1' => 'User',
                 ])->displayUsingLabels(),
-    
-                NovaDependencyContainer::make([
-                   BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate'),
-                ])->dependsOn('type', '2'),
+                
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corporate Admin.</p>')->asHtml(),
+         
+              BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
+              ->creationRules('required_if:type,2')
+              ->updateRules('required_if:type,2')
+              ->nullable(),
+                
                 
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
@@ -117,8 +124,8 @@ class User extends Resource
     public function cards(Request $request)
     {
         return [
-            new NewUsers,
-            new UsersActivity,
+            // new NewUsers,
+            // new UsersActivity,
             new UsersTypes,
         ];
     }
@@ -156,5 +163,10 @@ class User extends Resource
         return [
             new DownloadExcel,
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->NotSuperAdmin();
     }
 }

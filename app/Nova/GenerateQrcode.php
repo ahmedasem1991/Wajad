@@ -7,23 +7,26 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use OwenMelbz\RadioField\RadioButton;
+use Faker\Provider\fr_CH\Text as FakerText;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
-class Qrcode extends Resource
+class GenerateQrcode extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = 'App\GenerateQrcode';
 
     /**
      * The logical group associated with the resource.
@@ -37,7 +40,7 @@ class Qrcode extends Resource
      *
      * @var string
      */
-    public static $title = 'qrcode_url';
+    public static $title = 'reference_number';
 
     /**
      * The columns that should be searched.
@@ -45,7 +48,7 @@ class Qrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','reference_number'
     ];
 
     /**
@@ -57,40 +60,26 @@ class Qrcode extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->showUrl(true)
-                ->qrCodeRouteName(route('api.scan-qrcode-api'))
-                ->hideWhenUpdating(),
-                Image::make('QRCode Images', 'image')
-                ->disk('public')
-                ->path('images/qrcodes')
-                ->prunable()
-                ->deletable()
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+           ID::make()->sortable(),
+           Text::make('Reference Number','reference_number')
+           ->hideWhenCreating()
+           ->hideWhenUpdating(),
+            RadioButton::make('Type')
+            ->options([
+                1 => 'Single Assign',
+                2 => 'Multi Assign',
+            ])->default(1), // optional
+            Number::make('Number Of QR Codes','quantity')
+            ->min(1)->max(10000)->step(1)
+            ->rules('required'),
+            Status::make('Status')
+            ->loadingWhen(['waiting'])
+            ->failedWhen(['finished']),
+            HasMany::make('Qrcodes'),
 
-            // QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
+           // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
 
-            // DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
-
-            // NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
-
-            // NovaBelongsToDepend::make('Item')
-            //     ->placeholder('Item')
-            //     ->optionsResolve(function ($user) {
-            //         return $user->items()
-            //             ->whereDoesntHave('qrcode')
-            //             ->get();
-            //     })->dependsOn('user')->nullable(),
+             
 
         ];
     }
@@ -141,12 +130,11 @@ class Qrcode extends Resource
         return [];
     }
 
-    
-    public static function label() {
-        return 'QR Codes Stock';
+    public static function singularLabel() {
+        return 'Generate';
     }
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        return $query;
+
+    public static function label() {
+        return 'Generate QR Codes';
     }
 }

@@ -1,35 +1,27 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
+use App\Nova\Resource;
+use App\Nova\Corporate;
+use App\NovaCorporate\User;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
-
-class Activity extends Resource
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Http\Requests\NovaRequest;
+ 
+class QrcodeRequest extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Activity';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Activities';
-
-
+    public static $model = 'App\QrcodeRequest';
+    public static $group = 'Qrcode';
+    
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -43,7 +35,7 @@ class Activity extends Resource
      * @var array
      */
     public static $search = [
-        'id','description'
+        'id',
     ];
 
     /**
@@ -56,12 +48,12 @@ class Activity extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('DESCRIPTION'),
-            Text::make('SUBJECT ID'),
-            Text::make('SUBJECT TYPE'),
-            // Text::make('CAUSER ID'),
-            Text::make('CREATED_AT'),
-            BelongsTo::make('User'),
+            Number::make('Number Of QR Codes','number')->min(1)->max(1000)->step(1),
+            Text::make('Status'),
+            BelongsTo::make('Corporate','corporate',Corporate::class)
+            ->onlyOnIndex(),
+            BelongsTo::make('Requested By','corporateAdmin',User::class)
+            ->onlyOnIndex(),
         ];
     }
 
@@ -73,7 +65,9 @@ class Activity extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+           
+        ];
     }
 
     /**
