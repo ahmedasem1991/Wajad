@@ -16,13 +16,13 @@ class QrCodes extends Partition
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, AppQrcodes::class, 'item_id')
+        return $this->count($request, AppQrcodes::class, 'assign_reference_number')
         ->label(function ($value) {
             switch ($value) {
                 case NULL:
-                    return 'Unused';
+                    return 'Unassigned';
                 case $value !=Null:
-                    return 'Used';
+                    return 'Assigned';
                 
                 default:
                     return ucfirst($value);

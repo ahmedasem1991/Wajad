@@ -73,9 +73,7 @@ class AssignQrcode extends Resource
             Text::make('Reference Number','assign_reference_number')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
-            // BelongsTo::make('Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            // ->hideWhenCreating()
-            // ->hideWhenUpdating(),
+
 
             Select::make('Assign To', 'assign_to')->options([
                 '1' => 'To User',
@@ -90,7 +88,7 @@ class AssignQrcode extends Resource
                 ->options(User::normalusers()->get()->pluck('name', 'id'))
                 ->displayUsingLabels()
                 ->rules('required_if:assign_to,1')
-                ->showAsLink()
+               // ->showAsLink()
               // ->default(0)
                 ->configuration([
                     'placeholder'             => __('Choose an option'),
@@ -107,7 +105,7 @@ class AssignQrcode extends Resource
                 ->displayUsingLabels()
                 ->rules('required_if:assign_to,2')
                // ->readonly()
-                ->showAsLink()
+               // ->showAsLink()
                 //->default(0)
                 ->configuration([
                     'placeholder'             => __('Choose an option'),
@@ -117,7 +115,12 @@ class AssignQrcode extends Resource
                 ])
                
             ])->dependsOn('assign_to', '2'),
-
+            BelongsTo::make('User')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
+            BelongsTo::make('Corporate')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
             RadioButton::make('Type')
             ->options([
                 1 => 'Single Assign',

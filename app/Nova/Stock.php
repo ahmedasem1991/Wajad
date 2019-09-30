@@ -16,7 +16,7 @@ use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
-class Qrcode extends Resource
+class Stock extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -47,7 +47,6 @@ class Qrcode extends Resource
     public static $search = [
         'id',
     ];
-    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
@@ -62,15 +61,16 @@ class Qrcode extends Resource
             BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+            // BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
+            // ->hideWhenCreating()
+            // ->hideWhenUpdating(),
             QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
                 ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
                 ->length(15)
                 ->showUrl(true)
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
-                ->hideWhenUpdating(),
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
                 Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
@@ -144,10 +144,10 @@ class Qrcode extends Resource
 
     
     public static function label() {
-        return 'All QR Code';
+        return 'Stock';
     }
-    // public static function indexQuery(NovaRequest $request, $query)
-    // {
-    //   //  return $query->whereNull('assign_reference_number');
-    // }
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->whereNull('assign_reference_number');
+    }
 }

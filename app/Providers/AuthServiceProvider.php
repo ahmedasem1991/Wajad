@@ -16,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Activity' => 'App\Policies\ActivityPolicy',
         'App\Post' => 'App\Policies\PostPolicy',
         'App\Brand' => 'App\Policies\BrandPolicy',
-        //'App\User' => 'App\Policies\SuperAdminpolicy',
+        'App\Qrcode' => 'App\Policies\Qrcodepolicy',
     ];
 
     /**
