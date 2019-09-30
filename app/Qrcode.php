@@ -29,7 +29,7 @@ use LogsActivity;
        return $query->where('type', self::Types[$type]);
     }
 
-    const Status = [
+    const STATUS = [
         1 => 'In Stock',
         2 => 'Assigned To User',
         3 => 'Assigned To Corporate',
@@ -41,9 +41,9 @@ use LogsActivity;
         'Registered' => 4,
         'Re-Registered' => 5,
     ];
-        public function status($status)
+        public function statusTitle($status)
     {
-        return $this->status === self::Status[$status];
+        return $this->status = self::STATUS[$status];
     }
 
 

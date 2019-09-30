@@ -65,6 +65,9 @@ class Qrcode extends Resource
             BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
+            Text::make('Status',function(){
+                return $this->statusTitle($this->status);
+            }),
             QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
                 ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
                 ->length(15)
