@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
 use Spatie\NovaTranslatable\Translatable;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 
 class Corporate extends Resource
 {
@@ -108,6 +109,11 @@ class Corporate extends Resource
 
             HasMany::make('Users', 'users'),
             Boolean::make('Active','status'),
+            MapMarker::make("Location")
+            ->defaultZoom(5)
+            ->defaultLatitude(21.4498898)
+            ->defaultLongitude(39.4913431)
+            ->centerCircle(10000, 'DarkCyan', 1.00, 0.3),
         ];
     }
 

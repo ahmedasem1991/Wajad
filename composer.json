@@ -12,6 +12,7 @@
         "bolechen/nova-activitylog": "^0.1.4",
         "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
+        "genealabs/nova-map-marker-field": "^0.1.12",
         "halimtuhu/array-images": "^1.1",
         "khalin/nova-link-field": "^1.1",
         "koss-shtukert/laravel-nova-select2-auto-complete": "^1.19",
