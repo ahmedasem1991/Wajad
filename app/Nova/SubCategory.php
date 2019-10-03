@@ -2,42 +2,34 @@
 
 namespace App\Nova;
 
-use Naif\Toggle\Toggle;
+use App\Nova\Category;
+use App\Nova\Metrics\SubCategories;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use App\Nova\Metrics\Categories;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Category extends Resource
+class SubCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Category';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
+    public static $model = 'App\SubCategory';
     public static $group = 'Categories';
-    public static $title = 'name_en';
-
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    // public function title()
-    // {
-    //     return $this->name_en . ' - ' . $this->name_ar;
-    // }
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
@@ -60,20 +52,21 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Category English Name', 'name_en')->creationRules([
+            Text::make('Sub-Category English Name', 'name_en')->creationRules([
                 'required', 'min:6'
             ]),
-            Text::make('Category Arabic Name', 'name_ar')->creationRules([
+            Text::make('Sub-Category Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:6'
             ]),
-            Textarea::make('Category English Body', 'description_en'),
-            Textarea::make('Category Arabic Body', 'description_ar'),
-            Image::make('Category Image', 'image')
+            Textarea::make('Sub-Category English Body', 'description_en'),
+            Textarea::make('Sub-Category Arabic Body', 'description_ar'),
+            Image::make('Sub-Category Image', 'image')
                 ->disk('public')
-                ->path('images/categories')
+                ->path('images/subcategories')
                 ->prunable()
                 ->deletable(),
-             HasMany::make('Subcategories'),
+             BelongsTo::make('Category')->rules('required'),
+             HasMany::make('Brands'),
         ];
     }
 
@@ -86,7 +79,7 @@ class Category extends Resource
     public function cards(Request $request)
     {
         return [
-            new Categories()
+            new SubCategories()
         ];
     }
 

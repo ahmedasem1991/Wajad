@@ -3,12 +3,13 @@
 namespace App\Nova;
 
 use App\Nova\Category;
-use App\Nova\Metrics\Brands;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
+use App\Nova\Metrics\Brands;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -37,6 +38,8 @@ class Brand extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar'
     ];
 
     /**
@@ -55,21 +58,15 @@ class Brand extends Resource
             Text::make('Brand Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:6'
             ]),
-            Textarea::make('Brand English Body', 'description_en')->creationRules([
-                'required', 'min:6'
-            ]),
-            Textarea::make('Brand Arabic Body', 'description_ar')->creationRules([
-                'required', 'min:6'
-            ]),
+            Textarea::make('Brand English Body', 'description_en'),
+            Textarea::make('Brand Arabic Body', 'description_ar'),
             Image::make('Brand Image', 'image')
-                ->creationRules([
-                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
                 ->disk('public')
                 ->path('images/brands')
                 ->prunable()
                 ->deletable(),
-             BelongsTo::make('Category'),
+             BelongsTo::make('Subcategory')->rules('required'),
+             HasMany::make('Models'),
         ];
     }
 

@@ -2,42 +2,35 @@
 
 namespace App\Nova;
 
-use Naif\Toggle\Toggle;
+use App\Nova\Category;
+use App\Nova\Metrics\Brands;
+use App\Nova\Metrics\Models;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use App\Nova\Metrics\Categories;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Category extends Resource
+class Model extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Category';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
+    public static $model = 'App\Model';
     public static $group = 'Categories';
-    public static $title = 'name_en';
-
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    // public function title()
-    // {
-    //     return $this->name_en . ' - ' . $this->name_ar;
-    // }
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
@@ -46,8 +39,6 @@ class Category extends Resource
      */
     public static $search = [
         'id',
-        'name_en',
-        'name_ar'
     ];
 
     /**
@@ -60,20 +51,21 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Category English Name', 'name_en')->creationRules([
+            Text::make('Model English Name', 'name_en')->creationRules([
                 'required', 'min:6'
             ]),
-            Text::make('Category Arabic Name', 'name_ar')->creationRules([
+            Text::make('Model Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:6'
             ]),
-            Textarea::make('Category English Body', 'description_en'),
-            Textarea::make('Category Arabic Body', 'description_ar'),
-            Image::make('Category Image', 'image')
+            Textarea::make('Model English Body', 'description_en'),
+            Textarea::make('Model Arabic Body', 'description_ar'),
+            Image::make('Model Image', 'image') 
                 ->disk('public')
-                ->path('images/categories')
+                ->path('images/models')
                 ->prunable()
                 ->deletable(),
-             HasMany::make('Subcategories'),
+             BelongsTo::make('Brand'),
+             HasMany::make('Colors'),
         ];
     }
 
@@ -86,7 +78,7 @@ class Category extends Resource
     public function cards(Request $request)
     {
         return [
-            new Categories()
+            new Models()
         ];
     }
 

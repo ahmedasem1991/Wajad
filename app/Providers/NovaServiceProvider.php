@@ -16,6 +16,7 @@ use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Auth;
+ 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     public function boot()
@@ -89,6 +90,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
+           
         ];
     }
 

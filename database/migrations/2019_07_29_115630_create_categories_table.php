@@ -11,9 +11,9 @@ class CreateCategoriesTable extends Migration {
 			$table->increments('id');
 			$table->string('name_en');
 			$table->string('name_ar');
-			$table->boolean('items_has_default_image')->default(0);
-			$table->string('default_image', 255)->nullable();
-			$table->string('icon', 255);
+			$table->string('description_en', 500)->nullable();
+            $table->string('description_ar', 500)->nullable();
+            $table->string('image')->default('images/default.png');
 			$table->timestamps();
 		});
 	}
