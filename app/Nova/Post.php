@@ -2,15 +2,20 @@
 
 namespace App\Nova;
 
-use Naif\Toggle\Toggle;
+use App\Nova\Metrics\Posts;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Boolean;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Post extends Resource
@@ -55,10 +60,9 @@ class Post extends Resource
     {
 
         return [
-            ID::make()->sortable(),
-            Text::make('Title'),
-            Textarea::make('description'),
-           // Boolean::make('Is Found','status'),
+           ID::make()->sortable(),
+           Text::make('Title'),
+           Textarea::make('description'),
            RadioButton::make('Status')
            ->options([
                0 => 'Lost',
@@ -73,7 +77,7 @@ class Post extends Resource
             ->options(\App\User::all()),
             BelongsTo::make('Founder', 'founder', 'App\Nova\User'),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User'),
-             NovaBelongsToDepend::make('Item')
+            NovaBelongsToDepend::make('Item')
             ->placeholder('Item')
             ->optionsResolve(function ($user) {
                 $user_items = [];
@@ -85,7 +89,7 @@ class Post extends Resource
                 }
                 return $user_items;
             })->dependsOn('publisher')->nullable(),
-            HasMany::make('Images','images',\App\Nova\PostImages::class)
+            HasMany::make('Images','images',\App\Nova\PostImage::class)
 
         ];
     }
@@ -98,7 +102,9 @@ class Post extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Posts,
+        ];
     }
 
     /**
@@ -133,4 +139,6 @@ class Post extends Resource
     {
         return [];
     }
+
+
 }

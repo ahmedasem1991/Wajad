@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+ 
+use App\Nova\Metrics\Regions;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
@@ -70,7 +72,9 @@ class Area extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Regions()
+        ];
     }
 
     /**

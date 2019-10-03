@@ -18,13 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('type')->default(1); // Normal User
+            $table->integer('type')->default(3); // Super Admin
             $table->integer('status')->default(1); // Active
             $table->char('mobile_number')->unique()->nullable();
             $table->integer('mobile_country_id')->unsigned()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->integer('city_id')->nullable();     
-           // $table->foreign('city_id')->references('id')->on('cities');       ;
+            $table->integer('city_id')->nullable();
+            $table->integer('corporate_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
            

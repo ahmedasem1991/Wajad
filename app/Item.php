@@ -3,6 +3,7 @@
 namespace App;
 
 use Log;
+use App\Brand;
 use App\ItemImages;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
@@ -15,7 +16,7 @@ class Item extends Model
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'category_id'];
+    protected $fillable = ['title', 'details', 'owner_id', 'category_id','brand_id'];
  
     /**
      * Define Items Status Const
@@ -41,6 +42,11 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
  
 
     /**
@@ -62,6 +68,7 @@ class Item extends Model
     {
         return $this->belongsTo(Category::class);
     }
+ 
 
     /**
      * Define The Images Of The Item
@@ -126,6 +133,11 @@ class Item extends Model
     public function scopeCategory($query, $category_id)
     {
         return $query->where('category_id', $category_id) ?? null;
+    }
+
+    public function scopeBrand($query, $brand_id)
+    {
+        return $query->where('brand_id', $brand_id) ?? null;
     }
 
     /**
@@ -200,7 +212,8 @@ class Item extends Model
             'title' => request('title'),
             'details' => request('details'),
             'owner_id' => request('owner_id'),
-            'category_id' =>request('category_id'),
+            'category_id' => request('category_id'),
+            'brand_id' => request('brand_id'),
              ]);
     
             if ($Item) {

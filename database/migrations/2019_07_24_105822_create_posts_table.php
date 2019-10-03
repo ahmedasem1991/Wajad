@@ -29,6 +29,7 @@ class CreatePostsTable extends Migration
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();
             $table->integer('category_id')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->integer('images_id')->nullable();
           
             $table->timestamps();

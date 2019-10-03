@@ -5,6 +5,12 @@ namespace App\Nova;
 use App\User;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use App\Nova\Metrics\QrCodes;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -18,13 +24,13 @@ class Qrcode extends Resource
      * @var string
      */
     public static $model = 'App\Qrcode';
-
+    public static $perPageOptions = [50, 100, 150];
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Qrcode';
+    public static $group = 'QR Code';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,6 +47,7 @@ class Qrcode extends Resource
     public static $search = [
         'id',
     ];
+    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
@@ -52,27 +59,42 @@ class Qrcode extends Resource
     {
         return [
             ID::make()->sortable(),
-
+            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
+            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
+            Text::make('Status',function(){
+                return $this->statusTitle($this->status);
+            }),
             QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
                 ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
                 ->length(15)
                 ->showUrl(true)
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
                 ->hideWhenUpdating(),
+                Image::make('QRCode Images', 'image')
+                ->disk('public')
+                ->path('images/qrcodes')
+                ->prunable()
+                ->deletable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
-            QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
+            // QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
 
-            DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
+            // DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
 
-            NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
+            // NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
 
-            NovaBelongsToDepend::make('Item')
-                ->placeholder('Item')
-                ->optionsResolve(function ($user) {
-                    return $user->items()
-                        ->whereDoesntHave('qrcode')
-                        ->get();
-                })->dependsOn('user')->nullable(),
+            // NovaBelongsToDepend::make('Item')
+            //     ->placeholder('Item')
+            //     ->optionsResolve(function ($user) {
+            //         return $user->items()
+            //             ->whereDoesntHave('qrcode')
+            //             ->get();
+            //     })->dependsOn('user')->nullable(),
 
         ];
     }
@@ -85,7 +107,9 @@ class Qrcode extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new QrCodes,
+        ];
     }
 
     /**
@@ -120,4 +144,13 @@ class Qrcode extends Resource
     {
         return [];
     }
+
+    
+    public static function label() {
+        return 'All QR Code';
+    }
+    // public static function indexQuery(NovaRequest $request, $query)
+    // {
+    //   //  return $query->whereNull('assign_reference_number');
+    // }
 }

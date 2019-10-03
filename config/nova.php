@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'name' => 'Wajad Admin Panel',
+    'name' => 'Admin Panel',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,6 +32,7 @@ return [
     */
 
     'url' => env('ADMIN_URL', '/'),
+    'domain' => env('ADMIN_URL', '/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +77,7 @@ return [
         DispatchServingNovaEvent::class,
         BootTools::class,
         Authorize::class,
-        \App\Http\Middleware\Admin::class,
+       // \App\Http\Middleware\Admin::class,
     ],
 
     /*
@@ -90,6 +91,6 @@ return [
     |
     */
 
-    'pagination' => 'simple',
+    'pagination' => 'links',
 
 ];

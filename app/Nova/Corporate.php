@@ -6,10 +6,14 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Naif\MapAddress\MapAddress;
-use Spatie\NovaTranslatable\Translatable;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Image;
+use Naif\MapAddress\MapAddress;
+use App\Nova\Metrics\Corporates;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsToMany;
+use Spatie\NovaTranslatable\Translatable;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 
 class Corporate extends Resource
 {
@@ -26,7 +30,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'name_en';
 
     /**
      * The logical group associated with the resource.
@@ -103,7 +107,13 @@ class Corporate extends Resource
                 'max:5012'
             )->disk('public')->disableDownload()->deletable(false),
 
-            BelongsToMany::make('User', 'users', User::class)->rules('required'),
+            HasMany::make('Users', 'users'),
+            Boolean::make('Active','status'),
+            MapMarker::make("Location")
+            ->defaultZoom(5)
+            ->defaultLatitude(21.4498898)
+            ->defaultLongitude(39.4913431)
+            ->centerCircle(10000, 'DarkCyan', 1.00, 0.3),
         ];
     }
 
@@ -115,7 +125,9 @@ class Corporate extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Corporates()
+        ];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Banner;
 use App\Item;
 use App\User;
 use Illuminate\Console\Command;
@@ -61,8 +62,8 @@ class SeedApp extends Command
         Artisan::call('seed:locations');
         Artisan::call('seed:settings');
 
-        $create_items_question = $this->ask('Items Number ?', 100);
+        $create_banner_question = $this->ask('Banner Number ?', 5);
 
-        factory(Item::class, (int) $create_items_question)->create();
+        factory(Banner::class, (int) $create_banner_question)->create();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Brand;
+use App\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -10,20 +12,8 @@ class Category extends Model
 {
     use LogsActivity;
 
-    /**
-     * Define Image Path For Categories
-     *
-     * @var string
-     */
-    protected $images_path = "/images/categories/";
-
-    /**
-     * Define Icon Path For Categories
-     *
-     * @var string
-     */
-    protected $icons_path = "/images/categories/";
-
+    protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
+ 
     /**
      * Define Items Relation With Each Category
      *
@@ -33,14 +23,7 @@ class Category extends Model
     {
         return $this->hasMany(Item::class);
     }
-
-    public function getDefaultImageAttribute($value)
-    {
-        if ($value == 'default-image.jpg') {
-            return $this->images_path . $value;
-        }
-        return $value;
-    }
+ 
 
     public function getIconAttribute($value)
     {
@@ -61,4 +44,23 @@ class Category extends Model
     {
         return $query->where('id', $category_id) ?? null;
     }
+    public function scopeBrands($query, $brand_id)
+    {
+        return $query->where('brand_id', $brand_id);
+    }
+
+    public function brands()
+    {
+        return $this->hasMany(Brand::class);
+    }
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+    public function scopeSubcategories($query, $sub_category_id)
+    {
+        return $query->where('sub_category_id', $sub_category_id);
+    }
+
+
 }

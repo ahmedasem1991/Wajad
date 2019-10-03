@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Countries;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
@@ -67,7 +68,9 @@ class Country extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Countries()
+        ];
     }
 
     /**
@@ -102,4 +105,6 @@ class Country extends Resource
     {
         return [];
     }
+
+
 }

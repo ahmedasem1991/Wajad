@@ -15,9 +15,19 @@ class CreateQrcodesTable extends Migration
     {
         Schema::create('qrcodes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('reference_number')->nullable();
+            $table->string('assign_reference_number')->nullable();
+            $table->integer('type')->default(1);//default  (single)
+            $table->integer('status')->default(1);// default (In stock)
+            $table->integer('quantity')->default(1);
             $table->string('qrcode_url')->unique();
+            $table->string('image')->nullable();
+            $table->string('available_period')->default(1);
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
             $table->integer('package_product_pivot_id')->nullable();
             $table->integer('user_id')->nullable();
+            $table->integer('corporate_id')->nullable();
 			$table->integer('item_id')->unsigned()->nullable();
             $table->timestamps();
         });

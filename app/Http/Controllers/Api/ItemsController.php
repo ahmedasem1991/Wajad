@@ -20,11 +20,12 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         $items = QueryBuilder::for(Item::class)
-            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder')
+            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder' ,'brand')
             ->allowedFilters([
                 Filter::scope('lost'),
                 Filter::scope('found'),
                 Filter::scope('category'),
+                Filter::scope('brand'),
                 Filter::scope('owner'),
                 Filter::scope('founder'),
                 Filter::scope('item'),
@@ -48,6 +49,7 @@ class ItemsController extends Controller
             'details' => ['required', 'min:20', 'max:500'],
             'owner_id' => ['required','exists:users,id'],
             'category_id' => ['required','exists:categories,id'],
+            'brand_id' => ['required','exists:brands,id'],
             
         ]);
         

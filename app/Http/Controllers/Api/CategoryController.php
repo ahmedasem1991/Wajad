@@ -14,10 +14,11 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = QueryBuilder::for(Category::class)
-            ->withCount('items')
-            ->allowedIncludes('items')
+            ->withCount('subCategories')
+            ->allowedIncludes('subcategories')
             ->allowedFilters([
                 Filter::scope('category'),
+                Filter::scope('subCategories'),
                 'title',
             ])
             ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');

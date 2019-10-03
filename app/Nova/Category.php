@@ -7,7 +7,9 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use App\Nova\Metrics\Categories;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Textarea;
 
 class Category extends Resource
 {
@@ -24,6 +26,7 @@ class Category extends Resource
      * @var string
      */
     public static $group = 'Categories';
+    public static $title = 'name_en';
 
 
     /**
@@ -31,10 +34,10 @@ class Category extends Resource
      *
      * @var string
      */
-    public function title()
-    {
-        return $this->name_en . ' - ' . $this->name_ar;
-    }
+    // public function title()
+    // {
+    //     return $this->name_en . ' - ' . $this->name_ar;
+    // }
 
     /**
      * The columns that should be searched.
@@ -57,48 +60,20 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
-
-            Text::make('Category English Name', 'name_en')
-                ->creationRules([
-                    'required', 'max:255', 'min:3', 'unique:categories,name_en'
-                ])
-                ->updateRules([
-                    'max:255', 'min:3', 'unique:categories,name_en,{{resourceId}}'
-                ]),
-
-            Text::make('Category Arabic Name', 'name_ar')
-                ->creationRules([
-                    'required', 'max:255', 'min:3', 'unique:categories,name_ar'
-                ])
-                ->updateRules([
-                    'max:255', 'min:3', 'unique:categories,name_ar,{{resourceId}}'
-                ]),
-
-            Toggle::make('Use Default Image For Items In Category', 'items_has_default_image')->color('#4099de'),
-
-            Image::make('Category Items Default Image', 'default_image')->rules([
-                'required_if:has_default_image,1', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])
+            Text::make('Category English Name', 'name_en')->creationRules([
+                'required', 'min:6'
+            ]),
+            Text::make('Category Arabic Name', 'name_ar')->creationRules([
+                'required', 'min:6'
+            ]),
+            Textarea::make('Category English Body', 'description_en'),
+            Textarea::make('Category Arabic Body', 'description_ar'),
+            Image::make('Category Image', 'image')
                 ->disk('public')
-                ->path('/images/categories/images')
-                ->disableDownload()
+                ->path('images/categories')
                 ->prunable()
                 ->deletable(),
-
-            Image::make('Category Icon', 'icon')
-                ->creationRules([
-                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->updateRules([
-                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->disk('public')
-                ->path('/images/categories/icons')
-                ->disableDownload()
-                ->prunable()
-                ->deletable(),
-
-            HasMany::make('Item', 'items', \App\Nova\Item::class)
+             HasMany::make('Subcategories'),
         ];
     }
 
@@ -110,7 +85,9 @@ class Category extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new Categories()
+        ];
     }
 
     /**

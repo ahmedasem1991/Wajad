@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Gate;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
-
+use Auth;
+ 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     public function boot()
@@ -26,12 +27,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     protected function resources()
     {
-        Nova::resourcesIn(app_path('Nova'));
-         
+        if(Auth()->user()->isAdmin())
+        {
+            Nova::resourcesIn(app_path('Nova'));
+        }
 
-        // Nova::resources([
-        // PageResource::class,
-        // ]);
+        if(Auth()->user()->isCorporateAdmin())
+        {
+            Nova::resourcesIn(app_path('NovaCorporate'));
+        }
+ 
     }
 
     protected function routes()
@@ -45,29 +50,47 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
-        });
+           if(Auth()->user()->isAdmin())
+           {
+            return $user->isAdmin();
+           }
+           if(Auth()->user()->isCorporateAdmin())
+           {
+            return $user->isCorporateAdmin();
+           }
+         });
     }
 
     protected function cards()
     {
-        return [
-            new UsersActivity,
-           // new PostsCount,
-            new UsersTypes,
-            new UsersStatus,
-            new Posts,
-            new QrCodes,
-            //new QRCodeCount,
-            new \Marianvlad\NovaEnvCard\NovaEnvCard,
-        ];
+        if(Auth()->user()->isAdmin())
+        {
+            return [
+                new UsersActivity,
+               // new PostsCount,
+                new UsersTypes,
+                new UsersStatus,
+                new Posts,
+                new QrCodes,
+                //new QRCodeCount,
+                new \Marianvlad\NovaEnvCard\NovaEnvCard,
+            ];
+        }
+
+        if(Auth()->user()->isCorporateAdmin())
+        {
+            return[
+
+            ];
+        }
+
+
     }
 
     public function tools()
     {
         return [
+           
         ];
     }
 

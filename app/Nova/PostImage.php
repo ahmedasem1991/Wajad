@@ -2,7 +2,7 @@
 
 namespace App\Nova;
 
-
+use App\Nova\Metrics\PostImages;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -74,7 +74,9 @@ class PostImage extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new PostImages()
+        ];
     }
 
     /**
