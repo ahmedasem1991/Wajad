@@ -63,13 +63,13 @@ class Item extends Resource
             NovaBelongsToDepend::make('Category')->placeholder('Category')
             ->options(\App\Category::get(['name_en','id'])),
 
-            NovaBelongsToDepend::make('Brand')
-                ->placeholder('Brand')
+            NovaBelongsToDepend::make('subcategory')
+                ->placeholder('Sub Category')
                 ->optionsResolve(function ($category) {
                   return $category->brands()->get(['id','name_en']);
                 })->dependsOn('category')->nullable(),
 
-            BelongsTo::make('User', 'owner', User::class),
+            BelongsTo::make('owner', 'owner', User::class),
             HasMany::make('Images', 'images', ItemImage::class),
             
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),

@@ -32,8 +32,9 @@
         "smartappco/qrcode-generator": "*",
         "spatie/laravel-query-builder": "^1.17",
         "stephenlake/nova-fixed-bars": "^1.1",
-        "tymon/jwt-auth": "1.0.*"
-         
+        "tymon/jwt-auth": "1.0.*",
+        "smartappco/google-maps": "*",
+        "acme/analytics": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -93,6 +94,18 @@
         {
             "type": "path",
             "url": "./nova-components/DownloadQrcodeImage"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/GoogleMaps"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Analytics"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Analytics"
         }
     ]
 }

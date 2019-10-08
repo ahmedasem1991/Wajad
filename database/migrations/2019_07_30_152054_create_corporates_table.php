@@ -21,7 +21,7 @@ class CreateCorporatesTable extends Migration
             $table->text('details_ar');
             $table->text('address_en');
             $table->text('address_ar');
-            $table->text('location');
+            $table->text('location')->nullable();
             $table->double('latitude');
             $table->double('longitude');
             $table->integer('status')->default(0);

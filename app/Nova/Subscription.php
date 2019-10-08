@@ -16,6 +16,7 @@ class Subscription extends Resource
      * @var string
      */
     public static $model = 'App\Subscription';
+    public static $displayInNavigation = false;
 
     /**
      * The logical group associated with the resource.

@@ -113,7 +113,7 @@ class Corporate extends Resource
             ->defaultZoom(5)
             ->defaultLatitude(21.4498898)
             ->defaultLongitude(39.4913431)
-            ->centerCircle(10000, 'DarkCyan', 1.00, 0.3),
+            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
         ];
     }
 

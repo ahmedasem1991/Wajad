@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Corporate;
 use Laravel\Nova\Nova;
 use App\Nova\Metrics\Posts;
 use Laravel\Nova\Cards\Help;
@@ -16,7 +17,8 @@ use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Auth;
- 
+use Smartappco\GoogleMaps\GoogleMaps;
+
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     public function boot()
@@ -63,6 +65,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     protected function cards()
     {
+        $Corporates=Corporate::all();
         if(Auth()->user()->isAdmin())
         {
             return [
@@ -74,6 +77,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 new QrCodes,
                 //new QRCodeCount,
                 new \Marianvlad\NovaEnvCard\NovaEnvCard,
+               ( new GoogleMaps)->markers($Corporates),
             ];
         }
 

@@ -10,8 +10,19 @@ Route::post('/refresh-token', 'Auth\AuthController@refresh');
 # Categories 
 Route::get('/categories', 'CategoryController@index');
 
+# Sub Categories 
+Route::get('/subcategories', 'CategoryController@subcategories');
+
 # Brands 
-Route::get('/brands', 'BrandController@index');
+Route::get('/brands', 'CategoryController@brands');
+
+# Models 
+Route::get('/models', 'CategoryController@models');
+
+# Colors 
+Route::get('/colors', 'CategoryController@colors');
+
+
 
 # On Boarding Sliders
 Route::get('/onboarding', 'OnboardingController@index');

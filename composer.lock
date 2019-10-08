@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c730e55ad63f9749f8bb5b65937d9c61",
+    "content-hash": "3564b6f6278cef9c21a8849850e223f2",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -710,16 +710,16 @@
         },
         {
             "name": "epartment/nova-dependency-container",
-            "version": "1.2.2",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/epartment/nova-dependency-container.git",
-                "reference": "f1b170a75d8663eed4e378b82ba2d29df94e6fa4"
+                "reference": "d95cdefae80de84772a9ecb65b5631baf0b69ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/epartment/nova-dependency-container/zipball/f1b170a75d8663eed4e378b82ba2d29df94e6fa4",
-                "reference": "f1b170a75d8663eed4e378b82ba2d29df94e6fa4",
+                "url": "https://api.github.com/repos/epartment/nova-dependency-container/zipball/d95cdefae80de84772a9ecb65b5631baf0b69ca4",
+                "reference": "d95cdefae80de84772a9ecb65b5631baf0b69ca4",
                 "shasum": ""
             },
             "require": {
@@ -747,7 +747,7 @@
                 "laravel",
                 "nova"
             ],
-            "time": "2019-09-27T23:39:03+00:00"
+            "time": "2019-10-04T13:17:34+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1917,30 +1917,29 @@
         },
         {
             "name": "markbaker/matrix",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarkBaker/PHPMatrix.git",
-                "reference": "6ea97472b5baf12119b4f31f802835b820dd6d64"
+                "reference": "5348c5a67e3b75cd209d70103f916a93b1f1ed21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/6ea97472b5baf12119b4f31f802835b820dd6d64",
-                "reference": "6ea97472b5baf12119b4f31f802835b820dd6d64",
+                "url": "https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/5348c5a67e3b75cd209d70103f916a93b1f1ed21",
+                "reference": "5348c5a67e3b75cd209d70103f916a93b1f1ed21",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6.0|^7.0.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3",
-                "phpcompatibility/php-compatibility": "^8.0",
-                "phpdocumentor/phpdocumentor": "2.*",
-                "phploc/phploc": "2.*",
-                "phpmd/phpmd": "2.*",
-                "phpunit/phpunit": "^4.8.35|^5.4.0",
-                "sebastian/phpcpd": "2.*",
-                "squizlabs/php_codesniffer": "^3.3.0"
+                "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+                "phpcompatibility/php-compatibility": "dev-master",
+                "phploc/phploc": "^4",
+                "phpmd/phpmd": "dev-master",
+                "phpunit/phpunit": "^5.7",
+                "sebastian/phpcpd": "^3.0",
+                "squizlabs/php_codesniffer": "^3.0@dev"
             },
             "type": "library",
             "autoload": {
@@ -1983,7 +1982,7 @@
                 "matrix",
                 "vector"
             ],
-            "time": "2018-11-04T22:12:12+00:00"
+            "time": "2019-10-06T11:29:25+00:00"
         },
         {
             "name": "mjaschen/phpgeo",
@@ -2286,16 +2285,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.24.0",
+            "version": "2.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29"
+                "reference": "d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/934459c5ac0658bc765ad1e53512c7c77adcac29",
-                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1",
+                "reference": "d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1",
                 "shasum": ""
             },
             "require": {
@@ -2342,14 +2341,14 @@
                     "homepage": "http://github.com/kylekatarnls"
                 }
             ],
-            "description": "A API extension for DateTime that supports 281 different languages.",
+            "description": "An API extension for DateTime that supports 281 different languages.",
             "homepage": "http://carbon.nesbot.com",
             "keywords": [
                 "date",
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-31T16:37:55+00:00"
+            "time": "2019-10-05T15:52:23+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3187,6 +3186,39 @@
             ]
         },
         {
+            "name": "smartappco/google-maps",
+            "version": "dev-20190730-add-resources",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/GoogleMaps",
+                "reference": "bbeb3f6fbdd96c3520326442579e50b5e5864958"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Smartappco\\GoogleMaps\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Smartappco\\GoogleMaps\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova card.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
             "name": "smartappco/qrcode-generator",
             "version": "dev-20190730-add-resources",
             "dist": {
@@ -3221,16 +3253,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "3.8.0",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "89bbdbea8f085d72ba7513af989e2e54366f5794"
+                "reference": "dac271a93e52f1d97f0587ae2fa25a04954707a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/89bbdbea8f085d72ba7513af989e2e54366f5794",
-                "reference": "89bbdbea8f085d72ba7513af989e2e54366f5794",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/dac271a93e52f1d97f0587ae2fa25a04954707a2",
+                "reference": "dac271a93e52f1d97f0587ae2fa25a04954707a2",
                 "shasum": ""
             },
             "require": {
@@ -3295,7 +3327,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2019-09-04T09:20:42+00:00"
+            "time": "2019-10-06T13:07:23+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
@@ -5914,22 +5946,22 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/f6811d96d97bdf400077a0cc100ae56aa32b9203",
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
-                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
+                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0|^5.0",
                 "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
@@ -5973,7 +6005,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2019-06-13T12:50:23+00:00"
+            "time": "2019-10-03T11:07:50+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
