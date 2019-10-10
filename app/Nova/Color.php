@@ -59,8 +59,16 @@ class Color extends Resource
                 'required', 'min:6'
             ]),
             
-           
-             BelongsTo::make('Model')->rules('required'),
+            Image::make('Icon', 'icon')
+            ->creationRules([
+                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+            ])
+            ->disk('public')
+            ->path('images/colors')
+            ->disableDownload()
+            ->prunable()
+            ->deletable(),
+             //BelongsTo::make('Model')->rules('required'),
         ];
     }
 

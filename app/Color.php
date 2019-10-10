@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model;
+use App\Item;
 use Illuminate\Database\Eloquent\Model as MasterModel;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -11,12 +12,12 @@ class Color extends MasterModel
 {
     use LogsActivity;
 
-    protected $fillable=['name_en','name_ar'];
+    protected $fillable=['name_en','name_ar','icon'];
  
  
-    public function model()
+    public function items()
     {
-        return $this->belongsTo(Model::class);
+        return $this->hasMany(Item::class);
     }
 
  

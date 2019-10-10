@@ -16,8 +16,10 @@ class CreateItemsTable extends Migration
 			$table->integer('radius')->unsigned()->nullable();
 			$table->boolean('is_public')->default(true);
 			$table->integer('owner_id')->unsigned()->nullable();
-			$table->integer('category_id')->unsigned()->nullable();
+			$table->integer('sub_category_id')->unsigned()->nullable();
 			$table->integer('brand_id')->unsigned()->nullable();
+			$table->integer('model_id')->unsigned()->nullable();
+			$table->integer('color_id')->unsigned()->nullable();
 			$table->text('images')->nullable();
 			$table->softDeletes();
 			$table->timestamps();

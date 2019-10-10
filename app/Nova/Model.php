@@ -65,7 +65,7 @@ class Model extends Resource
                 ->prunable()
                 ->deletable(),
              BelongsTo::make('Brand'),
-             HasMany::make('Colors'),
+             //HasMany::make('Colors'),
         ];
     }
 

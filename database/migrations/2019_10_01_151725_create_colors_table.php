@@ -17,7 +17,7 @@ class CreateColorsTable extends Migration
             $table->Increments('id');
             $table->string('name_en');
             $table->string('name_ar');
-            $table->integer('model_id');
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

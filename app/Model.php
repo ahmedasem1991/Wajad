@@ -11,7 +11,7 @@ class Model extends MasterModel
 {
     use LogsActivity;
 
-    protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
+    protected $fillable=['name_en','name_ar','description_en','description_ar','image','brand_id'];
     
 
     /**
@@ -24,10 +24,10 @@ class Model extends MasterModel
         return $this->belongsTo(Brand::class);
     }
 
-    public function colors()
-    {
-        return $this->hasMany(Color::class);
-    }
+    // public function colors()
+    // {
+    //     return $this->hasMany(Color::class);
+    // }
 
  
 
@@ -38,15 +38,16 @@ class Model extends MasterModel
      * @param integer $category_id
      * @return object
      */
-    public function scopeBrand($query, $brand_id)
-    {
-        return $query->where('id', $brand_id) ?? null;
-    }
+    // public function scopeBrand($query, $brand_id)
+    // {
+    //     return $query->where('id', $brand_id) ?? null;
+    // }
 
 
 
-    public function scopeBrands($query, $brand_id)
-    {
-        return $query->where('brand_id', $brand_id);
-    }
+ 
+    // public function brands($query, $brand_id)
+    // {
+    //     return $query->where('brand_id', $brand_id);
+    // }
 }
