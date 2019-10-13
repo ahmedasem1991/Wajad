@@ -61,5 +61,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('details', 'DetailsController@index');
     Route::get('/user/{publisher_id}/posts', 'PostsController@userposts');
     Route::post('/posts/create', 'PostsController@store');
+  
     Route::post('/items/create', 'ItemsController@store');
 });
+Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');

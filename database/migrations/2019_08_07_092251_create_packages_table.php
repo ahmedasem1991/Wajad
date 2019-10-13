@@ -20,6 +20,8 @@ class CreatePackagesTable extends Migration
             $table->mediumText('description_en');
             $table->mediumText('description_ar');
             $table->integer('price')->nullable()->unsigned();
+            $table->tinyInteger('type')->default(1);
+            $table->integer('quantity')->default(0);
             // $table->integer('products_per_package')->nullable()->unsigned();
             $table->integer('period')->nullable()->unsigned();
             $table->boolean('is_active')->default(true);    
