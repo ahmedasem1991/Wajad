@@ -75,8 +75,8 @@ class User extends Resource
             Text::make('Email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{ resourceId }}'),
+                ->creationRules('unique:users,email'),
+                //->updateRules('unique:users,email,{{ resourceId }}'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -84,6 +84,8 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
             HasMany::make('Items'),
             Toggle::make('Active', 'status'),
+            Boolean::make('Show My Data','show_my_data'),
+
 
             // CashierResourceTool::make()->onlyOnDetail(),
 
@@ -99,7 +101,7 @@ class User extends Resource
                    '1' => 'User',
                 ])->displayUsingLabels(),
                 
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corporate Admin.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corporate Admin.</p>')->asHtml()->hideFromDetail(),
          
               BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
               ->creationRules('required_if:type,2')

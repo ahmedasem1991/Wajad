@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('corporate_id')->nullable();
+            $table->boolean('show_my_data')->default(0);
             $table->rememberToken();
             $table->timestamps();
            

@@ -53,14 +53,14 @@ Route::get('/test500', function(){
 	//getimagesize('');
 
 	//return Package::packagesPeriod();
-	for ($x = 1; $x <= 20; $x++) {
-	\QrCode::size(1000000)
-			  ->format('png')
-			  ->merge('https://himsworthscott.com/content/uploads/2019/05/Apple-Logo-Png-Download-768x950.png', 0.3, true)
-			  ->generate('ItSolutionStuff.com', public_path('images/qrcodes/'.time().'.png'));
-	}
-	$now = Carbon\Carbon::now();
-       return 'N-'.$now->year.$now->month.$now->day;
+	// for ($x = 1; $x <= 20; $x++) {
+	// \QrCode::size(1000000)
+	// 		  ->format('png')
+	// 		  ->merge('https://himsworthscott.com/content/uploads/2019/05/Apple-Logo-Png-Download-768x950.png', 0.3, true)
+	// 		  ->generate('ItSolutionStuff.com', public_path('images/qrcodes/'.time().'.png'));
+	// }
+	// $now = Carbon\Carbon::now();
+       return Auth()->user();
 	   ;
 });
  

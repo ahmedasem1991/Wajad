@@ -111,6 +111,6 @@ class Activity extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereIn('causer_id',Auth()->user()->corporate->users->pluck('id'));
+        return $query->whereIn('causer_id',Auth()->user()->corporate->users()->pluck('id'));
     }
 }

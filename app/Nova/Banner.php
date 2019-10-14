@@ -95,7 +95,7 @@ class Banner extends Resource
                 ])->dependsOn('open_at', 'image_url'),
 
                 NovaDependencyContainer::make([
-                    Select2::make('Item','item_id')
+                    Select2::make('Lost Item','item_id')
                     ->sortable()
                     ->options(Item::lost()->get()->pluck('title', 'id'))
                     ->displayUsingLabels()
@@ -112,7 +112,7 @@ class Banner extends Resource
                 ])->dependsOn('open_at', 'lost'),
 
                 NovaDependencyContainer::make([
-                    Select2::make('Item','item_id')
+                    Select2::make('Found Item','item_id')
                     ->sortable()
                     ->options(Item::found()->get()->pluck('title', 'id'))
                     ->displayUsingLabels()

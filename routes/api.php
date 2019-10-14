@@ -22,6 +22,8 @@ Route::get('/models', 'CategoryController@models');
 # Colors 
 Route::get('/colors', 'CategoryController@colors');
 
+# Wajad Offices 
+Route::get('/offices', 'OfficeController@index');
 
 
 # On Boarding Sliders
@@ -59,9 +61,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         return auth('api')->user();
     });
     Route::post('details', 'DetailsController@index');
-    Route::get('/user/{publisher_id}/posts', 'PostsController@userposts');
+    Route::get('/user/{publisher_id}/posts', 'PostsController@userPosts');
     Route::post('/posts/create', 'PostsController@store');
-  
     Route::post('/items/create', 'ItemsController@store');
+    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
+    Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
 });
-Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
+Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
+  

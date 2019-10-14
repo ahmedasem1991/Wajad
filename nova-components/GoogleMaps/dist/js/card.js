@@ -165,7 +165,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* #myMap {\n \n\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* #myMap {\n \n\n} */\n", ""]);
 
 // exports
 
@@ -664,7 +664,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
   mounted: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-      var google, geocoder, map, locations, markerClickHandler, markers;
+      var google, geocoder, map, locations, offices, markerClickHandler, markers;
       return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -694,7 +694,22 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 console.log(element.name_en);
                 locations.push({
                   label: element.name_en + '-' + element.name_ar,
-                  title: element.name_en + '-' + element.name_ar,
+                  title: element.name_en + '-' + element.name_ar + ' Corporate',
+                  position: {
+                    lat: element.latitude,
+                    lng: element.longitude
+                  }
+                });
+              });
+
+              offices = [];
+
+              this.card.offices.forEach(function (element) {
+                console.log(element.name_en);
+                locations.push({
+                  label: element.name_en + '-' + element.name_ar,
+                  title: element.name_en + '-' + element.name_ar + ' Office',
+                  icon: '../office_mark.png',
                   position: {
                     lat: element.latitude,
                     lng: element.longitude
@@ -721,21 +736,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               new __WEBPACK_IMPORTED_MODULE_1__google_markerclusterer___default.a(map, markers, {
                 imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
               });
-              _context.next = 17;
+              _context.next = 19;
               break;
 
-            case 14:
-              _context.prev = 14;
+            case 16:
+              _context.prev = 16;
               _context.t0 = _context['catch'](0);
 
               console.error(_context.t0);
 
-            case 17:
+            case 19:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, this, [[0, 14]]);
+      }, _callee, this, [[0, 16]]);
     }));
 
     function mounted() {

@@ -18,7 +18,12 @@ class GoogleMaps extends Card
         'markers' => $markers
         ]);
     }
-
+    public function offices($offices=null)
+    {
+        return $this->withMeta([
+        'offices' => $offices
+        ]);
+    }
     /**
      * Get the component name for the element.
      *

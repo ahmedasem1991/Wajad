@@ -12,6 +12,7 @@ use App\Nova\Metrics\QrCodes;
 use App\Nova\Metrics\UsersTypes;
 use App\Nova\Metrics\UsersStatus;
 use App\Nova\Metrics\UsersActivity;
+use App\WajadOffice;
 use Illuminate\Support\Facades\Gate;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
@@ -66,6 +67,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         $Corporates=Corporate::all();
+        $Offices=WajadOffice::all();
         if(Auth()->user()->isAdmin())
         {
             return [
@@ -77,7 +79,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 new QrCodes,
                 //new QRCodeCount,
                 new \Marianvlad\NovaEnvCard\NovaEnvCard,
-               ( new GoogleMaps)->markers($Corporates),
+               ( new GoogleMaps)
+               ->markers($Corporates)
+               ->offices($Offices),
+              
             ];
         }
 

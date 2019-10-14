@@ -47,7 +47,16 @@ class PostsController extends Controller
         ])->orderby('id','desc')->paginate($request->get('per_page', 15));
             $this->request['lat']=$request->lat;
             $this->request['lng']=$request->lng;
-            $this->request['distance']=$request->distance;
+            if($request->unit=='m')
+            {
+                $this->request['distance']=$request->distance*0.62137;
+            }
+            else{
+                $this->request['distance']=$request->distance;
+            }
+            
+           
+
             $Posts = $Posts->filter(function ($Post) {
             $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
             $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
@@ -63,7 +72,7 @@ class PostsController extends Controller
 
 
 
-    public function userposts(Request $request,$publisher_id)
+    public function userPosts(Request $request,$publisher_id)
     {
         
         $Posts = QueryBuilder::for(Post::class)

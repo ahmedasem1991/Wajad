@@ -44,7 +44,21 @@ export default {
         console.log(element.name_en);
         locations.push({
            label: element.name_en+'-'+element.name_ar,
-           title:element.name_en+'-'+element.name_ar,
+           title:element.name_en+'-'+element.name_ar +' Corporate',
+           position :{
+             lat:element.latitude,
+             lng:element.longitude
+           }
+        });
+      });
+
+       const offices = [];
+       this.card.offices.forEach(element => {
+        console.log(element.name_en);
+        locations.push({
+           label: element.name_en+'-'+element.name_ar ,
+           title:element.name_en+'-'+element.name_ar +' Office',
+           icon :'../office_mark.png',
            position :{
              lat:element.latitude,
              lng:element.longitude

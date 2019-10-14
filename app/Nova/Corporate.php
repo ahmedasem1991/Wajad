@@ -105,7 +105,7 @@ class Corporate extends Resource
                 'image',
                 'mimes:jpeg,bmp,png',
                 'max:5012'
-            )->disk('public')->disableDownload()->deletable(false),
+            )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
             HasMany::make('Users', 'users'),
             Boolean::make('Active','status'),
