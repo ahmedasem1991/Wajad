@@ -30,7 +30,7 @@ class ItemsController extends Controller
                 Filter::scope('owner'),
                 Filter::scope('founder'),
                 Filter::scope('item'),
-                'title', 'details', 'longitude', 'latitude',
+                'title', 'details',
             ])
             ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
         
@@ -50,7 +50,8 @@ class ItemsController extends Controller
             'details' => ['required', 'min:20', 'max:500'],
             'owner_id' => ['required','exists:users,id'],
             'color_id' => ['required','exists:colors,id'],
-            'model_id' => ['required','exists:brands,id'],
+            'model_id' => ['required','exists:models,id'],
+            'brand_id' => ['required','exists:brands,id'],
             
         ]);
         

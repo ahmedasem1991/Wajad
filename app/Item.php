@@ -218,9 +218,7 @@ class Item extends MasterModel
 
     public function createItem(Request $request)
     {
-       
-
-
+        
         try {
             $Item = Item::create([
             'title' => request('title'),
@@ -228,13 +226,14 @@ class Item extends MasterModel
             'owner_id' => request('owner_id'),
             'category_id' => request('category_id'),
             'model_id' => request('model_id'),
+            'brand_id' => request('brand_id'),
             'color_id' => request('color_id'),
              ]);
     
             if ($Item) {
                 if(request('qrcode_id') != NULL)
                 {
-                   $QRCode= Qrcodes::find(request('qrcode_id') );
+                   $QRCode= Qrcode::find(request('qrcode_id') );
                    $QRCode->item_id=$Item->id;
                    $QRCode->save();
                 }
@@ -246,7 +245,7 @@ class Item extends MasterModel
                     if($image!=""){
                     \File::put( 'images/items/' . $file_name, base64_decode($image));
                     } 
-                    $image=ItemImages::create([
+                    $image=ItemImage::create([
                         'item_id' =>$Item->id,
                         'image' =>  'images/items/' .$file_name
                     ]);

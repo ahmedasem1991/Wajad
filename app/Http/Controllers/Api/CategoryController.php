@@ -32,16 +32,18 @@ class CategoryController extends Controller
     public function subcategories(Request $request)
     {
         $subcategories = QueryBuilder::for(SubCategory::class)
-            
+
             ->allowedIncludes('brands','category')
             ->allowedFilters([
                 Filter::scope('subcategory'),
                 Filter::scope('category'),
                 'name_en','name_ar',
             ])->get();
+            $array['sub_categories']=$subcategories ;
+            $array['count']=SubCategory::count() ;
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
-        return $this->jsonResponse($subcategories);
+        return $this->jsonResponse($array);
     }
 
     public function brands(Request $request)
@@ -62,6 +64,7 @@ class CategoryController extends Controller
     public function models(Request $request)
     {
         $models = QueryBuilder::for(Model::class)
+         
             ->allowedIncludes('brand','colors')
             ->allowedFilters([
                 Filter::scope('brand'),
@@ -76,10 +79,9 @@ class CategoryController extends Controller
     public function colors(Request $request)
     {
         $colors = QueryBuilder::for(Color::class)
-            ->allowedIncludes('model')
+            ->allowedIncludes('items')
             ->allowedFilters([
                 Filter::scope('color'),
-                Filter::scope('model'),
                 'name_en','name_ar',
             ])->get();
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');

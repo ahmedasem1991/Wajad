@@ -19,6 +19,11 @@ class Color extends MasterModel
     {
         return $this->hasMany(Item::class);
     }
+    public function scopeColor($query, $color_id)
+    {
+        return $query->where('id', $color_id) ?? null;
+    }
+ 
 
  
 }

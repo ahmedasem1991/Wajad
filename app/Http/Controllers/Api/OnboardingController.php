@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Onboarding;
@@ -11,7 +12,7 @@ class OnboardingController extends Controller
 {
     public function index(Request $request)
     {  
-        $on_boarding = QueryBuilder::for(Onboarding::class)
+        $on_boarding = QueryBuilder::for(Banner::class)
             ->paginate($request->get('per_page', 15));
 
         return $this->jsonResponse($on_boarding);
