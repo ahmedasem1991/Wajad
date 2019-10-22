@@ -24,30 +24,4 @@ class Model extends MasterModel
         return $this->belongsTo(Brand::class);
     }
 
-    // public function colors()
-    // {
-    //     return $this->hasMany(Color::class);
-    // }
-
- 
-
-    /**
-     * Scope For Single Category
-     *
-     * @param object $query
-     * @param integer $category_id
-     * @return object
-     */
-    // public function scopeBrand($query, $brand_id)
-    // {
-    //     return $query->where('id', $brand_id) ?? null;
-    // }
-
-
-
- 
-    // public function brands($query, $brand_id)
-    // {
-    //     return $query->where('brand_id', $brand_id);
-    // }
 }

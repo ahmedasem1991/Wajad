@@ -31,7 +31,7 @@ class Category extends Model
     public function subcategorieswithalldata()
     {
         return $this->hasMany(SubCategory::class)
-        ->with('brands.models.colors');
+        ->with('brands.models');
     }
  
 
