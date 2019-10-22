@@ -23,6 +23,8 @@ Route::get('/test23', function(){
 	// return $users[0]->id;
 	 return \App\Category::all()->pluck('name_en','id');
 });
+use App\Notifications\InvoicePaid;
+use App\Notifications\ScannedQRCode;
 
 Route::resource('user', 'UserController');
 Route::resource('item', 'ItemController');
@@ -44,12 +46,12 @@ Auth::routes();
 
 Route::get('/test500', function(){
 	// return htmlspecialchars(Item::where('id', 100)->first());
-	// $nexmo = app('Nexmo\Client');
-	// $nexmo->message()->send([
-	// 	'to'   => '201095781611',
-	// 	'from' => 'nexmo',
-	// 	'text' => 'Using the facade to send a message.'
-	// ]);
+	$nexmo = app('Nexmo\Client');
+	$nexmo->message()->send([
+		'to'   => '201095781611',
+		'from' => 'nexmo',
+		'text' => 'Using the facade to send a message.'
+	]);
 	//getimagesize('');
 
 	//return Package::packagesPeriod();
@@ -60,8 +62,11 @@ Route::get('/test500', function(){
 	// 		  ->generate('ItSolutionStuff.com', public_path('images/qrcodes/'.time().'.png'));
 	// }
 	// $now = Carbon\Carbon::now();
-       return Auth()->user();
-	   ;
+    //    return Auth()->user();
+	//    ;
+
+return  'nexmo';
+ 
 });
  
 

@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Qrcode;
  
-use App\Http\Controllers\Controller;
-use App\Http\Resources\QrcodeResource;
-use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\QueryBuilder\Filter;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\QrcodeResource;
+use App\Jobs\ScanQRCodeNotificationJob;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\ScanQRCodeNotification;
  
 
 class QrcodeController extends Controller
@@ -22,6 +25,8 @@ class QrcodeController extends Controller
      */
     public function __invoke(Request $request, Qrcode $qr_code)
     {
+        
+        ScanQRCodeNotificationJob::dispatch($request,$qr_code);
         return new QrcodeResource($qr_code);        
     }
 
