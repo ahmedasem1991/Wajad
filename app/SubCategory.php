@@ -11,7 +11,7 @@ class SubCategory extends Model
 {
     use LogsActivity;
 
-    protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
+    protected $fillable=['name_en','name_ar','description_en','description_ar','image','category_id'];
     protected $table="sub_categories";
  
 

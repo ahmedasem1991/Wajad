@@ -6,6 +6,8 @@ use App\Brand;
 use App\Item;
 use App\User;
 use App\Category;
+use App\Model;
+use App\SubCategory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -24,7 +26,7 @@ class SeedCategories extends Command
      *
      * @var string
      */
-    protected $description = 'Seed Application categories ,Brands and items';
+    protected $description = 'Seed Application categories ,sub categories ,Brands , models and items';
 
     /**
      * Create a new command instance.
@@ -45,7 +47,9 @@ class SeedCategories extends Command
     {
         DB::transaction(function () {
             DB::table('categories')->delete();
+            DB::table('sub_categories')->delete();
             DB::table('brands')->delete();
+            DB::table('models')->delete();
             DB::table('items')->delete();
         });
         $Categories = [
@@ -55,8 +59,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                
                 
             ],
             [
@@ -65,8 +69,7 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
                 
             ],
             [
@@ -75,8 +78,7 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
             ],
             [
                 'name_en' => 'Beauty',
@@ -84,8 +86,7 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
             ],
             [
                 'name_en' => 'Bed & Bath',
@@ -93,8 +94,7 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
             ],
             [
                 'name_en' => 'Books',
@@ -102,72 +102,16 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
             ],
-            [
-                'name_en' => 'Cameras',
-                'name_ar' => 'الكاميرات',
-                'icon' => 'default-icon.png',
-                'created_at' => null,
-                'updated_at' => null,
-                'items'=>[
-                    [
-                        'title' => 'Compact Camera',
-                        'details' => 'A compact camera is an inexpensive entry-level camera for the amateur digital photographer.',
-                        'owner_id' =>  User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                    [
-                        'title' => 'Zoom Compact Camera',
-                        'details' => 'Compact zoom cameras have a more powerful zoom lens. This means a much greater magnification ability.',
-                        'owner_id' =>   User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                    [
-                        'title' => 'Advanced Compact Cameras',
-                        'details' => 'These are for the more experienced hobbyists. They want more control over their photos than what a regular compact camera provides.',
-                        'owner_id' =>   User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                    [
-                        'title' => 'Adventure Cameras',
-                        'details' => 'They are weatherproof and shockproof, with their lens behind very durable glass. Action cameras are very small, yet offer a lot of versatility and high resolution for their size.',
-                        'owner_id' => User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                ],
-                'brands' =>[
-                    [
-                        'name_en'=>'Nicon',
-                        'name_ar'=>'نيكون',
-                        'image'=>'default-icon.png',
-                        'category_id'=>'',
-                    ],
-                    [
-                        'name_en'=>'Canon',
-                        'name_ar'=>'كانون',
-                        'image'=>'default-icon.png',
-                        'category_id'=>'',
-                    ],
-                    
-                    [
-                        'name_en'=>'Sony',
-                        'name_ar'=>'سوني',
-                        'image'=>'default-icon.png',
-                        'category_id'=>'',
-                    ]
-                
-                ]
-            ],
+            
             [
                 'name_en' => 'Coins, Stamps & Paper money',
                 'name_ar' => 'عملات و طوابع و نقود ورقية',
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                 'sub_categories'=>[],
             ],
             [
                 'name_en' => 'Computers, IT & Networking',
@@ -175,61 +119,82 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[
+                'sub_categories' => [
                     [
-                        'title' => 'Dell XPS 13',
-                        'details' => 'CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch FHD (1,920 x 1,080) – 4k (3840 x 2160) | Storage: 256GB – 1TB SSD',
-                        'owner_id' =>    User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                    [
-                        'title' => 'Huawei MateBook 13',
-                        'details' => 'CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 , Nvidia GeForce MX150 2GB GDDR5 | RAM: 8GB | Screen: 13-inch 1440p (2,160 x 1,440) | Storage: 256GB - 512GB SSD',
-                        'owner_id' =>   User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                    [
-                        'title' => 'HP Spectre x360 (2019)',
-                        'details' => 'CPU: Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch full HD (1,920 x 1,080) – UHD (3,840 x 2,160) touchscreen | Storage: 256GB – 2TB PCIe SSD',
-                        'owner_id' =>   User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                    [
-                        'title' => 'Apple MacBook Pro (15-inch, 2019)',
-                        'details' => 'CPU: Intel Core i7 – i9 | Graphics: AMD Radeon Pro 555X - Radeon Pro Vega 20, Intel UHD Graphics 630 | RAM: 16GB | Screen: 15.4-inch, (2,880 x 1,800) IPS | Storage: 256GB – 4TB SSD',
-                        'owner_id' =>  User::all()->random(1)->first()->id,
-                        'category_id' => '', 
-                    ],
-                ],
+                    'name_en' => 'Lap top',
+                    'name_ar' => 'لاب توب',
+                    'icon' => 'default-icon.png',
+                    'category_id' => 8,
+                    'created_at' => null,
+                    'updated_at' => null,
+                
                 'brands'=>[
                     [
-                        'name_en'=>'Dell',
-                        'name_ar'=>'ديل',
+                        'name_en'=>'Toshiba',
+                        'name_ar'=>'توشيبا',
                         'image'=>'default-icon.png',
-                        'category_id'=>'',
+                        'sub_category_id'=>1,
                     ],
                     [
                         'name_en'=>'Hp',
                         'name_ar'=>'إتش بي',
                         'image'=>'default-icon.png',
-                        'category_id'=>'',
+                        'sub_category_id'=>1,
                     ],
                     [
-                        'name_en'=>'Toshiba',
-                        'name_ar'=>'توشيبا',
+                        'name_en'=>'Dell',
+                        'name_ar'=>'ديل',
                         'image'=>'default-icon.png',
-                        'category_id'=>'',
-                    ],
-                ]
+                        'sub_category_id'=>1,
+                    
+                        'models'=> [
+                         [
+                        'name_en' => 'Dell XPS 13',
+                        'name_ar' => 'ديل XPS 13',
+                        'image'=>'default-icon.png',
+                        'description_en' => 'CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch FHD (1,920 x 1,080) – 4k (3840 x 2160) | Storage: 256GB – 1TB SSD',
+                       // 'owner_id' =>  2,
+                        'brand_id' => 3, 
+                         ],
+                         [
+ 
+                        'name_en' => 'Huawei MateBook 13',
+                        'name_ar' => 'هواوي MateBook 13',
+                        'image'=>'default-icon.png',
+                        'description_en' => 'CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 , Nvidia GeForce MX150 2GB GDDR5 | RAM: 8GB | Screen: 13-inch 1440p (2,160 x 1,440) | Storage: 256GB - 512GB SSD',
+                       // 'owner_id' =>   User::all()->random(1)->first()->id,
+                        'brand_id' => 3, 
+                        ],
+                         [
+                        'name_en' => 'HP Spectre x360 (2019)',
+                        'name_ar' => 'HP Spectre x360 (2019)',
+                         
+                        'description_en' => 'CPU: Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch full HD (1,920 x 1,080) – UHD (3,840 x 2,160) touchscreen | Storage: 256GB – 2TB PCIe SSD',
+                      
+                        'image'=>'default-icon.png',
+                          // 'owner_id' =>   User::all()->random(1)->first()->id,
+                        'brand_id' => 3, 
+                        ],
+                        [
+                        'name_en' => 'Apple MacBook Pro (15-inch, 2019)',
+                        'name_ar' => 'Apple MacBook Pro (15-inch, 2019)',
+                        'description_en' => 'CPU: Intel Core i7 – i9 | Graphics: AMD Radeon Pro 555X - Radeon Pro Vega 20, Intel UHD Graphics 630 | RAM: 16GB | Screen: 15.4-inch, (2,880 x 1,800) IPS | Storage: 256GB – 4TB SSD',
+                        //'owner_id' =>  User::all()->random(1)->first()->id,
+                        'brand_id' => 3, 
+                        ],
+                     ], //end models
             ],
+        ], //end brands
+    ], //end subcategory
+            ]
+            ],//end category
             [
                 'name_en' => 'Eyewear & Optics',
                 'name_ar' => 'البصريات',
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
             ],
             [
                 'name_en' => 'Garden & Outdoor',
@@ -237,8 +202,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Furniture',
@@ -246,8 +211,7 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
             ],
             [
                 'name_en' => 'Electronics',
@@ -255,8 +219,81 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                    'sub_categories' => [
+                    [
+                    'name_en' => 'Cameras',
+                    'name_ar' => 'الكاميرات',
+                    'icon' => 'default-icon.png',
+                    'category_id' => 12,
+                          'brands' =>[
+                        [
+                        'name_en'=>'Nicon',
+                        'name_ar'=>'نيكون',
+                        'image'=>'default-icon.png',
+                        'sub_category_id'=>2,
+                        ],
+                        [
+                        'name_en'=>'Canon',
+                        'name_ar'=>'كانون',
+                        'image'=>'default-icon.png',
+                        'sub_category_id'=>2,
+                        ],
+                        [
+                        'name_en'=>'Sony',
+                        'name_ar'=>'سوني',
+                        'image'=>'default-icon.png',
+                        'sub_category_id'=>2,
+                         'models' => [
+                        [     
+                        'name_en'=>'Sony SA1',
+                        'name_ar'=>'سوني اس اي 1',
+                        'image'=>'default-icon.png',
+                        'brand_id'=>4,
+                        'items'=>[
+                        [
+                        'title' => 'Compact Camera',
+                        'details' => 'A compact camera is an inexpensive    entry-level camera for the amateur digital   photographer.',
+                        'owner_id' =>  2,
+                        'model_id' => 5, 
+                        'color_id' => 1, 
+                        'status' => 1, 
+                        ],
+                        [
+                        'title' => 'Zoom Compact Camera',
+                        'details' => 'Compact zoom cameras have a more powerful zoom lens. This means a much greater magnification ability.',
+                        'owner_id' =>  2,
+                        'model_id' => 5, 
+                        'color_id' => 1, 
+                        'status' => 1, 
+                        ],
+                        [
+                        'title' => 'Advanced Compact Cameras',
+                        'details' => 'These are for the more experienced hobbyists. They want more control over their photos than what a regular compact camera provides.',
+                        'owner_id' =>  2,
+                        'model_id' => 5, 
+                        'color_id' => 1, 
+                        'status' => 0, 
+                       ],
+                       [
+                        'title' => 'Adventure Cameras',
+                        'details' => 'They are weatherproof and shockproof, with their lens behind very durable glass. Action cameras are very small, yet offer a lot of versatility and high resolution for their size.',
+                        'owner_id' => 2,
+                        'model_id' => 5, 
+                        'color_id' => 1, 
+                        'status' => 0, 
+                         ],
+                    ],
+                        ]
+                ],
+            ],
+                   
+                
+            ],
+            
+            ],
+        ],
+
+           
             ],
             [
                 'name_en' => 'Home Appliances',
@@ -264,8 +301,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                
             ],
             [
                 'name_en' => 'Grocery, Food & Beverages',
@@ -273,8 +310,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Kitchen Appliances',
@@ -282,8 +319,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Gaming',
@@ -291,8 +328,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Health & Personal Care',
@@ -300,8 +337,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Music & Movies',
@@ -309,8 +346,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                
             ],
             [
                 'name_en' => 'Jewelry & Accessories',
@@ -318,8 +355,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Toys',
@@ -327,8 +364,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Mobile Phones, Tablets & Accessories',
@@ -336,8 +373,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                 
             ],
             [
                 'name_en' => 'Sports & Fitness',
@@ -345,8 +382,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                
             ],
             [
                 'name_en' => 'Perfumes & Fragrances',
@@ -354,8 +391,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                
             ],
             [
                 'name_en' => 'Vehicle Parts & Accessories',
@@ -363,8 +400,8 @@ class SeedCategories extends Command
                 'icon' => 'default-icon.png',
                 'created_at' => null,
                 'updated_at' => null,
-                'items'=>[],
-                'brands'=>[]
+                'sub_categories'=>[],
+                
             ],
             
             
@@ -374,20 +411,55 @@ class SeedCategories extends Command
  
 
         foreach ($Categories as $Category) {
-        $Brands =[];
-            $New_Category=Category::create($Category);
-            foreach($Category['brands'] as $brand)
+           
+            Category::create($Category);
+            
+            foreach($Category['sub_categories'] as $sub_category)
             {
-                $brand['category_id']=$New_Category->id;
-                $New_Brand =Brand::create($brand);
-                array_push( $Brands,$New_Brand);
+                logger($sub_category);
+             SubCategory::create([
+                 'name_en' =>$sub_category['name_en'],
+                 'name_ar' =>$sub_category['name_ar'],
+                 'icon' =>$sub_category['icon'],
+                 'category_id' =>$sub_category['category_id'],
+
+             ]);
+            
+             if( !empty($sub_category['brands'] ) ){
+                foreach($sub_category['brands'] as $brand)
+                { 
+                    logger($brand);
+                  Brand::create($brand);
+                  if( !empty($brand['models'] ) ){
+                    foreach($brand['models'] as $model)
+                    {
+                      Model::create($model);
+                      if( !empty($model['items'] ) ){
+                        foreach($model['items'] as $item)
+                        {
+                         Item::create([
+                         'title' =>$item['title'],
+                         'details' =>$item['details'],
+                         'owner_id' =>$item['owner_id'],
+                         'model_id' =>$item['model_id'],
+                         'color_id' =>$item['color_id'],
+                         'status' =>$item['status'],
+                         ]);
+                        }
+                      }
+
+                    }
+                  }
+
+                     
+                }
+             }
+
+     
             }
-            foreach($Category['items'] as $item)
-            {
-                $item['category_id']=$New_Category->id;
-                $item['brand_id']= $Brands[array_rand($Brands)]['id'];
-                Item::create($item);
-            }
+
+
+ 
             
         }
 
