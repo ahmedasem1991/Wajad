@@ -45,7 +45,7 @@ class SeedApp extends Command
         
         $this->info('Database Migrated Successfully');
 
-        $this->info('Create Nova User');
+        $this->info('Create Nova Admin');
         $username = $this->ask('Username', 'Admin');
         $email = $this->ask('Email Address', 'admin@nova.com');
         $password = $this->ask('Password', 123456789);
@@ -57,7 +57,36 @@ class SeedApp extends Command
             'mobile_number' => '01111086890',
             'mobile_country_id' => 1
         ]);
+        $this->info('Nova Admin Created Successfully');
+
+        $this->info('Create Nova User');
+        $username = $this->ask('Username', 'User');
+        $email = $this->ask('Email Address', 'user@nova.com');
+        $password = $this->ask('Password', 123456789);
+        User::create([
+            'name' => $username,
+            'email' => $email,
+            'password' => bcrypt($password),
+            'type' => 1, // User
+            'mobile_number' => '01142416124',
+            'mobile_country_id' => 1
+        ]);
         $this->info('Nova User Created Successfully');
+
+        
+        $this->info('Create Nova Corporate Admin');
+        $username = $this->ask('Username', 'Corporate');
+        $email = $this->ask('Email Address', 'corporate@nova.com');
+        $password = $this->ask('Password', 123456789);
+        User::create([
+            'name' => $username,
+            'email' => $email,
+            'password' => bcrypt($password),
+            'type' => 2, // Corporate
+            'mobile_number' => '01095781611',
+            'mobile_country_id' => 1
+        ]);
+        $this->info('Nova Corporate Admin Created Successfully');
 
         Artisan::call('seed:locations');
         Artisan::call('seed:settings');
