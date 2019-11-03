@@ -25,7 +25,7 @@ class CategoryController extends Controller
                 'name_en','name_ar',
             ])
             //->get();
-            ->paginate($request->get('per_page', 1000), '*', 'current_page');
+            ->paginate(1000);
 
         return $this->jsonResponse($categories);
     }
@@ -40,8 +40,7 @@ class CategoryController extends Controller
                 Filter::scope('category'),
                 'name_en','name_ar',
             ])
-            ->paginate($request->get('per_page', 1000), '*', 'current_page');
-
+            ->paginate(1000);
             //->get();
             // $array['sub_categories']=$subcategories ;
             // $array['count']=SubCategory::count() ;
@@ -61,8 +60,7 @@ class CategoryController extends Controller
             'name_en','name_ar',
         ])
         //->get();
-        ->paginate($request->get('per_page', 1000), '*', 'current_page');
-
+        ->paginate(1000);
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
         return $this->jsonResponse($Brands);
@@ -78,8 +76,7 @@ class CategoryController extends Controller
                 Filter::scope('model'),
                 'name_en','name_ar',
             ])//->get();
-            ->paginate($request->get('per_page', 1000), '*', 'current_page');
-
+            ->paginate(1000);
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
         return $this->jsonResponse($models);
@@ -93,8 +90,7 @@ class CategoryController extends Controller
                 Filter::scope('color'),
                 'name_en','name_ar',
             ])
-            ->paginate($request->get('per_page', 1000), '*', 'current_page');
-
+            ->paginate(1000);
             //->get();
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
