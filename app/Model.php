@@ -23,5 +23,9 @@ class Model extends MasterModel
     {
         return $this->belongsTo(Brand::class);
     }
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 
 }
