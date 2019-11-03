@@ -15,7 +15,13 @@ use Illuminate\Support\ServiceProvider;
 use App\Observers\QrcodeRequestObserver;
 use App\Observers\QrcodeGenerateObserver;
 use App\Jobs\GenerateQrcodeJob;
+use Illuminate\Support\Facades\Log;
 
+class LaravelLoggerProxy {
+    public function log( $msg ) {
+        Log::info($msg);
+    }
+}
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -36,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::enableForeignKeyConstraints();
+        $pusher = $this->app->make('pusher');
+        $pusher->set_logger( new LaravelLoggerProxy() );
 
         Subscription::observe(SubscriptionObserver::class);
         QrcodeRequest::observe(QrcodeRequestObserver::class);

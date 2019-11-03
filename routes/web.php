@@ -4,8 +4,8 @@ use App\User;
 use App\Region;
 use App\Package;
 use App\Settings;
+use App\Events\TestEvent;
 use Illuminate\Support\Str;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Route::get('/test23', function(){
 	 return \App\Category::all()->pluck('name_en','id');
 });
 use App\Notifications\InvoicePaid;
-use App\Notifications\ScannedQRCode;
+use Illuminate\Support\Facades\App;
 
 Route::resource('user', 'UserController');
 Route::resource('item', 'ItemController');
@@ -68,6 +68,14 @@ Route::get('/test500', function(){
 return  'nexmo';
  
 });
- 
+use App\Notifications\ScannedQRCode;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+route::get('/bridge', function() {
+	event(new TestEvent('Broadcasting in Laravel using Pusher!'));
+
+    return view('welcome');
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');

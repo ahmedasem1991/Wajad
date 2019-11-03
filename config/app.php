@@ -177,6 +177,7 @@ return [
         App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Pusher\Laravel\PusherServiceProvider::class
 ],
 
     

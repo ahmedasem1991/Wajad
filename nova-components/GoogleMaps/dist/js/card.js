@@ -165,7 +165,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* #myMap {\n \n\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* #myMap {\n \n\n} */\n", ""]);
 
 // exports
 
@@ -664,20 +664,32 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
   mounted: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-      var google, geocoder, map, locations, offices, markerClickHandler, markers;
+      var closeOtherInfo, google, geocoder, map, InforObj, locations, offices, markerClickHandler, markers;
       return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              _context.next = 3;
+
+              closeOtherInfo = function closeOtherInfo() {
+                if (InforObj.length > 0) {
+                  /* detach the info-window from the marker ... undocumented in the API docs */
+                  InforObj[0].set("marker", null);
+                  /* and close it */
+                  InforObj[0].close();
+                  /* blank the array */
+                  InforObj.length = 0;
+                }
+              };
+
+              _context.next = 4;
               return Object(__WEBPACK_IMPORTED_MODULE_2__gmaps__["a" /* default */])();
 
-            case 3:
+            case 4:
               google = _context.sent;
               geocoder = new google.maps.Geocoder();
               map = new google.maps.Map(document.getElementById('myMap'));
-
+              InforObj = [];
 
               geocoder.geocode({ address: 'Saudi' }, function (results, status) {
 
@@ -692,23 +704,30 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               this.card.markers.forEach(function (element) {
                 console.log(element.name_en);
+                // var contentString = '<div id="content"><h1>' +element.name_en +
+                //               '</h1><p>'+element.details_en+'</p></div>';
+
                 locations.push({
-                  label: element.name_en + '-' + element.name_ar,
-                  title: element.name_en + '-' + element.name_ar + ' Corporate',
+                  label: element.name_en,
+                  title: element.name_en + ' Corporate',
                   position: {
                     lat: element.latitude,
                     lng: element.longitude
                   }
                 });
               });
+              // const infowindow = new google.maps.InfoWindow({
+              // content: contentString,
+              // maxWidth: 200
+              // });
 
               offices = [];
 
               this.card.offices.forEach(function (element) {
                 console.log(element.name_en);
                 locations.push({
-                  label: element.name_en + '-' + element.name_ar,
-                  title: element.name_en + '-' + element.name_ar + ' Office',
+                  label: element.name_en,
+                  title: element.name_en + ' Office',
                   icon: '../office_mark.png',
                   position: {
                     lat: element.latitude,
@@ -720,6 +739,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               markerClickHandler = function markerClickHandler(marker) {
                 map.setZoom(13);
                 map.setCenter(marker.getPosition());
+                // closeOtherInfo();
+                // infowindow.open(map, marker);
+                // InforObj[0] = infowindow;
               };
 
               markers = locations
@@ -736,21 +758,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               new __WEBPACK_IMPORTED_MODULE_1__google_markerclusterer___default.a(map, markers, {
                 imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
               });
-              _context.next = 19;
+              _context.next = 21;
               break;
 
-            case 16:
-              _context.prev = 16;
+            case 18:
+              _context.prev = 18;
               _context.t0 = _context['catch'](0);
 
               console.error(_context.t0);
 
-            case 19:
+            case 21:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, this, [[0, 16]]);
+      }, _callee, this, [[0, 18]]);
     }));
 
     function mounted() {

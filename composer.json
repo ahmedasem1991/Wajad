@@ -27,13 +27,14 @@
         "naif/toggle": "^1.2",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "owenmelbz/nova-radio-field": "^0.0.5",
+        "pusher/pusher-http-laravel": "^4.2",
         "simplesoftwareio/simple-qrcode": "^2.0",
         "smartappco/download-qrcode-image": "*",
+        "smartappco/google-maps": "*",
         "smartappco/qrcode-generator": "*",
         "spatie/laravel-query-builder": "^1.17",
         "stephenlake/nova-fixed-bars": "^1.1",
-        "tymon/jwt-auth": "1.0.*",
-        "smartappco/google-maps": "*"
+        "tymon/jwt-auth": "1.0.*"
          
     },
     "require-dev": {

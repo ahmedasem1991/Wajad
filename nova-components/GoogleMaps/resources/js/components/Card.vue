@@ -27,7 +27,7 @@ export default {
       const google = await gmaps();
       const geocoder = new google.maps.Geocoder();
       const map = new google.maps.Map(document.getElementById('myMap'));
- 
+      const InforObj = [];
       geocoder.geocode({ address: 'Saudi' }, (results, status) => {
          
         if (status !== 'OK' || !results[0]) {
@@ -42,22 +42,29 @@ export default {
        const locations = [];
        this.card.markers.forEach(element => {
         console.log(element.name_en);
+      // var contentString = '<div id="content"><h1>' +element.name_en +
+      //               '</h1><p>'+element.details_en+'</p></div>';
+ 
         locations.push({
-           label: element.name_en+'-'+element.name_ar,
-           title:element.name_en+'-'+element.name_ar +' Corporate',
+           label: element.name_en,
+           title:element.name_en+' Corporate',
            position :{
              lat:element.latitude,
              lng:element.longitude
            }
         });
       });
+            // const infowindow = new google.maps.InfoWindow({
+            // content: contentString,
+            // maxWidth: 200
+            // });
 
        const offices = [];
        this.card.offices.forEach(element => {
         console.log(element.name_en);
         locations.push({
-           label: element.name_en+'-'+element.name_ar ,
-           title:element.name_en+'-'+element.name_ar +' Office',
+           label: element.name_en ,
+           title:element.name_en+' Office',
            icon :'../office_mark.png',
            position :{
              lat:element.latitude,
@@ -65,12 +72,29 @@ export default {
            }
         });
       });
+        
+
+
    
 
        const markerClickHandler = (marker) => {
         map.setZoom(13);
         map.setCenter(marker.getPosition());
+        // closeOtherInfo();
+        // infowindow.open(map, marker);
+        // InforObj[0] = infowindow;
+
       };
+              function closeOtherInfo() {
+            if (InforObj.length > 0) {
+                /* detach the info-window from the marker ... undocumented in the API docs */
+                InforObj[0].set("marker", null);
+                /* and close it */
+                InforObj[0].close();
+                /* blank the array */
+                InforObj.length = 0;
+            }
+        }
         const markers = locations
         // .map(x => new google.maps.Marker({ ...x, map }));
        .map((location) => {

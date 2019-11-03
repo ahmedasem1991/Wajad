@@ -23,8 +23,9 @@ class CategoryController extends Controller
             ->allowedFilters([
                 Filter::scope('category'),
                 'name_en','name_ar',
-            ])->get();
-           // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
+            ])
+            //->get();
+            ->paginate($request->get('per_page', 1000), '*', 'current_page');
 
         return $this->jsonResponse($categories);
     }
@@ -38,12 +39,15 @@ class CategoryController extends Controller
                 Filter::scope('subcategory'),
                 Filter::scope('category'),
                 'name_en','name_ar',
-            ])->get();
-            $array['sub_categories']=$subcategories ;
-            $array['count']=SubCategory::count() ;
+            ])
+            ->paginate($request->get('per_page', 1000), '*', 'current_page');
+
+            //->get();
+            // $array['sub_categories']=$subcategories ;
+            // $array['count']=SubCategory::count() ;
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
-        return $this->jsonResponse($array);
+        return $this->jsonResponse($subcategories);
     }
 
     public function brands(Request $request)
@@ -55,7 +59,10 @@ class CategoryController extends Controller
             Filter::scope('subcategory'),
             Filter::scope('brand'),
             'name_en','name_ar',
-        ])->get();
+        ])
+        //->get();
+        ->paginate($request->get('per_page', 1000), '*', 'current_page');
+
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
         return $this->jsonResponse($Brands);
@@ -70,7 +77,9 @@ class CategoryController extends Controller
                 Filter::scope('brand'),
                 Filter::scope('model'),
                 'name_en','name_ar',
-            ])->get();
+            ])//->get();
+            ->paginate($request->get('per_page', 1000), '*', 'current_page');
+
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
         return $this->jsonResponse($models);
@@ -83,7 +92,10 @@ class CategoryController extends Controller
             ->allowedFilters([
                 Filter::scope('color'),
                 'name_en','name_ar',
-            ])->get();
+            ])
+            ->paginate($request->get('per_page', 1000), '*', 'current_page');
+
+            //->get();
             // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
 
         return $this->jsonResponse($colors);
