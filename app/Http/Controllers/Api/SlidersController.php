@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Onboarding;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class OnboardingController extends Controller
+class SlidersController extends Controller
 {
     public function index(Request $request)
     {  

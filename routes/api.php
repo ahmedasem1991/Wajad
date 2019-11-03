@@ -26,8 +26,8 @@ Route::get('/colors', 'CategoryController@colors');
 Route::get('/offices', 'OfficeController@index');
 
 
-# On Boarding Sliders
-Route::get('/onboarding', 'OnboardingController@index');
+# Sliders
+Route::get('/sliders', 'SlidersController@index');
 
 # Posts
 Route::get('/posts', 'PostsController@index');
