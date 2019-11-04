@@ -34,6 +34,7 @@ class PostsController extends Controller
         ->with('item')
         ->with('model')
         ->with('color')
+        ->with('subcategory')
         ->with('images')
         ->with('postType')
         ->allowedFilters([

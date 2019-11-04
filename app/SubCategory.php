@@ -28,6 +28,10 @@ class SubCategory extends Model
     {
         return $this->hasMany(Brand::class);
     }
+    public function posts()
+    {
+        return  $this->hasMany(Post::class,'sub_category_id') ;
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);

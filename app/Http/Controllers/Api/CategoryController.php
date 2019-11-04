@@ -35,7 +35,7 @@ class CategoryController extends Controller
         $subcategories = QueryBuilder::for(SubCategory::class)
 
             ->allowedIncludes('brands','category','brandsData')
-           // ->with('brandsData')
+            ->withCount('posts')
              ->allowedFilters([
                 Filter::scope('subcategory'),
                 Filter::scope('category'),
