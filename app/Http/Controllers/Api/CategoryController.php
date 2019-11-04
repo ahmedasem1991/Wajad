@@ -34,14 +34,15 @@ class CategoryController extends Controller
     {
         $subcategories = QueryBuilder::for(SubCategory::class)
 
-            ->allowedIncludes('brands','category','brandswithalldata')
-            
-            ->allowedFilters([
+            ->allowedIncludes('brands','category','brandsData')
+           // ->with('brandsData')
+             ->allowedFilters([
                 Filter::scope('subcategory'),
                 Filter::scope('category'),
                 'name_en','name_ar',
             ])
             ->paginate(1000);
+            
             //->get();
             // $array['sub_categories']=$subcategories ;
             // $array['count']=SubCategory::count() ;

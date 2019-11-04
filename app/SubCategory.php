@@ -32,9 +32,9 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function brandswithalldata()
+    public function brandsData()
     {
-        return $this->hasMany(Brand::class)
+    return $this->hasMany(Brand::class)
         ->with('models.items');
     }
 
