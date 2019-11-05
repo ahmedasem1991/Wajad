@@ -23,7 +23,10 @@ class Color extends MasterModel
     {
         return $query->where('id', $color_id) ?? null;
     }
- 
+    public function scopeName($query, $name)
+    {
+        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
+    }
 
  
 }

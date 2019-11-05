@@ -23,15 +23,19 @@ class Category extends Model
     {
         return $query->where('sub_category_id', $sub_category_id);
     }
+    public function scopeName($query, $name)
+    {
+        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
+    }
  
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class);
     }
-    public function subcategorieswithalldata()
+    public function alldata()
     {
         return $this->hasMany(SubCategory::class)
-        ->with('brands.models');
+        ->with('brands.models.items');
     }
  
 

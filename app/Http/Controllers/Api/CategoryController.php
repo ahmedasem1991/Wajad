@@ -15,88 +15,108 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryController extends Controller
 {
+  protected $Feilds=['id','name_en as name','description_en as description','image'];
+
+  protected $ColorsFeilds=['id','name_en as name','icon'];
+
     public function index(Request $request)
     {
+        if($request->server('HTTP_ACCEPT_LANGUAGE')=='ar'
+        ){
+            $this->Feilds=['id','name_ar as name','description_ar as description','image'];
+        }
         $categories = QueryBuilder::for(Category::class)
+            ->select($this->Feilds)
             ->withCount('subcategories')
-            ->allowedIncludes('subcategorieswithalldata')
+            ->allowedIncludes('alldata','subcategories')
             ->allowedFilters([
                 Filter::scope('category'),
-                'name_en','name_ar',
+                Filter::scope('name'),
             ])
-            //->get();
-            ->paginate(1000);
-
-        return $this->jsonResponse($categories);
+            ->get();
+            
+           $array['data']=$categories;
+        return $this->jsonResponse($array);
     }
 
     public function subcategories(Request $request)
     {
+        if($request->server('HTTP_ACCEPT_LANGUAGE')=='ar'
+        ){
+            $this->Feilds=['id','name_ar as name','description_ar as description','image'];
+        }
         $subcategories = QueryBuilder::for(SubCategory::class)
-
-            ->allowedIncludes('brands','category','brandsData')
+            ->select($this->Feilds)
+            ->allowedIncludes('brands','category')
             ->withCount('posts')
-             ->allowedFilters([
-                Filter::scope('subcategory'),
-                Filter::scope('category'),
-                'name_en','name_ar',
+            ->allowedFilters([
+                Filter::scope('subcategory'),// subcategory id
+                Filter::scope('category'), //category id
+                Filter::scope('name'),
+               
             ])
-            ->paginate(1000);
-            
-            //->get();
-            // $array['sub_categories']=$subcategories ;
-            // $array['count']=SubCategory::count() ;
-            // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
-
-        return $this->jsonResponse($subcategories);
+            ->get();
+      
+            $array['data']=$subcategories;
+           
+        return $this->jsonResponse($array);
     }
 
     public function brands(Request $request)
     {
+        if($request->server('HTTP_ACCEPT_LANGUAGE')=='ar'
+        ){
+            $this->Feilds=['id','name_ar as name','description_ar as description','image'];
+        }
         $Brands = QueryBuilder::for(Brand::class)
-            
+        ->select($this->Feilds)
         ->allowedIncludes('models','subcategory')
         ->allowedFilters([
             Filter::scope('subcategory'),
             Filter::scope('brand'),
-            'name_en','name_ar',
+            Filter::scope('name'),
         ])
-        //->get();
-        ->paginate(1000);
-            // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
-
-        return $this->jsonResponse($Brands);
+       ->get();
+       $array['data']=$Brands;
+        return $this->jsonResponse($array);
     }
 
     public function models(Request $request)
     {
+        if($request->server('HTTP_ACCEPT_LANGUAGE')=='ar'
+        ){
+            $this->Feilds=['id','name_ar as name','description_ar as description','image'];
+         }
         $models = QueryBuilder::for(Model::class)
-         
+            ->select($this->Feilds)
             ->allowedIncludes('brand','colors')
             ->allowedFilters([
                 Filter::scope('brand'),
                 Filter::scope('model'),
-                'name_en','name_ar',
-            ])//->get();
-            ->paginate(1000);
-            // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
+                Filter::scope('name'),
+            ])->get();
+            $array['data']=$models;
 
-        return $this->jsonResponse($models);
+        return $this->jsonResponse($array);
     }
 
     public function colors(Request $request)
     {
+        if($request->server('HTTP_ACCEPT_LANGUAGE')=='ar'
+        ){
+            $this->ColorsFeilds=['id','name_ar as name','icon'];
+        }
         $colors = QueryBuilder::for(Color::class)
+        ->select($this->ColorsFeilds)
             ->allowedIncludes('items')
             ->allowedFilters([
                 Filter::scope('color'),
-                'name_en','name_ar',
+                Filter::scope('name'),
             ])
-            ->paginate(1000);
-            //->get();
-            // ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
+            ->get();
+            $array['data']=$colors;
 
-        return $this->jsonResponse($colors);
+        return $this->jsonResponse($array);
     }
 
     

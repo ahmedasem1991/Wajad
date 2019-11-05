@@ -24,6 +24,10 @@ class SubCategory extends Model
     {
         return $query->where('id', $sub_category_id) ?? null;
     }
+    public function scopeName($query, $name)
+    {
+        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
+    }
     public function brands()
     {
         return $this->hasMany(Brand::class);

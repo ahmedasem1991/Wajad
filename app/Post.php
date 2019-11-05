@@ -234,6 +234,7 @@ class Post extends MasterModel
                 'title' => request('title'),
                 'description' => request('description'),
                 'publisher_id' => request('publisher_id'),
+               // 'city' => request('city'),
                 'owner_id' =>$owner_id,
                 'founder_id' => $founder_id,
                 'item_id' => request('item_id'),
