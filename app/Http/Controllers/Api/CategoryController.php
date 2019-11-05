@@ -49,6 +49,8 @@ class CategoryController extends Controller
             ->select($this->Feilds)
             ->allowedIncludes('brands','category')
             ->withCount('posts')
+            ->withCount('lostposts')
+            ->withCount('foundposts')
             ->allowedFilters([
                 Filter::scope('subcategory'),// subcategory id
                 Filter::scope('category'), //category id
@@ -58,8 +60,7 @@ class CategoryController extends Controller
             ->get();
       
             $array['data']=$subcategories;
-           
-        return $this->jsonResponse($array);
+            return $this->jsonResponse($array);
     }
 
     public function brands(Request $request)

@@ -98,9 +98,11 @@
 
         <script src="//js.pusher.com/3.0/pusher.min.js"></script>
 <script>
-var pusher = new Pusher("{{env("PUSHER_APP_KEY")}}")
+var pusher = new Pusher("{{env("PUSHER_APP_KEY")}}", {
+    encrypted: true
+});x
 var channel = pusher.subscribe('test-channel');
-channel.bind('test-event', function(data) {
+channel.bind('TestEvent', function(data) {
   alert(data.text);
 });
 </script>

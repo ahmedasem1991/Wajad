@@ -36,6 +36,15 @@ class SubCategory extends Model
     {
         return  $this->hasMany(Post::class,'sub_category_id') ;
     }
+    public function lostposts()
+    {
+        return  $this->hasMany(Post::class,'sub_category_id')->where('status',0) ;
+    }
+    public function foundposts()
+    {
+        return  $this->hasMany(Post::class,'sub_category_id')->where('status',1) ;
+ 
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);

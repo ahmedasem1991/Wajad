@@ -25,7 +25,11 @@ class TestEvent implements ShouldBroadcast
     {
         $this->text = $text;
     }
- 
+    // public function broadcastAs() {
+
+    //     return 'test-event';
+        
+    //     }
 
     /**
      * Get the channels the event should broadcast on.
@@ -35,5 +39,6 @@ class TestEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         return ['test-channel'];
+        
     }
 }
