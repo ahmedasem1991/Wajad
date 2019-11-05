@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Post;
 use Response;
-use App\Category;
-use App\Color;
 use App\Brand;
+use App\Color;
+use App\Model;
+use App\Category;
 use App\SubCategory;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
-use App\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryController extends Controller
@@ -60,6 +61,7 @@ class CategoryController extends Controller
             ->get();
       
             $array['data']=$subcategories;
+            $array['posts_count']=Post::count();
             return $this->jsonResponse($array);
     }
 
