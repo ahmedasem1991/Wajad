@@ -61,7 +61,8 @@ class CategoryController extends Controller
             ->get();
       
             $array['data']=$subcategories;
-            $array['posts_count']=Post::count();
+            $array['lostposts_count']=Post::status(0)->count();
+            $array['foundposts_count']=Post::status(1)->count();
             return $this->jsonResponse($array);
     }
 
