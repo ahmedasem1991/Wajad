@@ -73,7 +73,7 @@ class PostsController extends Controller
 
            if ($check==0) {
                $array=[];
-               $array['data2']=$Posts;
+               $array['data']=$Posts;
            }
  
         
