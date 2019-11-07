@@ -187,7 +187,7 @@ class CorporateAssignQrcode extends Resource
 
     
     public static function label() {
-        return 'Assign QR Codes';
+        return 'Assign';
     }
 
     public static function indexQuery(NovaRequest $request, $query)

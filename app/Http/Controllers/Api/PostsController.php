@@ -27,7 +27,7 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {
-        $Posts = QueryBuilder::for(Post::class)
+        $array=  $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
         ->with('founder')
@@ -67,13 +67,14 @@ class PostsController extends Controller
                 $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
                 return $Post->distance < $this->request['distance'];
             });
+            $array['data']= $Posts;
            }
 
 
   
  
-        
-        return $this->jsonResponse($Posts);
+          
+        return $this->jsonResponse($array);
     }
 
 

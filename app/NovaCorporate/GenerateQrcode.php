@@ -138,7 +138,7 @@ class GenerateQrcode extends Resource
     }
 
     public static function label() {
-        return 'Generate QR Codes';
+        return 'Generate';
     }
 
     public static function indexQuery(NovaRequest $request, $query)

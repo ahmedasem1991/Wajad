@@ -117,4 +117,8 @@ class Color extends Resource
     {
         return [];
     }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/colors.jpg" style="height:22px;width:22px;margin=10px" />';
+    }
 }

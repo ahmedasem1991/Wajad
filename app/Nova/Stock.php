@@ -153,4 +153,8 @@ class Stock extends Resource
     {
         return $query->whereNull('assign_reference_number');
     }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+    }
 }

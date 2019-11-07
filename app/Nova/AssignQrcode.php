@@ -206,6 +206,10 @@ class AssignQrcode extends Resource
 
     
     public static function label() {
-        return 'Assign QR Codes';
+        return 'Assign';
     }
+    public static function icon() 
+{
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+}
 }
