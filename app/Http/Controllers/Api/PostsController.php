@@ -27,7 +27,7 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {
-        $Posts = QueryBuilder::for(Post::class)
+        $array=   $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
         ->with('founder')
@@ -70,10 +70,13 @@ class PostsController extends Controller
            }
 
 
-  
+           if (!array_key_exists('data', $Posts)) {
+               $array=[];
+               $array['data']=$Posts;
+           }
  
         
-        return $this->jsonResponse($Posts);
+        return $this->jsonResponse($array);
     }
 
 
