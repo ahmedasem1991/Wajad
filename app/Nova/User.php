@@ -37,7 +37,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Corporate And Users';
+   // public static $group = 'Corporate And Users';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

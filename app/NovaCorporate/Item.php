@@ -26,7 +26,7 @@ class Item extends Resource
      *
      * @var string
      */
-    public static $group = 'Items';
+  //  public static $group = 'Items';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -67,10 +67,10 @@ class Item extends Resource
             ->options(\App\Brand::all())
             ->rules('required'),
 
-            NovaBelongsToDepend::make('Model', 'model','App\Nova\Model') 
+            NovaBelongsToDepend::make('Model', 'model') 
             ->placeholder('Optional Placeholder')    
             ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['id','name_en']);
+            return $brand->models()->get(['name_en','id']);
             })
             ->rules('required')
             ->dependsOn('Brand'),
@@ -133,6 +133,6 @@ class Item extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereIn('owner_id',Auth()->user()->corporate->users->pluck('id'));
+       return $query->whereIn('owner_id',Auth()->user()->corporate->users->pluck('id'));
     }
 }

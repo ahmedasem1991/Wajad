@@ -22,6 +22,7 @@ class CreateAssignQrcodesTable extends Migration
             $table->integer('type')->default(1);//default  (single)
             $table->integer('available_period')->default(1);//default 1day
             $table->integer('quantity')->default(1);
+            $table->integer('created_by')->nullable();
             $table->string('status')->default('waiting');//finished
             $table->timestamps();
         });

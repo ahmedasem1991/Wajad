@@ -8,7 +8,7 @@ use App\GenerateQrcode;
 use Illuminate\Support\Str;
 use App\Jobs\GenerateQrcodeJob;
 use Illuminate\Support\Facades\Log;
-
+use Auth;
 class QrcodeGenerateObserver
 {
     /**
@@ -21,13 +21,12 @@ class QrcodeGenerateObserver
     {
         $now = Carbon::now();
         $generateQrcode->reference_number='N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
-        //.$generateQrcode->id;
+        $generateQrcode->created_by=Auth()->User()->id;
+         
     }
     public function saved(GenerateQrcode $generateQrcode)
     {
-     GenerateQrcodeJob::dispatch($generateQrcode);
-     // logger($generateQrcode);
-       
+        GenerateQrcodeJob::dispatch($generateQrcode);
     }
 
     /**

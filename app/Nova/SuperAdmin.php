@@ -36,7 +36,7 @@ class SuperAdmin extends Resource
      *
      * @var string
      */
-    public static $group = 'Super Admin';
+   // public static $group = 'Super Admin';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

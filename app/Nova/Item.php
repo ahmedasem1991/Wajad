@@ -29,7 +29,7 @@ class Item extends Resource
      *
      * @var string
      */
-    public static $group = 'Items';
+   // public static $group = 'Items';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

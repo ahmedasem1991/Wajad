@@ -37,7 +37,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $group = 'Corporate And Users';
+   // public static $group = 'Corporate And Users';
 
     /**
      * The columns that should be searched.

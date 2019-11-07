@@ -68,12 +68,12 @@ Route::get('/test500', function(){
 return  'nexmo';
  
 });
+use Illuminate\Support\Facades\Log;
 use App\Notifications\ScannedQRCode;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 route::get('/bridge', function() {
-	event(new TestEvent('Broadcasting in Laravel using Pusher!'));
-
+	Log::info('test 2');
     return view('welcome');
 });
 

@@ -34,6 +34,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
        $this->available_period=$QRcodesData['available_period'];
        $this->generate_id=$QRcodesData['generate_id'];
        
+       
     }
 
     /**

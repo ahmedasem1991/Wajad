@@ -23,7 +23,7 @@ class Support extends Resource
      *
      * @var string
      */
-    public static $group = 'Supports and Settings';
+   // public static $group = 'Supports and Settings';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
