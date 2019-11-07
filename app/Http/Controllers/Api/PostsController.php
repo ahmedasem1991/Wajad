@@ -26,7 +26,7 @@ class PostsController extends Controller
  
 
     public function index(Request $request)
-    {
+    {   $check=1;
         $array=   $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
@@ -60,7 +60,8 @@ class PostsController extends Controller
             }
             
             if ($request->has('distance')) {
-            $Posts = $Posts->filter(function ($Post) {
+                $check=0;
+                $Posts = $Posts->filter(function ($Post) {
                 $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
                 $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
                 $calculator  = new Vincenty();
@@ -70,7 +71,7 @@ class PostsController extends Controller
            }
 
 
-           if (!array_key_exists('data', $Posts)) {
+           if ($check==0) {
                $array=[];
                $array['data2']=$Posts;
            }
