@@ -69,10 +69,9 @@ class PostsController extends Controller
                 $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
                 $calculator  = new Vincenty();
                 $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
-               
                 return $Post->distance < $this->request['distance'];
             });
-             return $
+             
             $array['data']= $Posts;
            }
  
