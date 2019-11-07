@@ -72,7 +72,7 @@ class PostsController extends Controller
 
            if (!array_key_exists('data', $Posts)) {
                $array=[];
-               $array['data']=$Posts;
+               $array['data2']=$Posts;
            }
  
         
