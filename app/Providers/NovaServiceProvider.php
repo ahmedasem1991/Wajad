@@ -2,23 +2,24 @@
 
 namespace App\Providers;
 
+use Auth;
 use App\Corporate;
+use App\WajadOffice;
 use Laravel\Nova\Nova;
 use App\Nova\Metrics\Posts;
 use Laravel\Nova\Cards\Help;
-use App\Nova\Metrics\PostsCount;
-use App\Nova\Metrics\QRCodeCount;
 use App\Nova\Metrics\QrCodes;
+use App\Nova\Metrics\PostsCount;
 use App\Nova\Metrics\UsersTypes;
+use App\Nova\Metrics\QRCodeCount;
 use App\Nova\Metrics\UsersStatus;
 use App\Nova\Metrics\UsersActivity;
-use App\WajadOffice;
 use Illuminate\Support\Facades\Gate;
+use Smartappco\GoogleMaps\GoogleMaps;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
+use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use Auth;
-use Smartappco\GoogleMaps\GoogleMaps;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -99,7 +100,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-           
+            new NovaSidebarIcons,
         ];
     }
 
