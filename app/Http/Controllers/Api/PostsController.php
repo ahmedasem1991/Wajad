@@ -28,7 +28,7 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $array=[];
-        if ($request->has('distance')) {
+        if (!$request->has('distance')) {
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
