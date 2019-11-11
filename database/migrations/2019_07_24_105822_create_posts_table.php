@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->integer('item_id')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('appearance_status')->default(0);
+            $table->boolean('open_status')->default(1);
             $table->integer('owner_id')->nullable();
             $table->integer('founder_id')->nullable();
             $table->integer('publisher_id')->nullable();

@@ -108,7 +108,7 @@ class User extends Resource
               ->updateRules('required_if:type,2')
               ->nullable(),
                 
-                
+              BelongsToMany::make('Roles', 'roles', \Pktharindu\NovaPermissions\Nova\Role::class),
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 

@@ -2,11 +2,11 @@
 
 namespace App\Nova\Metrics;
 
-use App\Post;
 use Illuminate\Http\Request;
-use Laravel\Nova\Metrics\Partition;
+use Laravel\Nova\Metrics\Trend;
+use App\Post;
 
-class Posts extends Partition
+class PostsPeriod extends Trend
 {
     /**
      * Calculate the value of the metric.
@@ -16,19 +16,23 @@ class Posts extends Partition
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Post::class, 'appearance_status')
-        ->label(function ($value) {
-            switch ($value) {
-                case 1:
-                    return 'Show';
-                case 0:
-                    return 'Hidden';
-                default:
-                    return ucfirst($value);
-            }
-        });
-        
-        ;
+        return $this->countByDays($request, Post::class);
+    }
+
+    /**
+     * Get the ranges available for the metric.
+     *
+     * @return array
+     */
+    public function ranges()
+    {
+        return [
+            10 => '10 Days',
+            20 => '20 Days',
+            30 => '30 Days',
+            60 => '60 Days',
+            90 => '90 Days',
+        ];
     }
 
     /**
@@ -48,6 +52,6 @@ class Posts extends Partition
      */
     public function uriKey()
     {
-        return 'posts';
+        return 'posts-period';
     }
 }

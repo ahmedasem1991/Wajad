@@ -42,6 +42,12 @@ class Post extends MasterModel
         'Show' => 1
     ];
 
+    const OPENSTATUS = [
+        0 => 'close',
+        1 => 'open',
+        'close' => 0,
+        'open' => 1
+    ];
 
      /**
      * Define The Relation Of The Item with Post

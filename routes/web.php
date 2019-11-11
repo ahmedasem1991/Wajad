@@ -45,13 +45,21 @@ Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
 Auth::routes();
 
 Route::get('/test500', function(){
+	$user=User::find(3);
+	if($user->hasPermissionTo('create users'))
+	{
+		return 'yes';
+	}
+	else{
+		return 'no';
+	}
 	// return htmlspecialchars(Item::where('id', 100)->first());
-	$nexmo = app('Nexmo\Client');
-	$nexmo->message()->send([
-		'to'   => '201095781611',
-		'from' => 'nexmo',
-		'text' => 'Using the facade to send a message.'
-	]);
+	// $nexmo = app('Nexmo\Client');
+	// $nexmo->message()->send([
+	// 	'to'   => '201095781611',
+	// 	'from' => 'nexmo',
+	// 	'text' => 'Using the facade to send a message.'
+	// ]);
 	//getimagesize('');
 
 	//return Package::packagesPeriod();

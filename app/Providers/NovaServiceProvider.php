@@ -6,7 +6,7 @@ use Auth;
 use App\Corporate;
 use App\WajadOffice;
 use Laravel\Nova\Nova;
-use App\Nova\Metrics\Posts;
+use App\Nova\Metrics\ShowVsHiddenPosts;
 use Laravel\Nova\Cards\Help;
 use App\Nova\Metrics\QrCodes;
 use App\Nova\Metrics\PostsCount;
@@ -19,6 +19,8 @@ use Smartappco\GoogleMaps\GoogleMaps;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
+use App\Nova\Metrics\OpenVsClosePosts;
+use App\Nova\Metrics\PostsPeriod;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -73,13 +75,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         {
             return [
                 new UsersActivity,
-               // new PostsCount,
                 new UsersTypes,
                 new UsersStatus,
-                new Posts,
+                new PostsPeriod,
+                new ShowVsHiddenPosts,
+                new OpenVsClosePosts,
+               // new PostsCount,
+               
+                
                 new QrCodes,
                 //new QRCodeCount,
-                new \Marianvlad\NovaEnvCard\NovaEnvCard,
+               // new \Marianvlad\NovaEnvCard\NovaEnvCard,
                ( new GoogleMaps)
                ->markers($Corporates)
                ->offices($Offices),
@@ -101,6 +107,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new NovaSidebarIcons,
+            new \Pktharindu\NovaPermissions\NovaPermissions(),
         ];
     }
 
