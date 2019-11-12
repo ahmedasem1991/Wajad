@@ -16,5 +16,6 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'notvalid' => 'please enter a valid email address or phone number.',
+    'verification_code_wait_time_one_minute' => 'يجب الانتظار دقيقة واحدة لتتمكن من إعادة إرسال رمز التفعيل',
 
 ];

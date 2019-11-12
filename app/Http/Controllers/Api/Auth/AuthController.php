@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
+use App\UserVerifications;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\LoginAuthException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Carbon;
 
 class AuthController extends Controller
 {
@@ -94,34 +97,69 @@ class AuthController extends Controller
         }    
         request()->merge([ 'mobile_number' => $phoneNumber ]);
  
-        
+
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
-        }
-dd(request()->all());
-
-$new_user = User::create([
-            'name' => request('name'),
-            'email' => request('email'),
-            'password' => bcrypt(request('password')),
-            'mobile_number' => request('mobile_number'),
-            'city_id' => request('city_id'),
-            'mobile_country_id' => request('mobile_country_id'),
-            'type' => 1 // Normal User
-        ]);
-
-        if (!$new_user) {
-            $this->addResponse(trans('messages.unexpected_error'))->addStatusCode(409);
-            return $this->response();
+        } 
+     
+        
+        $email = request('email', '');
+ 
+        try {
+            UserVerifications::where('expired_period', '<', date('Y-m-d H:i:s'))->delete();
+        } catch (\Exception $e) {
+            \Log::info('ERROR_DELETING_USER_ACTIVATIONS', ['error' => '']);
         }
 
-        if (!$token = auth('api')->attempt(request(['email', 'password']))) {
-            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-            return $this->response();
+        $user_activation = UserVerifications::where('email', '=', $email)
+        ->where('mobile_number','=',   $phoneNumber)
+        ->first();
+
+        if (!empty($user_activation) && Carbon::now()->diffInSeconds($user_activation->created_at) < 60) {
+            return $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(404);
         }
 
-        return $this->respondWithToken($token);
+        if (!$user_activation || $user_activation->expired_period < date('Y-m-d H:i:s')) {
+            if ($user_activation)
+                $user_activation->delete();
+
+            $activation_code = env('STATIC_VERIFICATION_CODE') ?: str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT);
+            $activation_expire = date('Y-m-d H:i:s', strtotime('+15 minutes'));
+            $user_activation = UserVerifications::create([
+                'email' => $email,
+                'mobile_number' => $phoneNumber,
+                'verification_code' => $activation_code,
+                'expired_period' => $activation_expire,
+                'agreement' => request('agreement'), 
+                'type' => 1 // Normal User
+            ]);
+        } else {
+            $activation_code = $user_activation->activation_code;
+        }
+
+        //code to send sms verification code
+        $output = ['code' => $activation_code];
+        try {
+            // $output['sms'] = SMSMessage::send($phoneNumber, $activation_code, env('SMS_FROM', '201066222501'));
+       $nexmo = app('Nexmo\Client');
+	$nexmo->message()->send([
+		'to'   =>   $phoneNumber,
+		'from' => 'nexmo',
+		'text' => $activation_code
+	]);
+       
+        } catch (Exception $e) {
+            \Log::error(['error' => 'verify', 'exception' => $e]);
+        }
+
+        return $this->addResponse('Activation code Sent') ;
+
+
+
+
+
+
     }
 
     /**
