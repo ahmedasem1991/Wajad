@@ -27,7 +27,7 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {   $check=1;
-        $array=   $Posts = QueryBuilder::for(Post::class)
+        $array=  $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
         ->with('founder')
