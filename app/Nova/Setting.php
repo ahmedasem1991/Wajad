@@ -22,7 +22,7 @@ class Setting extends Resource
      *
      * @var string
      */
-    public static $group = 'Supports and Settings';
+   // public static $group = 'Supports and Settings';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -112,5 +112,9 @@ class Setting extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

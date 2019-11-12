@@ -24,6 +24,7 @@ class ItemImage extends Resource
      * @var string
      */
     public static $group = 'Items';
+    public static $displayInNavigation = false;
 
 
     /**

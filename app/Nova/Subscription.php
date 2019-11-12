@@ -16,6 +16,7 @@ class Subscription extends Resource
      * @var string
      */
     public static $model = 'App\Subscription';
+    public static $displayInNavigation = false;
 
     /**
      * The logical group associated with the resource.
@@ -104,5 +105,9 @@ class Subscription extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

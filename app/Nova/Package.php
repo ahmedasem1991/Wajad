@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
+use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsToMany;
 
 class Package extends Resource
@@ -26,7 +27,7 @@ class Package extends Resource
      *
      * @var string
      */
-    public static $group = 'Packages & Subscription';
+  //  public static $group = 'Packages & Subscription';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -81,9 +82,15 @@ class Package extends Resource
                 ->rules(['required', 'integer'])
                 ->hideWhenUpdating(),
 
-            Number::make('Package Period', 'period'),
+            Number::make('Package Period', 'period')->rules('required'),
+            Number::make('Number Of QR Codes', 'quantity')->rules('required'),
 
             Toggle::make('Show Package', 'is_active')->color('#4099de'),
+            RadioButton::make('Type')
+            ->options([
+                1 => 'Single Assign',
+                2 => 'Multi Assign',
+            ])->default(1), // optional
 
             BelongsToMany::make('Product', 'products', Product::class)
                 ->fields(function () {
@@ -142,5 +149,9 @@ class Package extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

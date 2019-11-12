@@ -16,7 +16,8 @@ class Items extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Item::class);
+         
+        return $this->result(Item::count());
     }
 
     /**

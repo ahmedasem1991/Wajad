@@ -129,7 +129,7 @@ class AssignQrcode extends Resource
           //  ->default(1), // optional
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
-                ->hideFromDetail()->asHtml()
+                ->asHtml()->hideFromDetail()
                ,
                 Number::make('Number Of QR Codes','quantity')
                 ->min(1)->max($SingleCount)->step(1)
@@ -137,7 +137,7 @@ class AssignQrcode extends Resource
             ])->dependsOn('type', '1'),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
-                ->hideFromDetail()->asHtml()
+                ->asHtml()->hideFromDetail()
                ,
                 Number::make('Number Of QR Codes','quantity')
                 ->min(1)->max($MultiCount)->step(1)
@@ -206,6 +206,10 @@ class AssignQrcode extends Resource
 
     
     public static function label() {
-        return 'Assign QR Codes';
+        return 'Assign';
     }
+    public static function icon() 
+{
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+}
 }

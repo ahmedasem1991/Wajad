@@ -10,11 +10,24 @@ Route::post('/refresh-token', 'Auth\AuthController@refresh');
 # Categories 
 Route::get('/categories', 'CategoryController@index');
 
-# Brands 
-Route::get('/brands', 'BrandController@index');
+# Sub Categories 
+Route::get('/subcategories', 'CategoryController@subcategories');
 
-# On Boarding Sliders
-Route::get('/onboarding', 'OnboardingController@index');
+# Brands 
+Route::get('/brands', 'CategoryController@brands');
+
+# Models 
+Route::get('/models', 'CategoryController@models');
+
+# Colors 
+Route::get('/colors', 'CategoryController@colors');
+
+# Wajad Offices 
+Route::get('/offices', 'OfficeController@index');
+
+
+# Sliders
+Route::get('/sliders', 'SlidersController@index');
 
 # Posts
 Route::get('/posts', 'PostsController@index');
@@ -48,7 +61,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         return auth('api')->user();
     });
     Route::post('details', 'DetailsController@index');
-    Route::get('/user/{publisher_id}/posts', 'PostsController@userposts');
+    Route::get('/user/{publisher_id}/posts', 'PostsController@userPosts');
     Route::post('/posts/create', 'PostsController@store');
     Route::post('/items/create', 'ItemsController@store');
+    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
+    Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
 });
+Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
+  

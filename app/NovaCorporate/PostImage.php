@@ -19,7 +19,7 @@ class PostImage extends Resource
      * @var string
      */
     public static $model = 'App\PostImage';
-
+    public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
      *

@@ -5,19 +5,21 @@ namespace App;
 use DB;
 use Log;
 use App\Brand;
+use App\Model;
 use Carbon\Carbon;
 use App\Nova\Categories;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as MasterModel;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Post extends Model
+ 
+class Post extends MasterModel
 {
     use LogsActivity, ResponseTrait;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','category_id','post_type_id','appearance_status'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at','founded_at','owner_id','founder_id','lat','lng','sub_category_id','model_id','color_id','post_type_id','appearance_status'];
  
     protected static $logAttributes = ['title', 'description'];
 
@@ -40,6 +42,12 @@ class Post extends Model
         'Show' => 1
     ];
 
+    const OPENSTATUS = [
+        0 => 'close',
+        1 => 'open',
+        'close' => 0,
+        'open' => 1
+    ];
 
      /**
      * Define The Relation Of The Item with Post
@@ -82,17 +90,31 @@ class Post extends Model
     /**
      * Define The Category Of The Post
      */
-    public function category()
+    public function subcategory()
     {
-        return $this->belongsTo(Category::class,'category_id');   
+        return $this->belongsTo(SubCategory::class,'sub_category_id');   
     }
     
     /**
      * Define The Brand Of The Post
      */
-    public function brand()
+    // public function brand()
+    // {
+    //     return $this->belongsTo(Brand::class,'brand_id');   
+    // }
+     /**
+     * Define The Model Of The Post
+     */
+    public function model()
     {
-        return $this->belongsTo(Brand::class,'brand_id');   
+        return $this->belongsTo(Model::class,'model_id');   
+    }
+     /**
+     * Define The Color Of The Post
+     */
+    public function color()
+    {
+        return $this->belongsTo(Color::class,'color_id');   
     }
      /**
      * Images Of Post"
@@ -135,14 +157,19 @@ class Post extends Model
 
  
 
-    public function scopeCategory($query, $category_id)
+    public function scopeModel($query, $model_id)
     {
-        return $query->where('category_id', $category_id);
+        return $query->where('model_id', $model_id);
     }
 
-    public function scopeBrand($query, $brand_id)
+    public function scopeColor($query, $color_id)
     {
-        return $query->where('brand_id', $brand_id);
+        return $query->where('color_id', $color_id);
+    }
+
+    public function scopeSubcategory($query, $sub_category_id)
+    {
+        return $query->where('sub_category_id', $sub_category_id);
     }
 
      /**
@@ -193,20 +220,27 @@ class Post extends Model
             $owner_id=NULL;
             $founder_id=$request->publisher_id;
         }
-        $category_id=$request->category_id;
-        $brand_id=$request->brand_id;
+        $color_id=$request->color_id;
+        $model_id=$request->model_id;
+        $sub_category_id=null;
+       if( Model::find($model_id))
+       $sub_category_id=Model::find($model_id)->brand->subcategory->id;
+       
         if($Item=Item::find($request->item_id))
         {
             $Item->status=$status;
             $Item->save();
-            $category_id= $Item->category_id;
-            $brand_id=$Item->brand_id;
+            $color_id= $Item->color_id;
+            $model_id=$Item->model_id;
+            $sub_category_id=$Item->model->brand->subcategory->id;
+       
         }
         try {
             $post = Post::create([
                 'title' => request('title'),
                 'description' => request('description'),
                 'publisher_id' => request('publisher_id'),
+               // 'city' => request('city'),
                 'owner_id' =>$owner_id,
                 'founder_id' => $founder_id,
                 'item_id' => request('item_id'),
@@ -215,8 +249,9 @@ class Post extends Model
                 'founded_at' => $founded_at,
                 'lat' => request('lat'),
                 'lng' => request('lng'),
-                'category_id' => $category_id,
-                'brand_id' => $brand_id,
+                'sub_category_id' => $sub_category_id,
+                'model_id' => $model_id,
+                'color_id' => $color_id,
             ]);
     
             if ($post) {

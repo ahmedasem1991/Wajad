@@ -2,12 +2,18 @@
 
 namespace App\Nova;
 
-use App\Nova\Metrics\Banners;
+use App\Item;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use App\Nova\Metrics\Banners;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class Banner extends Resource
 {
@@ -23,7 +29,7 @@ class Banner extends Resource
      *
      * @var string
      */
-    public static $group = 'Banners';
+   // public static $group = 'Banners';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -63,7 +69,7 @@ class Banner extends Resource
             Textarea::make('Banner Arabic Body', 'description_ar')->creationRules([
                 'required', 'min:6'
             ]),
-            Image::make('Banenr Image', 'image')
+            Image::make('Banner Image', 'image')
                 ->creationRules([
                     'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
@@ -71,6 +77,60 @@ class Banner extends Resource
                 ->path('images/banners')
                 ->prunable()
                 ->deletable(),
+                Select::make('Open at', 'open_at')->options([
+                    'lost' => 'Lost Item',
+                    'found' => 'Found Item',
+                    'url' => 'URL',
+                    'image_url' => 'Image URL',
+                    
+               ])->rules('required')
+                ->displayUsingLabels(),
+               
+            NovaDependencyContainer::make([
+                Text::make('URL', 'url')->nullable()
+                ])->dependsOn('open_at', 'url'),
+
+            NovaDependencyContainer::make([
+                Text::make('Image URL', 'image_url')->nullable()
+                ])->dependsOn('open_at', 'image_url'),
+
+                NovaDependencyContainer::make([
+                    Select2::make('Lost Item','item_id')
+                    ->sortable()
+                    ->options(Item::lost()->get()->pluck('title', 'id'))
+                    ->displayUsingLabels()
+                    ->rules('required')
+                    ->showAsLink(Item::class)
+                 //   ->linkToResource('items')
+                  // ->default(0)
+                    ->configuration([
+                        'placeholder'             => __('Choose an option'),
+                        'allowClear'              => true,
+                        'minimumResultsForSearch' => 1,
+                        'multiple'                => false,
+                    ])
+                ])->dependsOn('open_at', 'lost'),
+
+                NovaDependencyContainer::make([
+                    Select2::make('Found Item','item_id')
+                    ->sortable()
+                    ->options(Item::found()->get()->pluck('title', 'id'))
+                    ->displayUsingLabels()
+                    ->rules('required')
+                    ->showAsLink()
+                  // ->default(0)
+                    ->configuration([
+                        'placeholder'             => __('Choose an option'),
+                        'allowClear'              => true,
+                        'minimumResultsForSearch' => 1,
+                        'multiple'                => false,
+                    ])
+                ])->dependsOn('open_at', 'found'),
+               
+
+                
+ 
+                 
         ];
     }
     /**
@@ -117,5 +177,9 @@ class Banner extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

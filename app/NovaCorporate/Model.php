@@ -2,32 +2,36 @@
 
 namespace App\NovaCorporate;
 
+use App\NovaCorporate\Category;
+use App\NovaCorporate\Metrics\Brands;
+use App\NoNovaCorporateva\Metrics\Models;
 use App\Nova\Resource;
-use App\Nova\Corporate;
-use App\NovaCorporate\User;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
- 
-class QrcodeRequest extends Resource
+
+class Model extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\QrcodeRequest';
-    public static $group = 'Qrcode';
-    
+    public static $model = 'App\Model';
+    public static $group = 'Categories';
+    public static $displayInNavigation = false;
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
@@ -48,12 +52,21 @@ class QrcodeRequest extends Resource
     {
         return [
             ID::make()->sortable(),
-            Number::make('Number Of QR Codes','number')->min(1)->max(1000)->step(1),
-            Text::make('Status'),
-            BelongsTo::make('Corporate','corporate',Corporate::class)
-            ->onlyOnIndex(),
-            BelongsTo::make('Requested By','corporateAdmin',User::class)
-            ->onlyOnIndex(),
+            Text::make('Model English Name', 'name_en')->creationRules([
+                'required', 'min:6'
+            ]),
+            Text::make('Model Arabic Name', 'name_ar')->creationRules([
+                'required', 'min:6'
+            ]),
+            Textarea::make('Model English Body', 'description_en'),
+            Textarea::make('Model Arabic Body', 'description_ar'),
+            Image::make('Model Image', 'image') 
+                ->disk('public')
+                ->path('images/models')
+                ->prunable()
+                ->deletable(),
+             BelongsTo::make('Brand'),
+             //HasMany::make('Colors'),
         ];
     }
 
@@ -66,7 +79,7 @@ class QrcodeRequest extends Resource
     public function cards(Request $request)
     {
         return [
-           
+            new Models()
         ];
     }
 

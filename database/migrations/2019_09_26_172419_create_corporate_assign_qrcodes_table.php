@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCorporateAssignQrcodesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('corporate_assign_qrcodes', function (Blueprint $table) {
+            $table->Increments('id');
+           // $table->string('assign_reference_number')->nullable();
+            $table->string('corporate_assign_reference_number')->nullable();
+            $table->integer('user_id')->nullable(); 
+            $table->integer('corporate_id')->nullable(); 
+            $table->integer('type')->default(1);//default  (single)
+            $table->integer('quantity')->default(1);
+            $table->integer('created_by')->nullable();
+            $table->string('status')->default('waiting');//finished
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('corporate_assign_qrcodes');
+    }
+}

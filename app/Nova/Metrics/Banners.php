@@ -16,7 +16,7 @@ class Banners extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Banner::class);
+        return $this->result(Banner::count());
     }
 
     /**

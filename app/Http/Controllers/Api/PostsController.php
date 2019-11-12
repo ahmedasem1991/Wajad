@@ -26,12 +26,15 @@ class PostsController extends Controller
  
 
     public function index(Request $request)
-    {
-        $Posts = QueryBuilder::for(Post::class)
+    {   $check=1;
+        $array=  $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
         ->with('founder')
         ->with('item')
+        ->with('model')
+        ->with('color')
+        ->with('subcategory')
         ->with('images')
         ->with('postType')
         ->allowedFilters([
@@ -40,36 +43,54 @@ class PostsController extends Controller
             Filter::scope('owner'),//Owner ID
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
-            Filter::scope('category'),//Category ID
-            Filter::scope('brand'),//Category ID
+            Filter::scope('subcategory'),//subcategory ID
+            Filter::scope('model'),//model ID
+            Filter::scope('color'),//color ID
             Filter::scope('postType'),//Post type ID
            'id','title', 'description',
         ])->orderby('id','desc')->paginate($request->get('per_page', 15));
             $this->request['lat']=$request->lat;
             $this->request['lng']=$request->lng;
-            $this->request['distance']=$request->distance;
-            $Posts = $Posts->filter(function ($Post) {
-            $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
-            $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
-            $calculator  = new Vincenty();
-            $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
-            return $Post->distance < $this->request['distance'];
-        });
-  
- 
+            if($request->unit=='m')
+            {
+                $this->request['distance']=$request->distance*0.62137;
+            }
+            else{
+                $this->request['distance']=$request->distance;
+            }
+            
+            if ($request->has('distance')) {
+                $check=0;
+                $Posts = $Posts->filter(function ($Post) {
+                $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
+                $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
+                $calculator  = new Vincenty();
+                $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
+                return $Post->distance < $this->request['distance'];
+            });
+           }
 
-        return $this->jsonResponse($Posts);
+
+           if ($check==0) {
+               $array=[];
+               $array['data']=$Posts;
+           }
+ 
+        
+        return $this->jsonResponse($array);
     }
 
 
 
-    public function userposts(Request $request,$publisher_id)
+    public function userPosts(Request $request,$publisher_id)
     {
         
         $Posts = QueryBuilder::for(Post::class)
         ->with('publisher')
         ->with('owner')
         ->with('founder')
+        ->with('model')
+        ->with('color')
         ->with('item')
         ->with('images')
         ->publisher($publisher_id)
@@ -78,8 +99,9 @@ class PostsController extends Controller
             Filter::scope('owner'),//Owner ID
             Filter::scope('founder'),//Founder ID
             Filter::scope('item'),//Item ID
-            Filter::scope('category'),//Category ID
-            Filter::scope('brand'),//Brand ID
+            Filter::scope('subcategory'),//subcategory ID
+            Filter::scope('model'),//model ID
+            Filter::scope('color'),//color ID
             'id','title', 'description',
         ])
         ->paginate($request->get('per_page', 15));
@@ -113,8 +135,8 @@ class PostsController extends Controller
         'post_type_id' => ['required'],
         'lat' => ['required'],
         'lng' => ['required'],
-        'category_id' =>['required_without:item_id'],
-        'brand_id' =>['required_without:item_id']
+        'model_id' =>['required_without:item_id'],
+        'color_id' =>['required_without:item_id']
     ]);
     
     if ($validate_request->fails()) {

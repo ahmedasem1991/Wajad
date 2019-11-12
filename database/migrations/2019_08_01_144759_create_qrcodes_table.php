@@ -17,6 +17,7 @@ class CreateQrcodesTable extends Migration
             $table->increments('id');
             $table->string('reference_number')->nullable();
             $table->string('assign_reference_number')->nullable();
+            $table->string('corporate_assign_reference_number')->nullable();
             $table->integer('type')->default(1);//default  (single)
             $table->integer('status')->default(1);// default (In stock)
             $table->integer('quantity')->default(1);

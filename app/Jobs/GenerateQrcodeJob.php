@@ -54,6 +54,7 @@ class GenerateQrcodeJob implements ShouldQueue
              'image'=>'images/qrcodes/'.$ImageName,
              'qrcode_url'=>$Url,
             ]);
+            
              
         }
 

@@ -2,13 +2,17 @@
 
 namespace App;
 
+use Illuminate\Http\Request;
+use App\Helpers\Api\ResponseTrait;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Qrcode extends Model
 {
 use LogsActivity;
-    protected $fillable =['reference_number','assign_reference_number','type','status','quantity','qrcode_url','image','available_period','start_at','end_at','user_id','corporate_id'];
+    protected $fillable =['reference_number','assign_reference_number','type','status','quantity','qrcode_url','image','available_period','start_at','end_at','user_id','corporate_id','corporate_assign_reference_number'];
 
 
 
@@ -27,6 +31,14 @@ use LogsActivity;
     public function scopeType($query,$type)
     {
        return $query->where('type', self::Types[$type]);
+    }
+    public function scopeUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+    public function scopeItem($query, $item_id)
+    {
+        return $query->where('item_id', $item_id);
     }
 
     const STATUS = [
@@ -80,4 +92,29 @@ use LogsActivity;
     {
         return $this->belongsTo(Item::class);
     }
+
+    
+    public function registerQrcode(Request $request)
+    {
+        try {
+            $status=3;
+            $QRCode=$this->find($request->qrcode_id);
+            $QRCode->status==3 ? $status=4 :$status=5;
+            $QRCode->update([
+            'item_id' => $request->item_id,
+            'status' => $status
+            ]);
+            $this->addResponse(trans( 'messages.successfully_registered' ))->addStatusCode(201);
+            Log::INFO($this->response());
+            return $this->response();
+           
+        } catch (Exception $e) {
+            $this->addResponse($e->getMessage)->addStatusCode(409);
+            Log::ERROR($this->response());
+            return $this->response();
+        } 
+  
+ 
+    }
+
 }

@@ -36,7 +36,7 @@ class SuperAdmin extends Resource
      *
      * @var string
      */
-    public static $group = 'Super Admin';
+   // public static $group = 'Super Admin';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -157,5 +157,9 @@ class SuperAdmin extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->SuperAdmin();
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

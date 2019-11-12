@@ -17,6 +17,7 @@ class PackageProductMedia extends Resource
      * @var string
      */
     public static $model = 'App\PackageProductMedia';
+    public static $displayInNavigation = false;
 
     /**
      * The logical group associated with the resource.

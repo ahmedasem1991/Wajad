@@ -59,8 +59,16 @@ class Color extends Resource
                 'required', 'min:6'
             ]),
             
-           
-             BelongsTo::make('Model')->rules('required'),
+            Image::make('Icon', 'icon')
+            ->creationRules([
+                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+            ])
+            ->disk('public')
+            ->path('images/colors')
+            ->disableDownload()
+            ->prunable()
+            ->deletable(),
+             //BelongsTo::make('Model')->rules('required'),
         ];
     }
 
@@ -108,5 +116,9 @@ class Color extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/colors.jpg" style="height:22px;width:22px;margin=10px" />';
     }
 }

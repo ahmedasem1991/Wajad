@@ -19,7 +19,11 @@ class CreateBannersTable extends Migration
             $table->string('title_ar');
             $table->text('description_en');
             $table->text('description_ar');
-            $table->string('image');
+            $table->string('image')->default('images/banners/banner.jfif');
+            $table->string('open_at')->nullable(); 
+            $table->text('url')->nullable();
+            $table->text('image_url')->nullable();
+            $table->integer('item_id')->nullable();
             $table->timestamps();
         });
     }

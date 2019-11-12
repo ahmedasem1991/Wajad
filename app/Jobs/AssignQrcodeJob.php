@@ -51,7 +51,6 @@ class AssignQrcodeJob implements ShouldQueue
             'assign_reference_number'=>$this->assign_reference_number,
             'status'=>$status,
             'available_period'=>$this->available_period,
-            'status'=>$status,
             'user_id'=>$this->user_id,
             'corporate_id'=>$this->corporate_id,
             

@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->integer('item_id')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('appearance_status')->default(0);
+            $table->boolean('open_status')->default(1);
             $table->integer('owner_id')->nullable();
             $table->integer('founder_id')->nullable();
             $table->integer('publisher_id')->nullable();
@@ -28,8 +29,9 @@ class CreatePostsTable extends Migration
             $table->timestamp('founded_at')->nullable();
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();
-            $table->integer('category_id')->nullable();
-            $table->integer('brand_id')->nullable();
+            $table->integer('sub_category_id')->nullable();
+            $table->integer('model_id')->nullable();
+            $table->integer('color_id')->nullable();
             $table->integer('images_id')->nullable();
           
             $table->timestamps();

@@ -33,7 +33,7 @@ class Post extends Resource
      *
      * @var string
      */
-    public static $group = 'Posts';
+   // public static $group = 'Posts';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

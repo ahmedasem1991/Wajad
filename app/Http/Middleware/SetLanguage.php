@@ -15,7 +15,7 @@ class SetLanguage
      */
     public function handle($request, Closure $next)
     {
-        $langHeader = $request->header('lang');
+        $langHeader = $request->server('HTTP_ACCEPT_LANGUAGE');
         
         if ($langHeader !== 'ar') {
             $langHeader = 'en';

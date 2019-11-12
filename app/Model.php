@@ -11,7 +11,7 @@ class Model extends MasterModel
 {
     use LogsActivity;
 
-    protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
+    protected $fillable=['name_en','name_ar','description_en','description_ar','image','brand_id'];
     
 
     /**
@@ -23,30 +23,14 @@ class Model extends MasterModel
     {
         return $this->belongsTo(Brand::class);
     }
-
-    public function colors()
+    public function items()
     {
-        return $this->hasMany(Color::class);
+        return $this->hasMany(Item::class);
     }
 
- 
-
-    /**
-     * Scope For Single Category
-     *
-     * @param object $query
-     * @param integer $category_id
-     * @return object
-     */
-    public function scopeBrand($query, $brand_id)
+    public function scopeName($query, $name)
     {
-        return $query->where('id', $brand_id) ?? null;
+        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
     }
 
-
-
-    public function scopeBrands($query, $brand_id)
-    {
-        return $query->where('brand_id', $brand_id);
-    }
 }

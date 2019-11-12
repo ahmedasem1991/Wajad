@@ -20,16 +20,17 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         $items = QueryBuilder::for(Item::class)
-            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder' ,'brand')
+            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder' ,'model','color')
             ->allowedFilters([
                 Filter::scope('lost'),
                 Filter::scope('found'),
                 Filter::scope('category'),
-                Filter::scope('brand'),
+                Filter::scope('model'),
+                Filter::scope('color'),
                 Filter::scope('owner'),
                 Filter::scope('founder'),
                 Filter::scope('item'),
-                'title', 'details', 'longitude', 'latitude',
+                'title', 'details',
             ])
             ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
         
@@ -48,7 +49,8 @@ class ItemsController extends Controller
             'title' => ['required', 'min:6', 'max:255'],
             'details' => ['required', 'min:20', 'max:500'],
             'owner_id' => ['required','exists:users,id'],
-            'category_id' => ['required','exists:categories,id'],
+            'color_id' => ['required','exists:colors,id'],
+            'model_id' => ['required','exists:models,id'],
             'brand_id' => ['required','exists:brands,id'],
             
         ]);

@@ -2,14 +2,17 @@
 
 namespace App\Nova;
 
+use App\SubCategory;
 use App\Nova\Metrics\Items;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Item extends Resource
@@ -26,7 +29,7 @@ class Item extends Resource
      *
      * @var string
      */
-    public static $group = 'Items';
+   // public static $group = 'Items';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -60,16 +63,25 @@ class Item extends Resource
             Textarea::make('Details')->rules([
                 'required', 'min:6'
             ]),
-            NovaBelongsToDepend::make('Category')->placeholder('Category')
-            ->options(\App\Category::get(['name_en','id'])),
 
+             
             NovaBelongsToDepend::make('Brand')
-                ->placeholder('Brand')
-                ->optionsResolve(function ($category) {
-                  return $category->brands()->get(['id','name_en']);
-                })->dependsOn('category')->nullable(),
+            ->placeholder('Optional Placeholder')  
+            ->options(\App\Brand::all())
+            ->rules('required'),
 
-            BelongsTo::make('User', 'owner', User::class),
+            NovaBelongsToDepend::make('Model', 'model') 
+            ->placeholder('Optional Placeholder')    
+            ->optionsResolve(function ($brand) {
+            return $brand->models()->get(['id','name_en']);
+            })
+            ->rules('required')
+            ->dependsOn('Brand'),
+           
+            BelongsTo::make('Owner', 'owner', User::class),
+         //   ->searchable(),
+            BelongsTo::make('Color'),
+         //   ->searchable(),
             HasMany::make('Images', 'images', ItemImage::class),
             
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),
@@ -121,4 +133,9 @@ class Item extends Resource
     {
         return [];
     }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+    }
+ 
 }

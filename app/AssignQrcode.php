@@ -29,6 +29,11 @@ class AssignQrcode extends Model
    {
        return $this->belongsTo(User::class,'user_id');
    }
+
+   public function corporateuser()
+   {
+       return $this->belongsTo(User::class,'user_id')->where('corporate_id',auth()->user()->id)->where('type','1');
+   }
    public function corporate()
    {
        return $this->belongsTo(Corporate::class,'corporate_id');

@@ -37,7 +37,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $group = 'Corporate And Users';
+   // public static $group = 'Corporate And Users';
 
     /**
      * The columns that should be searched.
@@ -105,7 +105,7 @@ class Corporate extends Resource
                 'image',
                 'mimes:jpeg,bmp,png',
                 'max:5012'
-            )->disk('public')->disableDownload()->deletable(false),
+            )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
             HasMany::make('Users', 'users'),
             Boolean::make('Active','status'),
@@ -113,7 +113,7 @@ class Corporate extends Resource
             ->defaultZoom(5)
             ->defaultLatitude(21.4498898)
             ->defaultLongitude(39.4913431)
-            ->centerCircle(10000, 'DarkCyan', 1.00, 0.3),
+            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
         ];
     }
 
@@ -161,5 +161,9 @@ class Corporate extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

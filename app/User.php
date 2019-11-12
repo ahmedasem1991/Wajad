@@ -6,11 +6,12 @@ namespace App;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Pktharindu\NovaPermissions\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject 
 {
-    use Notifiable, LogsActivity;
+    use Notifiable, LogsActivity,  HasRoles;
 
     protected $fillable = [
         'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id'
@@ -154,5 +155,16 @@ class User extends Authenticatable implements JWTSubject
     public function scopeSuperAdmin($query, $user_id=3)
     {
         return $query->where('type', $user_id);
+    }
+ 
+    
+    /**
+     * The channels the user receives notification broadcasts on.
+     *
+     * @return string
+     */
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'users.' . $this->id;
     }
 }

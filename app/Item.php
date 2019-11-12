@@ -3,20 +3,21 @@
 namespace App;
 
 use Log;
-use App\Brand;
+use App\Color;
+use App\Model;
 use App\ItemImages;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model as MasterModel;
 
-class Item extends Model
+class Item extends MasterModel
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'category_id','brand_id'];
+    protected $fillable = ['title', 'details', 'owner_id','model_id','color_id'];
  
     /**
      * Define Items Status Const
@@ -43,11 +44,27 @@ class Item extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+
+ 
+    //This relations for Depend
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Brand::class);
     }
- 
+    public function subcategory()
+    {
+        return $this->belongsTo(subcategory::class);
+    }
+    public function model()
+    {
+        return $this->belongsTo(Model::class, 'model_id');
+    }
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
+    }
+
+
 
     /**
      * Define QrCode Of The Item
@@ -59,15 +76,7 @@ class Item extends Model
         return $this->hasOne(Qrcode::class);
     }
 
-    /**
-     * Define The Category OF The Item
-     *
-     * @return void
-     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+ 
  
 
     /**
@@ -135,9 +144,14 @@ class Item extends Model
         return $query->where('category_id', $category_id) ?? null;
     }
 
-    public function scopeBrand($query, $brand_id)
+    public function scopeModel($query, $model_id)
     {
-        return $query->where('brand_id', $brand_id) ?? null;
+        return $query->where('model_id', $model_id) ?? null;
+    }
+
+    public function scopeColor($query, $color_id)
+    {
+        return $query->where('color_id', $color_id) ?? null;
     }
 
     /**
@@ -204,22 +218,22 @@ class Item extends Model
 
     public function createItem(Request $request)
     {
-       
-
-
+        
         try {
             $Item = Item::create([
             'title' => request('title'),
             'details' => request('details'),
             'owner_id' => request('owner_id'),
             'category_id' => request('category_id'),
+            'model_id' => request('model_id'),
             'brand_id' => request('brand_id'),
+            'color_id' => request('color_id'),
              ]);
     
             if ($Item) {
                 if(request('qrcode_id') != NULL)
                 {
-                   $QRCode= Qrcodes::find(request('qrcode_id') );
+                   $QRCode= Qrcode::find(request('qrcode_id') );
                    $QRCode->item_id=$Item->id;
                    $QRCode->save();
                 }
@@ -231,7 +245,7 @@ class Item extends Model
                     if($image!=""){
                     \File::put( 'images/items/' . $file_name, base64_decode($image));
                     } 
-                    $image=ItemImages::create([
+                    $image=ItemImage::create([
                         'item_id' =>$Item->id,
                         'image' =>  'images/items/' .$file_name
                     ]);
