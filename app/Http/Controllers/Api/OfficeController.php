@@ -20,7 +20,7 @@ class OfficeController extends Controller
             $this->Feilds=['id','name_ar as name','details_en as details','address_ar as address','image','latitude','longitude','status'];
         }
         $check=1;
-        $array=  $Offices = QueryBuilder::for(WajadOffice::class)
+         $Offices = QueryBuilder::for(WajadOffice::class)
         ->select($this->Feilds)
         ->get();
         $this->request['latitude']=$request->lat;
@@ -47,7 +47,7 @@ class OfficeController extends Controller
     //     $array=[];
         
     // }
-       $array['data']=$Offices;
+        $array['data']=$Offices;
         return $this->jsonResponse($array);
 
     }
