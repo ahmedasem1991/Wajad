@@ -28,16 +28,26 @@ class AuthController extends Controller
     public function login()
     {
         $validate_inputs = Validator::make(request()->all(), [
-            'email' => ['required', 'email'],
+            'user' => ['required'],
             'password' => ['required', 'max:255', 'min:6']
         ]);
+
+
+        if (is_numeric(request('user'))) {
+            $request = ['mobile_number' => request('user'), 'password' => request('password')];
+        } elseif (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+            $request = ['email' => request('user'), 'password' => request('password')];
+        }else{
+            $this->addResponse(trans('auth.notvalid'))->addStatusCode(401);
+            return $this->response();
+        }
 
         if ($validate_inputs->fails()) {
             $this->addMultibleResponse($validate_inputs->errors())->addStatusCode(401);
             return $this->response();
         }
 
-        if (!$token = auth('api')->attempt(request(['email', 'password']))) {
+        if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
