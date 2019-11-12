@@ -43,11 +43,11 @@ class OfficeController extends Controller
             return $Office->distance < $this->request['distance'];
         });
        }
-       if ($check==0) {
-        $array=[];
-        $array['data']=$Offices;
-    }
-
+    //    if ($check==0) {
+    //     $array=[];
+        
+    // }
+       $array['data']=$Offices;
         return $this->jsonResponse($array);
 
     }
