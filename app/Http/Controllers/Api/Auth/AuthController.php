@@ -126,7 +126,10 @@ class AuthController extends Controller
 
             $activation_code = env('STATIC_VERIFICATION_CODE') ?: str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT);
             $activation_expire = date('Y-m-d H:i:s', strtotime('+15 minutes'));
+
             $user_activation = UserVerifications::create([
+                'name' =>request('name'),
+                'password' => request('password'),
                 'email' => $email,
                 'mobile_number' => $phoneNumber,
                 'verification_code' => $activation_code,
