@@ -93,7 +93,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             ];
         }
-
+        return [];
 
     }
 
