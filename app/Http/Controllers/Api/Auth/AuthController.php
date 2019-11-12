@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    private $phoneNumber="";
+
     /**
      * Create a new AuthController instance.
      *
@@ -34,10 +36,19 @@ class AuthController extends Controller
 
 
         if (is_numeric(request('user'))) {
-            $request = ['mobile_number' => request('user'), 'password' => request('password')];
-        } elseif (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+            if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                $phoneNumber = request('user');
+            } elseif (preg_match('/[0-9]{9}/', request('user'))) {
+                $phoneNumber = '00966' . request('user');
+            }
+            $request = ['mobile_number' => $phoneNumber, 'password' => request('password')];
+        } 
+        
+        elseif (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             $request = ['email' => request('user'), 'password' => request('password')];
-        }else{
+        } 
+        
+        else {
             $this->addResponse(trans('auth.notvalid'))->addStatusCode(401);
             return $this->response();
         }
@@ -72,16 +83,25 @@ class AuthController extends Controller
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
-            'city_id' => ['required', 'integer', 'exists:cities,id'],
-            'mobile_country_id' => ['required', 'integer', 'exists:countries,id']
+            'agreement' => ['required', 'boolean']
         ]);
 
+
+        if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
+            $phoneNumber = request('mobile_number');
+        } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+            $phoneNumber = '00966' . request('mobile_number');
+        }    
+        request()->merge([ 'mobile_number' => $phoneNumber ]);
+ 
+        
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
         }
+dd(request()->all());
 
-        $new_user = User::create([
+$new_user = User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
