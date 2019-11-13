@@ -109,13 +109,13 @@ class AuthController extends Controller
         ]);
 
 
-        if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-            $mobile_number = request('mobile_number');
-        } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
-            $mobile_number = '00966' . request('mobile_number');
-        }    
-        request()->merge([ 'mobile_number' => $mobile_number ]);
-        // $mobile_number = request('mobile_number');
+        // if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
+        //     $mobile_number = request('mobile_number');
+        // } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+        //     $mobile_number = '00966' . request('mobile_number');
+        // }    
+        // request()->merge([ 'mobile_number' => $mobile_number ]);
+        $mobile_number = request('mobile_number');
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
