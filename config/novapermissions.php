@@ -269,23 +269,23 @@ return [
             'group'        => 'Activities',
         ],
 
-        'create activities' => [
-            'display_name' => 'Create activities',
-            'description'  => 'Can create activities',
-            'group'        => 'Activities',
-        ],
+        // 'create activities' => [
+        //     'display_name' => 'Create activities',
+        //     'description'  => 'Can create activities',
+        //     'group'        => 'Activities',
+        // ],
 
-        'edit activities' => [
-            'display_name' => 'Edit activities',
-            'description'  => 'Can edit activities',
-            'group'        => 'Activities',
-        ],
+        // 'edit activities' => [
+        //     'display_name' => 'Edit activities',
+        //     'description'  => 'Can edit activities',
+        //     'group'        => 'Activities',
+        // ],
 
-        'delete activities' => [
-            'display_name' => 'Delete activities',
-            'description'  => 'Can delete activities',
-            'group'        => 'Activities',
-        ],
+        // 'delete activities' => [
+        //     'display_name' => 'Delete activities',
+        //     'description'  => 'Can delete activities',
+        //     'group'        => 'Activities',
+        // ],
          ///////////////Banners///////////////
         //  'view banners' => [
         //     'display_name' => 'View banners',

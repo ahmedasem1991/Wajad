@@ -30,7 +30,15 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('view posts'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return  true;
     }
 
     /**
@@ -41,7 +49,15 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        return  Auth()->User()->isAdmin() ? false :  true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('create posts'))
+            {
+                return true;
+            }
+        }else{
+            return false;
+        }
+        return  false;
     }
 
     /**
@@ -53,7 +69,15 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return  Auth()->User()->isAdmin() ? false :  true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('edit posts'))
+            {
+                return true;
+            }
+        }else{
+            return false;
+        }
+        return  false;
     }
 
     /**
@@ -65,7 +89,15 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return  Auth()->User()->isAdmin() ? false :  true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('delete posts'))
+            {
+                return true;
+            }
+        }else{
+            return false;
+        }
+        return  false;
     }
 
     /**
