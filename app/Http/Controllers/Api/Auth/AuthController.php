@@ -83,20 +83,20 @@ class AuthController extends Controller
     {
         $validate_request = Validator::make(request()->all(), [
             'name' => ['required', 'min:6', 'max:255'],
-            'email' => ['required', 'email', 'unique:users'],
+            'email' => ['required', 'email', 'unique:users,mobile_number'],
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
             'agreement' => ['required', 'boolean']
         ]);
 
 
-        if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-            $phoneNumber = request('mobile_number');
-        } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
-            $phoneNumber = '00966' . request('mobile_number');
-        }    
-        request()->merge([ 'mobile_number' => $phoneNumber ]);
- 
+        // if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
+        //     $phoneNumber = request('mobile_number');
+        // } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+        //     $phoneNumber = '00966' . request('mobile_number');
+        // }    
+        // request()->merge([ 'mobile_number' => $phoneNumber ]);
+        $phoneNumber = request('mobile_number');
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
@@ -104,7 +104,7 @@ class AuthController extends Controller
         } 
      
         
-        $email = request('email', '');
+        $email = request('email');
  
         try {
             UserVerifications::where('expired_period', '<', date('Y-m-d H:i:s'))->delete();
@@ -115,9 +115,10 @@ class AuthController extends Controller
         $user_activation = UserVerifications::where('email', '=', $email)
         ->where('mobile_number','=',   $phoneNumber)
         ->first();
-
+ 
         if (!empty($user_activation) && Carbon::now()->diffInSeconds($user_activation->created_at) < 60) {
-            return $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(404);
+            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(404);
+            return  $this->response();
         }
 
         if (!$user_activation || $user_activation->expired_period < date('Y-m-d H:i:s')) {
@@ -129,7 +130,7 @@ class AuthController extends Controller
 
             $user_activation = UserVerifications::create([
                 'name' =>request('name'),
-                'password' => request('password'),
+                'password' => bcrypt(request('password')),
                 'email' => $email,
                 'mobile_number' => $phoneNumber,
                 'verification_code' => $activation_code,
@@ -141,28 +142,22 @@ class AuthController extends Controller
             $activation_code = $user_activation->activation_code;
         }
 
-        //code to send sms verification code
-        $output = ['code' => $activation_code];
         try {
-            // $output['sms'] = SMSMessage::send($phoneNumber, $activation_code, env('SMS_FROM', '201066222501'));
-       $nexmo = app('Nexmo\Client');
-	$nexmo->message()->send([
-		'to'   =>   $phoneNumber,
-		'from' => 'nexmo',
-		'text' => $activation_code
-	]);
-       
+            $basic  = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
+            $client = new \Nexmo\Client($basic);
+            $message = 'Wajad, Register activation code is '.$activation_code;
+            // $client->message()->send([
+            //     'to' =>  $phoneNumber,
+            //     'from' => 'Nexmo',
+            //     'text' => $message
+            // ]);
+            
         } catch (Exception $e) {
             \Log::error(['error' => 'verify', 'exception' => $e]);
         }
 
-        return $this->addResponse('Activation code Sent') ;
-
-
-
-
-
-
+        $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(200);
+        return  $this->response();
     }
 
     /**
