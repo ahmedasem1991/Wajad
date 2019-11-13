@@ -2,19 +2,22 @@
 
 namespace App\Nova;
 
-use App\Nova\Metrics\Posts;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
+use App\Nova\Metrics\PostsCount;
 use Laravel\Nova\Fields\Boolean;
-use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\HasMany;
+use App\Nova\Metrics\PostsPeriod;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
+use App\Nova\Metrics\OpenVsClosePosts;
+use App\Nova\Metrics\ShowVsHiddenPosts;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -103,7 +106,9 @@ class Post extends Resource
     public function cards(Request $request)
     {
         return [
-            new Posts,
+            new PostsPeriod,
+            new ShowVsHiddenPosts,
+            new OpenVsClosePosts,
         ];
     }
 
