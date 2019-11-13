@@ -17,7 +17,6 @@ class CreatePostsTable extends Migration
             $table->Increments('id');
             $table->string('title');
             $table->text('description');
-            $table->integer('post_type_id')->nullable();
             $table->integer('item_id')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('appearance_status')->default(0);
@@ -27,13 +26,11 @@ class CreatePostsTable extends Migration
             $table->integer('publisher_id')->nullable();
             $table->timestamp('losted_at')->nullable();
             $table->timestamp('founded_at')->nullable();
-            $table->double('lat')->nullable();
-            $table->double('lng')->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->integer('sub_category_id')->nullable();
             $table->integer('model_id')->nullable();
             $table->integer('color_id')->nullable();
-            $table->integer('images_id')->nullable();
-          
             $table->timestamps();
         });
     }

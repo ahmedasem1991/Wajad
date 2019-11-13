@@ -60,7 +60,7 @@ class SeedPostTypes extends Command
                 'created_at' => null,
                 'updated_at' => null
             ],
-           
+
         ];
 
 
@@ -75,8 +75,8 @@ class SeedPostTypes extends Command
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
                 'publisher_id' => $users[0]->id,
                 'status' => 0,
-                'lat' => '21.4070665',
-                'lng' => '39.9257528',
+                'latitude' => '21.4070665',
+                'longitude' => '39.9257528',
                 'item_id' => Item::all()->random(1)->first()->id,
                 'post_type_id' => PostType::all()->random(1)->first()->id,
                 'owner_id' =>$users[0]->id,
@@ -106,7 +106,7 @@ class SeedPostTypes extends Command
                 'owner_id' =>$users[2]->id,
                 'losted_at'=>Carbon::now()->toDateTimeString()
             ],
-           
+
         ];
         foreach ($Posts as $Post) {
             Post::create($Post);

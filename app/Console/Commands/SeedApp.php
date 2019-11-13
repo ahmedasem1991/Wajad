@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Banner;
-use App\Item;
 use App\User;
+use App\WajadOffice;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
@@ -42,7 +42,7 @@ class SeedApp extends Command
     public function handle()
     {
         Artisan::call('migrate:fresh');
-        
+
         $this->info('Database Migrated Successfully');
 
         $this->info('Create Nova Admin');
@@ -73,7 +73,7 @@ class SeedApp extends Command
         ]);
         $this->info('Nova User Created Successfully');
 
-        
+
         $this->info('Create Nova Corporate Admin');
         $username = $this->ask('Username', 'Corporate');
         $email = $this->ask('Email Address', 'corporate@nova.com');
@@ -94,5 +94,9 @@ class SeedApp extends Command
         $create_banner_question = $this->ask('Banner Number ?', 5);
 
         factory(Banner::class, (int) $create_banner_question)->create();
+
+        $create_wajad_offices_question = $this->ask('Count Wajad Offices', 5);
+
+        factory(WajadOffice::class, (int) $create_wajad_offices_question)->create();
     }
 }

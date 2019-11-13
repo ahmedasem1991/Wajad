@@ -32,7 +32,7 @@ class Post extends Resource
      *
      * @var string
      */
-   // public static $group = 'Posts';
+    // public static $group = 'Posts';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -60,36 +60,36 @@ class Post extends Resource
     {
 
         return [
-           ID::make()->sortable(),
-           Text::make('Title'),
-           Textarea::make('description'),
-           RadioButton::make('Status')
-           ->options([
-               0 => 'Lost',
-               1 => 'Found',
-           ])->default(0), // optional
-            Toggle::make('Appearance Status','appearance_status'),
+            ID::make()->sortable(),
+            Text::make('Title'),
+            Textarea::make('description'),
+            RadioButton::make('Status')
+                ->options([
+                    0 => 'Lost',
+                    1 => 'Found',
+                ])->default(0), // optional
+            Toggle::make('Appearance Status', 'appearance_status'),
             BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
             NovaBelongsToDepend::make('User', 'publisher')
-            ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-            ->options(\App\User::all()),
+                ->placeholder('Publisher') // Add this just if you want to customize the placeholder
+                ->options(\App\User::all()),
             BelongsTo::make('Founder', 'founder', 'App\Nova\User'),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User'),
             NovaBelongsToDepend::make('Item')
-            ->placeholder('Item')
-            ->optionsResolve(function ($user) {
-                $user_items = [];
-                $user_items_with_qrcode = $user->items()
-                    ->Has('qrcode')
-                    ->get();
-                foreach ($user_items_with_qrcode as $user_item_with_qrcode) {
-                    array_push($user_items, $user_item_with_qrcode);
-                }
-                return $user_items;
-            })->dependsOn('publisher')->nullable(),
-            HasMany::make('Images','images',\App\Nova\PostImage::class)
+                ->placeholder('Item')
+                ->optionsResolve(function ($user) {
+                    $user_items = [];
+                    $user_items_with_qrcode = $user->items()
+                        ->Has('qrcode')
+                        ->get();
+                    foreach ($user_items_with_qrcode as $user_item_with_qrcode) {
+                        array_push($user_items, $user_item_with_qrcode);
+                    }
+                    return $user_items;
+                })->dependsOn('publisher')->nullable(),
+            HasMany::make('Images', 'images', \App\Nova\PostImage::class)
 
         ];
     }
@@ -139,10 +139,8 @@ class Post extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-
-
 }
