@@ -108,7 +108,6 @@ class AuthController extends Controller
             'agreement' => ['required', 'boolean']
         ]);
 
-
         // if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
         //     $mobile_number = request('mobile_number');
         // } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
@@ -122,20 +121,17 @@ class AuthController extends Controller
             return $this->response();
         }
 
-
         $user_verification = UserVerifications::where('email', '=', request('email'))
             ->where('mobile_number', '=',   $mobile_number)->where('type', '=', User::Types['user'])
             ->first();
 
-        if (!empty($user_verification) && $user_verification->sendCodeWithinMinute()) {
-            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
-            return $this->response();
-        }
 
-        if (!empty($user_verification) && $user_verification->attemp > 3) {
-            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
-            return $this->response();
-        }
+        // if (!empty($user_verification) && $user_verification->sendCodeWithinMinute()) {
+        //     $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
+        //     return $this->response();
+        // }
+
+
 
         if (empty($user_verification)) {
             $activation_code = env('STATIC_VERIFICATION_CODE') ?: str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT);
@@ -152,7 +148,6 @@ class AuthController extends Controller
                 'type' => User::Types['user'] // Normal User
             ]);
         } else {
-            $activation_code = $user_verification->activation_code;
             $user_verification->attemp += 1;
             $user_verification->save();
         }
@@ -173,7 +168,21 @@ class AuthController extends Controller
 
 
     public function verify()
-    { }
+    {
+        $user_verification = UserVerifications::where('email', '=', request('email'))
+        ->where('mobile_number', '=', request('mobile_number'))->where('type', '=', User::Types['user'])
+        ->first();
+
+        if (!empty($user_verification) && request('attemp') > 3) {
+            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
+            return $this->response();
+        }
+
+        if (!empty($user_verification) && request('attemp') > 3) {
+            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
+            return $this->response();
+        }
+    }
 
     /**
      * Log the user out (Invalidate the token).

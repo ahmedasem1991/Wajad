@@ -18,5 +18,7 @@ return [
     'verification_code_wait_time_one_minute' => 'يجب الانتظار دقيقة واحدة لتتمكن من إعادة إرسال رمز التفعيل',
     'verification_code_sent' => 'تم ارسال كود التفعيل.',
     'verification_code_exceeded' => 'لقد تعديت عدد الثلاث مرات المسموح بها.',
+    'user_exists' => 'هذا المستخدم موجود مسبقا, من فضلك قم بتسجيل الدخول.',
+    'registered_successfully' => 'تم تسجيل الدخول بنجاح.',
 
 ];
