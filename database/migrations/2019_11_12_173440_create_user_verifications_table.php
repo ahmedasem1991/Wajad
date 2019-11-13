@@ -26,6 +26,7 @@ class CreateUserVerificationsTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('corporate_id')->nullable();
             $table->boolean('agreement');
+            $table->integer('attemp');
             $table->rememberToken();
             $table->timestamps();
         });

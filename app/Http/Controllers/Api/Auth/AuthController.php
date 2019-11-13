@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
 
 class AuthController extends Controller
 {
-    private $phoneNumber="";
+    private $mobile_number = "";
 
     /**
      * Create a new AuthController instance.
@@ -32,34 +32,53 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $validate_inputs = Validator::make(request()->all(), [
-            'user' => ['required'],
-            'password' => ['required', 'max:255', 'min:6']
-        ]);
+        $validate_password = Validator::make((array) request('password'), ['required', 'max:255', 'min:6']);
 
+        if ($validate_password->fails()) {
+            $this->addMultibleResponse($validate_password->errors())->addStatusCode(401);
+            return $this->response();
+        }
 
         if (is_numeric(request('user'))) {
-            if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                $phoneNumber = request('user');
-            } elseif (preg_match('/[0-9]{9}/', request('user'))) {
-                $phoneNumber = '00966' . request('user');
+            $validate_mobile_number = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
+                ['user.exists' => trans('auth.failed')]
+            );
+
+            if ($validate_mobile_number->fails()) {
+                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
+                return $this->response();
             }
-            $request = ['mobile_number' => $phoneNumber, 'password' => request('password')];
-        } 
-        
-        elseif (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+
+            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                request()->merge(['user' => '00966' . request('user')]);
+            }
+
+            $request = ['mobile_number' => request('user'), 'password' => request('password')];
+        }
+
+        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+            $validate_email = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'email', 'exists:users,email']],
+                ['user.exists' => trans('auth.failed')]
+            );
+
+            if ($validate_email->fails()) {
+                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
+                return $this->response();
+            }
+
             $request = ['email' => request('user'), 'password' => request('password')];
-        } 
-        
-        else {
+        }
+
+        if (!isset($request)) {
             $this->addResponse(trans('auth.notvalid'))->addStatusCode(401);
             return $this->response();
         }
 
-        if ($validate_inputs->fails()) {
-            $this->addMultibleResponse($validate_inputs->errors())->addStatusCode(401);
-            return $this->response();
-        }
+        $request['type'] = User::Types['user'];
 
         if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
@@ -90,75 +109,71 @@ class AuthController extends Controller
         ]);
 
 
-        // if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-        //     $phoneNumber = request('mobile_number');
-        // } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
-        //     $phoneNumber = '00966' . request('mobile_number');
-        // }    
-        // request()->merge([ 'mobile_number' => $phoneNumber ]);
-        $phoneNumber = request('mobile_number');
+        if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
+            $mobile_number = request('mobile_number');
+        } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+            $mobile_number = '00966' . request('mobile_number');
+        }    
+        request()->merge([ 'mobile_number' => $mobile_number ]);
+        // $mobile_number = request('mobile_number');
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
-        } 
-     
-        
-        $email = request('email');
- 
-        try {
-            UserVerifications::where('expired_period', '<', date('Y-m-d H:i:s'))->delete();
-        } catch (\Exception $e) {
-            \Log::info('ERROR_DELETING_USER_ACTIVATIONS', ['error' => '']);
         }
 
-        $user_activation = UserVerifications::where('email', '=', $email)
-        ->where('mobile_number','=',   $phoneNumber)
-        ->first();
- 
-        if (!empty($user_activation) && Carbon::now()->diffInSeconds($user_activation->created_at) < 60) {
-            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(404);
-            return  $this->response();
+
+        $user_verification = UserVerifications::where('email', '=', request('email'))
+            ->where('mobile_number', '=',   $mobile_number)->where('type', '=', User::Types['user'])
+            ->first();
+
+        if (!empty($user_verification) && $user_verification->sendCodeWithinMinute()) {
+            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
+            return $this->response();
         }
 
-        if (!$user_activation || $user_activation->expired_period < date('Y-m-d H:i:s')) {
-            if ($user_activation)
-                $user_activation->delete();
+        if (!empty($user_verification) && $user_verification->attemp > 3) {
+            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
+            return $this->response();
+        }
 
+        if (empty($user_verification)) {
             $activation_code = env('STATIC_VERIFICATION_CODE') ?: str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT);
-            $activation_expire = date('Y-m-d H:i:s', strtotime('+15 minutes'));
+            $attemp = 1;
 
-            $user_activation = UserVerifications::create([
-                'name' =>request('name'),
+            $user_verification = UserVerifications::create([
+                'name' => request('name'),
                 'password' => bcrypt(request('password')),
-                'email' => $email,
-                'mobile_number' => $phoneNumber,
+                'email' => request('email'),
+                'mobile_number' => $mobile_number,
                 'verification_code' => $activation_code,
-                'expired_period' => $activation_expire,
-                'agreement' => request('agreement'), 
-                'type' => 1 // Normal User
+                'agreement' => request('agreement'),
+                'attemp' => $attemp,
+                'type' => User::Types['user'] // Normal User
             ]);
         } else {
-            $activation_code = $user_activation->activation_code;
+            $activation_code = $user_verification->activation_code;
+            $user_verification->attemp += 1;
+            $user_verification->save();
         }
 
-        try {
-            $basic  = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
-            $client = new \Nexmo\Client($basic);
-            $message = 'Wajad, Register activation code is '.$activation_code;
-            // $client->message()->send([
-            //     'to' =>  $phoneNumber,
-            //     'from' => 'Nexmo',
-            //     'text' => $message
-            // ]);
-            
-        } catch (Exception $e) {
-            \Log::error(['error' => 'verify', 'exception' => $e]);
-        }
+
+        $basic  = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
+        $client = new \Nexmo\Client($basic);
+        $message = 'Wajad, Register activation code is ' . $activation_code;
+        // $client->message()->send([
+        //     'to' =>  $mobile_number,
+        //     'from' => 'Nexmo',
+        //     'text' => $message
+        // ]);
 
         $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(200);
         return  $this->response();
     }
+
+
+    public function verify()
+    { }
 
     /**
      * Log the user out (Invalidate the token).

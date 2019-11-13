@@ -17,5 +17,6 @@ return [
     'notvalid' => ' من فضلك قم بإدخال بريد إليكترونى أو رقم جوال صحيح.',
     'verification_code_wait_time_one_minute' => 'يجب الانتظار دقيقة واحدة لتتمكن من إعادة إرسال رمز التفعيل',
     'verification_code_sent' => 'تم ارسال كود التفعيل.',
+    'verification_code_exceeded' => 'لقد تعديت عدد الثلاث مرات المسموح بها.',
 
 ];

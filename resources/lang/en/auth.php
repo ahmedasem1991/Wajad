@@ -18,4 +18,5 @@ return [
     'notvalid' => 'please enter a valid email address or phone number.',
     'verification_code_wait_time_one_minute' => 'You have to stay one min to resend code again.',
     'verification_code_sent' => 'Verification code sent.',
+    'verification_code_exceeded' => 'You have exceeded the 3 times allowed.',
 ];
