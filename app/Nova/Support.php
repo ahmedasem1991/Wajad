@@ -23,7 +23,7 @@ class Support extends Resource
      *
      * @var string
      */
-   // public static $group = 'Supports and Settings';
+    public static $group = 'Settings';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -110,6 +110,6 @@ class Support extends Resource
     }
     public static function icon() 
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+    return  '<img class="sidebar-icon" src="/images/icons/contact-us.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

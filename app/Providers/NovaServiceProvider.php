@@ -105,10 +105,19 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     public function tools()
     {
+        if(Auth()->user()->isCorporateAdmin())
+        {
+            return[
+                new NovaSidebarIcons,
+            ];
+        }
+        if(Auth()->user()->isAdmin())
+        {
         return [
             new NovaSidebarIcons,
             new \Pktharindu\NovaPermissions\NovaPermissions(),
         ];
+    }
     }
 
     public function register()

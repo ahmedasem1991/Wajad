@@ -1,44 +1,43 @@
 <?php
 
-namespace App\NovaCorporate;
-use App\Nova\Resource;
+namespace App\Nova;
+
+use App\Permission;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use App\Nova\Metrics\Banners;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class Activity extends Resource
+class Permissions extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Activity';
+    public static $model = 'App\Permission';
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-   // public static $group = 'Activities';
+    public static $group = 'Roles';
+    public static $displayInNavigation = false;
 
-   public static function availableForNavigation(Request $request)
-   {
-     return  (Auth()->User()->hasPermissionTo('view activities')) ? true :false;
-   }
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -46,7 +45,7 @@ class Activity extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','name'
     ];
 
     /**
@@ -59,15 +58,23 @@ class Activity extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('DESCRIPTION'),
-            Text::make('SUBJECT ID'),
-            Text::make('SUBJECT TYPE'),
-            Text::make('CAUSER ID'),
-            Text::make('CREATED_AT'),
-            BelongsTo::make('User'),
+            Text::make('Name', 'name')->creationRules([
+                'required', 'min:6'
+            ]),
+            Text::make('Dispaly Name', 'display_name')->creationRules([
+                'required', 'min:6'
+            ]),
+            Text::make('Description', 'description')->creationRules([
+                'required', 'min:6'
+            ]),
+            Text::make('Group', 'group')->creationRules([
+                'required', 'min:6'
+            ]),
+            
+ 
+                 
         ];
     }
-
     /**
      * Get the cards available for the request.
      *
@@ -76,7 +83,9 @@ class Activity extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+           
+        ];
     }
 
     /**
@@ -111,9 +120,8 @@ class Activity extends Resource
     {
         return [];
     }
-
-    public static function indexQuery(NovaRequest $request, $query)
+    public static function icon() 
     {
-        return $query->whereIn('causer_id',Auth()->user()->corporate->users()->pluck('id'));
+    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

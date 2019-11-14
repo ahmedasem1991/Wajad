@@ -49,6 +49,10 @@ class Stock extends Resource
         'id',
     ];
 
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('view stock')) ? true :false;
+    }
     /**
      * Get the fields displayed by the resource.
      *

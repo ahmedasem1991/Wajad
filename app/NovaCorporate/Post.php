@@ -21,6 +21,9 @@ use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Post extends Resource
 {
+
+   
+ 
     /**
      * The model the resource corresponds to.
      *
@@ -48,9 +51,14 @@ class Post extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','title'
     ];
 
+
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('view posts')) ? true :false;
+    }
     /**
      * Get the fields displayed by the resource.
      *
