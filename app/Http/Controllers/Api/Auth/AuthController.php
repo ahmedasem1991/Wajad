@@ -7,22 +7,20 @@ use App\UserVerifications;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\LoginAuthException;
+use App\Services\SmsProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 class AuthController extends Controller
 {
-    private $mobile_number = "";
+    protected $smsProvider;
 
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(SmsProvider $smsProvider)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','verify','resendCode']]);
+        $this->smsProvider = $smsProvider;
     }
 
     /**
@@ -32,7 +30,9 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $validate_password = Validator::make((array) request('password'), ['required', 'max:255', 'min:6']);
+        $validate_password = Validator::make(request()->all(), [
+            'password' => ['required', 'max:255', 'min:6']
+        ]);
 
         if ($validate_password->fails()) {
             $this->addMultibleResponse($validate_password->errors())->addStatusCode(401);
@@ -102,7 +102,7 @@ class AuthController extends Controller
     {
         $validate_request = Validator::make(request()->all(), [
             'name' => ['required', 'min:6', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,mobile_number'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
             'agreement' => ['required', 'boolean']
@@ -122,20 +122,12 @@ class AuthController extends Controller
         }
 
         $user_verification = UserVerifications::where('email', '=', request('email'))
-            ->where('mobile_number', '=',   $mobile_number)->where('type', '=', User::Types['user'])
+            ->where('mobile_number', '=', $mobile_number)
+            ->where('type', '=', User::Types['user'])
             ->first();
 
-
-        // if (!empty($user_verification) && $user_verification->sendCodeWithinMinute()) {
-        //     $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
-        //     return $this->response();
-        // }
-
-
-
         if (empty($user_verification)) {
-            $activation_code = env('STATIC_VERIFICATION_CODE') ?: str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT);
-            $attemp = 1;
+            $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
             $user_verification = UserVerifications::create([
                 'name' => request('name'),
@@ -144,46 +136,87 @@ class AuthController extends Controller
                 'mobile_number' => $mobile_number,
                 'verification_code' => $activation_code,
                 'agreement' => request('agreement'),
-                'attemp' => $attemp,
                 'type' => User::Types['user'] // Normal User
             ]);
-        } else {
-            $user_verification->attemp += 1;
-            $user_verification->save();
+
+            $message = 'Wajad, Register activation code is ' . $activation_code;
+
+            $this->smsProvider->sendMessage($message, $mobile_number);
         }
 
-
-        $basic  = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
-        $client = new \Nexmo\Client($basic);
-        $message = 'Wajad, Register activation code is ' . $activation_code;
-        // $client->message()->send([
-        //     'to' =>  $mobile_number,
-        //     'from' => 'Nexmo',
-        //     'text' => $message
-        // ]);
-
-        $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(200);
-        return  $this->response();
+        return $this->jsonResponse([
+            'data' => [
+                "unverified_user_id" => $user_verification->id,
+                "message" => trans('auth.verification_code_sent'),
+            ]
+        ]);
     }
-
 
     public function verify()
     {
-        $user_verification = UserVerifications::where('email', '=', request('email'))
-        ->where('mobile_number', '=', request('mobile_number'))->where('type', '=', User::Types['user'])
-        ->first();
+        $user_verification = UserVerifications::find(request('unverified_user_id'));
 
-        if (!empty($user_verification) && request('attemp') > 3) {
-            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
+        if (empty($user_verification)) {
+            $this->addResponse(trans('auth.notregistered'))->addStatusCode(404);
             return $this->response();
-        }
 
-        if (!empty($user_verification) && request('attemp') > 3) {
-            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
-            return $this->response();
+        } else {
+            if ($user_verification->attemp > 3) {
+                $user_verification->delete();
+                $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
+                return $this->response();
+            } else {
+                if (request('code') == $user_verification->verification_code) {
+                    $user  = User::create([
+                        'name' => $user_verification->name,
+                        'password' => $user_verification->password,
+                        'email' => $user_verification->email,
+                        'mobile_number' => $user_verification->mobile_number,
+                        'agreement' => $user_verification->agreement,
+                        'type' => $user_verification->type
+                    ]);
+
+                    $user_verification->delete();
+
+                    $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
+                    return $this->response();
+                } else {
+                    $user_verification->attemp += 1;
+                    $user_verification->save();
+                    $this->addResponse(trans('auth.wrong_code'))->addStatusCode(200);
+                    return $this->response();
+                }
+            }
         }
     }
 
+
+    public function resendCode()
+    {
+        $user_verification = UserVerifications::find(request('unverified_user_id'));
+
+        if (empty($user_verification)) {
+            $this->addResponse(trans('auth.notregistered'))->addStatusCode(404);
+            return $this->response();
+
+        }else{
+            if ($user_verification->sendCodeWithinMinute()) {
+                $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
+                return $this->response();
+            } else {
+                $activation_code =  $user_verification->activation_code;
+                $mobile_number =  $user_verification->mobile_number;
+                $message = 'Wajad, Register activation code is ' . $activation_code;
+                $this->sendSMS($message, $mobile_number);
+                return $this->jsonResponse(
+                    [
+                        "unverified_user_id" => $user_verification->id,
+                        "message" => trans('auth.verification_code_sent'),
+                    ]
+                );
+            }
+        }
+    }
     /**
      * Log the user out (Invalidate the token).
      *

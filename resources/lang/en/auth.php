@@ -18,7 +18,12 @@ return [
     'notvalid' => 'please enter a valid email address or phone number.',
     'verification_code_wait_time_one_minute' => 'You have to stay one min to resend code again.',
     'verification_code_sent' => 'Verification code sent.',
-    'verification_code_exceeded' => 'You have exceeded the 3 times allowed.',
+    'verification_code_exceeded' => 'You have exceeded the 3 times allowed, please create new user.',
     'user_exists' => 'This User exists, please log in.',
     'registered_successfully' => 'You have been registered successfully.',
+    'notregistered' => 'You did not registered yet, please try again.',
+    'wrong_code'=>'The code is not right, please try again',
+
+
+
 ];
