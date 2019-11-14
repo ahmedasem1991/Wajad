@@ -16,13 +16,13 @@ class SetLanguage
     public function handle($request, Closure $next)
     {
         $langHeader = $request->server('HTTP_ACCEPT_LANGUAGE');
-        
+
         if ($langHeader !== 'ar') {
             $langHeader = 'en';
         }
-    
+
         app()->setLocale($langHeader);
-    
+
         return $next($request);
     }
 }

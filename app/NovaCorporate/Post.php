@@ -89,7 +89,7 @@ class Post extends Resource
             ->Rules('required_if:status,1'),
             Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             NovaBelongsToDepend::make('User', 'publisher')
-            ->placeholder('Publisher') 
+            ->placeholder('Publisher')
             ->options(Auth()->User()->corporate->users),
             NovaBelongsToDepend::make('Item')
             ->placeholder('Item')

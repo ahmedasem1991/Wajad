@@ -4,27 +4,29 @@
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
 Route::post('/refresh-token', 'Auth\AuthController@refresh');
+Route::post('/verify', 'Auth\AuthController@verify');
+Route::post('/resendCode', 'Auth\AuthController@resendCode');
 
-
-
-# Categories 
+# Categories
 Route::get('/categories', 'CategoryController@index');
 
-# Sub Categories 
+# Sub Categories
 Route::get('/subcategories', 'CategoryController@subcategories');
 
-# Brands 
+# Brands
 Route::get('/brands', 'CategoryController@brands');
 
-# Models 
+# Models
 Route::get('/models', 'CategoryController@models');
 
-# Colors 
+# Colors
 Route::get('/colors', 'CategoryController@colors');
 
-# Wajad Offices 
+# Wajad Offices
 Route::get('/offices', 'OfficeController@index');
 
+# Maps
+Route::get('/maps/{type?}', 'MapController');
 
 # Sliders
 Route::get('/sliders', 'SlidersController@index');
@@ -47,7 +49,7 @@ Route::get('/regions', 'LocationsController@regions');
 # Support
 Route::post('/contact-us', 'SupportController@store');
 
-# Qr Code 
+# Qr Code
 Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
 
 # Pages
@@ -55,7 +57,7 @@ Route::get('/pages/{page?}', 'PageController');
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::put('change-password', 'Auth\ChangePasswordController');
-    
+
 
     Route::get('/user', function (Request $request) {
         return auth('api')->user();
@@ -68,4 +70,3 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
 });
 Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
-  

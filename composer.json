@@ -28,6 +28,8 @@
         "marianvlad/nova-env-card": "^1.0",
         "mjaschen/phpgeo": "^2.1",
         "naif/toggle": "^1.2",
+        "nexmo/client": "^2.0",
+        "nexmo/laravel": "^2.1",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "owenmelbz/nova-radio-field": "^0.0.5",
         "pktharindu/nova-permissions": "^1.2",

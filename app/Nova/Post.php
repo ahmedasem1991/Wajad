@@ -51,7 +51,7 @@ class Post extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id', 'title', 'description', 'owner_id', 'founder_id', 'publisher_id'
     ];
 
     /**
@@ -64,26 +64,26 @@ class Post extends Resource
     {
 
         return [
-           ID::make()->sortable(),
-           Text::make('Title'),
-           Textarea::make('description'),
-           RadioButton::make('Status')
-           ->options([
-               0 => 'Lost',
-               1 => 'Found',
-           ])->default(0), // optional
-            Toggle::make('Appearance Status','appearance_status'),
-            Toggle::make('Open Status','open_status'),
-           // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
+            ID::make()->sortable(),
+            Text::make('Title'),
+            Textarea::make('description'),
+            RadioButton::make('Status')
+                ->options([
+                    0 => 'Lost',
+                    1 => 'Found',
+                ])->default(0), // optional
+            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Open Status', 'open_status'),
+            // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
-        //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
-        //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-        //     ->options(\App\User::all())
-        //      ->withMeta(['extraAttributes' => [
-        //         'readonly' => true,
-        //         'disabled'=> true
-        //   ]])->setAttribute( 'disabled', true),
+            //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
+            //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
+            //     ->options(\App\User::all())
+            //      ->withMeta(['extraAttributes' => [
+            //         'readonly' => true,
+            //         'disabled'=> true
+            //   ]])->setAttribute( 'disabled', true),
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly(),
             BelongsTo::make('Founder', 'founder', 'App\Nova\User')->readonly(),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User')->readonly(),
@@ -100,7 +100,7 @@ class Post extends Resource
             //     }
             //     return $user_items;
             // })->dependsOn('publisher')->nullable()->readonly(),
-            HasMany::make('Images','images',\App\Nova\PostImage::class)
+            HasMany::make('Images', 'images', \App\Nova\PostImage::class)
 
         ];
     }
@@ -153,10 +153,8 @@ class Post extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/post.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/post.png" style="height:22px;width:22px;margin=10px" />';
     }
-
-
 }
