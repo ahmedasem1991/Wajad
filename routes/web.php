@@ -46,7 +46,7 @@ Auth::routes();
 
 Route::get('/test500', function(){
 	$user=User::find(3);
-	if($user->hasPermissionTo('create users'))
+	if(Auth()->User()->isAdmin())
 	{
 		return 'yes';
 	}

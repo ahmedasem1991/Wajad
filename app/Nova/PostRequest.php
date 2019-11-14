@@ -22,7 +22,7 @@ use App\Nova\Metrics\ShowVsHiddenPosts;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
-class Post extends Resource
+class PostRequest extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -72,8 +72,15 @@ class Post extends Resource
                0 => 'Lost',
                1 => 'Found',
            ])->default(0), // optional
+           RadioButton::make('Approval Status','approval_status')
+           ->options([
+               0 => 'Pending',
+               1 => 'Approval',
+               2 => 'Rejected',
+           ])->default(0), // optional
             Toggle::make('Appearance Status','appearance_status'),
-            Toggle::make('Open Status','open_status'),
+           // Toggle::make('Open Status','open_status'),
+            
            // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
@@ -114,9 +121,9 @@ class Post extends Resource
     public function cards(Request $request)
     {
         return [
-            new PostsPeriod,
-            new ShowVsHiddenPosts,
-            new OpenVsClosedPosts,
+            // new PostsPeriod,
+            // new ShowVsHiddenPosts,
+            // new OpenVsClosedPosts,
             new ApprovalPosts
         ];
     }
@@ -156,6 +163,11 @@ class Post extends Resource
     public static function icon() 
     {
     return  '<img class="sidebar-icon" src="/images/icons/post.png" style="height:22px;width:22px;margin=10px" />';
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->IsPending();
     }
 
 

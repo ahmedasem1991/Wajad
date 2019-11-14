@@ -19,7 +19,8 @@ use Smartappco\GoogleMaps\GoogleMaps;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
-use App\Nova\Metrics\OpenVsClosePosts;
+use App\Nova\Metrics\ApprovalPosts;
+use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\PostsPeriod;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -79,7 +80,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 new UsersStatus,
                 new PostsPeriod,
                 new ShowVsHiddenPosts,
-                new OpenVsClosePosts,
+                new OpenVsClosedPosts,
+               new ApprovalPosts,
                // new PostsCount,
                
                 

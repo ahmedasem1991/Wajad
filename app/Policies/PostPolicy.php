@@ -53,10 +53,10 @@ class PostPolicy
             if($user->hasPermissionTo('create posts'))
             {
                 return true;
-            }
-        }else{
+            }else{
             return false;
         }
+    }
         return  false;
     }
 
@@ -73,11 +73,11 @@ class PostPolicy
             if($user->hasPermissionTo('edit posts'))
             {
                 return true;
-            }
-        }else{
+            } else{
             return false;
         }
-        return  false;
+    }
+        return  true;
     }
 
     /**
@@ -93,10 +93,10 @@ class PostPolicy
             if($user->hasPermissionTo('delete posts'))
             {
                 return true;
-            }
-        }else{
+            }else{
             return false;
         }
+    }
         return  false;
     }
 

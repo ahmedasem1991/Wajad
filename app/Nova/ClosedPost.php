@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use App\Nova\Metrics\ApprovalPosts;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ use App\Nova\Metrics\ShowVsHiddenPosts;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
-class Post extends Resource
+class ClosedPost extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -114,10 +113,9 @@ class Post extends Resource
     public function cards(Request $request)
     {
         return [
-            new PostsPeriod,
-            new ShowVsHiddenPosts,
+            // new PostsPeriod,
+            // new ShowVsHiddenPosts,
             new OpenVsClosedPosts,
-            new ApprovalPosts
         ];
     }
 
@@ -156,6 +154,11 @@ class Post extends Resource
     public static function icon() 
     {
     return  '<img class="sidebar-icon" src="/images/icons/post.png" style="height:22px;width:22px;margin=10px" />';
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->IsClosed()->isApproved();
     }
 
 
