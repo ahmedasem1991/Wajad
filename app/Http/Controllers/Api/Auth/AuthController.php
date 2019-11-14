@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function __construct(SmsProvider $smsProvider)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register','verify','resendCode']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'resendCode']]);
         $this->smsProvider = $smsProvider;
     }
 
@@ -102,9 +102,9 @@ class AuthController extends Controller
     {
         $validate_request = Validator::make(request()->all(), [
             'name' => ['required', 'min:6', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:users,email', 'unique:user_verifications,email'],
             'password' => ['required', 'min:6', 'max:255'],
-            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
+            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'unique:user_verifications,mobile_number'],
             'agreement' => ['required', 'boolean']
         ]);
 
@@ -129,7 +129,7 @@ class AuthController extends Controller
         if (empty($user_verification)) {
             $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
-            $user_verification = UserVerifications::create([
+            $user_verification = UserVerifications::updateOrCreate([
                 'name' => request('name'),
                 'password' => bcrypt(request('password')),
                 'email' => request('email'),
@@ -159,10 +159,8 @@ class AuthController extends Controller
         if (empty($user_verification)) {
             $this->addResponse(trans('auth.notregistered'))->addStatusCode(404);
             return $this->response();
-
         } else {
             if ($user_verification->attemp > 3) {
-                $user_verification->delete();
                 $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
                 return $this->response();
             } else {
@@ -179,10 +177,10 @@ class AuthController extends Controller
                     $user_verification->delete();
 
                     $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
+
                     return $this->response();
                 } else {
-                    $user_verification->attemp += 1;
-                    $user_verification->save();
+                    $user_verification->increment('attemp');
                     $this->addResponse(trans('auth.wrong_code'))->addStatusCode(200);
                     return $this->response();
                 }
@@ -198,22 +196,22 @@ class AuthController extends Controller
         if (empty($user_verification)) {
             $this->addResponse(trans('auth.notregistered'))->addStatusCode(404);
             return $this->response();
-
-        }else{
+        } else {
             if ($user_verification->sendCodeWithinMinute()) {
                 $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
                 return $this->response();
             } else {
+                $user_verification->update(['attemp' => 0]);
                 $activation_code =  $user_verification->activation_code;
                 $mobile_number =  $user_verification->mobile_number;
                 $message = 'Wajad, Register activation code is ' . $activation_code;
-                $this->sendSMS($message, $mobile_number);
-                return $this->jsonResponse(
-                    [
+                $this->smsProvider->sendMessage($message, $mobile_number);
+                return $this->jsonResponse([
+                    'data' => [
                         "unverified_user_id" => $user_verification->id,
                         "message" => trans('auth.verification_code_sent'),
                     ]
-                );
+                ]);
             }
         }
     }
