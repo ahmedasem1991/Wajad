@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function __construct(SmsProvider $smsProvider)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'resendCode']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'resendCode', 'resetPassword']]);
         $this->smsProvider = $smsProvider;
     }
 
@@ -108,13 +108,16 @@ class AuthController extends Controller
             'agreement' => ['required', 'boolean']
         ]);
 
-        // if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-        //     $mobile_number = request('mobile_number');
-        // } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
-        //     $mobile_number = '00966' . request('mobile_number');
-        // }    
-        // request()->merge([ 'mobile_number' => $mobile_number ]);
-        $mobile_number = request('mobile_number');
+        if (app()->environment('production')) {
+            if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
+                $mobile_number = request('mobile_number');
+            } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+                $mobile_number = '00966' . request('mobile_number');
+            }
+            request()->merge(['mobile_number' => $mobile_number]);
+        } else {
+            $mobile_number = request('mobile_number');
+        }
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
@@ -253,4 +256,6 @@ class AuthController extends Controller
             'user' => auth('api')->user()
         ]);
     }
+    public function resetPassword()
+    { }
 }
