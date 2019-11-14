@@ -273,12 +273,22 @@ class Post extends MasterModel
             $sub_category_id=$Item->model->brand->subcategory->id;
        
         }
+        $appearance_status=0;
+        $approval_status=0;
+        $open_status=0;
+       if(User::find($request->publisher_id)->corporate) {
+           $appearance_status=1;
+           $approval_status=1;
+           $open_status=1;
+       }
         try {
             $post = Post::create([
                 'title' => request('title'),
                 'description' => request('description'),
                 'publisher_id' => request('publisher_id'),
-               // 'city' => request('city'),
+                'appearance_status' => $appearance_status,
+                'approval_status' => $approval_status,
+                'open_status' => $open_status,
                 'owner_id' =>$owner_id,
                 'founder_id' => $founder_id,
                 'item_id' => request('item_id'),

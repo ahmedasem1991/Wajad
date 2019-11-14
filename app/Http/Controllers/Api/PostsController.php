@@ -28,6 +28,7 @@ class PostsController extends Controller
     public function index(Request $request)
     {   $check=1;
         $array=  $Posts = QueryBuilder::for(Post::class)
+        ->IsOpen()->isApproved()->IsShow()
         ->with('publisher')
         ->with('owner')
         ->with('founder')
@@ -86,6 +87,7 @@ class PostsController extends Controller
     {
         
         $Posts = QueryBuilder::for(Post::class)
+     //   ->IsOpen()->isApproved()->IsShow()
         ->with('publisher')
         ->with('owner')
         ->with('founder')
