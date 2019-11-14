@@ -28,6 +28,15 @@ class Post extends MasterModel
         'founded_at' => 'datetime'
     ];
 
+    const APPROVALSTATUS = [
+        0 => 'pending',
+        1 => 'approved',
+        2 => 'rejected',
+        'pending' => 0,
+        'approved' => 1,
+        'rejected' => 2
+    ];
+
     const Status = [
         0 => 'lost',
         1 => 'found',
@@ -35,17 +44,17 @@ class Post extends MasterModel
         'found' => 1
     ];
 
-    const AppearanceStatus = [
-        0 => 'Hidden',
-        1 => 'Show',
-        'Hidden' => 0,
-        'Show' => 1
+    const APPEARANCESTATUS = [
+        0 => 'hidden',
+        1 => 'show',
+        'hidden' => 0,
+        'show' => 1
     ];
 
     const OPENSTATUS = [
-        0 => 'close',
+        0 => 'closed',
         1 => 'open',
-        'close' => 0,
+        'closed' => 0,
         'open' => 1
     ];
 
@@ -181,6 +190,35 @@ class Post extends MasterModel
     {
         $status = ($status == 'lost') ? 0 : 1;
         return $query->where('status', $status);
+    }
+   
+    public function scopeIsOpen($query, $status=1)
+    {
+        return $query->where('open_status',$status);
+    }
+    public function scopeIsClosed($query, $status=0)
+    {
+        return $query->where('open_status', $status);
+    }
+    public function scopeIsShow($query, $status=1)
+    {
+        return $query->where('appearance_status', $status);
+    }
+    public function scopeIsHidden($query, $status=0)
+    {
+        return $query->where('appearance_status', $status);
+    }
+    public function scopeIsPending($query, $status=0)
+    {
+        return $query->where('approval_status', $status);
+    }
+    public function scopeIsApproved($query, $status=1)
+    {
+        return $query->where('approval_status', $status);
+    }
+    public function scopeIsRejected($query, $status=2)
+    {
+        return $query->where('approval_status', $status);
     }
 
     public function scopeLost($query)

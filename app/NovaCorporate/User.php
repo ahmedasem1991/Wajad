@@ -54,6 +54,10 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+    }
     /**
      * Get the fields displayed by the resource.
      *

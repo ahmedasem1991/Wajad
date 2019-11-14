@@ -21,6 +21,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Qrcode' => 'App\Policies\QrcodePolicy',
         'App\GenerateQrcode' => 'App\Policies\GenerateQrcodePolicy',
         'App\AssignQrcode' => 'App\Policies\AssignQrcodePolicy',
+        'App\User' => 'App\Policies\UserPolicy',
+        'App\Item' => 'App\Policies\ItemPolicy',
     ];
 
     /**

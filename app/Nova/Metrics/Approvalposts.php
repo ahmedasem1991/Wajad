@@ -6,7 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Partition;
 
-class OpenVsClosePosts extends Partition
+class ApprovalPosts extends Partition
 {
     /**
      * Calculate the value of the metric.
@@ -16,13 +16,15 @@ class OpenVsClosePosts extends Partition
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Post::class, 'open_status')
+        return $this->count($request, Post::class, 'approval_status')
         ->label(function ($value) {
             switch ($value) {
-                case 1:
-                    return 'Open';
                 case 0:
-                    return 'Close';
+                    return 'pending';
+                case 1:
+                    return 'Approved';
+                case 2:
+                    return 'Rejected';
                 default:
                     return ucfirst($value);
             }
@@ -48,6 +50,6 @@ class OpenVsClosePosts extends Partition
      */
     public function uriKey()
     {
-        return 'opening_vs_closed_posts';
+        return 'approval_posts';
     }
 }

@@ -29,7 +29,10 @@ class Activity extends Resource
      */
    // public static $group = 'Activities';
 
-
+   public static function availableForNavigation(Request $request)
+   {
+     return  (Auth()->User()->hasPermissionTo('view activities')) ? true :false;
+   }
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

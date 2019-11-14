@@ -162,6 +162,10 @@ class CorporateAssignQrcode extends Resource
     {
         return [];
     }
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('view assign qr code')) ? true :false;
+    }
 
     /**
      * Get the lenses available for the resource.
