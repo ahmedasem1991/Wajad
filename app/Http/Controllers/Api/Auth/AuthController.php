@@ -181,7 +181,7 @@ class AuthController extends Controller
                     return $this->response();
                 } else {
                     $user_verification->increment('attemp');
-                    $this->addResponse(trans('auth.wrong_code'))->addStatusCode(200);
+                    $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
                     return $this->response();
                 }
             }
