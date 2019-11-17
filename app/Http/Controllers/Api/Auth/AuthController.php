@@ -7,11 +7,15 @@ use App\UserVerifications;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\LoginAuthException;
+use App\Mail\ResetPasswordMail;
+use App\Mail\ResetPasswordRequestMail;
+use App\ResetPassword;
 use App\Services\SmsProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -39,39 +43,8 @@ class AuthController extends Controller
             return $this->response();
         }
 
-        if (is_numeric(request('user'))) {
-            $validate_mobile_number = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
-                ['user.exists' => trans('auth.failed')]
-            );
-
-            if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
-                return $this->response();
-            }
-
-            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                request()->merge(['user' => '00966' . request('user')]);
-            }
-
-            $request = ['mobile_number' => request('user'), 'password' => request('password')];
-        }
-
-        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
-            $validate_email = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'email', 'exists:users,email']],
-                ['user.exists' => trans('auth.failed')]
-            );
-
-            if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
-                return $this->response();
-            }
-
-            $request = ['email' => request('user'), 'password' => request('password')];
-        }
+        $validation = $this->validatePhoneOrMail(request('user'));
+        $request = $validation['request'];
 
         if (!isset($request)) {
             $this->addResponse(trans('auth.notvalid'))->addStatusCode(401);
@@ -257,5 +230,118 @@ class AuthController extends Controller
         ]);
     }
     public function resetPassword()
-    { }
+    {
+        if (is_numeric(request('user'))) {
+            $validate_mobile_number = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
+                ['user.exists' => trans('auth.notvalid')]
+            );
+
+            if ($validate_mobile_number->fails()) {
+                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
+                return $this->response();
+            }
+
+            echo "1";exit;
+            if (app()->environment('production')) {
+                if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                    request()->merge(['user' => '00966' . request('user')]);
+                }
+            }
+            echo "1";exit;
+
+            $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
+            $message =    trans('auth.new_password') . $rand_code;
+            $this->smsProvider->sendMessage($message, request('user'));
+
+            Mail::to(request('user'))->send(new ResetPasswordRequestMail());
+            $this->addResponse(trans('auth.new_password_sent_to_phone'))->addStatusCode(200);
+            return $this->response();
+        }
+
+        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+            $validate_email = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'email', 'exists:users,email']],
+                ['user.exists' => trans('auth.notvalid')]
+            );
+
+            if ($validate_email->fails()) {
+                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
+                return $this->response();
+            }
+
+            $user = User::where('email', '=', request('user'))
+                ->where('type', '=', User::Types['user'])
+                ->first();
+
+            if (($user->email_verified_at) == "NULL") {
+                $this->addResponse(trans('auth.mail_not_verified'))->addStatusCode(400);
+                return $this->response();
+            } else {
+                $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
+                ResetPassword::create([
+                    'user_id' => $user->id,
+                ]);
+                Mail::to(request('user'))->send(new ResetPasswordMail($rand_code));
+                $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
+                return $this->response();
+            }
+        }
+    }
+
+
+
+    public function validatePhoneOrMail($user)
+    {
+        if (is_numeric($user)) {
+            $validate_mobile_number = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
+                ['user.exists' => trans('auth.failed')]
+            );
+
+            if ($validate_mobile_number->fails()) {
+                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
+                return $this->response();
+            }
+
+            if (!preg_match('/(00966)[0-9]{9}/', $user)) {
+                request()->merge(['user' => '00966' . $user]);
+            }
+
+            $request = ['mobile_number' => $user, 'password' => request('password')];
+        }
+
+        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+            $validate_email = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'email', 'exists:users,email']],
+                ['user.exists' => trans('auth.failed')]
+            );
+
+            if ($validate_email->fails()) {
+                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
+                return $this->response();
+            }
+
+            $request = ['email' => request('user'), 'password' => request('password')];
+        }
+        return $request;
+    }
+
+    public function upperCase($str)
+    {
+        $chars  = str_split($str);
+        $result = '';
+        for ($i = 0; $i < count($chars); $i++) {
+            $ch = ord($chars[$i]);
+            if ($chars[$i] >= 'a' && $chars[$i] <= 'z')
+                $result .= chr($ch - 32);
+            else
+                $result .= $chars[$i];
+        }
+        return $result;
+    }
 }
