@@ -240,19 +240,20 @@ class AuthController extends Controller
                 return $this->response();
             }
 
-            echo "1";exit;
             if (app()->environment('production')) {
                 if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
                     request()->merge(['user' => '00966' . request('user')]);
                 }
             }
-            echo "1";exit;
 
             $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
             $message =    trans('auth.new_password') . $rand_code;
             $this->smsProvider->sendMessage($message, request('user'));
 
-            Mail::to(request('user'))->send(new ResetPasswordRequestMail());
+            $user = User::where('mobile_number', '=', request('user'))
+            ->where('type', '=', User::Types['user'])
+            ->first();
+            Mail::to($user->email)->send(new ResetPasswordRequestMail());
             $this->addResponse(trans('auth.new_password_sent_to_phone'))->addStatusCode(200);
             return $this->response();
         }
