@@ -5,8 +5,8 @@ use App\User;
 use App\Region;
 use App\Package;
 use App\Settings;
+use App\PostLimitation;
 use App\Events\TestEvent;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,25 +25,32 @@ Route::get('/test23', function () {
     return \App\Category::all()->pluck('name_en', 'id');
 });
 
+use Illuminate\Support\Str;
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\App;
 
-Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
-    ->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
-    ->name('page-manager');
+// Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
+//     ->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
+//     ->name('page-manager');
 
 
 Auth::routes();
 
 Route::get('/test500', function(){
-	$user=User::find(3);
-	if(Auth()->User()->isAdmin())
-	{
-		return 'yes';
-	}
-	else{
-		return 'no';
-	}
+    $user=User::find(3);
+   
+    if(count($user->posts) >= $user->postLimitation->posts_limitation)
+   { return 'true';}
+    else{
+      return $user->postLimitation->posts_limitation;
+    }
+    // if(Auth()->User()->isAdmin())
+	// {
+	// 	return 'yes';
+	// }
+	// else{
+	// 	return 'no';
+	// }
 	// return htmlspecialchars(Item::where('id', 100)->first());
 	// $nexmo = app('Nexmo\Client');
 	// $nexmo->message()->send([

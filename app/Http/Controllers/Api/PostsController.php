@@ -145,6 +145,10 @@ class PostsController extends Controller
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
         }
+       $user= User::find($request->publisher_id);
+        if(count($user->posts) >= $user->postLimitation->posts_limitation)
+        return  $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(409);
+               
         return (new Post)->createPost($request);
     }
 
