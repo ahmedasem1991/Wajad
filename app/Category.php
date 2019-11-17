@@ -13,7 +13,7 @@ class Category extends Model
     use LogsActivity;
 
     protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
- 
+
     public function scopeCategory($query, $category_id)
     {
         return $query->where('id', $category_id) ?? null;
@@ -27,7 +27,7 @@ class Category extends Model
     {
         return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
     }
- 
+
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class);
@@ -37,7 +37,7 @@ class Category extends Model
         return $this->hasMany(SubCategory::class)
         ->with('brands.models.items');
     }
- 
+
 
 
 

@@ -9,9 +9,11 @@ Route::post('/resendCode', 'Auth\AuthController@resendCode');
 
 # Categories
 Route::get('/categories', 'CategoryController@index');
+Route::get('/categories/{category}', 'CategoryController@show');
 
 # Sub Categories
-Route::get('/subcategories', 'CategoryController@subcategories');
+Route::get('/subCategories', 'SubCategoryController@index');
+Route::get('/subCategories/{subCategory}', 'SubCategoryController@show');
 
 # Brands
 Route::get('/brands', 'CategoryController@brands');
@@ -53,7 +55,7 @@ Route::post('/contact-us', 'SupportController@store');
 Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
 
 # Pages
-Route::get('/pages/{page?}', 'PageController');
+// Route::get('/pages/{page?}', 'PageController');
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::put('change-password', 'Auth\ChangePasswordController');

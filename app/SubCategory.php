@@ -13,9 +13,7 @@ class SubCategory extends Model
 
     protected $fillable=['name_en','name_ar','description_en','description_ar','image','category_id'];
     protected $table="sub_categories";
- 
 
- 
     public function scopeCategory($query, $category_id)
     {
         return $query->where('category_id', $category_id) ?? null;
