@@ -14,7 +14,7 @@ class CategoryResource extends JsonResource
             'description' => $this->{'description_' . app()->getLocale()} ?? '',
             'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
             'item_coount' => $this->item_count ?? 0,
-            'sub-categories' => SubCategoryResource::collection($this->whenLoaded('subcategories'))
+            'subCategories' => SubCategoryResource::collection($this->whenLoaded('subcategories'))
         ];
     }
 }
