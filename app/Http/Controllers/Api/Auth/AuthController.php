@@ -78,7 +78,6 @@ class AuthController extends Controller
             'email' => ['required', 'email', 'unique:users,email', 'unique:user_verifications,email'],
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'unique:user_verifications,mobile_number'],
-            'agreement' => ['required', 'boolean']
         ]);
 
         if (app()->environment('production')) {
@@ -111,7 +110,6 @@ class AuthController extends Controller
                 'email' => request('email'),
                 'mobile_number' => $mobile_number,
                 'verification_code' => $activation_code,
-                'agreement' => request('agreement'),
                 'type' => User::Types['user'] // Normal User
             ]);
 
@@ -146,7 +144,6 @@ class AuthController extends Controller
                         'password' => $user_verification->password,
                         'email' => $user_verification->email,
                         'mobile_number' => $user_verification->mobile_number,
-                        'agreement' => $user_verification->agreement,
                         'type' => $user_verification->type
                     ]);
 
