@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
     }
 
     /**
@@ -69,9 +69,9 @@ class AppServiceProvider extends ServiceProvider
         //     session(['Permission' => $Text]);
         //     logger($Text);
         // }
-        
-        
-         
+
+
+
         // Queue::after(function (GenerateQrcodeJob $event) {
         // $event->generateQrcode->status='finished';
         // $event->generateQrcode->update();
