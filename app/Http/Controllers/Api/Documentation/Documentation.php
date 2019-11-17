@@ -29,8 +29,10 @@
  *      description="Username",
  *      required=true,
  *      default="Abdelhammied",
- *      type="string"
+ *      type="string",
+ *      minimum=6
  *    ),
+ *
  *    @SWG\Parameter(
  *      name="email",
  *      in="query",
@@ -41,12 +43,32 @@
  *    ),
  *
  *    @SWG\Parameter(
- *      name="per_page",
+ *      name="password",
  *      in="query",
- *      description="number of oject  showen per page - pagination default=2",
- *      required=false,
- *      type="integer"
+ *      description="Password",
+ *      required=true,
+ *      type="string",
+ *      default= "123456789"
  *    ),
+ *
+ *   @SWG\Parameter(
+ *      name="mobile_number",
+ *      in="query",
+ *      description="Mobile Number",
+ *      required=true,
+ *      type="number",
+ *      default= "0100123456789"
+ *    ),
+ *
+ *   @SWG\Parameter(
+ *      name="agreement",
+ *      in="query",
+ *      description="Agreement",
+ *      required=true,
+ *      type="boolean",
+ *      default= "true"
+ *    ),
+ *
  *   @SWG\Response(
  *         response=200,
  *          description="successful operation",
