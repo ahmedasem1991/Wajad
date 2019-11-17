@@ -6,6 +6,8 @@ Route::post('/register', 'Auth\AuthController@register');
 Route::post('/refresh-token', 'Auth\AuthController@refresh');
 Route::post('/verify', 'Auth\AuthController@verify');
 Route::post('/resendCode', 'Auth\AuthController@resendCode');
+Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
+Route::get('/send/email', 'HomeController@mail');
 
 # Categories
 Route::get('/categories', 'CategoryController@index');
