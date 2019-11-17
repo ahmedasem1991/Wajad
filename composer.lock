@@ -4,15 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "d00582b156e764745e792a93cd4f7354",
-=======
-<<<<<<< HEAD
-    "content-hash": "ef04c9fc14b278cf5b2f6715a29564e8",
-=======
-    "content-hash": "74764f2199661d808e3a33f6295ebc4a",
->>>>>>> origin/2019-11-21-fix-login
->>>>>>> 2019-11-11-ABDELHAMMIED-MASTER-BRANCH
+    "cSontent-hash": "d00582b156e764745e792a93cd4f7354",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2220,12 +2212,8 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-<<<<<<< HEAD
                 "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8",
                 "shasum": null
-=======
-                "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07"
->>>>>>> origin/2019-11-21-fix-login
             },
             "require": {
                 "cakephp/chronos": "^1.0",
@@ -7797,7 +7785,6 @@
             "time": "2019-09-10T21:37:39+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "zircote/swagger-php",
             "version": "2.0.14",
             "source": {
@@ -7858,73 +7845,6 @@
                 "service discovery"
             ],
             "time": "2019-05-17T10:10:34+00:00"
-=======
-            "name": "zendframework/zend-diactoros",
-            "version": "2.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c",
-                "reference": "6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0"
-            },
-            "provide": {
-                "psr/http-factory-implementation": "1.0",
-                "psr/http-message-implementation": "1.0"
-            },
-            "require-dev": {
-                "ext-curl": "*",
-                "ext-dom": "*",
-                "ext-libxml": "*",
-                "http-interop/http-factory-tests": "^0.5.0",
-                "php-http/psr7-integration-tests": "dev-master",
-                "phpunit/phpunit": "^7.0.2",
-                "zendframework/zend-coding-standard": "~1.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev",
-                    "dev-develop": "2.2.x-dev",
-                    "dev-release-1.8": "1.8.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/functions/create_uploaded_file.php",
-                    "src/functions/marshal_headers_from_sapi.php",
-                    "src/functions/marshal_method_from_sapi.php",
-                    "src/functions/marshal_protocol_version_from_sapi.php",
-                    "src/functions/marshal_uri_from_sapi.php",
-                    "src/functions/normalize_server.php",
-                    "src/functions/normalize_uploaded_files.php",
-                    "src/functions/parse_cookie_header.php"
-                ],
-                "psr-4": {
-                    "Zend\\Diactoros\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "PSR HTTP Message implementations",
-            "keywords": [
-                "http",
-                "psr",
-                "psr-7"
-            ],
-            "time": "2019-10-10T17:38:20+00:00"
->>>>>>> origin/2019-11-21-fix-login
         }
     ],
     "packages-dev": [
