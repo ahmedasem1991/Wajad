@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Qrcode;
+use App\Permission;
 use App\AssignQrcode;
 use App\Subscription;
 use App\QrcodeRequest;
@@ -52,6 +53,25 @@ class AppServiceProvider extends ServiceProvider
         GenerateQrcode::observe(QrcodeGenerateObserver::class);
         AssignQrcode::observe(QrcodeAssignObserver::class);
         CorporateAssignQrcode::observe(CorporateQrcodeAssignObserver::class);
+        // $Text='';
+        // $Permissions=Permission::all()->pluck('name');
+        // foreach($Permissions as $Permission){
+        //     $display_name=Permission::where('name',$Permission)->first()['display_name'];
+        //     $description=Permission::where('name',$Permission)->first()['description'];
+        //     $group=Permission::where('name',$Permission)->first()['group'];
+        //   $Text.= "'". $Permission ."'=>[
+        //         'display_name' =>'".$display_name."',
+        //         'description=>'".$description."',
+        //         'group=>'".$group."',
+        //   ],";
+        // }
+        // if (!session()->has('Permission')) {
+        //     session(['Permission' => $Text]);
+        //     logger($Text);
+        // }
+        
+        
+         
         // Queue::after(function (GenerateQrcodeJob $event) {
         // $event->generateQrcode->status='finished';
         // $event->generateQrcode->update();

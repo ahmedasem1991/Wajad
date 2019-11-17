@@ -21,7 +21,7 @@ trait ResponseTrait
     /**
      * Define Unexpected Error
      * Status Code 409
-     * 
+     *
      * @var string
      */
     protected $unexpected_error = 'Unexpected Error Occured Please Try Again Later';
@@ -51,7 +51,7 @@ trait ResponseTrait
     public function addResponse($response)
     {
         array_push($this->response, $response);
-        return $this; 
+        return $this;
     }
 
     /**

@@ -37,7 +37,7 @@ class User extends Resource
      *
      * @var string
      */
-   // public static $group = 'Corporate And Users';
+    public static $group = 'Users Management';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -108,7 +108,7 @@ class User extends Resource
               ->updateRules('required_if:type,2')
               ->nullable(),
                 
-              BelongsToMany::make('Roles', 'roles', \Pktharindu\NovaPermissions\Nova\Role::class),
+              BelongsToMany::make('Roles', 'roles',Role::class),
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
@@ -173,6 +173,6 @@ class User extends Resource
     }
     public static function icon() 
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

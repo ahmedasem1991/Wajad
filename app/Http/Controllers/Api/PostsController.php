@@ -21,13 +21,14 @@ use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
 {
-    private $request=[];
-    
- 
+    private $request = [];
+
+
 
     public function index(Request $request)
     {   $check=1;
         $array=  $Posts = QueryBuilder::for(Post::class)
+        ->IsOpen()->isApproved()->IsShow()
         ->with('publisher')
         ->with('owner')
         ->with('founder')
@@ -65,27 +66,28 @@ class PostsController extends Controller
                 $coordinate1 = new Coordinate($Post->lat, $Post->lng);  
                 $coordinate2 = new Coordinate($this->request['lat'],$this->request['lng']);  
                 $calculator  = new Vincenty();
-                $Post->distance=  ($calculator->getDistance($coordinate1, $coordinate2))/1000; 
+                $Post->distance = ($calculator->getDistance($coordinate1, $coordinate2)) / 1000;
                 return $Post->distance < $this->request['distance'];
             });
-           }
+        }
 
 
-           if ($check==0) {
-               $array=[];
-               $array['data']=$Posts;
-           }
- 
-        
+        if ($check == 0) {
+            $array = [];
+            $array['data'] = $Posts;
+        }
+
+
         return $this->jsonResponse($array);
     }
 
 
 
-    public function userPosts(Request $request,$publisher_id)
+    public function userPosts(Request $request, $publisher_id)
     {
-        
+
         $Posts = QueryBuilder::for(Post::class)
+     //   ->IsOpen()->isApproved()->IsShow()
         ->with('publisher')
         ->with('owner')
         ->with('founder')
@@ -112,9 +114,9 @@ class PostsController extends Controller
 
     public function postTypes(Request $request)
     {
-        
+
         $PostTypes = QueryBuilder::for(PostType::class)
-        ->paginate($request->get('per_page', 15));
+            ->paginate($request->get('per_page', 15));
 
         return $this->jsonResponse($PostTypes);
     }
@@ -128,22 +130,22 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
-        'title' => ['required', 'min:6', 'max:255'],
-        'description' => ['required', 'min:20', 'max:500'],
-        'publisher_id' => ['required'],
-        'status' => ['required'],
-        'post_type_id' => ['required'],
-        'lat' => ['required'],
-        'lng' => ['required'],
-        'model_id' =>['required_without:item_id'],
-        'color_id' =>['required_without:item_id']
-    ]);
-    
-    if ($validate_request->fails()) {
-        $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
-        return $this->response();
-    }
-    return (new Post)->createPost($request);
+            'title' => ['required', 'min:6', 'max:255'],
+            'description' => ['required', 'min:20', 'max:500'],
+            'publisher_id' => ['required'],
+            'status' => ['required'],
+            'post_type_id' => ['required'],
+            'lat' => ['required'],
+            'lng' => ['required'],
+            'model_id' => ['required_without:item_id'],
+            'color_id' => ['required_without:item_id']
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            return $this->response();
+        }
+        return (new Post)->createPost($request);
     }
 
     /**

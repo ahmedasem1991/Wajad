@@ -180,7 +180,7 @@ return [
         Pusher\Laravel\PusherServiceProvider::class
 ],
 
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -232,7 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
-        
+
 
     ],
 

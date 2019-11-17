@@ -43,6 +43,10 @@ class Item extends Resource
     public static $search = [
         'id',
     ];
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('view items')) ? true :false;
+    }
 
     /**
      * Get the fields displayed by the resource.

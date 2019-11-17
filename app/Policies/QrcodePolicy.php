@@ -30,7 +30,15 @@ class QrcodePolicy
      */
     public function view(User $user, Qrcode $qrcode)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('view stock'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return  true;
     }
 
     /**
@@ -65,7 +73,15 @@ class QrcodePolicy
      */
     public function delete(User $user, Qrcode $qrcode)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('delete qr code'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return  true;
     }
 
     /**

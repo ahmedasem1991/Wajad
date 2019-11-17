@@ -30,7 +30,15 @@ class AssignQrcodePolicy
      */
     public function view(User $user, AssignQrcode $AssignQrcode)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('view assign qr code'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return  true;
     }
 
     /**
@@ -41,14 +49,22 @@ class AssignQrcodePolicy
      */
     public function create(User $user)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('create assign qr code'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return  true;
     }
 
     /**
      * Determine whether the user can update the qrcode.
      *
      * @param  \App\User  $user
-     * @param  \App\Qrcode  $qrcode
+     * @param  \App\AssignQrcode  $AssignQrcode
      * @return mixed
      */
     public function update(User $user, AssignQrcode $AssignQrcode)
@@ -60,7 +76,7 @@ class AssignQrcodePolicy
      * Determine whether the user can delete the qrcode.
      *
      * @param  \App\User  $user
-     * @param  \App\Qrcode  $qrcode
+     * @param  \App\AssignQrcode $AssignQrcode
      * @return mixed
      */
     public function delete(User $user, AssignQrcode $AssignQrcode)
@@ -72,7 +88,7 @@ class AssignQrcodePolicy
      * Determine whether the user can restore the qrcode.
      *
      * @param  \App\User  $user
-     * @param  \App\Qrcode  $qrcode
+     * @param  \App\AssignQrcode $AssignQrcode
      * @return mixed
      */
     public function restore(User $user, AssignQrcode $AssignQrcode)
@@ -84,7 +100,7 @@ class AssignQrcodePolicy
      * Determine whether the user can permanently delete the qrcode.
      *
      * @param  \App\User  $user
-     * @param  \App\Qrcode  $qrcode
+     * @param  \App\AssignQrcode $AssignQrcode
      * @return mixed
      */
     public function forceDelete(User $user, AssignQrcode $AssignQrcode)
