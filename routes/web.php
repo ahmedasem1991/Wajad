@@ -28,9 +28,9 @@ Route::get('/test23', function () {
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\App;
 
-Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
-    ->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
-    ->name('page-manager');
+// Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
+//     ->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
+//     ->name('page-manager');
 
 
 Auth::routes();

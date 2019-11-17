@@ -13,4 +13,4 @@ yarn-error.log
 /nova-components/QrcodeGenerator/node_modules/
 /nova-components/DownloadQrcodeImage/node_modules/
 /nova-components/googleMaps/node_modules/
-
+composer.lock
