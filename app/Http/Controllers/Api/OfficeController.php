@@ -25,7 +25,7 @@ class OfficeController extends Controller
         ->get();
         $this->request['latitude']=$request->lat;
         $this->request['longitude']=$request->lng;
-        if($request->unit=='m')
+        if($request->unit=='mile')
         {
             $this->request['distance']=$request->distance*0.62137;
         }
