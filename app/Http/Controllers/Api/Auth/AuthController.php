@@ -75,9 +75,9 @@ class AuthController extends Controller
     {
         $validate_request = Validator::make(request()->all(), [
             'name' => ['required', 'min:6', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email', 'unique:user_verifications,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'max:255'],
-            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'unique:user_verifications,mobile_number'],
+            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
         ]);
 
         if (app()->environment('production')) {
@@ -147,11 +147,16 @@ class AuthController extends Controller
                         'type' => $user_verification->type
                     ]);
 
-                    $user_verification->delete();
+                    $request = ['email' => $user->email];
+                    $request['type'] = User::Types['user'];
 
-                    $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
-
-                    return $this->response();
+                     if (!$token = auth('api')->login($user)) {
+                        $this->addResponse(trans('auth.failed'))->addStatusCode(401);
+                        return $this->response();
+                    } else {
+                        $user_verification->delete();
+                        return $this->respondWithToken($token);
+                    }
                 } else {
                     $user_verification->increment('attemp');
                     $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
@@ -251,8 +256,8 @@ class AuthController extends Controller
             $this->smsProvider->sendMessage($message, request('user'));
 
             $user = User::where('mobile_number', '=', request('user'))
-            ->where('type', '=', User::Types['user'])
-            ->first();
+                ->where('type', '=', User::Types['user'])
+                ->first();
             Mail::to($user->email)->send(new ResetPasswordRequestMail());
             $this->addResponse(trans('auth.new_password_sent_to_phone'))->addStatusCode(200);
             return $this->response();
