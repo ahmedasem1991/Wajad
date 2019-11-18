@@ -39,15 +39,14 @@ class AuthController extends Controller
         ]);
 
         if ($validate_password->fails()) {
-            $this->addMultibleResponse($validate_password->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_password->errors())->addStatusCode(400);
             return $this->response();
         }
 
         $validation = $this->validatePhoneOrMail(request('user'));
         $request = $validation['request'];
-
         if (!isset($request)) {
-            $this->addResponse(trans('auth.notvalid'))->addStatusCode(401);
+            $this->addResponse(trans('auth.notvalid'))->addStatusCode(400);
             return $this->response();
         }
 
@@ -92,7 +91,7 @@ class AuthController extends Controller
         }
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
 
@@ -131,11 +130,11 @@ class AuthController extends Controller
         $user_verification = UserVerifications::find(request('unverified_user_id'));
 
         if (empty($user_verification)) {
-            $this->addResponse(trans('auth.notregistered'))->addStatusCode(404);
+            $this->addResponse(trans('auth.notregistered'))->addStatusCode(400);
             return $this->response();
         } else {
             if ($user_verification->attemp > 3) {
-                $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(404);
+                $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
                 return $this->response();
             } else {
                 if (request('code') == $user_verification->verification_code) {
@@ -147,7 +146,7 @@ class AuthController extends Controller
                         'mobile_number' => ['unique:users,mobile_number'],
                     ]);
                     if ($validate_request->fails()) {
-                        $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+                        $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
                         return $this->response();
                     }
 
@@ -181,7 +180,7 @@ class AuthController extends Controller
         $user_verification = UserVerifications::find(request('unverified_user_id'));
 
         if (empty($user_verification)) {
-            $this->addResponse(trans('auth.notregistered'))->addStatusCode(404);
+            $this->addResponse(trans('auth.notregistered'))->addStatusCode(400);
             return $this->response();
         } else {
             if ($user_verification->sendCodeWithinMinute()) {
@@ -250,7 +249,7 @@ class AuthController extends Controller
             );
 
             if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
+                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
                 return $this->response();
             }
 
@@ -280,7 +279,7 @@ class AuthController extends Controller
             );
 
             if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
+                $this->addMultibleResponse($validate_email->errors())->addStatusCode(400);
                 return $this->response();
             }
 
