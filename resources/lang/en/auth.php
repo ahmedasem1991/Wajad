@@ -23,7 +23,7 @@ return [
     'registered_successfully' => 'You have been registered successfully.',
     'notregistered' => 'You did not registered yet, please try again.',
     'wrong_code' => 'The code is not right, please try again',
-    'mail_not_verified' => 'This email is not verified, please verify it first.',
+    'mail_not_verified' => 'This email is not verified, please use phone number.',
     'new_password' => 'Please use this new password to login to your account: ',
     'new_password_sent_to_mail' => 'New password sent successfully to your email.',
     'new_password_sent_to_phone' => 'New password sent successfully to your phone.',

@@ -4,17 +4,12 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
 use App\UserVerifications;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordMail;
 use App\Mail\ResetPasswordRequestMail;
 use App\ResetPassword;
 use App\Services\SmsProvider;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -171,10 +166,12 @@ class AuthController extends Controller
             } else {
                 if (request('code') == $user_verification->verification_code) {
 
-                    $user_verification_data = ['email'=>$user_verification->email,
-                    'mobile_number'=>$user_verification->mobile_number];
+                    $user_verification_data = [
+                        'email' => $user_verification->email,
+                        'mobile_number' => $user_verification->mobile_number
+                    ];
                     $validate_request = Validator::make($user_verification_data, [
-                        'email' => [ 'unique:users,email'],
+                        'email' => ['unique:users,email'],
                         'mobile_number' => ['unique:users,mobile_number'],
                     ]);
                     if ($validate_request->fails()) {
@@ -189,7 +186,7 @@ class AuthController extends Controller
                         'mobile_number' => $user_verification->mobile_number,
                         'type' => $user_verification->type
                     ]);
-                
+
                     if (!$token = auth('api')->login($user)) {
                         $this->addResponse(trans('auth.failed'))->addStatusCode(401);
                         return $this->response();
@@ -291,13 +288,18 @@ class AuthController extends Controller
                 }
             }
 
-            $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
-            $message =    trans('auth.new_password') . $rand_code;
+            $new_password = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
+            $message =    trans('auth.new_password') . $new_password;
             $this->smsProvider->sendMessage($message, request('user'));
 
             $user = User::where('mobile_number', '=', request('user'))
                 ->where('type', '=', User::Types['user'])
                 ->first();
+
+            $user->update([
+                'password' => bcrypt($new_password),
+            ]);
+
             Mail::to($user->email)->send(new ResetPasswordRequestMail());
             $this->addResponse(trans('auth.new_password_sent_to_phone'))->addStatusCode(200);
             return $this->response();
@@ -323,11 +325,11 @@ class AuthController extends Controller
                 $this->addResponse(trans('auth.mail_not_verified'))->addStatusCode(400);
                 return $this->response();
             } else {
-                $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
+                $new_password = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
                 ResetPassword::create([
                     'user_id' => $user->id,
                 ]);
-                Mail::to(request('user'))->send(new ResetPasswordMail($rand_code));
+                Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
                 $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
                 return $this->response();
             }
