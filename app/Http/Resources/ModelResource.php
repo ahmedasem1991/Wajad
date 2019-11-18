@@ -14,12 +14,15 @@ class ModelResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($request->has('brands')) {
+            $this->load('brand');
+        }
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},
             'description' => $this->{'description_' . app()->getLocale()} ?? '',
             'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
-            'brands' => BrandResource::collection($this->whenLoaded('brand'))
+            'brands' => new BrandResource($this->whenLoaded('brand'))
         ];
     }
 }
