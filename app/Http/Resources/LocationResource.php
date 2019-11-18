@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ColorResource extends JsonResource
+class LocationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,8 @@ class ColorResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},
-            'icon' => $this->icon ?? '',
+            'iso_code' => $this->iso_code  ?? '',
+            'country_code' => $this->country_code ?? '',
         ];
     }
 }

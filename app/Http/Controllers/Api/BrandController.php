@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Response;
 use App\Brand;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BrandResource;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class BrandController extends Controller
 {

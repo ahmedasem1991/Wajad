@@ -2,34 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use Response;
 use App\Country;
-use App\Region;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
-use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\LocationResource;
 
 class LocationsController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $Country = QueryBuilder::for(Country::class)
-            ->withCount('regions')
-            ->with('regions')
-            ->paginate($request->get('per_page', 15), '*', 'current_page');
-
-        return $this->jsonResponse($Country);
-    }
-
-    public function regions(Request $request)
-    {
-        $Regions = QueryBuilder::for(Region::class)
-            ->withCount('cities')
-            ->with('cities')
-            ->paginate($request->get('per_page', 15), '*', 'current_page');
-
-        return $this->jsonResponse($Regions);
+        return LocationResource::collection(Country::all());
     }
 
     /**

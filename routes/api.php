@@ -51,7 +51,7 @@ Route::get('/items', 'ItemsController@index');
 Route::get('/countries', 'LocationsController@index');
 
 # Regions
-Route::get('/regions', 'LocationsController@regions');
+Route::get('/regions', 'RegionsController@index');
 
 # Support
 Route::post('/contact-us', 'SupportController@store');
