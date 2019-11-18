@@ -270,6 +270,10 @@ class AuthController extends Controller
     }
     public function resetPassword()
     {
+        $new_password = env(
+            'STATIC_NEW_PASSWORD',
+            $this->upperCase(substr(md5(microtime()), rand(0, 26), 6))
+        );
         if (is_numeric(request('user'))) {
             $validate_mobile_number = Validator::make(
                 request()->all(),
@@ -288,7 +292,6 @@ class AuthController extends Controller
                 }
             }
 
-            $new_password = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
             $message =    trans('auth.new_password') . $new_password;
             $this->smsProvider->sendMessage($message, request('user'));
 
@@ -325,9 +328,11 @@ class AuthController extends Controller
                 $this->addResponse(trans('auth.mail_not_verified'))->addStatusCode(400);
                 return $this->response();
             } else {
-                $new_password = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
                 ResetPassword::create([
                     'user_id' => $user->id,
+                ]);
+                $user->update([
+                    'password' => bcrypt($new_password),
                 ]);
                 Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
                 $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
