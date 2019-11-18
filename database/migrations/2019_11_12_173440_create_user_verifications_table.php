@@ -16,8 +16,8 @@ class CreateUserVerificationsTable extends Migration
         Schema::create('user_verifications', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->char('mobile_number')->unique();
+            $table->string('email');
+            $table->char('mobile_number');
             $table->string('password');
             $table->integer('type')->default(1); // Normal User
             $table->integer('status')->default(0); // Active
