@@ -7,21 +7,14 @@ use App\Brand;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BrandResource;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BrandController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $categories = QueryBuilder::for(Brand::class)
-            ->allowedIncludes('category')
-            ->allowedFilters([
-                Filter::scope('category'),
-                'name_en','name_ar',
-            ])
-            ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
-
-        return $this->jsonResponse($categories);
+        return BrandResource::collection(Brand::all());
     }
 
     /**
@@ -41,9 +34,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Brand $brand)
     {
-        //
+        return new BrandResource($brand);
     }
 
     /**

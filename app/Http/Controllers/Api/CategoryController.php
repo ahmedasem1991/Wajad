@@ -27,68 +27,6 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function brands(Request $request)
-    {
-        if (
-            $request->server('HTTP_ACCEPT_LANGUAGE') == 'ar'
-        ) {
-            $this->Feilds = ['id', 'name_ar as name', 'description_ar as description', 'image'];
-        }
-        $Brands = QueryBuilder::for(Brand::class)
-            ->select($this->Feilds)
-            ->allowedIncludes('models', 'subcategory')
-            ->allowedFilters([
-                Filter::scope('subcategory'),
-                Filter::scope('brand'),
-                Filter::scope('name'),
-            ])
-            ->get();
-        $array['data'] = $Brands;
-        return $this->jsonResponse($array);
-    }
-
-    public function models(Request $request)
-    {
-        if (
-            $request->server('HTTP_ACCEPT_LANGUAGE') == 'ar'
-        ) {
-            $this->Feilds = ['id', 'name_ar as name', 'description_ar as description', 'image'];
-        }
-        $models = QueryBuilder::for(Model::class)
-            ->select($this->Feilds)
-            ->allowedIncludes('brand', 'colors')
-            ->allowedFilters([
-                Filter::scope('brand'),
-                Filter::scope('model'),
-                Filter::scope('name'),
-            ])->get();
-        $array['data'] = $models;
-
-        return $this->jsonResponse($array);
-    }
-
-    public function colors(Request $request)
-    {
-        if (
-            $request->server('HTTP_ACCEPT_LANGUAGE') == 'ar'
-        ) {
-            $this->ColorsFeilds = ['id', 'name_ar as name', 'icon'];
-        }
-        $colors = QueryBuilder::for(Color::class)
-            ->select($this->ColorsFeilds)
-            ->allowedIncludes('items')
-            ->allowedFilters([
-                Filter::scope('color'),
-                Filter::scope('name'),
-            ])
-            ->get();
-        $array['data'] = $colors;
-
-        return $this->jsonResponse($array);
-    }
-
-
-
     /**
      * Store a newly created resource in storage.
      *

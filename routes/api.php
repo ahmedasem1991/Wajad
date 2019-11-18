@@ -18,13 +18,16 @@ Route::get('/subCategories', 'SubCategoryController@index');
 Route::get('/subCategories/{subCategory}', 'SubCategoryController@show');
 
 # Brands
-Route::get('/brands', 'CategoryController@brands');
+Route::get('/brands', 'BrandController@index');
+Route::get('/brands/{brand}', 'BrandController@show');
 
 # Models
-Route::get('/models', 'CategoryController@models');
+Route::get('/models', 'ModelController@index');
+Route::get('/models/{model}', 'ModelController@show');
 
 # Colors
-Route::get('/colors', 'CategoryController@colors');
+Route::get('/colors', 'ColorController@index');
+Route::get('/colors/{color}', 'ColorController@show');
 
 # Wajad Offices
 Route::get('/offices', 'OfficeController@index');
