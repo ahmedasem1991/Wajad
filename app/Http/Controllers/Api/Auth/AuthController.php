@@ -147,10 +147,7 @@ class AuthController extends Controller
                         'type' => $user_verification->type
                     ]);
 
-                    $request = ['email' => $user->email];
-                    $request['type'] = User::Types['user'];
-
-                     if (!$token = auth('api')->login($user)) {
+                    if (!$token = auth('api')->login($user)) {
                         $this->addResponse(trans('auth.failed'))->addStatusCode(401);
                         return $this->response();
                     } else {
