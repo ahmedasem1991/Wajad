@@ -43,8 +43,40 @@ class AuthController extends Controller
             return $this->response();
         }
 
-        $validation = $this->validatePhoneOrMail(request('user'));
-        $request = $validation['request'];
+        if (is_numeric(request('user'))) {
+            $validate_mobile_number = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
+                ['user.exists' => trans('auth.failed')]
+            );
+
+            if ($validate_mobile_number->fails()) {
+                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
+                return $this->response();
+            }
+
+            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                request()->merge(['user' => '00966' . request('user')]);
+            }
+
+            $request = ['mobile_number' => request('user'), 'password' => request('password')];
+        }
+
+        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
+            $validate_email = Validator::make(
+                request()->all(),
+                ['user' => ['required', 'email', 'exists:users,email']],
+                ['user.exists' => trans('auth.failed')]
+            );
+
+            if ($validate_email->fails()) {
+                $this->addMultibleResponse($validate_email->errors())->addStatusCode(400);
+                return $this->response();
+            }
+
+            $request = ['email' => request('user'), 'password' => request('password')];
+        }
+
         if (!isset($request)) {
             $this->addResponse(trans('auth.notvalid'))->addStatusCode(400);
             return $this->response();
@@ -318,11 +350,11 @@ class AuthController extends Controller
                 return $this->response();
             }
 
-            if (!preg_match('/(00966)[0-9]{9}/', $user)) {
-                request()->merge(['user' => '00966' . $user]);
+            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                request()->merge(['user' => '00966' . request('user')]);
             }
 
-            $request = ['mobile_number' => $user, 'password' => request('password')];
+            $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
 
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
