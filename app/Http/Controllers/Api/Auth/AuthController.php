@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
-use App\UserVerifications;
-use App\Http\Controllers\Controller;
-use App\Mail\ResetPasswordMail;
-use App\Mail\ResetPasswordRequestMail;
 use App\ResetPassword;
+use App\UserVerifications;
 use App\Services\SmsProvider;
-use Illuminate\Support\Facades\Validator;
+use App\Mail\ResetPasswordMail;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordRequestMail;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -393,5 +394,37 @@ class AuthController extends Controller
                 $result .= $chars[$i];
         }
         return $result;
+    }
+
+    public function changePassword()
+    {
+        if (request('new_password') != request('confirm_password')) {
+            $this->addResponse(trans('auth.password_not_match'))->addStatusCode(400);
+            return $this->response();
+        }
+
+        $validate_request = Validator::make(request()->all(), [
+            'old_password' => ['required', 'min:6', 'max:255'],
+            'new_password' => ['required', 'min:6', 'max:255'],
+            'confirm_password' => ['required', 'min:6', 'max:255'],
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
+        if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
+            $this->addResponse(trans('passwords.invalid'))->addStatusCode(401);
+            return $this->response();
+        }
+
+        auth('api')->user()->update([
+            'password' => bcrypt(request('new_password'))
+        ]);
+
+        $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
+        return $this->response();
+
     }
 }
