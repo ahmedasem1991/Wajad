@@ -1,12 +1,12 @@
 <?php
 
 use App\Item;
+use App\Post;
 use App\User;
 use App\Region;
 use App\Package;
 use App\Settings;
 use App\PostLimitation;
-use App\Events\TestEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,7 @@ Route::get('/test23', function () {
     return \App\Category::all()->pluck('name_en', 'id');
 });
 
+use App\Events\TestEvent;
 use Illuminate\Support\Str;
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\App;
@@ -37,13 +38,13 @@ use Illuminate\Support\Facades\App;
 Auth::routes();
 
 Route::get('/test500', function(){
-    $user=User::find(3);
-   
-    if(count($user->posts) >= $user->postLimitation->posts_limitation)
-   { return 'true';}
-    else{
-      return $user->postLimitation->posts_limitation;
-    }
+    $Post=Post::find(1);
+  return  $Post->reports;
+//     if(count($user->posts) >= $user->postLimitation->posts_limitation)
+//    { return 'true';}
+//     else{
+//       return $user->postLimitation->posts_limitation;
+//     }
     // if(Auth()->User()->isAdmin())
 	// {
 	// 	return 'yes';

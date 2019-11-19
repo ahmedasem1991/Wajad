@@ -87,12 +87,20 @@ class SeedSettings extends Command
                 'updated_at' => null
             ],
             [
-                'key' => 'limited-posts',
+                'key' => 'limited-posts-number',
                 //'title' => 'Limited Posts',
                 'value' => 50,
                 'created_at' => null,
                 'updated_at' => null
-            ]
+            ],
+            [
+                'key' => 'max_post_reports_number',
+                //'title' => 'Limited Posts',
+                'value' => 50,
+                'created_at' => null,
+                'updated_at' => null
+            ],
+            
         ];
 
         foreach ($settings as $setting) {
