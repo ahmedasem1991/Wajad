@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -29,7 +30,7 @@ class Banner extends Resource
      *
      * @var string
      */
-   // public static $group = 'Banners';
+    // public static $group = 'Banners';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -57,80 +58,69 @@ class Banner extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Banner English Title', 'title_en')->creationRules([
-                'required', 'min:6'
-            ]),
-            Text::make('Banner Arabic Title', 'title_ar')->creationRules([
-                'required', 'min:6'
-            ]),
-            Textarea::make('Banner English Body', 'description_en')->creationRules([
-                'required', 'min:6'
-            ]),
-            Textarea::make('Banner Arabic Body', 'description_ar')->creationRules([
-                'required', 'min:6'
-            ]),
-            Image::make('Banner Image', 'image')
-                ->creationRules([
-                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->disk('public')
-                ->path('images/banners')
-                ->prunable()
-                ->deletable(),
-                Select::make('Open at', 'open_at')->options([
-                    'lost' => 'Lost Item',
-                    'found' => 'Found Item',
-                    'url' => 'URL',
-                    'image_url' => 'Image URL',
-                    
-               ])->rules('required')
-                ->displayUsingLabels(),
-               
-            NovaDependencyContainer::make([
-                Text::make('URL', 'url')->nullable()
-                ])->dependsOn('open_at', 'url'),
+            Select::make('Banner Type', 'type')->options([
+                "ads" => "Advertisement",
+                "url" => "URL",
+                "item" => "Item"
+            ])->rules(['required', 'in:ads,url,item'])->displayUsingLabels(),
 
             NovaDependencyContainer::make([
-                Text::make('Image URL', 'image_url')->nullable()
-                ])->dependsOn('open_at', 'image_url'),
+                Image::make('Advertise Image', 'image')
+                    ->disk('public')
+                    ->path('images/banners')
+                    ->prunable()
+                    ->nullable()
+            ])->dependsOn('type', 'ads'),
+
+            NovaDependencyContainer::make([
+                Text::make('URL Link', 'url')->nullable(),
+                Image::make('Url Image', 'image')
+                    ->disk('public')
+                    ->path('images/banners')
+                    ->prunable()
+                    ->nullable()
+            ])->dependsOn('type', 'url'),
+
+            NovaDependencyContainer::make([
+                Select::make('Item Type', 'item_type')->options([
+                    1 => 'Lost',
+                    2 => 'Found'
+                ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
+
 
                 NovaDependencyContainer::make([
-                    Select2::make('Lost Item','item_id')
-                    ->sortable()
-                    ->options(Item::lost()->get()->pluck('title', 'id'))
-                    ->displayUsingLabels()
-                    ->rules('required')
-                    ->showAsLink(Item::class)
-                 //   ->linkToResource('items')
-                  // ->default(0)
-                    ->configuration([
-                        'placeholder'             => __('Choose an option'),
-                        'allowClear'              => true,
-                        'minimumResultsForSearch' => 1,
-                        'multiple'                => false,
-                    ])
-                ])->dependsOn('open_at', 'lost'),
+                    Select2::make('Lost Item', 'item_id')
+                        ->sortable()
+                        ->options(Item::lost()->get()->pluck('title', 'id'))
+                        ->displayUsingLabels()
+                        ->rules('required')
+                        ->showAsLink(Item::class)
+                        ->configuration([
+                            'placeholder' => __('Choose an option'),
+                            'allowClear'  => true,
+                            'minimumResultsForSearch' => 1,
+                            'multiple' => false,
+                        ])
+                ])->dependsOn('item_type', 1),
 
                 NovaDependencyContainer::make([
-                    Select2::make('Found Item','item_id')
-                    ->sortable()
-                    ->options(Item::found()->get()->pluck('title', 'id'))
-                    ->displayUsingLabels()
-                    ->rules('required')
-                    ->showAsLink()
-                  // ->default(0)
-                    ->configuration([
-                        'placeholder'             => __('Choose an option'),
-                        'allowClear'              => true,
-                        'minimumResultsForSearch' => 1,
-                        'multiple'                => false,
-                    ])
-                ])->dependsOn('open_at', 'found'),
-               
+                    Select2::make('Found Item', 'item_id')
+                        ->sortable()
+                        ->options(Item::found()->get()->pluck('title', 'id'))
+                        ->displayUsingLabels()
+                        ->rules('required')
+                        ->showAsLink(Item::class)
+                        ->configuration([
+                            'placeholder' => __('Choose an option'),
+                            'allowClear' => true,
+                            'minimumResultsForSearch' => 1,
+                            'multiple' => false,
+                        ])
+                ])->dependsOn('item_type', 2),
 
-                
- 
-                 
+            ])->dependsOn('type', 'item'),
+
+            BelongsTo::make('item')->hideWhenCreating()
         ];
     }
     /**
@@ -144,6 +134,17 @@ class Banner extends Resource
         return [
             new Banners(),
         ];
+    }
+
+    public static function fill(NovaRequest $request, $model)
+    {
+
+        if ($request->input('item_type')) {
+
+            $request->offsetUnset('item_type');
+        }
+
+        return parent::fill($request, $model);
     }
 
     /**
@@ -178,8 +179,8 @@ class Banner extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/slider.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/slider.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

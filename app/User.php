@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Pktharindu\NovaPermissions\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements JWTSubject 
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, LogsActivity,  HasRoles;
 
@@ -51,7 +51,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->type === self::Types['admin'];
     }
 
-    
+
     public function isCorporateAdmin()
     {
         return $this->type === self::Types['corporate'];
@@ -83,7 +83,7 @@ class User extends Authenticatable implements JWTSubject
     }
     public function posts()
     {
-        return $this->hasMany(Post::class,'publisher_id');   
+        return $this->hasMany(Post::class,'publisher_id');
     }
 
     public function items()
@@ -156,8 +156,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->where('type', $user_id);
     }
- 
-    
+
+
     /**
      * The channels the user receives notification broadcasts on.
      *
