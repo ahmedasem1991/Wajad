@@ -132,6 +132,13 @@ class Post extends MasterModel
     {
         return $this->hasMany(PostImage::class);
     }
+     /**
+     * Images Of Report"
+     */
+    public function reports()
+    {
+        return $this->hasMany(PostReport::class);
+    }
     /**
      * Define The Item  Of Post
      */
@@ -245,6 +252,7 @@ class Post extends MasterModel
     {
         return $query->where('post_type_id', $post_type_id);
     }
+
 
 
     /**
