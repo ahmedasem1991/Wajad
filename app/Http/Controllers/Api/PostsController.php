@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
+use App\PostReport;
+
 use function GuzzleHttp\json_decode;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
@@ -145,7 +147,47 @@ class PostsController extends Controller
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
         }
+       $user= User::find($request->publisher_id);
+        if(count($user->posts) >= $user->postLimitation->posts_limitation)
+         { 
+             $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(409);
+           return  $this->response(); 
+         }   
+               
         return (new Post)->createPost($request);
+    }
+
+    public function reportPost(Request $request)
+    {
+        $validate_request = Validator::make(request()->all(), [
+            'post_id' => ['required'],
+            'user_id' => ['required'],
+            'details' => ['required'],
+             
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            return $this->response();
+        }
+        $PostReport=new PostReport;
+        $PostReport->create([
+            'user_id' => $request->user_id,
+            'post_id' => $request->post_id,
+            'details' => $request->details,
+        ]);
+        $Post= Post::find($request->post_id);
+        if(count($Post->reports) >= env('REPORTS_NUMBER'))
+        {
+            $Post->appearance_status=0;
+            $Post->save();  
+        }else{
+            $Post->reports_number++;
+            $Post->save();  
+        }
+          $this->addResponse(trans('posts.post_report_message'))->addStatusCode(200);
+        return  $this->response();    
+         
     }
 
     /**

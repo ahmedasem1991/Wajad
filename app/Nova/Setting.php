@@ -52,11 +52,11 @@ class Setting extends Resource
             ID::make()->sortable(),
             Text::make('Key', 'key')->creationRules([
                 'required', 'min:3', 'max:255', 'unique:settings,key'
-            ]),
+            ])->readonly(),
 
-            Text::make('Title', 'title')->rules([
-                'required', 'min:3', 'max:255', 'unique:settings,key'
-            ]),
+            // Text::make('Title', 'title')->rules([
+            //     'required', 'min:3', 'max:255', 'unique:settings,key'
+            // ]),
             Textarea::make('Value', 'value')->creationRules([
                 'required', 'min:6'
             ]),

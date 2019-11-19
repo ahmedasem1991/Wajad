@@ -11,6 +11,10 @@ use App\ResetPassword;
 use App\Services\SmsProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Schema;
+use App\PostLimitation;
 
 class AuthController extends Controller
 {
@@ -88,7 +92,8 @@ class AuthController extends Controller
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
-
+        
+       
         return $this->respondWithToken($token);
     }
 
@@ -194,6 +199,12 @@ class AuthController extends Controller
                         $user_verification->delete();
                         return $this->respondWithToken($token);
                     }
+                    $user->postLimitation()->save( new PostLimitation());
+                    $user_verification->delete();
+
+                    $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
+
+                    return $this->response();
                 } else {
                     $user_verification->increment('attemp');
                     $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
