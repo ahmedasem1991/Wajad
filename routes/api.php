@@ -35,8 +35,8 @@ Route::get('/offices', 'OfficeController@index');
 # Maps
 Route::get('/maps/{type?}', 'MapController');
 
-# Sliders
-Route::get('/sliders', 'SlidersController@index');
+# Banners
+Route::get('/banners', 'BannerController');
 
 # Posts
 Route::get('/posts', 'PostsController@index');
