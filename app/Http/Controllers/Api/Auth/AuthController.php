@@ -95,6 +95,7 @@ class AuthController extends Controller
             return $this->response();
         }
 
+
         return $this->respondWithToken($token);
     }
 
@@ -200,6 +201,12 @@ class AuthController extends Controller
                         $user_verification->delete();
                         return $this->respondWithToken($token);
                     }
+                    $user->postLimitation()->save( new PostLimitation());
+                    $user_verification->delete();
+
+                    $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
+
+                    return $this->response();
                 } else {
                     $user_verification->increment('attemp');
                     $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
@@ -276,6 +283,10 @@ class AuthController extends Controller
     }
     public function resetPassword()
     {
+        $new_password = env(
+            'STATIC_NEW_PASSWORD',
+            $this->upperCase(substr(md5(microtime()), rand(0, 26), 6))
+        );
         if (is_numeric(request('user'))) {
             $validate_mobile_number = Validator::make(
                 request()->all(),
@@ -294,13 +305,17 @@ class AuthController extends Controller
                 }
             }
 
-            $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
-            $message =    trans('auth.new_password') . $rand_code;
+            $message =    trans('auth.new_password') . $new_password;
             $this->smsProvider->sendMessage($message, request('user'));
 
             $user = User::where('mobile_number', '=', request('user'))
                 ->where('type', '=', User::Types['user'])
                 ->first();
+
+            $user->update([
+                'password' => bcrypt($new_password),
+            ]);
+
             Mail::to($user->email)->send(new ResetPasswordRequestMail());
             $this->addResponse(trans('auth.new_password_sent_to_phone'))->addStatusCode(200);
             return $this->response();
@@ -326,11 +341,13 @@ class AuthController extends Controller
                 $this->addResponse(trans('auth.mail_not_verified'))->addStatusCode(400);
                 return $this->response();
             } else {
-                $rand_code = $this->upperCase(substr(md5(microtime()), rand(0, 26), 6));
                 ResetPassword::create([
                     'user_id' => $user->id,
                 ]);
-                Mail::to(request('user'))->send(new ResetPasswordMail($rand_code));
+                $user->update([
+                    'password' => bcrypt($new_password),
+                ]);
+                Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
                 $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
                 return $this->response();
             }
@@ -389,5 +406,37 @@ class AuthController extends Controller
                 $result .= $chars[$i];
         }
         return $result;
+    }
+
+    public function changePassword()
+    {
+        if (request('new_password') != request('confirm_password')) {
+            $this->addResponse(trans('auth.password_not_match'))->addStatusCode(400);
+            return $this->response();
+        }
+
+        $validate_request = Validator::make(request()->all(), [
+            'old_password' => ['required', 'min:6', 'max:255'],
+            'new_password' => ['required', 'min:6', 'max:255'],
+            'confirm_password' => ['required', 'min:6', 'max:255'],
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
+        if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
+            $this->addResponse(trans('passwords.invalid'))->addStatusCode(401);
+            return $this->response();
+        }
+
+        auth('api')->user()->update([
+            'password' => bcrypt(request('new_password'))
+        ]);
+
+        $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
+        return $this->response();
+
     }
 }

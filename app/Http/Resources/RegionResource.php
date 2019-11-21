@@ -14,10 +14,13 @@ class RegionResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($request->has('countries')) {
+            $this->load('country');
+        }
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},
-            'country' => new LocationResource($this->whenLoaded('country'))
+            'countries' => new LocationResource($this->whenLoaded('country'))
         ];
     }
 }

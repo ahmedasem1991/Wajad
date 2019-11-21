@@ -8,6 +8,9 @@ class CategoryResource extends JsonResource
 {
     public function toArray($request)
     {
+        if ($request->has('subCategories')) {
+            $this->load('subcategories');
+        }
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},

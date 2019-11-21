@@ -8,6 +8,7 @@ Route::post('/verify', 'Auth\AuthController@verify');
 Route::post('/resendCode', 'Auth\AuthController@resendCode');
 Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
 Route::get('/send/email', 'HomeController@mail');
+Route::post('/changePassword', 'Auth\AuthController@changePassword');
 
 # Categories
 Route::get('/categories', 'CategoryController@index');
@@ -70,10 +71,16 @@ Route::group(['middleware' => ['auth:api']], function () {
         return auth('api')->user();
     });
     Route::post('details', 'DetailsController@index');
+
     Route::get('/user/{publisher_id}/posts', 'PostsController@userPosts');
-    Route::post('/posts/create', 'PostsController@store');
-    Route::post('/items/create', 'ItemsController@store');
     Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
+
+    Route::post('/posts/create', 'PostsController@store');
+    Route::post('/posts/report', 'PostsController@reportPost');
+    
+    Route::post('/items/create', 'ItemsController@store');
+   
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
+    Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
+
 });
-Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');

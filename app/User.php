@@ -167,4 +167,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return 'users.' . $this->id;
     }
+
+    public function postLimitation()
+    {
+        return $this->hasOne(PostLimitation::class,'user_id');   
+    }
 }
