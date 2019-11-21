@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
+use App\ResetPassword;
 use App\UserVerifications;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Exceptions\LoginAuthException;
-use App\Mail\ResetPasswordMail;
-use App\Mail\ResetPasswordRequestMail;
-use App\ResetPassword;
 use App\Services\SmsProvider;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Schema;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Mail;
+use App\Exceptions\LoginAuthException;
+use App\Mail\ResetPasswordRequestMail;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -171,10 +172,12 @@ class AuthController extends Controller
             } else {
                 if (request('code') == $user_verification->verification_code) {
 
-                    $user_verification_data = ['email'=>$user_verification->email,
-                    'mobile_number'=>$user_verification->mobile_number];
+                    $user_verification_data = [
+                        'email' => $user_verification->email,
+                        'mobile_number' => $user_verification->mobile_number
+                    ];
                     $validate_request = Validator::make($user_verification_data, [
-                        'email' => [ 'unique:users,email'],
+                        'email' => ['unique:users,email'],
                         'mobile_number' => ['unique:users,mobile_number'],
                     ]);
                     if ($validate_request->fails()) {
@@ -189,7 +192,7 @@ class AuthController extends Controller
                         'mobile_number' => $user_verification->mobile_number,
                         'type' => $user_verification->type
                     ]);
-                
+
                     if (!$token = auth('api')->login($user)) {
                         $this->addResponse(trans('auth.failed'))->addStatusCode(401);
                         return $this->response();
@@ -268,7 +271,7 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'access_token' => $token,
             'expires_in' => config('jwt.ttl') * 60,
-            'user' => auth('api')->user()
+            'user' => new UserResource(auth('api')->user())
         ]);
     }
     public function resetPassword()

@@ -25,10 +25,12 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('corporate_id')->nullable();
-            $table->boolean('show_my_data')->default(0);
+            $table->boolean('receive_emails')->default(false);
+            $table->boolean('receive_push_notifications')->default(false);
+            $table->string('default_distance_unit')->default('kilo');
             $table->rememberToken();
             $table->timestamps();
-           
+
         });
     }
 
