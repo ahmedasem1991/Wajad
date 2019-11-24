@@ -17,10 +17,9 @@ use Location\Distance\Vincenty;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 
-use App\Http\Resources\PostResource;
-use function GuzzleHttp\json_decode;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\SearchPostResource;
 
 class PostsController extends Controller
 {
@@ -247,6 +246,6 @@ class PostsController extends Controller
                 $query->where('id', $request->subcategory);
             });
         }
-        return  PostResource::collection($posts->get());
+        return  SearchPostResource::collection($posts->get());
     }
 }

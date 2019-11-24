@@ -8,7 +8,6 @@ Route::post('/verify', 'Auth\AuthController@verify');
 Route::post('/resendCode', 'Auth\AuthController@resendCode');
 Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
 Route::get('/send/email', 'HomeController@mail');
-Route::post('/changePassword', 'Auth\AuthController@changePassword');
 Route::post('/logout', 'Auth\AuthController@logout');
 
 # Categories
@@ -66,6 +65,7 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::put('change-password', 'Auth\ChangePasswordController');
+    Route::post('/changePassword', 'Auth\AuthController@changePassword');
 
 
     Route::get('/user', function (Request $request) {

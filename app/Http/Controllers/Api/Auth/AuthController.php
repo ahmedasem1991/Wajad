@@ -17,13 +17,9 @@ use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
-<<<<<<< HEAD
 use App\PostLimitation;
-=======
 use Illuminate\Support\Str;
-use App\PostLimitation;
 use function GuzzleHttp\Psr7\str;
->>>>>>> e113f9551c178c22a95dbddc1b96b6923c3771cc
 
 class AuthController extends Controller
 {
