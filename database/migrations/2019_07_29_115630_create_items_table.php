@@ -20,7 +20,6 @@ class CreateItemsTable extends Migration
 			$table->integer('brand_id')->unsigned()->nullable();
 			$table->integer('model_id')->unsigned()->nullable();
 			$table->integer('color_id')->unsigned()->nullable();
-			$table->text('images')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		});

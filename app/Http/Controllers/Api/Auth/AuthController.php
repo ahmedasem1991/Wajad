@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Api\Auth;
 use App\User;
 use App\ResetPassword;
 use App\UserVerifications;
+use Illuminate\Http\Request;
 use App\Services\SmsProvider;
-use App\Mail\ResetPasswordMail;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ResetPasswordRequestMail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Mail;
+use App\Exceptions\LoginAuthException;
+use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
-use App\PostLimitation;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -261,7 +262,7 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'access_token' => $token,
             'expires_in' => config('jwt.ttl') * 60,
-            'user' => auth('api')->user()
+            'user' => new UserResource(auth('api')->user())
         ]);
     }
     public function resetPassword()
