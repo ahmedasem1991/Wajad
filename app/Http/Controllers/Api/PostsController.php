@@ -222,10 +222,10 @@ class PostsController extends Controller
     }
     public function search(Request $request)
     {
-        $posts =  new Post;
+        $posts = Post::isShow()->isApproved();
         if ($request->has('color')) {
             $posts->whereHas('color', function ($query) use ($request) {
-                $query->where('id', $request->color);
+                $query->where('id', '=', $request->color);
             });
         }
         if ($request->has('model')) {
@@ -239,8 +239,8 @@ class PostsController extends Controller
             });
         }
         if ($request->has('date')) {
-            $posts->where('losted_at', $request->date)
-                ->orWhere('founded_at', $request->date);
+            $posts->where('losted_at', Carbon::parse($request->date))
+                ->orWhere('founded_at', Carbon::parse($request->date));
         }
         if ($request->has('subcategory')) {
             $posts->whereHas('subcategory', function ($query) use ($request) {

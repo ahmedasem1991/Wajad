@@ -17,7 +17,13 @@ use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+<<<<<<< HEAD
 use App\PostLimitation;
+=======
+use Illuminate\Support\Str;
+use App\PostLimitation;
+use function GuzzleHttp\Psr7\str;
+>>>>>>> e113f9551c178c22a95dbddc1b96b6923c3771cc
 
 class AuthController extends Controller
 {
@@ -57,13 +63,16 @@ class AuthController extends Controller
                 return $this->response();
             }
 
-            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                request()->merge(['user' => '00966' . request('user')]);
+            if (app()->environment('production')) {
+                if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                    request()->merge(['user' =>  request('user')]);
+                } elseif (preg_match('/[0-9]{9}/', request('user'))) {
+                    $mobile_number = '00966' . request('user');
+                    request()->merge(['user' => $mobile_number]);
+                }
             }
-
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
-
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             $validate_email = Validator::make(
                 request()->all(),
@@ -85,6 +94,7 @@ class AuthController extends Controller
         }
 
         $request['type'] = User::Types['user'];
+
 
         if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
@@ -268,10 +278,7 @@ class AuthController extends Controller
     }
     public function resetPassword()
     {
-        $new_password = env(
-            'STATIC_NEW_PASSWORD',
-            $this->upperCase(substr(md5(microtime()), rand(0, 26), 6))
-        );
+        $new_password = env('STATIC_NEW_PASSWORD', str::upper(str::random(6)));
         if (is_numeric(request('user'))) {
             $validate_mobile_number = Validator::make(
                 request()->all(),

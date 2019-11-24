@@ -33,6 +33,7 @@ class CreatePostsTable extends Migration
             $table->integer('sub_category_id')->nullable();
             $table->integer('model_id')->nullable();
             $table->integer('color_id')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->timestamps();
         });
     }
