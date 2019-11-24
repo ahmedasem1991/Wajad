@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SubCategoryResource extends JsonResource
@@ -22,7 +23,8 @@ class SubCategoryResource extends JsonResource
             'name' => $this->{'name_' . app()->getLocale()},
             'description' => $this->{'description_' . app()->getLocale()},
             'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
-            'categories' => new CategoryResource($this->whenLoaded('category'))
+            'postsCount' => $this->lostposts_count ?? $this->foundposts_count ?? 0,
+            'categories' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

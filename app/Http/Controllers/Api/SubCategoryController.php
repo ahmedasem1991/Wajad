@@ -2,15 +2,52 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Post;
 use App\SubCategory;
+use Illuminate\Http\Request;
+use App\Helpers\Api\ResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SubCategoryResource;
+use Illuminate\Database\Eloquent\Builder;
 
 class SubCategoryController extends Controller
 {
-    public function index()
+    use ResponseTrait;
+
+    const TYPES = [
+        'lost' => 0,
+        'found' => 1,
+    ];
+
+    public function index($type = null)
     {
-        return SubCategoryResource::collection(SubCategory::all());
+        if (in_array($type, self::TYPES)) {
+            if ($type == 'lost') {
+                return $this->subCategoryLostPosts();
+            }
+            if ($type == 'found') {
+                return $this->subCategoryFoundPosts();
+            }
+        }
+        $this->addStatusCode(404);
+        return $this->response();
+    }
+    public function subCategoryLostPosts()
+    {
+        return SubCategoryResource::collection(SubCategory::with([
+            'posts' => function ($qurey) {
+                $qurey->appearance()->isApproved();
+            }
+        ])->withCount('lostposts')->get());
+    }
+
+    public function subCategoryFoundPosts()
+    {
+        return SubCategoryResource::collection(SubCategory::with([
+            'posts' => function ($qurey) {
+                $qurey->appearance()->isApproved();
+            }
+        ])->withCount('lostposts')->get());
     }
 
     public function show(SubCategory $subCategory)
