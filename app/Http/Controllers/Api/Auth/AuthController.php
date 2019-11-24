@@ -180,41 +180,23 @@ class AuthController extends Controller
             $user_verification->increment('attemp');
             $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
             return $this->response();
-        } else {
-            $user_verification_data = [
-                'email' => $user_verification->email,
-                'mobile_number' => $user_verification->mobile_number
-            ];
-            $validate_request = Validator::make($user_verification_data, [
-                'email' => ['unique:users,email'],
-                'mobile_number' => ['unique:users,mobile_number'],
-            ]);
-            if ($validate_request->fails()) {
-                $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-                return $this->response();
-            }
+        }
+        $user  = User::create([
+            'name' => $user_verification->name,
+            'password' => $user_verification->password,
+            'email' => $user_verification->email,
+            'mobile_number' => $user_verification->mobile_number,
+            'type' => $user_verification->type
+        ]);
 
-            $user  = User::create([
-                'name' => $user_verification->name,
-                'password' => $user_verification->password,
-                'email' => $user_verification->email,
-                'mobile_number' => $user_verification->mobile_number,
-                'type' => $user_verification->type
-            ]);
-
-            if (!$token = auth('api')->login($user)) {
-                $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-                return $this->response();
-            } else {
-                $user_verification->delete();
-                return $this->respondWithToken($token);
-            }
-            
-            $user->postLimitation()->save(new PostLimitation());
-            $user_verification->delete();
-            $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
+        if (!$token = auth('api')->login($user)) {
+            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
+
+        $user->postLimitation()->save(new PostLimitation());
+        $user_verification->delete();
+        return $this->respondWithToken($token);
     }
 
 

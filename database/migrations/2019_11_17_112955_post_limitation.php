@@ -16,7 +16,7 @@ class PostLimitation extends Migration
         Schema::create('posts_limitation', function (Blueprint $table) {
             $table->Increments('id');
             $table->integer('user_id')->unique();
-            $table->integer('posts_limitation')->default(env('POST_LIMITATION'));
+            $table->integer('posts_limitation')->default(env('POST_LIMITATION',50));
             $table->timestamps();
         });
     }
