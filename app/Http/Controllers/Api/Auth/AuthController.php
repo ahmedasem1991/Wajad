@@ -53,6 +53,7 @@ class AuthController extends Controller
                 ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
                 ['user.exists' => trans('auth.failed')]
             );
+            dd($validate_mobile_number);
 
             if ($validate_mobile_number->fails()) {
                 $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
@@ -69,7 +70,6 @@ class AuthController extends Controller
             }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
-
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             $validate_email = Validator::make(
                 request()->all(),
