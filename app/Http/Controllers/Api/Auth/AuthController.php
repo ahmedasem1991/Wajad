@@ -17,6 +17,7 @@ use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use App\PostLimitation;
 
 class AuthController extends Controller
 {
