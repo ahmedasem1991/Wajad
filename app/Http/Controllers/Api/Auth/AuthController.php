@@ -17,6 +17,9 @@ use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use App\PostLimitation;
+use function GuzzleHttp\Psr7\str;
 
 class AuthController extends Controller
 {
@@ -56,10 +59,14 @@ class AuthController extends Controller
                 return $this->response();
             }
 
-            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                request()->merge(['user' => '00966' . request('user')]);
+            if (app()->environment('production')) {
+                if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                    request()->merge(['user' =>  request('user')]);
+                } elseif (preg_match('/[0-9]{9}/', request('user'))) {
+                    $mobile_number = '00966' . request('user');
+                    request()->merge(['user' => $mobile_number]);
+                }
             }
-
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
 
@@ -267,10 +274,7 @@ class AuthController extends Controller
     }
     public function resetPassword()
     {
-        $new_password = env(
-            'STATIC_NEW_PASSWORD',
-            $this->upperCase(substr(md5(microtime()), rand(0, 26), 6))
-        );
+        $new_password = env('STATIC_NEW_PASSWORD', str::upper(str::random(6)));
         if (is_numeric(request('user'))) {
             $validate_mobile_number = Validator::make(
                 request()->all(),
