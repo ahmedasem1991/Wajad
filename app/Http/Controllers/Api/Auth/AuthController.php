@@ -93,8 +93,8 @@ class AuthController extends Controller
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
-        
-       
+
+
         return $this->respondWithToken($token);
     }
 
@@ -160,58 +160,60 @@ class AuthController extends Controller
 
     public function verify()
     {
-        $user_verification = UserVerifications::find(request('unverified_user_id'));
+        $validate_verify = Validator::make(request()->all(), [
+            'unverified_user_id' => ['required', 'exists:user_verifications,id'],
+            'code' => ['required', 'exists:user_verifications,verification_code'],
+        ]);
 
-        if (empty($user_verification)) {
-            $this->addResponse(trans('auth.notregistered'))->addStatusCode(400);
+        if ($validate_verify->fails()) {
+            $this->addMultibleResponse($validate_verify->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
+        $user_verification = UserVerifications::find(request('unverified_user_id'));
+        if ($user_verification->attemp > 3) {
+            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
+            return $this->response();
+        }
+
+        if (request('code') != $user_verification->verification_code) {
+            $user_verification->increment('attemp');
+            $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
             return $this->response();
         } else {
-            if ($user_verification->attemp > 3) {
-                $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
+            $user_verification_data = [
+                'email' => $user_verification->email,
+                'mobile_number' => $user_verification->mobile_number
+            ];
+            $validate_request = Validator::make($user_verification_data, [
+                'email' => ['unique:users,email'],
+                'mobile_number' => ['unique:users,mobile_number'],
+            ]);
+            if ($validate_request->fails()) {
+                $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+                return $this->response();
+            }
+
+            $user  = User::create([
+                'name' => $user_verification->name,
+                'password' => $user_verification->password,
+                'email' => $user_verification->email,
+                'mobile_number' => $user_verification->mobile_number,
+                'type' => $user_verification->type
+            ]);
+
+            if (!$token = auth('api')->login($user)) {
+                $this->addResponse(trans('auth.failed'))->addStatusCode(401);
                 return $this->response();
             } else {
-                if (request('code') == $user_verification->verification_code) {
-
-                    $user_verification_data = [
-                        'email' => $user_verification->email,
-                        'mobile_number' => $user_verification->mobile_number
-                    ];
-                    $validate_request = Validator::make($user_verification_data, [
-                        'email' => ['unique:users,email'],
-                        'mobile_number' => ['unique:users,mobile_number'],
-                    ]);
-                    if ($validate_request->fails()) {
-                        $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-                        return $this->response();
-                    }
-
-                    $user  = User::create([
-                        'name' => $user_verification->name,
-                        'password' => $user_verification->password,
-                        'email' => $user_verification->email,
-                        'mobile_number' => $user_verification->mobile_number,
-                        'type' => $user_verification->type
-                    ]);
-
-                    if (!$token = auth('api')->login($user)) {
-                        $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-                        return $this->response();
-                    } else {
-                        $user_verification->delete();
-                        return $this->respondWithToken($token);
-                    }
-                    $user->postLimitation()->save( new PostLimitation());
-                    $user_verification->delete();
-
-                    $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
-
-                    return $this->response();
-                } else {
-                    $user_verification->increment('attemp');
-                    $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
-                    return $this->response();
-                }
+                $user_verification->delete();
+                return $this->respondWithToken($token);
             }
+            
+            $user->postLimitation()->save(new PostLimitation());
+            $user_verification->delete();
+            $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
+            return $this->response();
         }
     }
 
@@ -436,6 +438,5 @@ class AuthController extends Controller
 
         $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
         return $this->response();
-
     }
 }
