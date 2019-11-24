@@ -53,8 +53,7 @@ class AuthController extends Controller
                 ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
                 ['user.exists' => trans('auth.failed')]
             );
-            dd($validate_mobile_number);
-
+            
             if ($validate_mobile_number->fails()) {
                 $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
                 return $this->response();
@@ -91,6 +90,8 @@ class AuthController extends Controller
         }
 
         $request['type'] = User::Types['user'];
+        
+        dd($request);
 
         if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
