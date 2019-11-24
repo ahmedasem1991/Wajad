@@ -93,14 +93,11 @@ class AuthController extends Controller
 
 
         if (!$token = auth('api')->attempt($request)) {
-            dd('1');
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
 
         if (!auth('api')->user()->isUser()) {
-            dd('2');
-
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
