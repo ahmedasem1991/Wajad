@@ -39,6 +39,9 @@ Route::get('/maps/{type?}', 'MapController');
 # Banners
 Route::get('/banners', 'BannerController');
 
+# Subcategories And Posts
+Route::get('posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+
 # Posts
 Route::get('/posts', 'PostsController@index');
 
@@ -77,9 +80,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::post('/posts/create', 'PostsController@store');
     Route::post('/posts/report', 'PostsController@reportPost');
-    
+
     Route::post('/items/create', 'ItemsController@store');
-   
+
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
 
