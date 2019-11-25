@@ -17,6 +17,9 @@ use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use App\PostLimitation;
+use Illuminate\Support\Str;
+use function GuzzleHttp\Psr7\str;
 
 class AuthController extends Controller
 {
@@ -56,13 +59,16 @@ class AuthController extends Controller
                 return $this->response();
             }
 
-            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                request()->merge(['user' => '00966' . request('user')]);
+            if (app()->environment('production')) {
+                if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
+                    request()->merge(['user' =>  request('user')]);
+                } elseif (preg_match('/[0-9]{9}/', request('user'))) {
+                    $mobile_number = '00966' . request('user');
+                    request()->merge(['user' => $mobile_number]);
+                }
             }
-
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
-
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             $validate_email = Validator::make(
                 request()->all(),
@@ -84,6 +90,7 @@ class AuthController extends Controller
         }
 
         $request['type'] = User::Types['user'];
+
 
         if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
@@ -161,59 +168,43 @@ class AuthController extends Controller
 
     public function verify()
     {
-        $user_verification = UserVerifications::find(request('unverified_user_id'));
+        $validate_verify = Validator::make(request()->all(), [
+            'unverified_user_id' => ['required', 'exists:user_verifications,id'],
+            'code' => ['required', 'exists:user_verifications,verification_code'],
+        ]);
 
-        if (empty($user_verification)) {
-            $this->addResponse(trans('auth.notregistered'))->addStatusCode(400);
+        if ($validate_verify->fails()) {
+            $this->addMultibleResponse($validate_verify->errors())->addStatusCode(400);
             return $this->response();
-        } else {
-            if ($user_verification->attemp > 3) {
-                $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
-                return $this->response();
-            } else {
-                if (request('code') == $user_verification->verification_code) {
-
-                    $user_verification_data = [
-                        'email' => $user_verification->email,
-                        'mobile_number' => $user_verification->mobile_number
-                    ];
-                    $validate_request = Validator::make($user_verification_data, [
-                        'email' => ['unique:users,email'],
-                        'mobile_number' => ['unique:users,mobile_number'],
-                    ]);
-                    if ($validate_request->fails()) {
-                        $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-                        return $this->response();
-                    }
-
-                    $user  = User::create([
-                        'name' => $user_verification->name,
-                        'password' => $user_verification->password,
-                        'email' => $user_verification->email,
-                        'mobile_number' => $user_verification->mobile_number,
-                        'type' => $user_verification->type
-                    ]);
-
-                    if (!$token = auth('api')->login($user)) {
-                        $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-                        return $this->response();
-                    } else {
-                        $user_verification->delete();
-                        return $this->respondWithToken($token);
-                    }
-                    $user->postLimitation()->save( new PostLimitation());
-                    $user_verification->delete();
-
-                    $this->addResponse(trans('auth.registered_successfully'))->addStatusCode(200);
-
-                    return $this->response();
-                } else {
-                    $user_verification->increment('attemp');
-                    $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
-                    return $this->response();
-                }
-            }
         }
+
+        $user_verification = UserVerifications::find(request('unverified_user_id'));
+        if ($user_verification->attemp > 3) {
+            $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
+            return $this->response();
+        }
+
+        if (request('code') != $user_verification->verification_code) {
+            $user_verification->increment('attemp');
+            $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
+            return $this->response();
+        }
+        $user  = User::create([
+            'name' => $user_verification->name,
+            'password' => $user_verification->password,
+            'email' => $user_verification->email,
+            'mobile_number' => $user_verification->mobile_number,
+            'type' => $user_verification->type
+        ]);
+
+        if (!$token = auth('api')->login($user)) {
+            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
+            return $this->response();
+        }
+
+        $user->postLimitation()->save(new PostLimitation());
+        $user_verification->delete();
+        return $this->respondWithToken($token);
     }
 
 
@@ -283,10 +274,7 @@ class AuthController extends Controller
     }
     public function resetPassword()
     {
-        $new_password = env(
-            'STATIC_NEW_PASSWORD',
-            $this->upperCase(substr(md5(microtime()), rand(0, 26), 6))
-        );
+        $new_password = env('STATIC_NEW_PASSWORD', str::upper(str::random(6)));
         if (is_numeric(request('user'))) {
             $validate_mobile_number = Validator::make(
                 request()->all(),
@@ -437,6 +425,5 @@ class AuthController extends Controller
 
         $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
         return $this->response();
-
     }
 }

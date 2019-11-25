@@ -20,7 +20,9 @@ $factory->define(Post::class, function (Faker $faker) {
         'founded_at' => null,
         'latitude' => $faker->latitude,
         'longitude' => $faker->longitude,
-        'sub_category_id' => 1,
+        'sub_category_id' => function () {
+            return factory(\App\SubCategory::class)->create()->id;
+        },
         'model_id' => 1,
         'color_id' => 1,
     ];

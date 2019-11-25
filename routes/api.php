@@ -8,14 +8,14 @@ Route::post('/verify', 'Auth\AuthController@verify');
 Route::post('/resendCode', 'Auth\AuthController@resendCode');
 Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
 Route::get('/send/email', 'HomeController@mail');
-Route::post('/changePassword', 'Auth\AuthController@changePassword');
+Route::post('/logout', 'Auth\AuthController@logout');
 
 # Categories
 Route::get('/categories', 'CategoryController@index');
 Route::get('/categories/{category}', 'CategoryController@show');
 
 # Sub Categories
-Route::get('/subCategories', 'SubCategoryController@index');
+Route::get('/subCategories/{type?}', 'SubCategoryController@index');
 Route::get('/subCategories/{subCategory}', 'SubCategoryController@show');
 
 # Brands
@@ -68,6 +68,7 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::put('change-password', 'Auth\ChangePasswordController');
+    Route::post('/changePassword', 'Auth\AuthController@changePassword');
 
 
     Route::get('/user', function (Request $request) {
@@ -80,6 +81,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::post('/posts/create', 'PostsController@store');
     Route::post('/posts/report', 'PostsController@reportPost');
+    Route::get('/posts/search', 'PostsController@search');
 
     Route::post('/items/create', 'ItemsController@store');
 

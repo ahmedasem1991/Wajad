@@ -8,16 +8,17 @@ use Log;
 use App\Item;
 use App\Post;
 use App\PostType;
-use Carbon\Carbon;
 use App\PostImage;
+use Carbon\Carbon;
+use App\PostReport;
 use Location\Coordinate;
 use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
-use App\PostReport;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\SearchPostResource;
 
 class PostsController extends Controller
 {
@@ -26,7 +27,8 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $check = 1;
-        $array =  $Posts = QueryBuilder::for(Post::class)->isOpen()->isApproved()->isShow()
+        $array =  $Posts = QueryBuilder::for(Post::class)
+            ->IsOpen()->isApproved()->IsShow()
             ->with('publisher')
             ->with('owner')
             ->with('founder')
@@ -213,5 +215,34 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $posts = Post::isShow()->isApproved();
+        if ($request->has('color')) {
+            $posts->whereHas('color', function ($query) use ($request) {
+                $query->where('id', '=', $request->color);
+            });
+        }
+        if ($request->has('model')) {
+            $posts->whereHas('model', function ($query) use ($request) {
+                $query->where('id', $request->model);
+            });
+        }
+        if ($request->has('brand')) {
+            $posts->whereHas('brand', function ($query) use ($request) {
+                $query->where('id', $request->brand);
+            });
+        }
+        if ($request->has('date')) {
+            $posts->where('losted_at', Carbon::parse($request->date))
+                ->orWhere('founded_at', Carbon::parse($request->date));
+        }
+        if ($request->has('subcategory')) {
+            $posts->whereHas('subcategory', function ($query) use ($request) {
+                $query->where('id', $request->subcategory);
+            });
+        }
+        return  SearchPostResource::collection($posts->get());
     }
 }
