@@ -23,6 +23,5 @@ $factory->define(Post::class, function (Faker $faker) {
         'sub_category_id' => 1,
         'model_id' => 1,
         'color_id' => 1,
-
     ];
 });

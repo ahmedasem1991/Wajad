@@ -22,7 +22,6 @@ class CreateCitiesTable extends Migration
             $table->integer('radius')->unsigned()->nullable();
             $table->integer('region_id')->nullable();
             $table->timestamps();
-           // $table->foreign('region_id')->references('id')->on('regions');
         });
     }
 

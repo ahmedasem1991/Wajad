@@ -2,15 +2,18 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Category;
+use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Category::class, function (Faker $faker) {
+$factory->define(Model::class, function (Faker $faker) {
     return [
         'name_en' => $faker->sentence(),
         'name_ar' => $faker->sentence(),
         'description_en' => $faker->sentence(),
         'description_ar' => $faker->sentence(),
         'image' => 'default-icon.png',
+        'brand_id' => function(){
+            return factory(App\Brand::class)->create()->id;
+        }
     ];
 });
