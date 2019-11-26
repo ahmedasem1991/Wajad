@@ -9,8 +9,13 @@ use App\Http\Resources\BrandResource;
 
 class BrandController extends Controller
 {
-    public function index()
+    public function index($subcategory_id = null)
     {
+        if (!is_null($subcategory_id)) {
+            return BrandResource::collection(
+                Brand::where('sub_category_id', $subcategory_id)->get()
+            );
+        }
         return BrandResource::collection(Brand::all());
     }
 

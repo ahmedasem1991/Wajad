@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->boolean('open_status')->default(1);
             $table->integer('approval_status')->default(0);
             $table->integer('reports_number')->default(0);
+            $table->integer('reward')->default(0);
             $table->integer('owner_id')->nullable();
             $table->integer('founder_id')->nullable();
             $table->integer('publisher_id')->nullable();
@@ -34,6 +35,7 @@ class CreatePostsTable extends Migration
             $table->integer('model_id')->nullable();
             $table->integer('color_id')->nullable();
             $table->integer('brand_id')->nullable();
+            $table->integer('city_id')->nullable();
             $table->timestamps();
         });
     }

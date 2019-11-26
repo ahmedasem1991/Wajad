@@ -19,7 +19,7 @@ class Post extends MasterModel
 {
     use LogsActivity, ResponseTrait;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'lat', 'lng', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status', 'brand_id'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'latitude', 'longitude', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status', 'brand_id', 'city_id', 'reward'];
 
     protected static $logAttributes = ['title', 'description'];
 
