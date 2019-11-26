@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use DB;
 use App;
 use Log;
+use App\City;
 use App\Item;
 use App\Post;
+use App\User;
 use App\PostType;
 use App\PostImage;
 use Carbon\Carbon;
@@ -14,9 +16,9 @@ use App\PostReport;
 use Location\Coordinate;
 use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
+
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
-
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SearchPostResource;
@@ -132,27 +134,78 @@ class PostsController extends Controller
     {
         $validate_request = Validator::make(request()->all(), [
             'title' => ['required', 'min:6', 'max:255'],
-            'description' => ['required', 'min:20', 'max:500'],
-            'publisher_id' => ['required'],
-            'status' => ['required'],
-            'post_type_id' => ['required'],
-            'lat' => ['required'],
-            'lng' => ['required'],
-            'model_id' => ['required_without:item_id'],
-            'color_id' => ['required_without:item_id']
+            'description' => ['required', 'min:9', 'max:500'],
+            'status' => ['required', 'in:0,1'],
+            'reward' => ['numeric'],
+            'longitude' => ['required'],
+            'latitude' => ['required'],
+            'sub_category_id' => ['required', 'exists:sub_categories,id'],
+            'brand_id' => ['required', 'exists:brands,id'],
+            'model_id' => ['required', 'exists:models,id'],
+            'color_id' => ['required', 'exists:colors,id'],
+            'item_id' => ['exists:items,id'],
+            'city' => ['required'],
+            'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:100000'],
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
-        $user = User::find($request->publisher_id);
-        if (count($user->posts) >= $user->postLimitation->posts_limitation) {
-            $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(409);
-            return  $this->response();
+
+        $request->merge(['publisher_id' => auth('api')->user()->id]);
+        $request->merge([
+            Post::Status[$request->status] . 'ed_at' =>
+            Carbon::now()->toDateTimeString()
+        ]);
+        if ($request->status == 0) {
+            $request->merge([
+                'owner_id' =>
+                auth('api')->user()->id
+            ]);
+        }
+        if ($request->status == 1) {
+            $request->merge([
+                'founder_id' =>
+                auth('api')->user()->id
+            ]);
         }
 
-        return (new Post)->createPost($request);
+        $city =  City::where('name_en', 'like', '%' . $request->city . '%')
+            ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
+        if (empty($city)) {
+            $city = City::create([
+                'name_en' =>  $request->city,
+                'name_ar' =>  $request->city,
+            ]);
+        }
+        $city_id = $city->id;
+        $request->merge(['city_id' => $city_id]);
+
+        if (
+            auth('api')->user()->posts()->count() >
+            auth('api')->user()->postLimitation->posts_limitation
+        ) {
+            $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
+            return  $this->response();
+        }
+        $post = Post::create($request->all());
+        if (!empty($request->images)) {
+            foreach ($request->images as $image) {
+                $file_name =  time() . str_random(10) . '.' . 'png';
+                @list($type, $image) = explode(';', $image);
+                @list(, $image) = explode(',', $image);
+                if ($image != "") {
+                    \File::put('images/postsimages/' . $file_name, base64_decode($image));
+                }
+                $image = PostImage::create([
+                    'post_id' => $post->id,
+                    'image' =>  'images/postsimages/' . $file_name
+                ]);
+            }
+        }
+        $this->addResponse(trans('messages.successfully_created'))->addStatusCode(201);
+        return $this->response();
     }
 
     public function reportPost(Request $request)

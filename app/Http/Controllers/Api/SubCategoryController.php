@@ -17,11 +17,12 @@ class SubCategoryController extends Controller
     const TYPES = [
         'lost' => 0,
         'found' => 1,
+        'all' => 2,
     ];
 
     public function index($type = null)
     {
-        if (in_array($type, self::TYPES)) {
+        if (!is_null($type) && in_array($type, self::TYPES)) {
             if ($type == 'lost') {
                 return $this->subCategoryLostPosts();
             }
@@ -29,8 +30,7 @@ class SubCategoryController extends Controller
                 return $this->subCategoryFoundPosts();
             }
         }
-        $this->addStatusCode(404);
-        return $this->response();
+        return SubCategoryResource::collection(SubCategory::all());
     }
     public function subCategoryLostPosts()
     {

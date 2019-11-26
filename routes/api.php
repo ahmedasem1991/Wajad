@@ -19,11 +19,11 @@ Route::get('/subCategories/{type?}', 'SubCategoryController@index');
 Route::get('/subCategories/{subCategory}', 'SubCategoryController@show');
 
 # Brands
-Route::get('/brands', 'BrandController@index');
+Route::get('/brands/{subcategory_id?}', 'BrandController@index');
 Route::get('/brands/{brand}', 'BrandController@show');
 
 # Models
-Route::get('/models', 'ModelController@index');
+Route::get('/models/{brand_id?}', 'ModelController@index');
 Route::get('/models/{model}', 'ModelController@show');
 
 # Colors

@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
 use App\ResetPassword;
+use App\PostLimitation;
 use App\UserVerifications;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\SmsProvider;
 use Illuminate\Support\Carbon;
 use App\Mail\ResetPasswordMail;
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Exceptions\LoginAuthException;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
-use App\PostLimitation;
-use Illuminate\Support\Str;
-use function GuzzleHttp\Psr7\str;
 
 class AuthController extends Controller
 {
