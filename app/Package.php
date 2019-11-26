@@ -43,7 +43,7 @@ class Package extends Model
 
     public function getPriceAttribute($value)
     {
-        return $value . ' - ' . env('CURRENCY', 'SR');
+        return $value . ' - ' . env('CURRENCY', 'USD');
     }
 
     public function subscription()

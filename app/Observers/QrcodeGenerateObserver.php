@@ -18,15 +18,24 @@ class QrcodeGenerateObserver
      * @return void
      */
     public function saving(GenerateQrcode $generateQrcode)
-    {
-        $now = Carbon::now();
-        $generateQrcode->reference_number='N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
-        $generateQrcode->created_by=Auth()->User()->id;
+    { 
+   
+        if($generateQrcode->created_from=='web')
+        {
+            $now = Carbon::now();
+            $generateQrcode->reference_number='N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
+            $generateQrcode->created_by=Auth()->User()->id;
+        }
+        
          
     }
     public function saved(GenerateQrcode $generateQrcode)
     {
+        logger($generateQrcode->created_from);
+        if($generateQrcode->created_from=='web')
+        {
         GenerateQrcodeJob::dispatch($generateQrcode);
+        }
     }
 
     /**

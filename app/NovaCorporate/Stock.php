@@ -6,7 +6,7 @@ use App\User;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
+use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;

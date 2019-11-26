@@ -69,6 +69,7 @@ class SeedApp extends Command
             'password' => bcrypt($password),
             'type' => 1, // User
             'mobile_number' => '01142416124',
+            'corporate_od' => 1,
             'mobile_country_id' => 1
         ]);
         $this->info('Nova User Created Successfully');
@@ -84,6 +85,7 @@ class SeedApp extends Command
             'password' => bcrypt($password),
             'type' => 2, // Corporate
             'mobile_number' => '01095781611',
+            'corporate_od' => 1,
             'mobile_country_id' => 1
         ]);
         $this->info('Nova Corporate Admin Created Successfully');

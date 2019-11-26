@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\AssignQrcode' => 'App\Policies\AssignQrcodePolicy',
         'App\User' => 'App\Policies\UserPolicy',
         'App\Item' => 'App\Policies\ItemPolicy',
+        'App\Package' => 'App\Policies\PackagePolicy',
     ];
 
     /**

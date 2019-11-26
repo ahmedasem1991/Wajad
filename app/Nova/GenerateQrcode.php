@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
@@ -75,6 +76,19 @@ class GenerateQrcode extends Resource
             Status::make('Status')
             ->loadingWhen(['waiting'])
             ->failedWhen(['finished']),
+
+            RadioButton::make('Created From')
+            ->options([
+                'web' => 'web',
+               
+            ])->default('web'), // optional,
+           // ->hideWhenCreating()
+           // ->hideWhenUpdating(),
+            // Select::make('Created From', 'created_from')->options([
+            //     'web' => 'Web',
+            //  ])
+           // ->displayUsingLabels(),
+           // ->readonly(),
             HasMany::make('Qrcodes'),
 
            // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),

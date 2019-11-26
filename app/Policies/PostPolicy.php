@@ -30,6 +30,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
+       
         if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('view posts'))
             {

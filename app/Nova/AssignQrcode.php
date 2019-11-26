@@ -153,6 +153,11 @@ class AssignQrcode extends Resource
             Status::make('Status')
             ->loadingWhen(['waiting'])
             ->failedWhen(['finished']),
+            RadioButton::make('Created From')
+            ->options([
+                'web' => 'web',
+               
+            ])->default('web'), // optional,
             HasMany::make('Qrcodes'),
 
         ];

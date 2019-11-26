@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74764f2199661d808e3a33f6295ebc4a",
+    "content-hash": "46601856caac83d0c5da6dfd7c231399",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -486,6 +486,55 @@
             "time": "2019-04-03T13:58:40+00:00"
         },
         {
+            "name": "comodolab/nova-help",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Comodolab/nova-help.git",
+                "reference": "db678ac719f7bd85846ed4a6f6abf2ed5423ca62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Comodolab/nova-help/zipball/db678ac719f7bd85846ed4a6f6abf2ed5423ca62",
+                "reference": "db678ac719f7bd85846ed4a6f6abf2ed5423ca62",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.0|^6.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Comodolab\\Nova\\Fields\\Help\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Comodolab\\Nova\\Fields\\Help\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alessandro Benoit",
+                    "email": "alessandro@comodolab.it"
+                }
+            ],
+            "description": "A Laravel Nova help field.",
+            "keywords": [
+                "help",
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-09-12T10:40:13+00:00"
+        },
+        {
             "name": "coreproc/nova-echo",
             "version": "0.2.0",
             "source": {
@@ -578,6 +627,87 @@
                 "sidebar"
             ],
             "time": "2019-08-09T03:24:14+00:00"
+        },
+        {
+            "name": "depsimon/nova-stripe-checkout-field",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/depsimon/nova-stripe-checkout-field.git",
+                "reference": "5cec6f62c00268d4655766efd2cc0558a52cd595"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/depsimon/nova-stripe-checkout-field/zipball/5cec6f62c00268d4655766efd2cc0558a52cd595",
+                "reference": "5cec6f62c00268d4655766efd2cc0558a52cd595",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Depsimon\\NovaStripeCheckoutField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Depsimon\\NovaStripeCheckoutField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field that shows a Stripe Checkout Button.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-08-27T11:27:09+00:00"
+        },
+        {
+            "name": "dillingham/nova-button",
+            "version": "1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dillingham/nova-button.git",
+                "reference": "bf51f088135d074bb17738b6b7251b585a415062"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dillingham/nova-button/zipball/bf51f088135d074bb17738b6b7251b585a415062",
+                "reference": "bf51f088135d074bb17738b6b7251b585a415062",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NovaButton\\Providers\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NovaButton\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Dillingham",
+                    "email": "bdillingham88@gmail.com"
+                }
+            ],
+            "description": "Nova button package",
+            "time": "2019-09-06T15:39:53+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2911,6 +3041,48 @@
             "time": "2017-02-16T16:54:46+00:00"
         },
         {
+            "name": "naif/paypal",
+            "version": "v1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/naifalshaye/nova-paypal.git",
+                "reference": "dba8fbe4a556520652e21e069ebf4ffdbc59980f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/naifalshaye/nova-paypal/zipball/dba8fbe4a556520652e21e069ebf4ffdbc59980f",
+                "reference": "dba8fbe4a556520652e21e069ebf4ffdbc59980f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Naif\\Paypal\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Naif\\Paypal\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova card to display PayPal current balance and latest transactions",
+            "keywords": [
+                "laravel",
+                "nova",
+                "paypal"
+            ],
+            "time": "2019-01-18T13:22:15+00:00"
+        },
+        {
             "name": "naif/toggle",
             "version": "1.2",
             "source": {
@@ -3686,6 +3858,55 @@
                 "utf8"
             ],
             "time": "2016-05-18T13:57:10+00:00"
+        },
+        {
+            "name": "paypal/rest-api-sdk-php",
+            "version": "1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
+                "reference": "72e2f2466975bf128a31e02b15110180f059fc04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/72e2f2466975bf128a31e02b15110180f059fc04",
+                "reference": "72e2f2466975bf128a31e02b15110180f059fc04",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0",
+                "psr/log": "^1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PayPal": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
+                }
+            ],
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "http://paypal.github.io/PayPal-PHP-SDK/",
+            "keywords": [
+                "payments",
+                "paypal",
+                "rest",
+                "sdk"
+            ],
+            "time": "2019-01-04T20:04:25+00:00"
         },
         {
             "name": "php-http/guzzle6-adapter",
@@ -5719,6 +5940,61 @@
                 "string"
             ],
             "time": "2017-11-08T14:28:57+00:00"
+        },
+        {
+            "name": "srmklive/paypal",
+            "version": "1.6.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/srmklive/laravel-paypal.git",
+                "reference": "fc9960958b65257919328c3668f0e55a3661ad31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/srmklive/laravel-paypal/zipball/fc9960958b65257919328c3668f0e55a3661ad31",
+                "reference": "fc9960958b65257919328c3668f0e55a3661ad31",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/support": "~5.1|~5.2|~5.3|~5.4|~5.5|~5.6|~5.7|~5.8|~6.0",
+                "nesbot/carbon": "~1.0|~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Srmklive\\PayPal\\Providers\\PayPalServiceProvider"
+                    ],
+                    "aliases": {
+                        "PayPal": "Srmklive\\PayPal\\Facades\\PayPal"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Srmklive\\PayPal\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raza Mehdi",
+                    "email": "srmk@outlook.com"
+                }
+            ],
+            "description": "Laravel plugin For Processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
+            "keywords": [
+                "http",
+                "laravel paypal",
+                "paypal",
+                "rest",
+                "web service"
+            ],
+            "time": "2019-09-04T10:56:48+00:00"
         },
         {
             "name": "stephenlake/nova-fixed-bars",

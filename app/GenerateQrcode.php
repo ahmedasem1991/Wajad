@@ -9,7 +9,7 @@ class GenerateQrcode extends Model
 {
    use LogsActivity;
 
-    protected $fillable =['reference_number','type','quantity'];
+    protected $fillable =['reference_number','type','quantity','created_from'];
     protected $table='generate_qrcodes';
 
 
