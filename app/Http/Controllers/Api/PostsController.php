@@ -143,6 +143,7 @@ class PostsController extends Controller
             'color_id' => ['required', 'exists:colors,id'],
             'item_id' => ['exists:items,id'],
             'city' => ['required'],
+            'images' => ['sometimes', 'max:5'],
             'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:100000'],
         ]);
 
