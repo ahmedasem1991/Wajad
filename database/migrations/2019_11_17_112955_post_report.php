@@ -18,6 +18,7 @@ class PostReport extends Migration
             $table->integer('post_id');
             $table->integer('user_id');
             $table->text('details')->nullable();
+            $table->string('image', 500)->nullable();
             $table->timestamps();
         });
     }

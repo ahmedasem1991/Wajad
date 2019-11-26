@@ -48,7 +48,7 @@ class MapController extends Controller
 
     private function lost(Request $request)
     {
-        $lost = Post::lost()->appearance()->get();
+        $lost = Post::lost()->isShow()->get();
 
         $lost = $this->getItemsBasedOnLocation($request, $lost);
 
@@ -57,7 +57,7 @@ class MapController extends Controller
 
     private function found(Request $request)
     {
-        $found = Post::found()->appearance()->get();
+        $found = Post::found()->isShow()->get();
 
         $found = $this->getItemsBasedOnLocation($request, $found);
 

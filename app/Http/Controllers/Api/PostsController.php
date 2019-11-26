@@ -212,28 +212,35 @@ class PostsController extends Controller
         $validate_request = Validator::make(request()->all(), [
             'post_id' => ['required'],
             'user_id' => ['required'],
-            'details' => ['required'],
-
+            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:100000'],
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
-        $PostReport = new PostReport;
-        $PostReport->create([
-            'user_id' => $request->user_id,
+        $file_name =  time() . str_random(10) . '.' . 'png';
+        @list($type, $request->image) = explode(';', $request->image);
+        @list(, $request->image) = explode(',', $request->image);
+        if ($request->image) {
+            \File::put('images/postreportimages/' . $file_name, base64_decode($request->image));
+        }
+        PostReport::create([
             'post_id' => $request->post_id,
+            'user_id' => $request->user_id,
             'details' => $request->details,
+            'image' =>  'images/postreportimages/' . $file_name,
         ]);
         $Post = Post::find($request->post_id);
+        if ($Post === null) {
+            $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
+            return  $this->response();
+        }
         if (count($Post->reports) >= env('REPORTS_NUMBER')) {
             $Post->appearance_status = 0;
             $Post->save();
-        } else {
-            $Post->reports_number++;
-            $Post->save();
         }
+        $Post->increment('reports_number');
         $this->addResponse(trans('posts.post_report_message'))->addStatusCode(200);
         return  $this->response();
     }
