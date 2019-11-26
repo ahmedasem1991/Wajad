@@ -24,7 +24,9 @@ $factory->define(Post::class, function (Faker $faker) {
         'sub_category_id' => function () {
             return factory(\App\SubCategory::class)->create()->id;
         },
-        'model_id' => 1,
-        'color_id' => 1,
+        'model_id' => function () {
+            return factory(\App\Model::class)->create()->id;
+        },
+        'color_id' => null,
     ];
 });
