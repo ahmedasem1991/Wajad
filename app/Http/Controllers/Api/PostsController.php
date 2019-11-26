@@ -219,18 +219,20 @@ class PostsController extends Controller
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
-        $file_name =  time() . str_random(10) . '.' . 'png';
-        @list($type, $request->image) = explode(';', $request->image);
-        @list(, $request->image) = explode(',', $request->image);
-        if ($request->image) {
-            \File::put('images/postreportimages/' . $file_name, base64_decode($request->image));
-        }
-        PostReport::create([
+        $post_report = [
             'post_id' => $request->post_id,
             'user_id' => $request->user_id,
             'details' => $request->details,
-            'image' =>  'images/postreportimages/' . $file_name,
-        ]);
+        ];
+
+        $file_name =  time() . str_random(10) . '.' . 'png';
+        @list($type, $request->image) = explode(';', $request->image);
+        @list(, $request->image) = explode(',', $request->image);
+        if ($request->file('image')) {
+            \File::put('images/postreports/' . $file_name, base64_decode($request->image));
+            $post_report['image'] = 'images/postreports/' . $file_name;
+        }
+        PostReport::create($post_report);
         $Post = Post::find($request->post_id);
         if ($Post === null) {
             $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
