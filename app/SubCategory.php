@@ -11,8 +11,8 @@ class SubCategory extends Model
 {
     use LogsActivity;
 
-    protected $fillable=['name_en','name_ar','description_en','description_ar','image','category_id'];
-    protected $table="sub_categories";
+    protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'category_id'];
+    protected $table = "sub_categories";
 
     public function scopeCategory($query, $category_id)
     {
@@ -24,7 +24,7 @@ class SubCategory extends Model
     }
     public function scopeName($query, $name)
     {
-        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
+        return $query->where('name_ar', $name)->orWhere('name_en', $name) ?? null;
     }
     public function brands()
     {
@@ -32,16 +32,17 @@ class SubCategory extends Model
     }
     public function posts()
     {
-        return  $this->hasMany(Post::class,'sub_category_id') ;
+        return  $this->hasMany(Post::class, 'sub_category_id');
     }
 
     public function lostposts()
     {
-        return  $this->hasMany(Post::class,'sub_category_id')->where('status',0) ;
+        return  $this->hasMany(Post::class, 'sub_category_id')->where('status', 0);
     }
+
     public function foundposts()
     {
-        return  $this->hasMany(Post::class,'sub_category_id')->where('status',1) ;
+        return  $this->hasMany(Post::class, 'sub_category_id')->where('status', 1);
     }
     public function category()
     {
@@ -49,9 +50,7 @@ class SubCategory extends Model
     }
     public function brandsData()
     {
-    return $this->hasMany(Brand::class)
-        ->with('models.items');
+        return $this->hasMany(Brand::class)
+            ->with('models.items');
     }
-
-
 }

@@ -27,8 +27,6 @@ class PostsController extends Controller
 {
     private $request = [];
 
-
-
     public function index(Request $request)
     {
         $check = 1;
