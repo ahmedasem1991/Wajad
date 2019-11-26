@@ -135,22 +135,27 @@ class PostsController extends Controller
             'description' => ['required', 'min:9', 'max:500'],
             'status' => ['required', 'in:0,1'],
             'reward' => ['numeric'],
-            'longitude' => ['required'],
-            'latitude' => ['required'],
+            'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'model_id' => ['required', 'exists:models,id'],
             'color_id' => ['required', 'exists:colors,id'],
-            'item_id' => ['exists:items,id'],
-            'city' => ['required'],
+            'item_id' => ['nullable', 'exists:items,id'],
+            'city' => ['required', 'string'],
             'images' => ['sometimes', 'max:5'],
-            'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:100000'],
+            'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
         ]);
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
+
+        # IF POST IS FOUND
+
+        # IF POST IS LOST
+
 
         $request->merge(['publisher_id' => auth('api')->user()->id]);
         $request->merge([
@@ -181,29 +186,23 @@ class PostsController extends Controller
         $city_id = $city->id;
         $request->merge(['city_id' => $city_id]);
 
-        if (
-            auth('api')->user()->posts()->count() >
-            auth('api')->user()->postLimitation->posts_limitation
-        ) {
+        if (auth('api')->user()->exceededPostLimitation()) {
             $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
             return  $this->response();
         }
-        $post = Post::create($request->all());
-        if (!empty($request->images)) {
-            foreach ($request->images as $image) {
-                $file_name =  time() . str_random(10) . '.' . 'png';
-                @list($type, $image) = explode(';', $image);
-                @list(, $image) = explode(',', $image);
-                if ($image != "") {
-                    \File::put('images/postsimages/' . $file_name, base64_decode($image));
-                }
-                $image = PostImage::create([
-                    'post_id' => $post->id,
-                    'image' =>  'images/postsimages/' . $file_name
+
+        $post = Post::create($request->validated());
+
+        if ($request->has('images')) {
+            array_map(function ($image) use ($post, $request) {
+                $post->images()->create([
+                    'image' =>  $request->file($image)->store('image/postsimages')
                 ]);
-            }
+            }, $request->images);
         }
+
         $this->addResponse(trans('messages.successfully_created'))->addStatusCode(201);
+
         return $this->response();
     }
 
