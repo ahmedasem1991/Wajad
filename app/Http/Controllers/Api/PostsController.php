@@ -210,40 +210,41 @@ class PostsController extends Controller
     public function reportPost(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
-            'post_id' => ['required'],
-            'user_id' => ['required'],
-            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:100000'],
+            'post_id' => ['required', 'integer', 'exists:posts,id'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'details' => ['nullable', 'string', 'max:1000'],
+            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
         ]);
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
+
         $post_report = [
             'post_id' => $request->post_id,
             'user_id' => $request->user_id,
             'details' => $request->details,
         ];
 
-        $file_name =  time() . str_random(10) . '.' . 'png';
-        @list($type, $request->image) = explode(';', $request->image);
-        @list(, $request->image) = explode(',', $request->image);
         if ($request->file('image')) {
-            \File::put('images/postreports/' . $file_name, base64_decode($request->image));
-            $post_report['image'] = 'images/postreports/' . $file_name;
+            $post_report['image'] = $request->file('image')->store('images/postreports');
         }
+
         PostReport::create($post_report);
-        $Post = Post::find($request->post_id);
-        if ($Post === null) {
-            $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
-            return  $this->response();
+
+        $post = Post::find($request->post_id);
+        $post_reports_count = $post->reports()->count();
+
+        if ($post_reports_count >= env('REPORTS_NUMBER')) {
+            $post->appearance_status = 0;
+            $post->save();
         }
-        if (count($Post->reports) >= env('REPORTS_NUMBER')) {
-            $Post->appearance_status = 0;
-            $Post->save();
-        }
-        $Post->increment('reports_number');
+
+        $post->increment('reports_number');
+
         $this->addResponse(trans('posts.post_report_message'))->addStatusCode(200);
+
         return  $this->response();
     }
 
