@@ -83,7 +83,7 @@ class User extends Authenticatable implements JWTSubject
     }
     public function posts()
     {
-        return $this->hasMany(Post::class,'publisher_id');
+        return $this->hasMany(Post::class, 'publisher_id');
     }
 
     public function items()
@@ -148,11 +148,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->where('corporate_id', $corporate_id);
     }
-    public function scopeNotSuperAdmin($query, $user_id=3)
+    public function scopeNotSuperAdmin($query, $user_id = 3)
     {
-        return $query->where('type','!=', $user_id);
+        return $query->where('type', '!=', $user_id);
     }
-    public function scopeSuperAdmin($query, $user_id=3)
+    public function scopeSuperAdmin($query, $user_id = 3)
     {
         return $query->where('type', $user_id);
     }
@@ -170,6 +170,11 @@ class User extends Authenticatable implements JWTSubject
 
     public function postLimitation()
     {
-        return $this->hasOne(PostLimitation::class,'user_id');   
+        return $this->hasOne(PostLimitation::class, 'user_id');
+    }
+
+    public function exceededPostLimitation()
+    {
+        return $this->posts()->count() > $this->postLimitation->posts_limitation;
     }
 }

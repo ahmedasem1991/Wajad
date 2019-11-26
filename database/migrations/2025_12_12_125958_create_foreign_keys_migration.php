@@ -16,12 +16,12 @@ class CreateForeignKeysMigration extends Migration
     {
         Schema::table('regions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('CASCADE');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('SET NULL');
         });
 
         Schema::table('cities', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('SET NULL');
         });
 
         Schema::table('answers', function (Blueprint $table) {
@@ -33,6 +33,18 @@ class CreateForeignKeysMigration extends Migration
         Schema::table('item_images', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->foreign('item_id')->references('id')->on('items')->onDelete('CASCADE');
+        });
+
+        Schema::table('posts', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('SET NULL');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('founder_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('publisher_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('SET NULL');
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('SET NULL');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('SET NULL');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('SET NULL');
         });
     }
 
