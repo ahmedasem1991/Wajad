@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->boolean('status')->nullable();
             $table->boolean('appearance_status')->default(0);
             $table->boolean('open_status')->default(1);
-            $table->boolean('approval_status')->default(0);
+            $table->integer('approval_status')->default(0);
             $table->integer('reports_number')->default(0);
             $table->integer('owner_id')->nullable();
             $table->integer('founder_id')->nullable();

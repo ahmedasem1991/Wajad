@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
-
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SearchPostResource;
@@ -24,8 +23,6 @@ use App\Http\Resources\SearchPostResource;
 class PostsController extends Controller
 {
     private $request = [];
-
-
 
     public function index(Request $request)
     {

@@ -19,7 +19,7 @@ class Post extends MasterModel
 {
     use LogsActivity, ResponseTrait;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'lat', 'lng', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status','brand_id'];
+    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'lat', 'lng', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status', 'brand_id'];
 
     protected static $logAttributes = ['title', 'description'];
 
@@ -109,7 +109,7 @@ class Post extends MasterModel
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class,'brand_id');
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
     /**
      * Define The Model Of The Post
@@ -132,7 +132,7 @@ class Post extends MasterModel
     {
         return $this->hasMany(PostImage::class);
     }
-     /**
+    /**
      * Images Of Report"
      */
     public function reports()
@@ -198,34 +198,40 @@ class Post extends MasterModel
         $status = ($status == 'lost') ? 0 : 1;
         return $query->where('status', $status);
     }
-   
-    public function scopeIsOpen($query, $status=1)
+
+    public function scopeIsOpen($query)
     {
-        return $query->where('open_status',$status);
+        return $query->where('open_status', true);
     }
-    public function scopeIsClosed($query, $status=0)
+
+    public function scopeIsClosed($query)
     {
-        return $query->where('open_status', $status);
+        return $query->where('open_status', false);
     }
-    public function scopeIsShow($query, $status=1)
+
+    public function scopeIsShow($query)
     {
-        return $query->where('appearance_status', $status);
+        return $query->where('appearance_status', true);
     }
-    public function scopeIsHidden($query, $status=0)
+
+    public function scopeIsHidden($query)
     {
-        return $query->where('appearance_status', $status);
+        return $query->where('appearance_status', false);
     }
-    public function scopeIsPending($query, $status=0)
+
+    public function scopeIsPending($query)
     {
-        return $query->where('approval_status', $status);
+        return $query->where('approval_status', 0);
     }
-    public function scopeIsApproved($query, $status=1)
+
+    public function scopeIsApproved($query)
     {
-        return $query->where('approval_status', $status);
+        return $query->where('approval_status', 1);
     }
-    public function scopeIsRejected($query, $status=2)
+
+    public function scopeIsRejected($query)
     {
-        return $query->where('approval_status', $status);
+        return $query->where('approval_status', 2);
     }
 
     public function scopeLost($query)
@@ -233,14 +239,9 @@ class Post extends MasterModel
         return $query->where('status', 0);
     }
 
-    public function scopefound($query)
+    public function scopeFound($query)
     {
         return $query->where('status', 1);
-    }
-
-    public function scopeAppearance($query)
-    {
-        return $query->where('appearance_status', true);
     }
 
     /**
@@ -291,14 +292,14 @@ class Post extends MasterModel
             $model_id = $Item->model_id;
             $sub_category_id = $Item->model->brand->subcategory->id;
         }
-        $appearance_status=0;
-        $approval_status=0;
-        $open_status=0;
-       if(User::find($request->publisher_id)->corporate) {
-           $appearance_status=1;
-           $approval_status=1;
-           $open_status=1;
-       }
+        $appearance_status = 0;
+        $approval_status = 0;
+        $open_status = 0;
+        if (User::find($request->publisher_id)->corporate) {
+            $appearance_status = 1;
+            $approval_status = 1;
+            $open_status = 1;
+        }
         try {
             $post = Post::create([
                 'title' => request('title'),
@@ -307,7 +308,7 @@ class Post extends MasterModel
                 'appearance_status' => $appearance_status,
                 'approval_status' => $approval_status,
                 'open_status' => $open_status,
-                'owner_id' =>$owner_id,
+                'owner_id' => $owner_id,
                 'founder_id' => $founder_id,
                 'item_id' => request('item_id'),
                 'status' => $status,
