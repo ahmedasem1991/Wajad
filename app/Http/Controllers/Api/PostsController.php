@@ -19,6 +19,7 @@ use Location\Distance\Vincenty;
 
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SearchPostResource;
@@ -84,32 +85,13 @@ class PostsController extends Controller
 
 
 
-    public function userPosts(Request $request, $publisher_id)
+    public function userPosts()
     {
-
-        $Posts = QueryBuilder::for(Post::class)
-            //   ->IsOpen()->isApproved()->IsShow()
-            ->with('publisher')
-            ->with('owner')
-            ->with('founder')
-            ->with('model')
-            ->with('color')
-            ->with('item')
-            ->with('images')
-            ->publisher($publisher_id)
-            ->allowedFilters([
-                Filter::scope('status'), //lost or found
-                Filter::scope('owner'), //Owner ID
-                Filter::scope('founder'), //Founder ID
-                Filter::scope('item'), //Item ID
-                Filter::scope('subcategory'), //subcategory ID
-                Filter::scope('model'), //model ID
-                Filter::scope('color'), //color ID
-                'id', 'title', 'description',
-            ])
-            ->paginate($request->get('per_page', 15));
-
-        return $this->jsonResponse($Posts);
+        return new  PostResource(Post::where(
+            function ($query) {
+                $query->where('publisher_id', auth('api')->user()->id);
+            }
+        )->isShow()->isOpen()->isApproved()->get());
     }
 
 
@@ -254,9 +236,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return new PostResource($post);
     }
 
     /**

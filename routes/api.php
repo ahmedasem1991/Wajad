@@ -44,6 +44,8 @@ Route::get('posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index'
 
 # Posts
 Route::get('/posts', 'PostsController@index');
+Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/posts/edit/{post}', 'PostsController@update');
 
 # Post types
 Route::get('/post-types', 'PostsController@postTypes');
@@ -76,14 +78,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
     Route::post('details', 'DetailsController@index');
 
-    Route::get('/user/{publisher_id}/posts', 'PostsController@userPosts');
+
     Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 
     //posts
     Route::post('/posts/create', 'PostsController@store');
+    Route::get('/posts/edit/{post_id}', 'PostsController@update');
     Route::post('/posts/delete/{post_id}', 'PostsController@destroy');
     Route::post('/posts/report', 'PostsController@reportPost');
     Route::get('/posts/search', 'PostsController@search');
+    Route::get('/user/posts', 'PostsController@userPosts');
 
     //items
     Route::post('/items/create', 'ItemsController@store');
