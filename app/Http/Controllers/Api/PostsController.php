@@ -269,7 +269,14 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        if (empty($post)) {
+            $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
+            return  $this->response();
+        }
+        $post->delete();
+        $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
+        return  $this->response();
     }
     public function search(Request $request)
     {

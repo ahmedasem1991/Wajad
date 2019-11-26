@@ -20,7 +20,7 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         $items = QueryBuilder::for(Item::class)
-            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder' ,'model','color')
+            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder', 'model', 'color')
             ->allowedFilters([
                 Filter::scope('lost'),
                 Filter::scope('found'),
@@ -33,7 +33,7 @@ class ItemsController extends Controller
                 'title', 'details',
             ])
             ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
-        
+
         return $this->jsonResponse($items);
     }
 
@@ -48,13 +48,13 @@ class ItemsController extends Controller
         $validate_request = Validator::make(request()->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'details' => ['required', 'min:20', 'max:500'],
-            'owner_id' => ['required','exists:users,id'],
-            'color_id' => ['required','exists:colors,id'],
-            'model_id' => ['required','exists:models,id'],
-            'brand_id' => ['required','exists:brands,id'],
-            
+            'owner_id' => ['required', 'exists:users,id'],
+            'color_id' => ['required', 'exists:colors,id'],
+            'model_id' => ['required', 'exists:models,id'],
+            'brand_id' => ['required', 'exists:brands,id'],
+
         ]);
-        
+
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
             return $this->response();
@@ -93,6 +93,13 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        if (empty($item)) {
+            $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
+            return  $this->response();
+        }
+        $item->delete();
+        $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
+        return  $this->response();
     }
 }

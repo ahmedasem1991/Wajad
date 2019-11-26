@@ -79,13 +79,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user/{publisher_id}/posts', 'PostsController@userPosts');
     Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 
+    //posts
     Route::post('/posts/create', 'PostsController@store');
+    Route::post('/posts/delete/{post_id}', 'PostsController@destroy');
     Route::post('/posts/report', 'PostsController@reportPost');
     Route::get('/posts/search', 'PostsController@search');
 
+    //items
     Route::post('/items/create', 'ItemsController@store');
+    Route::post('/items/delete/{item_id}', 'ItemsController@destroy');
 
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
-
 });
