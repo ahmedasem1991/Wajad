@@ -14,7 +14,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'appearance_status' => $faker->boolean(),
         'open_status' => $faker->boolean(),
         'owner_id' => null,
-        'approval_status' => 2,
+        'approval_status' => 1,
         'founder_id' => null,
         'publisher_id' => null,
         'losted_at' => null,
