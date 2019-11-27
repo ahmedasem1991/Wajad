@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dae38901ba50267c946ab4f42569d11",
+    "content-hash": "23652dff7aca059b652a7bbb47e578ea",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2461,7 +2461,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-                "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8"
+                "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07"
             },
             "require": {
                 "cakephp/chronos": "^1.0",
@@ -2920,8 +2920,8 @@
             "authors": [
                 {
                     "name": "Marian Gabriel",
-                    "role": "Developer",
-                    "email": "vladmariang@gmail.com"
+                    "email": "vladmariang@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "A Laravel Nova card for editing .env file .",
@@ -3736,34 +3736,35 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "1.4.2",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "44af6f3a2e2e04f2af46bcb302ad9600cba41c7d"
+                "reference": "1d32342b8c1eb27353c8887c366147b4c2da673c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/44af6f3a2e2e04f2af46bcb302ad9600cba41c7d",
-                "reference": "44af6f3a2e2e04f2af46bcb302ad9600cba41c7d",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/1d32342b8c1eb27353c8887c366147b4c2da673c",
+                "reference": "1d32342b8c1eb27353c8887c366147b4c2da673c",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0.0",
-                "php": "^7.1.0"
+                "php": "^7.3.0"
             },
             "require-dev": {
-                "composer/composer": "^1.6.3",
-                "doctrine/coding-standard": "^5.0.1",
+                "composer/composer": "^1.8.6",
+                "doctrine/coding-standard": "^6.0.0",
                 "ext-zip": "*",
-                "infection/infection": "^0.7.1",
-                "phpunit/phpunit": "^7.5.17"
+                "infection/infection": "^0.13.4",
+                "phpunit/phpunit": "^8.2.5",
+                "vimeo/psalm": "^3.4.9"
             },
             "type": "composer-plugin",
             "extra": {
                 "class": "PackageVersions\\Installer",
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -3782,7 +3783,7 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2019-11-15T16:17:10+00:00"
+            "time": "2019-07-17T15:49:50+00:00"
         },
         {
             "name": "opis/closure",
@@ -5788,7 +5789,7 @@
         },
         {
             "name": "smartappco/download-qrcode-image",
-            "version": "dev-2019-11-11-ABDELHAMMIED-MASTER-BRANCH",
+            "version": "dev-development",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/DownloadQrcodeImage",
@@ -5821,11 +5822,11 @@
         },
         {
             "name": "smartappco/google-maps",
-            "version": "dev-20190730-add-resources",
+            "version": "dev-development",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/GoogleMaps",
-                "reference": "bbeb3f6fbdd96c3520326442579e50b5e5864958"
+                "reference": "c3bffa2d4434d343373642a442a9226fc5791fad"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -5854,11 +5855,11 @@
         },
         {
             "name": "smartappco/qrcode-generator",
-            "version": "dev-20190730-add-resources",
+            "version": "dev-development",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/QrcodeGenerator",
-                "reference": "8a9733ae837c0404e876c27ad764c6d942650da5"
+                "reference": "844cf167bc786ad84ed3f74590b97606070792ca"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -6076,9 +6077,9 @@
             "authors": [
                 {
                     "name": "Alex Vanderbist",
-                    "role": "Developer",
                     "email": "alex@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "Easily build Eloquent queries from API requests",
@@ -6126,9 +6127,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
-                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "A magic memoization function",
@@ -8414,9 +8415,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
-                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondco.de"
+                    "homepage": "https://beyondco.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Symfony Var-Dump Server for Laravel",
@@ -8528,8 +8529,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -9183,8 +9184,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",

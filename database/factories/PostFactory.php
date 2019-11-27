@@ -14,7 +14,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'appearance_status' => $faker->boolean(),
         'open_status' => $faker->boolean(),
         'owner_id' => null,
-        'approval_status' => $faker->numberBetween(0, 2),
+        'approval_status' => 1,
         'founder_id' => null,
         'publisher_id' => null,
         'losted_at' => null,
@@ -24,7 +24,9 @@ $factory->define(Post::class, function (Faker $faker) {
         'sub_category_id' => function () {
             return factory(\App\SubCategory::class)->create()->id;
         },
-        'model_id' => 1,
-        'color_id' => 1,
+        'model_id' => function () {
+            return factory(\App\Model::class)->create()->id;
+        },
+        'color_id' => null,
     ];
 });

@@ -9,17 +9,18 @@ class PostResource extends JsonResource
 {
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'status' => Post::Status[$this->status],
+            'status' => Post::Status[$this->status] ?? '',
             'attached_to_item' => (bool) $this->item,
-            'item' => $this->when((bool) $this->item, $this->items),
+            'item' => new ItemResource($this->item),
             'subCategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
-            'color' => new ColorResource($this->color)
+            'color' => new ColorResource($this->color),
+            'date' => $this->created_at,
+            'image' => $this->images ? env('APP_URL') . "/" . $this->images->first()['image'] : "",
         ];
     }
 }

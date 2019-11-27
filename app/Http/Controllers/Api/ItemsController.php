@@ -17,24 +17,9 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $items = QueryBuilder::for(Item::class)
-            ->allowedIncludes('owner', 'category', 'images', 'questions', 'founder', 'model', 'color')
-            ->allowedFilters([
-                Filter::scope('lost'),
-                Filter::scope('found'),
-                Filter::scope('category'),
-                Filter::scope('model'),
-                Filter::scope('color'),
-                Filter::scope('owner'),
-                Filter::scope('founder'),
-                Filter::scope('item'),
-                'title', 'details',
-            ])
-            ->paginate($request->get('per_page', env('PAGINATION_PER_PAGE', 15)), '*', 'current_page');
-
-        return $this->jsonResponse($items);
+        return ItemResource::collection(Item::all());
     }
 
     /**
@@ -56,7 +41,7 @@ class ItemsController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
         return (new Item)->createItem($request);
@@ -68,9 +53,9 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($item)
     {
-        //
+        return new ItemResource($item);
     }
 
     /**

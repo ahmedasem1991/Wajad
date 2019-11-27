@@ -24,19 +24,25 @@ class SubCategoryPostController extends Controller
     {
         abort_unless(in_array($status, self::TYPES), 404);
 
-        if ($subcategory_id) {
-            return new SubCategoryPostResource(SubCategory::whereId($subcategory_id)->first());
-        }
-
-        return SubCategoryPostResource::collection(SubCategory::whereHas($status . 'posts', function ($query) {
+        $subCategory = SubCategory::whereHas($status . 'posts', function ($query) {
             return $query->isShow()->isOpen()->isApproved();
-        })->get())->additional([
-            'allCategories' => [
-                'subCategoryName' => trans('keywords.all'),
-                'subCategoryIcon' => env('APP_URL') . '/' . 'subcategories/all.png',
-                'subCategoryPostsCount' => Post::$status()->isShow()->isOpen()->isApproved()->count(),
-            ],
-            'allPosts' => PostResource::collection(Post::$status()->isShow()->isOpen()->isApproved()->get())
+        })->get();
+
+        $parentCategory = [
+            'subCategoryName' => trans('keywords.all'),
+            'subCategoryIcon' => env('APP_URL') . '/' . 'subcategories/all.png',
+            'subCategoryPostsCount' => Post::$status()->isShow()->isOpen()->isApproved()->count(),
+        ];
+
+        $posts = Post::$status()->isShow()->isOpen()->isApproved()->where(function ($query) use ($subcategory_id) {
+            if ($subcategory_id) {
+                return $query->where('sub_category_id', $subcategory_id);
+            }
+        })->get();
+
+        return SubCategoryPostResource::collection($subCategory)->additional([
+            'parentCategory' => $parentCategory,
+            'posts' => PostResource::collection($posts)
         ]);
     }
 }
