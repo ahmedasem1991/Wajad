@@ -19,8 +19,8 @@ class PostResource extends JsonResource
             'subCategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
-            'date' => $this->created_at,
-            'image' => $this->images ? env('APP_URL') . "/" . $this->images->first()['image'] : "",
+            'date' => $this->created_at->toDateTimeString(),
+            'images' =>  PostImagesResource::collection($this->images),
         ];
     }
 }

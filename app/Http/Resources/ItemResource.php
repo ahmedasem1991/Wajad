@@ -24,7 +24,7 @@ class ItemResource extends JsonResource
             'owner' => new UserResource($this->owner),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
-            'date' => $this->created_at,
+            'date' => $this->created_at->toDateTimeString(),
             'images' =>  ItemImagesResource::collection($this->images),
         ];
     }

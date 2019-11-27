@@ -14,11 +14,9 @@ class PostImagesResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'post_id' => $this->post_id,
-            'image' => $this->image,
+            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
         ];
     }
 }
