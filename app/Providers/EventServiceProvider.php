@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\AddPostEvent' => [
             'App\Listeners\AddPostListener',
         ],
+        'App\Events\SendFCMEvent' => [
+            'App\Listeners\SendFCMListener',
+            ],
     ];
 
     /**

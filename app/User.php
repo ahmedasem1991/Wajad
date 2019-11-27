@@ -177,4 +177,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->posts()->count() > $this->postLimitation->posts_limitation;
     }
+
+    public function routeNotificationForNexmo($notification)
+    {
+        return $this->mobile_number;
+    }
 }
