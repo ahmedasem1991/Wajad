@@ -104,12 +104,6 @@ class PostsController extends Controller
         return $this->jsonResponse($PostTypes);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
@@ -134,41 +128,42 @@ class PostsController extends Controller
             return $this->response();
         }
 
-        $request->merge(['publisher_id' => auth('api')->user()->id]);
-        $request->merge([
-            Post::Status[$request->status] . 'ed_at' =>
-            Carbon::now()->toDateTimeString()
-        ]);
-        if ($request->status == 0) {
-            $request->merge([
-                'owner_id' =>
-                auth('api')->user()->id
-            ]);
-        }
-        if ($request->status == 1) {
-            $request->merge([
-                'founder_id' =>
-                auth('api')->user()->id
-            ]);
-        }
-
-        $city =  City::where('name_en', 'like', '%' . $request->city . '%')
-            ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
-        if (empty($city)) {
-            $city = City::create([
-                'name_en' =>  $request->city,
-                'name_ar' =>  $request->city,
-            ]);
-        }
-        $city_id = $city->id;
-        $request->merge(['city_id' => $city_id]);
 
         if (auth('api')->user()->exceededPostLimitation()) {
             $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
             return  $this->response();
         }
 
-        $post = Post::create($request->validated());
+        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate();
+        $post = Post::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+            'reward' => $request->reward,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'sub_category_id' => $request->sub_category_id,
+            'brand_id' => $request->brand_id,
+            'model_id' => $request->model_id,
+            'color_id' => $request->color_id,
+            'item_id' => $request->item_id,
+            'city' => $request->city,
+            'city_id' => $city_id->id
+        ]);
+
+        if ($request->status == 0) {
+            $post->fill([
+                'owner_id' => auth('api')->user()->id,
+                'losted_at' => Carbon::now()->toDateTimeString()
+            ]);
+        }
+
+        if ($request->status == 1) {
+            $post->fill([
+                'founder_id' => auth('api')->user()->id,
+                'founded_at' => Carbon::now()->toDateTimeString()
+            ]);
+        }
 
         if ($request->has('images')) {
             array_map(function ($image) use ($post, $request) {
