@@ -42,7 +42,7 @@ class SubCategoryPostController extends Controller
 
         return SubCategoryPostResource::collection($subCategory)->additional([
             'parentCategory' => $parentCategory,
-            'posts' => $posts
+            'posts' => PostResource::collection($posts)
         ]);
     }
 }
