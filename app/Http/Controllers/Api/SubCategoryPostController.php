@@ -25,18 +25,23 @@ class SubCategoryPostController extends Controller
         abort_unless(in_array($status, self::TYPES), 404);
 
         if ($subcategory_id) {
-            return SubCategoryPostResource::collection(SubCategory::whereId($subcategory_id)->get());
+            $subCategory = SubCategory::whereId($subcategory_id)->get();
+            return SubCategoryPostResource::collection($subCategory)->additional([
+                'posts' => PostResource::collection(
+                    $subCategory->first()->posts()->isShow()->isOpen()->isApproved()->get()
+                )
+            ]);
         }
 
         return SubCategoryPostResource::collection(SubCategory::whereHas($status . 'posts', function ($query) {
             return $query->isShow()->isOpen()->isApproved();
         })->get())->additional([
-            'allCategories' => [
+            'parentCategory' => [
                 'subCategoryName' => trans('keywords.all'),
                 'subCategoryIcon' => env('APP_URL') . '/' . 'subcategories/all.png',
                 'subCategoryPostsCount' => Post::$status()->isShow()->isOpen()->isApproved()->count(),
             ],
-            'allPosts' => PostResource::collection(Post::$status()->isShow()->isOpen()->isApproved()->get())
+            'posts' => PostResource::collection(Post::$status()->isShow()->isOpen()->isApproved()->get())
         ]);
     }
 }
