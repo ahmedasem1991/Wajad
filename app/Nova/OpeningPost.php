@@ -114,8 +114,9 @@ class OpeningPost extends Resource
     {
         return [
             // new PostsPeriod,
-            // new ShowVsHiddenPosts,
             new OpenVsClosedPosts,
+            new ShowVsHiddenPosts,
+           
         ];
     }
 

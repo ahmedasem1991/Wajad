@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Naif\Paypal\Paypal;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class Package extends Resource
      *
      * @var string
      */
-  //  public static $group = 'Packages & Subscription';
+    public static $group = 'Packages';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -115,7 +116,21 @@ class Package extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            (new Paypal())
+      
+        //     //you can set days to retrieve transacitons
+        //     (new Paypal())->days(3)  //default last 5 days
+      
+        //     //you can specifivy how many transactions to retreive
+        //     (new Paypal())->count(5) //default is 10 transactions
+      
+        //     //you can hide PayPal logo
+        //     (new Paypal())->hideLogo(true) //default false
+      
+        //    //Example for all options
+        //    (new Paypal())->days(3)->count(5)->hideLogo(true)
+          ];
     }
 
     /**

@@ -17,7 +17,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $generate_reference_number,$assign_reference_number,$quantity,$status,$type,$user_id,$available_period,$generate_id;
+    private $generate_reference_number,$assign_reference_number,$quantity,$status,$type,$user_id,$corporate_id,$available_period,$generate_id;
     /**
      * Create a new job instance.
      *
@@ -31,6 +31,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
        $this->status=$QRcodesData['status'];
        $this->type=$QRcodesData['type'];
        $this->user_id=$QRcodesData['user_id'];
+       $this->corporate_id=$QRcodesData['corporate_id'];
        $this->available_period=$QRcodesData['available_period'];
        $this->generate_id=$QRcodesData['generate_id'];
        
@@ -62,19 +63,18 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
              'qrcode_url'=>$Url,
              'available_period'=>$this->available_period,
              'user_id'=>$this->user_id,
+             'corporate_id'=>$this->corporate_id,
             ]);
             
              
         }
 
-        // $this->generateQrcode->status='finished';
-        // $this->generateQrcode->update();
-        //  return true;
-        // $GenerateQrcode=  GenerateQrcode::find($this->id);
-        // $GenerateQrcode->status='finished';
-        // $GenerateQrcode->update();
-        // Log::info($GenerateQrcode);
-        // Log::info('info');
+       
+        
+         $GenerateQrcode=  GenerateQrcode::find($this->generate_id);
+         $GenerateQrcode->status='finished';
+         $GenerateQrcode->save();
+         
         
     }
 }

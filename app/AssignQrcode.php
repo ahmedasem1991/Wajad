@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AssignQrcode extends Model
 {
    protected $table='assign_qrcodes';
-   protected $fillable =['assign_reference_number','type','quantity','assign_to','user_id','corporate_id','available_period'];
+   protected $fillable =['assign_reference_number','type','quantity','assign_to','user_id','corporate_id','available_period','created_from'];
    const Types = [
     1 => 'Single Assign',
     2 => 'Multi Assign',

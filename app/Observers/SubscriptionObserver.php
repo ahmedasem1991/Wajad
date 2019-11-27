@@ -15,7 +15,8 @@ class SubscriptionObserver
      */
     public function saving(Subscription $subscription)
     {
-        $subscription->end_date = Carbon::instance($subscription->start_date)->addMonths($subscription->package->getOriginal('period'))->format('Y-m-d');
+    //     $subscription->end_date = Carbon::instance($subscription->start_date)->addMonths($subscription->package->getOriginal('period'))->format('Y-m-d');
+    // 
     }
 
     /**

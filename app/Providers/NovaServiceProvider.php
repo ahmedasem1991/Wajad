@@ -34,6 +34,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     protected function resources()
     {
+         
         if(Auth()->user()->isAdmin())
         {
             Nova::resourcesIn(app_path('Nova'));
@@ -98,7 +99,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         if(Auth()->user()->isCorporateAdmin())
         {
             return[
-
+                new \App\NovaCorporate\Metrics\PostsPeriod,
+                new \App\NovaCorporate\Metrics\ShowVsHiddenPosts,
+                new \App\NovaCorporate\Metrics\OpenVsClosedPosts,
+                new \App\NovaCorporate\Metrics\ApprovalPosts,
+                new \App\NovaCorporate\Metrics\QrCodes,
             ];
         }
         return [];

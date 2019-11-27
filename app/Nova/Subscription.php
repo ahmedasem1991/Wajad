@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Nova;
-
+use App\User;
+use App\Corporate;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class Subscription extends Resource
 {
@@ -16,14 +22,14 @@ class Subscription extends Resource
      * @var string
      */
     public static $model = 'App\Subscription';
-    public static $displayInNavigation = false;
+    public static $displayInNavigation = true;
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Packages & Subscription';
+    public static $group = 'Packages';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -52,13 +58,58 @@ class Subscription extends Resource
         return [
             ID::make()->sortable(),
 
-            Date::make('Start Date', 'start_date')->rules('required'),
+          //  Date::make('Start Date', 'start_date')->rules('required'),
 
-            Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
+           // Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
 
-            BelongsTo::make('User')->rules('required'),
+           Select::make('Subscriber Type', 'subscriber')->options([
+            '1' => 'User',
+            '2' => 'Corporate',
+          ])->rules('required')
+           ->displayUsingLabels(),
 
-            BelongsTo::make('Package')->rules('required')
+        NovaDependencyContainer::make([
+            Select2::make('User Name','user_id')
+            ->sortable()
+            ->hideFromDetail()
+            ->options(User::normalusers()->get()->pluck('name', 'id'))
+           // ->displayUsingLabels()
+            ->rules('required_if:subscriber,1')
+           // ->showAsLink()
+          // ->default(0)
+            ->configuration([
+                'placeholder'             => __('Choose an option'),
+                'allowClear'              => true,
+                'minimumResultsForSearch' => 1,
+                'multiple'                => false,
+            ])
+          
+        ]) ->hideFromDetail()->dependsOn('subscriber', '1'),
+        NovaDependencyContainer::make([
+            Select2::make('Corporate Name','corporate_id')
+            ->hideFromDetail()
+            ->sortable()
+            ->options(Corporate::get()->pluck('name_en','id'))
+           // ->displayUsingLabels()
+            ->rules('required_if:subscriber,2')
+           // ->readonly()
+           // ->showAsLink()
+            //->default(0)
+            ->configuration([
+                'placeholder'             => __('Choose an option'),
+                'allowClear'              => true,
+                'minimumResultsForSearch' => 1,
+                'multiple'                => false,
+            ])
+           
+        ])->hideFromDetail()->dependsOn('subscriber', '2'),
+
+            BelongsTo::make('User'),
+            BelongsTo::make('Corporate'),
+            BelongsTo::make('Package')->rules('required'),
+            DateTime::make('Created At') 
+            ->hideWhenUpdating()
+            ->hideWhenCreating()
 
         ];
     }
@@ -108,6 +159,6 @@ class Subscription extends Resource
     }
     public static function icon() 
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+    return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

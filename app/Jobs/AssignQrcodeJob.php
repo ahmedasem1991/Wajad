@@ -56,8 +56,9 @@ class AssignQrcodeJob implements ShouldQueue
             
            ]);
        }
-    //  $AssignQrcode=  AssignQrcode::find($this->id);
-    //  $AssignQrcode->status='finished';
-    //  $AssignQrcode->update();
+     $AssignQrcode=  AssignQrcode::find($this->id);
+     $AssignQrcode->status='finished';
+     $AssignQrcode->created_from='web/updated';
+     $AssignQrcode->save();
     }
 }

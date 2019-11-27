@@ -26,7 +26,7 @@ class Item extends Resource
      *
      * @var string
      */
-  //  public static $group = 'Items';
+    public static $group = 'Classes';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -138,5 +138,10 @@ class Item extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
        return $query->whereIn('owner_id',Auth()->user()->corporate->users->pluck('id'));
+    }
+
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

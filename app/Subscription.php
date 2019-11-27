@@ -9,17 +9,19 @@ class Subscription extends Model
     protected $table = 'package_user';
 
     protected $fillable = [
-        'end_date'
+        'user_id','package_id','corporate_id'
     ];
 
-    protected $casts = [
-        'start_date' => 'date', 
-        'end_date' => 'date' 
-    ];
+ 
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function corporate()
+    {
+        return $this->belongsTo(Corporate::class);
     }
 
     public function package()

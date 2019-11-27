@@ -52,6 +52,7 @@ class SeedPackagesProducts extends Command
                 'description_en' => 'Get 25 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.',
                 'description_ar' => 'أحصل علي 25 استيكر يمكنك وضعها علي المنتجات الخاصه بك وحمايتها فعال لمده عام',
                 'price' => "1500",
+                'quantity' => "1500",
                 'period' => '12'
             ],
             [
@@ -60,6 +61,7 @@ class SeedPackagesProducts extends Command
                 'description_en' => 'Get 20 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.',
                 'description_ar' => 'أحصل علي 20 استيكر يمكنك وضعها علي المنتجات الخاصه بك وحمايتها فعال لمده عام',
                 'price' => "1300",
+                'quantity' => "1500",
                 'period' => '12'
             ],
             [
@@ -68,6 +70,7 @@ class SeedPackagesProducts extends Command
                 'description_en' => 'Get 15 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.',
                 'description_ar' => 'أحصل علي 15 استيكر يمكنك وضعها علي المنتجات الخاصه بك وحمايتها فعال لمده عام',
                 'price' => "1150",
+                'quantity' => "10",
                 'period' => '12'
             ],
             [
@@ -76,6 +79,7 @@ class SeedPackagesProducts extends Command
                 'description_en' => 'Get 5 Sticker From Wajad Available for one Month',
                 'description_ar' => 'أحصل علي 5 استيكر من الوجد فعالين لمده شهر',
                 'price' => '250',
+                'quantity' => "1500",
                 'period' => '1'
             ],
             [
@@ -84,6 +88,7 @@ class SeedPackagesProducts extends Command
                 'description_en' => 'Get Necklace From Wajad Available For 6 Month',
                 'description_ar' => 'أحصل علي عقد الوجد المميز يمكنك استخدامه لمده 6 شهور',
                 'price' => '450',
+                'quantity' => "1500",
                 'period' => '6'
             ],
         ];

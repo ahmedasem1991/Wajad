@@ -110,6 +110,7 @@ class Post extends MasterModel
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
+         
     }
     /**
      * Define The Model Of The Post
@@ -209,7 +210,12 @@ class Post extends MasterModel
         return $query->where('open_status', false);
     }
 
-    public function scopeIsShow($query)
+     
+    public function scopeAppearance($query)
+    {
+        return $query->where('appearance_status', true);
+    }
+    public function scopeIsShow($query, $status=1)
     {
         return $query->where('appearance_status', true);
     }
@@ -243,6 +249,8 @@ class Post extends MasterModel
     {
         return $query->where('status', 1);
     }
+
+
 
     /**
      * Define The post type Of Post
@@ -283,13 +291,17 @@ class Post extends MasterModel
         $model_id = $request->model_id;
         $sub_category_id = null;
         if (Model::find($model_id))
+        { 
             $sub_category_id = Model::find($model_id)->brand->subcategory->id;
+            $brand_id = Model::find($model_id)->brand->id;
+        }
 
         if ($Item = Item::find($request->item_id)) {
             $Item->status = $status;
             $Item->save();
             $color_id = $Item->color_id;
             $model_id = $Item->model_id;
+            $brand_id = $Item->brand_id;
             $sub_category_id = $Item->model->brand->subcategory->id;
         }
         $appearance_status = 0;
@@ -318,6 +330,7 @@ class Post extends MasterModel
                 'longitude' => request('lng'),
                 'sub_category_id' => $sub_category_id,
                 'model_id' => $model_id,
+                'brand_id' => $brand_id,
                 'color_id' => $color_id,
             ]);
 

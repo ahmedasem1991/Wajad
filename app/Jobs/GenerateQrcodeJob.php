@@ -61,9 +61,10 @@ class GenerateQrcodeJob implements ShouldQueue
         // $this->generateQrcode->status='finished';
         // $this->generateQrcode->update();
         //  return true;
-        // $GenerateQrcode=  GenerateQrcode::find($this->id);
-        // $GenerateQrcode->status='finished';
-        // $GenerateQrcode->update();
+        $GenerateQrcode=  GenerateQrcode::find($this->id);
+        $GenerateQrcode->status='finished';
+        $GenerateQrcode->created_from='web/updated';
+        $GenerateQrcode->update();
         // Log::info($GenerateQrcode);
         // Log::info('info');
         

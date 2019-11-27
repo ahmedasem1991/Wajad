@@ -6,7 +6,7 @@ use App\User;
 use App\Region;
 use App\Package;
 use App\Settings;
-use App\PostLimitation;
+use Laravel\Nova\Nova;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,7 @@ Route::get('/test23', function () {
     return \App\Category::all()->pluck('name_en', 'id');
 });
 
+use App\PostLimitation;
 use App\Events\TestEvent;
 use Illuminate\Support\Str;
 use App\Notifications\InvoicePaid;
@@ -37,7 +38,21 @@ use Illuminate\Support\Facades\App;
 
 Auth::routes();
 
+Route::get('payment', 'PayPalController@payment')->name('payment');
+Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
+Route::get('payment/success', 'PayPalController@success')->name('payment.success');
+
+Route::get('paypal','PaymentController@payWithpaypal');
+Route::get('status','PaymentController@getPaymentStatus');
+Route::get('/test600', function(){
+    return view('welcome');
+});
+
 Route::get('/test500', function(){
+     return auth()->user()->corporate; 
+    return url('/wajad');
+   $url= Request::path();
+    return($url);
     $Post=Post::find(1);
   return  $Post->reports;
 //     if(count($user->posts) >= $user->postLimitation->posts_limitation)
@@ -73,7 +88,7 @@ Route::get('/test500', function(){
     //    ;
 
     return  'nexmo';
-});
+})->name('test500');;
 
 route::get('/bridge', function () {
     Log::info('test 2');

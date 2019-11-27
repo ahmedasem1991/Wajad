@@ -22,19 +22,24 @@ class CorporateQrcodeAssignObserver
      */
     public function saving(CorporateAssignQrcode $assignQrcode)
     {
-         
-        $now = Carbon::now();
-        
-        $pre='C-';
+        logger($assignQrcode->created_from .' test saving');
+
+        if($assignQrcode->created_from=='web')
+        { 
+         $now = Carbon::now();
+         $pre='C-';
          $assignQrcode->corporate_assign_reference_number=$pre.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second; 
          $assignQrcode->corporate_id=Auth()->User()->corporate->id;
          $assignQrcode->created_by=Auth()->User()->id;
-         
+        }
     }
     public function saved(CorporateAssignQrcode $assignQrcode)
     { 
-         
-       CorporateAssignQrcodeJob::dispatch($assignQrcode);
+        logger($assignQrcode->created_from.' test saved');
+        if($assignQrcode->created_from=='web')
+        { 
+           CorporateAssignQrcodeJob::dispatch($assignQrcode);
+        }
     }
 
     /**

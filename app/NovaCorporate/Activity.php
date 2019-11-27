@@ -27,7 +27,7 @@ class Activity extends Resource
      *
      * @var string
      */
-   // public static $group = 'Activities';
+    public static $group = 'Classes';
 
    public static function availableForNavigation(Request $request)
    {
@@ -115,5 +115,9 @@ class Activity extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->whereIn('causer_id',Auth()->user()->corporate->users()->pluck('id'));
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
     }
 }
