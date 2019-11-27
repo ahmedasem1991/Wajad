@@ -83,15 +83,10 @@ class PostsController extends Controller
         return $this->jsonResponse($array);
     }
 
-
-
     public function userPosts()
     {
-        return new  PostResource(Post::where(
-            function ($query) {
-                $query->where('publisher_id', auth('api')->user()->id);
-            }
-        )->isShow()->isOpen()->isApproved()->get());
+        return  PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
+            ->isShow()->isOpen()->isApproved()->get());
     }
 
 
@@ -134,7 +129,7 @@ class PostsController extends Controller
             return  $this->response();
         }
 
-        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate(['name_en'=> $request->city,'name_ar'=> $request->city]);
+        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,

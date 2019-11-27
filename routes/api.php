@@ -43,13 +43,18 @@ Route::get('/banners', 'BannerController');
 Route::get('/home/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
 
 # Posts
-Route::get('/posts', 'PostsController@index');
-Route::get('/posts/{id}', 'PostsController@show');
-Route::get('/posts/edit/{post}', 'PostsController@update');
-
-# Post types
-Route::get('/post-types', 'PostsController@postTypes');
-
+Route::prefix('posts')->group(function () {
+    Route::get('/', 'PostsController@index');
+    Route::get('/{post}', 'PostsController@show');
+    Route::group(['middleware' => ['auth:api']], function () {
+        Route::post('/', 'PostsController@store');
+        Route::put('/{id}', 'PostsController@update');
+        Route::delete('/{id}', 'PostsController@destroy');
+    });
+});
+Route::get('/user/posts', 'PostsController@userPosts');
+Route::post('/report/post', 'PostsController@reportPost');
+Route::get('/search/post', 'PostsController@search');
 # Items
 Route::get('/items', 'ItemsController@index');
 
@@ -82,12 +87,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 
     //posts
-    Route::post('/posts', 'PostsController@store');
-    Route::post('/posts/report', 'PostsController@reportPost');
-    Route::get('/posts/search', 'PostsController@search');
-    Route::get('/user/posts', 'PostsController@userPosts');
-    Route::put('/posts/{id}', 'PostsController@update');
-    Route::delete('/posts/{id}', 'PostsController@destroy');
 
     //items
     Route::post('/items/create', 'ItemsController@store');
