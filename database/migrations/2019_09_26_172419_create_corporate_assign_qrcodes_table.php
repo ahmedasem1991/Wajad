@@ -22,7 +22,7 @@ class CreateCorporateAssignQrcodesTable extends Migration
             $table->integer('type')->default(1);//default  (single)
             $table->integer('quantity')->default(1);
             $table->integer('created_by')->nullable();
-            $table->sting('created_from')->default('web');
+            $table->string('created_from')->default('web');
             $table->string('status')->default('waiting');//finished
             
             $table->timestamps();

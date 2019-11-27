@@ -134,7 +134,7 @@ class PostsController extends Controller
             return  $this->response();
         }
 
-        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate();
+        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate(['name_en'=> $request->city,'name_ar'=> $request->city]);
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -168,7 +168,7 @@ class PostsController extends Controller
         if ($request->has('images')) {
             array_map(function ($image) use ($post, $request) {
                 $post->images()->create([
-                    'image' =>  $request->file($image)->store('image/postsimages')
+                    'image' =>  $request->file($image)->store('images/postsimages')
                 ]);
             }, $request->images);
         }
