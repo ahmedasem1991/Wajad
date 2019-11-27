@@ -43,6 +43,13 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'nexmo' => [
+        'key' => '71186598',
+        'secret' => 'cBSh2033pReHfA1b',
+        'sms_from' => 'WAJAD',
+    ],
+
+    
 
     
 

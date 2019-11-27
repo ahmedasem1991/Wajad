@@ -224,20 +224,7 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
         }
         }
         
-
-    // /**Execute the payment **/
-    // $result = $payment->execute($execution, $this->apiContext);
-
-    // if ($result->getState() == 'approved') {
-
-    // \Session::put('success', 'Payment success');
-    // return Redirect::route('test500');
-
-    // }
-
-    // \Session::put('error', 'Payment failed');
-    // return Redirect::route('test500');
-
+ 
 
 
     }

@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('receive_emails')->default(false);
             $table->boolean('receive_push_notifications')->default(false);
             $table->string('default_distance_unit')->default('kilo');
+            $table->text('device_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
