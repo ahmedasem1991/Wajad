@@ -19,6 +19,9 @@ class ItemResource extends JsonResource
             'title' => $this->title,
             'description' => $this->details ?? '',
             'status' =>  (bool) $this->status,
+            'owner'=>new UserResource($this->owner),
+            'model'=>new ModelResource($this->model),
+            'color'=>new ColorResource($this->color)
         ];
     }
 }

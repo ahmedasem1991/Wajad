@@ -54,8 +54,17 @@ Route::prefix('posts')->group(function () {
 Route::get('/user/posts', 'PostsController@userPosts');
 Route::post('/report/post', 'PostsController@reportPost');
 Route::get('/search/post', 'PostsController@search');
+
 # Items
-Route::get('/items', 'ItemsController@index');
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::prefix('items')->group(function () {
+        Route::put('/{id}', 'ItemsController@update');
+        Route::get('/{item}', 'ItemsController@show');
+        Route::get('/', 'ItemsController@index');
+        Route::post('/', 'ItemsController@store');
+        Route::delete('/{id}', 'ItemsController@destroy');
+    });
+});
 
 # Countries
 Route::get('/countries', 'LocationsController@index');
@@ -76,20 +85,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::put('change-password', 'Auth\ChangePasswordController');
     Route::post('/changePassword', 'Auth\AuthController@changePassword');
 
-
     Route::get('/user', function (Request $request) {
         return auth('api')->user();
     });
+
     Route::post('details', 'DetailsController@index');
 
-
     Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
-
-    //posts
-
-    //items
-    Route::post('/items/create', 'ItemsController@store');
-    Route::post('/items/delete/{item_id}', 'ItemsController@destroy');
 
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');

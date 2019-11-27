@@ -18,7 +18,9 @@ class PostResource extends JsonResource
             'item' => new ItemResource($this->item),
             'subCategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
-            'color' => new ColorResource($this->color)
+            'color' => new ColorResource($this->color),
+            'date' => $this->created_at,
+            'image' => $this->images ? env('APP_URL') . "/" . $this->images->first()['image'] : "",
         ];
     }
 }
