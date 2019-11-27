@@ -29,74 +29,12 @@ class PostsController extends Controller
     private $request = [];
 
     public function index(Request $request)
-    {
-        $check = 1;
-        $array =  $Posts = QueryBuilder::for(Post::class)
-            ->IsOpen()->isApproved()->IsShow()
-            ->with('publisher')
-            ->with('owner')
-            ->with('founder')
-            ->with('item')
-            ->with('model')
-            ->with('color')
-            ->with('subcategory')
-            ->with('images')
-            ->with('postType')
-            ->allowedFilters([
-                Filter::scope('status'), //lost or found
-                Filter::scope('publisher'), //Publisher ID
-                Filter::scope('owner'), //Owner ID
-                Filter::scope('founder'), //Founder ID
-                Filter::scope('item'), //Item ID
-                Filter::scope('subcategory'), //subcategory ID
-                Filter::scope('model'), //model ID
-                Filter::scope('color'), //color ID
-                Filter::scope('postType'), //Post type ID
-                'id', 'title', 'description',
-            ])->orderby('id', 'desc')->paginate($request->get('per_page', 15));
-        $this->request['lat'] = $request->lat;
-        $this->request['lng'] = $request->lng;
-        if ($request->unit == 'm') {
-            $this->request['distance'] = $request->distance * 0.62137;
-        } else {
-            $this->request['distance'] = $request->distance;
-        }
-
-        if ($request->has('distance')) {
-            $check = 0;
-            $Posts = $Posts->filter(function ($Post) {
-                $coordinate1 = new Coordinate($Post->lat, $Post->lng);
-                $coordinate2 = new Coordinate($this->request['lat'], $this->request['lng']);
-                $calculator  = new Vincenty();
-                $Post->distance = ($calculator->getDistance($coordinate1, $coordinate2)) / 1000;
-                return $Post->distance < $this->request['distance'];
-            });
-        }
-
-
-        if ($check == 0) {
-            $array = [];
-            $array['data'] = $Posts;
-        }
-
-
-        return $this->jsonResponse($array);
-    }
+    { }
 
     public function userPosts()
     {
         return  PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
             ->isShow()->isOpen()->isApproved()->get());
-    }
-
-
-    public function postTypes(Request $request)
-    {
-
-        $PostTypes = QueryBuilder::for(PostType::class)
-            ->paginate($request->get('per_page', 15));
-
-        return $this->jsonResponse($PostTypes);
     }
 
     public function store(Request $request)
@@ -130,6 +68,7 @@ class PostsController extends Controller
         }
 
         $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
+
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -234,8 +173,13 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::findOrFail($id);
-        $validate_request = Validator::make(request()->all(), [
+        $post = Post::where('id', $id)->where('publisher_id', auth('api')->user()->id)->first();
+
+        if ($post === null) {
+            $this->addResponse(trans('posts.not_found'))->addStatusCode(400);
+            return  $this->response();
+        }
+        $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
             'status' => ['required', 'in:0,1'],
@@ -257,24 +201,6 @@ class PostsController extends Controller
             return $this->response();
         }
 
-        $request->merge(['publisher_id' => auth('api')->user()->id]);
-        $request->merge([
-            Post::Status[$request->status] . 'ed_at' =>
-            Carbon::now()->toDateTimeString()
-        ]);
-        if ($request->status == 0) {
-            $request->merge([
-                'owner_id' =>
-                auth('api')->user()->id
-            ]);
-        }
-        if ($request->status == 1) {
-            $request->merge([
-                'founder_id' =>
-                auth('api')->user()->id
-            ]);
-        }
-
         $city =  City::where('name_en', 'like', '%' . $request->city . '%')
             ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
         if (empty($city)) {
@@ -286,17 +212,12 @@ class PostsController extends Controller
         $city_id = $city->id;
         $request->merge(['city_id' => $city_id]);
 
-        if (auth('api')->user()->exceededPostLimitation()) {
-            $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
-            return  $this->response();
-        }
-
-        $post::update($request->validated());
+        $post->update($request->all());
 
         if ($request->has('images')) {
             array_map(function ($image) use ($post, $request) {
                 $post->images()->create([
-                    'image' =>  $request->file($image)->store('image/postsimages')
+                    'image' =>  $request->file($image)->store('images/postsimages')
                 ]);
             }, $request->images);
         }

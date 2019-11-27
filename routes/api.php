@@ -44,7 +44,6 @@ Route::get('/home/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@
 
 # Posts
 Route::prefix('posts')->group(function () {
-    Route::get('/', 'PostsController@index');
     Route::get('/{post}', 'PostsController@show');
     Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/', 'PostsController@store');
