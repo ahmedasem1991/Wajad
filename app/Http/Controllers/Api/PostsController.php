@@ -134,11 +134,6 @@ class PostsController extends Controller
             return $this->response();
         }
 
-        # IF POST IS FOUND
-
-        # IF POST IS LOST
-
-
         $request->merge(['publisher_id' => auth('api')->user()->id]);
         $request->merge([
             Post::Status[$request->status] . 'ed_at' =>
@@ -249,7 +244,76 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $validate_request = Validator::make(request()->all(), [
+            'title' => ['required', 'min:6', 'max:255'],
+            'description' => ['required', 'min:9', 'max:500'],
+            'status' => ['required', 'in:0,1'],
+            'reward' => ['numeric'],
+            'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'sub_category_id' => ['required', 'exists:sub_categories,id'],
+            'brand_id' => ['required', 'exists:brands,id'],
+            'model_id' => ['required', 'exists:models,id'],
+            'color_id' => ['required', 'exists:colors,id'],
+            'item_id' => ['nullable', 'exists:items,id'],
+            'city' => ['required', 'string'],
+            'images' => ['sometimes', 'max:5'],
+            'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
+        $request->merge(['publisher_id' => auth('api')->user()->id]);
+        $request->merge([
+            Post::Status[$request->status] . 'ed_at' =>
+            Carbon::now()->toDateTimeString()
+        ]);
+        if ($request->status == 0) {
+            $request->merge([
+                'owner_id' =>
+                auth('api')->user()->id
+            ]);
+        }
+        if ($request->status == 1) {
+            $request->merge([
+                'founder_id' =>
+                auth('api')->user()->id
+            ]);
+        }
+
+        $city =  City::where('name_en', 'like', '%' . $request->city . '%')
+            ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
+        if (empty($city)) {
+            $city = City::create([
+                'name_en' =>  $request->city,
+                'name_ar' =>  $request->city,
+            ]);
+        }
+        $city_id = $city->id;
+        $request->merge(['city_id' => $city_id]);
+
+        if (auth('api')->user()->exceededPostLimitation()) {
+            $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
+            return  $this->response();
+        }
+
+        $post::update($request->validated());
+
+        if ($request->has('images')) {
+            array_map(function ($image) use ($post, $request) {
+                $post->images()->create([
+                    'image' =>  $request->file($image)->store('image/postsimages')
+                ]);
+            }, $request->images);
+        }
+
+        $this->addResponse(trans('messages.successfully_updated'))->addStatusCode(200);
+
+        return $this->response();
     }
 
     /**
@@ -260,8 +324,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-        if (empty($post)) {
+        $post = Post::where('id', $id)->where('publisher_id', auth('api')->user()->id)->first();
+        if ($post === null) {
             $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
             return  $this->response();
         }
