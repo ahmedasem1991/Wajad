@@ -9,12 +9,11 @@ class PostResource extends JsonResource
 {
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'status' => Post::Status[$this->status],
+            'status' => Post::Status[$this->status] ?? '',
             'attached_to_item' => (bool) $this->item,
             'item' => $this->when((bool) $this->item, $this->items),
             'subCategory' => new SubCategoryResource($this->subcategory),

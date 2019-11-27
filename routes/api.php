@@ -40,11 +40,11 @@ Route::get('/maps/{type?}', 'MapController');
 Route::get('/banners', 'BannerController');
 
 # Subcategories And Posts
-Route::get('posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+Route::get('/home/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
 
 # Posts
 Route::get('/posts', 'PostsController@index');
-Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/posts/{id}', 'PostsController@show');
 Route::get('/posts/edit/{post}', 'PostsController@update');
 
 # Post types
@@ -82,12 +82,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 
     //posts
-    Route::post('/posts/create', 'PostsController@store');
-    Route::get('/posts/edit/{post_id}', 'PostsController@update');
-    Route::post('/posts/delete/{post_id}', 'PostsController@destroy');
+    Route::post('/posts', 'PostsController@store');
     Route::post('/posts/report', 'PostsController@reportPost');
     Route::get('/posts/search', 'PostsController@search');
     Route::get('/user/posts', 'PostsController@userPosts');
+    Route::put('/posts/{id}', 'PostsController@update');
+    Route::delete('/posts/{id}', 'PostsController@destroy');
 
     //items
     Route::post('/items/create', 'ItemsController@store');
