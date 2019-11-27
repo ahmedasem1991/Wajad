@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('/{id}', 'ItemsController@destroy');
     });
 });
+Route::get('/user/items', 'ItemsController@userItems');
 
 # Countries
 Route::get('/countries', 'LocationsController@index');

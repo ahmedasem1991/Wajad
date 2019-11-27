@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource
@@ -14,14 +15,17 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->details ?? '',
-            'status' =>  (bool) $this->status,
-            'owner'=>new UserResource($this->owner),
-            'model'=>new ModelResource($this->model),
-            'color'=>new ColorResource($this->color)
+            'details' => $this->details ?? '',
+            'status' => Post::Status[$this->status] ?? '',
+            'owner' => new UserResource($this->owner),
+            'model' => new ModelResource($this->model),
+            'color' => new ColorResource($this->color),
+            'date' => $this->created_at,
+            'images' =>  ItemImagesResource::collection($this->images),
         ];
     }
 }

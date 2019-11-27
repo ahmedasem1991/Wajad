@@ -6,6 +6,7 @@ use App\Item;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ItemResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,7 +54,7 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($item)
+    public function show(Item $item)
     {
         return new ItemResource($item);
     }
@@ -86,5 +87,9 @@ class ItemsController extends Controller
         $item->delete();
         $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
         return  $this->response();
+    }
+    public function userItems()
+    {
+        return  ItemResource::collection(auth('api')->user()->items()->get());
     }
 }

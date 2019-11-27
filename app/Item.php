@@ -105,7 +105,7 @@ class Item extends MasterModel
      */
     public function images()
     {
-        return $this->hasMany(ItemImage::class);
+        return $this->hasMany(ItemImage::class, 'item_id');
     }
 
     /**
