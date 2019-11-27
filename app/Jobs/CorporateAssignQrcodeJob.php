@@ -15,7 +15,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class CorporateAssignQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $corporate_assign_reference_number,$quantity,$type,$user_id,$corporate_id;
+    private $id,$corporate_assign_reference_number,$quantity,$type,$user_id,$corporate_id;
     /**
      * Create a new job instance.
      *
@@ -25,6 +25,7 @@ class CorporateAssignQrcodeJob implements ShouldQueue
     {
         
        $this->corporate_assign_reference_number=$assignQrcode->corporate_assign_reference_number;
+       $this->id=$assignQrcode->id;
        $this->quantity=$assignQrcode->quantity;
        $this->type=$assignQrcode->type;
        $this->user_id=$assignQrcode->user_id;
@@ -52,7 +53,8 @@ class CorporateAssignQrcodeJob implements ShouldQueue
         $Qrcode->user_id=$this->user_id;
         $Qrcode->save();
        }
-      //  $AssignQrcode=  AssignQrcode::find($this->id);
+       $AssignQrcode=  CorporateAssignQrcode::find($this->id);
+       logger($AssignQrcode);
       //  $AssignQrcode->status='finished';
       //  $AssignQrcode->created_from='web/updated';
       //  $AssignQrcode->save();

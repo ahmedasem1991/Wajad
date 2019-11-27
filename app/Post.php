@@ -207,6 +207,10 @@ class Post extends MasterModel
     {
         return $query->where('open_status', $status);
     }
+    public function scopeAppearance($query)
+    {
+        return $query->where('appearance_status', true);
+    }
     public function scopeIsShow($query, $status=1)
     {
         return $query->where('appearance_status', $status);
@@ -238,10 +242,7 @@ class Post extends MasterModel
         return $query->where('status', 1);
     }
 
-    public function scopeAppearance($query)
-    {
-        return $query->where('appearance_status', true);
-    }
+
 
     /**
      * Define The post type Of Post

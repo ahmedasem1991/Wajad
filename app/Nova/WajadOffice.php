@@ -44,7 +44,7 @@ class WajadOffice extends Resource
      *
      * @var string
      */
-   // public static $group = 'Wajad Offices';
+    public static $group = 'Classes';
 
     /**
      * Get the fields displayed by the resource.

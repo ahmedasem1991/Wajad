@@ -1,42 +1,42 @@
 <?php
 
-namespace App\Nova;
-
-use App\SubCategory;
-use App\Nova\Metrics\Items;
+namespace App\NovaCorporate;
+use App\User;
+use App\Corporate;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class Item extends Resource
+class Subscription extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Item';
+    public static $model = 'App\Subscription';
+    public static $displayInNavigation = true;
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Classes';
+    public static $group = 'Packages';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -57,34 +57,22 @@ class Item extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title')->rules([
-                'required', 'min:6'
-            ]),
-            Textarea::make('Details')->rules([
-                'required', 'min:6'
-            ]),
 
-             
-            NovaBelongsToDepend::make('Brand')
-            ->placeholder('Optional Placeholder')  
-            ->options(\App\Brand::all())
-            ->rules('required'),
+          //  Date::make('Start Date', 'start_date')->rules('required'),
 
-            NovaBelongsToDepend::make('Model', 'model') 
-            ->placeholder('Optional Placeholder')    
-            ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['id','name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-           
-            BelongsTo::make('Owner', 'owner', User::class),
-         //   ->searchable(),
-            BelongsTo::make('Color'),
-         //   ->searchable(),
-            HasMany::make('Images', 'images', ItemImage::class),
-            
-            HasOne::make('Qrcode', 'qrcode', Qrcode::class),
+           // Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
+
+        
+ 
+
+            //BelongsTo::make('User'),
+            BelongsTo::make('Corporate','corporate','App\Nova\Corporate'),
+
+            BelongsTo::make('Package')->rules('required'),
+            DateTime::make('Created At')
+            ->hideWhenUpdating()
+            ->hideWhenCreating()
+
         ];
     }
 
@@ -96,9 +84,7 @@ class Item extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            new Items()
-        ];
+        return [];
     }
 
     /**
@@ -135,7 +121,11 @@ class Item extends Resource
     }
     public static function icon() 
     {
-    return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
+    return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }
- 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query
+        ->where('corporate_id',Auth()->user()->corporate->id);
+    }
 }

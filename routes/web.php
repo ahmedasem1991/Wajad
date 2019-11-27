@@ -47,8 +47,9 @@ Route::get('status','PaymentController@getPaymentStatus');
 Route::get('/test600', function(){
     return view('welcome');
 });
+
 Route::get('/test500', function(){
-     return redirect(Nova::path().'/resources/packages'); 
+     return auth()->user()->corporate; 
     return url('/wajad');
    $url= Request::path();
     return($url);

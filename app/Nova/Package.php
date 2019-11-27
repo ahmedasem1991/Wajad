@@ -28,7 +28,7 @@ class Package extends Resource
      *
      * @var string
      */
-  //  public static $group = 'Packages & Subscription';
+    public static $group = 'Packages';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

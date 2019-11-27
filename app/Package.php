@@ -38,7 +38,7 @@ class Package extends Model
      */
     public function getPeriodAttribute($value)
     {
-        return $value . ' Month/s';
+        return $value . ' Day/s';
     }
 
     public function getPriceAttribute($value)
@@ -48,11 +48,16 @@ class Package extends Model
 
     public function subscription()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscription::class,'package_id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('starts_date');
+        return $this->belongsToMany(User::class,'user_id');
+    }
+
+    public function corporates()
+    {
+        return $this->belongsToMany(Corporate::class,'corporate_id');
     }
 }

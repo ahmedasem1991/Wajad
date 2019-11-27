@@ -15,10 +15,12 @@ class CreatePackageUserTable extends Migration
     {
         Schema::create('package_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('subscriber');
+            $table->integer('corporate_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('package_id')->unsigned();
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
+           
+            
             $table->timestamps();
         });
     }

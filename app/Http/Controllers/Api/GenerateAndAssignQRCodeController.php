@@ -61,7 +61,7 @@ class GenerateAndAssignQRCodeController extends Controller
             'user_id'=>$request->user_id,
             'corporate_id'=>NULL,
             'type'=>$Package->type,
-            'available_period'=> str_replace(" Month/s","",$Package->period),
+            'available_period'=> str_replace(" Day/s","",$Package->period),
             'quantity'=>$Package->quantity,
             'created_from'=>'mobile',
          ]);
@@ -74,7 +74,7 @@ class GenerateAndAssignQRCodeController extends Controller
             'type'=>$Package->type,
             'user_id'=>$request->user_id,
             'corporate_id'=>NULL,
-            'available_period'=>str_replace(" Month/s","",$Package->period),
+            'available_period'=>str_replace(" Day/s","",$Package->period),
          ];
 
          GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);

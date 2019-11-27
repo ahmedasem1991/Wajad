@@ -156,8 +156,7 @@ class AssignQrcode extends Resource
             RadioButton::make('Created From')
             ->options([
                 'web' => 'web',
-               
-            ])->default('web'), // optional,
+          ])->default('web'), // optional,
             HasMany::make('Qrcodes'),
 
         ];

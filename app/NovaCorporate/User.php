@@ -36,7 +36,7 @@ class User extends Resource
      *
      * @var string
      */
-   // public static $group = 'Users';
+    public static $group = 'Classes';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -160,6 +160,10 @@ class User extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->where('corporate_id',Auth()->user()->corporate_id);
+    }
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
     
 }

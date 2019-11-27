@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Package;
 use Carbon\Carbon;
 use App\AssignQrcode;
+use App\Subscription;
 use Laravel\Nova\Nova;
 use App\GenerateQrcode;
 use PayPal\Api\WebProfile;
@@ -159,6 +160,14 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
 
        
         $Package=\Session::get('Package');
+
+        
+        $Subscription=   Subscription::create([
+            'package_id'=>$Package->id,
+            'corporate_id'=> auth()->user()->corporate->id,
+            'user_id'=> Null
+        ]);
+        logger( $Subscription);
         $now = Carbon::now();
         $middle=$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute;
         $generate_reference_number='N-'.$middle.$now->second;
@@ -179,7 +188,7 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
              'user_id'=>NULL,
              'corporate_id'=>\Session::get('corporate_id'),
              'type'=>$Package->type,
-             'available_period'=> str_replace(" Month/s","",$Package->period),
+             'available_period'=> str_replace(" Day/s","",$Package->period),
              'quantity'=>$Package->quantity,
              'created_from'=>'package'
           ]);
@@ -193,7 +202,7 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
              'type'=>$Package->type,
              'user_id'=>NULL,
              'corporate_id'=>\Session::get('corporate_id'),
-             'available_period'=>str_replace(" Month/s","",$Package->period),
+             'available_period'=>str_replace(" Day/s","",$Package->period),
           ];
  
         GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
