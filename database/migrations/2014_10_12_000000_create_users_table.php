@@ -31,8 +31,8 @@ class CreateUsersTable extends Migration
             $table->char('mobile_number')->unique()->nullable();
 
             $table->boolean('receive_emails')->default(false);
-            $table->boolean('is_mobile_number_verified')->default(false);
             $table->boolean('receive_push_notifications')->default(false);
+            $table->boolean('is_mobile_number_verified')->default(false);
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

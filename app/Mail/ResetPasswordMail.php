@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $new_password;
 
     /**

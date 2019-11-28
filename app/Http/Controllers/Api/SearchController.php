@@ -13,7 +13,7 @@ class SearchController extends Controller
     {
         $keywords = $request->keywords ?? "";
 
-        $posts = Post::IsApproved()->isShow()->isOpen()
+        $posts = Post::isApproved()->isShow()->isOpen()
             ->where('title', 'like', "%$keywords%")
             ->orWhere('description', 'like', "%$keywords%")
             ->orWhereHas('item', function ($query) use ($keywords) {

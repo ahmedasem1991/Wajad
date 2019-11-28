@@ -3,23 +3,11 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
-use App\ResetPassword;
 use App\PostLimitation;
 use App\UserVerifications;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Services\SmsProvider;
-use Illuminate\Support\Carbon;
-use App\Mail\ResetPasswordMail;
-use function GuzzleHttp\Psr7\str;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Exceptions\LoginAuthException;
-use App\Mail\ResetPasswordRequestMail;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -32,11 +20,6 @@ class AuthController extends Controller
         $this->smsProvider = $smsProvider;
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login()
     {
         $validate_password = Validator::make(request()->all(), [
@@ -70,6 +53,7 @@ class AuthController extends Controller
             }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
+
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             $validate_email = Validator::make(
                 request()->all(),
@@ -92,7 +76,6 @@ class AuthController extends Controller
 
         $request['type'] = User::Types['user'];
 
-
         if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
@@ -103,15 +86,9 @@ class AuthController extends Controller
             return $this->response();
         }
 
-
         return $this->respondWithToken($token);
     }
 
-    /**
-     * Register New User
-     *
-     * @return void
-     */
     public function register()
     {
         $validate_request = Validator::make(request()->all(), [
@@ -129,53 +106,48 @@ class AuthController extends Controller
             }
             request()->merge(['mobile_number' => $mobile_number]);
         }
-        $mobile_number = request('mobile_number');
+
+        if (app()->environment('local')) {
+            $mobile_number = request('mobile_number');
+        }
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
 
-        $user_verification = UserVerifications::where('email', '=', request('email'))
-            ->where('mobile_number', '=', $mobile_number)
-            ->where('type', '=', User::Types['user'])
-            ->first();
+        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
-        if (empty($user_verification)) {
-            $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $user = User::create([
+            'name' => request('name'),
+            'password' => bcrypt(request('password')),
+            'email' => request('email'),
+            'mobile_number' => $mobile_number,
+            'verification_code' => $activation_code,
+            'type' => User::Types['user'],
+            'is_mobile_number_verified' => false,
+        ]);
 
-            $user_verification = UserVerifications::updateOrCreate([
-                'name' => request('name'),
-                'password' => bcrypt(request('password')),
-                'email' => request('email'),
-                'mobile_number' => $mobile_number,
-                'verification_code' => $activation_code,
-                'type' => User::Types['user'] // Normal User
-            ]);
+        $user->userVerification()->create([
+            'verification_code' => $activation_code
+        ]);
 
-            $message = 'Wajad, Register activation code is ' . $activation_code;
+        $message = 'Wajad, Register activation code is ' . $activation_code;
 
-            $this->smsProvider->sendMessage($message, $mobile_number);
+        $this->smsProvider->sendMessage($message, $mobile_number);
 
-            return $this->jsonResponse([
-                'data' => [
-                    "unverified_user_id" => $user_verification->id,
-                    "message" => trans('auth.verification_code_sent'),
-                ]
-            ]);
-        }
-
-        $this->addStatusCode(400);
-
-        $this->addResponse(trans('auth.user_exists'));
-
-        return $this->response();
+        return $this->jsonResponse([
+            'data' => [
+                "unverified_user_id" => $user->id,
+                "message" => trans('auth.verification_code_sent'),
+            ]
+        ]);
     }
 
     public function verifyPhone()
     {
         $validate_verify = Validator::make(request()->all(), [
-            'unverified_user_id' => ['required', 'exists:user_verifications,id'],
+            'unverified_user_id' => ['required', 'exists:users,id'],
             'code' => ['required', 'exists:user_verifications,verification_code'],
         ]);
 
@@ -196,12 +168,11 @@ class AuthController extends Controller
             $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
             return $this->response();
         }
-        $user  = User::create([
-            'name' => $user_verification->name,
-            'password' => $user_verification->password,
-            'email' => $user_verification->email,
-            'mobile_number' => $user_verification->mobile_number,
-            'type' => $user_verification->type
+
+        $user  = User::find(request('unverified_user_id'));
+
+        $user->update([
+            'is_mobile_number_verified' => true
         ]);
 
         if (!$token = auth('api')->login($user)) {
@@ -210,42 +181,12 @@ class AuthController extends Controller
         }
 
         $user->postLimitation()->save(new PostLimitation());
+
         $user_verification->delete();
+
         return $this->respondWithToken($token);
     }
 
-
-    public function resendCode()
-    {
-        $user_verification = UserVerifications::find(request('unverified_user_id'));
-
-        if (empty($user_verification)) {
-            $this->addResponse(trans('auth.notregistered'))->addStatusCode(400);
-            return $this->response();
-        } else {
-            if ($user_verification->sendCodeWithinMinute()) {
-                $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
-                return $this->response();
-            } else {
-                $user_verification->update(['attemp' => 0]);
-                $activation_code =  $user_verification->activation_code;
-                $mobile_number =  $user_verification->mobile_number;
-                $message = 'Wajad, Register activation code is ' . $activation_code;
-                $this->smsProvider->sendMessage($message, $mobile_number);
-                return $this->jsonResponse([
-                    'data' => [
-                        "unverified_user_id" => $user_verification->id,
-                        "message" => trans('auth.verification_code_sent'),
-                    ]
-                ]);
-            }
-        }
-    }
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function logout()
     {
         auth('api')->logout();
@@ -253,23 +194,11 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function refresh()
     {
         return $this->respondWithToken(auth('api')->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     protected function respondWithToken($token)
     {
         return response()->json([
@@ -279,6 +208,7 @@ class AuthController extends Controller
             'user' => new UserResource(auth('api')->user())
         ]);
     }
+
     public function resetPassword()
     {
         $new_password = env('STATIC_NEW_PASSWORD', str::upper(str::random(6)));
@@ -349,7 +279,6 @@ class AuthController extends Controller
         }
     }
 
-<<<<<<< HEAD
     public function changePassword()
     {
         if (request('new_password') != request('confirm_password')) {
@@ -432,6 +361,5 @@ class AuthController extends Controller
         }
         $this->addResponse(trans('messages.unexpected_error'))->addStatusCode(400);
         return $this->response();
-
     }
 }
