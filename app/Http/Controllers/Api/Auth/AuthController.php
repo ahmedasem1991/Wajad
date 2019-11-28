@@ -167,7 +167,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function verify()
+    public function verifyPhone()
     {
         $validate_verify = Validator::make(request()->all(), [
             'unverified_user_id' => ['required', 'exists:user_verifications,id'],
@@ -342,61 +342,7 @@ class AuthController extends Controller
             }
         }
     }
-
-
-
-    public function validatePhoneOrMail($user)
-    {
-        if (is_numeric($user)) {
-            $validate_mobile_number = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
-                ['user.exists' => trans('auth.failed')]
-            );
-
-            if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
-                return $this->response();
-            }
-
-            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                request()->merge(['user' => '00966' . request('user')]);
-            }
-
-            $request = ['mobile_number' => request('user'), 'password' => request('password')];
-        }
-
-        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
-            $validate_email = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'email', 'exists:users,email']],
-                ['user.exists' => trans('auth.failed')]
-            );
-
-            if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
-                return $this->response();
-            }
-
-            $request = ['email' => request('user'), 'password' => request('password')];
-        }
-        return $request;
-    }
-
-    public function upperCase($str)
-    {
-        $chars  = str_split($str);
-        $result = '';
-        for ($i = 0; $i < count($chars); $i++) {
-            $ch = ord($chars[$i]);
-            if ($chars[$i] >= 'a' && $chars[$i] <= 'z')
-                $result .= chr($ch - 32);
-            else
-                $result .= $chars[$i];
-        }
-        return $result;
-    }
-
+ 
     public function changePassword()
     {
         if (request('new_password') != request('confirm_password')) {

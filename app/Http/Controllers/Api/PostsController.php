@@ -2,41 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use DB;
-use App;
-use Log;
 use App\City;
-use App\Item;
 use App\Post;
-use App\User;
-use App\PostType;
-use App\PostImage;
 use Carbon\Carbon;
 use App\PostReport;
-use Location\Coordinate;
 use Illuminate\Http\Request;
-use Location\Distance\Vincenty;
-
-use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SearchPostResource;
 
 class PostsController extends Controller
-{
-    private $request = [];
-
-    public function index(Request $request)
-    { }
-
-    public function userPosts()
-    {
-        return  PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
-            ->isShow()->isOpen()->isApproved()->get());
-    }
-
+{ 
     public function store(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
@@ -244,6 +221,7 @@ class PostsController extends Controller
         $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
         return  $this->response();
     }
+    
     public function search(Request $request)
     {
         $posts = Post::isShow()->isApproved();
