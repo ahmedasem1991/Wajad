@@ -157,14 +157,20 @@ class AuthController extends Controller
             $message = 'Wajad, Register activation code is ' . $activation_code;
 
             $this->smsProvider->sendMessage($message, $mobile_number);
+
+            return $this->jsonResponse([
+                'data' => [
+                    "unverified_user_id" => $user_verification->id,
+                    "message" => trans('auth.verification_code_sent'),
+                ]
+            ]);
         }
 
-        return $this->jsonResponse([
-            'data' => [
-                "unverified_user_id" => $user_verification->id,
-                "message" => trans('auth.verification_code_sent'),
-            ]
-        ]);
+        $this->addStatusCode(400);
+
+        $this->addResponse(trans('auth.user_exists'));
+
+        return $this->response();
     }
 
     public function verify()
@@ -180,6 +186,7 @@ class AuthController extends Controller
         }
 
         $user_verification = UserVerifications::find(request('unverified_user_id'));
+
         if ($user_verification->attemp > 3) {
             $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
             return $this->response();
@@ -343,8 +350,6 @@ class AuthController extends Controller
         }
     }
 
-
-
     public function validatePhoneOrMail($user)
     {
         if (is_numeric($user)) {
@@ -381,50 +386,5 @@ class AuthController extends Controller
             $request = ['email' => request('user'), 'password' => request('password')];
         }
         return $request;
-    }
-
-    public function upperCase($str)
-    {
-        $chars  = str_split($str);
-        $result = '';
-        for ($i = 0; $i < count($chars); $i++) {
-            $ch = ord($chars[$i]);
-            if ($chars[$i] >= 'a' && $chars[$i] <= 'z')
-                $result .= chr($ch - 32);
-            else
-                $result .= $chars[$i];
-        }
-        return $result;
-    }
-
-    public function changePassword()
-    {
-        if (request('new_password') != request('confirm_password')) {
-            $this->addResponse(trans('auth.password_not_match'))->addStatusCode(400);
-            return $this->response();
-        }
-
-        $validate_request = Validator::make(request()->all(), [
-            'old_password' => ['required', 'min:6', 'max:255'],
-            'new_password' => ['required', 'min:6', 'max:255'],
-            'confirm_password' => ['required', 'min:6', 'max:255'],
-        ]);
-
-        if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-            return $this->response();
-        }
-
-        if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
-            $this->addResponse(trans('passwords.invalid'))->addStatusCode(401);
-            return $this->response();
-        }
-
-        auth('api')->user()->update([
-            'password' => bcrypt(request('new_password'))
-        ]);
-
-        $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
-        return $this->response();
     }
 }

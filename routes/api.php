@@ -87,8 +87,9 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 // Route::get('/pages/{page?}', 'PageController');
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::put('change-password', 'Auth\ChangePasswordController');
-    Route::post('/changePassword', 'Auth\AuthController@changePassword');
+    Route::post('/changePassword', 'Auth\ChangePasswordController');
+
+
 
     Route::get('/user', function (Request $request) {
         return auth('api')->user();
