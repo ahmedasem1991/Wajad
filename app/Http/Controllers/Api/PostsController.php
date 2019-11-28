@@ -37,7 +37,7 @@ class PostsController extends Controller
             'city' => ['required', 'string'],
             'images' => ['sometimes', 'max:5'],
             'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
-            'questions' => ['sometimes',  'max:3'],
+            'questions' => ['sometimes',  'array', 'size:3'],
             'questions.*' => ['required', 'min:9', 'max:500'],
         ]);
 
@@ -74,6 +74,7 @@ class PostsController extends Controller
                 'owner_id' => auth('api')->user()->id,
                 'losted_at' => Carbon::now()->toDateTimeString()
             ]);
+            // $post->save();
         }
 
         if ($type == "found") {
@@ -82,6 +83,7 @@ class PostsController extends Controller
                 'founder_id' => auth('api')->user()->id,
                 'founded_at' => Carbon::now()->toDateTimeString(),
             ]);
+            // $post->save();
             array_map(function ($question) use ($post) {
                 Question::create([
                     'founder_id' => auth('api')->user()->id,
