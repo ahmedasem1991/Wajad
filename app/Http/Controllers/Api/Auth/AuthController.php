@@ -8,6 +8,7 @@ use App\UserVerifications;
 use App\Services\SmsProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -192,20 +193,6 @@ class AuthController extends Controller
         ]);
 
         $this->addResponse(trans('user.updated'))->addStatusCode(201);
-
-        return $this->response();
-    }
-
-    public function sendEmailVerification(Request $request)
-    {
-        if ($request->user()->hasVerifiedEmail()) {
-            $this->addResponse(trans('email.verified'))->addStatusCode(422);
-            return $this->response();
-        }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        $this->addResponse(trans('email.sent'))->addStatusCode(201);
 
         return $this->response();
     }
