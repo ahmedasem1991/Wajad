@@ -74,7 +74,7 @@ class PostsController extends Controller
                 'owner_id' => auth('api')->user()->id,
                 'losted_at' => Carbon::now()->toDateTimeString()
             ]);
-            // $post->save();
+            $post->save();
         }
 
         if ($type == "found") {
@@ -83,7 +83,7 @@ class PostsController extends Controller
                 'founder_id' => auth('api')->user()->id,
                 'founded_at' => Carbon::now()->toDateTimeString(),
             ]);
-            // $post->save();
+            $post->save();
             array_map(function ($question) use ($post) {
                 Question::create([
                     'founder_id' => auth('api')->user()->id,
@@ -93,13 +93,13 @@ class PostsController extends Controller
             }, $request->questions);
         }
 
-        // if ($request->has('images')) {
-        //     array_map(function ($image) use ($post, $request) {
-        //         $post->images()->create([
-        //             'image' =>  $request->file($image)->store('images/postsimages')
-        //         ]);
-        //     }, $request->images);
-        // }
+        if ($request->has('images')) {
+            array_map(function ($image) use ($post, $request) {
+                $post->images()->create([
+                    'image' =>  $image->store('images/postsimages')
+                ]);
+            }, $request->images);
+        }
 
         $this->addResponse(trans('messages.successfully_created'))->addStatusCode(201);
 
