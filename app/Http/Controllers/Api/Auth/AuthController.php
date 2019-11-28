@@ -128,9 +128,8 @@ class AuthController extends Controller
                 $mobile_number = '00966' . request('mobile_number');
             }
             request()->merge(['mobile_number' => $mobile_number]);
-        } else {
-            $mobile_number = request('mobile_number');
         }
+        $mobile_number = request('mobile_number');
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
@@ -342,7 +341,7 @@ class AuthController extends Controller
             }
         }
     }
- 
+
     public function changePassword()
     {
         if (request('new_password') != request('confirm_password')) {
@@ -371,6 +370,59 @@ class AuthController extends Controller
         ]);
 
         $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
+        return $this->response();
+    }
+    public function verifyMail()
+    { }
+    public function changePhone()
+    {
+        $validate_request = Validator::make(request()->all(), [
+            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
+        ]);
+
+        if ($validate_request->fails()) {
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
+        if (app()->environment('production')) {
+            if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
+                $mobile_number = request('mobile_number');
+            }
+            if (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+                $mobile_number = '00966' . request('mobile_number');
+            }
+            request()->merge(['mobile_number' => $mobile_number]);
+        }
+        $mobile_number = request('mobile_number');
+        $user_verification = UserVerifications::where('email', '=', auth('api')->user()->email)
+            ->where('mobile_number', '=', $mobile_number)
+            ->where('type', '=', User::Types['user'])
+            ->first();
+
+        if (empty($user_verification)) {
+            $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+
+            $user_verification = UserVerifications::updateOrCreate([
+                'name' => uth('api')->user()->name,
+                'password' => uth('api')->user()->password,
+                'email' => uth('api')->user()->email,
+                'mobile_number' => $mobile_number,
+                'verification_code' => $activation_code,
+                'type' => User::Types['user'] // Normal User
+            ]);
+
+            $message = 'Wajad, Register activation code is ' . $activation_code;
+
+            $this->smsProvider->sendMessage($message, $mobile_number);
+            return $this->jsonResponse([
+                'data' => [
+                    "unverified_user_id" => $user_verification->id,
+                    "message" => trans('auth.verification_code_sent'),
+                ]
+            ]);
+        }
+        $this->addResponse(trans('messages.unexpected_error'))->addStatusCode(400);
         return $this->response();
     }
 }
