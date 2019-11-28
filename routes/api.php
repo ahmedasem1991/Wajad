@@ -4,6 +4,7 @@
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
 Route::post('/refresh-token', 'Auth\AuthController@refresh');
+
 Route::post('/verify', 'Auth\AuthController@verify');
 Route::post('/resendCode', 'Auth\ResendCodeController');
 Route::post('/resetPassword', 'Auth\ResetPasswordController');
@@ -46,12 +47,12 @@ Route::prefix('home')->group(function () {
 Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
     Route::group(['middleware' => ['auth:api']], function () {
-        Route::post('/', 'PostsController@store');
+        Route::post('/add/{type}', 'PostsController@store');
         Route::put('/{id}', 'PostsController@update');
         Route::delete('/{id}', 'PostsController@destroy');
     });
 });
-Route::get('/user/posts', 'PostsController@userPosts');
+Route::get('/user/posts', 'UserController@userPosts');
 Route::post('/report/post', 'PostsController@reportPost');
 
 Route::group(['prefix' => 'search'], function () {
@@ -87,6 +88,7 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 // Route::get('/pages/{page?}', 'PageController');
 
 Route::group(['middleware' => ['auth:api']], function () {
+
     Route::post('/changePassword', 'Auth\ChangePasswordController');
     Route::post('/changePhone', 'Auth\ChangePhoneNumberController');
 

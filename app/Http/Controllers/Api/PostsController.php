@@ -2,47 +2,30 @@
 
 namespace App\Http\Controllers\Api;
 
-use DB;
-use App;
-use Log;
 use App\City;
-use App\Item;
 use App\Post;
-use App\User;
-use App\PostType;
-use App\PostImage;
 use Carbon\Carbon;
 use App\PostReport;
-use Location\Coordinate;
 use Illuminate\Http\Request;
-use Location\Distance\Vincenty;
-
-use Spatie\QueryBuilder\Filter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SearchPostResource;
+use App\Question;
 
 class PostsController extends Controller
 {
-    private $request = [];
-
-    public function index(Request $request)
-    { }
-
-    public function userPosts()
+    const TYPES = [
+        'lost' => 0,
+        'found' => 1
+    ];
+    public function store(Request $request, $type = null)
     {
-        return  PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
-            ->isShow()->isOpen()->isApproved()->get());
-    }
+        abort_unless(in_array($type, self::TYPES), 404);
 
-    public function store(Request $request)
-    {
         $validate_request = Validator::make(request()->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
-            'status' => ['required', 'in:0,1'],
             'reward' => ['numeric'],
             'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
@@ -54,13 +37,14 @@ class PostsController extends Controller
             'city' => ['required', 'string'],
             'images' => ['sometimes', 'max:5'],
             'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
+            'questions' => ['sometimes',  'max:3'],
+            'questions.*' => ['required', 'min:9', 'max:500'],
         ]);
 
         if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
-
 
         if (auth('api')->user()->exceededPostLimitation()) {
             $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
@@ -72,7 +56,6 @@ class PostsController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
-            'status' => $request->status,
             'reward' => $request->reward,
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
@@ -85,27 +68,36 @@ class PostsController extends Controller
             'city_id' => $city_id->id
         ]);
 
-        if ($request->status == 0) {
+        if ($type == "lost") {
             $post->fill([
+                'status' => self::TYPES[$type],
                 'owner_id' => auth('api')->user()->id,
                 'losted_at' => Carbon::now()->toDateTimeString()
             ]);
         }
 
-        if ($request->status == 1) {
+        if ($type == "found") {
             $post->fill([
+                'status' => self::TYPES[$type],
                 'founder_id' => auth('api')->user()->id,
-                'founded_at' => Carbon::now()->toDateTimeString()
+                'founded_at' => Carbon::now()->toDateTimeString(),
             ]);
+            array_map(function ($question) use ($post) {
+                Question::create([
+                    'founder_id' => auth('api')->user()->id,
+                    'post_id' => $post->id,
+                    'question' => $question,
+                ]);
+            }, $request->questions);
         }
 
-        if ($request->has('images')) {
-            array_map(function ($image) use ($post, $request) {
-                $post->images()->create([
-                    'image' =>  $request->file($image)->store('images/postsimages')
-                ]);
-            }, $request->images);
-        }
+        // if ($request->has('images')) {
+        //     array_map(function ($image) use ($post, $request) {
+        //         $post->images()->create([
+        //             'image' =>  $request->file($image)->store('images/postsimages')
+        //         ]);
+        //     }, $request->images);
+        // }
 
         $this->addResponse(trans('messages.successfully_created'))->addStatusCode(201);
 
@@ -244,6 +236,7 @@ class PostsController extends Controller
         $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
         return  $this->response();
     }
+
     public function search(Request $request)
     {
         $posts = Post::isShow()->isApproved();

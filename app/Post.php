@@ -110,7 +110,6 @@ class Post extends MasterModel
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
-
     }
     /**
      * Define The Model Of The Post
@@ -215,7 +214,7 @@ class Post extends MasterModel
     {
         return $query->where('appearance_status', true);
     }
-    public function scopeIsShow($query, $status=1)
+    public function scopeIsShow($query, $status = 1)
     {
         return $query->where('appearance_status', true);
     }
@@ -262,104 +261,8 @@ class Post extends MasterModel
         return $query->where('post_type_id', $post_type_id);
     }
 
-
-
-    /**
-     * Store a newly post  in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function createPost(Request $request)
+    public function questions()
     {
-
-        if ($request->status == 'lost') {
-            $status = 0;
-            $losted_at = Carbon::now()->toDateTimeString();
-            $founded_at = Null;
-            $owner_id = $request->publisher_id;
-            $founder_id = NULL;
-        } else {
-            $status = 1;
-            $losted_at = NULL;
-            $founded_at = Carbon::now()->toDateTimeString();
-            $owner_id = NULL;
-            $founder_id = $request->publisher_id;
-        }
-        $color_id = $request->color_id;
-        $model_id = $request->model_id;
-        $sub_category_id = null;
-        if (Model::find($model_id))
-        {
-            $sub_category_id = Model::find($model_id)->brand->subcategory->id;
-            $brand_id = Model::find($model_id)->brand->id;
-        }
-
-        if ($Item = Item::find($request->item_id)) {
-            $Item->status = $status;
-            $Item->save();
-            $color_id = $Item->color_id;
-            $model_id = $Item->model_id;
-            $brand_id = $Item->brand_id;
-            $sub_category_id = $Item->model->brand->subcategory->id;
-        }
-        $appearance_status = 0;
-        $approval_status = 0;
-        $open_status = 0;
-        if (User::find($request->publisher_id)->corporate) {
-            $appearance_status = 1;
-            $approval_status = 1;
-            $open_status = 1;
-        }
-        try {
-            $post = Post::create([
-                'title' => request('title'),
-                'description' => request('description'),
-                'publisher_id' => request('publisher_id'),
-                'appearance_status' => $appearance_status,
-                'approval_status' => $approval_status,
-                'open_status' => $open_status,
-                'owner_id' => $owner_id,
-                'founder_id' => $founder_id,
-                'item_id' => request('item_id'),
-                'status' => $status,
-                'losted_at' => $losted_at,
-                'founded_at' => $founded_at,
-                'latitude' => request('lat'),
-                'longitude' => request('lng'),
-                'sub_category_id' => $sub_category_id,
-                'model_id' => $model_id,
-                'brand_id' => $brand_id,
-                'color_id' => $color_id,
-            ]);
-
-            if ($post) {
-                foreach ($request->images as $image) {
-                    $file_name =  time() . str_random(10) . '.' . 'png';
-                    @list($type, $image) = explode(';', $image);
-                    @list(, $image) = explode(',', $image);
-                    if ($image != "") {
-                        \File::put('images/postsimages/' . $file_name, base64_decode($image));
-                    }
-                    $image = PostImage::create([
-                        'post_id' => $post->id,
-                        'image' =>  'images/postsimages/' . $file_name
-                    ]);
-                }
-            } else {
-                $this->addResponse($this->unexpected_error)->addStatusCode(409);
-                Log::ERROR($this->response());
-                return $this->response();
-            }
-
-            $this->addResponse(trans('messages.successfully_created'))->addStatusCode(201);
-            Log::INFO($this->response());
-            return $this->response();
-        } catch (Exception $e) {
-            $this->addResponse($e->getMessage)->addStatusCode(409);
-            Log::ERROR($this->response());
-            return $this->response();
-        }
+        return $this->hasMany(Question::class);
     }
 }
