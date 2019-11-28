@@ -132,6 +132,8 @@ class AuthController extends Controller
             'verification_code' => $activation_code
         ]);
 
+        $user->postLimitation()->save(new PostLimitation());
+
         $message = 'Wajad, Register activation code is ' . $activation_code;
 
         $this->smsProvider->sendMessage($message, $mobile_number);
@@ -179,8 +181,6 @@ class AuthController extends Controller
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
         }
-
-        $user->postLimitation()->save(new PostLimitation());
 
         $user_verification->delete();
 
