@@ -110,7 +110,7 @@ class Post extends MasterModel
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
-         
+
     }
     /**
      * Define The Model Of The Post
@@ -210,7 +210,7 @@ class Post extends MasterModel
         return $query->where('open_status', false);
     }
 
-     
+
     public function scopeAppearance($query)
     {
         return $query->where('appearance_status', true);
@@ -291,7 +291,7 @@ class Post extends MasterModel
         $model_id = $request->model_id;
         $sub_category_id = null;
         if (Model::find($model_id))
-        { 
+        {
             $sub_category_id = Model::find($model_id)->brand->subcategory->id;
             $brand_id = Model::find($model_id)->brand->id;
         }

@@ -36,11 +36,11 @@ Route::get('/offices', 'OfficeController@index');
 # Maps
 Route::get('/maps/{type?}', 'MapController');
 
-# Banners
-Route::get('/banners', 'BannerController');
-
-# Subcategories And Posts
-Route::get('/home/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+# Home Page
+Route::prefix('home')->group(function () {
+    Route::get('/banners', 'BannerController');
+    Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+});
 
 # Posts
 Route::prefix('posts')->group(function () {
@@ -53,7 +53,11 @@ Route::prefix('posts')->group(function () {
 });
 Route::get('/user/posts', 'UserController@userPosts');
 Route::post('/report/post', 'PostsController@reportPost');
-Route::get('/search/post', 'PostsController@search');
+
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/post', 'PostsController@search');
+    Route::get('/keywords', 'SearchController@searchByKeyWords');
+});
 
 # Items
 Route::group(['middleware' => ['auth:api']], function () {

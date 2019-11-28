@@ -19,7 +19,7 @@ class SearchPostResource extends JsonResource
             'founded_at' =>  $this->founded_at ?? "",
             'latitude' =>  $this->latitude ?? 0,
             'longitude' =>  $this->longitude ?? 0,
-            'image' => env('APP_URL') . "/" . $this->images->first()->image ?? "",
+            'image' => env('APP_URL') . "/" . $this->images->first()['image'] ?? "",
         ];
     }
 }
