@@ -427,4 +427,29 @@ class AuthController extends Controller
         $this->addResponse(trans('passwords.updated'))->addStatusCode(200);
         return $this->response();
     }
+
+    public function updateUser(Request $request)
+    {
+        $user = auth('api')->user();
+        $validate_request = Validator::make($request->all(), [
+            'name' => ['required', 'min:6', 'max:255'],
+            'receive_emails' => ['boolean'],
+            'receive_push_notifications' => ['boolean'],
+            'default_distance_unit' => ['string']
+        ]);
+
+        if ($validate_request->fails()){
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'receive_emails' => $request->receive_emails,
+            'receive_push_notifications' => $request->receive_push_notifications,
+            'default_distance_unit' => $request->default_distance_unit,
+        ]);
+        $this->addResponse(trans('user.updated'))->addStatusCode(201);
+        return $this->response();
+    }
 }
