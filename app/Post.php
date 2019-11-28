@@ -263,6 +263,6 @@ class Post extends MasterModel
 
     public function questions()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class, 'post_id');
     }
 }

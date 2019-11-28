@@ -35,7 +35,7 @@ class PostsController extends Controller
             'color_id' => ['required', 'exists:colors,id'],
             'item_id' => ['nullable', 'exists:items,id'],
             'city' => ['required', 'string'],
-            'images' => ['sometimes', 'max:5'],
+            'images' => ['sometimes', 'array', 'size:5'],
             'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
             'questions' => ['sometimes',  'array', 'size:3'],
             'questions.*' => ['required', 'min:9', 'max:500'],
@@ -85,9 +85,8 @@ class PostsController extends Controller
             ]);
             $post->save();
             array_map(function ($question) use ($post) {
-                Question::create([
+                $post->questions()->create([
                     'founder_id' => auth('api')->user()->id,
-                    'post_id' => $post->id,
                     'question' => $question,
                 ]);
             }, $request->questions);
