@@ -46,7 +46,7 @@ Route::prefix('home')->group(function () {
 Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
     Route::group(['middleware' => ['auth:api']], function () {
-        Route::post('/', 'PostsController@store');
+        Route::post('/add/{type}', 'PostsController@store');
         Route::put('/{id}', 'PostsController@update');
         Route::delete('/{id}', 'PostsController@destroy');
     });
