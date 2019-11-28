@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use Illuminate\Http\Request;
+
 use App\Services\SmsProvider;
 use App\Mail\ResetPasswordMail;
 use App\Http\Controllers\Controller;
