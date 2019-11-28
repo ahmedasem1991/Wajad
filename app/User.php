@@ -187,4 +187,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(UserVerifications::class, 'user_id');
     }
+
+    public function isEmailVerified()
+    {
+        return (bool) $this->email_verified_at;
+    }
 }

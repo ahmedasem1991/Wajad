@@ -3,23 +3,11 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
-use App\ResetPassword;
 use App\PostLimitation;
 use App\UserVerifications;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Services\SmsProvider;
-use Illuminate\Support\Carbon;
-use App\Mail\ResetPasswordMail;
-use function GuzzleHttp\Psr7\str;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Exceptions\LoginAuthException;
-use App\Mail\ResetPasswordRequestMail;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -199,42 +187,6 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function resendCode()
-    {
-        $validate_resend_code = Validator::make(request()->all(), [
-            'unverified_user_id' => ['required', 'exists:users,id'],
-        ]);
-
-        if ($validate_resend_code->fails()) {
-            $this->addMultibleResponse($validate_resend_code->errors())->addStatusCode(400);
-            return $this->response();
-        }
-
-        $user_verification = UserVerifications::find(request('unverified_user_id'));
-
-        if ($user_verification->sendCodeWithinMinute()) {
-            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
-            return $this->response();
-        }
-
-        $user_verification->update(['attemp' => 0]);
-
-        $activation_code =  $user_verification->activation_code;
-
-        $mobile_number =  $user_verification->mobile_number;
-
-        $message = 'Wajad, Register activation code is ' . $activation_code;
-
-        $this->smsProvider->sendMessage($message, $mobile_number);
-
-        return $this->jsonResponse([
-            'data' => [
-                "unverified_user_id" => $user_verification->id,
-                "message" => trans('auth.verification_code_sent'),
-            ]
-        ]);
-    }
-
     public function logout()
     {
         auth('api')->logout();
@@ -255,112 +207,5 @@ class AuthController extends Controller
             'expires_in' => config('jwt.ttl') * 60,
             'user' => new UserResource(auth('api')->user())
         ]);
-    }
-    public function resetPassword()
-    {
-        $new_password = env('STATIC_NEW_PASSWORD', str::upper(str::random(6)));
-        if (is_numeric(request('user'))) {
-            $validate_mobile_number = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
-                ['user.exists' => trans('auth.notvalid')]
-            );
-
-            if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
-                return $this->response();
-            }
-
-            if (app()->environment('production')) {
-                if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                    request()->merge(['user' => '00966' . request('user')]);
-                }
-            }
-
-            $message =    trans('auth.new_password') . $new_password;
-            $this->smsProvider->sendMessage($message, request('user'));
-
-            $user = User::where('mobile_number', '=', request('user'))
-                ->where('type', '=', User::Types['user'])
-                ->first();
-
-            $user->update([
-                'password' => bcrypt($new_password),
-            ]);
-
-            Mail::to($user->email)->send(new ResetPasswordRequestMail());
-            $this->addResponse(trans('auth.new_password_sent_to_phone'))->addStatusCode(200);
-            return $this->response();
-        }
-
-        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
-            $validate_email = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'email', 'exists:users,email']],
-                ['user.exists' => trans('auth.notvalid')]
-            );
-
-            if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(400);
-                return $this->response();
-            }
-
-            $user = User::where('email', '=', request('user'))
-                ->where('type', '=', User::Types['user'])
-                ->first();
-
-            if (($user->email_verified_at) == "NULL") {
-                $this->addResponse(trans('auth.mail_not_verified'))->addStatusCode(400);
-                return $this->response();
-            } else {
-                ResetPassword::create([
-                    'user_id' => $user->id,
-                ]);
-                $user->update([
-                    'password' => bcrypt($new_password),
-                ]);
-                Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
-                $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
-                return $this->response();
-            }
-        }
-    }
-
-    public function validatePhoneOrMail($user)
-    {
-        if (is_numeric($user)) {
-            $validate_mobile_number = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
-                ['user.exists' => trans('auth.failed')]
-            );
-
-            if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(401);
-                return $this->response();
-            }
-
-            if (!preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                request()->merge(['user' => '00966' . request('user')]);
-            }
-
-            $request = ['mobile_number' => request('user'), 'password' => request('password')];
-        }
-
-        if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
-            $validate_email = Validator::make(
-                request()->all(),
-                ['user' => ['required', 'email', 'exists:users,email']],
-                ['user.exists' => trans('auth.failed')]
-            );
-
-            if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(401);
-                return $this->response();
-            }
-
-            $request = ['email' => request('user'), 'password' => request('password')];
-        }
-        return $request;
     }
 }
