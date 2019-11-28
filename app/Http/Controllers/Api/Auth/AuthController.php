@@ -156,14 +156,20 @@ class AuthController extends Controller
             $message = 'Wajad, Register activation code is ' . $activation_code;
 
             $this->smsProvider->sendMessage($message, $mobile_number);
+
+            return $this->jsonResponse([
+                'data' => [
+                    "unverified_user_id" => $user_verification->id,
+                    "message" => trans('auth.verification_code_sent'),
+                ]
+            ]);
         }
 
-        return $this->jsonResponse([
-            'data' => [
-                "unverified_user_id" => $user_verification->id,
-                "message" => trans('auth.verification_code_sent'),
-            ]
-        ]);
+        $this->addStatusCode(400);
+
+        $this->addResponse(trans('auth.user_exists'));
+
+        return $this->response();
     }
 
     public function verifyPhone()
@@ -179,6 +185,7 @@ class AuthController extends Controller
         }
 
         $user_verification = UserVerifications::find(request('unverified_user_id'));
+
         if ($user_verification->attemp > 3) {
             $this->addResponse(trans('auth.verification_code_exceeded'))->addStatusCode(400);
             return $this->response();
@@ -342,6 +349,7 @@ class AuthController extends Controller
         }
     }
 
+<<<<<<< HEAD
     public function changePassword()
     {
         if (request('new_password') != request('confirm_password')) {
@@ -424,5 +432,6 @@ class AuthController extends Controller
         }
         $this->addResponse(trans('messages.unexpected_error'))->addStatusCode(400);
         return $this->response();
+
     }
 }

@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ChangePasswordController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke()
     {
         $validate_request = Validator::make(request()->all(), [
@@ -28,7 +22,7 @@ class ChangePasswordController extends Controller
         }
 
         if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
-            $this->addResponse(trans('passwords.invalid'))->addStatusCode(401);
+            $this->addResponse(trans('passwords.invalid'))->addStatusCode(400);
             return $this->response();
         }
 
