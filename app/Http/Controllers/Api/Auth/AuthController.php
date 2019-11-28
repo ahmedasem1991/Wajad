@@ -32,11 +32,6 @@ class AuthController extends Controller
         $this->smsProvider = $smsProvider;
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login()
     {
         $validate_password = Validator::make(request()->all(), [
@@ -70,6 +65,7 @@ class AuthController extends Controller
             }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
+
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             $validate_email = Validator::make(
                 request()->all(),
@@ -92,7 +88,6 @@ class AuthController extends Controller
 
         $request['type'] = User::Types['user'];
 
-
         if (!$token = auth('api')->attempt($request)) {
             $this->addResponse(trans('auth.failed'))->addStatusCode(401);
             return $this->response();
@@ -103,15 +98,9 @@ class AuthController extends Controller
             return $this->response();
         }
 
-
         return $this->respondWithToken($token);
     }
 
-    /**
-     * Register New User
-     *
-     * @return void
-     */
     public function register()
     {
         $validate_request = Validator::make(request()->all(), [
@@ -128,7 +117,9 @@ class AuthController extends Controller
                 $mobile_number = '00966' . request('mobile_number');
             }
             request()->merge(['mobile_number' => $mobile_number]);
-        } else {
+        }
+
+        if (app()->environment('local')) {
             $mobile_number = request('mobile_number');
         }
 
@@ -137,46 +128,38 @@ class AuthController extends Controller
             return $this->response();
         }
 
-        $user_verification = UserVerifications::where('email', '=', request('email'))
-            ->where('mobile_number', '=', $mobile_number)
-            ->where('type', '=', User::Types['user'])
-            ->first();
+        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
-        if (empty($user_verification)) {
-            $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $user = User::create([
+            'name' => request('name'),
+            'password' => bcrypt(request('password')),
+            'email' => request('email'),
+            'mobile_number' => $mobile_number,
+            'verification_code' => $activation_code,
+            'type' => User::Types['user'],
+            'is_mobile_number_verified' => false,
+        ]);
 
-            $user_verification = UserVerifications::updateOrCreate([
-                'name' => request('name'),
-                'password' => bcrypt(request('password')),
-                'email' => request('email'),
-                'mobile_number' => $mobile_number,
-                'verification_code' => $activation_code,
-                'type' => User::Types['user'] // Normal User
-            ]);
+        $user->userVerification()->create([
+            'verification_code' => $activation_code
+        ]);
 
-            $message = 'Wajad, Register activation code is ' . $activation_code;
+        $message = 'Wajad, Register activation code is ' . $activation_code;
 
-            $this->smsProvider->sendMessage($message, $mobile_number);
+        $this->smsProvider->sendMessage($message, $mobile_number);
 
-            return $this->jsonResponse([
-                'data' => [
-                    "unverified_user_id" => $user_verification->id,
-                    "message" => trans('auth.verification_code_sent'),
-                ]
-            ]);
-        }
-
-        $this->addStatusCode(400);
-
-        $this->addResponse(trans('auth.user_exists'));
-
-        return $this->response();
+        return $this->jsonResponse([
+            'data' => [
+                "unverified_user_id" => $user->id,
+                "message" => trans('auth.verification_code_sent'),
+            ]
+        ]);
     }
 
     public function verify()
     {
         $validate_verify = Validator::make(request()->all(), [
-            'unverified_user_id' => ['required', 'exists:user_verifications,id'],
+            'unverified_user_id' => ['required', 'exists:users,id'],
             'code' => ['required', 'exists:user_verifications,verification_code'],
         ]);
 
@@ -197,12 +180,11 @@ class AuthController extends Controller
             $this->addResponse(trans('auth.wrong_code'))->addStatusCode(400);
             return $this->response();
         }
-        $user  = User::create([
-            'name' => $user_verification->name,
-            'password' => $user_verification->password,
-            'email' => $user_verification->email,
-            'mobile_number' => $user_verification->mobile_number,
-            'type' => $user_verification->type
+
+        $user  = User::find(request('unverified_user_id'));
+
+        $user->update([
+            'is_mobile_number_verified' => true
         ]);
 
         if (!$token = auth('api')->login($user)) {
@@ -211,42 +193,48 @@ class AuthController extends Controller
         }
 
         $user->postLimitation()->save(new PostLimitation());
+
         $user_verification->delete();
+
         return $this->respondWithToken($token);
     }
 
-
     public function resendCode()
     {
+        $validate_resend_code = Validator::make(request()->all(), [
+            'unverified_user_id' => ['required', 'exists:users,id'],
+        ]);
+
+        if ($validate_resend_code->fails()) {
+            $this->addMultibleResponse($validate_resend_code->errors())->addStatusCode(400);
+            return $this->response();
+        }
+
         $user_verification = UserVerifications::find(request('unverified_user_id'));
 
-        if (empty($user_verification)) {
-            $this->addResponse(trans('auth.notregistered'))->addStatusCode(400);
+        if ($user_verification->sendCodeWithinMinute()) {
+            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
             return $this->response();
-        } else {
-            if ($user_verification->sendCodeWithinMinute()) {
-                $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
-                return $this->response();
-            } else {
-                $user_verification->update(['attemp' => 0]);
-                $activation_code =  $user_verification->activation_code;
-                $mobile_number =  $user_verification->mobile_number;
-                $message = 'Wajad, Register activation code is ' . $activation_code;
-                $this->smsProvider->sendMessage($message, $mobile_number);
-                return $this->jsonResponse([
-                    'data' => [
-                        "unverified_user_id" => $user_verification->id,
-                        "message" => trans('auth.verification_code_sent'),
-                    ]
-                ]);
-            }
         }
+
+        $user_verification->update(['attemp' => 0]);
+
+        $activation_code =  $user_verification->activation_code;
+
+        $mobile_number =  $user_verification->mobile_number;
+
+        $message = 'Wajad, Register activation code is ' . $activation_code;
+
+        $this->smsProvider->sendMessage($message, $mobile_number);
+
+        return $this->jsonResponse([
+            'data' => [
+                "unverified_user_id" => $user_verification->id,
+                "message" => trans('auth.verification_code_sent'),
+            ]
+        ]);
     }
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function logout()
     {
         auth('api')->logout();
@@ -254,23 +242,11 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function refresh()
     {
         return $this->respondWithToken(auth('api')->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     protected function respondWithToken($token)
     {
         return response()->json([

@@ -14,7 +14,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable, LogsActivity,  HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id'
+        'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id', 'is_mobile_number_verified'
     ];
 
     protected $hidden = [
@@ -181,5 +181,10 @@ class User extends Authenticatable implements JWTSubject
     public function routeNotificationForNexmo($notification)
     {
         return $this->mobile_number;
+    }
+
+    public function userVerification()
+    {
+        return $this->hasOne(UserVerifications::class, 'user_id');
     }
 }

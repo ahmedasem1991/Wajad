@@ -18,6 +18,7 @@ class UserVerifications extends Model
     {
         return Carbon::now()->diffInSeconds($this->created_at) < 60 || Carbon::now()->diffInSeconds($this->updated_at) < 60;
     }
+
     public function routeNotificationForNexmo($notification)
     {
         return $this->mobile_number;
