@@ -101,7 +101,9 @@ trait ResponseTrait
     {
         return response()->json(
             [
+                'success' => true,
                 'message' => $this->response,
+                'status_code' => 200
             ],
             (int) $this->status_code
         );
