@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Exceptions\Api\ApiException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -17,13 +18,11 @@ class ChangePasswordController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
-            return $this->response();
+            throw new ApiException($validate_request->errors()->first());
         }
 
         if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
-            $this->addResponse(trans('passwords.invalid'))->addStatusCode(400);
-            return $this->response();
+            throw new ApiException(trans('passwords.invalid'));
         }
 
         auth('api')->user()->update([

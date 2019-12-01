@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-
+use App\Exceptions\Api\ApiException;
 use App\Services\SmsProvider;
 use App\Mail\ResetPasswordMail;
 use App\Http\Controllers\Controller;
@@ -31,8 +31,7 @@ class ResetPasswordController extends Controller
             );
 
             if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
-                return $this->response();
+                throw new ApiException($validate_mobile_number->errors()->first());
             }
 
             if (app()->environment('production')) {
@@ -68,8 +67,7 @@ class ResetPasswordController extends Controller
             );
 
             if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(400);
-                return $this->response();
+                throw new ApiException($validate_email->errors()->first());
             }
 
             $user = User::where('email', '=', request('user'))
@@ -89,9 +87,7 @@ class ResetPasswordController extends Controller
                 return $this->response();
             }
 
-            $this->addResponse(trans('auth.mail_not_verified'))->addStatusCode(400);
-
-            return $this->response();
+            throw new ApiException(trans('auth.mail_not_verified'));
         }
     }
 }

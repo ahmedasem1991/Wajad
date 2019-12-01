@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'color' => new ColorResource($this->color),
             'date' => $this->created_at->toDateTimeString(),
             'images' =>  PostImagesResource::collection($this->images),
+            'questions' =>  QuestionResource::collection($this->questions),
         ];
     }
 }

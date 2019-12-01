@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Exceptions\Api\ApiException;
 use App\User;
 use App\PostLimitation;
-use App\UserVerifications;
 use App\Services\SmsProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
@@ -28,8 +28,7 @@ class AuthController extends Controller
         ]);
 
         if ($validate_password->fails()) {
-            $this->addMultibleResponse($validate_password->errors())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_password->errors()->first());
         }
 
         if (is_numeric(request('user'))) {
@@ -63,23 +62,20 @@ class AuthController extends Controller
             );
 
             if ($validate_email->fails()) {
-                $this->addMultibleResponse($validate_email->errors())->addStatusCode(400);
-                return $this->response();
+                throw new ApiException($validate_email->errors()->first());
             }
 
             $request = ['email' => request('user'), 'password' => request('password')];
         }
 
         if (!isset($request)) {
-            $this->addResponse(trans('auth.notvalid'))->addStatusCode(400);
-            return $this->response();
+            throw new ApiException(trans('auth.notvalid'));
         }
 
         $request['type'] = User::Types['user'];
 
         if (!$token = auth('api')->attempt($request)) {
-            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-            return $this->response();
+            throw new ApiException(trans('auth.failed'), 401);
         }
 
         if (!auth('api')->user()->isUser()) {
@@ -96,13 +92,11 @@ class AuthController extends Controller
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'max:255'],
-            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number'],
+            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'min:9', 'max:14'],
         ]);
 
         if (app()->environment('production')) {
-            if (preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-                $mobile_number = request('mobile_number');
-            } elseif (preg_match('/[0-9]{9}/', request('mobile_number'))) {
+            if (!preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
                 $mobile_number = '00966' . request('mobile_number');
             }
             request()->merge(['mobile_number' => $mobile_number]);
@@ -113,8 +107,7 @@ class AuthController extends Controller
         }
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_request->errors()->first());
         }
 
         $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
@@ -169,30 +162,16 @@ class AuthController extends Controller
         ]);
     }
 
-    public function updateUser(Request $request)
+    public function sendEmailVerification(Request $request)
     {
-        $user = auth('api')->user();
-
-        $validate_request = Validator::make($request->all(), [
-            'name' => ['required', 'min:6', 'max:255'],
-            'receive_emails' => ['required', 'boolean'],
-            'receive_push_notifications' => ['required', 'boolean'],
-            'default_distance_unit' => ['required', 'string', 'in:kilo,mile']
-        ]);
-
-        if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+        if ($request->user()->hasVerifiedEmail()) {
+            $this->addResponse(trans('email.verified'))->addStatusCode(422);
             return $this->response();
         }
 
-        $user->update([
-            'name' => $request->name,
-            'receive_emails' => $request->receive_emails,
-            'receive_push_notifications' => $request->receive_push_notifications,
-            'default_distance_unit' => $request->default_distance_unit,
-        ]);
+        $request->user()->sendEmailVerificationNotification();
 
-        $this->addResponse(trans('user.updated'))->addStatusCode(201);
+        $this->addResponse(trans('email.sent'))->addStatusCode(201);
 
         return $this->response();
     }
