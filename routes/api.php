@@ -38,6 +38,7 @@ Route::get('/maps/{type?}', 'MapController');
 Route::prefix('home')->group(function () {
     Route::get('/banners', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+    Route::get('/search', 'SearchController@searchFilter');
 });
 
 # Posts
@@ -45,15 +46,14 @@ Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
     Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/add/{type}', 'PostsController@store');
-        Route::put('/{id}', 'PostsController@update');
-        Route::delete('/{id}', 'PostsController@destroy');
+        Route::put('/{post}', 'PostsController@update');
+        Route::delete('/{post}', 'PostsController@destroy');
     });
 });
 Route::get('/user/posts', 'UserController@userPosts');
-Route::post('/report/post', 'PostsController@reportPost');
+Route::post('/report/post/{post}', 'PostsController@report');
 
 Route::group(['prefix' => 'search'], function () {
-    Route::get('/post', 'PostsController@search');
     Route::get('/keywords', 'SearchController@searchByKeyWords');
 });
 

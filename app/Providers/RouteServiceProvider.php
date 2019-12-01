@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Exceptions\Api\ApiException;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -12,10 +13,17 @@ class RouteServiceProvider extends ServiceProvider
     protected $corporate_namespace = 'App\Http\Controllers\Corporate';
     public function boot()
     {
-        Route::bind('qr_code', function($qr_code){
+        Route::bind('qr_code', function ($qr_code) {
             return \App\Qrcode::where('qrcode_url', $qr_code)->first() ?? abort(404);
         });
-
+        
+        Route::bind('post', function ($post) {
+            $post = \App\Post::whereId($post)->first();
+            if (!$post) {
+                throw new ApiException(trans('posts.not_found'), 404);
+            }
+            return $post;
+        });
         parent::boot();
     }
 
@@ -24,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-        
+
         $this->mapCorporateRoutes();
 
         //
@@ -35,9 +43,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
-            // config(['nova.domain' =>env('ADMIN_URL', '/')]);
-            // config(['nova.url' =>env('ADMIN_URL', '/')]);
-            // config(['nova.path' =>'wajad']);
+        // config(['nova.domain' =>env('ADMIN_URL', '/')]);
+        // config(['nova.url' =>env('ADMIN_URL', '/')]);
+        // config(['nova.path' =>'wajad']);
     }
 
     protected function mapCorporateRoutes()
@@ -45,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('corporate')
             ->as('corporate.')
             ->middleware('web')
-            ->domain(env('CORPORATE_URL','corporate-wajad.smartappco.net'))
+            ->domain(env('CORPORATE_URL', 'corporate-wajad.smartappco.net'))
             ->namespace($this->corporate_namespace)
             ->group(base_path('routes/corporate.php'));
 
@@ -60,10 +68,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->as('api.')
             ->middleware('api')
-            ->domain(env('API_URL','api-wajad.smartappco.net'))
+            ->domain(env('API_URL', 'api-wajad.smartappco.net'))
             ->namespace($this->api_namespace)
             ->group(base_path('routes/api.php'));
-           
-
     }
 }

@@ -11,13 +11,14 @@ use App\Nova\Categories;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
 use Illuminate\Database\Eloquent\Model as MasterModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class Post extends MasterModel
 {
-    use LogsActivity, ResponseTrait;
+    use LogsActivity, ResponseTrait, SoftDeletes;
 
     protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'latitude', 'longitude', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status', 'brand_id', 'city_id', 'reward'];
 
@@ -264,5 +265,9 @@ class Post extends MasterModel
     public function questions()
     {
         return $this->hasMany(Question::class, 'post_id');
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 }
