@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\Api\ApiException;
 use App\Post;
 use App\SubCategory;
 use App\Helpers\Api\ResponseTrait;
@@ -22,7 +23,9 @@ class SubCategoryPostController extends Controller
 
     public function index($status, $subcategory_id = null)
     {
-        abort_unless(in_array($status, self::TYPES), 404);
+        if (!in_array($status, self::TYPES)) {
+            throw new ApiException(trans('messages.not_found'), 404);
+        }
 
         $subCategory = SubCategory::whereHas($status . 'posts', function ($query) {
             return $query->isShow()->isOpen()->isApproved();

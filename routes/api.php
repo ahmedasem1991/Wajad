@@ -3,8 +3,15 @@
 # Auth Routes
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
+<<<<<<< Updated upstream
 Route::post('/resendCode', 'Auth\ResendCodeController');
 Route::post('/resetPassword', 'Auth\ResetPasswordController');
+=======
+Route::post('/refresh-token', 'Auth\AuthController@refresh');
+Route::post('/verify', 'Auth\AuthController@verify');
+Route::post('/resendCode', 'Auth\ResendCodeController');
+Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
+>>>>>>> Stashed changes
 Route::get('/send/email', 'HomeController@mail');
 Route::post('/logout', 'Auth\AuthController@logout');
 
