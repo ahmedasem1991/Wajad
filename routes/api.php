@@ -3,8 +3,10 @@
 # Auth Routes
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
+Route::post('/refresh-token', 'Auth\AuthController@refresh');
+Route::post('/verify', 'Auth\AuthController@verify');
 Route::post('/resendCode', 'Auth\ResendCodeController');
-Route::post('/resetPassword', 'Auth\ResetPasswordController');
+Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
 Route::get('/send/email', 'HomeController@mail');
 Route::post('/logout', 'Auth\AuthController@logout');
 
@@ -85,9 +87,9 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 // Route::get('/pages/{page?}', 'PageController');
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::post('/verify/{type}', 'VerifyCodeController');
 
     Route::group(['namespace' => 'Auth'], function () {
+        Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/refresh-token', 'AuthController@refresh');
         Route::post('/updateUserProfile', 'UserController@updateUserProfile');
         Route::post('/changePassword', 'ChangePasswordController');

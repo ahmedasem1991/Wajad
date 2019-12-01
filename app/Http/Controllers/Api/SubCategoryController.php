@@ -32,6 +32,7 @@ class SubCategoryController extends Controller
         }
         return SubCategoryResource::collection(SubCategory::all());
     }
+
     public function subCategoryLostPosts()
     {
         return SubCategoryResource::collection(SubCategory::with([

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 
-class VerifyCodeController extends Controller
+class VerifyPhoneOrEmailController extends Controller
 {
     private $verification_types = [
         'phone', 'email'
@@ -21,7 +21,7 @@ class VerifyCodeController extends Controller
         (new UserService)->verifyActivationCode($user, $request->code);
 
         if (!in_array($type, $this->verification_types)) {
-            throw new ApiException("", 404);
+            throw new ApiException(trans('auth.failed'), 404);
         }
 
         if ($type == 'phone') {
