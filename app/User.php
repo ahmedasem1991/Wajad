@@ -15,7 +15,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     use Notifiable, LogsActivity,  HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id', 'is_mobile_number_verified'
+        'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id', 'is_mobile_number_verified', 'email_verified_at'
     ];
 
     protected $hidden = [

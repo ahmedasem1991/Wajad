@@ -20,7 +20,7 @@ class UserService
             throw new ApiException(trans('auth.wrong_code'), 400);
         }
 
-        if ($user_verificatioin->attempt > 3) {
+        if ($user_verificatioin->attempt >= 3) {
             throw new ApiException(trans('auth.verification_code_exceeded'), 400);
         }
 
