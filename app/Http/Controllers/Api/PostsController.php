@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\City;
 use App\Post;
-use App\Question;
 use Carbon\Carbon;
 use App\PostReport;
 use Illuminate\Http\Request;
@@ -12,7 +11,6 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\SearchPostResource;
 
 class PostsController extends Controller
 {
@@ -43,13 +41,11 @@ class PostsController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_request->errors(), 400);
         }
 
         if (auth('api')->user()->exceededPostLimitation()) {
-            $this->addResponse(trans('posts.posts_limitation_message'))->addStatusCode(400);
-            return  $this->response();
+            throw new ApiException(trans('posts.posts_limitation_message'), 400);
         }
 
         $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
@@ -116,8 +112,7 @@ class PostsController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_request->errors(), 400);
         }
 
         $postReport = PostReport::create([
@@ -148,7 +143,7 @@ class PostsController extends Controller
     {
         return new PostResource($post);
     }
- 
+
     public function update(Request $request, Post $post)
     {
         $user = auth('api')->user();
@@ -171,8 +166,7 @@ class PostsController extends Controller
             ]);
 
             if ($validate_request->fails()) {
-                $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-                return $this->response();
+                throw new ApiException($validate_request->errors(), 400);
             }
 
             $city =  City::where('name_en', 'like', '%' . $request->city . '%')
@@ -200,6 +194,7 @@ class PostsController extends Controller
 
             return $this->response();
         }
+        throw new ApiException(trans('auth.not_authorized'), 400);
     }
 
     public function destroy(Post $post)
@@ -210,7 +205,6 @@ class PostsController extends Controller
             $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
             return  $this->response();
         }
-        $this->addResponse(trans('posts.not_authorized'))->addStatusCode(400);
-        return  $this->response();
+        throw new ApiException(trans('auth.not_authorized'), 400);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Post;
+use App\User;
+use App\Exceptions\Api\ApiException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPostPolicy
@@ -12,11 +13,17 @@ class UserPostPolicy
 
     public function update(User $user, Post $post)
     {
-        return $user->id == $post->publisher_id;
+        if ($user->id == $post->publisher_id) {
+            return true;
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
     }
 
     public function destroy(User $user, Post $post)
     {
-        return $user->id == $post->publisher_id;
+        if ($user->id == $post->publisher_id) {
+            return true;
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
     }
 }
