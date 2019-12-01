@@ -55,26 +55,33 @@ class VerificationController extends Controller
     public function verifyEmail(Request $request)
     {
         $user = $request->user();
-        $validation = UserVerifications::where('user_id', $user->id)->get();
+        $validation = UserVerifications::where('user_id', $user->id)->first();
         $validate_request = Validator::make(request()->all(), [
-            'code' => ['required|digits:4'],
+            'code' => ['required','numeric','digits:4'],
         ]);
-        if ($validate_request->fails()) {
+
+        // Add Code Verification Service
+
+       /* if ($validate_request->fails()) {
             $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
-        if ($request->code !== $validation->verification_code){
+        if ($validation->attemp == 3){
+            $this->addResponse('Maximum Number Of Tries Has Been Reached, Please Send Verification Email Again')->addStatusCode(400);
+            return $this->response();
+        }
+        if ($request->code != $validation->verification_code){
             $validation->attemp++;
             $validation->save();
             $this->addResponse('Code Does Not Match')->addStatusCode(400);
             return $this->response();
-        }else{
-            $user->email_verified_at = now();
-            $user->save();
-            $validation->delete();
-            $this->addResponse(trans('email.verified'))->addStatusCode(201);
+        }*/
 
-            return $this->response();
-        }
+        $user->email_verified_at = now();
+        $user->save();
+        $validation->delete();
+        $this->addResponse(trans('email.verified'))->addStatusCode(201);
+
+        return $this->response();
     }
 }
