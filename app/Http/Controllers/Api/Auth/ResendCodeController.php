@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 
 class ResendCodeController extends Controller
@@ -13,15 +14,13 @@ class ResendCodeController extends Controller
         ]);
 
         if ($validate_resend_code->fails()) {
-            $this->addMultibleResponse($validate_resend_code->errors())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_resend_code->errors()->first());
         }
 
         $user_verification = UserVerifications::find(request('unverified_user_id'));
 
         if ($user_verification->sendCodeWithinMinute()) {
-            $this->addResponse(trans('auth.verification_code_wait_time_one_minute'))->addStatusCode(400);
-            return $this->response();
+            throw new ApiException(trans('auth.verification_code_wait_time_one_minute'));
         }
 
         $user_verification->update(['attemp' => 0]);

@@ -16,6 +16,9 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'notvalid' => 'please enter a valid email address or phone number.',
+    'email_updated' => 'Email Updated Successfully',
+    'phone_updated' => 'Phone Updated Successfully',
+    "verified_successfully" => ":Type Verified Successfully",
     'verification_code_wait_time_one_minute' => 'You have to stay one min to resend code again.',
     'verification_code_sent' => 'Verification code sent.',
     'verification_code_exceeded' => 'You have exceeded the 3 times allowed, please request new one.',
@@ -29,6 +32,7 @@ return [
     'new_password_sent_to_phone' => 'New password sent successfully to your phone.',
     'new_password_request' => 'You requested resetting your password.',
     'password_not_match' => 'Passwords do not match, please try again.'
+
 
 
 ];

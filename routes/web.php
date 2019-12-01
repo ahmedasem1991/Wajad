@@ -1,8 +1,11 @@
 <?php
 
- 
+
 use App\Post;
- 
+use App\Exceptions\Api\ApiException;
+use App\Exceptions\Api\VerifyActivationCodeException;
+use App\Exceptions\Api\VerifyActivationCodeException2;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +24,7 @@ Route::get('/test23', function () {
     return \App\Category::all()->pluck('name_en', 'id');
 });
 
- 
+
 
 Auth::routes();
 //Test Notification
@@ -32,16 +35,12 @@ Route::get('paypal','PaymentController@payWithpaypal');
 Route::get('status','PaymentController@getPaymentStatus');
 
 Route::get('/test600', function(){
- 
+
 });
 
 Route::get('/test500', function(){
-     return auth()->user()->corporate; 
-    return url('/wajad');
-   $url= Request::path();
-    return($url);
-    $Post=Post::find(1);
-  return  $Post->reports;
+    throw new ApiException(trans('auth.failed'));
+
 
 })->name('test500');;
 
@@ -49,3 +48,4 @@ route::get('/bridge', function () {
     Log::info('test 2');
     return view('welcome');
 });
+
