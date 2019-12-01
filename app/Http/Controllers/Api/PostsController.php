@@ -185,7 +185,6 @@ class PostsController extends Controller
             }
             $city_id = $city->id;
             $request->merge(['city_id' => $city_id]);
->>>>>>> inhance-posts
 
             $post->update($request->all());
 
