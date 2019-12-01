@@ -7,7 +7,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/resendCode', 'ResendCodeController');
     Route::post('/resetPassword', 'ResetPasswordController');
 
-    Route::group(['namespace' => 'Auth', 'namespace' => ['auth:api']], function () {
+    Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/updateUserProfile', 'UserController@updateUserProfile');
         Route::post('/changePassword', 'ChangePasswordController');
@@ -48,7 +48,6 @@ Route::get('/offices', 'OfficeController@index');
 
 # Maps
 Route::get('/maps/{type?}', 'MapController');
-
 
 # Posts
 Route::prefix('posts')->group(function () {

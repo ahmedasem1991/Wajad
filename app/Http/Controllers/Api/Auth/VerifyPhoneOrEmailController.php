@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\User;
+
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
@@ -16,7 +16,7 @@ class VerifyPhoneOrEmailController extends Controller
 
     public function __invoke(Request $request, $type)
     {
-        $user = User::find(auth('api')->user());
+        $user = auth('api')->user();
 
         (new UserService)->verifyActivationCode($user, $request->code);
 
@@ -25,20 +25,28 @@ class VerifyPhoneOrEmailController extends Controller
         }
 
         if ($type == 'phone') {
-            $user->update([
-                'is_mobile_number_verified' => true
-            ]);
+            if ($user->userVerification->codeValidForMobileNumber()) {
+                $user->update([
+                    'is_mobile_number_verified' => true
+                ]);
+            }
+
+            throw new ApiException(trans('auth.wrong_code'), 400);
         }
 
         if ($type == 'email') {
-            $user->update([
-                'email_verified_at' => now()
-            ]);
+            if ($user->userVerification->codeValidForEmail()) {
+                $user->update([
+                    'email_verified_at' => now()
+                ]);
+            }
+
+            throw new ApiException(trans('auth.wrong_code'), 400);
         }
 
         $this->addStatusCode(200);
 
-        $this->addResponse(trans("verified_successfully", ['Type' => \Str::title($type)]));
+        $this->addResponse(trans("auth.verified_successfully", ['Type' => \Str::title($type)]));
 
         return $this->response();
     }
