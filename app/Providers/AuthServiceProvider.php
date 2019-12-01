@@ -25,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Item' => 'App\Policies\ItemPolicy',
         'App\Package' => 'App\Policies\PackagePolicy',
         'App\Subscription' => 'App\Policies\SubscriptionPolicy',
+        'App\Post' => 'App\Policies\UserPostPolicy',
     ];
 
     /**
@@ -34,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+
         $this->registerPolicies();
 
         foreach (config('novapermissions.permissions') as $key => $permissions) {
