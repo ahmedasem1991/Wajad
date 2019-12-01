@@ -21,13 +21,7 @@ class PageController extends Controller
         // 'facebook-link',
         // 'twitter-link',
     ];
-    
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function __invoke($page = null)
     {
         if ($page && in_array($page, $this->pages)) {

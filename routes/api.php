@@ -8,7 +8,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/resetPassword', 'ResetPasswordController');
 
     Route::group(['namespace' => 'Auth', 'namespace' => ['auth:api']], function () {
-        Route::post('/verify/{type}', 'VerifyCodeController');
+        Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/updateUserProfile', 'UserController@updateUserProfile');
         Route::post('/changePassword', 'ChangePasswordController');
         Route::post('/changePhone', 'ChangePhoneNumberController');
@@ -55,15 +55,14 @@ Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
     Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/add/{type}', 'PostsController@store');
-        Route::put('/{id}', 'PostsController@update');
-        Route::delete('/{id}', 'PostsController@destroy');
+        Route::put('/{post}', 'PostsController@update');
+        Route::delete('/{post}', 'PostsController@destroy');
     });
 });
 Route::get('/user/posts', 'UserController@userPosts');
-Route::post('/report/post', 'PostsController@reportPost');
+Route::post('/report/post/{post}', 'PostsController@report');
 
 Route::group(['prefix' => 'search'], function () {
-    Route::get('/post', 'PostsController@search');
     Route::get('/keywords', 'SearchController@searchByKeyWords');
 });
 

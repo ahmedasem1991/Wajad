@@ -27,7 +27,7 @@ class AuthController extends Controller
         ]);
 
         if ($validate_password->fails()) {
-            throw new ApiException($validate_password->errors()->first());
+            throw new ApiException($validate_password->errors()->first(), 400);
         }
 
         if (is_numeric(request('user'))) {
@@ -160,8 +160,7 @@ class AuthController extends Controller
     public function sendEmailVerification(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            $this->addResponse(trans('email.verified'))->addStatusCode(422);
-            return $this->response();
+            throw new ApiException(trans('email.verified'), 422);
         }
 
         $request->user()->sendEmailVerificationNotification();

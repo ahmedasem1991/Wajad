@@ -37,6 +37,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('city_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

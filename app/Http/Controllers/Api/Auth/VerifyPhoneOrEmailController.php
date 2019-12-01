@@ -8,7 +8,7 @@ use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 
-class VerifyCodeController extends Controller
+class VerifyPhoneOrEmailController extends Controller
 {
     private $verification_types = [
         'phone', 'email'
@@ -21,27 +21,19 @@ class VerifyCodeController extends Controller
         (new UserService)->verifyActivationCode($user, $request->code);
 
         if (!in_array($type, $this->verification_types)) {
-            throw new ApiException(trans('page_not_found'), 404);
+            throw new ApiException(trans('auth.failed'), 404);
         }
 
         if ($type == 'phone') {
-            if ($user->userVerification->codeValidForMobileNumber()) {
-                $user->update([
-                    'is_mobile_number_verified' => true
-                ]);
-            }
-
-            throw new ApiException(trans('auth.wrong_code'), 400);
+            $user->update([
+                'is_mobile_number_verified' => true
+            ]);
         }
 
         if ($type == 'email') {
-            if ($user->userVerification->codeValidForEmail()) {
-                $user->update([
-                    'email_verified_at' => now()
-                ]);
-            }
-
-            throw new ApiException(trans('auth.wrong_code'), 400);
+            $user->update([
+                'email_verified_at' => now()
+            ]);
         }
 
         $this->addStatusCode(200);
