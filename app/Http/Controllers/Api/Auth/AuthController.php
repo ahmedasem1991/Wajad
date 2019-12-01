@@ -38,8 +38,7 @@ class AuthController extends Controller
             );
 
             if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
-                return $this->response();
+                throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
 
             if (app()->environment('production')) {
@@ -61,14 +60,14 @@ class AuthController extends Controller
             );
 
             if ($validate_email->fails()) {
-                throw new ApiException($validate_email->errors()->first());
+                throw new ApiException($validate_email->errors()->first(), 400);
             }
 
             $request = ['email' => request('user'), 'password' => request('password')];
         }
 
         if (!isset($request)) {
-            throw new ApiException(trans('auth.notvalid'));
+            throw new ApiException(trans('auth.notvalid'), 400);
         }
 
         $request['type'] = User::Types['user'];
@@ -78,8 +77,7 @@ class AuthController extends Controller
         }
 
         if (!auth('api')->user()->isUser()) {
-            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-            return $this->response();
+            throw new ApiException(trans('auth.failed'), 401);
         }
 
         return $this->respondWithToken($token);
@@ -91,7 +89,7 @@ class AuthController extends Controller
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'max:255'],
-            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'min:9', 'max:14'],
+            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'digits_between:9,14'],
         ]);
 
         if (app()->environment('production')) {
@@ -106,7 +104,7 @@ class AuthController extends Controller
         }
 
         if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors()->first());
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
         $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
@@ -122,7 +120,8 @@ class AuthController extends Controller
         ]);
 
         $user->userVerification()->create([
-            'verification_code' => $activation_code
+            'verification_code' => $activation_code,
+            'code_valid_for' => 'mobile_number'
         ]);
 
         $user->postLimitation()->save(new PostLimitation());
@@ -131,12 +130,9 @@ class AuthController extends Controller
 
         $this->smsProvider->sendMessage($message, $mobile_number);
 
-        return $this->jsonResponse([
-            'data' => [
-                "unverified_user_id" => $user->id,
-                "message" => trans('auth.verification_code_sent'),
-            ]
-        ]);
+        request()->merge(['user' => request('email')]);
+
+        return $this->login();
     }
 
     public function logout()

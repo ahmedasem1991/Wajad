@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             "receive_emails" => (bool) $this->receive_emails,
             "receive_push_notifications" => (bool) $this->receive_push_notifications,
             "is_email_verified" =>  (bool) $this->email_verified_at,
+            "is_mobile_number_verified" =>  (bool) $this->is_mobile_number_verified,
             "default_distance_unit" =>  $this->default_distance_unit,
         ];
     }

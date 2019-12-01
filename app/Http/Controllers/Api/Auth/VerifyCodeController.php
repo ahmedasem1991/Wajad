@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -21,19 +21,27 @@ class VerifyCodeController extends Controller
         (new UserService)->verifyActivationCode($user, $request->code);
 
         if (!in_array($type, $this->verification_types)) {
-            throw new ApiException("", 404);
+            throw new ApiException(trans('page_not_found'), 404);
         }
 
         if ($type == 'phone') {
-            $user->update([
-                'is_mobile_number_verified' => true
-            ]);
+            if ($user->userVerification->codeValidForMobileNumber()) {
+                $user->update([
+                    'is_mobile_number_verified' => true
+                ]);
+            }
+
+            throw new ApiException(trans('auth.wrong_code'), 400);
         }
 
         if ($type == 'email') {
-            $user->update([
-                'email_verified_at' => now()
-            ]);
+            if ($user->userVerification->codeValidForEmail()) {
+                $user->update([
+                    'email_verified_at' => now()
+                ]);
+            }
+
+            throw new ApiException(trans('auth.wrong_code'), 400);
         }
 
         $this->addStatusCode(200);
