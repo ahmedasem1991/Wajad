@@ -3,14 +3,11 @@
 # Auth Routes
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
-<<<<<<< HEAD
 Route::post('/refresh-token', 'Auth\AuthController@refresh');
 
 Route::post('/sendverifymail', 'Auth\VerificationController@sendEmailVerification');
 Route::post('/verifymail', 'Auth\VerificationController@verifyEmail');
 Route::post('/verify', 'Auth\AuthController@verify');
-=======
->>>>>>> development
 Route::post('/resendCode', 'Auth\ResendCodeController');
 Route::post('/resetPassword', 'Auth\ResetPasswordController');
 Route::get('/send/email', 'HomeController@mail');
