@@ -31,7 +31,8 @@ return [
     'new_password_sent_to_mail' => 'New password sent successfully to your email.',
     'new_password_sent_to_phone' => 'New password sent successfully to your phone.',
     'new_password_request' => 'You requested resetting your password.',
-    'password_not_match' => 'Passwords do not match, please try again.'
+    'password_not_match' => 'Passwords do not match, please try again.',
+	'not_authorized' => 'You have no access to this object.',
 
 
 
