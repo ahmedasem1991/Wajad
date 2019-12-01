@@ -27,7 +27,7 @@ class AuthController extends Controller
         ]);
 
         if ($validate_password->fails()) {
-            throw new ApiException($validate_password->errors()->first());
+            throw new ApiException($validate_password->errors()->first(), 400);
         }
 
         if (is_numeric(request('user'))) {
@@ -38,8 +38,7 @@ class AuthController extends Controller
             );
 
             if ($validate_mobile_number->fails()) {
-                $this->addMultibleResponse($validate_mobile_number->errors())->addStatusCode(400);
-                return $this->response();
+                throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
 
             if (app()->environment('production')) {
@@ -68,7 +67,7 @@ class AuthController extends Controller
         }
 
         if (!isset($request)) {
-            throw new ApiException(trans('auth.notvalid'));
+            throw new ApiException(trans('auth.notvalid'), 400);
         }
 
         $request['type'] = User::Types['user'];
@@ -78,8 +77,7 @@ class AuthController extends Controller
         }
 
         if (!auth('api')->user()->isUser()) {
-            $this->addResponse(trans('auth.failed'))->addStatusCode(401);
-            return $this->response();
+            throw new ApiException(trans('auth.failed'), 401);
         }
 
         return $this->respondWithToken($token);
@@ -164,8 +162,7 @@ class AuthController extends Controller
     public function sendEmailVerification(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            $this->addResponse(trans('email.verified'))->addStatusCode(422);
-            return $this->response();
+            throw new ApiException(trans('email.verified'), 422);
         }
 
         $request->user()->sendEmailVerificationNotification();

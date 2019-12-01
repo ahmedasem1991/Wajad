@@ -87,9 +87,9 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 // Route::get('/pages/{page?}', 'PageController');
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::post('/verify/{type}', 'VerifyCodeController');
 
     Route::group(['namespace' => 'Auth'], function () {
+        Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/refresh-token', 'AuthController@refresh');
         Route::post('/updateUserProfile', 'UserController@updateUserProfile');
         Route::post('/changePassword', 'ChangePasswordController');

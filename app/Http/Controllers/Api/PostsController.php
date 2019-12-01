@@ -51,7 +51,9 @@ class PostsController extends Controller
             return  $this->response();
         }
 
-        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')->orWhere('name_ar', 'like', '%' .  $request->city . '%')->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
+        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
+            ->orWhere('name_ar', 'like', '%' .  $request->city . '%')
+            ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
 
         $post = Post::create([
             'title' => $request->title,
@@ -108,8 +110,8 @@ class PostsController extends Controller
     public function reportPost(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
-            'post_id' => ['required', 'integer', 'exists:posts,id'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+            // 'post_id' => ['required', 'integer', 'exists:posts,id'],
+            // 'user_id' => ['required', 'integer', 'exists:users,id'],
             'details' => ['nullable', 'string', 'max:1000'],
             'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
         ]);
@@ -164,14 +166,14 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        $post = Post::where('id', $id)->where('publisher_id', auth('api')->user()->id)->first();
+        // $post = Post::where('id', $id)->where('publisher_id', auth('api')->user()->id)->first();
 
-        if ($post === null) {
-            $this->addResponse(trans('posts.not_found'))->addStatusCode(400);
-            return  $this->response();
-        }
+        // if ($post === null) {
+        //     $this->addResponse(trans('posts.not_found'))->addStatusCode(400);
+        //     return  $this->response();
+        // }
         $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
