@@ -1,14 +1,27 @@
 <?php
 
-# Auth Routes
-Route::post('/login', 'Auth\AuthController@login');
-Route::post('/register', 'Auth\AuthController@register');
-Route::post('/refresh-token', 'Auth\AuthController@refresh');
-Route::post('/verify', 'Auth\AuthController@verify');
-Route::post('/resendCode', 'Auth\ResendCodeController');
-Route::post('/resetPassword', 'Auth\AuthController@resetPassword');
-Route::get('/send/email', 'HomeController@mail');
-Route::post('/logout', 'Auth\AuthController@logout');
+Route::group(['namespace' => 'Auth'], function () {
+    Route::post('/login', 'AuthController@login');
+    Route::post('/register', 'AuthController@register');
+    Route::post('/refreshToken', 'AuthController@refresh');
+    Route::post('/resendCode', 'ResendCodeController');
+    Route::post('/resetPassword', 'ResetPasswordController');
+
+    Route::group(['namespace' => 'Auth', 'namespace' => ['auth:api']], function () {
+        Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
+        Route::post('/updateUserProfile', 'UserController@updateUserProfile');
+        Route::post('/changePassword', 'ChangePasswordController');
+        Route::post('/changePhone', 'ChangePhoneNumberController');
+        Route::post('/changeEmail', 'UserController@changeEmail');
+        Route::post('/logout', 'AuthController@logout');
+    });
+});
+
+# Home Page
+Route::prefix('home')->group(function () {
+    Route::get('/banners', 'BannerController');
+    Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+});
 
 # Categories
 Route::get('/categories', 'CategoryController@index');
@@ -36,12 +49,6 @@ Route::get('/offices', 'OfficeController@index');
 # Maps
 Route::get('/maps/{type?}', 'MapController');
 
-# Home Page
-Route::prefix('home')->group(function () {
-    Route::get('/banners', 'BannerController');
-    Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
-    Route::get('/search', 'SearchController@searchFilter');
-});
 
 # Posts
 Route::prefix('posts')->group(function () {
@@ -88,14 +95,7 @@ Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-ap
 
 Route::group(['middleware' => ['auth:api']], function () {
 
-    Route::group(['namespace' => 'Auth'], function () {
-        Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
-        Route::post('/refresh-token', 'AuthController@refresh');
-        Route::post('/updateUserProfile', 'UserController@updateUserProfile');
-        Route::post('/changePassword', 'ChangePasswordController');
-        Route::post('/changePhone', 'ChangePhoneNumberController');
-        Route::post('/changeEmail', 'UserController@changeEmail');
-    });
+    // phone_verified
 
     Route::get('/user', function (Request $request) {
         return auth('api')->user();

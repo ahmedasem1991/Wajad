@@ -2,16 +2,13 @@
 
 namespace App\Services;
 
-use App\User;
+use App\UserVerifications;
 use App\Exceptions\Api\ApiException;
 
 class UserService
 {
-    public function verifyActivationCode(User $user, $code)
+    public function verifyActivationCode(UserVerifications $user_verificatioin, $code)
     {
-        # GET USER VERIFICATION RECORD
-        $user_verificatioin = $user->userVerification ?? null;
-
         if (!$user_verificatioin) {
             throw new ApiException(trans('auth.failed'), 400);
         }

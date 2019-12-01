@@ -33,7 +33,6 @@ return [
     'new_password_request' => 'You requested resetting your password.',
     'password_not_match' => 'Passwords do not match, please try again.',
 	'not_authorized' => 'You have no access to this object.',
-
-
+    'phone_not_verified' => 'Your Phone Is Not Verified Please Verify Your Phone Number',
 
 ];

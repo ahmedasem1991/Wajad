@@ -46,6 +46,12 @@ class CreateForeignKeysMigration extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('SET NULL');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('SET NULL');
         });
+
+        Schema::table('user_verifications', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**

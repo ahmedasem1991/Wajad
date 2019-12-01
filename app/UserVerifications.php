@@ -9,9 +9,12 @@ use Illuminate\Notifications\Notifiable;
 class UserVerifications extends Model
 {
     use Notifiable;
+
     protected $fillable = [
-        'name', 'email', 'mobile_number', 'password',
-        'type', 'status', 'verification_code', 'expired_period', 'expired_period', 'email_verified_at', 'corporate_id', 'agreement', 'attemp'
+        'user_id',
+        'verification_code',
+        'code_sent_for',
+        'attempt',
     ];
 
     public function sendCodeWithinMinute()
@@ -22,5 +25,15 @@ class UserVerifications extends Model
     public function routeNotificationForNexmo($notification)
     {
         return $this->mobile_number;
+    }
+
+    public function codeValidForEmail()
+    {
+        return $this->code_valid_for == 'email';
+    }
+
+    public function codeValidForMobileNumber()
+    {
+        return $this->code_valid_for == 'mobile_number';
     }
 }
