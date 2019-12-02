@@ -19,6 +19,7 @@ return [
     'email_updated' => 'Email Updated Successfully',
     'phone_updated' => 'Phone Updated Successfully',
     "verified_successfully" => ":Type Verified Successfully",
+    "updated_successfully" => ":Type Updated Successfully",
     'verification_code_wait_time_one_minute' => 'You have to stay one min to resend code again.',
     'verification_code_sent' => 'Verification code sent.',
     'verification_code_exceeded' => 'You have exceeded the 3 times allowed, please request new one.',

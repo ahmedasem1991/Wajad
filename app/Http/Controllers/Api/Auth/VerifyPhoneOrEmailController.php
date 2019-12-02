@@ -27,33 +27,11 @@ class VerifyPhoneOrEmailController extends Controller
             throw new ApiException($validate_for_code->errors()->first(), 400);
         }
 
-        (new UserService)->verifyActivationCode($user, $request->code);
-
         if (!in_array($type, $this->verification_types)) {
             throw new ApiException(trans('auth.failed'), 404);
         }
 
-        if ($type == 'phone') {
-            if (!$user->userVerification->codeValidForMobileNumber()) {
-                throw new ApiException(trans('auth.wrong_code'), 400);
-            }
-
-            $user->update([
-                'is_mobile_number_verified' => true
-            ]);
-        }
-
-        if ($type == 'email') {
-            if (!$user->userVerification->codeValidForEmail()) {
-                throw new ApiException(trans('auth.wrong_code'), 400);
-            }
-
-            $user->update([
-                'email_verified_at' => now()
-            ]);
-        }
-
-        $user->userVerification()->delete();
+        (new UserService)->verifyActivationCode($user, $request->code, $type);
 
         $this->addStatusCode(200);
 

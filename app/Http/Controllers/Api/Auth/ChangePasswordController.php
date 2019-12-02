@@ -18,11 +18,11 @@ class ChangePasswordController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors()->first());
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
         if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
-            throw new ApiException(trans('passwords.invalid'));
+            throw new ApiException(trans('passwords.invalid'), 400);
         }
 
         auth('api')->user()->update([

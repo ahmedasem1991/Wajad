@@ -8,16 +8,15 @@ use App\PostLimitation;
 use App\Services\SmsProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Services\UserService;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    protected $smsProvider;
-
     public function __construct(SmsProvider $smsProvider)
     {
         $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'resendCode', 'resetPassword']]);
-        $this->smsProvider = $smsProvider;
     }
 
     public function login()
@@ -88,7 +87,7 @@ class AuthController extends Controller
         $validate_request = Validator::make(request()->all(), [
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:6', 'max:255'],
+            'password' => ['required', 'min:6', 'max:255', 'confirmed'],
             'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'digits_between:9,14'],
         ]);
 
@@ -107,29 +106,18 @@ class AuthController extends Controller
             $mobile_number = request('mobile_number');
         }
 
-
-        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
-
         $user = User::create([
             'name' => request('name'),
             'password' => bcrypt(request('password')),
             'email' => request('email'),
             'mobile_number' => $mobile_number,
-            'verification_code' => $activation_code,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
         ]);
 
-        $user->userVerification()->create([
-            'verification_code' => $activation_code,
-            'code_valid_for' => 'mobile_number'
-        ]);
+        (new UserService)->createAndSendActivationCode($user, 'mobile_number');
 
         $user->postLimitation()->save(new PostLimitation());
-
-        $message = 'Wajad, Register activation code is ' . $activation_code;
-
-        $this->smsProvider->sendMessage($message, $mobile_number);
 
         request()->merge(['user' => request('email')]);
 
@@ -156,18 +144,5 @@ class AuthController extends Controller
             'expires_in' => config('jwt.ttl') * 60,
             'user' => new UserResource(auth('api')->user())
         ]);
-    }
-
-    public function sendEmailVerification(Request $request)
-    {
-        if ($request->user()->hasVerifiedEmail()) {
-            throw new ApiException(trans('email.verified'), 422);
-        }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        $this->addResponse(trans('email.sent'))->addStatusCode(201);
-
-        return $this->response();
     }
 }
