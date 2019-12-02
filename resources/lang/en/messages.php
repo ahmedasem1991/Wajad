@@ -1,11 +1,16 @@
 <?php
 
 return [
-	'successfully_created' => 'Successfully created',
-	'successfully_updated' => 'Successfully updated',
-	'successfully_registered' => 'Successfully registered',
-	'successfully_deleted' => ':model deleted successfully.',
-	'posts_limitation_message' => "Sorry You have reached the maximum number  of posts",
-	'post_report_message' => "Post Reported Successfully.",
-	'not_found' => 'The object is not found.',
+	'created' => ':model created successfully.',
+	'updated' => ':model updated successfully.',
+	'deleted' => ':model deleted successfully.',
+	'limited' => 'Sorry You have reached the maximum number of :model .',
+	'reported' => ':model reported successfully.',
+	'not_found' => 'The :model is not found.',
+
+	'attributes' => [
+		'post' => 'Post',
+		'item'  => 'Item',
+		'category' => 'Category'
+	],
 ];
