@@ -17,7 +17,7 @@ class UserPostController extends Controller
     public function __invoke(Request $request, $type)
     {
         if (!in_array($type, self::TYPES)) {
-            throw new ApiException(trans('t'), 404);
+            // throw new ApiException(trans(''), 404);
         }
 
         return PostResource::collection(auth('api')->user->posts());

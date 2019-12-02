@@ -34,6 +34,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        // dd($exception);
         parent::report($exception);
     }
 
@@ -46,7 +47,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($request->ajax() || $request->wantsJson() || $request->getSchemeAndHttpHost() == env('API_URL')) {
+        if ($request->ajax() || $request->wantsJson()) {
             $json = [
                 'success' => false,
                 'message' => $exception->getMessage(),
