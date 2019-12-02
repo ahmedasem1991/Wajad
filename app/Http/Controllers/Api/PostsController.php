@@ -45,7 +45,7 @@ class PostsController extends Controller
         }
 
         if (auth('api')->user()->exceededPostLimitation()) {
-            throw new ApiException(trans('posts.posts_limitation_message'), 400);
+            throw new ApiException(trans('messages.posts_limitation_message'), 400);
         }
 
         $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
@@ -134,7 +134,7 @@ class PostsController extends Controller
 
         $post->increment('reports_number');
 
-        $this->addResponse(trans('posts.post_report_message'))->addStatusCode(200);
+        $this->addResponse(trans('messages.post_report_message'))->addStatusCode(200);
 
         return  $this->response();
     }
@@ -202,7 +202,8 @@ class PostsController extends Controller
         $user = auth('api')->user();
         if ($user->can('destroy', $post)) {
             $post->delete();
-            $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
+            $this->addResponse(trans('messages.successfully_deleted', ['model' => 'Post']))
+            ->addStatusCode(200);
             return  $this->response();
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
