@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Setting;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use App\Settings;
 use App\Http\Resources\SettingResource;
+use App\Page;
 
 class PageController extends Controller
 {
@@ -24,9 +25,10 @@ class PageController extends Controller
 
     public function __invoke($page = null)
     {
-        if ($page && in_array($page, $this->pages)) {
-            return new SettingResource(Settings::where('key', $page)->first());
+        if (!in_array($page, $this->pages)) {
+            throw new ApiException(trans(''), 404);
         }
-        abort(404);
+
+        return new SettingResource(Page::where('key', $page)->first());
     }
 }

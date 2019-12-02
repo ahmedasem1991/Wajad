@@ -16,10 +16,11 @@ class SettingResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'page' => Str::lower($this->key),
-            'title' => $this->title,
-            'description' => $this->value,
-            'image' => $this->image ? env('APP_URL') . '/' . $this->image : null
+            'title' => $this->{'title_' . app()->getLocale()},
+            'body' => $this->{'body_' . app()->getLocale()},
+            // 'image' => $this->image ? env('APP_URL') . '/' . $this->image : null
         ];
     }
 }
