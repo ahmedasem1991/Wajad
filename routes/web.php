@@ -39,7 +39,7 @@ Route::get('/test600', function(){
 });
 
 Route::get('/test500', function(){
-    throw new ApiException(trans('auth.failed'));
+    throw new ApiException(trans('auth.failed'), 500);
 
 
 })->name('test500');;

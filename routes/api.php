@@ -7,6 +7,8 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/resetPassword', 'ResetPasswordController');
 
     Route::group(['middleware' => ['auth:api']], function () {
+        Route::get('/userPosts/{type}', 'UserPostController');
+
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/resendCode/{type}', 'ResendCodeController');
         Route::post('/updateUserProfile', 'UpdateUserProfile');
@@ -20,16 +22,14 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('items', 'ItemsController');
 
-    Route::get('/user/posts/{type}', 'UserController@userPosts');
 
     Route::post('/report/post/{post}', 'PostsController@reportPost');;
 
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
-    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
+    // Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 });
 
-# Home
 Route::prefix('home')->group(function () {
     Route::get('/banners', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
