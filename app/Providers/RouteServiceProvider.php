@@ -20,7 +20,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('post', function ($post) {
             $post = \App\Post::whereId($post)->first();
             if (!$post) {
-                throw new ApiException(trans('posts.not_found'), 404);
+                throw new ApiException(trans('messages.not_found'), 404);
             }
             return $post;
         });
