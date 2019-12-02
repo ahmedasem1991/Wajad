@@ -50,7 +50,7 @@ trait ResponseTrait
      */
     public function addResponse($response)
     {
-        array_push($this->response, $response);
+        $this->response = $response;
         return $this;
     }
 
@@ -62,10 +62,7 @@ trait ResponseTrait
      */
     public function addMultibleResponse($responses)
     {
-        $responses = collect($responses);
-        $responses->eachSpread(function ($response) {
-            array_push($this->response, trans($response));
-        });
+        $this->responses[0] = $responses[0];
         return $this;
     }
 
