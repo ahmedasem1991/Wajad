@@ -56,11 +56,10 @@ Route::prefix('posts')->group(function () {
         Route::post('/add/{type}', 'PostsController@store');
         Route::put('/{post}', 'PostsController@update');
         Route::delete('/{post}', 'PostsController@destroy');
-        Route::get('/user/posts/{type}', 'UserController@userPosts');
       });
 }); 
   
-    Route::post('/report/post', 'PostsController@reportPost');
+Route::post('/report/post', 'PostsController@reportPost');
 
 Route::group(['prefix' => 'search'], function () {
     Route::get('/keywords', 'SearchController@searchByKeyWords');
@@ -75,6 +74,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/', 'ItemsController@store');
         Route::delete('/{id}', 'ItemsController@destroy');
     });
+    Route::get('/user/posts/{type}', 'UserController@Posts');
 });
 Route::get('/user/items', 'ItemsController@userItems');
 
