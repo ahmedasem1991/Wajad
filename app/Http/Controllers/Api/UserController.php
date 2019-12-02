@@ -14,4 +14,16 @@ class UserController extends Controller
         return  PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
             ->isShow()->isOpen()->isApproved()->get());
     }
+
+    public function userLostPosts()
+    {
+        return PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
+            ->lost()->isShow()->isOpen()->isApproved()->get());
+    }
+
+    public function userFoundPosts()
+    {
+        return PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
+            ->found()->isShow()->isOpen()->isApproved()->get());
+    }
 }

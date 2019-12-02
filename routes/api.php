@@ -1,6 +1,8 @@
 <?php
 
 # Auth Routes
+use Illuminate\Support\Facades\Route;
+
 Route::post('/login', 'Auth\AuthController@login');
 Route::post('/register', 'Auth\AuthController@register');
 Route::post('/refresh-token', 'Auth\AuthController@refresh');
@@ -54,8 +56,12 @@ Route::prefix('posts')->group(function () {
         Route::delete('/{id}', 'PostsController@destroy');
     });
 });
-Route::get('/user/posts', 'UserController@userPosts');
-Route::post('/report/post', 'PostsController@reportPost');
+Route::group(['middleware' => ['auth:api']], function(){
+    Route::get('/user/posts/lost', 'UserController@userLostPosts');
+    Route::get('/user/posts/found', 'UserController@userFoundPosts');
+    Route::post('/report/post', 'PostsController@reportPost');
+});
+
 
 Route::group(['prefix' => 'search'], function () {
     Route::get('/post', 'PostsController@search');
