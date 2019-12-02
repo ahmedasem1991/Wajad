@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
                 'code' => $exception->getCode(),
             ];
 
-            return response()->json($json, 400);
+            return response()->json($json, $exception->getCode() ?? 400);
         }
         return parent::render($request, $exception);
     }

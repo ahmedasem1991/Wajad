@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Item;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\Filter;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 
 class ItemsController extends Controller
 {
     public function index()
     {
-        return ItemResource::collection(Item::all());
+        return ItemResource::collection(auth('api')->user()->items);
+    }
+
+    public function show(Item $item)
+    {
+        return new ItemResource($item);
     }
 
     public function store(Request $request)
@@ -26,39 +30,21 @@ class ItemsController extends Controller
             'color_id' => ['required', 'exists:colors,id'],
             'model_id' => ['required', 'exists:models,id'],
             'brand_id' => ['required', 'exists:brands,id'],
-
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
+
         return (new Item)->createItem($request);
-    }
-
-    public function show(Item $item)
-    {
-        return new ItemResource($item);
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function destroy(Item $item)
     {
-        $item = Item::find($id);
-        if (empty($item)) {
-            $this->addResponse(trans('posts.not_found'))->addStatusCode(200);
-            return  $this->response();
-        }
         $item->delete();
+
         $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
+
         return  $this->response();
-    }
-    public function userItems()
-    {
-        return  ItemResource::collection(auth('api')->user()->items()->get());
     }
 }

@@ -7,6 +7,7 @@ use App\User;
 use App\PostLimitation;
 use App\Services\SmsProvider;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Mail;
@@ -37,7 +38,7 @@ class AuthController extends Controller
             );
 
             if ($validate_mobile_number->fails()) {
-                throw new ApiException($validate_mobile_number->errors()->first(), 400);
+                throw new ApiException($validate_mobile_number->errors()->first(), 401);
             }
 
             if (app()->environment('production')) {
@@ -59,7 +60,7 @@ class AuthController extends Controller
             );
 
             if ($validate_email->fails()) {
-                throw new ApiException($validate_email->errors()->first(), 400);
+                throw new ApiException($validate_email->errors()->first(), 401);
             }
 
             $request = ['email' => request('user'), 'password' => request('password')];
@@ -82,35 +83,13 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register()
+    public function register(RegisterRequest $request)
     {
-        $validate_request = Validator::make(request()->all(), [
-            'name' => ['required', 'min:6', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:6', 'max:255', 'confirmed'],
-            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'digits_between:9,14'],
-        ]);
-
-        if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors()->first(), 400);
-        }
-
-        if (app()->environment('production')) {
-            if (!preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-                $mobile_number = '00966' . request('mobile_number');
-            }
-            request()->merge(['mobile_number' => $mobile_number]);
-        }
-
-        if (app()->environment('local')) {
-            $mobile_number = request('mobile_number');
-        }
-
         $user = User::create([
-            'name' => request('name'),
-            'password' => bcrypt(request('password')),
-            'email' => request('email'),
-            'mobile_number' => $mobile_number,
+            'name' => $request->name,
+            'password' => bcrypt($request->password),
+            'email' => $request->email,
+            'mobile_number' => $request->mobile_number,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
         ]);

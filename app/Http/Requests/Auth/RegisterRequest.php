@@ -30,13 +30,13 @@ class RegisterRequest extends FormRequest
             }
 
             if (app()->environment('production')) {
-                if (!preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-                    $mobile_number = '00966' . request('mobile_number');
+                if (!preg_match('/(00966)[0-9]{9}/', $this->mobile_number)) {
+                    $mobile_number = '00966' . $this->mobile_number;
                 }
             }
 
             if (app()->environment('local')) {
-                $mobile_number = request('mobile_number');
+                $mobile_number = $this->mobile_number;
             }
 
             $this->merge(['mobile_number' => $mobile_number]);

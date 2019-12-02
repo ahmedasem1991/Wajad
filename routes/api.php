@@ -18,14 +18,26 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('/user/posts/{type}', 'UserController@Posts');
+    Route::resource('items', 'ItemsController');
+
+    Route::get('/user/posts/{type}', 'UserController@userPosts');
+
+    Route::post('/report/post/{post}', 'PostsController@reportPost');;
+
+    Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
+    Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
+    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 });
 
 # Home
 Route::prefix('home')->group(function () {
     Route::get('/banners', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
-    Route::get('/search', 'SearchController@searchFilter');
+
+    Route::group(['prefix' => 'search'], function () {
+        Route::get('/', 'SearchController@searchFilter');
+        Route::get('/keywords', 'SearchController@searchByKeyWords');
+    });
 });
 
 # Categories
@@ -77,36 +89,4 @@ Route::prefix('posts')->group(function () {
         Route::put('/{post}', 'PostsController@update');
         Route::delete('/{post}', 'PostsController@destroy');
     });
-});
-
-Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('/user/posts/lost', 'UserController@userLostPosts');
-    Route::get('/user/posts/found', 'UserController@userFoundPosts');
-    Route::post('/report/post', 'PostsController@reportPost');
-});
-
-Route::post('/report/post/{post}', 'PostsController@reportPost');
-
-# Search
-Route::get('search/keywords', 'SearchController@searchByKeyWords');
-
-
-Route::group(['middleware' => ['auth:api']], function () {
-    # Posts
-    Route::get('/user/posts/{type}', 'UserController@Posts');
-
-    # Items
-    Route::prefix('items')->group(function () {
-        Route::put('/{id}', 'ItemsController@update');
-        Route::get('/{item}', 'ItemsController@show');
-        Route::get('/', 'ItemsController@index');
-        Route::post('/', 'ItemsController@store');
-        Route::delete('/{id}', 'ItemsController@destroy');
-    });
-    Route::get('/user/items', 'ItemsController@userItems');
-
-    # QR codes
-    Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
-    Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
-    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 });
