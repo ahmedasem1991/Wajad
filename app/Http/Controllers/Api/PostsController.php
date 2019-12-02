@@ -200,11 +200,11 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         $user = auth('api')->user();
-        // if ($user->can('destroy', $post)) {
+        if ($user->can('destroy', $post)) {
             $post->delete();
             $this->addResponse(trans('posts.successfully_deleted'))->addStatusCode(200);
             return  $this->response();
-        // }
+        }
         throw new ApiException(trans('auth.not_authorized'), 400);
     }
 }
