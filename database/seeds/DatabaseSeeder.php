@@ -5,11 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Category;
 use App\Item;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
 
-	public function run()
-	{
-		Model::unguard();
-		 
-	}
+    public function run()
+    {
+        Model::unguard();
+
+        $this->call(PageSeeder::class);
+    }
 }
