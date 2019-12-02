@@ -1,11 +1,11 @@
 <?php
 
 return [
-	'successfully_updated' => 'Successfully updated',
 	'successfully_created' => 'Successfully created',
+	'successfully_updated' => 'Successfully updated',
 	'successfully_registered' => 'Successfully registered',
 	'successfully_deleted' => 'Successfully deleted',
-	'successfully_contactus' => 'Successfully Sent..Thanks For Your valuable feedback.',
-	'unexpected_error' => 'Un Expected Error Occured Please Try Again',
-	'not_found' => 'The Page You Requested Not Found',
+	'posts_limitation_message' => "Sorry You have reached the maximum number  of posts",
+	'post_report_message' => "Post Reported Successfully.",
+	'not_found' => 'The object is not found.',
 ];

@@ -75,13 +75,14 @@ Route::prefix('posts')->group(function () {
     });
 });
 Route::post('/report/post/{post}', 'PostsController@reportPost');
-Route::get('/user/posts/{type}', 'UserController@Posts');
 
 # Search
 Route::get('search/keywords', 'SearchController@searchByKeyWords');
 
 
 Route::group(['middleware' => ['auth:api']], function () {
+    # Posts
+    Route::get('/user/posts/{type}', 'UserController@Posts');
 
     # Items
     Route::prefix('items')->group(function () {
