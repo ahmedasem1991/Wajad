@@ -51,7 +51,7 @@ class ItemsController extends Controller
         $user = auth('api')->user();
         if ($user->can('destroy', $item)) {
             $item->delete();
-            $this->addResponse(trans('messages.successfully_deleted'))->addStatusCode(200);
+            $this->addResponse(trans('messages.deleted', ['model' => 'item']))->addStatusCode(200);
             return  $this->response();
         }
         throw new ApiException(trans('auth.not_authorized'), 400);

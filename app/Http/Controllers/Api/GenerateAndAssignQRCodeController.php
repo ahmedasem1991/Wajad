@@ -82,7 +82,7 @@ class GenerateAndAssignQRCodeController extends Controller
 
         GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
 
-        $this->addResponse(trans('messages.successfully_created'))->addStatusCode(201);
+        $this->addResponse(trans('messages.created'))->addStatusCode(201);
         Log::INFO($this->response());
         return $this->response();
     }

@@ -34,7 +34,7 @@ class UpdateUserProfile extends Controller
             'default_distance_unit' => $request->default_distance_unit,
         ]);
 
-        $this->addResponse(trans('user.updated'))->addStatusCode(201);
+        $this->addResponse(trans('messages.updated',['model'=>'user']))->addStatusCode(201);
 
         return $this->response();
     }
