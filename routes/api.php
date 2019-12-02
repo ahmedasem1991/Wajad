@@ -56,10 +56,11 @@ Route::prefix('posts')->group(function () {
         Route::post('/add/{type}', 'PostsController@store');
         Route::put('/{post}', 'PostsController@update');
         Route::delete('/{post}', 'PostsController@destroy');
-    });
-});
-Route::get('/user/posts', 'UserController@userPosts');
-Route::post('/report/post/{post}', 'PostsController@report');
+        Route::get('/user/posts/{type}', 'UserController@userPosts');
+      });
+}); 
+  
+    Route::post('/report/post', 'PostsController@reportPost');
 
 Route::group(['prefix' => 'search'], function () {
     Route::get('/keywords', 'SearchController@searchByKeyWords');

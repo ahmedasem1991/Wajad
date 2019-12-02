@@ -8,6 +8,7 @@ use App\PostLimitation;
 use App\Services\SmsProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
