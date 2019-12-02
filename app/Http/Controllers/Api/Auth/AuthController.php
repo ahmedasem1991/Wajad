@@ -92,6 +92,10 @@ class AuthController extends Controller
             'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'digits_between:9,14'],
         ]);
 
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
         if (app()->environment('production')) {
             if (!preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
                 $mobile_number = '00966' . request('mobile_number');
@@ -103,9 +107,6 @@ class AuthController extends Controller
             $mobile_number = request('mobile_number');
         }
 
-        if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors()->first(), 400);
-        }
 
         $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 

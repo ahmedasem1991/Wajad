@@ -9,11 +9,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 class AuthServiceProvider extends ServiceProvider
 {
     use ValidatesPermissions;
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
+
     protected $policies = [
         'App\Activity' => 'App\Policies\ActivityPolicy',
         'App\Post' => 'App\Policies\PostPolicy',
@@ -39,14 +35,14 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
-        foreach (config('novapermissions.permissions') as $key => $permissions) {
-            Gate::define($key, function (User $user) use ($key) {
-                if ($this->nobodyHasAccess($key)) {
-                    return true;
-                }
+        // foreach (config('novapermissions.permissions') as $key => $permissions) {
+        //     Gate::define($key, function (User $user) use ($key) {
+        //         if ($this->nobodyHasAccess($key)) {
+        //             return true;
+        //         }
 
-                return $user->hasPermissionTo($key);
-            });
-        }
+        //         return $user->hasPermissionTo($key);
+        //     });
+        // }
     }
 }

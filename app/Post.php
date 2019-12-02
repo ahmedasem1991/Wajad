@@ -2,17 +2,12 @@
 
 namespace App;
 
-use DB;
-use Log;
+
 use App\Brand;
 use App\Model;
-use Carbon\Carbon;
-use App\Nova\Categories;
-use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
 use Illuminate\Database\Eloquent\Model as MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 

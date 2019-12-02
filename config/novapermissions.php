@@ -443,7 +443,7 @@ return [
             'group'        => 'Assign QR Code',
         ],
 
- 
+
          ///////////////Generate QR Code///////////////
         //  'view generate qr code' => [
         //     'display_name' => 'View generate qr code',
@@ -457,8 +457,8 @@ return [
         //     'group'        => 'Generate QR Code',
         // ],
 
- 
- 
+
+
          ///////////////QR Code Stock///////////////
          'view stock' => [
             'display_name' => 'View stock',

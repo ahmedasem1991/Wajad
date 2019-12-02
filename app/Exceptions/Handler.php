@@ -46,13 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($request->ajax() || $request->wantsJson() || $request->getSchemeAndHttpHost() == env('API_URL')) {
             $json = [
                 'success' => false,
-                'error' => [
-                    'code' => $exception->getCode(),
-                    'message' => $exception->getMessage(),
-                ],
+                'message' => $exception->getMessage(),
+                'code' => $exception->getCode(),
             ];
 
             return response()->json($json, 400);
