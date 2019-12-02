@@ -1,8 +1,5 @@
 <?php
 
-use App\Item;
-use PageSeeder;
-use App\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
