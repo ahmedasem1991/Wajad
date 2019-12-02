@@ -9,21 +9,33 @@ use App\Http\Resources\PostResource;
 
 class UserController extends Controller
 {
-    public function userPosts()
+    const TYPES = [
+        'lost' => 0,
+        'found' => 1,
+    ];
+    public function Posts($type = null)
     {
-        return  PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
-            ->isShow()->isOpen()->isApproved()->get());
+        if (!is_null($type) && in_array($type, self::TYPES)) {
+            if ($type == 'lost') {
+                return $this->userLostPosts();
+            }
+            if ($type == 'found') {
+                return $this->userFoundPosts();
+            }
+        }
     }
 
     public function userLostPosts()
     {
-        return PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
-            ->lost()->isShow()->isOpen()->isApproved()->get());
+        return PostResource::collection(
+            auth('api')->user()->posts()
+                ->lost()->isShow()->isOpen()->isApproved()->get()
+        );
     }
 
     public function userFoundPosts()
     {
-        return PostResource::collection(Post::where('publisher_id', auth('api')->user()->id)
+        return PostResource::collection(auth('api')->user()->posts()
             ->found()->isShow()->isOpen()->isApproved()->get());
     }
 }

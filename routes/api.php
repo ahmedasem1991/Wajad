@@ -1,5 +1,5 @@
 <?php
-
+# Auth
 Route::group(['namespace' => 'Auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
@@ -17,10 +17,15 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
-# Home Page
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/user/posts/{type}', 'UserController@Posts');
+});
+
+# Home
 Route::prefix('home')->group(function () {
     Route::get('/banners', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
+    Route::get('/search', 'SearchController@searchFilter');
 });
 
 # Categories
@@ -49,38 +54,6 @@ Route::get('/offices', 'OfficeController@index');
 # Maps
 Route::get('/maps/{type?}', 'MapController');
 
-# Posts
-Route::prefix('posts')->group(function () {
-    Route::get('/{post}', 'PostsController@show');
-    Route::group(['middleware' => ['auth:api']], function () {
-        Route::post('/add/{type}', 'PostsController@store');
-        Route::put('/{post}', 'PostsController@update');
-        Route::delete('/{post}', 'PostsController@destroy');
-    });
-});
-Route::group(['middleware' => ['auth:api']], function(){
-    Route::get('/user/posts/lost', 'UserController@userLostPosts');
-    Route::get('/user/posts/found', 'UserController@userFoundPosts');
-    Route::post('/report/post', 'PostsController@reportPost');
-});
-
-
-Route::group(['prefix' => 'search'], function () {
-    Route::get('/keywords', 'SearchController@searchByKeyWords');
-});
-
-# Items
-Route::group(['middleware' => ['auth:api']], function () {
-    Route::prefix('items')->group(function () {
-        Route::put('/{id}', 'ItemsController@update');
-        Route::get('/{item}', 'ItemsController@show');
-        Route::get('/', 'ItemsController@index');
-        Route::post('/', 'ItemsController@store');
-        Route::delete('/{id}', 'ItemsController@destroy');
-    });
-});
-Route::get('/user/items', 'ItemsController@userItems');
-
 # Countries
 Route::get('/countries', 'LocationsController@index');
 
@@ -94,20 +67,44 @@ Route::post('/contact-us', 'SupportController@store');
 Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
 
 # Pages
-// Route::get('/pages/{page?}', 'PageController');
+Route::get('/pages/{page?}', 'PageController');
+
+# Posts
+Route::prefix('posts')->group(function () {
+    Route::get('/{post}', 'PostsController@show');
+    Route::group(['middleware' => ['auth:api']], function () {
+        Route::post('/add/{type}', 'PostsController@store');
+        Route::put('/{post}', 'PostsController@update');
+        Route::delete('/{post}', 'PostsController@destroy');
+    });
+});
+
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::get('/user/posts/lost', 'UserController@userLostPosts');
+    Route::get('/user/posts/found', 'UserController@userFoundPosts');
+    Route::post('/report/post', 'PostsController@reportPost');
+});
+
+Route::post('/report/post/{post}', 'PostsController@reportPost');
+
+# Search
+Route::get('search/keywords', 'SearchController@searchByKeyWords');
+
 
 Route::group(['middleware' => ['auth:api']], function () {
 
-    // phone_verified
-
-    Route::get('/user', function (Request $request) {
-        return auth('api')->user();
+    # Items
+    Route::prefix('items')->group(function () {
+        Route::put('/{id}', 'ItemsController@update');
+        Route::get('/{item}', 'ItemsController@show');
+        Route::get('/', 'ItemsController@index');
+        Route::post('/', 'ItemsController@store');
+        Route::delete('/{id}', 'ItemsController@destroy');
     });
+    Route::get('/user/items', 'ItemsController@userItems');
 
-    Route::post('details', 'DetailsController@index');
-
-    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
-
+    # QR codes
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
+    Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
 });
