@@ -246,7 +246,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=aut" \
+    "http://api.wajad.test/api/refreshToken?Old=sit" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
@@ -254,7 +254,7 @@ fetch(url, {
 );
 
 let params = {
-    "Old": "aut",
+    "Old": "sit",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -883,14 +883,16 @@ fetch(url, {
 <p><code>POST wajad/password/reset</code></p>
 <!-- END_ef35280f3fdc56bb64ff077bb4de4729 -->
 <!-- START_b4f4625b609a18310a50b1dddf752a55 -->
-<h2>api/resetPassword</h2>
+<h2>Reset Password</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
     "http://api.wajad.test/api/resetPassword" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
+    -H "Accept: application/json" \
+    -d '{"user":"reehaabahmed@gmail.com"}'
+</code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/resetPassword"
 );
@@ -900,14 +902,46 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "user": "reehaabahmed@gmail.com"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "message": "User updated successfully.",
+    "status_code": 200
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/resetPassword</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user</code></td>
+<td>email,min:9,max:14</td>
+<td>required</td>
+<td>email or phone.</td>
+</tr>
+</tbody>
+</table>
 <!-- END_b4f4625b609a18310a50b1dddf752a55 -->
 <!-- START_0b828966a9f31e695693fe9650b70eb1 -->
 <h2>User Data</h2>
@@ -1031,17 +1065,17 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_734623b7e60cc9f20fd5b5b67df87d7d -->
-<!-- START_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
-<h2>api/sendCode/{type}</h2>
+<!-- START_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
+<h2>Resend Code</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/sendCode/1" \
+    "http://api.wajad.test/api/resendCode/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/sendCode/1"
+    "http://api.wajad.test/api/resendCode/phone."
 );
 
 let headers = {
@@ -1055,9 +1089,34 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "message": "Verification code sent.",
+    "status_code": 200
+}</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/sendCode/{type}</code></p>
-<!-- END_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
+<p><code>POST api/resendCode/{type}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>required</td>
+<td>phone or email.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
 <!-- START_72a884b85bf7bf4198984d6ccecce2b7 -->
 <h2>Update User Profile</h2>
 <blockquote>

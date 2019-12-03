@@ -197,7 +197,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=aut" \
+    "http://api.wajad.test/api/refreshToken?Old=sit" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -208,7 +208,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "aut",
+    "Old": "sit",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -1054,14 +1054,17 @@ fetch(url, {
 <!-- END_ef35280f3fdc56bb64ff077bb4de4729 -->
 
 <!-- START_b4f4625b609a18310a50b1dddf752a55 -->
-## api/resetPassword
+## Reset Password
+
 > Example request:
 
 ```bash
 curl -X POST \
     "http://api.wajad.test/api/resetPassword" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"user":"reehaabahmed@gmail.com"}'
+
 ```
 
 ```javascript
@@ -1074,20 +1077,38 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "user": "reehaabahmed@gmail.com"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
 ```
 
 
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "User updated successfully.",
+    "status_code": 200
+}
+```
 
 ### HTTP Request
 `POST api/resetPassword`
 
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `user` | email,min:9,max:14 |  required  | email or phone.
+    
 <!-- END_b4f4625b609a18310a50b1dddf752a55 -->
 
 <!-- START_0b828966a9f31e695693fe9650b70eb1 -->
@@ -1209,20 +1230,21 @@ Parameter | Type | Status | Description
     
 <!-- END_734623b7e60cc9f20fd5b5b67df87d7d -->
 
-<!-- START_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
-## api/sendCode/{type}
+<!-- START_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
+## Resend Code
+
 > Example request:
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/sendCode/1" \
+    "http://api.wajad.test/api/resendCode/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/sendCode/1"
+    "http://api.wajad.test/api/resendCode/phone."
 );
 
 let headers = {
@@ -1239,12 +1261,26 @@ fetch(url, {
 ```
 
 
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "Verification code sent.",
+    "status_code": 200
+}
+```
 
 ### HTTP Request
-`POST api/sendCode/{type}`
+`POST api/resendCode/{type}`
 
+#### URL Parameters
 
-<!-- END_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `type` |  required  | phone or email.
+
+<!-- END_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
 
 <!-- START_72a884b85bf7bf4198984d6ccecce2b7 -->
 ## Update User Profile

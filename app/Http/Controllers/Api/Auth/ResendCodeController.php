@@ -12,12 +12,12 @@ class ResendCodeController extends Controller
         'phone', 'email'
     ];
     /**
-     *Send Code
+     *Resend Code
      * @urlParam type required phone or email. Example:phone.
      * @response 
      * {
      *"success": true,
-     *"message": "User updated successfully.",
+     *"message": "Verification code sent.",
      *"status_code": 200
      *}
      * @return void

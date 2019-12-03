@@ -20,6 +20,6 @@ class EmailVerificationCode extends Mailable
 
     public function build()
     {
-        return $this->from(env('EMAIL_FROM_ADDRESS'))->view('emails.auth.verification_email');
+        return $this->from(env('MAIL_FROM_ADDRESS'))->view('emails.auth.verification_email');
     }
 }
