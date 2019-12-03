@@ -13,8 +13,6 @@ use App\Http\Requests\Auth\RegisterRequest;
 
 /**
  * @group Auth
- *
- * APIs for Auth
  */
 class AuthController extends Controller
 {
