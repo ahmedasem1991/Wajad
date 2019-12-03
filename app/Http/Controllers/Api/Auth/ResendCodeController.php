@@ -6,12 +6,22 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 
-class SendCodeController extends Controller
+class ResendCodeController extends Controller
 {
     private $types = [
         'phone', 'email'
     ];
-
+    /**
+     *Send Code
+     * @urlParam type required phone or email. Example:phone.
+     * @response 
+     * {
+     *"success": true,
+     *"message": "User updated successfully.",
+     *"status_code": 200
+     *}
+     * @return void
+     */
     public function __invoke($type)
     {
         if (!in_array($type, $this->types)) {

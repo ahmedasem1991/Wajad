@@ -10,13 +10,13 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('/userData', 'UserDataController');
         Route::post('/refreshToken', 'AuthController@refresh');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
-        Route::post('/sendCode/{type}', 'SendCodeController');
+        Route::post('/resendCode/{type}', 'ResendCodeController');
         Route::post('/updateUserProfile', 'UpdateUserProfileController');
         Route::post('/changePassword', 'ChangePasswordController');
         Route::post('/changePhone', 'ChangePhoneNumberController');
         Route::post('/changeEmail', 'ChangeEmailController');
         Route::post('/logout', 'AuthController@logout');
-        Route::get('/userPosts/{type?}', 'UserPostController');
+        Route::get('/userPosts/{type}', 'UserPostController');
     });
 });
 

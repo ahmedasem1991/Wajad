@@ -13,6 +13,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'approval_status' => $this->approval_status,
+            'reward' => $this->reward,
             'description' => $this->description,
             'status' => Post::Status[$this->status] ?? '',
             'attached_to_item' => (bool) $this->item,

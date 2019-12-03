@@ -69,13 +69,15 @@ class UserService
      */
     public function createAndSendActivationCode(User $user, $code_valid_for)
     {
-        if ($user->userVerification) {
-            if ($user->userVerification()->sendCodeWithinMinute()) {
-                throw new ApiException(trans('auth.verification_code_wait_time_one_minute'));
-            }
-
-            $user->userVerification()->delete();
+        if (!$user->userVerification()) {
+            dd("d");
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.user')]), 404);
         }
+        if ($user->userVerification()->sendCodeWithinMinute()) {
+            throw new ApiException(trans('auth.verification_code_wait_time_one_minute'));
+        }
+
+        $user->userVerification()->delete();
 
         $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
