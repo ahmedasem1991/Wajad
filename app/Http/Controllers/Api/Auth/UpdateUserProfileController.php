@@ -42,6 +42,10 @@ class UpdateUserProfileController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+        if ($request->receive_emails) {
+            throw new ApiException(trans('auth.cannot_recieve_emails'), 400);
+        }
+
         $user->update([
             'name' => $request->name,
             'receive_emails' => $request->receive_emails,

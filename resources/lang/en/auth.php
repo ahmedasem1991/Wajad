@@ -36,5 +36,6 @@ return [
 	'not_authorized' => 'You have no access to this object.',
     'phone_not_verified' => 'Your Phone Is Not Verified Please Verify Your Phone Number',
     'something_wrong' => 'Something went wrong.',
+    'cannot_recieve_emails' => 'You can not recieve emails before verifing your email.',
 
 ];

@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Validator;
 
 class ResetPasswordController extends Controller
 {
+    /**
+     *Reset Password
+     * @bodyParam user min:6,max:255 required 1 or 0. Example:01113559
+     * @response 
+     * {
+     *"success": true,
+     *"message": "User updated successfully.",
+     *"status_code": 200
+     *}
+     * @return void
+     */
     public function __invoke()
     {
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
