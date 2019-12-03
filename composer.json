@@ -52,8 +52,7 @@
         "spatie/laravel-query-builder": "^1.17",
         "srmklive/paypal": "^1.6",
         "stephenlake/nova-fixed-bars": "^1.1",
-        "tymon/jwt-auth": "1.0.*",
-        "zircote/swagger-php": "2.*"
+        "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
