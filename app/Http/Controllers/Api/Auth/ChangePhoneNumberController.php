@@ -6,13 +6,24 @@ use App\Exceptions\Api\ApiException;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @group User Profile
  */
 class ChangePhoneNumberController extends Controller
 {
+    /**
+     * Change Phone Number
+     *
+     * @bodyParam mobile_number 'required', 'numeric', 'digits_between:9,14', 'unique:user', 'ignore:user-id'
+     *
+     * @response {
+     *  "success": true,
+     *  "message": "Verification code sent.",
+     *  "status_code": 200
+     *}
+     */
     public function __invoke()
     {
         $user = auth('api')->user();
