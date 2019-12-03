@@ -29,9 +29,4 @@ class Setting extends Model
     {
         return Str::title($value);
     }
-
-    public static function find($key)
-    {
-        return self::where('key', $key)->first()->value ?? 'Not Found';
-    }
 }
