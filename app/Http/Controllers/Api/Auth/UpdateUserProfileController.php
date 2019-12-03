@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Exceptions\Api\ApiException;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 use App\Services\SmsProvider;
 use App\Services\UserService;
+use Illuminate\Validation\Rule;
+use App\Exceptions\Api\ApiException;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateUserProfileController extends Controller
 {
@@ -34,7 +35,7 @@ class UpdateUserProfileController extends Controller
             'default_distance_unit' => $request->default_distance_unit,
         ]);
 
-        $this->addResponse(trans('messages.updated',['model'=>'user']))->addStatusCode(201);
+        $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.user')]))->addStatusCode(201);
 
         return $this->response();
     }
