@@ -3,10 +3,10 @@
 Route::group(['namespace' => 'Auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
-    Route::post('/refreshToken', 'AuthController@refresh');
     Route::post('/resetPassword', 'ResetPasswordController');
 
     Route::middleware(['auth:api'])->group(function () {
+        Route::post('/refreshToken', 'AuthController@refresh');
         Route::get('/userData', 'UserDataController');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/resendCode/{type}', 'ResendCodeController');

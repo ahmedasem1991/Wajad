@@ -23,10 +23,11 @@ class UserService
         $user_verificatioin =  $user->userVerification ?? null;
 
         if (!$user_verificatioin) {
-            throw new ApiException(trans('auth.failed'), 400);
+            throw new ApiException(trans('auth.something_wrong'), 400);
         }
 
         if ($user_verificatioin->verification_code !== (int) $code) {
+            $user_verificatioin->increment('attempt');
             throw new ApiException(trans('auth.wrong_code'), 400);
         }
 
@@ -57,8 +58,6 @@ class UserService
 
             $user->userVerification()->delete();
         }
-
-        $user_verificatioin->increment('attempt');
     }
 
     /**
