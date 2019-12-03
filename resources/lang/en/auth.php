@@ -35,5 +35,6 @@ return [
     'password_not_match' => 'Passwords do not match, please try again.',
 	'not_authorized' => 'You have no access to this object.',
     'phone_not_verified' => 'Your Phone Is Not Verified Please Verify Your Phone Number',
+    'something_wrong' => 'Something went wrong.',
 
 ];

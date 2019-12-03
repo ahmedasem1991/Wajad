@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\User;
 use App\Services\SmsProvider;
 use App\Mail\ResetPasswordMail;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Validator;
 use App\Mail\ResetPasswordRequestMail;
+use Illuminate\Support\Facades\Validator;
 
 class ResetPasswordController extends Controller
 {
@@ -44,7 +45,7 @@ class ResetPasswordController extends Controller
 
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
             if (!$user->isEmailVerified()) {
-                throw new ApiException(trans(''), 400);
+                throw new ApiException(trans('auth.mail_not_verified'), 400);
             }
 
             Mail::to(request('user'))->send(new ResetPasswordMail($new_password));

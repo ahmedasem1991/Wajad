@@ -6,6 +6,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/resetPassword', 'ResetPasswordController');
 
     Route::middleware(['auth:api'])->group(function () {
+        Route::post('/refreshToken', 'AuthController@refresh');
         Route::get('/userData', 'UserDataController');
         Route::post('/refreshToken', 'AuthController@refresh');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');

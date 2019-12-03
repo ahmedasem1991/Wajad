@@ -11,6 +11,9 @@ return [
 	'attributes' => [
 		'post' => 'المنشور',
 		'item'  => 'العنصر',
-		'category' => 'الفئة'
+		'category' => 'الفئة',
+		'user' => 'المستخدم',
+		'qrcode' => 'المستخدم',
+
 	],
 ];

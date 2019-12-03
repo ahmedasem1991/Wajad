@@ -18,7 +18,7 @@ class RequestEmailVerification extends Controller
         }
 
         if ((new UserService)->createAndSendActivationCode($user, 'email')) {
-            $this->addResponse(trans('email.sent'))->addStatusCode(201);
+            $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(201);
 
             return $this->response();
         }
