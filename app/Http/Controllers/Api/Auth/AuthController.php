@@ -155,7 +155,7 @@ class AuthController extends Controller
             'is_mobile_number_verified' => false,
         ]);
 
-        (new UserService)->createAndSendActivationCode($user, 'mobile_number');
+        (new UserService)->createAndSendActivationCode($user, 'phone');
 
         $user->postLimitation()->save(new PostLimitation());
 
