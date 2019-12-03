@@ -91,8 +91,7 @@ class UserService
         }
 
         if ($code_valid_for == 'email') {
-            Mail::to($user)
-                ->send(new EmailVerificationCode($activation_code));
+            // Mail::to($user)->send(new EmailVerificationCode($activation_code));
 
             return true;
         }
