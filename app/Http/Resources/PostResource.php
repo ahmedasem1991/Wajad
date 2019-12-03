@@ -12,6 +12,7 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'approval_status' => $this->approval_status,
             'description' => $this->description,
             'status' => Post::Status[$this->status] ?? '',
             'attached_to_item' => (bool) $this->item,
