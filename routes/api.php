@@ -11,7 +11,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::post('/refreshToken', 'AuthController@refresh');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/resendCode/{type}', 'ResendCodeController');
-        Route::post('/updateUserProfile', 'UpdateUserProfile');
+        Route::post('/updateUserProfile', 'UpdateUserProfileController');
         Route::post('/changePassword', 'ChangePasswordController');
         Route::post('/changePhone', 'ChangePhoneNumberController');
         Route::post('/sendEmailVerification', 'RequestEmailVerification');
