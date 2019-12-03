@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Services\SmsProvider;
 use App\Services\UserService;
 
-class UpdateUserProfile extends Controller
+class UpdateUserProfileController extends Controller
 {
     public function __invoke(Request $request)
     {
