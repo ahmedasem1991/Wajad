@@ -2,24 +2,60 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Exceptions\Api\ApiException;
 use App\User;
 use App\PostLimitation;
-use App\Services\SmsProvider;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Resources\UserResource;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Mail;
+use App\Exceptions\Api\ApiException;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Auth\RegisterRequest;
 
+/**
+ * @group Auth
+ *
+ * APIs for Auth
+ */
 class AuthController extends Controller
 {
-    public function __construct(SmsProvider $smsProvider)
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'resendCode', 'resetPassword']]);
-    }
-
+    /**
+     * Login
+     *
+     * @bodyParam user numeric,email,min:9,max:14 required phone number or email for the user. Example:00966236363256
+     * @bodyParam password string required min:6 password. Example: 123456789
+     *
+     * @response {
+     *      "token_type": "Bearer",
+     *      "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTM2OTMzMSwiZXhwIjoxNTc1NTg1MzMxLCJuYmYiOjE1NzUzNjkzMzEsImp0aSI6InQ2eTB2Q0JvWHMzYllYcjEiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.LEWVdQFO7AMtEPjx8IlnfbAzRKlrSqAdvs_lSWF9Cqs",
+     *      "expires_in": 216000,
+     *      "user": {
+     *          "id": 1,
+     *          "name": "Api User",
+     *          "email": "api_user_@wajad.co",
+     *          "status": 1,
+     *          "mobile_number": "1006994920",
+     *          "receive_emails": false,
+     *          "receive_push_notifications": false,
+     *          "is_email_verified": false,
+     *          "is_mobile_number_verified": false,
+     *          "default_distance_unit": "kilo"
+     *      }
+     * }
+     *
+     * @response 401 {
+     *    "success": false,
+     *    "message": "These credentials do not match our records.",
+     *    "code": 401
+     * }
+     *
+     * @response 400 {
+     *    "success": false,
+     *    "message": "please enter a valid email address or phone number.",
+     *    "code": 400
+     * }
+     *
+     * @return void
+     */
     public function login()
     {
         $validate_password = Validator::make(request()->all(), [
@@ -83,6 +119,33 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    /**
+     * Register
+     * @bodyParam name string required 'min:6','max:255' . Example:Api Username
+     * @bodyParam email email required email,unique:users,email. Example: api@wajad.com
+     * @bodyParam password string required min:6 . Example: 123456789
+     * @bodyParam mobile_number numeric required min:6,unique:users,mobile_number,digits_between:9,14. Example: 123456789
+     *
+     * @response {
+     *     "token_type": "Bearer",
+     *     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU3NTM2OTk2NCwiZXhwIjoxNTc1NTg1OTY0LCJuYmYiOjE1NzUzNjk5NjQsImp0aSI6IjU0dEQ5WDU5NHROd212QngiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.tja6CsTMHh2NIOYpCfAFVbshcX4DWRc2HQ4zYwid6zQ",
+     *     "expires_in": 216000,
+     *     "user": {
+     *         "id": 1,
+     *         "name": "Api User",
+     *         "email": "api_user_@wajad.co",
+     *         "status": 1,
+     *         "mobile_number": "1006994920",
+     *         "receive_emails": false,
+     *         "receive_push_notifications": false,
+     *         "is_email_verified": false,
+     *         "is_mobile_number_verified": false,
+     *         "default_distance_unit": "kilo"
+     *     }
+     * }
+     *
+     * @return void
+     */
     public function register(RegisterRequest $request)
     {
         $user = User::create([
@@ -103,6 +166,12 @@ class AuthController extends Controller
         return $this->login();
     }
 
+    /**
+     * Logout
+     * [Destroy The Token]
+     *
+     * @return void
+     */
     public function logout()
     {
         auth('api')->logout();
@@ -110,6 +179,31 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    /**
+     * Refresh Token
+     * [Refresh the current API Beaerer Token]
+     *
+     * @queryParam Old Bearer Token
+     *
+     * @response {
+     *     "token_type": "Bearer",
+     *     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU3NTM2OTk2NCwiZXhwIjoxNTc1NTg1OTY0LCJuYmYiOjE1NzUzNjk5NjQsImp0aSI6IjU0dEQ5WDU5NHROd212QngiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.tja6CsTMHh2NIOYpCfAFVbshcX4DWRc2HQ4zYwid6zQ",
+     *     "expires_in": 216000,
+     *     "user": {
+     *         "id": 1,
+     *         "name": "Api User",
+     *         "email": "api_user_@wajad.co",
+     *         "status": 1,
+     *         "mobile_number": "1006994920",
+     *         "receive_emails": false,
+     *         "receive_push_notifications": false,
+     *         "is_email_verified": false,
+     *         "is_mobile_number_verified": false,
+     *         "default_distance_unit": "kilo"
+     *     }
+     * }
+     * @return void
+     */
     public function refresh()
     {
         return $this->respondWithToken(auth('api')->refresh());

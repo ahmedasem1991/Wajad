@@ -3,17 +3,17 @@
 Route::group(['namespace' => 'Auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
-    Route::post('/refreshToken', 'AuthController@refresh');
     Route::post('/resetPassword', 'ResetPasswordController');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');
+        Route::post('/refreshToken', 'AuthController@refresh');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/resendCode/{type}', 'ResendCodeController');
         Route::post('/updateUserProfile', 'UpdateUserProfile');
         Route::post('/changePassword', 'ChangePasswordController');
         Route::post('/changePhone', 'ChangePhoneNumberController');
-        Route::post('/changeEmail', 'ChangeEmailController');
+        Route::post('/sendEmailVerification', 'RequestEmailVerification');
         Route::post('/logout', 'AuthController@logout');
         Route::get('/userPosts/{type?}', 'UserPostController');
     });

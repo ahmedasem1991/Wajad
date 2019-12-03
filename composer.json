@@ -34,6 +34,7 @@
         "manmohanjit/nova-belongs-to-dependency": "^1.1",
         "marianvlad/nova-env-card": "^1.0",
         "mjaschen/phpgeo": "^2.1",
+        "mpociot/laravel-apidoc-generator": "^4.0",
         "naif/paypal": "^1.7",
         "naif/toggle": "^1.2",
         "nexmo/client": "^2.0",

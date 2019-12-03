@@ -18,6 +18,8 @@ use App\Exceptions\Api\VerifyActivationCodeException2;
 |
 */
 
+\Mpociot\ApiDoc\ApiDoc::routes("/apidoc");
+
 Route::get('/test23', function () {
     // $users= User::all()->random(3);
     // return $users[0]->id;
@@ -28,24 +30,19 @@ Route::get('/test23', function () {
 
 Auth::routes();
 //Test Notification
-Route::get('/sendfcm', 'NotificationController@sendFCM');
+// Route::get('/sendfcm', 'NotificationController@sendFCM');
 Route::get('/sendsms', 'NotificationController@sendSMS');
 //Paypal
-Route::get('paypal','PaymentController@payWithpaypal');
-Route::get('status','PaymentController@getPaymentStatus');
+Route::get('paypal', 'PaymentController@payWithpaypal');
+Route::get('status', 'PaymentController@getPaymentStatus');
 
-Route::get('/test600', function(){
+Route::get('/test600', function () { });
 
-});
-
-Route::get('/test500', function(){
+Route::get('/test500', function () {
     throw new ApiException(trans('auth.failed'), 500);
-
-
 })->name('test500');;
 
 route::get('/bridge', function () {
     Log::info('test 2');
     return view('welcome');
 });
-

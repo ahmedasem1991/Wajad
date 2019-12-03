@@ -7,7 +7,7 @@ use App\Mail\EmailVerificationCode;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 
-class ChangeEmailController extends Controller
+class RequestEmailVerification extends Controller
 {
     public function __invoke()
     {
