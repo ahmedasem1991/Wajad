@@ -15,6 +15,20 @@ class VerifyPhoneOrEmailController extends Controller
         'phone', 'email'
     ];
 
+
+    /**
+     * Verify Email
+     *
+     * @bodyParam code digits:4,numeric,required . Example:1234
+     *
+     * @response {
+     *         "success": true,
+     *         "message": "Phone Verified Successfully",
+     *         "status_code": 200
+     * }
+     *
+     * @return void
+     */
     public function __invoke(Request $request, $type)
     {
         $user = auth('api')->user();
