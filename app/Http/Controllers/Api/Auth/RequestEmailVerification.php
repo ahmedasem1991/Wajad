@@ -13,7 +13,7 @@ class RequestEmailVerification extends Controller
     {
         $user = auth('api')->user();
 
-        if ($user->hasVerifiedEmail()) {
+        if ($user->isEmailVerified()) {
             throw new ApiException(trans('email.verified'), 400);
         }
 
