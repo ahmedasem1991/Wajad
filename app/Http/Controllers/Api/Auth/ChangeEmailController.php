@@ -9,8 +9,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
+/**
+ * @group Auth
+ */
+
 class ChangeEmailController extends Controller
 {
+    /**
+     * Change Email
+     *
+     * @bodyParam email email,required. Example: example@example.com
+     *
+     * @response {
+     *
+     * }
+     * */
     public function __invoke()
     {
         $user = auth('api')->user();
@@ -23,20 +36,17 @@ class ChangeEmailController extends Controller
             throw new ApiException($validate_email_request->errors()->first(), 400);
         }
 
-        if ($user->isEmailVerified()) {
-            throw new ApiException(trans('email.verified'), 400);
-        }
-
         $user->update([
             'email' => request('email'),
             'email_verified_at' => null
         ]);
 
-        if ((new UserService)->createAndSendActivationCode($user, 'email')) {
-            $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(201);
-
+        if ((new UserService())->createAndSendActivationCode($user, 'email')) {
+            $this->addResponse(trans('auth.verification_code_sent'));
+            $this->addStatusCode(201);
             return $this->response();
         }
+
 
         throw new ApiException(trans('email.verified'), 400);
     }

@@ -11,8 +11,19 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Auth
+ */
 class ResetPasswordController extends Controller
 {
+    /**
+     * User Password Reset
+     * @bodyParam email:exist:verified || mobile_number
+     * @response
+     * {
+     *
+     * }
+     */
     public function __invoke()
     {
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {

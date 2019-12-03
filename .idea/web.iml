@@ -66,9 +66,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/markbaker/complex" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/markbaker/matrix" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mjaschen/phpgeo" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mnapoli/front-yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mnapoli/silly" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/moontoast/math" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mpociot/documentarian" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mpociot/laravel-apidoc-generator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mpociot/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/naif/paypal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/naif/toggle" />
@@ -89,6 +94,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/paypal/rest-api-sdk-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-di/invoker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/guzzle6-adapter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/httplug" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/promise" />
@@ -178,12 +184,15 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tymon/jwt-auth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/windwalker/renderer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/windwalker/structure" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-diactoros" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
     </content>

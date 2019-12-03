@@ -8,8 +8,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Auth
+ */
 class ChangePasswordController extends Controller
 {
+    /**
+     * Password Reset
+     * @bodyParam old_password 'required', 'min:6', 'max:255'
+     * @bodyParam new_password 'required', 'confirmed', 'min:6', 'max:255'
+     *
+     * @response {
+     *  "success": true,
+     *  "message": "Password Updated Successfully",
+     *  "status_code": 200
+     *}
+     */
     public function __invoke()
     {
         $validate_request = Validator::make(request()->all(), [

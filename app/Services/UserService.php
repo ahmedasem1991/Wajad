@@ -70,8 +70,8 @@ class UserService
     public function createAndSendActivationCode(User $user, $code_valid_for)
     {
         if ($user->userVerification) {
-            if ($user->userVerification()->sendCodeWithinMinute()) {
-                throw new ApiException(trans('auth.verification_code_wait_time_one_minute'));
+            if ($user->userVerification->sendCodeWithinMinute()) {
+               // throw new ApiException(trans('auth.verification_code_wait_time_one_minute'), 400);
             }
 
             $user->userVerification()->delete();
@@ -93,7 +93,8 @@ class UserService
         }
 
         if ($code_valid_for == 'email') {
-            Mail::send($user->email, new EmailVerificationCode($activation_code));
+            Mail::to($user)
+                ->send( new EmailVerificationCode($activation_code));
 
             return true;
         }
