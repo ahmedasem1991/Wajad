@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Validator;
 class VerifyPhoneOrEmailController extends Controller
 {
     private $verification_types = [
-        'phone', 'email'
+        'phone',
+        'email'
     ];
 
     /**

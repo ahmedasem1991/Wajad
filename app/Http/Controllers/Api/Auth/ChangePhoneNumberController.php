@@ -45,7 +45,7 @@ class ChangePhoneNumberController extends Controller
             'is_mobile_number_verified' => false
         ]);
 
-        if ((new UserService)->createAndSendActivationCode($user, 'mobile_number')) {
+        if ((new UserService)->createAndSendActivationCode($user, 'phone')) {
             $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(201);
 
             return $this->response();
