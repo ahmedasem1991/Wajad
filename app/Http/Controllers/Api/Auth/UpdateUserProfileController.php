@@ -11,15 +11,18 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group User Profile
+ */
 class UpdateUserProfileController extends Controller
 {
     /**
      *Update User Profile
      * @bodyParam name min:6,max:255 required 1 or 0. Example:1234
-     * @bodyParam receive_emails boolean required 1 or 0. Example:1 
-     * @bodyParam receive_push_notifications boolean required 1 or 0. Example:1 
+     * @bodyParam receive_emails boolean required 1 or 0. Example:1
+     * @bodyParam receive_push_notifications boolean required 1 or 0. Example:1
      * @bodyParam default_distance_unit string,in:kilo,mile required kilo or mile. Example:mile
-     * @response 
+     * @response
      * {
      *"success": true,
      *"message": "User updated successfully.",

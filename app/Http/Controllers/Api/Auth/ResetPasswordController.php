@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group User Profile
+ */
 class ResetPasswordController extends Controller
 {
     public function __invoke()

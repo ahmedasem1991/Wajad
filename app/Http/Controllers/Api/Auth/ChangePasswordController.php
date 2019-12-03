@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+/**
+ * @group User Profile
+ */
 class ChangePasswordController extends Controller
 {
     public function __invoke()

@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Illuminate\Validation\Validator;
 
+/**
+ * @group User Profile
+ */
 class ChangePhoneNumberController extends Controller
 {
     public function __invoke()

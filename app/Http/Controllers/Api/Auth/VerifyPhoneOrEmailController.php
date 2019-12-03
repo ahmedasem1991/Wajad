@@ -9,6 +9,9 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group User Profile
+ */
 class VerifyPhoneOrEmailController extends Controller
 {
     private $verification_types = [

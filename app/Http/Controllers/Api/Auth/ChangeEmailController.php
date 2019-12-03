@@ -23,10 +23,6 @@ class ChangeEmailController extends Controller
             throw new ApiException($validate_email_request->errors()->first(), 400);
         }
 
-        if ($user->isEmailVerified()) {
-            throw new ApiException(trans('email.verified'), 400);
-        }
-
         $user->update([
             'email' => request('email'),
             'email_verified_at' => null
