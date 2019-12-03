@@ -7,6 +7,9 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 
+/**
+ * @group User Profile
+ */
 class UserPostController extends Controller
 {
     const TYPES = [

@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordRequestMail;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group User Profile
+ */
 class ResetPasswordController extends Controller
 {
     /**
@@ -19,7 +22,7 @@ class ResetPasswordController extends Controller
      * @response 
      * {
      *"success": true,
-     *"message": "User updated successfully.",
+     *"message": "New password sent successfully to your mail.",
      *"status_code": 200
      *}
      * @return void

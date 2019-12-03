@@ -6,15 +6,17 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 
-class ResendCodeController extends Controller
+class SendCodeController extends Controller
 {
     private $types = [
-        'phone', 'email'
+        'phone',
+        'email'
     ];
+
     /**
-     *Resend Code
+     * Send Code
      * @urlParam type required phone or email. Example:phone.
-     * @response 
+     * @response
      * {
      *"success": true,
      *"message": "Verification code sent.",
