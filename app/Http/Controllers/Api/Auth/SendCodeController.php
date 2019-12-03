@@ -6,7 +6,7 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 
-class sendCodeController extends Controller
+class SendCodeController extends Controller
 {
     private $types = [
         'phone', 'email'
