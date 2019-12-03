@@ -16,11 +16,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('qr_code', function ($qr_code) {
             return \App\Qrcode::where('qrcode_url', $qr_code)->first() ?? abort(404);
         });
-        
+
         Route::bind('post', function ($post) {
             $post = \App\Post::whereId($post)->first();
             if (!$post) {
-                throw new ApiException(trans('messages.not_found'), 404);
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 404);
             }
             return $post;
         });

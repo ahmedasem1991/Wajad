@@ -15,18 +15,18 @@ class ResendCodeController extends Controller
     public function __invoke($type)
     {
         if (!in_array($type, $this->types)) {
-            throw new ApiException(trans(''), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
         }
 
         if ((new UserService)->createAndSendActivationCode(auth('api')->user(), $type)) {
 
             $this->addStatusCode(201);
 
-            $this->addResponse(trans(''));
+            $this->addResponse(trans('auth.verification_code_sent'));
 
             return $this->response();
         }
 
-        throw new ApiException(trans(''), 400);
+        throw new ApiException(trans('auth.something_wrong'), 400);
     }
 }

@@ -45,7 +45,7 @@ class PostsController extends Controller
         }
 
         if (auth('api')->user()->exceededPostLimitation()) {
-            throw new ApiException(trans('messages.limited',  ['model' => 'post']), 400);
+            throw new ApiException(trans('messages.limited',  ['model' => trans('messages.attributes.post')]), 400);
         }
 
         $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
@@ -99,7 +99,7 @@ class PostsController extends Controller
             }, $request->images);
         }
 
-        $this->addResponse(trans('messages.created' , ['model' => 'post']))->addStatusCode(201);
+        $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
 
         return $this->response();
     }
@@ -134,7 +134,7 @@ class PostsController extends Controller
 
         $post->increment('reports_number');
 
-        $this->addResponse(trans('messages.reported', ['model' => 'post']))->addStatusCode(200);
+        $this->addResponse(trans('messages.reported', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
         return  $this->response();
     }
@@ -190,7 +190,7 @@ class PostsController extends Controller
                 }, $request->images);
             }
 
-            $this->addResponse(trans('messages.updated', ['model' => 'post']))->addStatusCode(200);
+            $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
             return $this->response();
         }
@@ -202,7 +202,7 @@ class PostsController extends Controller
         $user = auth('api')->user();
         if ($user->can('destroy', $post)) {
             $post->delete();
-            $this->addResponse(trans('messages.deleted' , ['model' => 'post']))
+            $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.post')]))
                 ->addStatusCode(200);
             return  $this->response();
         }

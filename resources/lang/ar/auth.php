@@ -29,5 +29,5 @@ return [
     'new_password_request' => 'لقد طلبت تغير كلمة السر الخاصة بك.',
     'password_not_match' => 'كلمة السر غير متطابقة, من فضلك أعد المحاولة.',
     'not_authorized' => 'ليس لك تصريح لهذا العنصر.',
-
+    'something_wrong' => 'هناك خطأ ما.',
 ];

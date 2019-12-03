@@ -37,6 +37,6 @@ class ChangePhoneNumberController extends Controller
             return $this->response();
         }
 
-        throw new ApiException(trans(''), 400);
+        throw new ApiException(trans('auth.something_wrong'), 400);
     }
 }
