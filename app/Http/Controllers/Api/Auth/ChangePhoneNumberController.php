@@ -16,7 +16,7 @@ class ChangePhoneNumberController extends Controller
     /**
      * Change Phone Number
      *
-     * @bodyParam mobile_number 'required', 'numeric', 'digits_between:9,14', 'unique:user', 'ignore:user-id'
+     * @bodyParam mobile_number numeric required digits_between:9,14 unique:user ignore:user-id
      *
      * @response {
      *  "success": true,

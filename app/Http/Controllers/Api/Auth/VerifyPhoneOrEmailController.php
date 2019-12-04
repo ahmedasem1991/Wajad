@@ -22,7 +22,7 @@ class VerifyPhoneOrEmailController extends Controller
     /**
      * Verify Phone or Email
      * @urlParam type required phone or email. Example:phone.
-     * @bodyParam code digits:4,numeric required . Example:1234
+     * @bodyParam code numeric required digits:4 Example:1234
      * @response {
      *         "success": true,
      *         "message": "Phone Verified Successfully",

@@ -19,7 +19,7 @@ class UserPostController extends Controller
 
     /**
      * User Posts
-     * @urlParam type lost or found. Example:found.
+     * @urlParam type required lost or found. Example:found.
      * @response {
      * "data": [
      *   {

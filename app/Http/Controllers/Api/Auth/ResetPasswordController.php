@@ -18,7 +18,7 @@ class ResetPasswordController extends Controller
 {
     /**
      * User Password Reset
-     * @bodyParam email:exist:verified || mobile_number
+     * @bodyParam email,mobile_number string,int required email:exist:verified
      * @response
      * {
      *

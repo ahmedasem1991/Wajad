@@ -18,7 +18,7 @@ class ChangeEmailController extends Controller
     /**
      * Change Email
      *
-     * @bodyParam email email,required. Example: example@example.com
+     * @bodyParam email email required Example:example@example.com
      *
      * @response {
      *

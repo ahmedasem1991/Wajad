@@ -246,7 +246,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=est" \
+    "http://api.wajad.test/api/refreshToken?Old=dolor" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
@@ -254,7 +254,7 @@ fetch(url, {
 );
 
 let params = {
-    "Old": "est",
+    "Old": "dolor",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -348,7 +348,7 @@ fetch(url, {
     "http://api.wajad.test/api/resetPassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email:exist:verified":"sed"}'
+    -d '{"email,mobile_number":"autem"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/resetPassword"
@@ -360,7 +360,7 @@ let headers = {
 };
 
 let body = {
-    "email:exist:verified": "sed"
+    "email,mobile_number": "autem"
 }
 
 fetch(url, {
@@ -388,11 +388,10 @@ fetch(url, {
 </thead>
 <tbody>
 <tr>
-<td><code>email:exist:verified</code></td>
-<td></td>
-<td></td>
-<td>optional</td>
-<td>mobile_number</td>
+<td><code>email,mobile_number</code></td>
+<td>string,int</td>
+<td>required</td>
+<td>email:exist:verified</td>
 </tr>
 </tbody>
 </table>
@@ -512,9 +511,9 @@ fetch(url, {
 <tbody>
 <tr>
 <td><code>code</code></td>
-<td>digits:4,numeric</td>
+<td>numeric</td>
 <td>required</td>
-<td>.</td>
+<td>digits:4</td>
 </tr>
 </tbody>
 </table>
@@ -628,9 +627,9 @@ fetch(url, {
 <tbody>
 <tr>
 <td><code>name</code></td>
-<td>min:6,max:255</td>
+<td>string</td>
 <td>required</td>
-<td>1 or 0.</td>
+<td>min:6,max:255 1 or 0.</td>
 </tr>
 <tr>
 <td><code>receive_emails</code></td>
@@ -662,7 +661,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"suscipit","new_password":"veritatis","new_password_confirmation":"consequatur"}'
+    -d '{"old_password":"molestias","new_password":"porro","new_password_confirmation":"veniam"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -674,9 +673,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "suscipit",
-    "new_password": "veritatis",
-    "new_password_confirmation": "consequatur"
+    "old_password": "molestias",
+    "new_password": "porro",
+    "new_password_confirmation": "veniam"
 }
 
 fetch(url, {
@@ -709,20 +708,20 @@ fetch(url, {
 <tbody>
 <tr>
 <td><code>old_password</code></td>
-<td>&#039;required&#039;,</td>
-<td>optional</td>
-<td>'min:6', 'max:255'</td>
+<td>string</td>
+<td>required</td>
+<td>'min:6' 'max:255'</td>
 </tr>
 <tr>
 <td><code>new_password</code></td>
-<td>&#039;required&#039;,</td>
-<td>optional</td>
-<td>'confirmed', 'min:6', 'max:255'</td>
+<td>string</td>
+<td>required</td>
+<td>'confirmed' 'min:6', 'max:255'</td>
 </tr>
 <tr>
 <td><code>new_password_confirmation</code></td>
-<td>required,</td>
-<td>optional</td>
+<td>string</td>
+<td>required</td>
 <td>confirm new password</td>
 </tr>
 </tbody>
@@ -737,7 +736,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"distinctio"}'
+    -d '{"mobile_number":"dignissimos"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -749,7 +748,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "distinctio"
+    "mobile_number": "dignissimos"
 }
 
 fetch(url, {
@@ -782,9 +781,9 @@ fetch(url, {
 <tbody>
 <tr>
 <td><code>mobile_number</code></td>
-<td>&#039;required&#039;,</td>
-<td>optional</td>
-<td>'numeric', 'digits_between:9,14', 'unique:user', 'ignore:user-id'</td>
+<td>numeric</td>
+<td>required</td>
+<td>digits_between:9,14 unique:user ignore:user-id</td>
 </tr>
 </tbody>
 </table>
@@ -839,8 +838,8 @@ fetch(url, {
 <tbody>
 <tr>
 <td><code>email</code></td>
-<td>email,required.</td>
-<td>optional</td>
+<td>email</td>
+<td>required</td>
 </tr>
 </tbody>
 </table>
@@ -946,7 +945,7 @@ fetch(url, {
 <tbody>
 <tr>
 <td><code>type</code></td>
-<td>optional</td>
+<td>required</td>
 <td>lost or found.</td>
 </tr>
 </tbody>

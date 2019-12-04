@@ -197,7 +197,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=est" \
+    "http://api.wajad.test/api/refreshToken?Old=dolor" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -208,7 +208,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "est",
+    "Old": "dolor",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -312,7 +312,7 @@ curl -X POST \
     "http://api.wajad.test/api/resetPassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email:exist:verified":"sed"}'
+    -d '{"email,mobile_number":"autem"}'
 
 ```
 
@@ -327,7 +327,7 @@ let headers = {
 };
 
 let body = {
-    "email:exist:verified": "sed"
+    "email,mobile_number": "autem"
 }
 
 fetch(url, {
@@ -352,7 +352,7 @@ fetch(url, {
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `email:exist:verified` | || |  optional  | mobile_number
+    `email,mobile_number` | string,int |  required  | email:exist:verified
     
 <!-- END_b4f4625b609a18310a50b1dddf752a55 -->
 
@@ -471,7 +471,7 @@ Parameter | Status | Description
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `code` | digits:4,numeric |  required  | .
+    `code` | numeric |  required  | digits:4
     
 <!-- END_734623b7e60cc9f20fd5b5b67df87d7d -->
 
@@ -584,7 +584,7 @@ fetch(url, {
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `name` | min:6,max:255 |  required  | 1 or 0.
+    `name` | string |  required  | min:6,max:255 1 or 0.
         `receive_emails` | boolean |  required  | 1 or 0.
         `receive_push_notifications` | boolean |  required  | 1 or 0.
         `default_distance_unit` | string,in:kilo,mile |  required  | kilo or mile.
@@ -601,7 +601,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"suscipit","new_password":"veritatis","new_password_confirmation":"consequatur"}'
+    -d '{"old_password":"molestias","new_password":"porro","new_password_confirmation":"veniam"}'
 
 ```
 
@@ -616,9 +616,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "suscipit",
-    "new_password": "veritatis",
-    "new_password_confirmation": "consequatur"
+    "old_password": "molestias",
+    "new_password": "porro",
+    "new_password_confirmation": "veniam"
 }
 
 fetch(url, {
@@ -647,9 +647,9 @@ fetch(url, {
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `old_password` | &#039;required&#039;, |  optional  | 'min:6', 'max:255'
-        `new_password` | &#039;required&#039;, |  optional  | 'confirmed', 'min:6', 'max:255'
-        `new_password_confirmation` | required, |  optional  | confirm new password
+    `old_password` | string |  required  | 'min:6' 'max:255'
+        `new_password` | string |  required  | 'confirmed' 'min:6', 'max:255'
+        `new_password_confirmation` | string |  required  | confirm new password
     
 <!-- END_dd73fe89d9872ce37d284636141ae526 -->
 
@@ -663,7 +663,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"distinctio"}'
+    -d '{"mobile_number":"dignissimos"}'
 
 ```
 
@@ -678,7 +678,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "distinctio"
+    "mobile_number": "dignissimos"
 }
 
 fetch(url, {
@@ -707,7 +707,7 @@ fetch(url, {
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `mobile_number` | &#039;required&#039;, |  optional  | 'numeric', 'digits_between:9,14', 'unique:user', 'ignore:user-id'
+    `mobile_number` | numeric |  required  | digits_between:9,14 unique:user ignore:user-id
     
 <!-- END_cb0e89a15b080a33f4c18135f097480d -->
 
@@ -761,7 +761,7 @@ fetch(url, {
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `email` | email,required. |  optional  | 
+    `email` | email |  required  | 
     
 <!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
 
@@ -868,7 +868,7 @@ fetch(url, {
 
 Parameter | Status | Description
 --------- | ------- | ------- | -------
-    `type` |  optional  | lost or found.
+    `type` |  required  | lost or found.
 
 <!-- END_93fe34fffcec9f399970d7fffb9bcc14 -->
 
