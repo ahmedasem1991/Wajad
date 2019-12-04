@@ -59,7 +59,10 @@ return [
                 /*
                  * Match only routes whose domains match this pattern (use * as a wildcard to match any characters).
                  */
-                'domains' => ['*'],
+                'domains' => [
+                    'api.wajad.test',
+                    'api-wajad.smartappco.net'
+                ],
 
                 /*
                  * Match only routes whose paths match this pattern (use * as a wildcard to match any characters).
