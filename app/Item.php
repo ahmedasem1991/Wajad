@@ -17,7 +17,7 @@ class Item extends MasterModel
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id'];
+    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id'];
 
     /**
      * Define Items Status Const
@@ -224,62 +224,5 @@ class Item extends MasterModel
     public function scopeItem($query, $item_id)
     {
         return $query->where('id', $item_id) ?? null;
-    }
-
-
-
-    /**
-     * Store a newly item  in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function createItem(Request $request)
-    {
-
-        try {
-            $Item = Item::create([
-                'title' => request('title'),
-                'details' => request('details'),
-                'owner_id' => request('owner_id'),
-                'category_id' => request('category_id'),
-                'model_id' => request('model_id'),
-                'brand_id' => request('brand_id'),
-                'color_id' => request('color_id'),
-            ]);
-
-            if ($Item) {
-                if (request('qrcode_id') != NULL) {
-                    $QRCode = Qrcode::find(request('qrcode_id'));
-                    $QRCode->item_id = $Item->id;
-                    $QRCode->save();
-                }
-                foreach ($request->images as $image) {
-                    $file_name =  time() . str_random(10) . '.' . 'png';
-                    @list($type, $image) = explode(';', $image);
-                    @list(, $image) = explode(',', $image);
-                    if ($image != "") {
-                        \File::put('images/items/' . $file_name, base64_decode($image));
-                    }
-                    $image = ItemImage::create([
-                        'item_id' => $Item->id,
-                        'image' =>  'images/items/' . $file_name
-                    ]);
-                }
-            } else {
-                $this->addResponse($this->unexpected_error)->addStatusCode(409);
-                Log::ERROR($this->response());
-                return $this->response();
-            }
-
-            $this->addResponse(trans('messages.created'),['model'=>trans('messages.attributes.item')])->addStatusCode(201);
-            Log::INFO($this->response());
-            return $this->response();
-        } catch (Exception $e) {
-            $this->addResponse($e->getMessage)->addStatusCode(409);
-            Log::ERROR($this->response());
-            return $this->response();
-        }
     }
 }

@@ -23,14 +23,14 @@ class ItemsController extends Controller
         $validate_request = Validator::make(request()->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'details' => ['required', 'min:20', 'max:500'],
-            'owner_id' => ['required', 'exists:users,id'],
             'color_id' => ['required', 'exists:colors,id'],
             'model_id' => ['required', 'exists:models,id'],
             'brand_id' => ['required', 'exists:brands,id'],
+            'sub_category_id' => ['required', 'exists:sub_categories,id'],
         ]);
 
         if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors(), 400);
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
         $item = Item::create([
             'title' =>  $request->title,
@@ -40,7 +40,9 @@ class ItemsController extends Controller
             'model_id' =>  $request->model_id,
             'brand_id' =>  $request->brand_id,
             'color_id' =>  $request->color_id,
-        ]);
+            'sub_category_id' => $request->sub_category_id,
+            'owner_id' => auth('api')->user()->id,
+            ]);
         if ($request->has('qrcode_id')) {
             $qr_code = Qrcode::find($request->qrcode_id);
             $qr_code::update([

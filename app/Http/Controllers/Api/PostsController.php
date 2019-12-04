@@ -41,7 +41,7 @@ class PostsController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors(), 400);
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
         if (auth('api')->user()->exceededPostLimitation()) {
@@ -64,7 +64,8 @@ class PostsController extends Controller
             'color_id' => $request->color_id,
             'item_id' => $request->item_id,
             'city' => $request->city,
-            'city_id' => $city_id->id
+            'city_id' => $city_id->id,
+            'publisher_id' => auth('api')->user()->id,
         ]);
 
         if ($type == "lost") {
@@ -112,7 +113,7 @@ class PostsController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors(), 400);
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
         $postReport = PostReport::create([
@@ -166,7 +167,7 @@ class PostsController extends Controller
             ]);
 
             if ($validate_request->fails()) {
-                throw new ApiException($validate_request->errors(), 400);
+                throw new ApiException($validate_request->errors()->first(), 400);
             }
 
             $city =  City::where('name_en', 'like', '%' . $request->city . '%')
