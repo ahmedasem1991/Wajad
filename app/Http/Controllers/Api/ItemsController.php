@@ -6,11 +6,15 @@ use App\Item;
 use App\Qrcode;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Items
+ */
 class ItemsController extends Controller
 {
     public function index()
@@ -18,6 +22,21 @@ class ItemsController extends Controller
         return ItemResource::collection(Item::all());
     }
 
+    /**
+     * Create Item
+     * @bodyParam title min:6,max:255 required
+     * @bodyParam details min:20,max:500 required
+     * @bodyParam color_id exists:colors,id required
+     * @bodyParam brand_id exists:brands,id required
+     * @bodyParam model_id exists:models,id required
+     * @bodyParam sub_category_id exists:sub_category,id required
+     * @response {
+     * "success": true,
+     *  "message": "Item created successfully.",
+     *   "status_code": 200
+     *}
+     * @return void
+     */
     public function store(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
@@ -42,7 +61,7 @@ class ItemsController extends Controller
             'color_id' =>  $request->color_id,
             'sub_category_id' => $request->sub_category_id,
             'owner_id' => auth('api')->user()->id,
-            ]);
+        ]);
         if ($request->has('qrcode_id')) {
             $qr_code = Qrcode::find($request->qrcode_id);
             $qr_code::update([
@@ -62,6 +81,55 @@ class ItemsController extends Controller
         return $this->response();
     }
 
+    /**
+     * Show Item
+     * @urlParam item required Item id 
+     * @response {
+     *  "data": {
+     *     "id": 1,
+     *    "title": "hiughiu",
+     *   "details": "oihiojjjjjjjjjjjjjjhioj",
+     *  "status": "found",
+     * "owner": {
+     *    "id": 2,
+     *   "name": "User",
+     *  "email": "user@nova.com",
+     * "status": 1,
+     * "mobile_number": "01142416124",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": false,
+     *"default_distance_unit": "kilo"
+     *},
+     *"model": {
+     *   "id": 1,
+     *  "name": "jhinoi",
+     * "description": "pjipo",
+     * "image": "http://wajad.test/images/default.png"
+     *},
+     *"color": {
+     *   "id": 1,
+     *  "name": "Red",
+     * "icon": "images/colors/red.png"
+     * },
+     *"brand": {
+     *   "id": 1,
+     *  "name": "pojmop",
+     * "description": "ijoi",
+     *"image": "http://wajad.test/images/default.png"
+     *},
+     *"date": "2019-12-04 14:17:09",
+     *"images": [
+     *   {
+     *      "id": 1,
+     *     "image": "http://wajad.test/images/items/E9S8p3Z5R7GLR1qc1xBcECGZjHBALeDLU9KtvSCN.jpeg"
+     *},
+     *]
+     *}
+     *}
+     * @return void
+     */
     public function show(Item $item)
     {
         return new ItemResource($item);
@@ -72,6 +140,16 @@ class ItemsController extends Controller
         //
     }
 
+    /**
+     * Delete Item
+     * @urlParam item required Item id. Example: 1
+     * @response {
+     *  "success": true,
+     * "message": "Item deleted successfully.",
+     *"status_code": 200
+     *}
+     * @return void
+     */
     public function destroy(Item $item)
     {
         $user = auth('api')->user();
