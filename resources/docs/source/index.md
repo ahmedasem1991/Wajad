@@ -197,7 +197,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=iusto" \
+    "http://api.wajad.test/api/refreshToken?Old=autem" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -208,7 +208,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "iusto",
+    "Old": "autem",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -350,6 +350,214 @@ fetch(url, {
 
 
 <!-- END_61739f3220a224b34228600649230ad1 -->
+
+#Items
+
+
+<!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
+## Show Item
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/items/et" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/items/et"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/items/{item}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `item` |  required  | Item id
+
+<!-- END_1f8988f8b514fb2127ba9ed8e2499f98 -->
+
+<!-- START_07fb85e5d8610027392f9f49c33a97c1 -->
+## Create Item
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/items" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"title":"laudantium","details":"ratione","color_id":"quas","brand_id":"explicabo","model_id":"laboriosam","sub_category_id":"labore"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/items"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "laudantium",
+    "details": "ratione",
+    "color_id": "quas",
+    "brand_id": "explicabo",
+    "model_id": "laboriosam",
+    "sub_category_id": "labore"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "Item created successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`POST api/items`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `title` | min:6,max:255 |  required  | 
+        `details` | min:20,max:500 |  required  | 
+        `color_id` | exists:colors,id |  required  | 
+        `brand_id` | exists:brands,id |  required  | 
+        `model_id` | exists:models,id |  required  | 
+        `sub_category_id` | exists:sub_category,id |  required  | 
+    
+<!-- END_07fb85e5d8610027392f9f49c33a97c1 -->
+
+<!-- START_e34601ed139d88ac1613ec4df2056baa -->
+## api/items/{item}
+> Example request:
+
+```bash
+curl -X PUT \
+    "http://api.wajad.test/api/items/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/items/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`PUT api/items/{item}`
+
+
+<!-- END_e34601ed139d88ac1613ec4df2056baa -->
+
+<!-- START_4ba7e871e55098b0081507ac0b4e478b -->
+## Delete Item
+
+> Example request:
+
+```bash
+curl -X DELETE \
+    "http://api.wajad.test/api/items/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/items/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "Item deleted successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`DELETE api/items/{item}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `item` |  required  | Item id.
+
+<!-- END_4ba7e871e55098b0081507ac0b4e478b -->
 
 #User Profile
 
@@ -605,7 +813,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"veritatis","new_password":"asperiores","new_password_confirmation":"eaque"}'
+    -d '{"old_password":"ipsam","new_password":"aut","new_password_confirmation":"non"}'
 
 ```
 
@@ -620,9 +828,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "veritatis",
-    "new_password": "asperiores",
-    "new_password_confirmation": "eaque"
+    "old_password": "ipsam",
+    "new_password": "aut",
+    "new_password_confirmation": "non"
 }
 
 fetch(url, {
@@ -667,7 +875,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"nobis"}'
+    -d '{"mobile_number":"tempora"}'
 
 ```
 
@@ -682,7 +890,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "nobis"
+    "mobile_number": "tempora"
 }
 
 fetch(url, {
@@ -1629,207 +1837,6 @@ fetch(url, {
 
 
 <!-- END_ef35280f3fdc56bb64ff077bb4de4729 -->
-
-<!-- START_2d89b427b331f35cdded42a87b6e4acc -->
-## api/items
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/items" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/items"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/items`
-
-
-<!-- END_2d89b427b331f35cdded42a87b6e4acc -->
-
-<!-- START_07fb85e5d8610027392f9f49c33a97c1 -->
-## api/items
-> Example request:
-
-```bash
-curl -X POST \
-    "http://api.wajad.test/api/items" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/items"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-
-### HTTP Request
-`POST api/items`
-
-
-<!-- END_07fb85e5d8610027392f9f49c33a97c1 -->
-
-<!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
-## api/items/{item}
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/items/1" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/items/1"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/items/{item}`
-
-
-<!-- END_1f8988f8b514fb2127ba9ed8e2499f98 -->
-
-<!-- START_5720c5ba9db8be8b03e436d5f2db2bf1 -->
-## api/items/{item}
-> Example request:
-
-```bash
-curl -X PUT \
-    "http://api.wajad.test/api/items/1" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/items/1"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-
-### HTTP Request
-`PUT api/items/{item}`
-
-`PATCH api/items/{item}`
-
-
-<!-- END_5720c5ba9db8be8b03e436d5f2db2bf1 -->
-
-<!-- START_4ba7e871e55098b0081507ac0b4e478b -->
-## api/items/{item}
-> Example request:
-
-```bash
-curl -X DELETE \
-    "http://api.wajad.test/api/items/1" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/items/1"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-
-### HTTP Request
-`DELETE api/items/{item}`
-
-
-<!-- END_4ba7e871e55098b0081507ac0b4e478b -->
 
 <!-- START_98a9f611f7c0880f849db435165db194 -->
 ## Store a newly created resource in storage.

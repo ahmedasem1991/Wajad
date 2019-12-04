@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Item;
 use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,6 +25,7 @@ class ItemResource extends JsonResource
             'owner' => new UserResource($this->owner),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
+            'brand' => new BrandResource($this->brand),
             'date' => $this->created_at->toDateTimeString(),
             'images' =>  ItemImagesResource::collection($this->images),
         ];

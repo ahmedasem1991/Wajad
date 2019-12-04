@@ -24,6 +24,13 @@ class RouteServiceProvider extends ServiceProvider
             }
             return $post;
         });
+        Route::bind('item', function ($item) {
+            $item = \App\Item::whereId($item)->first();
+            if (!$item) {
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 404);
+            }
+            return $item;
+        });
         parent::boot();
     }
 

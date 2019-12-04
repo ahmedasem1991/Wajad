@@ -22,7 +22,12 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::resource('items', 'ItemsController');
+    Route::prefix('items')->group(function () {
+        Route::get('/{item}', 'ItemsController@show');
+        Route::post('/', 'ItemsController@store');
+        Route::put('/{item}', 'ItemsController@update');
+        Route::delete('/{item}', 'ItemsController@destroy');
+    });
 
 
     Route::post('/report/post/{post}', 'PostsController@reportPost');;
