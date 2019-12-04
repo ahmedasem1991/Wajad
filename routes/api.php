@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::post('/changeEmail', 'ChangeEmailController');
         Route::post('/logout', 'AuthController@logout');
         Route::get('/userPosts/{type}', 'UserPostController');
+        Route::get('/userItems', 'UserItemController');
     });
 });
 
