@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 
 /**
- * @group User Profile
+ * @group Posts
  */
 class UserPostController extends Controller
 {

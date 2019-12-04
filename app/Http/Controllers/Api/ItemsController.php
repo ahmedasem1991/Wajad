@@ -83,7 +83,7 @@ class ItemsController extends Controller
 
     /**
      * Show Item
-     * @urlParam item required Item id 
+     * @urlParam item required int Item id. Example:1 
      * @response {
      *  "data": {
      *     "id": 1,
@@ -107,24 +107,40 @@ class ItemsController extends Controller
      *  "name": "jhinoi",
      * "description": "pjipo",
      * "image": "http://wajad.test/images/default.png"
-     *},
+     * },
      *"color": {
      *   "id": 1,
      *  "name": "Red",
      * "icon": "images/colors/red.png"
-     * },
+     *},
      *"brand": {
      *   "id": 1,
      *  "name": "pojmop",
      * "description": "ijoi",
-     *"image": "http://wajad.test/images/default.png"
+     * "image": "http://wajad.test/images/default.png"
      *},
      *"date": "2019-12-04 14:17:09",
      *"images": [
      *   {
      *      "id": 1,
      *     "image": "http://wajad.test/images/items/E9S8p3Z5R7GLR1qc1xBcECGZjHBALeDLU9KtvSCN.jpeg"
+     * },
+     * {
+     *    "id": 2,
+     *   "image": "http://wajad.test/images/items/EJgxxfyHErwzc3cPTGpCKmihIgcX8hNdYX4DirAo.jpeg"
      *},
+     *{
+     *   "id": 3,
+     *  "image": "http://wajad.test/images/items/GxwJYCc5eSSUj585huRcVks8m17DUwCGhEUDNubN.jpeg"
+     *},
+     *{
+     *   "id": 4,
+     *  "image": "http://wajad.test/images/items/sp0KWN5ryd0VN6xzdIVbm9hY9dYemUlfDMD5LTmY.jpeg"
+     *},
+     *{
+     *   "id": 5,
+     *  "image": "http://wajad.test/images/items/1hancpYm0XR8HjjK4Iz8AVAUyMqkQPOubagobDxs.jpeg"
+     *}
      *]
      *}
      *}
@@ -134,10 +150,50 @@ class ItemsController extends Controller
     {
         return new ItemResource($item);
     }
-
-    public function update(Request $request, $id)
+    /**
+     * Edit Item
+     * @urlParam item required int Item id. Example: 1
+     * @response {
+     *  "success": true,
+     * "message": "Item updated successfully.",
+     *"status_code": 200
+     *}
+     * @return void
+     */
+    public function update(Request $request, Item $item)
     {
-        //
+        $user = auth('api')->user();
+        if ($user->can('update', $item)) {
+            $validate_request = Validator::make($request->all(), [
+                'title' => ['required', 'min:6', 'max:255'],
+                'details' => ['required', 'min:9', 'max:500'],
+                'sub_category_id' => ['required', 'exists:sub_categories,id'],
+                'brand_id' => ['required', 'exists:brands,id'],
+                'model_id' => ['required', 'exists:models,id'],
+                'color_id' => ['required', 'exists:colors,id'],
+                'images' => ['sometimes', 'max:5'],
+                'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
+            ]);
+
+            if ($validate_request->fails()) {
+                throw new ApiException($validate_request->errors()->first(), 400);
+            }
+
+            $item->update($request->all());
+
+            if ($request->has('images')) {
+                array_map(function ($image) use ($item, $request) {
+                    $item->images()->create([
+                        'image' =>  $request->file($image)->store('images/items')
+                    ]);
+                }, $request->images);
+            }
+
+            $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
+
+            return $this->response();
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
     }
 
     /**
