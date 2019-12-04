@@ -246,7 +246,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=vel" \
+    "http://api.wajad.test/api/refreshToken?Old=dolor" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
@@ -254,7 +254,7 @@ fetch(url, {
 );
 
 let params = {
-    "Old": "vel",
+    "Old": "dolor",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -391,17 +391,17 @@ fetch(url, {
 <p><code>POST api/logout</code></p>
 <!-- END_61739f3220a224b34228600649230ad1 -->
 <h1>Items</h1>
-<!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
-<h2>Show Item</h2>
+<!-- START_e18d215dd04344daa68de35e381670fd -->
+<h2>User Items</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/items/voluptate" \
+    -G "http://api.wajad.test/api/userItems" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/items/voluptate"
+    "http://api.wajad.test/api/userItems"
 );
 
 let headers = {
@@ -418,7 +418,137 @@ fetch(url, {
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">null</code></pre>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 2,
+            "title": "hiughiu",
+            "details": "oihiojjjjjjjjjjjjjjhioj",
+            "status": "found",
+            "owner": {
+                "id": 2,
+                "name": "User",
+                "email": "user@nova.com",
+                "status": 1,
+                "mobile_number": "01142416124",
+                "receive_emails": false,
+                "receive_push_notifications": false,
+                "is_email_verified": false,
+                "is_mobile_number_verified": false,
+                "default_distance_unit": "kilo"
+            },
+            "model": {
+                "id": 1,
+                "name": "jhinoi",
+                "description": "pjipo",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "color": {
+                "id": 1,
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
+            "brand": {
+                "id": 1,
+                "name": "pojmop",
+                "description": "ijoi",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "date": "2019-12-04 14:23:43",
+            "images": []
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/userItems</code></p>
+<!-- END_e18d215dd04344daa68de35e381670fd -->
+<!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
+<h2>Show Item</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://api.wajad.test/api/items/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/items/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 1,
+        "title": "hiughiu",
+        "details": "oihiojjjjjjjjjjjjjjhioj",
+        "status": "found",
+        "owner": {
+            "id": 2,
+            "name": "User",
+            "email": "user@nova.com",
+            "status": 1,
+            "mobile_number": "01142416124",
+            "receive_emails": false,
+            "receive_push_notifications": false,
+            "is_email_verified": false,
+            "is_mobile_number_verified": false,
+            "default_distance_unit": "kilo"
+        },
+        "model": {
+            "id": 1,
+            "name": "jhinoi",
+            "description": "pjipo",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        "color": {
+            "id": 1,
+            "name": "Red",
+            "icon": "images\/colors\/red.png"
+        },
+        "brand": {
+            "id": 1,
+            "name": "pojmop",
+            "description": "ijoi",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        "date": "2019-12-04 14:17:09",
+        "images": [
+            {
+                "id": 1,
+                "image": "http:\/\/wajad.test\/images\/items\/E9S8p3Z5R7GLR1qc1xBcECGZjHBALeDLU9KtvSCN.jpeg"
+            },
+            {
+                "id": 2,
+                "image": "http:\/\/wajad.test\/images\/items\/EJgxxfyHErwzc3cPTGpCKmihIgcX8hNdYX4DirAo.jpeg"
+            },
+            {
+                "id": 3,
+                "image": "http:\/\/wajad.test\/images\/items\/GxwJYCc5eSSUj585huRcVks8m17DUwCGhEUDNubN.jpeg"
+            },
+            {
+                "id": 4,
+                "image": "http:\/\/wajad.test\/images\/items\/sp0KWN5ryd0VN6xzdIVbm9hY9dYemUlfDMD5LTmY.jpeg"
+            },
+            {
+                "id": 5,
+                "image": "http:\/\/wajad.test\/images\/items\/1hancpYm0XR8HjjK4Iz8AVAUyMqkQPOubagobDxs.jpeg"
+            }
+        ]
+    }
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/items/{item}</code></p>
 <h4>URL Parameters</h4>
@@ -434,7 +564,7 @@ fetch(url, {
 <tr>
 <td><code>item</code></td>
 <td>required</td>
-<td>Item id</td>
+<td>int Item id.</td>
 </tr>
 </tbody>
 </table>
@@ -448,7 +578,7 @@ fetch(url, {
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"quis","details":"ut","color_id":"praesentium","brand_id":"nisi","model_id":"perspiciatis","sub_category_id":"incidunt"}'
+    -d '{"title":"maiores","details":"qui","color_id":"eaque","brand_id":"eum","model_id":"qui","sub_category_id":"in"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items"
@@ -460,12 +590,12 @@ let headers = {
 };
 
 let body = {
-    "title": "quis",
-    "details": "ut",
-    "color_id": "praesentium",
-    "brand_id": "nisi",
-    "model_id": "perspiciatis",
-    "sub_category_id": "incidunt"
+    "title": "maiores",
+    "details": "qui",
+    "color_id": "eaque",
+    "brand_id": "eum",
+    "model_id": "qui",
+    "sub_category_id": "in"
 }
 
 fetch(url, {
@@ -530,7 +660,7 @@ fetch(url, {
 </table>
 <!-- END_07fb85e5d8610027392f9f49c33a97c1 -->
 <!-- START_e34601ed139d88ac1613ec4df2056baa -->
-<h2>api/items/{item}</h2>
+<h2>Edit Item</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -553,8 +683,33 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "message": "Item updated successfully.",
+    "status_code": 200
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/items/{item}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>item</code></td>
+<td>required</td>
+<td>int Item id.</td>
+</tr>
+</tbody>
+</table>
 <!-- END_e34601ed139d88ac1613ec4df2056baa -->
 <!-- START_4ba7e871e55098b0081507ac0b4e478b -->
 <h2>Delete Item</h2>
@@ -608,6 +763,114 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_4ba7e871e55098b0081507ac0b4e478b -->
+<h1>Posts</h1>
+<!-- START_93fe34fffcec9f399970d7fffb9bcc14 -->
+<h2>User Posts</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://api.wajad.test/api/userPosts/found." \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/userPosts/found."
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 1,
+            "title": "Ex atque necessitatibus libero voluptatem magnam et.",
+            "approval_status": 1,
+            "reward": 0,
+            "description": "Et ut quo non sapiente atque voluptatem accusamus. Explicabo voluptas et perferendis aut tempore qui temporibus. Ipsam impedit ipsa voluptates. Non quia non omnis quo aut. Quisquam voluptatem atque et deserunt dignissimos libero ut. Fuga ut ab delectus consequatur est neque. Delectus qui ea consequuntur quasi qui illo. Qui aperiam voluptas nobis voluptas fugiat. Et voluptates est amet. Nam vel voluptatem ab qui qui explicabo. Qui voluptates laboriosam quaerat sunt. Est vel natus vero et eaque autem ipsam sit.",
+            "status": "found",
+            "attached_to_item": false,
+            "item": null,
+            "subCategory": {
+                "id": 105,
+                "name": "Facilis velit soluta quidem modi quibusdam et.",
+                "description": "Rerum quidem consequatur officiis et et aut earum.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
+            },
+            "model": {
+                "id": 52,
+                "name": "Hic veritatis recusandae et eveniet aperiam tenetur.",
+                "description": "Facere culpa voluptatem quos illum repellendus expedita.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
+            },
+            "color": {
+                "id": 1,
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
+            "date": "2019-12-03 17:33:55",
+            "images": [
+                {
+                    "id": 1,
+                    "image": "http:\/\/wajad.test\/image.png\r\n"
+                }
+            ],
+            "questions": [
+                {
+                    "id": 1,
+                    "founder_id": {
+                        "id": 2,
+                        "name": "User",
+                        "email": "user@nova.com",
+                        "status": 1,
+                        "mobile_number": "01142416124",
+                        "receive_emails": false,
+                        "receive_push_notifications": false,
+                        "is_email_verified": false,
+                        "is_mobile_number_verified": false,
+                        "default_distance_unit": "kilo"
+                    },
+                    "question": "question1\r\n"
+                }
+            ],
+            "city": {
+                "id": 1,
+                "name": "Al Riyadh"
+            }
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/userPosts/{type}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>required</td>
+<td>lost or found.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_93fe34fffcec9f399970d7fffb9bcc14 -->
 <h1>User Profile</h1>
 <!-- START_b4f4625b609a18310a50b1dddf752a55 -->
 <h2>Reset Password</h2>
@@ -883,7 +1146,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"ut","new_password":"provident","new_password_confirmation":"sed"}'
+    -d '{"old_password":"et","new_password":"similique","new_password_confirmation":"odio"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -895,9 +1158,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "ut",
-    "new_password": "provident",
-    "new_password_confirmation": "sed"
+    "old_password": "et",
+    "new_password": "similique",
+    "new_password_confirmation": "odio"
 }
 
 fetch(url, {
@@ -958,7 +1221,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"nihil"}'
+    -d '{"mobile_number":"sunt"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -970,7 +1233,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "nihil"
+    "mobile_number": "sunt"
 }
 
 fetch(url, {
@@ -1066,113 +1329,6 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
-<!-- START_93fe34fffcec9f399970d7fffb9bcc14 -->
-<h2>User Posts</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/userPosts/found." \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/userPosts/found."
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "data": [
-        {
-            "id": 1,
-            "title": "Ex atque necessitatibus libero voluptatem magnam et.",
-            "approval_status": 1,
-            "reward": 0,
-            "description": "Et ut quo non sapiente atque voluptatem accusamus. Explicabo voluptas et perferendis aut tempore qui temporibus. Ipsam impedit ipsa voluptates. Non quia non omnis quo aut. Quisquam voluptatem atque et deserunt dignissimos libero ut. Fuga ut ab delectus consequatur est neque. Delectus qui ea consequuntur quasi qui illo. Qui aperiam voluptas nobis voluptas fugiat. Et voluptates est amet. Nam vel voluptatem ab qui qui explicabo. Qui voluptates laboriosam quaerat sunt. Est vel natus vero et eaque autem ipsam sit.",
-            "status": "found",
-            "attached_to_item": false,
-            "item": null,
-            "subCategory": {
-                "id": 105,
-                "name": "Facilis velit soluta quidem modi quibusdam et.",
-                "description": "Rerum quidem consequatur officiis et et aut earum.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "model": {
-                "id": 52,
-                "name": "Hic veritatis recusandae et eveniet aperiam tenetur.",
-                "description": "Facere culpa voluptatem quos illum repellendus expedita.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "color": {
-                "id": 1,
-                "name": "Red",
-                "icon": "images\/colors\/red.png"
-            },
-            "date": "2019-12-03 17:33:55",
-            "images": [
-                {
-                    "id": 1,
-                    "image": "http:\/\/wajad.test\/image.png\r\n"
-                }
-            ],
-            "questions": [
-                {
-                    "id": 1,
-                    "founder_id": {
-                        "id": 2,
-                        "name": "User",
-                        "email": "user@nova.com",
-                        "status": 1,
-                        "mobile_number": "01142416124",
-                        "receive_emails": false,
-                        "receive_push_notifications": false,
-                        "is_email_verified": false,
-                        "is_mobile_number_verified": false,
-                        "default_distance_unit": "kilo"
-                    },
-                    "question": "question1\r\n"
-                }
-            ],
-            "city": {
-                "id": 1,
-                "name": "Al Riyadh"
-            }
-        }
-    ]
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/userPosts/{type}</code></p>
-<h4>URL Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>type</code></td>
-<td>required</td>
-<td>lost or found.</td>
-</tr>
-</tbody>
-</table>
-<!-- END_93fe34fffcec9f399970d7fffb9bcc14 -->
 <h1>general</h1>
 <!-- START_e2ccdd59a86128e0e9bc37a7668fdac1 -->
 <h2>nova-vendor/nova-button/{resource}/{resourceId}/{buttonKey}</h2>

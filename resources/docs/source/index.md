@@ -197,7 +197,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=vel" \
+    "http://api.wajad.test/api/refreshToken?Old=dolor" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -208,7 +208,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "vel",
+    "Old": "dolor",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -354,21 +354,21 @@ fetch(url, {
 #Items
 
 
-<!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
-## Show Item
+<!-- START_e18d215dd04344daa68de35e381670fd -->
+## User Items
 
 > Example request:
 
 ```bash
 curl -X GET \
-    -G "http://api.wajad.test/api/items/voluptate" \
+    -G "http://api.wajad.test/api/userItems" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/items/voluptate"
+    "http://api.wajad.test/api/userItems"
 );
 
 let headers = {
@@ -388,7 +388,149 @@ fetch(url, {
 > Example response (200):
 
 ```json
-null
+{
+    "data": [
+        {
+            "id": 2,
+            "title": "hiughiu",
+            "details": "oihiojjjjjjjjjjjjjjhioj",
+            "status": "found",
+            "owner": {
+                "id": 2,
+                "name": "User",
+                "email": "user@nova.com",
+                "status": 1,
+                "mobile_number": "01142416124",
+                "receive_emails": false,
+                "receive_push_notifications": false,
+                "is_email_verified": false,
+                "is_mobile_number_verified": false,
+                "default_distance_unit": "kilo"
+            },
+            "model": {
+                "id": 1,
+                "name": "jhinoi",
+                "description": "pjipo",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "color": {
+                "id": 1,
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
+            "brand": {
+                "id": 1,
+                "name": "pojmop",
+                "description": "ijoi",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "date": "2019-12-04 14:23:43",
+            "images": []
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/userItems`
+
+
+<!-- END_e18d215dd04344daa68de35e381670fd -->
+
+<!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
+## Show Item
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/items/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/items/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": {
+        "id": 1,
+        "title": "hiughiu",
+        "details": "oihiojjjjjjjjjjjjjjhioj",
+        "status": "found",
+        "owner": {
+            "id": 2,
+            "name": "User",
+            "email": "user@nova.com",
+            "status": 1,
+            "mobile_number": "01142416124",
+            "receive_emails": false,
+            "receive_push_notifications": false,
+            "is_email_verified": false,
+            "is_mobile_number_verified": false,
+            "default_distance_unit": "kilo"
+        },
+        "model": {
+            "id": 1,
+            "name": "jhinoi",
+            "description": "pjipo",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        "color": {
+            "id": 1,
+            "name": "Red",
+            "icon": "images\/colors\/red.png"
+        },
+        "brand": {
+            "id": 1,
+            "name": "pojmop",
+            "description": "ijoi",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        "date": "2019-12-04 14:17:09",
+        "images": [
+            {
+                "id": 1,
+                "image": "http:\/\/wajad.test\/images\/items\/E9S8p3Z5R7GLR1qc1xBcECGZjHBALeDLU9KtvSCN.jpeg"
+            },
+            {
+                "id": 2,
+                "image": "http:\/\/wajad.test\/images\/items\/EJgxxfyHErwzc3cPTGpCKmihIgcX8hNdYX4DirAo.jpeg"
+            },
+            {
+                "id": 3,
+                "image": "http:\/\/wajad.test\/images\/items\/GxwJYCc5eSSUj585huRcVks8m17DUwCGhEUDNubN.jpeg"
+            },
+            {
+                "id": 4,
+                "image": "http:\/\/wajad.test\/images\/items\/sp0KWN5ryd0VN6xzdIVbm9hY9dYemUlfDMD5LTmY.jpeg"
+            },
+            {
+                "id": 5,
+                "image": "http:\/\/wajad.test\/images\/items\/1hancpYm0XR8HjjK4Iz8AVAUyMqkQPOubagobDxs.jpeg"
+            }
+        ]
+    }
+}
 ```
 
 ### HTTP Request
@@ -398,7 +540,7 @@ null
 
 Parameter | Status | Description
 --------- | ------- | ------- | -------
-    `item` |  required  | Item id
+    `item` |  required  | int Item id.
 
 <!-- END_1f8988f8b514fb2127ba9ed8e2499f98 -->
 
@@ -412,7 +554,7 @@ curl -X POST \
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"quis","details":"ut","color_id":"praesentium","brand_id":"nisi","model_id":"perspiciatis","sub_category_id":"incidunt"}'
+    -d '{"title":"maiores","details":"qui","color_id":"eaque","brand_id":"eum","model_id":"qui","sub_category_id":"in"}'
 
 ```
 
@@ -427,12 +569,12 @@ let headers = {
 };
 
 let body = {
-    "title": "quis",
-    "details": "ut",
-    "color_id": "praesentium",
-    "brand_id": "nisi",
-    "model_id": "perspiciatis",
-    "sub_category_id": "incidunt"
+    "title": "maiores",
+    "details": "qui",
+    "color_id": "eaque",
+    "brand_id": "eum",
+    "model_id": "qui",
+    "sub_category_id": "in"
 }
 
 fetch(url, {
@@ -471,7 +613,8 @@ Parameter | Type | Status | Description
 <!-- END_07fb85e5d8610027392f9f49c33a97c1 -->
 
 <!-- START_e34601ed139d88ac1613ec4df2056baa -->
-## api/items/{item}
+## Edit Item
+
 > Example request:
 
 ```bash
@@ -500,10 +643,24 @@ fetch(url, {
 ```
 
 
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "Item updated successfully.",
+    "status_code": 200
+}
+```
 
 ### HTTP Request
 `PUT api/items/{item}`
 
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `item` |  required  | int Item id.
 
 <!-- END_e34601ed139d88ac1613ec4df2056baa -->
 
@@ -558,6 +715,116 @@ Parameter | Status | Description
     `item` |  required  | Item id.
 
 <!-- END_4ba7e871e55098b0081507ac0b4e478b -->
+
+#Posts
+
+
+<!-- START_93fe34fffcec9f399970d7fffb9bcc14 -->
+## User Posts
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/userPosts/found." \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/userPosts/found."
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Ex atque necessitatibus libero voluptatem magnam et.",
+            "approval_status": 1,
+            "reward": 0,
+            "description": "Et ut quo non sapiente atque voluptatem accusamus. Explicabo voluptas et perferendis aut tempore qui temporibus. Ipsam impedit ipsa voluptates. Non quia non omnis quo aut. Quisquam voluptatem atque et deserunt dignissimos libero ut. Fuga ut ab delectus consequatur est neque. Delectus qui ea consequuntur quasi qui illo. Qui aperiam voluptas nobis voluptas fugiat. Et voluptates est amet. Nam vel voluptatem ab qui qui explicabo. Qui voluptates laboriosam quaerat sunt. Est vel natus vero et eaque autem ipsam sit.",
+            "status": "found",
+            "attached_to_item": false,
+            "item": null,
+            "subCategory": {
+                "id": 105,
+                "name": "Facilis velit soluta quidem modi quibusdam et.",
+                "description": "Rerum quidem consequatur officiis et et aut earum.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
+            },
+            "model": {
+                "id": 52,
+                "name": "Hic veritatis recusandae et eveniet aperiam tenetur.",
+                "description": "Facere culpa voluptatem quos illum repellendus expedita.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
+            },
+            "color": {
+                "id": 1,
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
+            "date": "2019-12-03 17:33:55",
+            "images": [
+                {
+                    "id": 1,
+                    "image": "http:\/\/wajad.test\/image.png\r\n"
+                }
+            ],
+            "questions": [
+                {
+                    "id": 1,
+                    "founder_id": {
+                        "id": 2,
+                        "name": "User",
+                        "email": "user@nova.com",
+                        "status": 1,
+                        "mobile_number": "01142416124",
+                        "receive_emails": false,
+                        "receive_push_notifications": false,
+                        "is_email_verified": false,
+                        "is_mobile_number_verified": false,
+                        "default_distance_unit": "kilo"
+                    },
+                    "question": "question1\r\n"
+                }
+            ],
+            "city": {
+                "id": 1,
+                "name": "Al Riyadh"
+            }
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/userPosts/{type}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `type` |  required  | lost or found.
+
+<!-- END_93fe34fffcec9f399970d7fffb9bcc14 -->
 
 #User Profile
 
@@ -813,7 +1080,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"ut","new_password":"provident","new_password_confirmation":"sed"}'
+    -d '{"old_password":"et","new_password":"similique","new_password_confirmation":"odio"}'
 
 ```
 
@@ -828,9 +1095,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "ut",
-    "new_password": "provident",
-    "new_password_confirmation": "sed"
+    "old_password": "et",
+    "new_password": "similique",
+    "new_password_confirmation": "odio"
 }
 
 fetch(url, {
@@ -875,7 +1142,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"nihil"}'
+    -d '{"mobile_number":"sunt"}'
 
 ```
 
@@ -890,7 +1157,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "nihil"
+    "mobile_number": "sunt"
 }
 
 fetch(url, {
@@ -976,113 +1243,6 @@ Parameter | Type | Status | Description
     `email` | email |  required  | 
     
 <!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
-
-<!-- START_93fe34fffcec9f399970d7fffb9bcc14 -->
-## User Posts
-
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/userPosts/found." \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/userPosts/found."
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "data": [
-        {
-            "id": 1,
-            "title": "Ex atque necessitatibus libero voluptatem magnam et.",
-            "approval_status": 1,
-            "reward": 0,
-            "description": "Et ut quo non sapiente atque voluptatem accusamus. Explicabo voluptas et perferendis aut tempore qui temporibus. Ipsam impedit ipsa voluptates. Non quia non omnis quo aut. Quisquam voluptatem atque et deserunt dignissimos libero ut. Fuga ut ab delectus consequatur est neque. Delectus qui ea consequuntur quasi qui illo. Qui aperiam voluptas nobis voluptas fugiat. Et voluptates est amet. Nam vel voluptatem ab qui qui explicabo. Qui voluptates laboriosam quaerat sunt. Est vel natus vero et eaque autem ipsam sit.",
-            "status": "found",
-            "attached_to_item": false,
-            "item": null,
-            "subCategory": {
-                "id": 105,
-                "name": "Facilis velit soluta quidem modi quibusdam et.",
-                "description": "Rerum quidem consequatur officiis et et aut earum.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "model": {
-                "id": 52,
-                "name": "Hic veritatis recusandae et eveniet aperiam tenetur.",
-                "description": "Facere culpa voluptatem quos illum repellendus expedita.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "color": {
-                "id": 1,
-                "name": "Red",
-                "icon": "images\/colors\/red.png"
-            },
-            "date": "2019-12-03 17:33:55",
-            "images": [
-                {
-                    "id": 1,
-                    "image": "http:\/\/wajad.test\/image.png\r\n"
-                }
-            ],
-            "questions": [
-                {
-                    "id": 1,
-                    "founder_id": {
-                        "id": 2,
-                        "name": "User",
-                        "email": "user@nova.com",
-                        "status": 1,
-                        "mobile_number": "01142416124",
-                        "receive_emails": false,
-                        "receive_push_notifications": false,
-                        "is_email_verified": false,
-                        "is_mobile_number_verified": false,
-                        "default_distance_unit": "kilo"
-                    },
-                    "question": "question1\r\n"
-                }
-            ],
-            "city": {
-                "id": 1,
-                "name": "Al Riyadh"
-            }
-        }
-    ]
-}
-```
-
-### HTTP Request
-`GET api/userPosts/{type}`
-
-#### URL Parameters
-
-Parameter | Status | Description
---------- | ------- | ------- | -------
-    `type` |  required  | lost or found.
-
-<!-- END_93fe34fffcec9f399970d7fffb9bcc14 -->
 
 #general
 
