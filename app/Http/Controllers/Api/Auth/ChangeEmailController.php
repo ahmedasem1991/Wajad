@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 /**
- * @group Auth
+ * @group User Profile
  */
 
 class ChangeEmailController extends Controller
@@ -18,7 +18,7 @@ class ChangeEmailController extends Controller
     /**
      * Change Email
      *
-     * @bodyParam email email,required. Example: example@example.com
+     * @bodyParam email email required Example:example@example.com
      *
      * @response {
      *

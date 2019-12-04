@@ -18,7 +18,7 @@ class ResetPasswordController extends Controller
 {
     /**
      *Reset Password
-     * @bodyParam user email,min:9,max:14 required email or phone. Example:reehaabahmed@gmail.com
+     * @bodyParam user email,min:9,max:14 required email or phone. Example:mail@gmail.com
      * @response 
      * {
      *"success": true,
