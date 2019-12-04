@@ -12,12 +12,42 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Posts
+ */
 class PostsController extends Controller
 {
     const TYPES = [
         'lost' => 0,
         'found' => 1
     ];
+
+    /**
+     * Create Post
+     *
+     * @bodyParam title string required min:6 max:255
+     * @bodyParam description string required min:9 max:255
+     * @bodyParam reward  numeric
+     * @bodyParam longitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
+     * @bodyParam latitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
+     * @bodyParam sub_category_id int required exists:sub_categories,id
+     * @bodyParam brand_id int required exists:brands,id
+     * @bodyParam model_id int required exists:models,id
+     * @bodyParam color_id int required exists:colors,id
+     * @bodyParam item_id int nullable exists:items,id
+     * @bodyParam city string required
+     * @bodyParam images array sometimes size:5
+     * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
+     * @bodyParam questions array sometimes size:3
+     * @bodyParam questions.* required min:9 max:500
+     *
+     * @response
+     * {
+     *  "success": true,
+     *  "message": "Post created successfully.",
+     *  "status_code": 200
+     *}
+     */
     public function store(Request $request, $type = null)
     {
         abort_unless(in_array($type, self::TYPES), 404);
@@ -105,7 +135,20 @@ class PostsController extends Controller
         return $this->response();
     }
 
-    public function report(Request $request, Post $post)
+    /**
+     *  Report Post
+     *
+     * @bodyParam details string nullable max:1000
+     * @bodyParam image image sometimes mimes:jpeg,jpg,png,gif max:5102
+     *
+     * @response
+     *{
+     *  "success": true,
+     *  "message": "Post reported successfully.",
+     *  "status_code": 200
+     *}
+     */
+    public function reportPost(Request $request, Post $post)
     {
         $validate_request = Validator::make(request()->all(), [
             'details' => ['nullable', 'string', 'max:1000'],
@@ -140,14 +183,119 @@ class PostsController extends Controller
         return  $this->response();
     }
 
+    /**
+     * Show Post
+     *
+     * @urlParam id int required
+     *
+     * @response
+     * {
+     *  "data": {
+     *      "id": 1,
+     *      "title": "asdasdasdasd",
+     *      "approval_status": 1,
+     *      "reward": 1111,
+     *      "description": "asdasdasdasdasdasd",
+     *      "status": "lost",
+     *      "attached_to_item": true,
+     *      "item": {
+     *          "id": 1,
+     *          "title": "mnbmn",
+     *          "details": "mnbmnb",
+     *          "status": "found",
+     *          "owner": {
+     *          "id": 1,
+     *          "name": "Tarek Solaiman",
+     *          "email": "tareksolaiman89@gmail.com",
+     *          "status": 1,
+     *          "mobile_number": "01063044180",
+     *          "receive_emails": false,
+     *          "receive_push_notifications": false,
+     *          "is_email_verified": true,
+     *          "is_mobile_number_verified": false,
+     *          "default_distance_unit": "kilo"
+     *      },
+     *      "model": {
+     *          "id": 1,
+     *          "name": "nbnmbv",
+     *          "description": "bvnbv",
+     *          "image": "http://wajad.test/images/default.png"
+     *      },
+     *      "color": {
+     *          "id": 1,
+     *          "name": "sdfsf",
+     *          "icon": "mnb"
+     *      },
+     *      "brand": null,
+     *      "date": "2019-12-04 17:26:41",
+     *      "images": []
+     *      },
+     *      "subCategory": {
+     *          "id": 1,
+     *          "name": "en",
+     *          "description": "sdas",
+     *          "image": "http://wajad.test/images/default.png"
+     *      },
+     *      "model": {
+     *          "id": 1,
+     *          "name": "nbnmbv",
+     *          "description": "bvnbv",
+     *          "image": "http://wajad.test/images/default.png"
+     *      },
+     *      "color": {
+     *          "id": 1,
+     *          "name": "sdfsf",
+     *          "icon": "mnb"
+     *      },
+     *      "date": "2019-12-04 18:48:30",
+     *      "images": [],
+     *      "questions": [],
+     *      "city": {
+     *          "id": 1,
+     *          "name": "cairo"
+     *          }
+     *      }
+     *  }
+     */
     public function show(Post $post)
     {
         return new PostResource($post);
     }
 
+    /**
+     * Update Post
+     * @urlParam id int required PostId
+     *
+     * @bodyParam title string required min:6 max:255
+     * @bodyParam description string required min:9 max:255
+     * @bodyParam status  numeric required in:0,1
+     * @bodyParam reward  numeric
+     * @bodyParam longitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
+     * @bodyParam latitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
+     * @bodyParam sub_category_id int required exists:sub_categories,id
+     * @bodyParam brand_id int required exists:brands,id
+     * @bodyParam model_id int required exists:models,id
+     * @bodyParam color_id int required exists:colors,id
+     * @bodyParam item_id int nullable exists:items,id
+     * @bodyParam city string required
+     * @bodyParam images array sometimes size:5
+     * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
+     * @bodyParam questions array sometimes size:3
+     * @bodyParam questions.* required min:9 max:500
+     *
+     * @response
+     *{
+     *  "success": true,
+     *  "message": "Post updated successfully.",
+     *  "status_code": 200
+     * }
+     *
+     */
+
     public function update(Request $request, Post $post)
     {
         $user = auth('api')->user();
+
         if ($user->can('update', $post)) {
             $validate_request = Validator::make($request->all(), [
                 'title' => ['required', 'min:6', 'max:255'],
@@ -197,6 +345,19 @@ class PostsController extends Controller
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
     }
+
+    /**
+     * Delete Post
+     *
+     * @urlParam id int required
+     *
+     * @response
+     * {
+     *  "success": true,
+     *  "message": "Post deleted successfully.",
+     *  "status_code": 200
+     *}
+     */
 
     public function destroy(Post $post)
     {
