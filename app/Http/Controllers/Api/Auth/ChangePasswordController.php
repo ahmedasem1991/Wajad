@@ -16,6 +16,7 @@ class ChangePasswordController extends Controller
      * Password Reset
      * @bodyParam old_password 'required', 'min:6', 'max:255'
      * @bodyParam new_password 'required', 'confirmed', 'min:6', 'max:255'
+     * @bodyParam new_password_confirmation required, confirm new password
      *
      * @response {
      *  "success": true,

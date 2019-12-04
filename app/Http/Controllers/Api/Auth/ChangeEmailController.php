@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 /**
- * @group Auth
+ * @group User Profile
  */
 
 class ChangeEmailController extends Controller
