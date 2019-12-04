@@ -6,6 +6,9 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 
+/**
+ * @group Auth
+ */
 class SendCodeController extends Controller
 {
     private $types = [

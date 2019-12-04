@@ -239,64 +239,6 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
-<!-- START_b4f4625b609a18310a50b1dddf752a55 -->
-<h2>User Password Reset</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/resetPassword" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"email:exist:verified":"dignissimos"}'
-</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/resetPassword"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "email:exist:verified": "dignissimos"
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/resetPassword</code></p>
-<h4>Body Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>email:exist:verified</code></td>
-<td></td>
-<td></td>
-<td>optional</td>
-<td>mobile_number</td>
-</tr>
-</tbody>
-</table>
-<!-- END_b4f4625b609a18310a50b1dddf752a55 -->
 <!-- START_406e4552819a456070d1f6c93688188d -->
 <h2>Refresh Token</h2>
 <p>[Refresh the current API Beaerer Token]</p>
@@ -304,15 +246,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-<<<<<<< HEAD
-    "http://api.wajad.test/api/refreshToken?Old=sit" \
-=======
-<<<<<<< HEAD
-    "http://api.wajad.test/api/refreshToken?Old=ipsa" \
-=======
-    "http://api.wajad.test/api/refreshToken?Old=ea" \
->>>>>>> tarek
->>>>>>> development
+    "http://api.wajad.test/api/refreshToken?Old=quia" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
@@ -320,20 +254,11 @@ fetch(url, {
 );
 
 let params = {
-<<<<<<< HEAD
-    "Old": "sit",
-=======
-<<<<<<< HEAD
-    "Old": "ipsa",
-=======
-    "Old": "ea",
->>>>>>> tarek
->>>>>>> development
+    "Old": "quia",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
 
-<<<<<<< HEAD
 let headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -385,6 +310,114 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_406e4552819a456070d1f6c93688188d -->
+<!-- START_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
+<h2>Send Code</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://api.wajad.test/api/sendCode/phone." \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/sendCode/phone."
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "message": "Verification code sent.",
+    "status_code": 200
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/sendCode/{type}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>required</td>
+<td>phone or email.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
+<!-- START_d0ad6077a075427e4ae216d3352ed1ef -->
+<h2>Change Email</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://api.wajad.test/api/changeEmail" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"email":"example@example.com"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/changeEmail"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "example@example.com"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/changeEmail</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email</code></td>
+<td>email,required.</td>
+<td>optional</td>
+</tr>
+</tbody>
+</table>
+<!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
 <!-- START_61739f3220a224b34228600649230ad1 -->
 <h2>Logout</h2>
 <p>[Destroy The Token]</p>
@@ -415,14 +448,16 @@ fetch(url, {
 <!-- END_61739f3220a224b34228600649230ad1 -->
 <h1>User Profile</h1>
 <!-- START_b4f4625b609a18310a50b1dddf752a55 -->
-<h2>api/resetPassword</h2>
+<h2>Reset Password</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
     "http://api.wajad.test/api/resetPassword" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
+    -H "Accept: application/json" \
+    -d '{"user":"reehaabahmed@gmail.com"}'
+</code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/resetPassword"
 );
@@ -432,14 +467,46 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "user": "reehaabahmed@gmail.com"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "message": "New password sent successfully to your mail.",
+    "status_code": 200
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/resetPassword</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user</code></td>
+<td>email,min:9,max:14</td>
+<td>required</td>
+<td>email or phone.</td>
+</tr>
+</tbody>
+</table>
 <!-- END_b4f4625b609a18310a50b1dddf752a55 -->
 <!-- START_0b828966a9f31e695693fe9650b70eb1 -->
 <h2>User Data</h2>
@@ -646,105 +713,6 @@ fetch(url, {
 </table>
 <!-- END_72a884b85bf7bf4198984d6ccecce2b7 -->
 <!-- START_dd73fe89d9872ce37d284636141ae526 -->
-<h2>api/changePassword</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/changePassword" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/changePassword"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/changePassword</code></p>
-<!-- END_dd73fe89d9872ce37d284636141ae526 -->
-<!-- START_cb0e89a15b080a33f4c18135f097480d -->
-<h2>api/changePhone</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/changePhone" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/changePhone"
-);
-
-=======
->>>>>>> tarek
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "token_type": "Bearer",
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU3NTM2OTk2NCwiZXhwIjoxNTc1NTg1OTY0LCJuYmYiOjE1NzUzNjk5NjQsImp0aSI6IjU0dEQ5WDU5NHROd212QngiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.tja6CsTMHh2NIOYpCfAFVbshcX4DWRc2HQ4zYwid6zQ",
-    "expires_in": 216000,
-    "user": {
-        "id": 1,
-        "name": "Api User",
-        "email": "api_user_@wajad.co",
-        "status": 1,
-        "mobile_number": "1006994920",
-        "receive_emails": false,
-        "receive_push_notifications": false,
-        "is_email_verified": false,
-        "is_mobile_number_verified": false,
-        "default_distance_unit": "kilo"
-    }
-}</code></pre>
-<h3>HTTP Request</h3>
-<<<<<<< HEAD
-<p><code>POST api/changePhone</code></p>
-<!-- END_cb0e89a15b080a33f4c18135f097480d -->
-<!-- START_93fe34fffcec9f399970d7fffb9bcc14 -->
-<h2>User Posts</h2>
-=======
-<p><code>POST api/refreshToken</code></p>
-<h4>Query Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Old</code></td>
-<td>optional</td>
-<td>Bearer Token</td>
-</tr>
-</tbody>
-</table>
-<!-- END_406e4552819a456070d1f6c93688188d -->
-<!-- START_dd73fe89d9872ce37d284636141ae526 -->
 <h2>Password Reset</h2>
 <blockquote>
 <p>Example request:</p>
@@ -753,7 +721,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"iste","new_password":"iure"}'
+    -d '{"old_password":"fugit","new_password":"sint"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -765,8 +733,8 @@ let headers = {
 };
 
 let body = {
-    "old_password": "iste",
-    "new_password": "iure"
+    "old_password": "fugit",
+    "new_password": "sint"
 }
 
 fetch(url, {
@@ -821,7 +789,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"corrupti"}'
+    -d '{"mobile_number":"maiores"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -833,7 +801,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "corrupti"
+    "mobile_number": "maiores"
 }
 
 fetch(url, {
@@ -873,66 +841,8 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_cb0e89a15b080a33f4c18135f097480d -->
-<!-- START_d0ad6077a075427e4ae216d3352ed1ef -->
-<h2>Change Email</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/changeEmail" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"email":"example@example.com"}'
-</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/changeEmail"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "email": "example@example.com"
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/changeEmail</code></p>
-<h4>Body Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>email</code></td>
-<td>email,required.</td>
-<td>optional</td>
-</tr>
-</tbody>
-</table>
-<!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
-<!-- START_61739f3220a224b34228600649230ad1 -->
-<h2>Logout</h2>
-<p>[Destroy The Token]</p>
->>>>>>> tarek
+<!-- START_93fe34fffcec9f399970d7fffb9bcc14 -->
+<h2>User Posts</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -1211,26 +1121,17 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <h3>HTTP Request</h3>
-<<<<<<< HEAD
-<p><code>POST wajad/password/reset</code></p>
-<!-- END_ef35280f3fdc56bb64ff077bb4de4729 -->
-<!-- START_b4f4625b609a18310a50b1dddf752a55 -->
-<h2>Reset Password</h2>
-=======
 <p><code>POST laravel-websockets/statistics</code></p>
 <!-- END_a114cbb106b4fbbabe00910c4c3fa19c -->
 <!-- START_f7b7ea397f8939c8bb93e6cab64603ce -->
 <h2>Display Swagger API page.</h2>
->>>>>>> development
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
     -G "http://api.wajad.test/api/documentation" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"user":"reehaabahmed@gmail.com"}'
-</code></pre>
+    -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/documentation"
 );
@@ -1240,58 +1141,21 @@ let headers = {
     "Accept": "application/json",
 };
 
-let body = {
-    "user": "reehaabahmed@gmail.com"
-}
-
 fetch(url, {
     method: "GET",
     headers: headers,
-    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<<<<<<< HEAD
-<pre><code class="language-json">{
-    "success": true,
-    "message": "User updated successfully.",
-    "status_code": 200
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/resetPassword</code></p>
-<h4>Body Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>user</code></td>
-<td>email,min:9,max:14</td>
-<td>required</td>
-<td>email or phone.</td>
-</tr>
-</tbody>
-</table>
-<!-- END_b4f4625b609a18310a50b1dddf752a55 -->
-<!-- START_0b828966a9f31e695693fe9650b70eb1 -->
-<h2>User Data</h2>
-=======
 <pre><code class="language-json">null</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/documentation</code></p>
 <!-- END_f7b7ea397f8939c8bb93e6cab64603ce -->
 <!-- START_1ead214f30a5e235e7140eb2aaa29eee -->
 <h2>Dump api-docs.json content endpoint.</h2>
->>>>>>> development
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -1315,10 +1179,10 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <blockquote>
-<p>Example response (500):</p>
+<p>Example response (404):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Server Error"
+    "message": "Cannot find \/home\/vagrant\/code\/web\/storage\/api-docs\/api-docs.json and cannot be generated."
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET docs/{jsonFile?}</code></p>
@@ -1359,57 +1223,6 @@ fetch(url, {
     "message": "(1) - this L5 Swagger asset is not allowed"
 }</code></pre>
 <h3>HTTP Request</h3>
-<<<<<<< HEAD
-<p><code>POST api/verify/{type}</code></p>
-<h4>URL Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>type</code></td>
-<td>required</td>
-<td>phone or email.</td>
-</tr>
-</tbody>
-</table>
-<h4>Body Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>code</code></td>
-<td>digits:4,numeric</td>
-<td>required</td>
-<td>.</td>
-</tr>
-</tbody>
-</table>
-<!-- END_734623b7e60cc9f20fd5b5b67df87d7d -->
-<!-- START_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
-<h2>Resend Code</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/resendCode/phone." \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/resendCode/phone."
-=======
 <p><code>GET docs/asset/{asset}</code></p>
 <!-- END_1a23c1337818a4de9e417863aebaca33 -->
 <!-- START_a2c4ea37605c6d2e3c93b7269030af0a -->
@@ -1423,7 +1236,6 @@ fetch(url, {
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/oauth2-callback"
->>>>>>> development
 );
 
 let headers = {
@@ -1440,42 +1252,12 @@ fetch(url, {
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<<<<<<< HEAD
-<pre><code class="language-json">{
-    "success": true,
-    "message": "Verification code sent.",
-    "status_code": 200
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/resendCode/{type}</code></p>
-<h4>URL Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>type</code></td>
-<td>required</td>
-<td>phone or email.</td>
-</tr>
-</tbody>
-</table>
-<!-- END_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
-<!-- START_72a884b85bf7bf4198984d6ccecce2b7 -->
-<h2>Update User Profile</h2>
-=======
 <pre><code class="language-json">null</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/oauth2-callback</code></p>
 <!-- END_a2c4ea37605c6d2e3c93b7269030af0a -->
 <!-- START_66df3678904adde969490f2278b8f47f -->
 <h2>Authenticate the request for channel access.</h2>
->>>>>>> development
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -1710,210 +1492,6 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>POST wajad/password/reset</code></p>
 <!-- END_ef35280f3fdc56bb64ff077bb4de4729 -->
-<<<<<<< HEAD
-<!-- START_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
-<h2>Resend Code</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/resendCode/phone." \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/resendCode/phone."
-=======
-<!-- START_0b828966a9f31e695693fe9650b70eb1 -->
-<h2>api/userData</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/userData" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/userData"
->>>>>>> tarek
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-<<<<<<< HEAD
-    method: "POST",
-=======
-    method: "GET",
->>>>>>> tarek
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "success": true,
-    "message": "User updated successfully.",
-    "status_code": 200
-}</code></pre>
-<h3>HTTP Request</h3>
-<<<<<<< HEAD
-<p><code>POST api/resendCode/{type}</code></p>
-<h4>URL Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>type</code></td>
-<td>required</td>
-<td>phone or email.</td>
-</tr>
-</tbody>
-</table>
-<!-- END_9cc4d84c4e61fa51c1617c8ffc3bd642 -->
-<!-- START_d0ad6077a075427e4ae216d3352ed1ef -->
-<h2>api/changeEmail</h2>
-=======
-<p><code>GET api/userData</code></p>
-<!-- END_0b828966a9f31e695693fe9650b70eb1 -->
-<!-- START_734623b7e60cc9f20fd5b5b67df87d7d -->
-<h2>api/verify/{type}</h2>
->>>>>>> tarek
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-<<<<<<< HEAD
-    "http://api.wajad.test/api/changeEmail" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/changeEmail"
-=======
-    "http://api.wajad.test/api/verify/1" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/verify/1"
->>>>>>> tarek
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<<<<<<< HEAD
-<p><code>POST api/changeEmail</code></p>
-<!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
-=======
-<p><code>POST api/verify/{type}</code></p>
-<!-- END_734623b7e60cc9f20fd5b5b67df87d7d -->
-<!-- START_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
-<h2>api/sendCode/{type}</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/sendCode/1" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/sendCode/1"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/sendCode/{type}</code></p>
-<!-- END_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
-<!-- START_72a884b85bf7bf4198984d6ccecce2b7 -->
-<h2>api/updateUserProfile</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/updateUserProfile" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/updateUserProfile"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/updateUserProfile</code></p>
-<!-- END_72a884b85bf7bf4198984d6ccecce2b7 -->
-<!-- START_6353a328faed1ff7fac507b43676b1d1 -->
-<h2>api/userPosts/{type?}</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/userPosts/" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/userPosts/"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/userPosts/{type?}</code></p>
-<!-- END_6353a328faed1ff7fac507b43676b1d1 -->
->>>>>>> tarek
 <!-- START_2d89b427b331f35cdded42a87b6e4acc -->
 <h2>api/items</h2>
 <blockquote>
@@ -2209,10 +1787,10 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <blockquote>
-<p>Example response (500):</p>
+<p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Server Error"
+    "data": []
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/home/search</code></p>
@@ -2242,10 +1820,10 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <blockquote>
-<p>Example response (500):</p>
+<p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Server Error"
+    "data": []
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/home/search/keywords</code></p>
@@ -2804,16 +2382,12 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <blockquote>
-<p>Example response (500):</p>
+<p>Example response (404):</p>
 </blockquote>
 <pre><code class="language-json">{
-<<<<<<< HEAD
     "success": false,
     "message": "Post is not found.",
     "code": 404
-=======
-    "message": "Server Error"
->>>>>>> tarek
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/posts/{post}</code></p>
@@ -3183,6 +2757,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET sendsms</code></p>
 <!-- END_0fd80093bf108730b9b2c913c6f734f1 -->
