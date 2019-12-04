@@ -94,7 +94,7 @@ class PostsController extends Controller
         if ($request->has('images')) {
             array_map(function ($image) use ($post, $request) {
                 $post->images()->create([
-                    'image' =>  $image->store('images/postsimages')
+                    'image' =>  $image->store('images/posts')
                 ]);
             }, $request->images);
         }
@@ -185,7 +185,7 @@ class PostsController extends Controller
             if ($request->has('images')) {
                 array_map(function ($image) use ($post, $request) {
                     $post->images()->create([
-                        'image' =>  $request->file($image)->store('images/postsimages')
+                        'image' =>  $request->file($image)->store('images/posts')
                     ]);
                 }, $request->images);
             }
