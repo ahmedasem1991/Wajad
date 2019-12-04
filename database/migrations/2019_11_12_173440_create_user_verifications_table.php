@@ -18,7 +18,7 @@ class CreateUserVerificationsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->integer('verification_code');
             $table->enum('code_valid_for', [
-                'mobile_number',
+                'phone',
                 'email'
             ]);
             $table->integer('attempt')->default(1);

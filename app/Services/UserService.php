@@ -37,6 +37,7 @@ class UserService
 
         if ($code_valid_for == 'phone') {
             if (!$user_verificatioin->codeValidForMobileNumber()) {
+                $user_verificatioin->increment('attempt');
                 throw new ApiException(trans('auth.wrong_code'), 400);
             }
 
@@ -49,6 +50,8 @@ class UserService
 
         if ($code_valid_for == 'email') {
             if (!$user_verificatioin->codeValidForEmail()) {
+                $user_verificatioin->increment('attempt');
+
                 throw new ApiException(trans('auth.wrong_code'), 400);
             }
 

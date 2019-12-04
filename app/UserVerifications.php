@@ -13,7 +13,7 @@ class UserVerifications extends Model
     protected $fillable = [
         'user_id',
         'verification_code',
-        'code_sent_for',
+        'code_valid_for',
         'attempt',
     ];
 
@@ -34,6 +34,6 @@ class UserVerifications extends Model
 
     public function codeValidForMobileNumber()
     {
-        return $this->code_valid_for == 'mobile_number';
+        return $this->code_valid_for == 'phone';
     }
 }
