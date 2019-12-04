@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use App\Color;
+use App\Region;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\ColorResource;
+use App\Http\Resources\RegionResource;
+use App\Http\Resources\CategoryResource;
 
 class SearchController extends Controller
 {
@@ -54,5 +60,20 @@ class SearchController extends Controller
             });
         }
         return  PostResource::collection($posts->get());
+    }
+
+    public function fetchSearchData()
+    {
+        $categories = Category::all();
+
+        $categories->load('subcategories.brands');
+
+        $data = [
+            'regions' => RegionResource::collection(Region::all()),
+            'categories' => CategoryResource::collection($categories),
+            'colors' => ColorResource::collection(Color::all())
+        ];
+
+        return response()->json($data);
     }
 }

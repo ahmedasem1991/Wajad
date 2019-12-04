@@ -17,7 +17,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::post('/changeEmail', 'ChangeEmailController');
         Route::post('/logout', 'AuthController@logout');
         Route::get('/userPosts/{type}', 'UserPostController');
-        Route::get('/userItems', 'UserItemController');
+        // Route::get('/userItems', 'UserItemController');
     });
 });
 
@@ -39,6 +39,7 @@ Route::prefix('home')->group(function () {
     Route::group(['prefix' => 'search'], function () {
         Route::get('/', 'SearchController@searchFilter');
         Route::get('/keywords', 'SearchController@searchByKeyWords');
+        Route::get('/data', 'SearchController@fetchSearchData');
     });
 });
 

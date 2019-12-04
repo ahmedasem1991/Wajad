@@ -5,7 +5,6 @@ namespace App;
 use App\Brand;
 use App\SubCategory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model

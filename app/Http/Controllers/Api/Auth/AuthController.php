@@ -72,7 +72,7 @@ class AuthController extends Controller
             );
 
             if ($validate_mobile_number->fails()) {
-                throw new ApiException($validate_mobile_number->errors()->first(), 401);
+                throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
 
             if (app()->environment('production')) {
@@ -94,7 +94,7 @@ class AuthController extends Controller
             );
 
             if ($validate_email->fails()) {
-                throw new ApiException($validate_email->errors()->first(), 401);
+                throw new ApiException($validate_email->errors()->first(), 400);
             }
 
             $request = ['email' => request('user'), 'password' => request('password')];
@@ -107,11 +107,11 @@ class AuthController extends Controller
         $request['type'] = User::Types['user'];
 
         if (!$token = auth('api')->attempt($request)) {
-            throw new ApiException(trans('auth.failed'), 401);
+            throw new ApiException(trans('auth.failed'), 400);
         }
 
         if (!auth('api')->user()->isUser()) {
-            throw new ApiException(trans('auth.failed'), 401);
+            throw new ApiException(trans('auth.failed'), 400);
         }
 
         return $this->respondWithToken($token);

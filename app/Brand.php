@@ -25,12 +25,12 @@ class Brand extends ModelMaster
   {
       return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
   }
-  
+
   public function scopeSubcategory($query, $sub_category_id)
   {
       return $query->where('sub_category_id', $sub_category_id);
   }
 
- 
-  
+
+
 }

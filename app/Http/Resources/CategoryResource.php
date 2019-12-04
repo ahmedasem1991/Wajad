@@ -11,6 +11,7 @@ class CategoryResource extends JsonResource
         if ($request->has('subCategories')) {
             $this->load('subcategories');
         }
+
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},

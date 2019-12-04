@@ -15,14 +15,12 @@ class SubCategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($request->has('categories')) {
-            $this->load('category');
-        }
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},
             'description' => $this->{'description_' . app()->getLocale()},
             'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'brands' => BrandResource::collection($this->whenLoaded('brands')),
         ];
     }
 }

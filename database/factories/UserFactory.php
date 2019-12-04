@@ -7,16 +7,16 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        "name" => $faker->name(),
-        "email" => $faker->email,
-        "password" => bcrypt("123456789"),
-        "type" => $faker->numberBetween(1, 3),
-        "status" => $faker->boolean(),
-        "mobile_number" => $faker->phoneNumber,
-        "mobile_country_id" => null,
-        "email_verified_at" => $faker->dateTime(),
-        "city_id" => null,
-        "corporate_id" => null,
-        "show_my_data" => $faker->boolean(),
+        'name' => $faker->name(),
+        'email' => $faker->email,
+        'password' => bcrypt('123456789'),
+        'default_distance_unit' => 'kilo',
+        'type' => User::Types['user'],
+        'status' => 1,
+        'mobile_number' => $faker->phoneNumber,
+        'receive_emails' => $faker->boolean(),
+        'receive_push_notifications' => $faker->boolean(),
+        'is_mobile_number_verified' => $faker->boolean(),
+        'email_verified_at' => now(),
     ];
 });
