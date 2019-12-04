@@ -28,10 +28,10 @@ class SupportController extends Controller
             'email' => ['required', 'email'],
             'phone' => ['required', 'min:6', 'max:20'],
             'message' => ['required'],
-      
+
         ]);
         if ($validate_request->fails()) {
-            $this->addResponse($validate_request->errors())->addStatusCode(401);
+            $this->addResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
 
@@ -40,10 +40,10 @@ class SupportController extends Controller
             'email' => request('email'),
             'phone' => request('phone'),
             'message' => request('message'),
-            
+
         ]);
         $this->addResponse(trans( 'messages.successfully_contactus' ))->addStatusCode(201);
-       
+
 
         return $this->response();
     }

@@ -39,7 +39,7 @@ class GenerateAndAssignQRCodeController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(401);
+            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
             return $this->response();
         }
         $Package = Package::find($request->package_id);
