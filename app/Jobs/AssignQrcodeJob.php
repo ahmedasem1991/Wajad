@@ -2,21 +2,24 @@
 
 namespace App\Jobs;
 
+use App\User;
 use App\Qrcode;
 use Carbon\Carbon;
 use App\AssignQrcode;
+use Laravel\Nova\Nova;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Notifications\BroadcastNotification;
 
 
 class AssignQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $id,$assign_reference_number,$quantity,$type,$user_id,$corporate_id,$available_period,$assign_to;
+    private $id,$assign_reference_number,$quantity,$type,$user_id,$corporate_id,$available_period,$assign_to,$auth_id;
     /**
      * Create a new job instance.
      *
@@ -32,6 +35,7 @@ class AssignQrcodeJob implements ShouldQueue
        $this->corporate_id=$assignQrcode->corporate_id;
        $this->available_period=$assignQrcode->available_period;
        $this->assign_to=$assignQrcode->assign_to;
+       $this->auth_id=$assignQrcode->created_by;
     }
 
     /**
@@ -56,9 +60,13 @@ class AssignQrcodeJob implements ShouldQueue
             
            ]);
        }
-     $AssignQrcode=  AssignQrcode::find($this->id);
-     $AssignQrcode->status='finished';
-     $AssignQrcode->created_from='web/updated';
-     $AssignQrcode->save();
+       $level='success';
+       $message='"' .$this->quantity .'" QR Code Was Assigned Successfully.';
+       $url=Nova::path().'/resources/assign-qrcodes';
+       User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
+    //  $AssignQrcode=  AssignQrcode::find($this->id);
+    //  $AssignQrcode->status='finished';
+    //  $AssignQrcode->created_from='web/updated';
+    //  $AssignQrcode->save();
     }
 }

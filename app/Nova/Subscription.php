@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
+use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -104,12 +105,16 @@ class Subscription extends Resource
            
         ])->hideFromDetail()->dependsOn('subscriber', '2'),
 
-            BelongsTo::make('User'),
-            BelongsTo::make('Corporate'),
+            BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
+            BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Package')->rules('required'),
             DateTime::make('Created At') 
             ->hideWhenUpdating()
-            ->hideWhenCreating()
+            ->hideWhenCreating(),
+            RadioButton::make('Created From')
+            ->options([
+                'web' => 'web',
+          ])->default('web'), // optional,
 
         ];
     }

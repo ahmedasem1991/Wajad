@@ -7,10 +7,12 @@ window._ = require('lodash');
  */
 
 try {
+
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+
+console.log('test event');
 } catch (e) {}
 
 /**
@@ -43,11 +45,12 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from "laravel-echo"
+import Echo from "laravel-echo";
 
-window.io = require('socket.io-client');
+window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: window.location.hostname + ':6001'
+    broadcaster: 'pusher',
+    key: 'ae0b4c188dcc7e6967f6'
 });
+ 
