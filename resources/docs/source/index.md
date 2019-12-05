@@ -197,7 +197,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=et" \
+    "http://api.wajad.test/api/refreshToken?Old=non" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -208,7 +208,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "et",
+    "Old": "non",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -350,6 +350,210 @@ fetch(url, {
 
 
 <!-- END_61739f3220a224b34228600649230ad1 -->
+
+#Home
+
+
+<!-- START_e22799a526b2d5e6c38d0c9ffba872eb -->
+## Banners
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/home/banners" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/home/banners"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": [
+        {
+            "type": "url",
+            "image": "http:\/\/wajad.test\/ddd",
+            "url": "c dvd"
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/home/banners`
+
+
+<!-- END_e22799a526b2d5e6c38d0c9ffba872eb -->
+
+<!-- START_adef4ddd684318346ed10525cf68c6e9 -->
+## Posts
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/home/posts/ab/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/home/posts/ab/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "subCategoryName": "opjmp",
+            "subCategoryIcon": "http:\/\/wajad.test\/images\/default.png",
+            "subCategoryPostsCount": 3
+        }
+    ],
+    "parentCategory": {
+        "subCategoryName": "All",
+        "subCategoryIcon": "http:\/\/wajad.test\/subcategories\/all.png",
+        "subCategoryPostsCount": 3
+    },
+    "posts": [
+        {
+            "id": 1,
+            "title": "Eos laboriosam saepe placeat voluptas rerum alias maxime aliquam.",
+            "approval_status": 1,
+            "reward": 0,
+            "description": "Minus tempore laboriosam nesciunt consectetur ullam mollitia labore praesentium. Temporibus animi veritatis autem ut nulla et. Aspernatur quos est eum veniam aut excepturi. Dicta sed velit sed nobis. Beatae dolorem consequatur dolorem. Consequatur quis voluptatem et quo voluptatem et. Ea quibusdam sed est a ab quidem quo recusandae. Beatae et et exercitationem ut. Omnis dicta dolores exercitationem dolor corrupti sequi cupiditate. Vel qui ipsum illo nemo. Inventore molestiae error placeat laudantium. Laudantium quaerat et deserunt officia delectus rerum sint repellat. Sit eos nisi minima esse quas. Consequuntur expedita reprehenderit ipsum nihil dicta. Maxime nisi culpa vero non excepturi nihil. Vel est nam quibusdam. Quidem autem tempora animi iste. Incidunt sit molestiae aut in consequatur est sapiente corrupti. Rem est nesciunt velit dolores odio consequatur aut.",
+            "status": "found",
+            "attached_to_item": false,
+            "item": null,
+            "subCategory": {
+                "id": 1,
+                "name": "opjmp",
+                "description": "jmiojoi",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "model": {
+                "id": 1,
+                "name": "jhinoi",
+                "description": "pjipo",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "color": {
+                "id": 1,
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
+            "date": "2019-12-04 18:49:46",
+            "images": [],
+            "questions": [],
+            "city": null
+        },
+        {
+            "id": 2,
+            "title": "Id consequatur et tenetur dolorum eveniet occaecati.",
+            "approval_status": 1,
+            "reward": 0,
+            "description": "Et quia molestiae voluptate veniam quia. Ducimus aut ipsam aut id quisquam nulla aut. A dolorum praesentium quo incidunt natus omnis. Animi dicta aut qui iure expedita. Dolores asperiores sed sint quia. Aspernatur veritatis non in exercitationem accusantium. Exercitationem eligendi et autem. Quibusdam quas ducimus atque quidem nobis nam. Eum cumque molestiae vero facilis odit quibusdam. Eveniet porro dolorem architecto esse amet in. Odio et nobis laborum. Delectus rerum a quam veritatis quaerat voluptates. Quis deserunt saepe asperiores. Dolore aut dolores voluptas sed quasi neque non. Ipsam ullam tenetur alias dolorem quibusdam ipsum. Sed doloribus fugit rem soluta ea facilis aut.",
+            "status": "found",
+            "attached_to_item": false,
+            "item": null,
+            "subCategory": {
+                "id": 1,
+                "name": "opjmp",
+                "description": "jmiojoi",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "model": {
+                "id": 3,
+                "name": "Consectetur amet consequatur nulla numquam voluptatem earum.",
+                "description": "Temporibus omnis a corrupti.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
+            },
+            "color": null,
+            "date": "2019-12-04 18:49:46",
+            "images": [],
+            "questions": [],
+            "city": null
+        },
+        {
+            "id": 4,
+            "title": "Quo cupiditate quod quae recusandae iure voluptas voluptas.",
+            "approval_status": 1,
+            "reward": 0,
+            "description": "Dolorem libero vitae eos eveniet et repellat. Veritatis eos officiis quaerat esse reprehenderit quaerat non. Hic laboriosam tenetur asperiores nemo distinctio. Rerum libero dicta et pariatur. Eveniet repudiandae consequatur quasi vero. Sit sit sunt quasi esse et debitis. Placeat non porro molestiae. Porro reprehenderit voluptas modi dolorem et. Et rerum cupiditate tempora et saepe iusto est aut. Consectetur repellendus aliquam et non in optio. Ab rerum aliquam est aspernatur laudantium suscipit. Facilis quod sed accusamus sunt ducimus nulla. Incidunt quia eligendi aut ut praesentium culpa perferendis. Ut nihil doloribus dolores. Atque qui saepe et sunt enim architecto inventore consequatur. Fugiat temporibus voluptas voluptatem sed dolor officia. Et quibusdam provident repellendus facere. Voluptas voluptatem quis ut voluptatum deserunt. Nostrum ratione fugiat qui aut nihil. Et voluptatem adipisci impedit cumque recusandae. Ut consequatur delectus ea dolor labore quaerat. Quisquam quisquam non vel.",
+            "status": "found",
+            "attached_to_item": false,
+            "item": null,
+            "subCategory": {
+                "id": 1,
+                "name": "opjmp",
+                "description": "jmiojoi",
+                "image": "http:\/\/wajad.test\/images\/default.png"
+            },
+            "model": {
+                "id": 5,
+                "name": "Id fugit corporis harum expedita.",
+                "description": "Fugiat nesciunt quasi sequi autem.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
+            },
+            "color": null,
+            "date": "2019-12-04 18:49:46",
+            "images": [],
+            "questions": [],
+            "city": null
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/home/posts/{status}/{subcategory_id?}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `status` |  required  | string lost or found
+    `subcategory_id` |  optional  | int, sub_category_id, exists in sub_categories
+
+<!-- END_adef4ddd684318346ed10525cf68c6e9 -->
 
 #Items
 
@@ -554,7 +758,7 @@ curl -X POST \
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"nostrum","details":"et","color_id":"quidem","brand_id":"rerum","model_id":"et","sub_category_id":"nostrum"}'
+    -d '{"title":"amet","details":"fuga","color_id":"dolorem","brand_id":"voluptas","model_id":"facilis","sub_category_id":"dolorum"}'
 
 ```
 
@@ -569,12 +773,12 @@ let headers = {
 };
 
 let body = {
-    "title": "nostrum",
-    "details": "et",
-    "color_id": "quidem",
-    "brand_id": "rerum",
-    "model_id": "et",
-    "sub_category_id": "nostrum"
+    "title": "amet",
+    "details": "fuga",
+    "color_id": "dolorem",
+    "brand_id": "voluptas",
+    "model_id": "facilis",
+    "sub_category_id": "dolorum"
 }
 
 fetch(url, {
@@ -716,6 +920,64 @@ Parameter | Status | Description
 
 <!-- END_4ba7e871e55098b0081507ac0b4e478b -->
 
+#Pages
+
+
+<!-- START_727da77b51e4f96916de138b4b71c037 -->
+## Pages
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/pages/" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/pages/"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": {
+        "id": 1,
+        "page": "about-us",
+        "title": "okpokmj",
+        "body": "ppojpoj"
+    }
+}
+```
+
+### HTTP Request
+`GET api/pages/{page?}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `type` |  required  | about-us or contact-us or privacy-policy
+
+<!-- END_727da77b51e4f96916de138b4b71c037 -->
+
 #Posts
 
 
@@ -836,7 +1098,7 @@ curl -X POST \
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"ad","image":"perferendis"}'
+    -d '{"details":"architecto","image":"autem"}'
 
 ```
 
@@ -851,8 +1113,8 @@ let headers = {
 };
 
 let body = {
-    "details": "ad",
-    "image": "perferendis"
+    "details": "architecto",
+    "image": "autem"
 }
 
 fetch(url, {
@@ -1015,7 +1277,7 @@ curl -X POST \
     "http://api.wajad.test/api/posts/add/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"commodi","description":"sit","reward":"ut","longitude":"velit","latitude":"qui","sub_category_id":5,"brand_id":5,"model_id":1,"color_id":2,"item_id":16,"city":"quasi","images":["dolor"],"questions":["aliquid"]}'
+    -d '{"title":"inventore","description":"ducimus","reward":"voluptas","longitude":"quia","latitude":"dignissimos","sub_category_id":18,"brand_id":18,"model_id":5,"color_id":6,"item_id":4,"city":"quas","images":["nihil"],"questions":["enim"]}'
 
 ```
 
@@ -1030,22 +1292,22 @@ let headers = {
 };
 
 let body = {
-    "title": "commodi",
-    "description": "sit",
-    "reward": "ut",
-    "longitude": "velit",
-    "latitude": "qui",
-    "sub_category_id": 5,
-    "brand_id": 5,
-    "model_id": 1,
-    "color_id": 2,
-    "item_id": 16,
-    "city": "quasi",
+    "title": "inventore",
+    "description": "ducimus",
+    "reward": "voluptas",
+    "longitude": "quia",
+    "latitude": "dignissimos",
+    "sub_category_id": 18,
+    "brand_id": 18,
+    "model_id": 5,
+    "color_id": 6,
+    "item_id": 4,
+    "city": "quas",
     "images": [
-        "dolor"
+        "nihil"
     ],
     "questions": [
-        "aliquid"
+        "enim"
     ]
 }
 
@@ -1103,7 +1365,7 @@ curl -X PUT \
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"explicabo","description":"totam","status":"beatae","reward":"omnis","longitude":"possimus","latitude":"eos","sub_category_id":13,"brand_id":19,"model_id":9,"color_id":12,"item_id":6,"city":"consectetur","images":["ipsam"],"questions":["qui"]}'
+    -d '{"title":"exercitationem","description":"aut","status":"ipsum","reward":"nesciunt","longitude":"sit","latitude":"quo","sub_category_id":8,"brand_id":12,"model_id":5,"color_id":12,"item_id":8,"city":"culpa","images":["corporis"],"questions":["voluptatum"]}'
 
 ```
 
@@ -1118,23 +1380,23 @@ let headers = {
 };
 
 let body = {
-    "title": "explicabo",
-    "description": "totam",
-    "status": "beatae",
-    "reward": "omnis",
-    "longitude": "possimus",
-    "latitude": "eos",
-    "sub_category_id": 13,
-    "brand_id": 19,
-    "model_id": 9,
+    "title": "exercitationem",
+    "description": "aut",
+    "status": "ipsum",
+    "reward": "nesciunt",
+    "longitude": "sit",
+    "latitude": "quo",
+    "sub_category_id": 8,
+    "brand_id": 12,
+    "model_id": 5,
     "color_id": 12,
-    "item_id": 6,
-    "city": "consectetur",
+    "item_id": 8,
+    "city": "culpa",
     "images": [
-        "ipsam"
+        "corporis"
     ],
     "questions": [
-        "qui"
+        "voluptatum"
     ]
 }
 
@@ -1253,7 +1515,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":5,"color":18,"brand":18,"subcategory":6,"date":"debitis"}'
+    -d '{"model":3,"color":7,"brand":20,"subcategory":1,"date":"necessitatibus"}'
 
 ```
 
@@ -1268,11 +1530,11 @@ let headers = {
 };
 
 let body = {
-    "model": 5,
-    "color": 18,
-    "brand": 18,
-    "subcategory": 6,
-    "date": "debitis"
+    "model": 3,
+    "color": 7,
+    "brand": 20,
+    "subcategory": 1,
+    "date": "necessitatibus"
 }
 
 fetch(url, {
@@ -1372,7 +1634,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search/keywords" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"keywords":"veritatis"}'
+    -d '{"keywords":"aliquam"}'
 
 ```
 
@@ -1387,7 +1649,7 @@ let headers = {
 };
 
 let body = {
-    "keywords": "veritatis"
+    "keywords": "aliquam"
 }
 
 fetch(url, {
@@ -1813,7 +2075,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"sed","new_password":"architecto","new_password_confirmation":"dolorum"}'
+    -d '{"old_password":"voluptatibus","new_password":"et","new_password_confirmation":"est"}'
 
 ```
 
@@ -1828,9 +2090,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "sed",
-    "new_password": "architecto",
-    "new_password_confirmation": "dolorum"
+    "old_password": "voluptatibus",
+    "new_password": "et",
+    "new_password_confirmation": "est"
 }
 
 fetch(url, {
@@ -1875,7 +2137,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"totam"}'
+    -d '{"mobile_number":"doloribus"}'
 
 ```
 
@@ -1890,7 +2152,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "totam"
+    "mobile_number": "doloribus"
 }
 
 fetch(url, {
@@ -2055,102 +2317,6 @@ fetch(url, {
 
 
 <!-- END_89167602b4f7090b5ae673647a46f9d9 -->
-
-<!-- START_e22799a526b2d5e6c38d0c9ffba872eb -->
-## api/home/banners
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/home/banners" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/home/banners"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "data": [
-        null,
-        null,
-        null,
-        null,
-        null
-    ]
-}
-```
-
-### HTTP Request
-`GET api/home/banners`
-
-
-<!-- END_e22799a526b2d5e6c38d0c9ffba872eb -->
-
-<!-- START_adef4ddd684318346ed10525cf68c6e9 -->
-## api/home/posts/{status}/{subcategory_id?}
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/1/" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/home/posts/1/"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (404):
-
-```json
-{
-    "success": false,
-    "message": "Category is not found.",
-    "code": 404
-}
-```
-
-### HTTP Request
-`GET api/home/posts/{status}/{subcategory_id?}`
-
-
-<!-- END_adef4ddd684318346ed10525cf68c6e9 -->
 
 <!-- START_109013899e0bc43247b0f00b67f889cf -->
 ## api/categories
@@ -2982,13 +3148,6 @@ fetch(url, {
 ```
 
 
-> Example response (500):
-
-```json
-{
-    "message": "Server Error"
-}
-```
 
 ### HTTP Request
 `GET api/maps/{type?}`
@@ -4653,51 +4812,5 @@ fetch(url, {
 
 
 <!-- END_2bcf7e87aec832345867dfd3f2da84e7 -->
-
-<!-- START_727da77b51e4f96916de138b4b71c037 -->
-## api/pages/{page?}
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/pages/" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/pages/"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (404):
-
-```json
-{
-    "success": false,
-    "message": "",
-    "code": 404
-}
-```
-
-### HTTP Request
-`GET api/pages/{page?}`
-
-
-<!-- END_727da77b51e4f96916de138b4b71c037 -->
 
 

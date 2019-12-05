@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SettingResource;
 use App\Page;
 
+/**
+ * @group Pages
+ */
 class PageController extends Controller
 {
     /**
@@ -23,10 +26,26 @@ class PageController extends Controller
         // 'twitter-link',
     ];
 
+
+    /**
+     * Pages
+     * @urlParam type required about-us or contact-us or privacy-policy
+     * @response 
+     * {
+     * "data": {
+     *  "id": 1,
+     * "page": "about-us",
+     *"title": "okpokmj",
+     *"body": "ppojpoj"
+     *}
+     *}
+     * @return void
+     */
+
     public function __invoke($page = null)
     {
         if (!in_array($page, $this->pages)) {
-            throw new ApiException(trans(''), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
         }
 
         return new SettingResource(Page::where('key', $page)->first());
