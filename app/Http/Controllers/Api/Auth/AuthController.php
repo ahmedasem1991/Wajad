@@ -212,7 +212,6 @@ class AuthController extends Controller
         return response()->json([
             'token_type' => 'Bearer',
             'access_token' => $token,
-            'refresh_token' => auth('api')->user()->remember_token,
             'expires_in' => config('jwt.ttl') * 60,
             'user' => new UserResource(auth('api')->user())
         ]);

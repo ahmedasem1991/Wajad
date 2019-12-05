@@ -15,7 +15,19 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     use Notifiable, LogsActivity,  HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password', 'type', 'status', 'mobile_number', 'mobile_country_id', 'is_mobile_number_verified', 'email_verified_at',  'default_distance_unit', 'receive_emails', 'receive_push_notifications'
+        'name',
+        'email',
+        'password',
+        'type',
+        'status',
+        'mobile_number',
+        'mobile_country_id',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'default_distance_unit',
+        'receive_emails',
+        'receive_push_notifications',
+        'remember_token'
     ];
 
     protected $hidden = [
@@ -171,8 +183,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function receivesBroadcastNotificationsOn()
     {
-      //  return 'users.' . $this->id;
-       return 'nova-notifications';
+        //  return 'users.' . $this->id;
+        return 'nova-notifications';
     }
 
     public function postLimitation()
