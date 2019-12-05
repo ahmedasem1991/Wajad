@@ -55,7 +55,7 @@ class PostsController extends Controller
         $validate_request = Validator::make(request()->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
-            'reward' => ['numeric'],
+            'reward' => ['required', 'numeric'],
             'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
@@ -64,7 +64,7 @@ class PostsController extends Controller
             'color_id' => ['required', 'exists:colors,id'],
             'item_id' => ['nullable', 'exists:items,id'],
             'city' => ['required', 'string'],
-            'images' => ['sometimes', 'array', 'size:5'],
+            'images' => ['sometimes', 'array', 'between:1,5'],
             'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
             'questions' => ['sometimes',  'array', 'size:3'],
             'questions.*' => ['required', 'min:9', 'max:500'],
@@ -302,7 +302,7 @@ class PostsController extends Controller
                 'title' => ['required', 'min:6', 'max:255'],
                 'description' => ['required', 'min:9', 'max:500'],
                 'status' => ['required', 'in:0,1'],
-                'reward' => ['numeric'],
+                'reward' => ['required', 'numeric'],
                 'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'sub_category_id' => ['required', 'exists:sub_categories,id'],
@@ -311,7 +311,7 @@ class PostsController extends Controller
                 'color_id' => ['required', 'exists:colors,id'],
                 'item_id' => ['nullable', 'exists:items,id'],
                 'city' => ['required', 'string'],
-                'images' => ['sometimes', 'max:5'],
+                'images' => ['sometimes', 'array', 'between:1,5'],
                 'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
             ]);
 

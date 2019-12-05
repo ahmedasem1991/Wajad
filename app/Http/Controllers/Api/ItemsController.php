@@ -171,7 +171,7 @@ class ItemsController extends Controller
                 'brand_id' => ['required', 'exists:brands,id'],
                 'model_id' => ['required', 'exists:models,id'],
                 'color_id' => ['required', 'exists:colors,id'],
-                'images' => ['sometimes', 'max:5'],
+                'images' => ['sometimes', 'array', 'between:1,5'],
                 'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
             ]);
 

@@ -19,5 +19,6 @@ return [
 		'phone' => 'phone',
 		'email' => 'email',
 		'item_request' => 'Item request',
+		'answer' => 'Answers',
 	],
 ];

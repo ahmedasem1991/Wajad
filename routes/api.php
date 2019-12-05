@@ -29,10 +29,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('/{item}', 'ItemsController@destroy');
     });
 
-
-    Route::post('/report/post/{post}', 'PostsController@reportPost');;
-    Route::post('/request/item/{item}', 'ItemRequestController@store');;
-
+    Route::post('/report/post/{post}', 'PostsController@reportPost');
+    Route::post('/request/item/{item}', 'ItemRequestController');
+    Route::post('/post/{post}/answer', 'AnswerController');
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
     // Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');

@@ -22,7 +22,7 @@ class ItemRequestController extends Controller
      *}
      * @return void
      */
-    public function store(Request $request, Item $item)
+    public function  __invoke(Request $request, Item $item)
     {
         $item = ItemRequest::create([
             'item_id' => $item->id,

@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Answer extends Model
 {
     use SoftDeletes, LogsActivity;
+    protected $fillable = ['user_id', 'answers', 'question_id'];
 
     public function question()
     {
