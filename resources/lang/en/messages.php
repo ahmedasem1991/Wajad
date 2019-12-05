@@ -7,6 +7,7 @@ return [
 	'limited' => 'Sorry You have reached the maximum number of :model .',
 	'reported' => ':model reported successfully.',
 	'not_found' => ':model is not found.',
+	'verified' => ':model verified successfully.',
 
 	'attributes' => [
 		'post' => 'Post',
@@ -15,5 +16,8 @@ return [
 		'user' => 'User',
 		'qrcode' => 'qrcode',
 		'page' => 'page',
+		'phone' => 'phone',
+		'email' => 'email',
+		'item_request' => 'Item request',
 	],
 ];

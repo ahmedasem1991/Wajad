@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
     Route::post('/report/post/{post}', 'PostsController@reportPost');;
+    Route::post('/request/item/{item}', 'ItemRequestController@store');;
 
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');

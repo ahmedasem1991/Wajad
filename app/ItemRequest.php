@@ -8,7 +8,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class ItemRequest extends Model
 {
     use LogsActivity;
-    
+    protected $fillable = ['user_id', 'item_id'];
+
     public function item()
     {
         return $this->belongsTo(Item::class);
