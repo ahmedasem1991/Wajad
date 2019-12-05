@@ -41,6 +41,7 @@ use LogsActivity;
         return $query->where('item_id', $item_id);
     }
 
+
     const STATUS = [
         1 => 'In Stock',
         2 => 'Assigned To User',
@@ -56,6 +57,10 @@ use LogsActivity;
         public function statusTitle($status)
     {
         return $this->status = self::STATUS[$status];
+    }
+    public function scopeStatus($query,$status)
+    {
+       return $query->where('status', self::STATUS[$status]);
     }
 
 

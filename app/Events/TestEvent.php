@@ -41,4 +41,7 @@ class TestEvent implements ShouldBroadcast
         return ['test-channel'];
         
     }
+    public function broadcastAs() {
+        return 'test-event';
+        }
 }

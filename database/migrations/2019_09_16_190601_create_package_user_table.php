@@ -19,6 +19,7 @@ class CreatePackageUserTable extends Migration
             $table->integer('corporate_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('package_id')->unsigned();
+            $table->string('created_from')->default('web');
            
             
             $table->timestamps();

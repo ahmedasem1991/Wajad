@@ -2,8 +2,10 @@
 
 namespace App\Jobs;
 
+use App\User;
 use App\Qrcode;
 use Carbon\Carbon;
+use Laravel\Nova\Nova;
 use App\GenerateQrcode;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -11,12 +13,13 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Notifications\BroadcastNotification;
 
 
 class GenerateQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $id,$reference_number,$quantity,$type,$generateQrcode;
+    private $id,$reference_number,$quantity,$type,$generateQrcode,$auth_id;
     /**
      * Create a new job instance.
      *
@@ -29,6 +32,7 @@ class GenerateQrcodeJob implements ShouldQueue
        $this->reference_number=$generateQrcode->reference_number;
        $this->quantity=$generateQrcode->quantity;
        $this->type=$generateQrcode->type;
+       $this->auth_id=$generateQrcode->created_by;
     }
 
     /**
@@ -44,7 +48,7 @@ class GenerateQrcodeJob implements ShouldQueue
            $ImageName= time().str_random(20).'.png';
            $Url=$this->id.time().str_random(20);
             \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
-            ->format('png')->merge(public_path('/images/wajad_logo.png'), 0.3, true)->size(2000)
+            ->format('png')->merge(public_path('/images/'.env('QRCODE_LOGO','logo2.png')), 0.3, true)->size(2000)
             ->generate(env('API_URL').'/scan-qr-code/'.$Url,
             public_path('images/qrcodes/'.$ImageName));
             Qrcode::create([
@@ -58,13 +62,19 @@ class GenerateQrcodeJob implements ShouldQueue
              
         }
 
+        $level='success';
+        $message='"' .$this->quantity .'" QR Code Generated Successfully.';
+        $url=Nova::path().'/resources/generate-qrcodes';
+        User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
+ 
+
         // $this->generateQrcode->status='finished';
         // $this->generateQrcode->update();
         //  return true;
-        $GenerateQrcode=  GenerateQrcode::find($this->id);
-        $GenerateQrcode->status='finished';
-        $GenerateQrcode->created_from='web/updated';
-        $GenerateQrcode->update();
+        // $GenerateQrcode=  GenerateQrcode::find($this->id);
+        // $GenerateQrcode->status='finished';
+        // $GenerateQrcode->created_from='web/updated';
+        // $GenerateQrcode->update();
         // Log::info($GenerateQrcode);
         // Log::info('info');
         

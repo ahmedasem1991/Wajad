@@ -137,6 +137,7 @@ class PostsController extends Controller
 
     /**
      *  Report Post
+     * @urlParam id required int Post Id
      *
      * @bodyParam details string nullable max:1000
      * @bodyParam image image sometimes mimes:jpeg,jpg,png,gif max:5102
@@ -186,7 +187,7 @@ class PostsController extends Controller
     /**
      * Show Post
      *
-     * @urlParam id int required
+     * @urlParam id required int Post Id
      *
      * @response
      * {
@@ -264,7 +265,7 @@ class PostsController extends Controller
 
     /**
      * Update Post
-     * @urlParam id int required PostId
+     * @urlParam id required int Post Id
      *
      * @bodyParam title string required min:6 max:255
      * @bodyParam description string required min:9 max:255
@@ -349,7 +350,7 @@ class PostsController extends Controller
     /**
      * Delete Post
      *
-     * @urlParam id int required
+     * @urlParam id required int Post Id
      *
      * @response
      * {
