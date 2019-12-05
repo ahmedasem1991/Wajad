@@ -90,5 +90,6 @@ Route::get('/test500', function () {
 Route::get('/test400', function () {
   $user = User::find(20);
 
-  $user->notify(new BroadcastNotification('success', 'test message', 'facebook.com'));
+  $user->notify(new BroadcastNotification('error', 'test message', 'facebook.com'));
+  return view('welcome');
 })->name('test400');

@@ -101,8 +101,8 @@
 var pusher = new Pusher("{{env("PUSHER_APP_KEY")}}", {
     encrypted: true
 });
-var channel = pusher.subscribe('test-channel');
-channel.bind('test-event', function(data) {
+var channel = pusher.subscribe('private-nova-notifications');
+channel.bind('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', function(data) {
   alert(data.text);
  console.log(data.text);
 });
