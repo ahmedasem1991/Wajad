@@ -20,6 +20,61 @@ Welcome to the generated API reference.
 
 <!-- END_INFO -->
 
+#Answers
+
+
+<!-- START_b8c093319f63f6104bb55df0e5169242 -->
+## Answer question
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/post/1/answer" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/post/1/answer"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "Answers created successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`POST api/post/{post}/answer`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `post_id` |  required  | int, exists in posts
+
+<!-- END_b8c093319f63f6104bb55df0e5169242 -->
+
 #Auth
 
 
@@ -197,7 +252,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=voluptate" \
+    "http://api.wajad.test/api/refreshToken?Old=harum" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -208,7 +263,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "voluptate",
+    "Old": "harum",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -412,14 +467,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/quisquam/1" \
+    -G "http://api.wajad.test/api/home/posts/et/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/home/posts/quisquam/1"
+    "http://api.wajad.test/api/home/posts/et/1"
 );
 
 let headers = {
@@ -813,7 +868,7 @@ curl -X POST \
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"repellat","details":"consequuntur","color_id":"ipsa","brand_id":"iste","model_id":"sequi","sub_category_id":"dolores"}'
+    -d '{"title":"est","details":"nobis","color_id":"ducimus","brand_id":"alias","model_id":"eos","sub_category_id":"similique"}'
 
 ```
 
@@ -828,12 +883,12 @@ let headers = {
 };
 
 let body = {
-    "title": "repellat",
-    "details": "consequuntur",
-    "color_id": "ipsa",
-    "brand_id": "iste",
-    "model_id": "sequi",
-    "sub_category_id": "dolores"
+    "title": "est",
+    "details": "nobis",
+    "color_id": "ducimus",
+    "brand_id": "alias",
+    "model_id": "eos",
+    "sub_category_id": "similique"
 }
 
 fetch(url, {
@@ -1153,7 +1208,7 @@ curl -X POST \
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"perspiciatis","image":"sed"}'
+    -d '{"details":"totam","image":"perferendis"}'
 
 ```
 
@@ -1168,8 +1223,8 @@ let headers = {
 };
 
 let body = {
-    "details": "perspiciatis",
-    "image": "sed"
+    "details": "totam",
+    "image": "perferendis"
 }
 
 fetch(url, {
@@ -1332,7 +1387,7 @@ curl -X POST \
     "http://api.wajad.test/api/posts/add/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"quaerat","description":"non","reward":"quae","longitude":"dolor","latitude":"saepe","sub_category_id":13,"brand_id":6,"model_id":17,"color_id":12,"item_id":8,"city":"dolores","images":["ut"],"questions":["excepturi"]}'
+    -d '{"title":"quasi","description":"ex","reward":"hic","longitude":"dolorem","latitude":"quisquam","sub_category_id":5,"brand_id":14,"model_id":10,"color_id":13,"item_id":7,"city":"iusto","images":["fugiat"],"questions":["repellat"]}'
 
 ```
 
@@ -1347,22 +1402,22 @@ let headers = {
 };
 
 let body = {
-    "title": "quaerat",
-    "description": "non",
-    "reward": "quae",
-    "longitude": "dolor",
-    "latitude": "saepe",
-    "sub_category_id": 13,
-    "brand_id": 6,
-    "model_id": 17,
-    "color_id": 12,
-    "item_id": 8,
-    "city": "dolores",
+    "title": "quasi",
+    "description": "ex",
+    "reward": "hic",
+    "longitude": "dolorem",
+    "latitude": "quisquam",
+    "sub_category_id": 5,
+    "brand_id": 14,
+    "model_id": 10,
+    "color_id": 13,
+    "item_id": 7,
+    "city": "iusto",
     "images": [
-        "ut"
+        "fugiat"
     ],
     "questions": [
-        "excepturi"
+        "repellat"
     ]
 }
 
@@ -1420,7 +1475,7 @@ curl -X PUT \
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"maiores","description":"quos","status":"corporis","reward":"autem","longitude":"maxime","latitude":"vitae","sub_category_id":20,"brand_id":18,"model_id":6,"color_id":6,"item_id":17,"city":"et","images":["aut"],"questions":["autem"]}'
+    -d '{"title":"quod","description":"pariatur","status":"sit","reward":"qui","longitude":"facere","latitude":"temporibus","sub_category_id":2,"brand_id":8,"model_id":16,"color_id":2,"item_id":7,"city":"voluptas","images":["ratione"],"questions":["consequatur"]}'
 
 ```
 
@@ -1435,23 +1490,23 @@ let headers = {
 };
 
 let body = {
-    "title": "maiores",
-    "description": "quos",
-    "status": "corporis",
-    "reward": "autem",
-    "longitude": "maxime",
-    "latitude": "vitae",
-    "sub_category_id": 20,
-    "brand_id": 18,
-    "model_id": 6,
-    "color_id": 6,
-    "item_id": 17,
-    "city": "et",
+    "title": "quod",
+    "description": "pariatur",
+    "status": "sit",
+    "reward": "qui",
+    "longitude": "facere",
+    "latitude": "temporibus",
+    "sub_category_id": 2,
+    "brand_id": 8,
+    "model_id": 16,
+    "color_id": 2,
+    "item_id": 7,
+    "city": "voluptas",
     "images": [
-        "aut"
+        "ratione"
     ],
     "questions": [
-        "autem"
+        "consequatur"
     ]
 }
 
@@ -1570,7 +1625,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":18,"color":11,"brand":4,"subcategory":4,"date":"nihil"}'
+    -d '{"model":16,"color":9,"brand":9,"subcategory":3,"date":"quo"}'
 
 ```
 
@@ -1585,11 +1640,11 @@ let headers = {
 };
 
 let body = {
-    "model": 18,
-    "color": 11,
-    "brand": 4,
-    "subcategory": 4,
-    "date": "nihil"
+    "model": 16,
+    "color": 9,
+    "brand": 9,
+    "subcategory": 3,
+    "date": "quo"
 }
 
 fetch(url, {
@@ -1689,7 +1744,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search/keywords" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"keywords":"consequuntur"}'
+    -d '{"keywords":"possimus"}'
 
 ```
 
@@ -1704,7 +1759,7 @@ let headers = {
 };
 
 let body = {
-    "keywords": "consequuntur"
+    "keywords": "possimus"
 }
 
 fetch(url, {
@@ -2130,7 +2185,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"velit","new_password":"ut","new_password_confirmation":"et"}'
+    -d '{"old_password":"voluptatibus","new_password":"hic","new_password_confirmation":"neque"}'
 
 ```
 
@@ -2145,9 +2200,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "velit",
-    "new_password": "ut",
-    "new_password_confirmation": "et"
+    "old_password": "voluptatibus",
+    "new_password": "hic",
+    "new_password_confirmation": "neque"
 }
 
 fetch(url, {
@@ -2192,7 +2247,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"similique"}'
+    -d '{"mobile_number":"accusamus"}'
 
 ```
 
@@ -2207,7 +2262,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "similique"
+    "mobile_number": "accusamus"
 }
 
 fetch(url, {
@@ -3203,6 +3258,13 @@ fetch(url, {
 ```
 
 
+> Example response (500):
+
+```json
+{
+    "message": "Server Error"
+}
+```
 
 ### HTTP Request
 `GET api/maps/{type?}`
