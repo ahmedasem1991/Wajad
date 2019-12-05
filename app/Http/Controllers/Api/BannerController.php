@@ -14,6 +14,7 @@ class BannerController extends Controller
 {
     /**
      * Banners
+     * @response 
      *      {
      *       "data": [
      *        {
