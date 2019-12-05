@@ -11,7 +11,7 @@ class BannerResource extends JsonResource
         $images_main_path = env("APP_URL") . "/";
 
         return [
-            'type' => 'ads',
+            'type' => $this->type,
             'image' => $images_main_path . $this->image,
             'url' => $this->url ?? "",
             'item_id' => $this->item_id ?? 0,
