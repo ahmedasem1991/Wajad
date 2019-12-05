@@ -15,17 +15,16 @@ class AddHeaders
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
-        // $headers = [
-        //     'Accept' => 'application/json'
-        // ];
+        $headers = [
+            'Accept' => 'application/json'
+        ];
 
-        // $request_with_headers = $next($request);
+        $request_with_headers = $next($request);
 
-        // foreach ($headers as $key => $value) {
-        //     $request_with_headers->headers->set($key, $value);
-        // }
+        foreach ($headers as $key => $value) {
+            $request_with_headers->headers->set($key, $value);
+        }
 
-        // return $request_with_headers;
+        return $request_with_headers;
     }
 }
