@@ -10,7 +10,21 @@
 | used to check if an authenticated user can listen to the channel.
 |
 */
-
+Broadcast::routes(['middleware' => 'auth:web']);
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('test-channel', function () {
+    return true;
+});
+
+
+Broadcast::channel('nova-notifications', function () {
+    return true;
+});
+
+Broadcast::channel('nova-notifications.{id}', function ($user, $id) {
+    return (int)$user->id === (int)$id;
+});
+

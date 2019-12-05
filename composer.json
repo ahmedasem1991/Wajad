@@ -13,6 +13,7 @@
         "beyondcode/laravel-websockets": "^1.3",
         "bolechen/nova-activitylog": "^0.1.4",
         "comodolab/nova-help": "^0.1.0",
+        "coreproc/nova-echo": "^0.2.0",
         "coreproc/nova-notification-feed": "^1.3",
         "darkaonline/l5-swagger": "5.8.*",
         "depsimon/nova-stripe-checkout-field": "^1.0",

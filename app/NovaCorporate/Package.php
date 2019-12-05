@@ -75,6 +75,13 @@ class Package extends Resource
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
+        if ($request->session()->has('error_payment')) {
+            $message=  $request->session()->get('error_payment');
+            $feild= Help::danger($message,'Try again later.');
+           
+           /// $request->session()->forget('success_payment');
+          // $request->session()->flush();
+        }
  
         
         return [

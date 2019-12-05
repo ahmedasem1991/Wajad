@@ -158,6 +158,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $query->where('type', $user_id);
     }
+    public function scopeCorporateAdmin($query, $user_id = 2)
+    {
+        return $query->where('type', '=', $user_id);
+    }
 
 
     /**
@@ -167,7 +171,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function receivesBroadcastNotificationsOn()
     {
-        return 'users.' . $this->id;
+      //  return 'users.' . $this->id;
+       return 'nova-notifications';
     }
 
     public function postLimitation()

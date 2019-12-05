@@ -22,7 +22,7 @@ class QrcodeAssignObserver
     public function saving(AssignQrcode $assignQrcode)
     {
         if($assignQrcode->created_from=='web')
-        { 
+        {
         $now = Carbon::now();
         $pre='';
         ($assignQrcode->assign_to==1)? $pre='U-':$pre='C-';
@@ -33,16 +33,15 @@ class QrcodeAssignObserver
         $assignQrcode->user_id=null;
         if(!$assignQrcode->corporate_id)
         $assignQrcode->corporate_id=null;
-       
-
-        }
-                 
+        $assignQrcode->created_by=auth()->user()->id;
+     
+        }      
        
     }
     public function saved(AssignQrcode $assignQrcode)
     {
         if($assignQrcode->created_from=='web')
-        { 
+        {
         AssignQrcodeJob::dispatch($assignQrcode);
         }
     }
