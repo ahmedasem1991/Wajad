@@ -52,6 +52,16 @@ class CreateForeignKeysMigration extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::table('items', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('SET NULL');
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('SET NULL');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('SET NULL');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('SET NULL');
+        });
     }
 
     /**
