@@ -7,6 +7,7 @@ return [
 	'limited' => "عفوا لقد وصلت إلي الحد الأقصي من :model",
 	'reported' => "تم الابلاغ :model بنجاح.",
 	'not_found' => ':model غير موجود.',
+	'verified' => 'تم تفعيل :model بنجاح.',
 
 	'attributes' => [
 		'post' => 'المنشور',
@@ -15,5 +16,8 @@ return [
 		'user' => 'المستخدم',
 		'qrcode' => 'المستخدم',
 		'page' => 'الصفحة',
+		'phone' => 'رقم الجوال',
+		'email' => 'البريد الاليكترونى',
+		'item_request' => 'طلب العنصر',
 	],
 ];

@@ -50,7 +50,7 @@ class VerifyPhoneOrEmailController extends Controller
 
         $this->addStatusCode(200);
 
-        $this->addResponse(trans("auth.verified_successfully", ['Type' => \Str::title($type)]));
+        $this->addResponse(trans('messages.verified', ['model' => trans(\Str::title($type))]));
 
         return $this->response();
     }
