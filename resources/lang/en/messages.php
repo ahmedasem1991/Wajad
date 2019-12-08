@@ -8,6 +8,7 @@ return [
 	'reported' => ':model reported successfully.',
 	'not_found' => ':model is not found.',
 	'verified' => ':model verified successfully.',
+	'accepted' => ':model accepted successfully.',
 
 	'attributes' => [
 		'post' => 'Post',

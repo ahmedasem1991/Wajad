@@ -108,16 +108,6 @@ class Item extends MasterModel
         return $this->hasMany(ItemImage::class, 'item_id');
     }
 
-    /**
-     * Define The Requests For The Item "In Case Of Lost Item"
-     * This Function Define The Requestes Made By Users That Claim That They Own This Lost Item.
-     *
-     * @return void
-     */
-    public function item_requests()
-    {
-        return $this->hasMany(PostRequest::class);
-    }
 
     /**
      * Define Questions For This Item "In Case Of Lost Item"

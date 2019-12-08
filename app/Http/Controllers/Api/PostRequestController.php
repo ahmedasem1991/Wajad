@@ -29,7 +29,7 @@ class PostRequestController extends Controller
             'user_id' => auth('api')->user()->id,
         ]);
 
-        $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.item_request')]))->addStatusCode(201);
+        $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 
         return $this->response();
     }

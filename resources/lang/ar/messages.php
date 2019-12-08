@@ -8,6 +8,7 @@ return [
 	'reported' => "تم الابلاغ :model بنجاح.",
 	'not_found' => ':model غير موجود.',
 	'verified' => 'تم تفعيل :model بنجاح.',
+	'accepted' => 'تم قبول :model بنجاح.',
 
 	'attributes' => [
 		'post' => 'المنشور',
