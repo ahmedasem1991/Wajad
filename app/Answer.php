@@ -23,6 +23,6 @@ class Answer extends Model
 
     public function request()
     {
-        return $this->belongsTo(ItemRequest::class);
+        return $this->belongsTo(PostRequest::class);
     }
 }

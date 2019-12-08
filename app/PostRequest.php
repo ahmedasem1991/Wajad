@@ -6,7 +6,7 @@ use App\Nova\Post;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class ItemRequest extends Model
+class PostRequest extends Model
 {
     use LogsActivity;
     protected $fillable = ['user_id', 'post_id', 'confirmed'];

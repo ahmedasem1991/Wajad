@@ -116,7 +116,7 @@ class Item extends MasterModel
      */
     public function item_requests()
     {
-        return $this->hasMany(ItemRequest::class);
+        return $this->hasMany(PostRequest::class);
     }
 
     /**

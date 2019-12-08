@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::post('/report/post/{post}', 'PostsController@reportPost');
-    Route::post('/request/item/{item}', 'ItemRequestController');
+    Route::post('/request/post/{post}', 'PostRequestController');
     Route::post('/request/{post}/accept', 'AcceptPostRequestController');
     Route::post('/request/{post}/reject', 'RejectPostRequestController');
     Route::post('/post/{post}/answer', 'AnswerController');

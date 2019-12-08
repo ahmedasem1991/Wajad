@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateItemRequestsTable extends Migration
+class CreatePostRequestsTable extends Migration
 {
     public function up()
     {
-        Schema::create('item_requests', function (Blueprint $table) {
+        Schema::create('post_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
@@ -18,6 +18,6 @@ class CreateItemRequestsTable extends Migration
 
     public function down()
     {
-        Schema::drop('item_requests');
+        Schema::drop('post_requests');
     }
 }

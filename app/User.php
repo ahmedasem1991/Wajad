@@ -116,7 +116,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function items_requests()
     {
-        return $this->hasMany(ItemRequests::class, 'user_id');
+        return $this->hasMany(PostRequests::class, 'user_id');
     }
 
     public function qrcodes()
