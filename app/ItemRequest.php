@@ -2,17 +2,18 @@
 
 namespace App;
 
+use App\Nova\Post;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class ItemRequest extends Model
 {
     use LogsActivity;
-    protected $fillable = ['user_id', 'item_id'];
+    protected $fillable = ['user_id', 'post_id', 'confirmed'];
 
-    public function item()
+    public function post()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function requested_user()

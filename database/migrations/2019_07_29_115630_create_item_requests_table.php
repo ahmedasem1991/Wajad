@@ -10,7 +10,8 @@ class CreateItemRequestsTable extends Migration
         Schema::create('item_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('item_id')->unsigned();
+            $table->integer('post_id')->unsigned();
+            $table->boolean('confirmed')->default(0);
             $table->timestamps();
         });
     }
