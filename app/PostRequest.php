@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class PostRequest extends Model
 {
     use LogsActivity;
-    protected $fillable = ['user_id', 'post_id', 'confirmed'];
+    protected $fillable = ['user_id', 'post_id', 'is_request_valid'];
 
     public function post()
     {

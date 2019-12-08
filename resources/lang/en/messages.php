@@ -18,7 +18,7 @@ return [
 		'page' => 'page',
 		'phone' => 'phone',
 		'email' => 'email',
-		'item_request' => 'Item request',
+		'post_request' => 'post request',
 		'answer' => 'Answers',
 	],
 ];

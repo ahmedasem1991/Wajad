@@ -11,7 +11,7 @@ class CreatePostRequestsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
-            $table->boolean('confirmed')->default(0);
+            $table->boolean('is_request_valid')->default(0);
             $table->timestamps();
         });
     }

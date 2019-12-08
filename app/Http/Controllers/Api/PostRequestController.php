@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Item;
 use App\PostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Nova\Post;
 
 /**
- * @group Item Request
+ * @group Post Request
  */
 class PostRequestController extends Controller
 {
@@ -26,7 +25,7 @@ class PostRequestController extends Controller
     public function  __invoke(Request $request, Post $post)
     {
         PostRequest::create([
-            'item_id' => $post->id,
+            'post_id' => $post->id,
             'user_id' => auth('api')->user()->id,
         ]);
 
