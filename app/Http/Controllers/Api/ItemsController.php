@@ -39,7 +39,7 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $validate_request = Validator::make(request()->all(), [
+        $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'details' => ['required', 'min:20', 'max:500'],
             'color_id' => ['required', 'exists:colors,id'],
@@ -69,7 +69,7 @@ class ItemsController extends Controller
             ]);
         }
         if ($request->has('images')) {
-            array_map(function ($image) use ($item, $request) {
+            array_map(function ($image) use ($item) {
                 $item->images()->create([
                     'image' =>  $image->store('images/items')
                 ]);

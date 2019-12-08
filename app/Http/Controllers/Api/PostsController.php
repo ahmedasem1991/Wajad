@@ -52,7 +52,7 @@ class PostsController extends Controller
     {
         abort_unless(in_array($type, self::TYPES), 404);
 
-        $validate_request = Validator::make(request()->all(), [
+        $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
             'reward' => ['required', 'numeric'],

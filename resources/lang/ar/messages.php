@@ -9,6 +9,7 @@ return [
 	'not_found' => ':model غير موجود.',
 	'verified' => 'تم تفعيل :model بنجاح.',
 	'accepted' => 'تم قبول :model بنجاح.',
+	'rejected' =>  'تم رفض :model بنجاح.',
 
 	'attributes' => [
 		'post' => 'المنشور',

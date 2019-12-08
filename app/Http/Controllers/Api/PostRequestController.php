@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\PostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Nova\Post;
+use App\Post;
 
 /**
  * @group Post Request

@@ -58,7 +58,7 @@ class UserPostController extends Controller
      *"questions": [
      *   {
      *      "id": 1,
-     *     "founder_id": {
+     *     "user": {
      *        "id": 2,
      *       "name": "User",
      *      "email": "user@nova.com",

@@ -6,6 +6,8 @@ use App\Post;
 use App\PostRequest;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @group Post Request
@@ -24,7 +26,7 @@ class AcceptPostRequestController extends Controller
      */
     public function  __invoke(Request $request, Post $post)
     {
-        $validate_request = Validator::make(request()->all(), [
+        $validate_request = Validator::make($request->all(), [
             'user_id' => ['required', 'int', 'exists:users,id'],
         ]);
 
@@ -32,10 +34,13 @@ class AcceptPostRequestController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id);
-        $postRequest::update([
-            'is_request_valid' => 1,
-        ]);
+        if ($post->publisher_id !==  $request->user_id) {
+            throw new ApiException(trans('auth.not_authorized'), 400);
+        }
+
+        $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
+        $postRequest->update(['is_request_valid' => true]);
+        $post->update(['owner_id' => $request->user_id]);
 
         $this->addResponse(trans('messages.accepted', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 

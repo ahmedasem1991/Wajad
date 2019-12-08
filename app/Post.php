@@ -266,12 +266,6 @@ class Post extends MasterModel
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    /**
-     * Define The Requests For The Item "In Case Of Lost Item"
-     * This Function Define The Requestes Made By Users That Claim That They Own This Lost Item.
-     *
-     * @return void
-     */
     public function post_requests()
     {
         return $this->hasMany(PostRequest::class);

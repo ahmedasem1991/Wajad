@@ -24,6 +24,7 @@ class PostResource extends JsonResource
             'date' => $this->created_at->toDateTimeString(),
             'images' =>  PostImagesResource::collection($this->images),
             'questions' =>  QuestionResource::collection($this->questions),
+            'post_requests' =>  PostRequestsResource::collection($this->post_requests),
             'city' => new CityResource($this->city),
         ];
     }

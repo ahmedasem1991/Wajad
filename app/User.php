@@ -31,7 +31,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'receive_push_notifications',
         'remember_token',
         'corporate_id'
-         
+
     ];
 
     protected $hidden = [
@@ -114,9 +114,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->hasMany(Activity::class, 'causer_id');
     }
 
-    public function items_requests()
+    public function posts_requests()
     {
-        return $this->hasMany(PostRequests::class, 'user_id');
+        return $this->hasMany(PostRequest::class);
     }
 
     public function qrcodes()
