@@ -36,7 +36,7 @@ class PostsController extends Controller
      * @bodyParam color_id int required exists:colors,id
      * @bodyParam item_id int nullable exists:items,id
      * @bodyParam city string required
-     * @bodyParam images array sometimes size:5
+     * @bodyParam images array sometimes between:1,5
      * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam questions array sometimes size:3
      * @bodyParam questions.* required min:9 max:500
@@ -279,7 +279,7 @@ class PostsController extends Controller
      * @bodyParam color_id int required exists:colors,id
      * @bodyParam item_id int nullable exists:items,id
      * @bodyParam city string required
-     * @bodyParam images array sometimes size:5
+     * @bodyParam images array sometimes between:1,5
      * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam questions array sometimes size:3
      * @bodyParam questions.* required min:9 max:500
