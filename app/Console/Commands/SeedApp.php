@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Banner;
+use App\Corporate;
 use App\User;
 use App\WajadOffice;
 use Illuminate\Console\Command;
@@ -69,7 +70,7 @@ class SeedApp extends Command
             'password' => bcrypt($password),
             'type' => 1, // User
             'mobile_number' => '01142416124',
-            'corporate_od' => 1,
+            'corporate_id' => 1,
             'mobile_country_id' => 1
         ]);
         $this->info('Nova User Created Successfully');
@@ -84,9 +85,21 @@ class SeedApp extends Command
             'email' => $email,
             'password' => bcrypt($password),
             'type' => 2, // Corporate
-            'mobile_number' => '01095781611',
-            'corporate_od' => 1,
+            'mobile_number' => '+201095781611',
+            'corporate_id' => 1,
             'mobile_country_id' => 1
+        ]);
+        Corporate::create([
+            'name_en' => 'WAJAD Corporate',
+            'name_ar' => 'مؤسسة وجد',
+            'details_en' => 'WAJAD Corporate For Haj & Omra',
+            'details_ar' => 'مؤسسة وجد للحج والعمرة', // User
+            'address_en' => 'Jadda - KSA',
+            'address_ar' => 'جده - المملكة العربية السعودية',
+            'latitude' => '21.4498898',
+            'longitude' => '39.4913423',
+            'status' => 1,
+             
         ]);
         $this->info('Nova Corporate Admin Created Successfully');
 
