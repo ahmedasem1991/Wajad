@@ -3,11 +3,13 @@
 namespace App;
 
 
+use App\Answer;
+use App\Question;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Pktharindu\NovaPermissions\Traits\HasRoles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Pktharindu\NovaPermissions\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
@@ -89,12 +91,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     # Relations Starts
     public function answers()
     {
-        return $this->hasMany(Answers::class, 'user_id');
+        return $this->hasMany(Answer::class, 'user_id');
     }
 
     public function questions()
     {
-        return $this->hasMany(Questions::class, 'user_id');
+        return $this->hasMany(Question::class, 'user_id');
     }
 
     public function posts()
