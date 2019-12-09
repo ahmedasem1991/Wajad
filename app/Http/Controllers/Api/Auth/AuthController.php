@@ -44,13 +44,13 @@ class AuthController extends Controller
      * @response 401 {
      *    "success": false,
      *    "message": "These credentials do not match our records.",
-     *    "code": 401
+     *    "status_code": 401
      * }
      *
      * @response 400 {
      *    "success": false,
      *    "message": "please enter a valid email address or phone number.",
-     *    "code": 400
+     *    "status_code": 400
      * }
      *
      * @return void
