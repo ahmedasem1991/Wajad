@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\DeviceType;
 use App\User;
 use App\PostLimitation;
 use App\Services\UserService;
@@ -44,13 +45,13 @@ class AuthController extends Controller
      * @response 401 {
      *    "success": false,
      *    "message": "These credentials do not match our records.",
-     *    "code": 401
+     *    "status_code": 401
      * }
      *
      * @response 400 {
      *    "success": false,
      *    "message": "please enter a valid email address or phone number.",
-     *    "code": 400
+     *    "status_code": 400
      * }
      *
      * @return void
@@ -58,7 +59,8 @@ class AuthController extends Controller
     public function login()
     {
         $validate_password = Validator::make(request()->all(), [
-            'password' => ['required', 'max:255', 'min:6']
+            'password' => ['required', 'max:255', 'min:6'],
+            'device_type' => ['required', 'string', 'in:android,ios']
         ]);
 
         if ($validate_password->fails()) {
@@ -115,6 +117,10 @@ class AuthController extends Controller
             throw new ApiException(trans('auth.failed'), 400);
         }
 
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => request('device_type')
+        ]);
+
         return $this->respondWithToken($token);
     }
 
@@ -154,11 +160,10 @@ class AuthController extends Controller
             'mobile_number' => $request->mobile_number,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
+            'posts_limitation' => env('POST_LIMITATION', 50)
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
-
-        $user->postLimitation()->save(new PostLimitation());
 
         request()->merge(['user' => request('email')]);
 

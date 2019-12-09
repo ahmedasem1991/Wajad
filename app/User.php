@@ -30,8 +30,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'receive_emails',
         'receive_push_notifications',
         'remember_token',
-        'corporate_id'
-
+        'corporate_id',
+        'posts_limitation'
     ];
 
     protected $hidden = [
@@ -117,6 +117,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function posts_requests()
     {
         return $this->hasMany(PostRequest::class);
+        // return $this->hasMany(ItemRequest::class, 'user_id');
     }
 
     public function qrcodes()
@@ -191,14 +192,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return 'nova-notifications';
     }
 
-    public function postLimitation()
-    {
-        return $this->hasOne(PostLimitation::class, 'user_id');
-    }
-
     public function exceededPostLimitation()
     {
-        return $this->posts()->count() > $this->postLimitation->posts_limitation;
+        // return $this->posts()->count() > $this->postLimitation->posts_limitation;
+        return $this->posts()->count() > $this->postLimitation;
     }
 
     public function routeNotificationForNexmo($notification)
@@ -214,5 +211,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function isEmailVerified()
     {
         return (bool) $this->email_verified_at;
+    }
+
+    public function userDevices()
+    {
+        return $this->hasMany(DeviceType::class, 'user_id');
     }
 }
