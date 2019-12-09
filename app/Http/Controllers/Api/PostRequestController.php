@@ -13,7 +13,7 @@ use App\Post;
 class PostRequestController extends Controller
 {
     /**
-     * This item is mine (create post request)
+     * This item is mine  
      * @urlParam post_id required int, exists in posts
      * @response {
      * "success": true,

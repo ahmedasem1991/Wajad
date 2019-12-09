@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->boolean('open_status')->default(1);
             $table->integer('approval_status')->default(1);
             $table->integer('reports_number')->default(0);
-            $table->integer('reward')->default(0);
+            $table->string('reward');
             $table->unsignedInteger('owner_id')->nullable();
             $table->unsignedInteger('founder_id')->nullable();
             $table->unsignedInteger('publisher_id')->nullable();
