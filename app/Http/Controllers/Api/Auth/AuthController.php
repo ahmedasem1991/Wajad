@@ -130,6 +130,7 @@ class AuthController extends Controller
      * @bodyParam email email required email,unique:users,email. Example: api@wajad.com
      * @bodyParam password string required min:6 . Example: 123456789
      * @bodyParam mobile_number numeric required min:6,unique:users,mobile_number,digits_between:9,14. Example: 123456789
+     * @bodyParam device_type string required android or ios
      *
      * @response {
      *     "token_type": "Bearer",

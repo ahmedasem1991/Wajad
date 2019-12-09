@@ -88,7 +88,7 @@ curl -X POST \
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"nihil"}'
 
 ```
 
@@ -104,7 +104,8 @@ let headers = {
 
 let body = {
     "user": "00966236363256",
-    "password": "123456789"
+    "password": "123456789",
+    "device_type": "nihil"
 }
 
 fetch(url, {
@@ -144,7 +145,7 @@ fetch(url, {
 {
     "success": false,
     "message": "These credentials do not match our records.",
-    "code": 401
+    "status_code": 401
 }
 ```
 > Example response (400):
@@ -153,7 +154,7 @@ fetch(url, {
 {
     "success": false,
     "message": "please enter a valid email address or phone number.",
-    "code": 400
+    "status_code": 400
 }
 ```
 
@@ -165,6 +166,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `user` | numeric,email,min:9,max:14 |  required  | phone number or email for the user.
         `password` | string |  required  | min:6 password.
+        `device_type` | string |  required  | android or ios
     
 <!-- END_c3fa189a6c95ca36ad6ac4791a873d23 -->
 
@@ -178,7 +180,7 @@ curl -X POST \
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789"}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"rerum"}'
 
 ```
 
@@ -196,7 +198,8 @@ let body = {
     "name": "Api Username",
     "email": "api@wajad.com",
     "password": "123456789",
-    "mobile_number": "123456789"
+    "mobile_number": "123456789",
+    "device_type": "rerum"
 }
 
 fetch(url, {
@@ -241,6 +244,7 @@ Parameter | Type | Status | Description
         `email` | email |  required  | email,unique:users,email.
         `password` | string |  required  | min:6 .
         `mobile_number` | numeric |  required  | min:6,unique:users,mobile_number,digits_between:9,14.
+        `device_type` | string |  required  | android or ios
     
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
 
@@ -252,7 +256,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=numquam" \
+    "http://api.wajad.test/api/refreshToken?Old=natus" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -263,7 +267,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "numquam",
+    "Old": "natus",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -467,14 +471,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/et/1" \
+    -G "http://api.wajad.test/api/home/posts/ea/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/home/posts/et/1"
+    "http://api.wajad.test/api/home/posts/ea/1"
 );
 
 let headers = {
@@ -813,7 +817,7 @@ curl -X POST \
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"quod","details":"consequuntur","color_id":"voluptate","brand_id":"sint","model_id":"ex","sub_category_id":"aspernatur"}'
+    -d '{"title":"velit","details":"cupiditate","color_id":"et","brand_id":"ut","model_id":"mollitia","sub_category_id":"accusamus"}'
 
 ```
 
@@ -828,12 +832,12 @@ let headers = {
 };
 
 let body = {
-    "title": "quod",
-    "details": "consequuntur",
-    "color_id": "voluptate",
-    "brand_id": "sint",
-    "model_id": "ex",
-    "sub_category_id": "aspernatur"
+    "title": "velit",
+    "details": "cupiditate",
+    "color_id": "et",
+    "brand_id": "ut",
+    "model_id": "mollitia",
+    "sub_category_id": "accusamus"
 }
 
 fetch(url, {
@@ -1232,54 +1236,95 @@ fetch(url, {
 {
     "data": [
         {
-            "id": 1,
-            "title": "Ex atque necessitatibus libero voluptatem magnam et.",
+            "id": 3,
+            "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
             "approval_status": 1,
             "reward": 0,
-            "description": "Et ut quo non sapiente atque voluptatem accusamus. Explicabo voluptas et perferendis aut tempore qui temporibus. Ipsam impedit ipsa voluptates. Non quia non omnis quo aut. Quisquam voluptatem atque et deserunt dignissimos libero ut. Fuga ut ab delectus consequatur est neque. Delectus qui ea consequuntur quasi qui illo. Qui aperiam voluptas nobis voluptas fugiat. Et voluptates est amet. Nam vel voluptatem ab qui qui explicabo. Qui voluptates laboriosam quaerat sunt. Est vel natus vero et eaque autem ipsam sit.",
+            "description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
             "status": "found",
-            "attached_to_item": false,
-            "item": null,
-            "subCategory": {
-                "id": 105,
-                "name": "Facilis velit soluta quidem modi quibusdam et.",
-                "description": "Rerum quidem consequatur officiis et et aut earum.",
+            "attached_to_item": true,
+            "item": {
+                "id": 1,
+                "title": "poj",
+                "details": "pokpo",
+                "status": "found",
+                "owner": {
+                    "id": 2,
+                    "name": "User",
+                    "email": "user@nova.com",
+                    "status": 1,
+                    "mobile_number": "01142416124",
+                    "receive_emails": false,
+                    "receive_push_notifications": false,
+                    "is_email_verified": false,
+                    "is_mobile_number_verified": false,
+                    "default_distance_unit": "kilo"
+                },
+                "model": {
+                    "id": 3,
+                    "name": "Explicabo rerum ut et dolores officiis et.",
+                    "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+                    "image": "http:\/\/wajad.test\/default-icon.png"
+                },
+                "color": {
+                    "id": 1,
+                    "name": "Red",
+                    "icon": "images\/colors\/red.png"
+                },
+                "brand": {
+                    "id": 2,
+                    "name": "Et dicta similique adipisci ut autem deleniti qui.",
+                    "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
+                    "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
+                },
+                "date": "2019-12-13 00:00:00",
+                "images": []
+            },
+            "sub_category": {
+                "id": 5,
+                "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+                "description": "Quia impedit hic nesciunt quis eum.",
                 "image": "http:\/\/wajad.test\/default-icon.png"
             },
             "model": {
-                "id": 52,
-                "name": "Hic veritatis recusandae et eveniet aperiam tenetur.",
-                "description": "Facere culpa voluptatem quos illum repellendus expedita.",
+                "id": 3,
+                "name": "Explicabo rerum ut et dolores officiis et.",
+                "description": "Laudantium fugit ut harum magnam magnam deserunt.",
                 "image": "http:\/\/wajad.test\/default-icon.png"
             },
-            "color": {
-                "id": 1,
-                "name": "Red",
-                "icon": "images\/colors\/red.png"
-            },
-            "date": "2019-12-03 17:33:55",
-            "images": [
+            "color": null,
+            "date": "2019-12-08 15:40:37",
+            "images": [],
+            "post_requests": [
                 {
-                    "id": 1,
-                    "image": "http:\/\/wajad.test\/image.png\r\n"
-                }
-            ],
-            "questions": [
-                {
-                    "id": 1,
-                    "user": {
-                        "id": 2,
-                        "name": "User",
-                        "email": "user@nova.com",
+                    "id": 3,
+                    "is_request_valid": 0,
+                    "cliamers": {
+                        "questions": [
+                            {
+                                "id": 1,
+                                "question": "kp'[k'[p\r\n",
+                                "answers": [
+                                    {
+                                        "id": 1,
+                                        "answer": ";lokpok",
+                                        "date": "2019-12-10 00:00:00"
+                                    }
+                                ]
+                            }
+                        ],
+                        "id": 1,
+                        "name": "Admin",
+                        "email": "admin@nova.com",
                         "status": 1,
-                        "mobile_number": "01142416124",
+                        "mobile_number": "01111086890",
                         "receive_emails": false,
                         "receive_push_notifications": false,
                         "is_email_verified": false,
                         "is_mobile_number_verified": false,
                         "default_distance_unit": "kilo"
                     },
-                    "question": "question1\r\n"
+                    "date": "2019-12-10 00:00:00"
                 }
             ],
             "city": {
@@ -1312,7 +1357,7 @@ curl -X POST \
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"laboriosam","image":"vitae"}'
+    -d '{"details":"eius","image":"nostrum"}'
 
 ```
 
@@ -1327,8 +1372,8 @@ let headers = {
 };
 
 let body = {
-    "details": "laboriosam",
-    "image": "vitae"
+    "details": "eius",
+    "image": "nostrum"
 }
 
 fetch(url, {
@@ -1491,7 +1536,7 @@ curl -X POST \
     "http://api.wajad.test/api/posts/add/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"rerum","description":"aliquid","reward":"repellendus","longitude":"optio","latitude":"et","sub_category_id":19,"brand_id":14,"model_id":15,"color_id":3,"item_id":5,"city":"error","images":["hic"],"questions":["quod"]}'
+    -d '{"title":"necessitatibus","description":"molestiae","reward":"illum","longitude":"et","latitude":"dolorum","sub_category_id":2,"brand_id":6,"model_id":9,"color_id":3,"item_id":5,"city":"inventore","images":["illo"],"questions":["nisi"]}'
 
 ```
 
@@ -1506,22 +1551,22 @@ let headers = {
 };
 
 let body = {
-    "title": "rerum",
-    "description": "aliquid",
-    "reward": "repellendus",
-    "longitude": "optio",
-    "latitude": "et",
-    "sub_category_id": 19,
-    "brand_id": 14,
-    "model_id": 15,
+    "title": "necessitatibus",
+    "description": "molestiae",
+    "reward": "illum",
+    "longitude": "et",
+    "latitude": "dolorum",
+    "sub_category_id": 2,
+    "brand_id": 6,
+    "model_id": 9,
     "color_id": 3,
     "item_id": 5,
-    "city": "error",
+    "city": "inventore",
     "images": [
-        "hic"
+        "illo"
     ],
     "questions": [
-        "quod"
+        "nisi"
     ]
 }
 
@@ -1579,7 +1624,7 @@ curl -X PUT \
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"et","description":"non","status":"exercitationem","reward":"quasi","longitude":"distinctio","latitude":"nostrum","sub_category_id":19,"brand_id":11,"model_id":7,"color_id":2,"item_id":4,"city":"eaque","images":["vero"],"questions":["sint"]}'
+    -d '{"title":"ut","description":"praesentium","status":"perspiciatis","reward":"velit","longitude":"minima","latitude":"maxime","sub_category_id":20,"brand_id":15,"model_id":11,"color_id":13,"item_id":5,"city":"adipisci","images":["nihil"],"questions":["repellendus"]}'
 
 ```
 
@@ -1594,23 +1639,23 @@ let headers = {
 };
 
 let body = {
-    "title": "et",
-    "description": "non",
-    "status": "exercitationem",
-    "reward": "quasi",
-    "longitude": "distinctio",
-    "latitude": "nostrum",
-    "sub_category_id": 19,
-    "brand_id": 11,
-    "model_id": 7,
-    "color_id": 2,
-    "item_id": 4,
-    "city": "eaque",
+    "title": "ut",
+    "description": "praesentium",
+    "status": "perspiciatis",
+    "reward": "velit",
+    "longitude": "minima",
+    "latitude": "maxime",
+    "sub_category_id": 20,
+    "brand_id": 15,
+    "model_id": 11,
+    "color_id": 13,
+    "item_id": 5,
+    "city": "adipisci",
     "images": [
-        "vero"
+        "nihil"
     ],
     "questions": [
-        "sint"
+        "repellendus"
     ]
 }
 
@@ -1729,7 +1774,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":6,"color":6,"brand":17,"subcategory":20,"date":"sunt"}'
+    -d '{"model":3,"color":7,"brand":6,"subcategory":11,"date":"ad"}'
 
 ```
 
@@ -1744,11 +1789,11 @@ let headers = {
 };
 
 let body = {
-    "model": 6,
-    "color": 6,
-    "brand": 17,
-    "subcategory": 20,
-    "date": "sunt"
+    "model": 3,
+    "color": 7,
+    "brand": 6,
+    "subcategory": 11,
+    "date": "ad"
 }
 
 fetch(url, {
@@ -1848,7 +1893,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search/keywords" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"keywords":"natus"}'
+    -d '{"keywords":"quaerat"}'
 
 ```
 
@@ -1863,7 +1908,7 @@ let headers = {
 };
 
 let body = {
-    "keywords": "natus"
+    "keywords": "quaerat"
 }
 
 fetch(url, {
@@ -2289,7 +2334,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"vel","new_password":"autem","new_password_confirmation":"velit"}'
+    -d '{"old_password":"consequatur","new_password":"ut","new_password_confirmation":"placeat"}'
 
 ```
 
@@ -2304,9 +2349,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "vel",
-    "new_password": "autem",
-    "new_password_confirmation": "velit"
+    "old_password": "consequatur",
+    "new_password": "ut",
+    "new_password_confirmation": "placeat"
 }
 
 fetch(url, {
@@ -2351,7 +2396,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"qui"}'
+    -d '{"mobile_number":"dolor"}'
 
 ```
 
@@ -2366,7 +2411,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "qui"
+    "mobile_number": "dolor"
 }
 
 fetch(url, {
@@ -2971,6 +3016,66 @@ fetch(url, {
             "name": "Praesentium velit molestiae voluptas.",
             "description": "Aut sit dicta odit.",
             "image": "http:\/\/wajad.test\/\/tmp\/708eb16535d3fd46577662da65a902b7.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 7,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 8,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 9,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 10,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 11,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 12,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 13,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 14,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
+        },
+        {
+            "id": 15,
+            "name": "Lorem ipsum dolor sit amet.",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?",
+            "image": "http:\/\/wajad.test\/\/images\/subcategories\/default-subcategory.png"
         }
     ]
 }
@@ -3142,7 +3247,68 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "Red",
+            "icon": "images\/colors\/red.png"
+        },
+        {
+            "id": 2,
+            "name": "Black",
+            "icon": "images\/colors\/black.png"
+        },
+        {
+            "id": 3,
+            "name": "Blue",
+            "icon": "images\/colors\/blue.png"
+        },
+        {
+            "id": 4,
+            "name": "Brown",
+            "icon": "images\/colors\/brown.png"
+        },
+        {
+            "id": 5,
+            "name": "Gold",
+            "icon": "images\/colors\/gold.png"
+        },
+        {
+            "id": 6,
+            "name": "Green",
+            "icon": "images\/colors\/green.png"
+        },
+        {
+            "id": 7,
+            "name": "Orange",
+            "icon": "images\/colors\/orange.png"
+        },
+        {
+            "id": 8,
+            "name": "Pink",
+            "icon": "images\/colors\/pink.png"
+        },
+        {
+            "id": 9,
+            "name": "Silver",
+            "icon": "images\/colors\/silver.png"
+        },
+        {
+            "id": 10,
+            "name": "White",
+            "icon": "images\/colors\/white.png"
+        },
+        {
+            "id": 11,
+            "name": "Yellow",
+            "icon": "images\/colors\/yellow.png"
+        },
+        {
+            "id": 12,
+            "name": "Crimson",
+            "icon": "images\/colors\/crimson.png"
+        }
+    ]
 }
 ```
 
@@ -3182,11 +3348,15 @@ fetch(url, {
 ```
 
 
-> Example response (404):
+> Example response (200):
 
 ```json
 {
-    "message": "No query results for model [App\\Color] 1"
+    "data": {
+        "id": 1,
+        "name": "Red",
+        "icon": "images\/colors\/red.png"
+    }
 }
 ```
 
