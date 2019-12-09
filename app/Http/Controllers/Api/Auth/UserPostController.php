@@ -25,11 +25,11 @@ class UserPostController extends Controller
      *   {
      *      "id": 1,
      *     "title": "Ex atque necessitatibus libero voluptatem magnam et.",
-     *        "approval_status": 1,
+     *        "approvalStatus": 1,
      *       "reward": 0,
      *      "description": "Et ut quo non sapiente atque voluptatem accusamus. Explicabo voluptas et perferendis aut tempore qui temporibus. Ipsam impedit ipsa voluptates. Non quia non omnis quo aut. Quisquam voluptatem atque et deserunt dignissimos libero ut. Fuga ut ab delectus consequatur est neque. Delectus qui ea consequuntur quasi qui illo. Qui aperiam voluptas nobis voluptas fugiat. Et voluptates est amet. Nam vel voluptatem ab qui qui explicabo. Qui voluptates laboriosam quaerat sunt. Est vel natus vero et eaque autem ipsam sit.",
      *       "status": "found",
-     *      "attached_to_item": false,
+     *      "attachedToItem": false,
      *       "item": null,
      *      "subCategory": {
      *           "id": 105,
@@ -87,7 +87,6 @@ class UserPostController extends Controller
         if (!in_array($type, self::TYPES)) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 404);
         }
-
         return PostResource::collection(auth('api')->user()->posts()->$type()->get());
     }
 }

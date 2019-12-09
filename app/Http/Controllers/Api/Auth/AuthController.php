@@ -21,6 +21,7 @@ class AuthController extends Controller
      *
      * @bodyParam user numeric,email,min:9,max:14 required phone number or email for the user. Example:00966236363256
      * @bodyParam password string required min:6 password. Example: 123456789
+     * @bodyParam device_type string required android or ios
      *
      * @response {
      *      "token_type": "Bearer",
