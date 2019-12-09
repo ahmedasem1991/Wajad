@@ -58,7 +58,8 @@ class AuthController extends Controller
     public function login()
     {
         $validate_password = Validator::make(request()->all(), [
-            'password' => ['required', 'max:255', 'min:6']
+            'password' => ['required', 'max:255', 'min:6'],
+            'device_type' => ['required', 'string', 'in:android,ios']
         ]);
 
         if ($validate_password->fails()) {
@@ -114,9 +115,9 @@ class AuthController extends Controller
         if (!auth('api')->user()->isUser()) {
             throw new ApiException(trans('auth.failed'), 400);
         }
-        DeviceType::create([
-            'user_id' => auth('api')->user()->id,
-            'device_type' =>  request('device_type'),
+
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => request('device_type')
         ]);
 
         return $this->respondWithToken($token);
@@ -158,13 +159,11 @@ class AuthController extends Controller
             'mobile_number' => $request->mobile_number,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
+            'posts_limitation' => env('POST_LIMITATION', 50)
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
 
-        //$user->postLimitation()->save(new PostLimitation());
-        $user->posts_limitation= env('POST_LIMITATION');
-        $user->save();
         request()->merge(['user' => request('email')]);
 
         return $this->login();

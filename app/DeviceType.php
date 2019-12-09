@@ -10,11 +10,6 @@ class DeviceType extends Model
 {
     use LogsActivity;
 
-    protected $fillable=['user_id','device_type'];
-    protected $table='devices_types';
- 
- 
- 
-
- 
+    protected $fillable = ['user_id', 'device_type'];
+    protected $table = 'devices_types';
 }
