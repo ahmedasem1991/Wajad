@@ -6,7 +6,7 @@ use App\Post;
 use App\PostRequest;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
+use Illuminate\http\Request;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -17,6 +17,7 @@ class AcceptPostRequestController extends Controller
     /**
      * This Post Request is his
      * @urlParam post_id required int exists in posts
+     * @bodyParam user_id required int exists in users
      * @response {
      * "success": true,
      *  "message": "Post request accepted successfully.",
@@ -34,7 +35,7 @@ class AcceptPostRequestController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        if ($post->publisher_id !==  $request->user_id) {
+        if ($post->publisher_id !== auth('api')->user()->id) {
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 

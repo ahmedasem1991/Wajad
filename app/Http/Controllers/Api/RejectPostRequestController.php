@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Post;
-use App\Nova\User;
+use App\User;
 use App\PostRequest;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
+use Illuminate\http\Request;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -37,7 +37,7 @@ class RejectPostRequestController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        if ($post->publisher_id !==  $request->user_id) {
+        if ($post->publisher_id !== auth('api')->user()->id) {
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 
