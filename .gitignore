@@ -15,3 +15,5 @@ yarn-error.log
 /nova-components/googleMaps/node_modules/
 composer.lock
 # /public/images
+resources/views/apidoc/*
+resources/docs/*
