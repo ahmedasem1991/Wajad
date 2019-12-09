@@ -111,7 +111,7 @@ fetch(url, {
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789","device_type":"nihil"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"blanditiis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/login"
@@ -125,7 +125,7 @@ let headers = {
 let body = {
     "user": "00966236363256",
     "password": "123456789",
-    "device_type": "nihil"
+    "device_type": "blanditiis"
 }
 
 fetch(url, {
@@ -214,7 +214,7 @@ fetch(url, {
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"rerum"}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"labore"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register"
@@ -230,7 +230,7 @@ let body = {
     "email": "api@wajad.com",
     "password": "123456789",
     "mobile_number": "123456789",
-    "device_type": "rerum"
+    "device_type": "labore"
 }
 
 fetch(url, {
@@ -313,7 +313,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=natus" \
+    "http://api.wajad.test/api/refreshToken?Old=voluptatum" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
@@ -321,7 +321,7 @@ fetch(url, {
 );
 
 let params = {
-    "Old": "natus",
+    "Old": "voluptatum",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -503,11 +503,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/ea/1" \
+    -G "http://api.wajad.test/api/home/posts/eius/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/home/posts/ea/1"
+    "http://api.wajad.test/api/home/posts/eius/1"
 );
 
 let headers = {
@@ -540,89 +540,101 @@ fetch(url, {
     },
     "posts": [
         {
-            "id": 1,
-            "title": "Eos laboriosam saepe placeat voluptas rerum alias maxime aliquam.",
+            "id": 3,
+            "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
             "approval_status": 1,
             "reward": 0,
-            "description": "Minus tempore laboriosam nesciunt consectetur ullam mollitia labore praesentium. Temporibus animi veritatis autem ut nulla et. Aspernatur quos est eum veniam aut excepturi. Dicta sed velit sed nobis. Beatae dolorem consequatur dolorem. Consequatur quis voluptatem et quo voluptatem et. Ea quibusdam sed est a ab quidem quo recusandae. Beatae et et exercitationem ut. Omnis dicta dolores exercitationem dolor corrupti sequi cupiditate. Vel qui ipsum illo nemo. Inventore molestiae error placeat laudantium. Laudantium quaerat et deserunt officia delectus rerum sint repellat. Sit eos nisi minima esse quas. Consequuntur expedita reprehenderit ipsum nihil dicta. Maxime nisi culpa vero non excepturi nihil. Vel est nam quibusdam. Quidem autem tempora animi iste. Incidunt sit molestiae aut in consequatur est sapiente corrupti. Rem est nesciunt velit dolores odio consequatur aut.",
+            "description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
             "status": "found",
-            "attached_to_item": false,
-            "item": null,
-            "subCategory": {
+            "attached_to_item": true,
+            "item": {
                 "id": 1,
-                "name": "opjmp",
-                "description": "jmiojoi",
-                "image": "http:\/\/wajad.test\/images\/default.png"
+                "title": "poj",
+                "details": "pokpo",
+                "status": "found",
+                "owner": {
+                    "id": 2,
+                    "name": "User",
+                    "email": "user@nova.com",
+                    "status": 1,
+                    "mobile_number": "01142416124",
+                    "receive_emails": false,
+                    "receive_push_notifications": false,
+                    "is_email_verified": false,
+                    "is_mobile_number_verified": false,
+                    "default_distance_unit": "kilo"
+                },
+                "model": {
+                    "id": 3,
+                    "name": "Explicabo rerum ut et dolores officiis et.",
+                    "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+                    "image": "http:\/\/wajad.test\/default-icon.png"
+                },
+                "color": {
+                    "id": 1,
+                    "name": "Red",
+                    "icon": "images\/colors\/red.png"
+                },
+                "brand": {
+                    "id": 2,
+                    "name": "Et dicta similique adipisci ut autem deleniti qui.",
+                    "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
+                    "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
+                },
+                "date": "2019-12-13 00:00:00",
+                "images": []
             },
-            "model": {
-                "id": 1,
-                "name": "jhinoi",
-                "description": "pjipo",
-                "image": "http:\/\/wajad.test\/images\/default.png"
-            },
-            "color": {
-                "id": 1,
-                "name": "Red",
-                "icon": "images\/colors\/red.png"
-            },
-            "date": "2019-12-04 18:49:46",
-            "images": [],
-            "questions": [],
-            "city": null
-        },
-        {
-            "id": 2,
-            "title": "Id consequatur et tenetur dolorum eveniet occaecati.",
-            "approval_status": 1,
-            "reward": 0,
-            "description": "Et quia molestiae voluptate veniam quia. Ducimus aut ipsam aut id quisquam nulla aut. A dolorum praesentium quo incidunt natus omnis. Animi dicta aut qui iure expedita. Dolores asperiores sed sint quia. Aspernatur veritatis non in exercitationem accusantium. Exercitationem eligendi et autem. Quibusdam quas ducimus atque quidem nobis nam. Eum cumque molestiae vero facilis odit quibusdam. Eveniet porro dolorem architecto esse amet in. Odio et nobis laborum. Delectus rerum a quam veritatis quaerat voluptates. Quis deserunt saepe asperiores. Dolore aut dolores voluptas sed quasi neque non. Ipsam ullam tenetur alias dolorem quibusdam ipsum. Sed doloribus fugit rem soluta ea facilis aut.",
-            "status": "found",
-            "attached_to_item": false,
-            "item": null,
-            "subCategory": {
-                "id": 1,
-                "name": "opjmp",
-                "description": "jmiojoi",
-                "image": "http:\/\/wajad.test\/images\/default.png"
+            "sub_category": {
+                "id": 5,
+                "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+                "description": "Quia impedit hic nesciunt quis eum.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
             },
             "model": {
                 "id": 3,
-                "name": "Consectetur amet consequatur nulla numquam voluptatem earum.",
-                "description": "Temporibus omnis a corrupti.",
+                "name": "Explicabo rerum ut et dolores officiis et.",
+                "description": "Laudantium fugit ut harum magnam magnam deserunt.",
                 "image": "http:\/\/wajad.test\/default-icon.png"
             },
             "color": null,
-            "date": "2019-12-04 18:49:46",
+            "date": "2019-12-08 15:40:37",
             "images": [],
-            "questions": [],
-            "city": null
-        },
-        {
-            "id": 4,
-            "title": "Quo cupiditate quod quae recusandae iure voluptas voluptas.",
-            "approval_status": 1,
-            "reward": 0,
-            "description": "Dolorem libero vitae eos eveniet et repellat. Veritatis eos officiis quaerat esse reprehenderit quaerat non. Hic laboriosam tenetur asperiores nemo distinctio. Rerum libero dicta et pariatur. Eveniet repudiandae consequatur quasi vero. Sit sit sunt quasi esse et debitis. Placeat non porro molestiae. Porro reprehenderit voluptas modi dolorem et. Et rerum cupiditate tempora et saepe iusto est aut. Consectetur repellendus aliquam et non in optio. Ab rerum aliquam est aspernatur laudantium suscipit. Facilis quod sed accusamus sunt ducimus nulla. Incidunt quia eligendi aut ut praesentium culpa perferendis. Ut nihil doloribus dolores. Atque qui saepe et sunt enim architecto inventore consequatur. Fugiat temporibus voluptas voluptatem sed dolor officia. Et quibusdam provident repellendus facere. Voluptas voluptatem quis ut voluptatum deserunt. Nostrum ratione fugiat qui aut nihil. Et voluptatem adipisci impedit cumque recusandae. Ut consequatur delectus ea dolor labore quaerat. Quisquam quisquam non vel.",
-            "status": "found",
-            "attached_to_item": false,
-            "item": null,
-            "subCategory": {
+            "post_requests": [
+                {
+                    "id": 3,
+                    "is_request_valid": 0,
+                    "cliamers": {
+                        "questions": [
+                            {
+                                "id": 1,
+                                "question": "kp'[k'[p\r\n",
+                                "answers": [
+                                    {
+                                        "id": 1,
+                                        "answer": ";lokpok",
+                                        "date": "2019-12-10 00:00:00"
+                                    }
+                                ]
+                            }
+                        ],
+                        "id": 1,
+                        "name": "Admin",
+                        "email": "admin@nova.com",
+                        "status": 1,
+                        "mobile_number": "01111086890",
+                        "receive_emails": false,
+                        "receive_push_notifications": false,
+                        "is_email_verified": false,
+                        "is_mobile_number_verified": false,
+                        "default_distance_unit": "kilo"
+                    },
+                    "date": "2019-12-10 00:00:00"
+                }
+            ],
+            "city": {
                 "id": 1,
-                "name": "opjmp",
-                "description": "jmiojoi",
-                "image": "http:\/\/wajad.test\/images\/default.png"
-            },
-            "model": {
-                "id": 5,
-                "name": "Id fugit corporis harum expedita.",
-                "description": "Fugiat nesciunt quasi sequi autem.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "color": null,
-            "date": "2019-12-04 18:49:46",
-            "images": [],
-            "questions": [],
-            "city": null
+                "name": "Al Riyadh"
+            }
         }
     ]
 }</code></pre>
@@ -839,7 +851,7 @@ fetch(url, {
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"velit","details":"cupiditate","color_id":"et","brand_id":"ut","model_id":"mollitia","sub_category_id":"accusamus"}'
+    -d '{"title":"delectus","details":"sunt","color_id":"non","brand_id":"sequi","model_id":"a","sub_category_id":"consequuntur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items"
@@ -851,12 +863,12 @@ let headers = {
 };
 
 let body = {
-    "title": "velit",
-    "details": "cupiditate",
-    "color_id": "et",
-    "brand_id": "ut",
-    "model_id": "mollitia",
-    "sub_category_id": "accusamus"
+    "title": "delectus",
+    "details": "sunt",
+    "color_id": "non",
+    "brand_id": "sequi",
+    "model_id": "a",
+    "sub_category_id": "consequuntur"
 }
 
 fetch(url, {
@@ -1395,7 +1407,7 @@ fetch(url, {
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"eius","image":"nostrum"}'
+    -d '{"details":"inventore","image":"deserunt"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/report/post/1"
@@ -1407,8 +1419,8 @@ let headers = {
 };
 
 let body = {
-    "details": "eius",
-    "image": "nostrum"
+    "details": "inventore",
+    "image": "deserunt"
 }
 
 fetch(url, {
@@ -1499,71 +1511,105 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "data": {
-        "id": 1,
-        "title": "asdasdasdasd",
-        "approval_status": 1,
-        "reward": 1111,
-        "description": "asdasdasdasdasdasd",
-        "status": "lost",
-        "attached_to_item": true,
-        "item": {
-            "id": 1,
-            "title": "mnbmn",
-            "details": "mnbmnb",
+    "data": [
+        {
+            "id": 3,
+            "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
+            "approval_status": 1,
+            "reward": 0,
+            "description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
             "status": "found",
-            "owner": {
+            "attached_to_item": true,
+            "item": {
                 "id": 1,
-                "name": "Tarek Solaiman",
-                "email": "tareksolaiman89@gmail.com",
-                "status": 1,
-                "mobile_number": "01063044180",
-                "receive_emails": false,
-                "receive_push_notifications": false,
-                "is_email_verified": true,
-                "is_mobile_number_verified": false,
-                "default_distance_unit": "kilo"
+                "title": "poj",
+                "details": "pokpo",
+                "status": "found",
+                "owner": {
+                    "id": 2,
+                    "name": "User",
+                    "email": "user@nova.com",
+                    "status": 1,
+                    "mobile_number": "01142416124",
+                    "receive_emails": false,
+                    "receive_push_notifications": false,
+                    "is_email_verified": false,
+                    "is_mobile_number_verified": false,
+                    "default_distance_unit": "kilo"
+                },
+                "model": {
+                    "id": 3,
+                    "name": "Explicabo rerum ut et dolores officiis et.",
+                    "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+                    "image": "http:\/\/wajad.test\/default-icon.png"
+                },
+                "color": {
+                    "id": 1,
+                    "name": "Red",
+                    "icon": "images\/colors\/red.png"
+                },
+                "brand": {
+                    "id": 2,
+                    "name": "Et dicta similique adipisci ut autem deleniti qui.",
+                    "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
+                    "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
+                },
+                "date": "2019-12-13 00:00:00",
+                "images": []
+            },
+            "sub_category": {
+                "id": 5,
+                "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+                "description": "Quia impedit hic nesciunt quis eum.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
             },
             "model": {
-                "id": 1,
-                "name": "nbnmbv",
-                "description": "bvnbv",
-                "image": "http:\/\/wajad.test\/images\/default.png"
+                "id": 3,
+                "name": "Explicabo rerum ut et dolores officiis et.",
+                "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
             },
-            "color": {
+            "color": null,
+            "date": "2019-12-08 15:40:37",
+            "images": [],
+            "post_requests": [
+                {
+                    "id": 3,
+                    "is_request_valid": 0,
+                    "cliamers": {
+                        "questions": [
+                            {
+                                "id": 1,
+                                "question": "kp'[k'[p\r\n",
+                                "answers": [
+                                    {
+                                        "id": 1,
+                                        "answer": ";lokpok",
+                                        "date": "2019-12-10 00:00:00"
+                                    }
+                                ]
+                            }
+                        ],
+                        "id": 1,
+                        "name": "Admin",
+                        "email": "admin@nova.com",
+                        "status": 1,
+                        "mobile_number": "01111086890",
+                        "receive_emails": false,
+                        "receive_push_notifications": false,
+                        "is_email_verified": false,
+                        "is_mobile_number_verified": false,
+                        "default_distance_unit": "kilo"
+                    },
+                    "date": "2019-12-10 00:00:00"
+                }
+            ],
+            "city": {
                 "id": 1,
-                "name": "sdfsf",
-                "icon": "mnb"
-            },
-            "brand": null,
-            "date": "2019-12-04 17:26:41",
-            "images": []
-        },
-        "subCategory": {
-            "id": 1,
-            "name": "en",
-            "description": "sdas",
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        "model": {
-            "id": 1,
-            "name": "nbnmbv",
-            "description": "bvnbv",
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        "color": {
-            "id": 1,
-            "name": "sdfsf",
-            "icon": "mnb"
-        },
-        "date": "2019-12-04 18:48:30",
-        "images": [],
-        "questions": [],
-        "city": {
-            "id": 1,
-            "name": "cairo"
+                "name": "Al Riyadh"
+            }
         }
-    }
+    ]
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/posts/{post}</code></p>
@@ -1594,7 +1640,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/add/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"necessitatibus","description":"molestiae","reward":"illum","longitude":"et","latitude":"dolorum","sub_category_id":2,"brand_id":6,"model_id":9,"color_id":3,"item_id":5,"city":"inventore","images":["illo"],"questions":["nisi"]}'
+    -d '{"title":"tenetur","description":"voluptas","reward":"quibusdam","longitude":"qui","latitude":"nostrum","sub_category_id":12,"brand_id":12,"model_id":7,"color_id":9,"item_id":1,"city":"aut","images":["incidunt"],"questions":["dolorem"]}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/add/1"
@@ -1606,22 +1652,22 @@ let headers = {
 };
 
 let body = {
-    "title": "necessitatibus",
-    "description": "molestiae",
-    "reward": "illum",
-    "longitude": "et",
-    "latitude": "dolorum",
-    "sub_category_id": 2,
-    "brand_id": 6,
-    "model_id": 9,
-    "color_id": 3,
-    "item_id": 5,
-    "city": "inventore",
+    "title": "tenetur",
+    "description": "voluptas",
+    "reward": "quibusdam",
+    "longitude": "qui",
+    "latitude": "nostrum",
+    "sub_category_id": 12,
+    "brand_id": 12,
+    "model_id": 7,
+    "color_id": 9,
+    "item_id": 1,
+    "city": "aut",
     "images": [
-        "illo"
+        "incidunt"
     ],
     "questions": [
-        "nisi"
+        "dolorem"
     ]
 }
 
@@ -1753,7 +1799,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"ut","description":"praesentium","status":"perspiciatis","reward":"velit","longitude":"minima","latitude":"maxime","sub_category_id":20,"brand_id":15,"model_id":11,"color_id":13,"item_id":5,"city":"adipisci","images":["nihil"],"questions":["repellendus"]}'
+    -d '{"title":"omnis","description":"sit","status":"soluta","reward":"fuga","longitude":"illum","latitude":"et","sub_category_id":13,"brand_id":5,"model_id":3,"color_id":20,"item_id":13,"city":"possimus","images":["consequatur"],"questions":["perferendis"]}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -1765,23 +1811,23 @@ let headers = {
 };
 
 let body = {
-    "title": "ut",
-    "description": "praesentium",
-    "status": "perspiciatis",
-    "reward": "velit",
-    "longitude": "minima",
-    "latitude": "maxime",
-    "sub_category_id": 20,
-    "brand_id": 15,
-    "model_id": 11,
-    "color_id": 13,
-    "item_id": 5,
-    "city": "adipisci",
+    "title": "omnis",
+    "description": "sit",
+    "status": "soluta",
+    "reward": "fuga",
+    "longitude": "illum",
+    "latitude": "et",
+    "sub_category_id": 13,
+    "brand_id": 5,
+    "model_id": 3,
+    "color_id": 20,
+    "item_id": 13,
+    "city": "possimus",
     "images": [
-        "nihil"
+        "consequatur"
     ],
     "questions": [
-        "repellendus"
+        "perferendis"
     ]
 }
 
@@ -1989,7 +2035,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":3,"color":7,"brand":6,"subcategory":11,"date":"ad"}'
+    -d '{"model":4,"color":3,"brand":6,"subcategory":6,"date":"quo"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/home/search"
@@ -2001,11 +2047,11 @@ let headers = {
 };
 
 let body = {
-    "model": 3,
-    "color": 7,
+    "model": 4,
+    "color": 3,
     "brand": 6,
-    "subcategory": 11,
-    "date": "ad"
+    "subcategory": 6,
+    "date": "quo"
 }
 
 fetch(url, {
@@ -2130,7 +2176,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/home/search/keywords" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"keywords":"quaerat"}'
+    -d '{"keywords":"at"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/home/search/keywords"
@@ -2142,7 +2188,7 @@ let headers = {
 };
 
 let body = {
-    "keywords": "quaerat"
+    "keywords": "at"
 }
 
 fetch(url, {
@@ -2582,7 +2628,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"consequatur","new_password":"ut","new_password_confirmation":"placeat"}'
+    -d '{"old_password":"ipsam","new_password":"iure","new_password_confirmation":"consequatur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -2594,9 +2640,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "consequatur",
-    "new_password": "ut",
-    "new_password_confirmation": "placeat"
+    "old_password": "ipsam",
+    "new_password": "iure",
+    "new_password_confirmation": "consequatur"
 }
 
 fetch(url, {
@@ -2657,7 +2703,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"dolor"}'
+    -d '{"mobile_number":"sed"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -2669,7 +2715,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "dolor"
+    "mobile_number": "sed"
 }
 
 fetch(url, {
@@ -5288,6 +5334,37 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>GET api/scan-qr-code/{qr_code?}</code></p>
 <!-- END_2bcf7e87aec832345867dfd3f2da84e7 -->
+<!-- START_0ee5bf7a76203366c8ac325bd8ada596 -->
+<h2>Invoke the controller method.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://api.wajad.test/api/mario" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/mario"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/mario</code></p>
+<!-- END_0ee5bf7a76203366c8ac325bd8ada596 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
- 
+
 use App\Post;
 use App\Nova\User;
 use App\PostRequest;
@@ -42,7 +42,7 @@ class RejectPostRequestController extends Controller
         }
 
         $user = User::find($request->user_id);
-        $user->increment('claimer');
+        $user->increment('rejected_requests');
 
         $this->addResponse(trans('messages.rejected', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 
