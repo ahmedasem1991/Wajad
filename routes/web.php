@@ -26,7 +26,7 @@ use App\Notifications\BroadcastNotification;
 |
 */
 
-// \Mpociot\ApiDoc\ApiDoc::routes("/apidoc");
+\Mpociot\ApiDoc\ApiDoc::routes("/apidoc");
 
 Route::get('/test23', function () {
   // $users= User::all()->random(3);
