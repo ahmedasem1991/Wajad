@@ -12,19 +12,18 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'approval_status' => $this->approval_status,
+            'approvalStatus' => $this->approval_status,
             'reward' => $this->reward,
             'description' => $this->description,
             'status' => Post::Status[$this->status] ?? '',
-            'attached_to_item' => (bool) $this->item,
+            'attachedToItem' => (bool) $this->item,
             'item' => new ItemResource($this->item),
             'subCategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
             'date' => $this->created_at->toDateTimeString(),
             'images' =>  PostImagesResource::collection($this->images),
-            'questions' =>  QuestionResource::collection($this->questions),
-            'post_requests' =>  PostRequestsResource::collection($this->post_requests),
+            'postRequests' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
         ];
     }
