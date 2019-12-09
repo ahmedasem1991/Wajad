@@ -39,8 +39,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->integer('rejected_requests')->default(0);
-        });
+         });
     }
 
     /**

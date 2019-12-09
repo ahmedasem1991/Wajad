@@ -9,7 +9,7 @@ class PostRequest extends Model
 {
     use LogsActivity;
 
-    protected $fillable = ['user_id', 'post_id', 'is_request_valid'];
+    protected $fillable = ['user_id', 'post_id', 'is_request_valid', 'rejected_at'];
 
     public function post()
     {
@@ -20,9 +20,4 @@ class PostRequest extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    // public function answers()
-    // {
-    //     return $this->hasMany(Answer::class);
-    // }
 }

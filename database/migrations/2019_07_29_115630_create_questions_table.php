@@ -10,7 +10,6 @@ class CreateQuestionsTable extends Migration
 	{
 		Schema::create('questions', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('founder_id')->unsigned();
 			$table->integer('post_id')->unsigned();
 			$table->char('question');
 			$table->timestamps();

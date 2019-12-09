@@ -12,6 +12,7 @@ class CreatePostRequestsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
             $table->boolean('is_request_valid')->default(0);
+            $table->timestamp('rejected_at')->nullable();
             $table->timestamps();
         });
     }

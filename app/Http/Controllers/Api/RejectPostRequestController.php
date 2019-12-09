@@ -9,6 +9,7 @@ use App\PostRequest;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -41,8 +42,16 @@ class RejectPostRequestController extends Controller
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 
-        $user = User::find($request->user_id);
-        $user->increment('rejected_requests');
+        $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
+        $postRequest->update(['rejected_at' => Carbon::now()->toDateTimeString()]);
+
+        if (
+            PostRequest::where('user_id', $request->user_id)
+            ->whereNotNull('rejected_at')->count()
+            >= env('REJECTED_REQUESTS_NUMBER')
+        ) {
+            //TO DO: take some actions
+        }
 
         $this->addResponse(trans('messages.rejected', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 

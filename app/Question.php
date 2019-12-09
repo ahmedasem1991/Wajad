@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Question extends Model
 {
     use SoftDeletes, LogsActivity;
-    protected $fillable = ['founder_id', 'post_id', 'question'];
+    protected $fillable = ['post_id', 'question'];
     public function user()
     {
         return $this->belongsTo(User::class, 'founder_id');
