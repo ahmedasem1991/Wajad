@@ -89,12 +89,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     # Relations Starts
     public function answers()
     {
-        return $this->hasMany(Answers::class, 'user_id');
+        return $this->hasMany(Answer::class, 'user_id');
     }
 
     public function questions()
     {
-        return $this->hasMany(Questions::class, 'user_id');
+        return $this->hasMany(Question::class, 'user_id');
     }
 
     public function posts()
@@ -114,7 +114,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function items_requests()
     {
-        return $this->hasMany(ItemRequests::class, 'user_id');
+        return $this->hasMany(ItemRequest::class, 'user_id');
     }
 
     public function qrcodes()
@@ -191,12 +191,14 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function postLimitation()
     {
-        return $this->hasOne(PostLimitation::class, 'user_id');
+        //return $this->hasOne(PostLimitation::class, 'user_id');
+        $this->posts_limitation;
     }
 
     public function exceededPostLimitation()
     {
-        return $this->posts()->count() > $this->postLimitation->posts_limitation;
+        // return $this->posts()->count() > $this->postLimitation->posts_limitation;
+        return $this->posts()->count() > $this->postLimitation;
     }
 
     public function routeNotificationForNexmo($notification)

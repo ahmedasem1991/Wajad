@@ -6,22 +6,23 @@ use Auth;
 use App\Corporate;
 use App\WajadOffice;
 use Laravel\Nova\Nova;
-use App\Nova\Metrics\ShowVsHiddenPosts;
 use Laravel\Nova\Cards\Help;
 use App\Nova\Metrics\QrCodes;
 use App\Nova\Metrics\PostsCount;
 use App\Nova\Metrics\UsersTypes;
+use App\Nova\Metrics\PostsPeriod;
 use App\Nova\Metrics\QRCodeCount;
 use App\Nova\Metrics\UsersStatus;
+use App\Nova\Metrics\ApprovalPosts;
 use App\Nova\Metrics\UsersActivity;
 use Illuminate\Support\Facades\Gate;
 use Smartappco\GoogleMaps\GoogleMaps;
+use App\Nova\Metrics\ActivationDevices;
+use App\Nova\Metrics\OpenVsClosedPosts;
+use App\Nova\Metrics\ShowVsHiddenPosts;
 use Remipou\NovaPageManager\PageResource;
 use Kristories\QrcodeManager\QrcodeManager;
 use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
-use App\Nova\Metrics\ApprovalPosts;
-use App\Nova\Metrics\OpenVsClosedPosts;
-use App\Nova\Metrics\PostsPeriod;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -87,6 +88,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                
                 
                 new QrCodes,
+                new ActivationDevices,
                 //new QRCodeCount,
                // new \Marianvlad\NovaEnvCard\NovaEnvCard,
                ( new GoogleMaps)

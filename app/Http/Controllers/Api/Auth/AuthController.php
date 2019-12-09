@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\DeviceType;
 use App\User;
 use App\PostLimitation;
 use App\Services\UserService;
@@ -113,6 +114,10 @@ class AuthController extends Controller
         if (!auth('api')->user()->isUser()) {
             throw new ApiException(trans('auth.failed'), 400);
         }
+        DeviceType::create([
+            'user_id' => auth('api')->user()->id,
+            'device_type' =>  request('device_type'),
+        ]);
 
         return $this->respondWithToken($token);
     }
@@ -157,8 +162,9 @@ class AuthController extends Controller
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
 
-        $user->postLimitation()->save(new PostLimitation());
-
+        //$user->postLimitation()->save(new PostLimitation());
+        $user->posts_limitation= env('POST_LIMITATION');
+        $user->save();
         request()->merge(['user' => request('email')]);
 
         return $this->login();
