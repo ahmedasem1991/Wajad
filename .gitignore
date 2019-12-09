@@ -14,4 +14,4 @@ yarn-error.log
 /nova-components/DownloadQrcodeImage/node_modules/
 /nova-components/googleMaps/node_modules/
 composer.lock
-/public/images
+# /public/images
