@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -368,7 +369,7 @@ class PostsController extends Controller
             if ($request->has('images')) {
                 array_map(function ($image) use ($post, $request) {
                     $post->images()->create([
-                        'image' =>  $request->file($image)->store('images/posts')
+                        'image' => $image->store('images/posts')
                     ]);
                 }, $request->images);
             }

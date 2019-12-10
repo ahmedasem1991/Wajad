@@ -9,6 +9,7 @@ use App\Services\UserService;
 use Illuminate\Validation\Rule;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -59,6 +60,8 @@ class UpdateUserProfileController extends Controller
         ]);
 
         if ($request->has('image')) {
+            Storage::disk('public')->delete($user->image);
+
             $user->update([
                 'image' => $request->file('image')->store('images/profile')
             ]);

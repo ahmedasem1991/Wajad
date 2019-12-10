@@ -119,6 +119,25 @@ class ItemsController extends Controller
      * "description": "ijoi",
      * "image": "http://wajad.test/images/default.png"
      *},
+     *  "qrcode": {
+     *          "id": 1,
+     *         "url": "http://api.wajad.test/api/scan-qr-code",
+     *        "user": null,
+     *       "item": {
+     *          "id": 1,
+     *         "title": "Porro est dolores at perferendis tempora.",
+     *        "details": "Corrupti velit alias sit a omnis illo. Soluta veritatis nihil incidunt at sit illum ad. Et voluptas earum explicabo cum sunt. Impedit ullam aliquam velit excepturi soluta. Quae atque ut perspiciatis magni. Eligendi error eius sit. Fuga minus voluptatem harum veritatis mollitia deleniti. Sequi eligendi voluptatem minus ipsum cum non ut. Eos veniam quia et est. Qui non nemo eum ducimus. Aut non ducimus et aut. Ea repellendus eaque nostrum quidem mollitia quaerat. Aliquid qui ut beatae et quidem iure quod dolor. Minima porro iure autem distinctio temporibus ut nobis. Hic accusamus veniam voluptas ipsum quisquam. Suscipit omnis id sed in. Reprehenderit cum dolorem adipisci earum sunt ullam. Est debitis numquam voluptatem dicta quia est dolore officia. Quia ducimus qui dolor esse ea eius. Velit itaque consequatur cum eaque consequatur.",
+     *       "status": 3,
+     *      "owner_id": 4,
+     *     "model_id": 6,
+     *    "color_id": 13,
+     *   "sub_category_id": null,
+     *  "brand_id": null,
+     * "deleted_at": null,
+     *"created_at": "2019-12-10 17:20:28",
+     *"updated_at": "2019-12-10 17:20:28"
+     *}
+     *},
      *"date": "2019-12-04 14:17:09",
      *"images": [
      *   {
