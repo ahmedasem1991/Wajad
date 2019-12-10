@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_mobile_number_verified')->default(false);
 
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('image', 500)->default(" ");
+            $table->string('image', 500)->default("images/profile/default-profile.png");
             $table->rememberToken();
             $table->timestamps();
         });
