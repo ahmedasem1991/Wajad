@@ -19,5 +19,6 @@ $factory->define(Laravel\Nova\Tests\Fixtures\Post::class, function (Faker $faker
         'title' => $faker->word,
         'word_count' => random_int(100, 500),
         'published_at' => now()->subDays(random_int(1, 30)),
+        'reward'=>null,
     ];
 });

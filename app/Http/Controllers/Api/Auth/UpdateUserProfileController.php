@@ -22,6 +22,7 @@ class UpdateUserProfileController extends Controller
      * @bodyParam receive_emails boolean required 1 or 0. Example:1
      * @bodyParam receive_push_notifications boolean required 1 or 0. Example:1
      * @bodyParam default_distance_unit string,in:kilo,mile required kilo or mile. Example:mile
+     * @bodyParam image file mimes:jpeg,jpg,png,gif, max:5102
      * @response
      * {
      *"success": true,
@@ -38,7 +39,8 @@ class UpdateUserProfileController extends Controller
             'name' => ['required', 'min:6', 'max:255'],
             'receive_emails' => ['required', 'boolean'],
             'receive_push_notifications' => ['required', 'boolean'],
-            'default_distance_unit' => ['required', 'string', 'in:kilo,mile']
+            'default_distance_unit' => ['required', 'string', 'in:kilo,mile'],
+            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
         ]);
 
         if ($validate_request->fails()) {
@@ -55,6 +57,12 @@ class UpdateUserProfileController extends Controller
             'receive_push_notifications' => $request->receive_push_notifications,
             'default_distance_unit' => $request->default_distance_unit,
         ]);
+
+        if ($request->has('image')) {
+            $user->update([
+                'image' => $request->file('image')->store('images/profile')
+            ]);
+        }
 
         $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.user')]))->addStatusCode(201);
 

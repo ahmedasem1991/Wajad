@@ -27,7 +27,7 @@ class PostsController extends Controller
      *
      * @bodyParam title string required min:6 max:255
      * @bodyParam description string required min:9 max:255
-     * @bodyParam reward  text required
+     * @bodyParam reward  string 
      * @bodyParam longitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
      * @bodyParam latitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
      * @bodyParam sub_category_id int required exists:sub_categories,id
@@ -55,7 +55,7 @@ class PostsController extends Controller
         $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
-            'reward' => ['required', 'text'],
+            'reward' => ['string'],
             'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
@@ -149,7 +149,7 @@ class PostsController extends Controller
      *  "status_code": 200
      *}
      */
-    public function reportPost(Request $request, Post $post)
+    public function report(Request $request, Post $post)
     {
         $validate_request = Validator::make(request()->all(), [
             'details' => ['nullable', 'string', 'max:1000'],
@@ -303,7 +303,7 @@ class PostsController extends Controller
      * @bodyParam title string required min:6 max:255
      * @bodyParam description string required min:9 max:255
      * @bodyParam status  numeric required in:0,1
-     * @bodyParam reward  text required
+     * @bodyParam reward  string
      * @bodyParam longitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
      * @bodyParam latitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
      * @bodyParam sub_category_id int required exists:sub_categories,id
@@ -335,7 +335,7 @@ class PostsController extends Controller
                 'title' => ['required', 'min:6', 'max:255'],
                 'description' => ['required', 'min:9', 'max:500'],
                 'status' => ['required', 'in:0,1'],
-                'reward' => ['required', 'text'],
+                'reward' => ['string'],
                 'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'sub_category_id' => ['required', 'exists:sub_categories,id'],

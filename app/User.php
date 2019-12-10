@@ -32,7 +32,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'remember_token',
         'corporate_id',
         'posts_limitation',
-     ];
+        'image',
+    ];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -195,7 +196,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function exceededPostLimitation()
     {
         // return $this->posts()->count() > $this->postLimitation->posts_limitation;
-        return $this->posts()->count() > $this->postLimitation;
+        return $this->posts()->count() > $this->posts_limitation;
     }
 
     public function routeNotificationForNexmo($notification)

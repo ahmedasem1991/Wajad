@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('/{item}', 'ItemsController@destroy');
     });
 
-    Route::post('/report/post/{post}', 'PostsController@reportPost');
+    Route::post('/report/post/{post}', 'PostsController@report');
     Route::post('/request/post/{post}', 'PostRequestController');
     Route::post('/request/{post}/accept', 'AcceptPostRequestController');
     Route::post('/request/{post}/reject', 'RejectPostRequestController');
