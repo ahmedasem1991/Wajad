@@ -18,6 +18,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::post('/logout', 'AuthController@logout');
         Route::get('/userPosts/{type}', 'UserPostController');
         Route::get('/userItems', 'UserItemController');
+        Route::get('/userQRCodes', 'UserQRCodeController');
     });
 });
 
@@ -87,6 +88,9 @@ Route::post('/contact-us', 'SupportController@store');
 
 # Qr Code
 Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
+
+# Packages
+Route::get('/packages', 'PackageController');
 
 # Pages
 Route::get('/pages/{page?}', 'PageController');

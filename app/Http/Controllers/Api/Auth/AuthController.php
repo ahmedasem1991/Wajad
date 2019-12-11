@@ -38,7 +38,8 @@ class AuthController extends Controller
      *          "receive_push_notifications": false,
      *          "is_email_verified": false,
      *          "is_mobile_number_verified": false,
-     *          "default_distance_unit": "kilo"
+     *          "default_distance_unit": "kilo",
+     *          "image":"image.png"
      *      }
      * }
      *
@@ -147,6 +148,7 @@ class AuthController extends Controller
      *         "is_email_verified": false,
      *         "is_mobile_number_verified": false,
      *         "default_distance_unit": "kilo"
+     *          "image":"image.png"
      *     }
      * }
      *
@@ -161,7 +163,7 @@ class AuthController extends Controller
             'mobile_number' => $request->mobile_number,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
-            'posts_limitation' => env('POST_LIMITATION', 50)
+            'posts_limitation' => env('POST_LIMITATION', 50),
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');

@@ -12,21 +12,16 @@ class PackageResource extends JsonResource
         3 => 'Monthly',
         4 => 'Yearly',
     ];
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'description' => $this->description,
+            'name' => $this->{'name_' . app()->getLocale()},
+            'description' => $this->{'description_' . app()->getLocale()},
             'qr_codes' => $this->products_per_package,
             'price' => $this->getOriginal('price'),
             'currency' => env('CURRENCY', 'SAR'),
-            'period' => self::PERIOD[$this->period],
+            // 'period' => self::PERIOD[$this->period],
             'images' => $this->media,
         ];
     }
