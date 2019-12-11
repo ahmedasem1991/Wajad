@@ -21,8 +21,8 @@ class Answer extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function request()
-    {
-        return $this->belongsTo(ItemRequest::class);
-    }
+    // public function post_request()
+    // {
+    //     return $this->belongsTo(PostRequest::class);
+    // }
 }

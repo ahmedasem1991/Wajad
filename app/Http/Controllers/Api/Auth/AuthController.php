@@ -22,6 +22,7 @@ class AuthController extends Controller
      *
      * @bodyParam user numeric,email,min:9,max:14 required phone number or email for the user. Example:00966236363256
      * @bodyParam password string required min:6 password. Example: 123456789
+     * @bodyParam device_type string required android or ios
      *
      * @response {
      *      "token_type": "Bearer",
@@ -37,20 +38,21 @@ class AuthController extends Controller
      *          "receive_push_notifications": false,
      *          "is_email_verified": false,
      *          "is_mobile_number_verified": false,
-     *          "default_distance_unit": "kilo"
+     *          "default_distance_unit": "kilo",
+     *          "image":"image.png"
      *      }
      * }
      *
      * @response 401 {
      *    "success": false,
      *    "message": "These credentials do not match our records.",
-     *    "code": 401
+     *    "status_code": 401
      * }
      *
      * @response 400 {
      *    "success": false,
      *    "message": "please enter a valid email address or phone number.",
-     *    "code": 400
+     *    "status_code": 400
      * }
      *
      * @return void
@@ -58,7 +60,8 @@ class AuthController extends Controller
     public function login()
     {
         $validate_password = Validator::make(request()->all(), [
-            'password' => ['required', 'max:255', 'min:6']
+            'password' => ['required', 'max:255', 'min:6'],
+            'device_type' => ['required', 'string', 'in:android,ios']
         ]);
 
         if ($validate_password->fails()) {
@@ -114,9 +117,9 @@ class AuthController extends Controller
         if (!auth('api')->user()->isUser()) {
             throw new ApiException(trans('auth.failed'), 400);
         }
-        DeviceType::create([
-            'user_id' => auth('api')->user()->id,
-            'device_type' =>  request('device_type'),
+
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => request('device_type')
         ]);
 
         return $this->respondWithToken($token);
@@ -128,6 +131,7 @@ class AuthController extends Controller
      * @bodyParam email email required email,unique:users,email. Example: api@wajad.com
      * @bodyParam password string required min:6 . Example: 123456789
      * @bodyParam mobile_number numeric required min:6,unique:users,mobile_number,digits_between:9,14. Example: 123456789
+     * @bodyParam device_type string required android or ios
      *
      * @response {
      *     "token_type": "Bearer",
@@ -143,7 +147,8 @@ class AuthController extends Controller
      *         "receive_push_notifications": false,
      *         "is_email_verified": false,
      *         "is_mobile_number_verified": false,
-     *         "default_distance_unit": "kilo"
+     *         "default_distance_unit": "kilo",
+     *          "image":"image.png"
      *     }
      * }
      *
@@ -158,13 +163,11 @@ class AuthController extends Controller
             'mobile_number' => $request->mobile_number,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
+            'posts_limitation' => env('POST_LIMITATION', 50),
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
 
-        //$user->postLimitation()->save(new PostLimitation());
-        $user->posts_limitation= env('POST_LIMITATION');
-        $user->save();
         request()->merge(['user' => request('email')]);
 
         return $this->login();

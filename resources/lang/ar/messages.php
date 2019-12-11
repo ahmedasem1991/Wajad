@@ -8,6 +8,8 @@ return [
 	'reported' => "تم الابلاغ :model بنجاح.",
 	'not_found' => ':model غير موجود.',
 	'verified' => 'تم تفعيل :model بنجاح.',
+	'accepted' => 'تم قبول :model بنجاح.',
+	'rejected' =>  'تم رفض :model بنجاح.',
 
 	'attributes' => [
 		'post' => 'المنشور',
@@ -18,7 +20,7 @@ return [
 		'page' => 'الصفحة',
 		'phone' => 'رقم الجوال',
 		'email' => 'البريد الاليكترونى',
-		'item_request' => 'طلب العنصر',
+		'post_request' => 'طلب العنصر',
 		'answer' => 'الاجابات',
 	],
 ];

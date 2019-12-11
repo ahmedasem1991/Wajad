@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+
 /**
  * @group User Profile
  */
@@ -23,7 +24,8 @@ class UserDataController extends Controller
      *"receive_push_notifications": false,
      *"is_email_verified": false,
      *"is_mobile_number_verified": false,
-     *"default_distance_unit": "kilo"
+     *"default_distance_unit": "kilo",
+     *"image": "image.png"
      *}
      *}
      * @return void

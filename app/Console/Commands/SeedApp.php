@@ -71,7 +71,8 @@ class SeedApp extends Command
             'type' => 1, // User
             'mobile_number' => '01142416124',
             'corporate_id' => 1,
-            'mobile_country_id' => 1
+            'mobile_country_id' => 1,
+            'posts_limitation' => 50
         ]);
         $this->info('Nova User Created Successfully');
 
@@ -99,7 +100,7 @@ class SeedApp extends Command
             'latitude' => '21.4498898',
             'longitude' => '39.4913423',
             'status' => 1,
-             
+
         ]);
         $this->info('Nova Corporate Admin Created Successfully');
 

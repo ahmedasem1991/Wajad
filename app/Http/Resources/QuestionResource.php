@@ -16,8 +16,8 @@ class QuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'founder_id' => new UserResource($this->user),
             'question' => $this->question,
+            'answers' =>  AnswerResource::collection($this->answers),
         ];
     }
 }

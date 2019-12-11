@@ -268,8 +268,14 @@ class Post extends MasterModel
     {
         return $this->hasMany(Question::class, 'post_id');
     }
+    
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function postRequests()
+    {
+        return $this->hasMany(PostRequest::class, 'post_id');
     }
 }

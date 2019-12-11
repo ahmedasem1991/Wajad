@@ -18,6 +18,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::post('/logout', 'AuthController@logout');
         Route::get('/userPosts/{type}', 'UserPostController');
         Route::get('/userItems', 'UserItemController');
+        Route::get('/userQRCodes', 'UserQRCodeController');
     });
 });
 
@@ -29,8 +30,10 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('/{item}', 'ItemsController@destroy');
     });
 
-    Route::post('/report/post/{post}', 'PostsController@reportPost');
-    Route::post('/request/item/{item}', 'ItemRequestController');
+    Route::post('/report/post/{post}', 'PostsController@report');
+    Route::post('/request/post/{post}', 'PostRequestController');
+    Route::post('/request/{post}/accept', 'AcceptPostRequestController');
+    Route::post('/request/{post}/reject', 'RejectPostRequestController');
     Route::post('/post/{post}/answer', 'AnswerController');
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
@@ -86,6 +89,9 @@ Route::post('/contact-us', 'SupportController@store');
 # Qr Code
 Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
 
+# Packages
+Route::get('/packages', 'PackageController');
+
 # Pages
 Route::get('/pages/{page?}', 'PageController');
 
@@ -94,7 +100,9 @@ Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
     Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/add/{type}', 'PostsController@store');
-        Route::put('/{post}', 'PostsController@update');
+        Route::post('/{post}', 'PostsController@update');
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
+
+Route::view('mario', 'mario');

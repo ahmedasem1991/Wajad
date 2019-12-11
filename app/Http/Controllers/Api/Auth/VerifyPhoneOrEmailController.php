@@ -20,7 +20,7 @@ class VerifyPhoneOrEmailController extends Controller
     ];
 
     /**
-     * Verify Phone or Email
+     * Verify Code for Phone or Email
      * @urlParam type required phone or email. Example:phone.
      * @bodyParam code numeric required digits:4 Example:1234
      * @response {

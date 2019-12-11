@@ -8,6 +8,8 @@ return [
 	'reported' => ':model reported successfully.',
 	'not_found' => ':model is not found.',
 	'verified' => ':model verified successfully.',
+	'accepted' => ':model accepted successfully.',
+	'rejected' => ':model rejected successfully.',
 
 	'attributes' => [
 		'post' => 'Post',
@@ -18,7 +20,7 @@ return [
 		'page' => 'page',
 		'phone' => 'phone',
 		'email' => 'email',
-		'item_request' => 'Item request',
+		'post_request' => 'post request',
 		'answer' => 'Answers',
 	],
 ];
