@@ -178,7 +178,8 @@ class Post extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-             HasMany::make('Images','images',\App\Nova\PostImage::class)
+             HasMany::make('Images','images',\App\Nova\PostImage::class),
+             HasMany::make('Questions')
  
          ];
  
