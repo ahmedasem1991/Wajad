@@ -14,7 +14,6 @@ class UserQRCodeController extends Controller
     /**
      * User QR Codes
      * @response 
-     * {
      *{
      * "single": [
      *  {
