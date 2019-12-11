@@ -2,18 +2,19 @@
 
 
 use App\Post;
-use App\Exceptions\Api\ApiException;
-use App\Exceptions\Api\VerifyActivationCodeException;
-use App\Exceptions\Api\VerifyActivationCodeException2;
-
 use App\User;
 use App\Qrcode;
 use App\Corporate;
+
 use Laravel\Nova\Nova;
+use Barryvdh\DomPDF\PDF;
 use App\Events\TestEvent;
 use Illuminate\Support\Facades\App;
+use App\Exceptions\Api\ApiException;
 use App\Notifications\TestNotification;
 use App\Notifications\BroadcastNotification;
+use App\Exceptions\Api\VerifyActivationCodeException;
+use App\Exceptions\Api\VerifyActivationCodeException2;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +43,12 @@ Route::get('/home', function () {
 
 Auth::routes();
 //Test Notification
-// Route::get('/sendfcm', 'NotificationController@sendFCM');
+Route::get('/sendfcm', 'NotificationController@sendFCM');
 Route::get('/sendsms', 'NotificationController@sendSMS');
 //Paypal
 Route::get('paypal', 'PaymentController@payWithpaypal');
+//PDF
+Route::get('receipt', 'PDFController@receipt');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () { });
@@ -88,9 +91,12 @@ Route::get('/broadcast', function () {
 });
 Route::get('/test500', function () {
 
-  $Corporate = Corporate::find(1);
-
-  return $Corporate->users->where('type', 2);
+  $pdf = App::make('dompdf.wrapper');
+  $pdf->loadView('Pdf.receipt', $data=[]);
+  return $pdf->stream();
+//   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
+//  return $pdf->stream('receipt.pdf');
+  
 })->name('test500');
 
 

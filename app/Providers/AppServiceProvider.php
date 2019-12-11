@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Post;
 use App\Qrcode;
 use App\Permission;
 use App\AssignQrcode;
@@ -10,6 +11,7 @@ use App\QrcodeRequest;
 use App\GenerateQrcode;
 use App\CorporateAssignQrcode;
 use App\Jobs\GenerateQrcodeJob;
+use App\Observers\PostObserver;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Schema;
@@ -53,6 +55,8 @@ class AppServiceProvider extends ServiceProvider
         GenerateQrcode::observe(QrcodeGenerateObserver::class);
         AssignQrcode::observe(QrcodeAssignObserver::class);
         CorporateAssignQrcode::observe(CorporateQrcodeAssignObserver::class);
+        Post::observe(PostObserver::class);
+        
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');
         // foreach($Permissions as $Permission){

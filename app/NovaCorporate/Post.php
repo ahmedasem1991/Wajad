@@ -1,7 +1,12 @@
 <?php
 
 namespace App\NovaCorporate;
+use App\User;
+use App\Brand;
+use App\Corporate;
+use App\PostImage;
 use App\Nova\Resource;
+use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use App\Nova\Metrics\Posts;
 use Laravel\Nova\Fields\ID;
@@ -15,13 +20,17 @@ use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
-use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
-use App\NovaCorporate\Metrics\ApprovalPosts;
+use Bissolli\NovaPhoneField\PhoneNumber;
 use App\NovaCorporate\Metrics\PostsPeriod;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\NovaCorporate\Metrics\ApprovalPosts;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use App\NovaCorporate\Metrics\OpenVsClosedPosts;
+use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class Post extends Resource
 {
@@ -35,6 +44,7 @@ class Post extends Resource
      */
     public static $model = 'App\Post';
 
+    
     /**
      * The logical group associated with the resource.
      *
@@ -55,10 +65,15 @@ class Post extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title', 'description', 'owner_id', 'founder_id', 'publisher_id'
+        'id', 'title', 'description', 'owner_id', 'founder_id', 'publisher_id', 
+    ];
+    public static $searchRelations = [
+        'color' => ['name_en'],
+        'brand' => ['name_en'],
+        'model' => ['name_en'],
     ];
 
-
+    //Can not find the Field "model" in the Model "App\NovaCorporate\ClosedPost"
     public static function availableForNavigation(Request $request)
     {
       return  (Auth()->User()->hasPermissionTo('view posts')) ? true :false;
@@ -80,41 +95,89 @@ class Post extends Resource
             Textarea::make('description'),
             RadioButton::make('Status')
             ->options([
-                0 => 'Lost',
+               // 0 => 'Lost',
                 1 => 'Found',
-            ])->default(0), // optional
+            ])->default(1)
+            ->hideFromIndex()
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
+           
              Toggle::make('Appearance Status','appearance_status')
              ->hideWhenCreating()
-             ->hideWhenUpdating(),
+             ->hideWhenUpdating()
+             ->hideFromIndex(),
            //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
-             DateTime::make('Losted At')->hideFromIndex()
-             ->Rules('required_if:status,0'),
-             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
+             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
+             //DateTime::make('Losted At')->hideFromIndex()
+             //->Rules('required_if:status,0'),
+            // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
              DateTime::make('Founded At')->hideFromIndex()
              ->Rules('required_if:status,1'),
-             Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
-             NovaBelongsToDepend::make('User', 'publisher')
-             ->placeholder('Publisher')
-             ->options(Auth()->User()->corporate->users),
-             NovaBelongsToDepend::make('Item')
-             ->placeholder('Item')
-             ->optionsResolve(function ($user) {
-                 $user_items_with_qrcode = $user->items()
-                     ->Has('qrcode')
-                     ->get();
-                 return $user_items_with_qrcode;
-             })->dependsOn('publisher')->nullable(),
-             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
-             BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
-             ->creationRules('required_if:status,1','same:publisher')
-             ->updateRules('required_if:status,1')
-             ->nullable(),
-             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
-             BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\User')
-             ->creationRules('required_if:status,0','same:publisher')
-             ->updateRules('required_if:status,0')
-             ->nullable(),
+
+             NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
+            ->placeholder('Optional Placeholder')  
+            ->options(Brand::all())
+            ->rules('required'),
+          
+
+            NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
+            ->placeholder('Optional Placeholder')    
+            ->optionsResolve(function ($brand) {
+            return $brand->models()->get(['id','name_en']);
+            })
+            ->rules('required')
+            ->dependsOn('Brand'),
+            BelongsTo::make('Color','color','App\Nova\Color'),
+
+             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
+            //  NovaBelongsToDepend::make('User', 'publisher')
+            //  ->placeholder('Publisher')
+            //  ->options(Auth()->User()->corporate->users),
+            //  NovaBelongsToDepend::make('Item')
+            //  ->placeholder('Item')
+            //  ->optionsResolve(function ($user) {
+            //      $user_items_with_qrcode = $user->items()
+            //          ->Has('qrcode')
+            //          ->get();
+            //      return $user_items_with_qrcode;
+            //  })->dependsOn('publisher')->nullable(),
+             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
+            //  BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
+            //  ->creationRules('required_if:status,1','same:publisher')
+            //  ->updateRules('required_if:status,1')
+            //  ->nullable(),
+            
+
+               Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
+                Text::make('Founder Name','founder_name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
+                Text::make('Founder Email','founder_email')
+                ->sortable()
+                ->rules('required', 'email', 'max:254'),
+ 
+                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
+                Text::make('Founder Address','founder_address',)
+                ->sortable()
+                ->rules('required', 'max:254')
+               ,
+            // Password::make('Password')
+            //     ->onlyOnForms()
+            //     ->creationRules('required', 'string', 'min:8')
+            //     ->updateRules('nullable', 'string', 'min:8'),
+                
+               
+            Button::make('PDF')
+            ->link(URL::to('receipt?p='.base64_encode($this->id)),'_blank')
+            ->style('danger'),
+            //  Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
+            //  BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\User')
+            //  ->creationRules('required_if:status,0','same:publisher')
+            //  ->updateRules('required_if:status,0')
+            //  ->nullable(),
              HasMany::make('Images','images',\App\Nova\PostImage::class)
  
          ];
@@ -133,7 +196,7 @@ class Post extends Resource
             new PostsPeriod,
             new ShowVsHiddenPosts,
             new OpenVsClosedPosts,
-            new ApprovalPosts
+           // new ApprovalPosts
         ];
     }
 
@@ -172,7 +235,8 @@ class Post extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        //return $query->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        return $query->where('corporate_id',Auth()->user()->corporate->id);
     }
 
     public static function icon()

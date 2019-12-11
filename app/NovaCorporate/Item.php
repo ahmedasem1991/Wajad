@@ -74,7 +74,7 @@ class Item extends Resource
             NovaBelongsToDepend::make('Model', 'model') 
             ->placeholder('Optional Placeholder')    
             ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['name_en','id']);
+            return $brand->models()->get(['id','name_en']);
             })
             ->rules('required')
             ->dependsOn('Brand'),

@@ -53,6 +53,7 @@ class OpeningPost extends Resource
     public static $search = [
         'id','title','description','owner_id','founder_id','publisher_id'
     ];
+    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
@@ -161,7 +162,8 @@ class OpeningPost extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsOpen()->isApproved()->IsShow()
-        ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        ->where('corporate_id',Auth()->user()->corporate->id);
+       // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
 

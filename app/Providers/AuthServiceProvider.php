@@ -21,8 +21,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Item' => 'App\Policies\ItemPolicy',
         'App\Package' => 'App\Policies\PackagePolicy',
         'App\Subscription' => 'App\Policies\SubscriptionPolicy',
-        'App\Post' => 'App\Policies\UserPostPolicy',
-        'App\Item' => 'App\Policies\UserItemPolicy',
+      //  'App\Post' => 'App\Policies\UserPostPolicy',
+       // 'App\Item' => 'App\Policies\UserItemPolicy',
     ];
 
     /**
@@ -35,14 +35,14 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
-        // foreach (config('novapermissions.permissions') as $key => $permissions) {
-        //     Gate::define($key, function (User $user) use ($key) {
-        //         if ($this->nobodyHasAccess($key)) {
-        //             return true;
-        //         }
+        foreach (config('novapermissions.permissions') as $key => $permissions) {
+            Gate::define($key, function (User $user) use ($key) {
+                if ($this->nobodyHasAccess($key)) {
+                    return true;
+                }
 
-        //         return $user->hasPermissionTo($key);
-        //     });
-        // }
+                return $user->hasPermissionTo($key);
+            });
+        }
     }
 }
