@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Package;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PackageResource extends JsonResource
@@ -18,11 +19,12 @@ class PackageResource extends JsonResource
         return [
             'name' => $this->{'name_' . app()->getLocale()},
             'description' => $this->{'description_' . app()->getLocale()},
-            'qr_codes' => $this->products_per_package,
+            'qrcodes_count' => $this->quantity,
             'price' => $this->getOriginal('price'),
             'currency' => env('CURRENCY', 'SAR'),
             'period' => $this->period,
-            'images' => $this->media,
+            'type' => Package::Types[$this->type] ?? '',
+            'incrementally' => $this->incrementally,
         ];
     }
 }

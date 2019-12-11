@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
+    const Types = [
+        1 => "single",
+        2 => "multi",
+        "single" => 1,
+        "multi" => 2,
+    ];
     protected $guarded = [];
 
     /**
@@ -48,16 +54,16 @@ class Package extends Model
 
     public function subscription()
     {
-        return $this->hasMany(Subscription::class,'package_id');
+        return $this->hasMany(Subscription::class, 'package_id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'user_id');
+        return $this->belongsToMany(User::class, 'user_id');
     }
 
     public function corporates()
     {
-        return $this->belongsToMany(Corporate::class,'corporate_id');
+        return $this->belongsToMany(Corporate::class, 'corporate_id');
     }
 }

@@ -8,9 +8,30 @@ use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\PackageResource;
 
+/**
+ * @group Packages
+ */
 class PackageController extends Controller
 {
-
+    /**
+     * Packages
+     * @response 
+     * {
+     *    "data": [
+     *     {
+     *      "name": "Platinum Package",
+     *     "description": "Get 25 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.",
+     *    "qrcodes_count": 1500,
+     *   "price": 1500,
+     *  "currency": "USD",
+     *     "period": "12 Day\/s",
+     *    "type": "single",
+     *   "incrementally": 0
+     * }
+     * ]
+     *}
+     * @return void
+     */
     public function __invoke(Request $request)
     {
         return PackageResource::collection(Package::paginate(env('PAGINATION_PER_PAGE', 15), '*', 'per_page'));
