@@ -16,8 +16,10 @@ class PostsPeriod extends Trend
      */
     public function calculate(Request $request)
     {
-        return $this->countByDays($request, Post::whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id')));
+        return $this->countByDays($request, Post::where('corporate_id',Auth()->user()->corporate->id));
+        // return $this->countByDays($request, Post::whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id')));
     }
+     
 
     /**
      * Get the ranges available for the metric.

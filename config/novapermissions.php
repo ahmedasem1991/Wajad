@@ -1,19 +1,5 @@
 <?php
-// $MasterArray=[];
 
-// $Permissions=App\Permission::all();
-// foreach($Permissions as $Permission){
-// array_push($MasterArray,$Permission->name);
-// }
-// logger($MasterArray);
-// foreach($MasterArray as $MR){
-//     $MR['display_name']=
-//     }
-// 'view users' => [
-//     'display_name' => 'View users',
-//     'description'  => 'Can view users',
-//     'group'        => 'User',
-// ],
 return [
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +25,13 @@ return [
 
     'roleResourceGroup' => 'Users Management',
 
+    'table_names' => [
+        'roles' => 'roles',
+
+        'role_permission' => 'role_permission',
+
+        'role_user' => 'role_user',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Permissions

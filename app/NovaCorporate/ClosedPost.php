@@ -2,6 +2,7 @@
 
 namespace App\NovaCorporate;
 
+use App\Brand;
 use App\Nova\Resource;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -88,6 +89,7 @@ class ClosedPost extends Resource
             BelongsTo::make('Founder', 'founder', 'App\Nova\User')->readonly(),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User')->readonly(),
             BelongsTo::make('Item')->readonly(),
+            
             // NovaBelongsToDepend::make('Item')
             // ->placeholder('Item')
             // ->optionsResolve(function ($user) {
@@ -100,6 +102,27 @@ class ClosedPost extends Resource
             //     }
             //     return $user_items;
             // })->dependsOn('publisher')->nullable()->readonly(),
+            
+            NovaBelongsToDepend::make('Brand','brand','App\Nova\Brand')
+            ->placeholder('Optional Placeholder')  
+            ->options(Brand::all())
+            ->rules('required')
+            ->exceptOnForms()
+            ->hideFromDetail()
+            ->hideFromIndex(),
+          
+
+            NovaBelongsToDepend::make('Model', 'model','App\Nova\Model') 
+            ->placeholder('Optional Placeholder')    
+            ->optionsResolve(function ($brand) {
+            return $brand->models()->get(['id','name_en']);
+            })
+            ->rules('required')
+            ->dependsOn('Brand')
+            ->exceptOnForms()
+            ->hideFromDetail()
+            ->hideFromIndex(),
+           // BelongsTo::make('Color','color','App\Nova\Color'),
             HasMany::make('Images','images',\App\Nova\PostImage::class)
 
         ];
@@ -161,7 +184,8 @@ class ClosedPost extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsClosed()->isApproved()
-        ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        ->where('corporate_id',Auth()->user()->corporate->id);
+        //->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
 

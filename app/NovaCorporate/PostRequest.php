@@ -31,7 +31,7 @@ class PostRequest extends Resource
      * @var string
      */
     public static $model = 'App\Post';
-
+    public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
      *
@@ -169,7 +169,9 @@ class PostRequest extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsPending()
-        ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        ->where('corporate_id',Auth()->user()->corporate->id);
+       // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        
     }
 
 

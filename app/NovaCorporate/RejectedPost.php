@@ -39,7 +39,7 @@ class RejectedPost extends Resource
      * @var string
      */
     public static $group = 'Posts';
-
+    public static $displayInNavigation = false;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -170,7 +170,8 @@ class RejectedPost extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsRejected()
-        ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        ->where('corporate_id',Auth()->user()->corporate->id);
+       // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
 

@@ -56,7 +56,8 @@ class PostPolicy
                 return false;
             }
         }
-        return  false;
+        
+        return  true;
     }
 
     /**
@@ -75,6 +76,13 @@ class PostPolicy
                 return false;
             }
         }
+        if($user->isUser())
+        {
+        if ($user->id == $post->publisher_id) {
+            return true;
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
+       } 
         return  true;
     }
 
@@ -87,7 +95,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        dd($user);
+       
         if (Auth()->User()->isCorporateAdmin()) {
             if ($user->hasPermissionTo('delete posts')) {
                 return true;
@@ -120,5 +128,18 @@ class PostPolicy
     public function forceDelete(User $user, Post $post)
     {
         return  Auth()->User()->isAdmin() ? false : true;
+    }
+
+
+    public function destroy(User $user, Post $post)
+    {
+        if($user->isUser())
+        {
+        if ($user->id == $post->publisher_id) {
+            return true;
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
+       }
+ 
     }
 }

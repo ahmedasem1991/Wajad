@@ -126,7 +126,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new NovaSidebarIcons,
             new \Pktharindu\NovaPermissions\NovaPermissions(),
         ];
-    }
+        }
     }
 
     public function register()

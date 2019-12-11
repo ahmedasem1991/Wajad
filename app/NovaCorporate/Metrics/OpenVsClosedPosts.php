@@ -16,7 +16,7 @@ class OpenVsClosedPosts extends Partition
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Post::whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id')), 'open_status')
+        return $this->count($request, Post::where('corporate_id',Auth()->user()->corporate->id), 'open_status')
         ->label(function ($value) {
             switch ($value) {
                 case 1:

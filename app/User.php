@@ -45,11 +45,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     const Types = [
         1 => 'user',
-        2 => 'corporate',
+        2 => 'corporate',// corporate admin
         3 => 'admin',
+        4 => 'corporate user',
         'user' => 1,
         'corporate' => 2,
-        'admin' => 3
+        'admin' => 3,
+        'corporate user' => 4
     ];
 
     const Status = [
@@ -78,6 +80,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function isUser()
     {
         return $this->type === self::Types['user'];
+    }
+    public function isCorporateUser()
+    {
+        return $this->type === self::Types['corporate user'];
     }
 
     public function scopeCorporates($query)

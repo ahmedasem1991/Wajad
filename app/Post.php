@@ -91,6 +91,13 @@ class Post extends MasterModel
     {
         return $this->belongsTo(PostType::class, 'post_type_id');
     }
+    /**
+     * Define The corporate Of The Post
+     */
+    public function corporate()
+    {
+        return $this->belongsTo(Corporate::class);
+    }
 
     /**
      * Define The Category Of The Post

@@ -25,6 +25,7 @@ class CreatePackagesTable extends Migration
             // $table->integer('products_per_package')->nullable()->unsigned();
             $table->integer('period')->nullable()->unsigned();
             $table->boolean('is_active')->default(true);    
+            $table->boolean('incrementally')->default(false);    
             $table->timestamps();
         });
     }
