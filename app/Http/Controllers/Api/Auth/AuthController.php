@@ -147,7 +147,7 @@ class AuthController extends Controller
      *         "receive_push_notifications": false,
      *         "is_email_verified": false,
      *         "is_mobile_number_verified": false,
-     *         "default_distance_unit": "kilo"
+     *         "default_distance_unit": "kilo",
      *          "image":"image.png"
      *     }
      * }
