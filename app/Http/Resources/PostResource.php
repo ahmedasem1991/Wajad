@@ -25,6 +25,7 @@ class PostResource extends JsonResource
             'images' =>  PostImagesResource::collection($this->images),
             'post_requests' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
+            'publisher' => new UserResource($this->publisher),
         ];
     }
 }
