@@ -87,6 +87,7 @@ class Package extends Resource
             Number::make('Number Of QR Codes', 'quantity')->rules('required'),
 
             Toggle::make('Show Package', 'is_active')->color('#4099de'),
+            Toggle::make('Incrementally Available', 'incrementally')->color('#4099de'),
             RadioButton::make('Type')
             ->options([
                 1 => 'Single Assign',

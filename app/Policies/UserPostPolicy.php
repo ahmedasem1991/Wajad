@@ -12,18 +12,25 @@ class UserPostPolicy
     use HandlesAuthorization;
 
     public function update(User $user, Post $post)
-    {
+     {
+        if($user->isUser())
+        {
         if ($user->id == $post->publisher_id) {
             return true;
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
+       } 
     }
 
     public function destroy(User $user, Post $post)
     {
+        if($user->isUser())
+        {
         if ($user->id == $post->publisher_id) {
             return true;
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
+       }
+ 
     }
 }

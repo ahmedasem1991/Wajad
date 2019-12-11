@@ -27,6 +27,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('owner_id')->nullable();
             $table->unsignedInteger('founder_id')->nullable();
             $table->unsignedInteger('publisher_id')->nullable();
+            $table->unsignedInteger('corporate_id')->nullable();
             $table->timestamp('losted_at')->nullable();
             $table->timestamp('founded_at')->nullable();
             $table->double('latitude')->nullable();
@@ -36,6 +37,11 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('color_id')->nullable();
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('city_id')->nullable();
+            $table->unsignedInteger('corporate_id')->nullable();
+            $table->string('founder_name')->nullable();
+            $table->string('founder_email')->nullable();
+            $table->string('founder_mobile_number')->nullable();
+            $table->string('founder_address')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

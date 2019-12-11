@@ -160,7 +160,7 @@ class HidenPost extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->isApproved()->IsHidden()
-        ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+        ->where('corporate_id',Auth()->user()->corporate->id);
     }
 
 

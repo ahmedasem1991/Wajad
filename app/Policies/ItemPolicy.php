@@ -77,6 +77,15 @@ class ItemPolicy
                 return false;
             }
         }
+
+        if($user->isUser())
+        {
+        if ($user->id == $item->owner_id) {
+            return true;
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
+       }
+       
         return  true;
     }
 
@@ -123,4 +132,14 @@ class ItemPolicy
     {
         return  true;
     }
+    public function destroy(User $user, Item $item)
+    {
+        if($user->isUser())
+        {
+        if ($user->id == $item->owner_id) {
+            return true;
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
+    }
+}
 }
