@@ -22,5 +22,6 @@ return [
 		'email' => 'email',
 		'post_request' => 'post request',
 		'answer' => 'Answers',
+		'days' => 'days',
 	],
 ];

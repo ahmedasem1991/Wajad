@@ -24,7 +24,7 @@ class PackageResource extends JsonResource
             'currency' => env('CURRENCY', 'SAR'),
             'period' => $this->period,
             'type' => Package::Types[$this->type] ?? '',
-            'incrementally' => $this->incrementally,
+            'incrementally' => (bool) $this->incrementally,
         ];
     }
 }

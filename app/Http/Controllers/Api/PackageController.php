@@ -24,9 +24,9 @@ class PackageController extends Controller
      *    "qrcodes_count": 1500,
      *   "price": 1500,
      *  "currency": "USD",
-     *     "period": "12 Day\/s",
+     *     "period": "12 days",
      *    "type": "single",
-     *   "incrementally": 0
+     *   "incrementally": true
      * }
      * ]
      *}
