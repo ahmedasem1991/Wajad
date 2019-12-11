@@ -67,8 +67,8 @@ class PostsController extends Controller
             'city' => ['required', 'string'],
             'images' => ['sometimes', 'array', 'between:1,5'],
             'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
-            'questions' => ['sometimes',  'array', 'size:3'],
-            'questions.*' => ['required', 'min:9', 'max:500'],
+            'questions' => ['sometimes',  'array', 'between:1,3'],
+            'questions.*' => ['min:9', 'max:500'],
         ]);
 
         if ($validate_request->fails()) {

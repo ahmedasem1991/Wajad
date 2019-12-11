@@ -21,7 +21,7 @@ class PackageResource extends JsonResource
             'qr_codes' => $this->products_per_package,
             'price' => $this->getOriginal('price'),
             'currency' => env('CURRENCY', 'SAR'),
-            // 'period' => self::PERIOD[$this->period],
+            'period' => $this->period,
             'images' => $this->media,
         ];
     }
