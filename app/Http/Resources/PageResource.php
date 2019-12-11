@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SettingResource extends JsonResource
+class PageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class SettingResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'page' => Str::lower($this->key),
-            'title' => $this->{'title_' . app()->getLocale()},
-            'body' => $this->{'body_' . app()->getLocale()},
+            'id' => $this->id ?? null,
+            'page' => Str::lower($this->key ?? ''),
+            'title' => $this->{'title_' . app()->getLocale()} ?? '',
+            'body' => $this->{'body_' . app()->getLocale()} ?? '',
             // 'image' => $this->image ? env('APP_URL') . '/' . $this->image : null
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Setting;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SettingResource;
+use App\Http\Resources\PageResource;
 use App\Page;
 
 /**
@@ -48,6 +48,6 @@ class PageController extends Controller
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
         }
 
-        return new SettingResource(Page::where('key', $page)->first());
+        return new PageResource(Page::whereKey($page)->first());
     }
 }

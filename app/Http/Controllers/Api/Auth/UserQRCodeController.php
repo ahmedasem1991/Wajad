@@ -12,19 +12,19 @@ class UserQRCodeController extends Controller
     {
         $qrcodes = collect([
             'single' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->status(1)->type(1)->get()
+                auth('api')->user()->qrcodes()->singleAssign()->inStock()->get()
             ),
             'multi' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->status(1)->type(2)->get()
+                auth('api')->user()->qrcodes()->multiAssign()->status(1)->get()
             ),
             'active' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->status(4)->get()
+                auth('api')->user()->qrcodes()->registered()->get()
             ),
             'expired' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->status(4)->get()
+                auth('api')->user()->qrcodes()->registered()->get()
             )
         ]);
-        
+
         return $qrcodes;
     }
 }

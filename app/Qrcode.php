@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model
 {
-use LogsActivity;
-    protected $fillable =['reference_number','assign_reference_number','type','status','quantity','qrcode_url','image','available_period','start_at','end_at','user_id','corporate_id','corporate_assign_reference_number'];
+    use LogsActivity;
+    protected $fillable = ['reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number'];
 
 
 
@@ -28,9 +28,9 @@ use LogsActivity;
         return $this->type === self::Types[$type];
     }
 
-    public function scopeType($query,$type)
+    public function scopeType($query, $type)
     {
-       return $query->where('type', self::Types[$type]);
+        return $query->where('type', self::Types[$type]);
     }
     public function scopeUser($query, $user_id)
     {
@@ -54,13 +54,13 @@ use LogsActivity;
         'Registered' => 4,
         'Re-Registered' => 5,
     ];
-        public function statusTitle($status)
+    public function statusTitle($status)
     {
         return $this->status = self::STATUS[$status];
     }
-    public function scopeStatus($query,$status)
+    public function scopeStatus($query, $status)
     {
-       return $query->where('status', self::STATUS[$status]);
+        return $query->where('status', self::STATUS[$status]);
     }
 
 
@@ -76,16 +76,16 @@ use LogsActivity;
 
     public function user()
     {
-        return $this->belongsTo(User::class);   
+        return $this->belongsTo(User::class);
     }
 
     public function qrcodegenerate()
     {
-        return $this->belongsTo(GenerateQrcode::class,'reference_number','reference_number');   
+        return $this->belongsTo(GenerateQrcode::class, 'reference_number', 'reference_number');
     }
     public function assignqrcode()
     {
-        return $this->belongsTo(AssignQrcode::class,'assign_reference_number','assign_reference_number');   
+        return $this->belongsTo(AssignQrcode::class, 'assign_reference_number', 'assign_reference_number');
     }
 
     public function package_product_pivot()
@@ -98,28 +98,40 @@ use LogsActivity;
         return $this->belongsTo(Item::class);
     }
 
-    
+
     public function registerQrcode(Request $request)
     {
         try {
-            $status=3;
-            $QRCode=$this->find($request->qrcode_id);
-            $QRCode->status==3 ? $status=4 :$status=5;
+            $status = 3;
+            $QRCode = $this->find($request->qrcode_id);
+            $QRCode->status == 3 ? $status = 4 : $status = 5;
             $QRCode->update([
-            'item_id' => $request->item_id,
-            'status' => $status
+                'item_id' => $request->item_id,
+                'status' => $status
             ]);
-            $this->addResponse(trans( 'messages.successfully_registered' ))->addStatusCode(201);
+            $this->addResponse(trans('messages.successfully_registered'))->addStatusCode(201);
             Log::INFO($this->response());
             return $this->response();
-           
         } catch (Exception $e) {
             $this->addResponse($e->getMessage)->addStatusCode(409);
             Log::ERROR($this->response());
             return $this->response();
-        } 
-  
- 
+        }
     }
-
+    public function scopeSingleAssign($query)
+    {
+        return $query->where('type', 1);
+    }
+    public function scopeMultiAssign($query)
+    {
+        return $query->where('type', 2);
+    }
+    public function scopeInStock($query)
+    {
+        return $query->where('status', 1);
+    }
+    public function scopeRegistered($query)
+    {
+        return $query->where('status', 4);
+    }
 }

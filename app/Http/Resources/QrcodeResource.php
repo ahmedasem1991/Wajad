@@ -17,7 +17,7 @@ class QrcodeResource extends JsonResource
         return [
             'id' => $this->id,
             'url' => $this->qrcode_url,
-            'user' => $this->user,
+            'user' => new UserResource($this->user),
             // 'package' => $this->package,
             // 'product' => $this->package_product_pivot->product,
             'item' => $this->item
