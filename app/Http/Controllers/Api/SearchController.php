@@ -23,8 +23,8 @@ class SearchController extends Controller
 {
     /**
      * Search By KeyWords
-     * @bodyParam keywords string required  
-     * @response 
+     * @urlParam keywords string required
+     * @response
      * {
      * "data": [
      * {
@@ -83,7 +83,7 @@ class SearchController extends Controller
      * }
      * ]
      * }
-     * @response 
+     * @response
      * @return void
      */
     public function searchByKeyWords(Request $request)
@@ -104,12 +104,12 @@ class SearchController extends Controller
     }
     /**
      * Search Filter
-     * @bodyParam model int exist in models. 
-     * @bodyParam color int exist in colors. 
-     * @bodyParam brand int exist in brands. 
-     * @bodyParam subcategory int exist in subcategories. 
-     * @bodyParam date date  
-     * @response 
+     * @urlParam model int exist in models.
+     * @urlParam color int exist in colors.
+     * @urlParam brand int exist in brands.
+     * @urlParam subcategory int exist in subcategories.
+     * @urlParam date date
+     * @response
      * {
      * "data": [
      * {
@@ -201,7 +201,7 @@ class SearchController extends Controller
     }
     /**
      * Fetch search data
-     * @response 
+     * @response
      * {
      *   "regions": [
      *      {

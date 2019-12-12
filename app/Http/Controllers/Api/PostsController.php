@@ -26,9 +26,10 @@ class PostsController extends Controller
     /**
      * Create Post
      *
+     * @urlParam type required string in:lost,found
      * @bodyParam title string required min:6 max:255
      * @bodyParam description string required min:9 max:255
-     * @bodyParam reward  string 
+     * @bodyParam reward  string
      * @bodyParam longitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
      * @bodyParam latitude regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/ required
      * @bodyParam sub_category_id int required exists:sub_categories,id
@@ -189,7 +190,7 @@ class PostsController extends Controller
      * Show Post
      *
      * @urlParam id required int Post Id
-     * @response 
+     * @response
      *  {
      * "data": [
      *  {

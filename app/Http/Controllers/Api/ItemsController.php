@@ -54,7 +54,6 @@ class ItemsController extends Controller
         $item = Item::create([
             'title' =>  $request->title,
             'details' =>  $request->details,
-            'owner_id' =>  $request->owner_id,
             'category_id' =>  $request->category_id,
             'model_id' =>  $request->model_id,
             'brand_id' =>  $request->brand_id,
@@ -83,7 +82,7 @@ class ItemsController extends Controller
 
     /**
      * Show Item
-     * @urlParam item required int Item id. Example:1 
+     * @urlParam item required int Item id. Example:1
      * @response {
      *  "data": {
      *     "id": 1,
