@@ -2,96 +2,90 @@
 
 namespace App\Http\Controllers\Api;
 
-use Response;
 use App\Qrcode;
 use App\Package;
 use Carbon\Carbon;
 use App\AssignQrcode;
 use App\GenerateQrcode;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\Filter;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Jobs\GenerateAndAssignQrcodeJob;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
 
+/**
+ * @group QR Codes
+ */
 class GenerateAndAssignQRCodeController extends Controller
 {
-    public function index(Request $request)
-    {
-        //
-    }
-
+    /**
+     * Generate & Assign QRcodes (after payment)
+     * @urlParam qrcode_id required int exists in qrcodes
+     * @response 
+     * @return void
+     */
     public function store(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
-            'user_id' => ['required', 'exists:users,id'],
-            'package_id' => ['required', 'exists:packages,id']
+            'package_id' => ['required', 'exists:packages,id'],
+            'count' => ['sometimes', 'int', 'min:1'],
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            $this->addResponse($validate_request->errors())->first()->addStatusCode(400);
             return $this->response();
         }
-        $Package = Package::find($request->package_id);
-        $now = Carbon::now();
-        $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
-        $generate_reference_number = 'N-' . $middle . $now->second;
-        $assign_reference_number = 'U-' . $middle . $now->second;
+        $i = 0;
+        for ($i = 0; $i < $request->count; $i++) {
+            $package = Package::find($request->package_id);
+            $now = Carbon::now();
 
-        $GenerateQRCode = GenerateQrcode::create([
-            'reference_number' => $generate_reference_number,
-            'type' => $Package->type,
-            'quantity' => $Package->quantity,
-            'created_from' => 'mobile',
-        ]);
+            $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
+            $generate_reference_number = NULL;
+            $assign_reference_number = 'C-' . $middle . $now->second;
+            $generate_id = NULL;
 
-        logger($Package->period);
+            if (count(Qrcode::inStock()->type($package->type)->get()) < $package->quantity) {
+                $generate_reference_number = 'N-' . $middle . $now->second;
+                $generateQRCode = GenerateQrcode::create([
+                    'reference_number' => $generate_reference_number,
+                    'type' => $package->type,
+                    'quantity' => $package->quantity,
+                    'created_by' => auth('api')->user()->id,
+                    'created_from' => 'mobile',
+                ]);
 
-        AssignQrcode::create([
-            'assign_reference_number' => $assign_reference_number,
-            'assign_to' => 1,
-            'user_id' => $request->user_id,
-            'corporate_id' => NULL,
-            'type' => $Package->type,
-            'available_period' => str_replace(" Day/s", "", $Package->period),
-            'quantity' => $Package->quantity,
-            'created_from' => 'mobile',
-        ]);
+                $generate_id = $generateQRCode->id;
+            }
 
-        $QRcodesData = [
-            'generate_id' => $GenerateQRCode->id,
-            'generate_reference_number' => $generate_reference_number,
-            'assign_reference_number' => $assign_reference_number,
-            'quantity' => $Package->quantity,
-            'status' => 2,
-            'type' => $Package->type,
-            'user_id' => $request->user_id,
-            'corporate_id' => NULL,
-            'available_period' => str_replace(" Day/s", "", $Package->period),
-        ];
+            AssignQrcode::create([
+                'assign_reference_number' => $assign_reference_number,
+                'assign_to' => 1,
+                'user_id' => auth('api')->user()->id,
+                'corporate_id' => NULL,
+                'type' => $package->type,
+                'available_period' => str_replace(" Day/s", "", $package->period),
+                'quantity' => $package->quantity,
+                'created_from' => 'mobile',
+            ]);
 
-        GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
+            $QRcodesData = [
+                'generate_id' => $generate_id,
+                'generate_reference_number' => $generate_reference_number,
+                'assign_reference_number' => $assign_reference_number,
+                'quantity' => $package->quantity,
+                'status' => 2,
+                'type' => $package->type,
+                'auth_id' => auth('api')->user()->id,
+                'user_id' => auth('api')->user()->id,
+                'corporate_id' => NULL,
+                'available_period' => str_replace(" days", "", $package->period),
+            ];
 
+            GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
+        }
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.qrcode')]))->addStatusCode(201);
         Log::INFO($this->response());
         return $this->response();
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

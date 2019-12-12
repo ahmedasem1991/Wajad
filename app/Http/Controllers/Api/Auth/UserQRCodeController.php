@@ -15,7 +15,7 @@ class UserQRCodeController extends Controller
      * User QR Codes
      * @response 
      *{
-     * "single": [
+     * "available_single": [
      *  {
      *   "id": 1,
      *  "url": "http:\/\/api.wajad.test\/api\/scan-qr-code\/1",
@@ -32,29 +32,57 @@ class UserQRCodeController extends Controller
      * "default_distance_unit": "kilo",
      * "image": "http:\/\/wajad.test\/images\/profile\/default-profile.png"
      *},
-     *"item": null
+     *"item": null,
+     *"available_period":12,
+     *"start_at":null,
+     *"end_at":null,
+     *"created_at":null
      *}
      *],
-     *"multi": [],
+     *"available_single_count":1,
+     *"available_multi": [],
+     *"available_multi_count":1,     
      *"active": [],
-     *"expired": []
+     *"available_active":1,
+     *"expired": [],
+     *"available_expired":1
      *}
      * @return void
      */
     public function __invoke(Request $request)
     {
         $qrcodes = collect([
-            'single' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->singleAssign()->inStock()->get()
+            'available_single' => QrcodeResource::collection(
+                auth('api')->user()->qrcodes()->singleAssign()->get()
             ),
-            'multi' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->multiAssign()->status(1)->get()
+            'available_single_count' => count(
+                QrcodeResource::collection(
+                    auth('api')->user()->qrcodes()->singleAssign()->get()
+                )
+            ),
+            'available_multi' => QrcodeResource::collection(
+                auth('api')->user()->qrcodes()->multiAssign()->get()
+            ),
+            'available_multi_count' => count(
+                QrcodeResource::collection(
+                    auth('api')->user()->qrcodes()->multiAssign()->get()
+                )
             ),
             'active' => QrcodeResource::collection(
                 auth('api')->user()->qrcodes()->registered()->get()
             ),
+            'active_count' => count(
+                QrcodeResource::collection(
+                    auth('api')->user()->qrcodes()->registered()->get()
+                )
+            ),
             'expired' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->registered()->get()
+                auth('api')->user()->qrcodes()->expired()->get()
+            ),
+            'expired_count' => count(
+                QrcodeResource::collection(
+                    auth('api')->user()->qrcodes()->expired()->get()
+                )
             )
         ]);
 

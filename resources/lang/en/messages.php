@@ -10,6 +10,7 @@ return [
 	'verified' => ':model verified successfully.',
 	'accepted' => ':model accepted successfully.',
 	'rejected' => ':model rejected successfully.',
+	'expired' => ':model is expired.',
 
 	'attributes' => [
 		'post' => 'Post',

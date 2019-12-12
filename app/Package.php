@@ -44,7 +44,7 @@ class Package extends Model
      */
     public function getPeriodAttribute($value)
     {
-        return $value . " ".trans("messages.attributes.days");
+        return $value . " Day/s";
     }
 
     public function getPriceAttribute($value)

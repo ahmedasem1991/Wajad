@@ -21,7 +21,7 @@ class PackageResource extends JsonResource
             'description' => $this->{'description_' . app()->getLocale()},
             'qrcodes_count' => $this->quantity,
             'price' => $this->getOriginal('price'),
-            'currency' => env('CURRENCY', 'SAR'),
+            'currency' => env('CURRENCY', 'USD'),
             'period' => $this->period,
             'type' => Package::Types[$this->type] ?? '',
             'incrementally' => (bool) $this->incrementally,

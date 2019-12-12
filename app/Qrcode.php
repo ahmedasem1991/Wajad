@@ -48,11 +48,13 @@ class Qrcode extends Model
         3 => 'Assigned To Corporate',
         4 => 'Registered',
         5 => 'Re-Registered',
+        6 => 'Expired',
         'In Stock' => 1,
         'Assigned To User' => 2,
         'Assigned To Corporate' => 3,
         'Registered' => 4,
         'Re-Registered' => 5,
+        'Expired' => 6,
     ];
     public function statusTitle($status)
     {
@@ -133,5 +135,13 @@ class Qrcode extends Model
     public function scopeRegistered($query)
     {
         return $query->where('status', 4);
+    }
+    public function scopeReRegistered($query)
+    {
+        return $query->where('status', 5);
+    }
+    public function scopeExpired($query)
+    {
+        return $query->where('status', 6);
     }
 }
