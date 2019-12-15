@@ -5,11 +5,27 @@ namespace App\Http\Controllers\Api;
 use App\Qrcode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group QR Codes
+ */
 class ReregisterQRCodeController extends Controller
 {
+    /**
+     * Reregister QR Code
+     * @urlParam qrcode_id required int exists in qrcodes
+     * @urlParam item_id required int exists in items
+     * @response 
+     * {
+     * "success": true,
+     * "message": "qrcode registered successfully.",
+     * "status_code": 200
+     *}
+     * @return void
+     */
     public function __invoke(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
@@ -26,6 +42,13 @@ class ReregisterQRCodeController extends Controller
 
         if ($QRCode->type != 2 && $QRCode->status != 4) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 404);
+        }
+
+        if (Carbon::now()->toDateTimeString() > $QRCode->end_at) {
+            $QRCode->update([
+                'status' => 6
+            ]);
+            throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 
         $QRCode->update([

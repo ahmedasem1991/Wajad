@@ -11,8 +11,23 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group QR Codes
+ */
 class RegisterQRCodeController extends Controller
 {
+    /**
+     * Register QR Code
+     * @urlParam qrcode_id required int exists in qrcodes
+     * @urlParam item_id required int exists in items    
+     * @response 
+     * {
+     * "success": true,
+     * "message": "qrcode registered successfully.",
+     * "status_code": 200
+     *}
+     * @return void
+     */
     public function __invoke(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
