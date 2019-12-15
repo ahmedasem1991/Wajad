@@ -41,7 +41,7 @@ class UpdateUserProfileController extends Controller
             'receive_emails' => ['required', 'boolean'],
             'receive_push_notifications' => ['required', 'boolean'],
             'default_distance_unit' => ['required', 'string', 'in:kilo,mile'],
-            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
+            'image' => ['sometimes', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
         ]);
 
         if ($validate_request->fails()) {

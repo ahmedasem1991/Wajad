@@ -20,8 +20,14 @@ class GenerateAndAssignQRCodeController extends Controller
 {
     /**
      * Generate & Assign QRcodes (after payment)
-     * @urlParam qrcode_id required int exists in qrcodes
+     * @bodyParam package_id int required exists in packages
+     * @bodyParam count int min:1
      * @response 
+     * {
+     * "success": true,
+     *"message": "qrcode created successfully.",
+     *"status_code": 200
+     *}
      * @return void
      */
     public function store(Request $request)
@@ -32,7 +38,7 @@ class GenerateAndAssignQRCodeController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addResponse($validate_request->errors())->first()->addStatusCode(400);
+            $this->addResponse($validate_request->errors()->first())->addStatusCode(400);
             return $this->response();
         }
         $i = 0;
@@ -79,7 +85,7 @@ class GenerateAndAssignQRCodeController extends Controller
                 'auth_id' => auth('api')->user()->id,
                 'user_id' => auth('api')->user()->id,
                 'corporate_id' => NULL,
-                'available_period' => str_replace(" days", "", $package->period),
+                'available_period' => str_replace(" Day/s", "", $package->period),
             ];
 
             GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);

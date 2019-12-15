@@ -88,7 +88,7 @@ curl -X POST \
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789","device_type":"deleniti"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"ipsa"}'
 
 ```
 
@@ -105,7 +105,7 @@ let headers = {
 let body = {
     "user": "00966236363256",
     "password": "123456789",
-    "device_type": "deleniti"
+    "device_type": "ipsa"
 }
 
 fetch(url, {
@@ -181,7 +181,7 @@ curl -X POST \
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"facere"}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"possimus"}'
 
 ```
 
@@ -200,7 +200,7 @@ let body = {
     "email": "api@wajad.com",
     "password": "123456789",
     "mobile_number": "123456789",
-    "device_type": "facere"
+    "device_type": "possimus"
 }
 
 fetch(url, {
@@ -258,7 +258,7 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=eius" \
+    "http://api.wajad.test/api/refreshToken?Old=modi" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -269,7 +269,7 @@ const url = new URL(
 );
 
 let params = {
-    "Old": "eius",
+    "Old": "modi",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -473,14 +473,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/sunt/1" \
+    -G "http://api.wajad.test/api/home/posts/sit/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/home/posts/sunt/1"
+    "http://api.wajad.test/api/home/posts/sit/1"
 );
 
 let headers = {
@@ -869,7 +869,7 @@ curl -X POST \
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"libero","details":"temporibus","color_id":"numquam","brand_id":"nihil","model_id":"ut","sub_category_id":"a"}'
+    -d '{"title":"vitae","details":"nemo","color_id":"dolor","brand_id":"quibusdam","model_id":"illo","sub_category_id":"sed"}'
 
 ```
 
@@ -884,12 +884,12 @@ let headers = {
 };
 
 let body = {
-    "title": "libero",
-    "details": "temporibus",
-    "color_id": "numquam",
-    "brand_id": "nihil",
-    "model_id": "ut",
-    "sub_category_id": "a"
+    "title": "vitae",
+    "details": "nemo",
+    "color_id": "dolor",
+    "brand_id": "quibusdam",
+    "model_id": "illo",
+    "sub_category_id": "sed"
 }
 
 fetch(url, {
@@ -1213,7 +1213,7 @@ curl -X POST \
     "http://api.wajad.test/api/request/1/accept" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":"impedit"}'
+    -d '{"user_id":"nihil"}'
 
 ```
 
@@ -1228,7 +1228,7 @@ let headers = {
 };
 
 let body = {
-    "user_id": "impedit"
+    "user_id": "nihil"
 }
 
 fetch(url, {
@@ -1479,7 +1479,7 @@ curl -X POST \
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"vel","image":"labore"}'
+    -d '{"details":"sunt","image":"rem"}'
 
 ```
 
@@ -1494,8 +1494,8 @@ let headers = {
 };
 
 let body = {
-    "details": "vel",
-    "image": "labore"
+    "details": "sunt",
+    "image": "rem"
 }
 
 fetch(url, {
@@ -1689,16 +1689,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/posts/add/aliquam" \
+    "http://api.wajad.test/api/posts/add/sed" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"modi","description":"ut","reward":"nulla","longitude":"sed","latitude":"optio","sub_category_id":20,"brand_id":17,"model_id":15,"color_id":19,"item_id":8,"city":"tempora","images":["exercitationem"],"questions":["quam"]}'
+    -d '{"title":"ducimus","description":"dolor","reward":"et","longitude":"consequatur","latitude":"similique","sub_category_id":4,"brand_id":8,"model_id":2,"color_id":8,"item_id":4,"city":"cumque","images":["qui"],"questions":["aut"]}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/posts/add/aliquam"
+    "http://api.wajad.test/api/posts/add/sed"
 );
 
 let headers = {
@@ -1707,22 +1707,22 @@ let headers = {
 };
 
 let body = {
-    "title": "modi",
-    "description": "ut",
-    "reward": "nulla",
-    "longitude": "sed",
-    "latitude": "optio",
-    "sub_category_id": 20,
-    "brand_id": 17,
-    "model_id": 15,
-    "color_id": 19,
-    "item_id": 8,
-    "city": "tempora",
+    "title": "ducimus",
+    "description": "dolor",
+    "reward": "et",
+    "longitude": "consequatur",
+    "latitude": "similique",
+    "sub_category_id": 4,
+    "brand_id": 8,
+    "model_id": 2,
+    "color_id": 8,
+    "item_id": 4,
+    "city": "cumque",
     "images": [
-        "exercitationem"
+        "qui"
     ],
     "questions": [
-        "quam"
+        "aut"
     ]
 }
 
@@ -1785,7 +1785,7 @@ curl -X POST \
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"velit","description":"error","status":"laudantium","reward":"recusandae","longitude":"omnis","latitude":"officia","sub_category_id":6,"brand_id":5,"model_id":14,"color_id":11,"item_id":12,"city":"doloribus","images":["labore"],"questions":["alias"]}'
+    -d '{"title":"quidem","description":"temporibus","status":"numquam","reward":"sed","longitude":"neque","latitude":"quae","sub_category_id":6,"brand_id":11,"model_id":11,"color_id":6,"item_id":8,"city":"ut","images":["ratione"],"questions":["rerum"]}'
 
 ```
 
@@ -1800,23 +1800,23 @@ let headers = {
 };
 
 let body = {
-    "title": "velit",
-    "description": "error",
-    "status": "laudantium",
-    "reward": "recusandae",
-    "longitude": "omnis",
-    "latitude": "officia",
+    "title": "quidem",
+    "description": "temporibus",
+    "status": "numquam",
+    "reward": "sed",
+    "longitude": "neque",
+    "latitude": "quae",
     "sub_category_id": 6,
-    "brand_id": 5,
-    "model_id": 14,
-    "color_id": 11,
-    "item_id": 12,
-    "city": "doloribus",
+    "brand_id": 11,
+    "model_id": 11,
+    "color_id": 6,
+    "item_id": 8,
+    "city": "ut",
     "images": [
-        "labore"
+        "ratione"
     ],
     "questions": [
-        "alias"
+        "rerum"
     ]
 }
 
@@ -2009,7 +2009,9 @@ fetch(url, {
 curl -X POST \
     "http://api.wajad.test/api/qrcodes/create" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"package_id":18,"count":9}'
+
 ```
 
 ```javascript
@@ -2022,9 +2024,15 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "package_id": 18,
+    "count": 9
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -2034,18 +2042,22 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{}
+{
+    "success": true,
+    "message": "qrcode created successfully.",
+    "status_code": 200
+}
 ```
 
 ### HTTP Request
 `POST api/qrcodes/create`
 
-#### URL Parameters
-
-Parameter | Status | Description
---------- | ------- | ------- | -------
-    `qrcode_id` |  required  | int exists in qrcodes
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `package_id` | integer |  required  | exists in packages
+        `count` | integer |  optional  | min:1
+    
 <!-- END_98a9f611f7c0880f849db435165db194 -->
 
 <!-- START_89167602b4f7090b5ae673647a46f9d9 -->
@@ -2650,7 +2662,7 @@ curl -X POST \
     "http://api.wajad.test/api/updateUserProfile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"1234","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"sed"}'
+    -d '{"name":"1234","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"odit"}'
 
 ```
 
@@ -2669,7 +2681,7 @@ let body = {
     "receive_emails": true,
     "receive_push_notifications": true,
     "default_distance_unit": "mile",
-    "image": "sed"
+    "image": "odit"
 }
 
 fetch(url, {
@@ -2716,7 +2728,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"voluptatem","new_password":"dolore","new_password_confirmation":"voluptas"}'
+    -d '{"old_password":"enim","new_password":"nihil","new_password_confirmation":"non"}'
 
 ```
 
@@ -2731,9 +2743,9 @@ let headers = {
 };
 
 let body = {
-    "old_password": "voluptatem",
-    "new_password": "dolore",
-    "new_password_confirmation": "voluptas"
+    "old_password": "enim",
+    "new_password": "nihil",
+    "new_password_confirmation": "non"
 }
 
 fetch(url, {
@@ -2778,7 +2790,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"dolores"}'
+    -d '{"mobile_number":"et"}'
 
 ```
 
@@ -2793,7 +2805,7 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "dolores"
+    "mobile_number": "et"
 }
 
 fetch(url, {
@@ -2954,428 +2966,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Nihil velit dolorem aperiam numquam et et accusantium.",
-            "description": "Natus dolor et voluptatum.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 2,
-            "name": "Dignissimos officia neque nisi aut sunt quasi.",
-            "description": "Nostrum qui animi eum earum omnis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 3,
-            "name": "Porro nesciunt rerum ut soluta.",
-            "description": "Eos expedita fugiat perspiciatis facilis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 4,
-            "name": "Magnam excepturi suscipit illo nihil unde sit rem.",
-            "description": "Repudiandae suscipit aut veritatis repellat error hic.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 5,
-            "name": "Recusandae molestiae sed voluptas quidem temporibus laudantium ipsam ducimus.",
-            "description": "Impedit soluta aperiam omnis ipsam odit excepturi harum.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 6,
-            "name": "Aspernatur incidunt quo quo qui commodi esse ad.",
-            "description": "Dolor et corrupti nam exercitationem ab non voluptatum saepe.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 7,
-            "name": "Illo exercitationem recusandae explicabo dolor.",
-            "description": "Quibusdam est voluptatem reiciendis adipisci expedita nemo.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 8,
-            "name": "Est autem sit repellendus nobis.",
-            "description": "Impedit voluptatem voluptas asperiores enim fugiat.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 9,
-            "name": "Qui esse hic illum autem assumenda.",
-            "description": "Odio non nisi voluptas eius velit cumque rerum.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 10,
-            "name": "Quos saepe odit et molestiae laudantium.",
-            "description": "Tempore perspiciatis id in.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 11,
-            "name": "Expedita facilis sed sunt tempore possimus consectetur dolore.",
-            "description": "Eum quibusdam quas quis numquam a deleniti explicabo.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 12,
-            "name": "Qui iure fugit iure aut voluptatibus qui exercitationem.",
-            "description": "Natus nostrum velit provident necessitatibus rem in nihil non.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 13,
-            "name": "Voluptas repellendus veniam sint delectus sed.",
-            "description": "Neque cum neque deleniti eos voluptas voluptas consequatur.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 14,
-            "name": "Nisi voluptatem ea ex consectetur cumque sapiente officia eum.",
-            "description": "Quia molestias iste eos.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 15,
-            "name": "Nihil voluptas voluptatum quo aut minima necessitatibus.",
-            "description": "Qui corporis tenetur rerum expedita ad.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 16,
-            "name": "Accusantium non qui maxime provident deserunt in.",
-            "description": "Aliquid est vero iste repellendus labore cumque ea.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 17,
-            "name": "Optio maiores officiis illum atque recusandae deserunt illum.",
-            "description": "Dolore omnis molestias nesciunt vel natus qui.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 18,
-            "name": "Odit assumenda assumenda aperiam nihil hic.",
-            "description": "Ab consequatur reprehenderit est et voluptatem tempore.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 19,
-            "name": "Eos et repudiandae placeat natus.",
-            "description": "Sit voluptate unde nam perferendis sit dolor placeat.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 20,
-            "name": "Quasi qui sed aut sed dicta.",
-            "description": "Accusamus eligendi optio cum quo sunt ut eaque eius.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 21,
-            "name": "Quis nihil quis autem consequatur.",
-            "description": "Nobis in dignissimos dolores corporis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 22,
-            "name": "Maxime provident aut qui.",
-            "description": "Quo dicta molestias laboriosam laborum.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 23,
-            "name": "Unde asperiores porro vero omnis est nam.",
-            "description": "Non saepe numquam rerum quibusdam qui et illo.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 24,
-            "name": "Sit omnis veritatis eos neque officiis quidem sint tempore.",
-            "description": "Inventore quasi corporis rerum voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 25,
-            "name": "Necessitatibus dignissimos corrupti perspiciatis aut delectus iusto perferendis.",
-            "description": "Itaque quia est illum praesentium consequuntur aliquid voluptate.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 26,
-            "name": "Fugiat architecto sint consectetur maxime.",
-            "description": "Quisquam nesciunt iure eligendi ipsum et quod placeat.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 27,
-            "name": "Sit modi qui expedita.",
-            "description": "Optio perspiciatis quod qui magni est.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 28,
-            "name": "Voluptas ut non voluptatem non quia qui est.",
-            "description": "Quia veniam fugit consectetur voluptatibus cumque animi est perferendis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 29,
-            "name": "Ducimus aut incidunt eligendi sit.",
-            "description": "Temporibus voluptas consequatur veritatis eligendi enim amet.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 30,
-            "name": "Cumque suscipit magni in est eos vel.",
-            "description": "Quidem incidunt officiis vel quae incidunt voluptas dolore.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 31,
-            "name": "Necessitatibus eum est quas harum culpa.",
-            "description": "Enim ut nam sit dolorum occaecati rerum aut.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 32,
-            "name": "Quis est rerum fuga nemo.",
-            "description": "Voluptatem est adipisci magnam inventore voluptas.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 33,
-            "name": "Earum cumque rerum alias et.",
-            "description": "Dolores consectetur dolorem voluptatem deserunt ipsa.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 34,
-            "name": "Et tempore voluptates et.",
-            "description": "Et dicta dolor est consequatur quis ut excepturi.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 35,
-            "name": "Similique et dolorum similique ullam.",
-            "description": "Voluptates sit explicabo quibusdam quo consequuntur tempore quia et.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 36,
-            "name": "Aut quia aliquam ut.",
-            "description": "Et est iusto autem molestiae illo iusto quaerat.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 37,
-            "name": "Dolor quod est aut.",
-            "description": "Dolore voluptatem id amet molestiae placeat accusamus.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 38,
-            "name": "Nihil sapiente consequatur deserunt officia eaque.",
-            "description": "Omnis assumenda nisi voluptate et et.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 39,
-            "name": "Qui quod reprehenderit et tempore non magnam.",
-            "description": "Magnam reiciendis quis architecto est quidem voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 40,
-            "name": "Consequatur ut ut quia est.",
-            "description": "Odit totam dolores reprehenderit et voluptatem fuga.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 41,
-            "name": "Eligendi assumenda sequi fugit praesentium tenetur.",
-            "description": "Dolorum culpa dolores ad facere.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 42,
-            "name": "Officiis sapiente rerum a porro ut omnis.",
-            "description": "Corporis fuga rem animi dolorum animi quia rem.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 43,
-            "name": "Voluptatem perspiciatis sint ipsam et commodi voluptatem doloremque.",
-            "description": "Sunt delectus nisi quidem autem esse blanditiis est hic.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 44,
-            "name": "Esse consequatur enim quam magni sint.",
-            "description": "Voluptatem perspiciatis nostrum omnis ullam aspernatur explicabo.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 45,
-            "name": "Adipisci sed ipsum rerum ut itaque eaque quasi.",
-            "description": "Quibusdam qui deserunt est porro et.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 46,
-            "name": "Ut veniam vel maxime nihil ut velit.",
-            "description": "Totam maxime facilis eius id consequatur tenetur.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 47,
-            "name": "Esse minima aut assumenda officiis natus eaque delectus.",
-            "description": "Eligendi in occaecati perferendis molestias nihil omnis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 48,
-            "name": "Ad magnam reiciendis molestiae dolores excepturi nostrum.",
-            "description": "Rerum quos cum enim esse.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 49,
-            "name": "In aliquid ipsum omnis quasi itaque.",
-            "description": "Necessitatibus deleniti nobis aliquam voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 50,
-            "name": "Amet ratione in quo enim.",
-            "description": "Enim reprehenderit saepe consequuntur sunt nihil optio.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 51,
-            "name": "Dolorem est eum asperiores sequi et possimus eius.",
-            "description": "Aut dicta non tenetur voluptatem consequatur nulla voluptatum.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 52,
-            "name": "Recusandae at optio aperiam nihil qui rerum cumque repellendus.",
-            "description": "Aliquam nesciunt molestiae ex quidem.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 53,
-            "name": "Libero et et nisi doloribus alias repellendus sed.",
-            "description": "Voluptate aperiam et eius labore maxime in.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 54,
-            "name": "Enim similique et deleniti error nihil qui.",
-            "description": "Molestias a magni cumque.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 55,
-            "name": "Adipisci doloremque quisquam in aliquam.",
-            "description": "Rerum sint rerum sed iure vel ullam aliquid.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 56,
-            "name": "Totam nisi dolorum dolorum vero fugiat rerum ratione.",
-            "description": "Quas optio iste enim dignissimos.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 57,
-            "name": "Illum nihil magni ut laborum est sunt.",
-            "description": "Earum ducimus hic culpa autem.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 58,
-            "name": "Doloribus omnis officiis sunt qui laborum ratione molestiae.",
-            "description": "Consequuntur et maxime consequatur ipsam in deserunt.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 59,
-            "name": "Accusantium facilis sequi vero commodi officiis nesciunt consequatur quis.",
-            "description": "Minus facilis delectus pariatur officiis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        },
-        {
-            "id": 60,
-            "name": "Quisquam quia veritatis deserunt eveniet ex praesentium.",
-            "description": "Voluptates qui asperiores perferendis.",
-            "image": "http:\/\/wajad.test\/default-icon.png",
-            "item_coount": 0
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -3415,17 +3006,11 @@ fetch(url, {
 ```
 
 
-> Example response (200):
+> Example response (404):
 
 ```json
 {
-    "data": {
-        "id": 1,
-        "name": "Nihil velit dolorem aperiam numquam et et accusantium.",
-        "description": "Natus dolor et voluptatum.",
-        "image": "http:\/\/wajad.test\/default-icon.png",
-        "item_coount": 0
-    }
+    "message": "No query results for model [App\\Category] 1"
 }
 ```
 
@@ -3469,368 +3054,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Doloremque enim id pariatur sed nostrum fugit atque deserunt.",
-            "description": "Dolores quae minus et eos error modi aut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 2,
-            "name": "Autem eos culpa sed et autem aliquam.",
-            "description": "Esse enim quasi at est incidunt.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 3,
-            "name": "Autem consequatur qui eaque nihil voluptatem rerum quidem.",
-            "description": "Explicabo doloremque dignissimos molestiae voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 4,
-            "name": "Dolorum libero repellat aut autem.",
-            "description": "Enim occaecati eum est et explicabo aut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 5,
-            "name": "Quia quibusdam quia odit sunt suscipit.",
-            "description": "Dolorem eligendi totam autem explicabo quidem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 6,
-            "name": "Soluta hic qui sunt maxime quia ut.",
-            "description": "Porro neque vitae sint et distinctio.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 7,
-            "name": "Sit sint enim possimus doloribus temporibus odit minus.",
-            "description": "Expedita nulla itaque consequatur sunt sed quam et odit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 8,
-            "name": "Voluptatum occaecati voluptas ducimus perspiciatis id amet.",
-            "description": "Est aut accusantium dolores.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 9,
-            "name": "Dolor veniam eius quod cum eligendi impedit laudantium.",
-            "description": "Sed ipsam voluptas illum aliquid placeat quibusdam porro.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 10,
-            "name": "Maxime est qui voluptatem quasi qui perspiciatis.",
-            "description": "Recusandae aut cupiditate molestiae iusto officiis sunt quis.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 11,
-            "name": "Minus nisi qui ut officiis qui nulla et.",
-            "description": "Veritatis dicta magnam qui velit laboriosam est.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 12,
-            "name": "Nam eos doloremque repellendus repellendus sunt.",
-            "description": "Rem perspiciatis et et vel dolores magnam cumque.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 13,
-            "name": "Magni impedit quam eligendi et.",
-            "description": "Voluptas est non est culpa quaerat.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 14,
-            "name": "Similique voluptas ex itaque ex illum ut.",
-            "description": "Laudantium vel minus quae id praesentium.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 15,
-            "name": "Ea repudiandae qui fugit ipsa id ad.",
-            "description": "Atque qui quia voluptates.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 16,
-            "name": "Est et delectus totam quia dolor consequuntur molestiae.",
-            "description": "Delectus voluptate fugiat nostrum sed sunt reprehenderit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 17,
-            "name": "Non modi officiis quidem nesciunt officiis consequuntur impedit.",
-            "description": "In vitae quis laboriosam quia quos laborum.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 18,
-            "name": "Qui neque perspiciatis necessitatibus eos et non adipisci cupiditate.",
-            "description": "Vitae enim amet at possimus est magnam ut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 19,
-            "name": "Aliquam cupiditate sapiente at molestias nihil omnis voluptas.",
-            "description": "Nobis est porro alias impedit inventore enim voluptas.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 20,
-            "name": "Culpa eum quae consequatur rerum qui omnis voluptas.",
-            "description": "Labore velit eius natus odit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 21,
-            "name": "Impedit tempore et totam quisquam consequuntur autem aut aut.",
-            "description": "Molestiae reprehenderit nam magnam porro mollitia voluptates temporibus.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 22,
-            "name": "Veritatis ut ab sequi natus.",
-            "description": "Odit autem deleniti sint et adipisci.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 23,
-            "name": "Qui nostrum corrupti amet voluptatem necessitatibus quasi facere.",
-            "description": "Neque ea illum repudiandae sequi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 24,
-            "name": "Ab est incidunt ut quibusdam tempore.",
-            "description": "Recusandae repellendus id sit saepe.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 25,
-            "name": "Nisi laboriosam voluptatem reprehenderit est assumenda.",
-            "description": "Est consectetur nostrum error quae provident.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 26,
-            "name": "Praesentium labore rem aliquam sint corrupti.",
-            "description": "Occaecati blanditiis amet ad facilis.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 27,
-            "name": "Non aut aut iure dignissimos perspiciatis explicabo dignissimos.",
-            "description": "Fugit qui consequatur officiis sapiente dolorem nihil.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 28,
-            "name": "Consequuntur ut voluptate dicta rerum quasi.",
-            "description": "Modi in facere qui illo.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 29,
-            "name": "Repellendus non commodi enim qui aut dolore.",
-            "description": "Fuga laborum nulla beatae ullam repellendus consequatur in.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 30,
-            "name": "Sunt enim voluptatibus asperiores.",
-            "description": "Rerum est rerum rerum eum nulla.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 31,
-            "name": "Rerum sapiente officiis maiores deleniti quam nobis qui et.",
-            "description": "Sit debitis veniam aut assumenda et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 32,
-            "name": "Laudantium facilis nihil fugiat dolorum et autem iste.",
-            "description": "Sint sit dolore non soluta perferendis odio.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 33,
-            "name": "Dolorem placeat odio provident.",
-            "description": "Cum et eveniet blanditiis non consectetur quidem atque.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 34,
-            "name": "Quidem quibusdam quos dolores tempore necessitatibus at totam.",
-            "description": "Iste explicabo qui deleniti tempora voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 35,
-            "name": "Beatae rerum quo error facere beatae qui.",
-            "description": "Ut accusamus recusandae deleniti sed.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 36,
-            "name": "Illum occaecati quis et soluta sit voluptatem.",
-            "description": "Est aut soluta in aperiam harum iste voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 37,
-            "name": "Debitis eaque non voluptate consequatur dolor cupiditate.",
-            "description": "Aliquid reiciendis sint quis est.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 38,
-            "name": "Enim perspiciatis omnis culpa quos facilis sed eum rem.",
-            "description": "Corrupti eveniet quod nostrum sint dolorem nulla.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 39,
-            "name": "Ex nostrum architecto quia hic numquam doloribus accusamus.",
-            "description": "Tempore distinctio quia praesentium voluptatibus quia eius totam et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 40,
-            "name": "Enim quod reiciendis modi repudiandae ad.",
-            "description": "Consequatur corporis aliquid voluptas et molestiae ducimus velit nam.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 41,
-            "name": "Est debitis voluptatem voluptatum omnis rem ut quia.",
-            "description": "Commodi rerum ea voluptatum nihil quasi voluptatem cupiditate.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 42,
-            "name": "Excepturi incidunt illum facilis et.",
-            "description": "Quibusdam nulla dignissimos quo.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 43,
-            "name": "Quia odio veniam qui aperiam voluptas porro.",
-            "description": "Velit illo libero molestiae quos.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 44,
-            "name": "Et aliquid voluptatibus molestiae soluta hic delectus suscipit.",
-            "description": "Libero nisi quo maiores rerum.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 45,
-            "name": "Excepturi ut minus quaerat fugiat placeat.",
-            "description": "Non earum aut perferendis tenetur facilis dolor.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 46,
-            "name": "Molestiae maiores provident ad doloremque et.",
-            "description": "Sint quisquam cumque cum illo.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 47,
-            "name": "Eligendi rerum sunt vel minus voluptas.",
-            "description": "Quisquam velit voluptatem aut nisi labore.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 48,
-            "name": "At ex nesciunt natus et quam ut labore consequuntur.",
-            "description": "Suscipit illum quis quaerat aperiam qui mollitia delectus et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 49,
-            "name": "Assumenda sit repellendus quia eligendi eligendi sit.",
-            "description": "Est officiis voluptatem rem dolor id nam et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 50,
-            "name": "Doloremque animi nihil et quam repellendus optio.",
-            "description": "Quae sed similique fuga sunt pariatur laborum.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 51,
-            "name": "Eveniet et inventore commodi vero praesentium laborum suscipit.",
-            "description": "Nihil eius impedit et voluptate.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 52,
-            "name": "Assumenda doloremque qui fugiat neque.",
-            "description": "Minima dolorum dolorem autem vitae consequuntur.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 53,
-            "name": "Deserunt doloribus molestiae voluptas qui earum ipsa.",
-            "description": "Ut est ut dolor et molestiae inventore sit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 54,
-            "name": "Placeat expedita laudantium minus culpa totam dolores laborum.",
-            "description": "Ipsam quae enim harum dolor vel iure.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 55,
-            "name": "Corrupti ratione perferendis veritatis dolorem voluptatem nihil.",
-            "description": "Officia nostrum ab autem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 56,
-            "name": "Voluptatum quaerat magni voluptatem est enim quaerat omnis.",
-            "description": "Occaecati nemo quam temporibus sunt dicta assumenda consequatur aliquid.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 57,
-            "name": "Est eaque quaerat eaque.",
-            "description": "Et nulla et laborum repudiandae nihil dolorem non.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 58,
-            "name": "Et voluptas qui vel ut.",
-            "description": "Doloribus laborum voluptatem non delectus iure excepturi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 59,
-            "name": "Dolorum et ducimus dolor ut cupiditate corrupti.",
-            "description": "Tempora ad aut quibusdam sequi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 60,
-            "name": "Distinctio numquam magnam sunt alias odit tenetur.",
-            "description": "Quo vel sed non hic dicta.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -3874,368 +3098,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Doloremque enim id pariatur sed nostrum fugit atque deserunt.",
-            "description": "Dolores quae minus et eos error modi aut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 2,
-            "name": "Autem eos culpa sed et autem aliquam.",
-            "description": "Esse enim quasi at est incidunt.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 3,
-            "name": "Autem consequatur qui eaque nihil voluptatem rerum quidem.",
-            "description": "Explicabo doloremque dignissimos molestiae voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 4,
-            "name": "Dolorum libero repellat aut autem.",
-            "description": "Enim occaecati eum est et explicabo aut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 5,
-            "name": "Quia quibusdam quia odit sunt suscipit.",
-            "description": "Dolorem eligendi totam autem explicabo quidem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 6,
-            "name": "Soluta hic qui sunt maxime quia ut.",
-            "description": "Porro neque vitae sint et distinctio.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 7,
-            "name": "Sit sint enim possimus doloribus temporibus odit minus.",
-            "description": "Expedita nulla itaque consequatur sunt sed quam et odit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 8,
-            "name": "Voluptatum occaecati voluptas ducimus perspiciatis id amet.",
-            "description": "Est aut accusantium dolores.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 9,
-            "name": "Dolor veniam eius quod cum eligendi impedit laudantium.",
-            "description": "Sed ipsam voluptas illum aliquid placeat quibusdam porro.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 10,
-            "name": "Maxime est qui voluptatem quasi qui perspiciatis.",
-            "description": "Recusandae aut cupiditate molestiae iusto officiis sunt quis.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 11,
-            "name": "Minus nisi qui ut officiis qui nulla et.",
-            "description": "Veritatis dicta magnam qui velit laboriosam est.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 12,
-            "name": "Nam eos doloremque repellendus repellendus sunt.",
-            "description": "Rem perspiciatis et et vel dolores magnam cumque.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 13,
-            "name": "Magni impedit quam eligendi et.",
-            "description": "Voluptas est non est culpa quaerat.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 14,
-            "name": "Similique voluptas ex itaque ex illum ut.",
-            "description": "Laudantium vel minus quae id praesentium.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 15,
-            "name": "Ea repudiandae qui fugit ipsa id ad.",
-            "description": "Atque qui quia voluptates.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 16,
-            "name": "Est et delectus totam quia dolor consequuntur molestiae.",
-            "description": "Delectus voluptate fugiat nostrum sed sunt reprehenderit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 17,
-            "name": "Non modi officiis quidem nesciunt officiis consequuntur impedit.",
-            "description": "In vitae quis laboriosam quia quos laborum.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 18,
-            "name": "Qui neque perspiciatis necessitatibus eos et non adipisci cupiditate.",
-            "description": "Vitae enim amet at possimus est magnam ut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 19,
-            "name": "Aliquam cupiditate sapiente at molestias nihil omnis voluptas.",
-            "description": "Nobis est porro alias impedit inventore enim voluptas.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 20,
-            "name": "Culpa eum quae consequatur rerum qui omnis voluptas.",
-            "description": "Labore velit eius natus odit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 21,
-            "name": "Impedit tempore et totam quisquam consequuntur autem aut aut.",
-            "description": "Molestiae reprehenderit nam magnam porro mollitia voluptates temporibus.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 22,
-            "name": "Veritatis ut ab sequi natus.",
-            "description": "Odit autem deleniti sint et adipisci.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 23,
-            "name": "Qui nostrum corrupti amet voluptatem necessitatibus quasi facere.",
-            "description": "Neque ea illum repudiandae sequi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 24,
-            "name": "Ab est incidunt ut quibusdam tempore.",
-            "description": "Recusandae repellendus id sit saepe.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 25,
-            "name": "Nisi laboriosam voluptatem reprehenderit est assumenda.",
-            "description": "Est consectetur nostrum error quae provident.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 26,
-            "name": "Praesentium labore rem aliquam sint corrupti.",
-            "description": "Occaecati blanditiis amet ad facilis.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 27,
-            "name": "Non aut aut iure dignissimos perspiciatis explicabo dignissimos.",
-            "description": "Fugit qui consequatur officiis sapiente dolorem nihil.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 28,
-            "name": "Consequuntur ut voluptate dicta rerum quasi.",
-            "description": "Modi in facere qui illo.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 29,
-            "name": "Repellendus non commodi enim qui aut dolore.",
-            "description": "Fuga laborum nulla beatae ullam repellendus consequatur in.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 30,
-            "name": "Sunt enim voluptatibus asperiores.",
-            "description": "Rerum est rerum rerum eum nulla.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 31,
-            "name": "Rerum sapiente officiis maiores deleniti quam nobis qui et.",
-            "description": "Sit debitis veniam aut assumenda et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 32,
-            "name": "Laudantium facilis nihil fugiat dolorum et autem iste.",
-            "description": "Sint sit dolore non soluta perferendis odio.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 33,
-            "name": "Dolorem placeat odio provident.",
-            "description": "Cum et eveniet blanditiis non consectetur quidem atque.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 34,
-            "name": "Quidem quibusdam quos dolores tempore necessitatibus at totam.",
-            "description": "Iste explicabo qui deleniti tempora voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 35,
-            "name": "Beatae rerum quo error facere beatae qui.",
-            "description": "Ut accusamus recusandae deleniti sed.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 36,
-            "name": "Illum occaecati quis et soluta sit voluptatem.",
-            "description": "Est aut soluta in aperiam harum iste voluptatem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 37,
-            "name": "Debitis eaque non voluptate consequatur dolor cupiditate.",
-            "description": "Aliquid reiciendis sint quis est.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 38,
-            "name": "Enim perspiciatis omnis culpa quos facilis sed eum rem.",
-            "description": "Corrupti eveniet quod nostrum sint dolorem nulla.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 39,
-            "name": "Ex nostrum architecto quia hic numquam doloribus accusamus.",
-            "description": "Tempore distinctio quia praesentium voluptatibus quia eius totam et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 40,
-            "name": "Enim quod reiciendis modi repudiandae ad.",
-            "description": "Consequatur corporis aliquid voluptas et molestiae ducimus velit nam.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 41,
-            "name": "Est debitis voluptatem voluptatum omnis rem ut quia.",
-            "description": "Commodi rerum ea voluptatum nihil quasi voluptatem cupiditate.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 42,
-            "name": "Excepturi incidunt illum facilis et.",
-            "description": "Quibusdam nulla dignissimos quo.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 43,
-            "name": "Quia odio veniam qui aperiam voluptas porro.",
-            "description": "Velit illo libero molestiae quos.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 44,
-            "name": "Et aliquid voluptatibus molestiae soluta hic delectus suscipit.",
-            "description": "Libero nisi quo maiores rerum.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 45,
-            "name": "Excepturi ut minus quaerat fugiat placeat.",
-            "description": "Non earum aut perferendis tenetur facilis dolor.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 46,
-            "name": "Molestiae maiores provident ad doloremque et.",
-            "description": "Sint quisquam cumque cum illo.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 47,
-            "name": "Eligendi rerum sunt vel minus voluptas.",
-            "description": "Quisquam velit voluptatem aut nisi labore.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 48,
-            "name": "At ex nesciunt natus et quam ut labore consequuntur.",
-            "description": "Suscipit illum quis quaerat aperiam qui mollitia delectus et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 49,
-            "name": "Assumenda sit repellendus quia eligendi eligendi sit.",
-            "description": "Est officiis voluptatem rem dolor id nam et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 50,
-            "name": "Doloremque animi nihil et quam repellendus optio.",
-            "description": "Quae sed similique fuga sunt pariatur laborum.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 51,
-            "name": "Eveniet et inventore commodi vero praesentium laborum suscipit.",
-            "description": "Nihil eius impedit et voluptate.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 52,
-            "name": "Assumenda doloremque qui fugiat neque.",
-            "description": "Minima dolorum dolorem autem vitae consequuntur.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 53,
-            "name": "Deserunt doloribus molestiae voluptas qui earum ipsa.",
-            "description": "Ut est ut dolor et molestiae inventore sit.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 54,
-            "name": "Placeat expedita laudantium minus culpa totam dolores laborum.",
-            "description": "Ipsam quae enim harum dolor vel iure.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 55,
-            "name": "Corrupti ratione perferendis veritatis dolorem voluptatem nihil.",
-            "description": "Officia nostrum ab autem.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 56,
-            "name": "Voluptatum quaerat magni voluptatem est enim quaerat omnis.",
-            "description": "Occaecati nemo quam temporibus sunt dicta assumenda consequatur aliquid.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 57,
-            "name": "Est eaque quaerat eaque.",
-            "description": "Et nulla et laborum repudiandae nihil dolorem non.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 58,
-            "name": "Et voluptas qui vel ut.",
-            "description": "Doloribus laborum voluptatem non delectus iure excepturi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 59,
-            "name": "Dolorum et ducimus dolor ut cupiditate corrupti.",
-            "description": "Tempora ad aut quibusdam sequi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 60,
-            "name": "Distinctio numquam magnam sunt alias odit tenetur.",
-            "description": "Quo vel sed non hic dicta.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -4279,188 +3142,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Similique quos optio tenetur vero qui.",
-            "description": "Qui nihil distinctio aut cum eos nobis eos.",
-            "image": "http:\/\/wajad.test\/\/tmp\/9df7a75ab1c3f7e9d7d098d13834cddf.jpg"
-        },
-        {
-            "id": 2,
-            "name": "Consectetur aliquam quasi illo vero doloremque et.",
-            "description": "Minima dicta corporis similique et quod.",
-            "image": "http:\/\/wajad.test\/\/tmp\/f11d59773e7ba983c8ee08c3997269e8.jpg"
-        },
-        {
-            "id": 3,
-            "name": "Laborum qui nemo provident est eaque vitae.",
-            "description": "Quos quae dicta exercitationem in quia.",
-            "image": "http:\/\/wajad.test\/\/tmp\/2f887f3750f9e062c374e3116c2b38b9.jpg"
-        },
-        {
-            "id": 4,
-            "name": "Provident odit aut molestiae est porro eum minima.",
-            "description": "Rerum debitis eveniet ut quia assumenda.",
-            "image": "http:\/\/wajad.test\/\/tmp\/9505eaedf5c2d4902f124db904a61eb2.jpg"
-        },
-        {
-            "id": 5,
-            "name": "Ea earum error tempore eos a.",
-            "description": "Nihil incidunt eum et quidem consequatur suscipit ullam dicta.",
-            "image": "http:\/\/wajad.test\/\/tmp\/d186d3d41415a692aa5b488924f860ad.jpg"
-        },
-        {
-            "id": 6,
-            "name": "Facilis quis ab qui in et perferendis.",
-            "description": "Magni exercitationem magnam aut explicabo corrupti soluta.",
-            "image": "http:\/\/wajad.test\/\/tmp\/a6b25b2f0692fa697aadf698b01b97e3.jpg"
-        },
-        {
-            "id": 7,
-            "name": "Consequuntur aut sequi aspernatur nisi nesciunt accusantium.",
-            "description": "Repudiandae ipsum iste quia deserunt unde a.",
-            "image": "http:\/\/wajad.test\/\/tmp\/18a0d1b3ff77662e2b77540abc54fe9b.jpg"
-        },
-        {
-            "id": 8,
-            "name": "Laudantium doloribus fuga tenetur natus.",
-            "description": "Velit quibusdam veniam qui magnam.",
-            "image": "http:\/\/wajad.test\/\/tmp\/5bbfe2062c662f06d1fb02ad4717adb4.jpg"
-        },
-        {
-            "id": 9,
-            "name": "Velit dolores omnis repudiandae odio et harum voluptatem voluptatibus.",
-            "description": "Et quidem reprehenderit ipsum repudiandae reprehenderit.",
-            "image": "http:\/\/wajad.test\/\/tmp\/d53bf7c2a66b765be6c9c3bae0dce469.jpg"
-        },
-        {
-            "id": 10,
-            "name": "Ullam odio similique earum aut et quos voluptatem.",
-            "description": "Iusto magni nesciunt sit.",
-            "image": "http:\/\/wajad.test\/\/tmp\/d2c94a2573bb28c12e0719c3cb3bc68e.jpg"
-        },
-        {
-            "id": 11,
-            "name": "Molestias commodi doloribus doloremque non.",
-            "description": "Rerum rem quos dolor similique qui illum.",
-            "image": "http:\/\/wajad.test\/\/tmp\/9557a1d90df4da3df19c43437a19e8de.jpg"
-        },
-        {
-            "id": 12,
-            "name": "Ut accusantium est sunt non magni debitis est.",
-            "description": "Iure expedita enim laudantium eveniet et consequatur sed voluptatem.",
-            "image": "http:\/\/wajad.test\/\/tmp\/f7b0dc8f3c931272c2f50fa6af52a106.jpg"
-        },
-        {
-            "id": 13,
-            "name": "Mollitia sit sit inventore dolor voluptatem ducimus qui impedit.",
-            "description": "Exercitationem unde blanditiis possimus repellendus a.",
-            "image": "http:\/\/wajad.test\/\/tmp\/f9a57cbbb78400aa38d60fa94759e009.jpg"
-        },
-        {
-            "id": 14,
-            "name": "Velit aut ut maxime enim deleniti.",
-            "description": "Ut excepturi sint assumenda sapiente molestias ea.",
-            "image": "http:\/\/wajad.test\/\/tmp\/548dec61287cb6dba5d0168266a9f5e7.jpg"
-        },
-        {
-            "id": 15,
-            "name": "Nesciunt ab ut amet quaerat non excepturi.",
-            "description": "Doloremque inventore iusto enim omnis.",
-            "image": "http:\/\/wajad.test\/\/tmp\/52691074506b1e12899dc0296209b8cc.jpg"
-        },
-        {
-            "id": 16,
-            "name": "Tenetur qui voluptate in dignissimos repellendus neque.",
-            "description": "Natus accusantium laborum omnis quidem rerum minus.",
-            "image": "http:\/\/wajad.test\/\/tmp\/421127189bbcc4df275a1e0f0dd25038.jpg"
-        },
-        {
-            "id": 17,
-            "name": "Exercitationem quia dignissimos aut et aut amet magnam.",
-            "description": "Voluptatem magni ad qui ducimus.",
-            "image": "http:\/\/wajad.test\/\/tmp\/87e58f0adb40fc3f7d7a7d5dcb8fa7f4.jpg"
-        },
-        {
-            "id": 18,
-            "name": "Non aut ullam temporibus beatae quasi velit et.",
-            "description": "Nemo optio ut voluptates amet et voluptate quia.",
-            "image": "http:\/\/wajad.test\/\/tmp\/9bb3e6f812d41200cb4086c152bb2f6e.jpg"
-        },
-        {
-            "id": 19,
-            "name": "Rem eos qui ut sint labore.",
-            "description": "Rerum explicabo vel minus deleniti qui.",
-            "image": "http:\/\/wajad.test\/\/tmp\/53d958648629c22a0b2b5812d5adafab.jpg"
-        },
-        {
-            "id": 20,
-            "name": "Molestiae est aut ut quasi itaque doloremque exercitationem.",
-            "description": "Consequuntur ab qui possimus culpa non quo possimus.",
-            "image": "http:\/\/wajad.test\/\/tmp\/f9e41e2d4df47732e07eada55ec7673a.jpg"
-        },
-        {
-            "id": 21,
-            "name": "Quas cupiditate sit sint.",
-            "description": "Quasi nihil doloribus delectus blanditiis id illo ullam.",
-            "image": "http:\/\/wajad.test\/\/tmp\/0770faf8cbdbfef3fe74838884879587.jpg"
-        },
-        {
-            "id": 22,
-            "name": "Incidunt quae eos voluptatibus dolorum quos magni saepe.",
-            "description": "Odio expedita nulla est optio quia.",
-            "image": "http:\/\/wajad.test\/\/tmp\/6da786d8097c83d164aedfb3d06892d9.jpg"
-        },
-        {
-            "id": 23,
-            "name": "Consequatur amet voluptas ipsa.",
-            "description": "Distinctio enim dolorem ipsa qui veniam quasi nihil ipsum.",
-            "image": "http:\/\/wajad.test\/\/tmp\/dfe7633267f4c2d8e607b0b64286182c.jpg"
-        },
-        {
-            "id": 24,
-            "name": "Reiciendis nulla quidem rerum numquam aliquam quae nam.",
-            "description": "Fugiat quaerat illum et error non temporibus vel.",
-            "image": "http:\/\/wajad.test\/\/tmp\/a50bfdf2a9da0ea792f92f8a9e743159.jpg"
-        },
-        {
-            "id": 25,
-            "name": "Blanditiis a eos quia enim ut.",
-            "description": "Id delectus velit aperiam ex ducimus laudantium nemo.",
-            "image": "http:\/\/wajad.test\/\/tmp\/4b3c30a79251ee5018f02153289cf4e7.jpg"
-        },
-        {
-            "id": 26,
-            "name": "Officia delectus iusto et fugit architecto est et voluptas.",
-            "description": "Et incidunt asperiores expedita saepe quos fugiat.",
-            "image": "http:\/\/wajad.test\/\/tmp\/3c9651d2eff53e55597a4a3a7fd64382.jpg"
-        },
-        {
-            "id": 27,
-            "name": "Odit suscipit corporis laboriosam sed.",
-            "description": "Error culpa sed aperiam dolorem natus.",
-            "image": "http:\/\/wajad.test\/\/tmp\/317d428f06cbe41b65935f71e5b41cff.jpg"
-        },
-        {
-            "id": 28,
-            "name": "Qui omnis eligendi eveniet ratione quia minima.",
-            "description": "Et nam labore et nostrum quisquam nam.",
-            "image": "http:\/\/wajad.test\/\/tmp\/9a979699cedbb0ade73314ad5e03f133.jpg"
-        },
-        {
-            "id": 29,
-            "name": "Et et accusamus iste quo.",
-            "description": "Consequatur earum numquam sed aut.",
-            "image": "http:\/\/wajad.test\/\/tmp\/30bf197b41004bb8e2d3cd1663997ee3.jpg"
-        },
-        {
-            "id": 30,
-            "name": "Veniam cum qui laborum est explicabo voluptatum.",
-            "description": "Error molestiae rem dolorem optio.",
-            "image": "http:\/\/wajad.test\/\/tmp\/9af8abc94d49e6b5d92fbfa9e5c4b284.jpg"
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -4504,188 +3186,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Hic enim sint et ad consequuntur culpa id.",
-            "description": "Molestias aut et illo quis fugiat velit consectetur.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 2,
-            "name": "Minima autem est officiis ea.",
-            "description": "Sint sunt natus at voluptatum aspernatur at.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 3,
-            "name": "Consequatur est in iure quod ipsum sed unde quam.",
-            "description": "Qui quo et et libero doloremque et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 4,
-            "name": "Amet facilis voluptate consequatur.",
-            "description": "Et dolore quo porro ex ipsa quia officiis.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 5,
-            "name": "Et et aut doloribus fugit sit et quis.",
-            "description": "Natus temporibus praesentium qui similique qui at ut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 6,
-            "name": "Reiciendis soluta accusantium laudantium aperiam.",
-            "description": "Magnam id quia ad aut voluptatum voluptatibus.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 7,
-            "name": "Quod ut perspiciatis rerum necessitatibus vel suscipit qui.",
-            "description": "Sint et quos et nesciunt ipsam.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 8,
-            "name": "Nam ut ut consequatur est.",
-            "description": "Enim minima quaerat illum aliquid distinctio.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 9,
-            "name": "Asperiores qui voluptate et sed quis.",
-            "description": "Officia odit fuga et mollitia officia et provident.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 10,
-            "name": "Illo dolores soluta tempore quod veniam earum animi.",
-            "description": "Labore sint et adipisci labore repudiandae est id.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 11,
-            "name": "Rerum reiciendis delectus quia rerum quae ipsa.",
-            "description": "Ea et ratione est voluptas soluta.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 12,
-            "name": "Id assumenda nemo est consequatur.",
-            "description": "Quaerat voluptas numquam et aut laboriosam nesciunt.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 13,
-            "name": "Dolores assumenda aperiam nam maxime sunt est.",
-            "description": "Dolorem earum reiciendis minus.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 14,
-            "name": "Aut velit veritatis ut ipsum.",
-            "description": "Cumque facilis reprehenderit quidem adipisci sed.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 15,
-            "name": "Qui voluptatum maiores similique amet accusamus vero non.",
-            "description": "Numquam ad in incidunt quisquam et.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 16,
-            "name": "Ut occaecati eum ab et assumenda.",
-            "description": "Ea rerum culpa id.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 17,
-            "name": "Tempore suscipit voluptates quae dolor dolorem.",
-            "description": "Et aut voluptates nihil.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 18,
-            "name": "Aut eius velit omnis nam ipsa.",
-            "description": "Nulla alias odit nihil unde dolor velit expedita.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 19,
-            "name": "Consequuntur veniam dolorem consequatur aut dolor est amet.",
-            "description": "Id molestiae explicabo optio magni perspiciatis beatae doloremque.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 20,
-            "name": "Nobis sit voluptas quia quia aperiam eligendi ea.",
-            "description": "Et voluptatum incidunt quis cumque aspernatur in.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 21,
-            "name": "Ratione ab nam facere.",
-            "description": "Facilis error adipisci nihil eum est accusamus molestiae optio.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 22,
-            "name": "Dicta aliquid et itaque sunt cupiditate praesentium nihil a.",
-            "description": "Voluptatem suscipit ut qui quos.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 23,
-            "name": "Aliquid labore qui non illum.",
-            "description": "Eligendi praesentium inventore tenetur officia.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 24,
-            "name": "Sed at cumque reiciendis fugiat.",
-            "description": "Itaque quos occaecati eligendi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 25,
-            "name": "Omnis nulla ut modi modi repellat et nesciunt.",
-            "description": "Ducimus ut quia odit vitae voluptas quo dolores dicta.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 26,
-            "name": "Vel veritatis voluptatum et nemo repellendus quaerat et.",
-            "description": "Voluptatibus natus quo ad.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 27,
-            "name": "Voluptatem rerum id repudiandae omnis corrupti.",
-            "description": "Omnis sapiente soluta fugit est occaecati mollitia nisi.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 28,
-            "name": "Eligendi repudiandae architecto ratione mollitia quos.",
-            "description": "Odit dolore tempora ducimus nihil et accusantium.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 29,
-            "name": "Quam vero repudiandae voluptas itaque.",
-            "description": "Vitae repellat doloribus nam consectetur voluptas.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        },
-        {
-            "id": 30,
-            "name": "Voluptatem non nostrum dolores rerum.",
-            "description": "Consequatur suscipit voluptate culpa ut.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -4729,14 +3230,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Hic enim sint et ad consequuntur culpa id.",
-            "description": "Molestias aut et illo quis fugiat velit consectetur.",
-            "image": "http:\/\/wajad.test\/default-icon.png"
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -4871,52 +3365,52 @@ fetch(url, {
     "data": [
         {
             "id": 1,
-            "name": "Maxime neque ipsum nulla mollitia fugit.",
-            "details": "Ea dolores quia ratione ullam minus. Nisi omnis magnam in ullam non aut. Enim iure dolorum labore enim delectus. Perferendis vero est deserunt sunt. Mollitia voluptate qui animi perferendis eum. Necessitatibus velit labore distinctio. Dolore harum dolorem praesentium ex in. Eveniet sint aut aliquid optio. Iusto vero officia quia quo dicta. At delectus nobis dolor velit ullam possimus. Porro ipsam et sed accusamus. Laborum exercitationem consequatur aut qui et provident. Ut aut dolores occaecati fuga. Delectus ullam quam nemo in voluptatem repellendus amet laborum. Enim accusantium odio possimus repudiandae doloremque quos. Qui debitis modi dolorem voluptatibus impedit nostrum eum. Aut voluptatum architecto adipisci dolores. Aliquam optio expedita aut. Nisi voluptatum unde ea sapiente enim maxime aliquid.",
-            "address": "Hic odio eius ut consequatur distinctio quia voluptatem. Quia odio fugit qui earum et. Vel eum est est. Nihil vel consequuntur corporis neque exercitationem.",
+            "name": "Neque ab saepe error repudiandae optio.",
+            "details": "Et ex perferendis illum dolores et doloribus asperiores cum. Modi consequatur qui et sed omnis voluptate qui doloribus. Velit ut autem pariatur temporibus dolores est ab. Minima ratione qui eveniet voluptas eaque quis veritatis. Rerum qui praesentium quidem dolorem. Quam sunt reiciendis id earum beatae illo. Aspernatur aut voluptatem beatae velit. Nam facilis animi voluptatibus fugit et dolorem in. Non ipsum minus qui aut reprehenderit fuga temporibus accusantium. Sit harum quia maxime animi nam. Et quam est quisquam. Est quae sit voluptate deserunt omnis consequuntur aut et. Aut suscipit odit qui sapiente ab iure.",
+            "address": "Soluta impedit quidem non exercitationem. Qui quasi ut voluptatem itaque maiores et molestiae. Ut quia nostrum quia sapiente totam. Repellat non voluptates adipisci expedita exercitationem.",
             "image": "default.png",
-            "latitude": 29.042175,
-            "longitude": -20.813012,
+            "latitude": -59.138247,
+            "longitude": -55.540778,
             "status": 1
         },
         {
             "id": 2,
-            "name": "Voluptatem maxime aliquid reprehenderit.",
-            "details": "Rem dolores in in tempore asperiores ipsum. Magnam ab porro ducimus fugit delectus laudantium iusto. Delectus asperiores et rerum explicabo pariatur doloremque voluptatibus voluptates. Molestiae animi dolore repudiandae. Aliquam eius voluptatum aliquam unde ut recusandae rerum. Cumque libero vero qui ab enim. Magnam quae quae et sunt placeat. Autem blanditiis dolor et nihil. Veniam maxime qui alias nam. Eum facere mollitia totam atque dolorem a. Molestiae est necessitatibus sit eveniet. Esse est omnis ut maiores ex labore. Voluptatum corrupti repellat quia qui rerum expedita. Nostrum quasi et est in magnam assumenda quasi. Eum possimus voluptas quia delectus est aut. Alias minima provident repudiandae quia. Non cumque est et eum neque tempora vel.",
-            "address": "Officia velit reiciendis distinctio officia possimus. Tempore tenetur rerum quisquam sequi. Necessitatibus in et aut amet impedit qui.",
+            "name": "Quam accusantium labore unde saepe vel consectetur.",
+            "details": "Cumque asperiores minima sunt inventore id expedita. Nihil minus ut dolore iste nulla aut voluptas. Nisi modi omnis hic sit voluptas magnam. Dolor impedit dolore dolores dignissimos alias eum quia. Dicta minus minus ex. Quia minima non dignissimos tempora rerum enim. Nemo aut est pariatur commodi et et corporis ea. Ducimus inventore rerum sint est officia. Aspernatur porro sint id in suscipit. Dignissimos ipsum nesciunt perspiciatis commodi unde accusantium.",
+            "address": "Id officiis dolorem quia quibusdam. Aspernatur molestias sed aut aut nostrum. Corrupti laudantium est sit doloribus quia tenetur.",
             "image": "default.png",
-            "latitude": 58.410228,
-            "longitude": -147.463923,
+            "latitude": -80.085387,
+            "longitude": 114.780027,
             "status": 1
         },
         {
             "id": 3,
-            "name": "Non consequatur modi fugit deleniti.",
-            "details": "Placeat reiciendis quia recusandae consequatur mollitia at voluptatibus. Animi saepe atque quaerat perferendis quaerat. Excepturi nihil consequatur natus eum harum tenetur doloribus. Nisi fuga nostrum qui est ut omnis asperiores. Laboriosam nihil voluptate minima consectetur magni. Dolores deleniti ut qui minus atque optio ut. Perspiciatis ullam quia expedita. Facilis vero sit delectus eveniet nihil. Eos sequi quaerat aut aut est vel nihil. Sed sed omnis non nesciunt ab illo. Aut dolor consequatur recusandae quibusdam sit laboriosam architecto fuga. Assumenda doloribus veniam dolorum est beatae. Aut dolor mollitia est iure deleniti voluptates. Aperiam libero quis ut blanditiis eos illo aut. Ducimus et debitis est animi aspernatur necessitatibus qui. Voluptatem consectetur vitae expedita mollitia eum et mollitia. Id alias aut et nesciunt et porro.",
-            "address": "Eos amet modi et. Voluptas itaque aut veniam aliquid. Odit asperiores corporis consequatur commodi repudiandae et ullam soluta.",
+            "name": "Eligendi at atque fugit expedita sit voluptas quis.",
+            "details": "Id ad maxime delectus porro est. Quos cum dolores expedita aut eveniet. Repudiandae porro cupiditate quaerat iure autem est omnis et. Sit in quia consequuntur eveniet. Laudantium neque nam odio nam qui. Dolorem veritatis accusantium rerum ipsa. Provident nobis molestiae quae eum voluptas illum. Modi cumque molestias et fugiat eaque minus. Et velit consequatur dolorum repudiandae accusantium sequi perferendis quia. Non quia esse amet velit pariatur necessitatibus. Quam libero nobis saepe error. Veritatis dolores et eveniet et ut aut. Itaque odio tempore facilis officia iste sed. Quis aut at illo ad. Et omnis dicta possimus. Placeat et deleniti amet molestiae. Eos est voluptate alias tenetur beatae et facere. Deleniti quia perferendis culpa omnis eos assumenda. Rem aperiam praesentium tenetur culpa magnam. Nemo ratione dolor dolor et incidunt. Laboriosam corporis id quo vero laborum quae omnis.",
+            "address": "Doloremque alias sit distinctio ad nihil et adipisci. Distinctio voluptatem et veniam voluptate. Eum aspernatur aspernatur eos quam veritatis autem est dignissimos.",
             "image": "default.png",
-            "latitude": 1.565126,
-            "longitude": -72.467382,
+            "latitude": 35.249746,
+            "longitude": 121.770136,
             "status": 1
         },
         {
             "id": 4,
-            "name": "Accusantium suscipit mollitia ratione voluptatibus soluta aperiam est.",
-            "details": "Soluta voluptate aperiam voluptatem dolor. Deleniti fuga fugiat consequatur impedit. Quos quisquam quia omnis enim quibusdam. Aut ut quam quas fuga temporibus. Eum sed illo corporis quis. Nulla est voluptatum quod explicabo qui corporis veniam. Ut aliquam voluptatem ut omnis et. Similique voluptatibus eveniet dolor incidunt velit ut voluptatibus optio. Omnis quos est optio accusantium. Doloribus officiis temporibus quidem hic. Dolor voluptas minus sint quia minima sint harum. Sed repellendus sint qui sed in corporis corrupti. Et est aut neque et optio hic. Corrupti aspernatur tenetur porro quaerat. Voluptatem amet nemo sed ipsam perspiciatis. Cumque praesentium est sit optio. Nostrum possimus vel sequi. Assumenda numquam exercitationem nulla sapiente.",
-            "address": "Ratione ut eius non impedit blanditiis itaque nisi. Quia amet illo pariatur. Suscipit adipisci rem qui perspiciatis est quae voluptas. Hic ullam quo quo quasi quidem illo optio.",
+            "name": "Aliquam ut eius sunt blanditiis eligendi repellendus.",
+            "details": "Esse voluptate autem et consequatur tempora. Illum tempore modi et et. Earum repellendus eius doloremque. Saepe tempore corporis harum et cum. Unde esse facilis consequatur dolores quia veritatis voluptas. Ex possimus qui nesciunt eius quibusdam dolores et. Quia totam minima et. Deserunt dicta voluptas ipsum distinctio repellendus. Dolores beatae nihil porro voluptate itaque voluptate et. Totam accusamus non consequatur dicta minima. Voluptate autem voluptas qui eaque suscipit qui. Nihil natus minima sint totam dolorum sint.",
+            "address": "Qui incidunt quaerat voluptatem aut necessitatibus. Praesentium sit laborum quia accusantium eaque saepe vel aut. Sit consectetur vero maxime quos sunt. Qui consequuntur sit doloremque.",
             "image": "default.png",
-            "latitude": 88.891035,
-            "longitude": -119.519649,
+            "latitude": 45.720536,
+            "longitude": 78.00397,
             "status": 1
         },
         {
             "id": 5,
-            "name": "Perferendis temporibus veritatis deleniti doloribus repellat.",
-            "details": "Repudiandae asperiores fugit et aut iure. Aspernatur inventore dolores omnis delectus perspiciatis qui. Nemo numquam ea rem harum totam sed. Fugit vel nam sed. Quia quia qui explicabo. Voluptates libero aut rem. Similique quibusdam laborum excepturi incidunt ad ea nemo architecto. Dolor eaque porro unde tempore recusandae assumenda. Sint omnis ipsum voluptate magnam corporis distinctio. Enim libero sint voluptatem ullam. Autem in blanditiis aut cumque nesciunt labore ut. Blanditiis et omnis assumenda praesentium sed consequuntur aliquam. Fugiat numquam aspernatur numquam dignissimos sit. Voluptatem sint cupiditate totam qui odio accusantium nulla. Ab aut quidem quas sint quae. Iste quia sint aut distinctio qui qui. Ut omnis aperiam velit commodi suscipit nostrum architecto. Consectetur et ut ducimus eligendi nesciunt. Modi et error ea eos.",
-            "address": "Accusamus enim at iure dolore ex. Quo et suscipit error aliquam. Veniam sit in vel sit.",
+            "name": "Libero illum placeat omnis.",
+            "details": "Praesentium quia ipsam sapiente cum accusamus. Quia earum fugiat a voluptatem. Facere voluptatum fugiat est necessitatibus repudiandae et. A atque distinctio rerum voluptatem fugit. Ut ipsum atque consequuntur enim corrupti autem. Aut repellendus velit sed rerum. Alias eaque eos est recusandae corrupti sunt. Accusantium id ullam eligendi ducimus rem esse. Sit dolores animi vel ea est illo. Repudiandae vitae et quia. Eveniet vel dolores nobis praesentium pariatur ullam laborum. Quas aut aut id rerum fugiat ut qui. Culpa magnam itaque est. Nemo consectetur eligendi ex id ut aut nobis earum. Error ullam necessitatibus vero.",
+            "address": "Ab est incidunt ad quibusdam quos aut quia explicabo. Aperiam in recusandae repellendus ipsam est.",
             "image": "default.png",
-            "latitude": -2.265717,
-            "longitude": -170.156675,
+            "latitude": 28.367798,
+            "longitude": -157.272592,
             "status": 1
         }
     ]

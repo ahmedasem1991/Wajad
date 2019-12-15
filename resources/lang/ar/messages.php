@@ -10,6 +10,7 @@ return [
 	'verified' => 'تم تفعيل :model بنجاح.',
 	'accepted' => 'تم قبول :model بنجاح.',
 	'rejected' =>  'تم رفض :model بنجاح.',
+	'registered' =>  'تم تسجيل :model بنجاح.',
 
 	'attributes' => [
 		'post' => 'المنشور',

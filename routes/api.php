@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
     Route::post('/register/qrcode', 'RegisterQRCodeController');
+    Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
 });
 
 Route::prefix('home')->group(function () {
@@ -87,7 +88,7 @@ Route::get('/regions', 'RegionController@index');
 Route::post('/contact-us', 'SupportController@store');
 
 # Qr Code
-Route::get('/scan-qr-code/{qr_code?}', 'ScanQrcodeController')->name('scan-qrcode-api');
+Route::get('/scan-qr-code/{qr_code}', 'ScanQrcodeController')->name('scan-qrcode-api');
 
 # Packages
 Route::get('/packages', 'PackageController');

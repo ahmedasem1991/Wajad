@@ -11,6 +11,7 @@ return [
 	'accepted' => ':model accepted successfully.',
 	'rejected' => ':model rejected successfully.',
 	'expired' => ':model is expired.',
+	'registered' => ':model registered successfully.',
 
 	'attributes' => [
 		'post' => 'Post',

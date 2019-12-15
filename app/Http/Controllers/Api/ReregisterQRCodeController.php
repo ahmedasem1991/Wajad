@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
 use App\Qrcode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use App\Exceptions\Api\ApiException;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterQRCodeController extends Controller
+class ReregisterQRCodeController extends Controller
 {
     public function __invoke(Request $request)
     {
@@ -27,7 +23,7 @@ class RegisterQRCodeController extends Controller
 
         $QRCode = Qrcode::find($request->qrcode_id);
 
-        if ($QRCode->status != 2) {
+        if ($QRCode->type != 2 && $QRCode->status != 4) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 404);
         }
 
