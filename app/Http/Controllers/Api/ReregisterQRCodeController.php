@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Qrcode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ReregisterQRCodeController extends Controller
@@ -29,9 +30,7 @@ class ReregisterQRCodeController extends Controller
 
         $QRCode->update([
             'item_id' => $request->item_id,
-            'status' => 4,
-            'start_at' => Carbon::now()->toDateTimeString(),
-            'end_at' => Carbon::now()->addDays($QRCode->available_period),
+            'status' => 5,
         ]);
         $this->addResponse(trans('messages.registered'), ['model' => trans('messages.attributes.qrcode')])->addStatusCode(201);
         return $this->response();
