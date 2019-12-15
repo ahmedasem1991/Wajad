@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Item;
 use Exception;
 use App\Qrcode;
 use Carbon\Carbon;
@@ -31,28 +32,34 @@ class RegisterQRCodeController extends Controller
     public function __invoke(Request $request)
     {
         $validate_request = Validator::make(request()->all(), [
-            'item_id' => ['required', 'exists:items,id'],
-            'qrcode_id' => ['required', 'exists:qrcodes,id'],
+            'item_id' => ['required', 'integer', 'exists:items,id'],
+            'qrcode_id' => ['required', 'integer', 'exists:qrcodes,id'],
         ]);
 
         if ($validate_request->fails()) {
-            $this->addResponse($validate_request->errors()->first())->addStatusCode(400);
-            return $this->response();
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        $QRCode = Qrcode::find($request->qrcode_id);
+        $item = Item::where('id', $request->item_id)->Where('owner_id', auth('api')->user()->id)->first();
+  
+        if (!$item) {
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 404);
+        }
 
-        if ($QRCode->status != 2) {
+        $qr_code = Qrcode::where('id', $request->qrcode_id)
+            ->Where('user_id', auth('api')->user()->id)
+            ->Where('item_id', null)
+            ->Where('status', 2)
+            ->first();
+
+        if (!$qr_code) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 404);
         }
 
-        $QRCode->update([
-            'item_id' => $request->item_id,
-            'status' => 4,
-            'start_at' => Carbon::now()->toDateTimeString(),
-            'end_at' => Carbon::now()->addDays($QRCode->available_period),
-        ]);
-        $this->addResponse(trans('messages.registered'), ['model' => trans('messages.attributes.qrcode')])->addStatusCode(201);
+        $qr_code->assignQrcodeToItem($request->item_id);
+
+        $this->addResponse(trans('messages.registered', ['model' => trans('messages.attributes.qrcode')]))->addStatusCode(201);
+
         return $this->response();
     }
 }

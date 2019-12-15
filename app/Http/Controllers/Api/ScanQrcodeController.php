@@ -23,7 +23,7 @@ class ScanQrcodeController extends Controller
 {
     /**
      * Scan QR Code
-     * @urlParam qrcode_id required int exists in qrcodes
+     * @urlParam qrcode_url required string exists in qrcodes
      * @response 
      *{
      * "data": {

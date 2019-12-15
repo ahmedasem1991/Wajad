@@ -22,8 +22,8 @@ class QrcodeResource extends JsonResource
             // 'product' => $this->package_product_pivot->product,
             'item' => new ItemResource($this->item),
             'available_period' => $this->available_period,
-            'start_at' => $this->start_at ? $this->start_at->toDateTimeString() : null,
-            'end_at' => $this->end_at ? $this->end_at->toDateTimeString() : null,
+            'start_at' => $this->start_at ? $this->start_at : null,
+            'end_at' => $this->end_at ? $this->end_at  : null,
             'created_at' => $this->created_at ? $this->created_at->toDateTimeString() : null,
         ];
     }

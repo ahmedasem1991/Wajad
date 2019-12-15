@@ -14,7 +14,11 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('qr_code', function ($qr_code) {
-            return \App\Qrcode::where('qrcode_url', $qr_code)->first() ?? abort(404);
+            $qr_code = \App\Qrcode::where('qrcode_url', $qr_code)->first();
+            if (!$qr_code) {
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 404);
+            }
+            return $qr_code;
         });
 
         Route::bind('post', function ($post) {
