@@ -59,7 +59,7 @@ class UpdateUserProfileController extends Controller
             'default_distance_unit' => $request->default_distance_unit,
         ]);
 
-        if ($request->has('image') && $request->image !== '') {
+        if ($request->has('image') && $request->image !== '' && !is_null($request->image)) {
             Storage::disk('public')->delete($user->image);
 
             $user->update([
