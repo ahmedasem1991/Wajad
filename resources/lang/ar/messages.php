@@ -11,8 +11,7 @@ return [
 	'accepted' => 'تم قبول :model بنجاح.',
 	'rejected' =>  'تم رفض :model بنجاح.',
 	'registered' =>  'تم تسجيل :model بنجاح.',
-	'boolean_error' => ':model هذا العنصر لابد أن يكون قيمة منطقية جرب 0 أو 1.',
-
+ 
 	'attributes' => [
 		'post' => 'المنشور',
 		'item'  => 'العنصر',

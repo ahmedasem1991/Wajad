@@ -12,8 +12,8 @@ return [
 	'rejected' => ':model rejected successfully.',
 	'expired' => ':model is expired.',
 	'registered' => ':model registered successfully.',
-	'boolean_error' => 'The :model field must be a boolean type value. (Try true or false, 1 or 0).',
 
+	
 	'attributes' => [
 		'post' => 'Post',
 		'item'  => 'Item',

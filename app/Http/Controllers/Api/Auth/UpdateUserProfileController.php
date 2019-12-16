@@ -39,8 +39,8 @@ class UpdateUserProfileController extends Controller
 
         $validate_request = Validator::make($request->all(), [
             'name' => ['required', 'min:6', 'max:255'],
-            'receive_emails' => ['required', new BooleanAttribute()],
-            'receive_push_notifications' => ['required', new BooleanAttribute()],
+            'receive_emails' => ['required', 'boolean'],
+            'receive_push_notifications' => ['required', 'boolean'],
             'default_distance_unit' => ['required', 'string', 'in:kilo,mile'],
             'image' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
         ]);
@@ -48,7 +48,7 @@ class UpdateUserProfileController extends Controller
         if ($validate_request->fails()) {
             throw new ApiException($validate_request->errors()->first(), 400);
         }
-    
+
         if ($request->receive_emails && !$user->isEmailVerified()) {
             throw new ApiException(trans('auth.cannot_recieve_emails'), 400);
         }
