@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @group Posts
@@ -155,7 +157,7 @@ class PostsController extends Controller
     {
         $validate_request = Validator::make(request()->all(), [
             'details' => ['nullable', 'string', 'max:1000'],
-            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
+            'image' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
         ]);
 
         if ($validate_request->fails()) {
@@ -169,8 +171,16 @@ class PostsController extends Controller
         ]);
 
         if ($request->has('image')) {
+            $image = str_replace('data:image/png;base64,', '', $request->image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = \Str::random(10) . '.' . 'png';
+            \File::put('images/postreports/' . $imageName, base64_decode($image));
+
+            // $manager = new ImageManager(array('driver' => 'imagick'));
+            // $image = $manager->make($imageName)->resize(300, 200);
+
             $postReport->fill([
-                'image' =>   $request->file('image')->store('images/postreports')
+                'image' =>   'images/postreports/' . $imageName
             ]);
             $postReport->save();
         }
@@ -192,7 +202,7 @@ class PostsController extends Controller
      * @urlParam id required int Post Id
      * @response
      *  {
-     * "data": [
+     * "data":  
      *  {
      *   "id": 3,
      *  "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
@@ -250,7 +260,11 @@ class PostsController extends Controller
      *  "description": "Laudantium fugit ut harum magnam magnam deserunt.",
      * "image": "http:\/\/wajad.test\/default-icon.png"
      * },
-     * "color": null,
+     *   "color": {
+     *    "id": 1,
+     *   "name": "Red",
+     *  "icon": "images\/colors\/red.png"
+     *},
      * "date": "2019-12-08 15:40:37",
      * "images": [],
      * "post_requests": [
@@ -290,7 +304,6 @@ class PostsController extends Controller
      * "name": "Al Riyadh"
      *}
      *}
-     *]
      *}
      */
     public function show(Post $post)

@@ -100,7 +100,11 @@ class SubCategoryPostController extends Controller
      *"description": "Laudantium fugit ut harum magnam magnam deserunt.",
      *"image": "http:\/\/wajad.test\/default-icon.png"
      * },
-     * "color": null,
+     *   "color": {
+     *         "id": 1,
+     *        "name": "Red",
+     *       "icon": "images\/colors\/red.png"
+     *  },
      *"date": "2019-12-08 15:40:37",
      *"images": [],
      *"post_requests": [
