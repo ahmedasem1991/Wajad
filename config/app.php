@@ -168,7 +168,7 @@ return [
         L5Swagger\L5SwaggerServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
+ 
 
         /*
          * Package Service Providers...

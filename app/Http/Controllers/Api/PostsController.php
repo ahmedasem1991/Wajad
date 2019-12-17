@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
 
 /**
@@ -171,14 +170,14 @@ class PostsController extends Controller
         ]);
 
         if ($request->has('image')) {
-            $image_name =  time() . \Str::random(10) . '.' . 'png';
-            @list($type, $request->image) = explode(';', $request->image);
-            @list(, $request->image) = explode(',', $request->image);
-            \File::put('images/postreports/' . $image_name, base64_decode($request->image));
+            $image_name = \Str::random(15) . '.' . 'png';
+            $path = public_path('/images/postreports/' . $image_name);
+            Image::make(file_get_contents($request->image))->save($path);
 
             $postReport->fill([
                 'image' =>   'images/postreports/' . $image_name
             ]);
+
             $postReport->save();
         }
 
@@ -263,7 +262,12 @@ class PostsController extends Controller
      *  "icon": "images\/colors\/red.png"
      *},
      * "date": "2019-12-08 15:40:37",
-     * "images": [],
+     * "images": [
+     * {
+     * "id": 1,
+     * "image": "http:\/\/wajad.test\/default-icon.png"
+     * }
+     * ],
      * "post_requests": [
      *   {
      *     "id": 3,
