@@ -21,7 +21,7 @@ class PostResource extends JsonResource
             'sub_category' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
-            'created_at' => $this->created_at->toDateTimeString(),
+            'date' => $this->created_at->toDateTimeString(),
             'images' =>  PostImagesResource::collection($this->images),
             'post_requests' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
