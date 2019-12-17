@@ -209,12 +209,12 @@ class ItemsController extends Controller
                     $image_name = \Str::random(15) . '.' . 'png';
                     $path = public_path('/images/items/' . $image_name);
                     Image::make(file_get_contents($image))->save($path);
-               
+
                     $item->images()->create([
                         'image' =>   'images/items/' . $image_name
                     ]);
                 }, $request->images);
-             
+            }
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
 
             return $this->response();
