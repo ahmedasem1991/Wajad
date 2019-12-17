@@ -4,7 +4,6 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
     Route::post('/resetPassword', 'ResetPasswordController');
-    // Route::post('/refreshToken', 'AuthController@refresh');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');

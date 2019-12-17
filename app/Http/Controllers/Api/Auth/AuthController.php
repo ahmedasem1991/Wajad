@@ -190,7 +190,7 @@ class AuthController extends Controller
      * Refresh Token
      * [Refresh the current API Beaerer Token]
      *
-     * @queryParam Old Bearer Token
+     * @queryParam token required Bearer Token
      *
      * @response {
      *     "token_type": "Bearer",
