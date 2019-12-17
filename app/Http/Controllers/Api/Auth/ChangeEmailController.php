@@ -18,12 +18,15 @@ class ChangeEmailController extends Controller
     /**
      * Change Email
      *
-     * @bodyParam email email required Example:example@example.com
+     * @bodyParam email email required  
      *
-     * @response {
-     *
-     * }
-     * */
+     * @response  
+     *{
+     * "success": true,
+     *"message": "Verification code sent.",
+     *"status_code": 200
+     *}
+     */
     public function __invoke()
     {
         $user = auth('api')->user();
