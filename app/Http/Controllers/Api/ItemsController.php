@@ -194,7 +194,7 @@ class ItemsController extends Controller
                 'model_id' => ['required', 'exists:models,id'],
                 'color_id' => ['required', 'exists:colors,id'],
                 'images' => ['sometimes', 'array', 'between:1,5'],
-                'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
+                'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
             ]);
 
             if ($validate_request->fails()) {
@@ -215,6 +215,7 @@ class ItemsController extends Controller
                     ]);
                 }, $request->images);
             }
+
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
 
             return $this->response();
