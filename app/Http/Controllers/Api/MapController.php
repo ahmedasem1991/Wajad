@@ -32,7 +32,7 @@ class MapController extends Controller
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
+            $this->addResponse($validate_request->errors()->first())->addStatusCode(400);
 
             return $this->response();
         }
