@@ -68,7 +68,7 @@ class PostsController extends Controller
             'item_id' => ['nullable', 'exists:items,id'],
             'city' => ['required', 'string'],
             'images' => ['sometimes', 'array', 'between:1,5'],
-            'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
+            'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
             'questions' => ['sometimes',  'array', 'between:1,3'],
             'questions.*' => ['min:9', 'max:500'],
         ]);
@@ -127,8 +127,11 @@ class PostsController extends Controller
 
         if ($request->has('images')) {
             array_map(function ($image) use ($post, $request) {
+                $image_name = \Str::random(15) . '.' . 'png';
+                $path = public_path('/images/posts/' . $image_name);
+                Image::make(file_get_contents($image))->save($path);
                 $post->images()->create([
-                    'image' =>  $image->store('images/posts')
+                    'image' =>   'images/posts/' . $image_name
                 ]);
             }, $request->images);
         }
@@ -361,8 +364,8 @@ class PostsController extends Controller
                 'item_id' => ['nullable', 'exists:items,id'],
                 'city' => ['required', 'string'],
                 'images' => ['sometimes', 'array', 'between:1,5'],
-                'images.*' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5012'],
-            ]);
+                'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
+                ]);
 
             if ($validate_request->fails()) {
                 throw new ApiException($validate_request->errors()->first(), 400);
@@ -382,9 +385,14 @@ class PostsController extends Controller
             $post->update($request->all());
 
             if ($request->has('images')) {
+                $post->images()->delete();
                 array_map(function ($image) use ($post, $request) {
+                    $image_name = \Str::random(15) . '.' . 'png';
+                    $path = public_path('/images/posts/' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+               
                     $post->images()->create([
-                        'image' => $image->store('images/posts')
+                        'image' =>   'images/posts/' . $image_name
                     ]);
                 }, $request->images);
             }
