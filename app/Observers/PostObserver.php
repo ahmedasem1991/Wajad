@@ -21,15 +21,13 @@ class PostObserver
      */
     public function saving(Post $Post)
     {
-        //  if(Auth()->User()->isCorporateUser() ||Auth()->User()->isCorporateAdmin() )
-        //  {
+        if (Auth()->User()->isCorporateUser() || Auth()->User()->isCorporateAdmin()) {
 
-        // $Post->appearance_status = 1;
-        // $Post->open_status = 1;
-        // $Post->approval_status = 1;
-        // $Post->corporate_id = Auth()->User()->corporate_id;
-        //  }
-
+            $Post->appearance_status = 1;
+            $Post->open_status = 1;
+            $Post->approval_status = 1;
+            $Post->corporate_id = Auth()->User()->corporate_id;
+        }
     }
     public function saved(Post $Post)
     { }
