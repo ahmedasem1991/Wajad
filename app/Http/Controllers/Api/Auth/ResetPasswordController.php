@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 class ResetPasswordController extends Controller
 {
     /**
-     *Reset Password
+     *Forget Password
      * @bodyParam user email,min:9,max:14 required email or phone. Example:mail@gmail.com
      * @response 
      * {
