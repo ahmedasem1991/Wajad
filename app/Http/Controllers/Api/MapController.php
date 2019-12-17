@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
 use App\Helpers\Api\ResponseTrait;
 use App\Http\Resources\MapResource;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,25 +26,20 @@ class MapController extends Controller
     public function __invoke(Request $request, $type = null)
     {
         $validate_request = Validator::make($request->all(), [
-            'longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'radius' => ['required', 'integer'],
             'unit' => ['required', 'in:kilo,mile']
         ]);
 
         if ($validate_request->fails()) {
-            $this->addResponse($validate_request->errors()->first())->addStatusCode(400);
-
-            return $this->response();
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
         if (in_array($type, self::TYPES)) {
             return $this->$type($request);
         }
-
-        $this->addStatusCode(404);
-
-        return $this->response();
+        throw new ApiException(trans('messages.notfound', ['model' => trans('messages.attributes.page')]), 404);
     }
 
     private function lost(Request $request)
