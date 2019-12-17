@@ -171,16 +171,13 @@ class PostsController extends Controller
         ]);
 
         if ($request->has('image')) {
-            $image = str_replace('data:image/png;base64,', '', $request->image);
-            $image = str_replace(' ', '+', $image);
-            $imageName = \Str::random(10) . '.' . 'png';
-            \File::put('images/postreports/' . $imageName, base64_decode($image));
-
-            // $manager = new ImageManager(array('driver' => 'imagick'));
-            // $image = $manager->make($imageName)->resize(300, 200);
+            $image_name =  time() . \Str::random(10) . '.' . 'png';
+            @list($type, $request->image) = explode(';', $request->image);
+            @list(, $request->image) = explode(',', $request->image);
+            \File::put('images/postreports/' . $image_name, base64_decode($request->image));
 
             $postReport->fill([
-                'image' =>   'images/postreports/' . $imageName
+                'image' =>   'images/postreports/' . $image_name
             ]);
             $postReport->save();
         }
