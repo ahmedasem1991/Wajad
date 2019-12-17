@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @group Items
@@ -69,8 +70,11 @@ class ItemsController extends Controller
         }
         if ($request->has('images')) {
             array_map(function ($image) use ($item) {
+                $image_name = \Str::random(15) . '.' . 'png';
+                $path = public_path('/images/items/' . $image_name);
+                Image::make(file_get_contents($image))->save($path);
                 $item->images()->create([
-                    'image' =>  $image->store('images/items')
+                    'image' =>   'images/items/' . $image_name
                 ]);
             }, $request->images);
         }
@@ -200,13 +204,17 @@ class ItemsController extends Controller
             $item->update($request->all());
 
             if ($request->has('images')) {
+                $item->images()->delete();
                 array_map(function ($image) use ($item, $request) {
+                    $image_name = \Str::random(15) . '.' . 'png';
+                    $path = public_path('/images/items/' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+               
                     $item->images()->create([
-                        'image' =>  $request->file($image)->store('images/items')
+                        'image' =>   'images/items/' . $image_name
                     ]);
                 }, $request->images);
-            }
-
+             
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
 
             return $this->response();
