@@ -13,6 +13,7 @@ class UserQRCodeController extends Controller
 {
     /**
      * User QR Codes
+     * @bodyParam token Barier-token required
      * @response 
      *{
      * "available_single": [

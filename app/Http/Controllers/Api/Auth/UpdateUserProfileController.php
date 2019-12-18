@@ -26,6 +26,7 @@ class UpdateUserProfileController extends Controller
      * @bodyParam receive_push_notifications boolean required in:true,false,0,1. Example:1
      * @bodyParam default_distance_unit string,in:kilo,mile required kilo or mile. Example:mile
      * @bodyParam image file mimes:jpeg,jpg,png,gif, max:5102
+     * @bodyParam token Barier-token required
      * @response
      * {
      *"success": true,

@@ -21,6 +21,7 @@ class RejectPostRequestController extends Controller
     /**
      * Reject Post Request  
      * @urlParam post_id required int exists in posts
+     * @bodyParam token Barier-token required
      * @response {
      * "success": true,
      *  "message": "Post request rejected successfully.",

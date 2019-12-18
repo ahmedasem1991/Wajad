@@ -13,6 +13,9 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Map
+ */
 class MapController extends Controller
 {
     use ResponseTrait;
@@ -22,7 +25,29 @@ class MapController extends Controller
         'found',
         'office'
     ];
-
+    /**
+     * Map
+     * @urlParam type required in:lost,found,office   
+     * @bodyParam longitude string required  
+     * @bodyParam latitude string required  
+     * @bodyParam radius int required  
+     * @bodyParam unit string,in:kilo,mile required   
+     *
+     * @response  
+     * {
+     *"data": [
+     *   {
+     *      "id": 1,
+     *     "name": "Error cumque sit culpa quibusdam aut sunt nemo.",
+     *    "details": "Quis voluptate perspiciatis officia omnis veritatis id. Voluptas culpa molestiae beatae corporis saepe quos iusto. Molestiae enim optio maiores dolor sit soluta. Aliquid commodi pariatur aliquid. Fugiat animi eos sapiente dolor possimus. Ut quo voluptatem nobis eos. Vitae nulla illum debitis consequuntur quaerat deserunt. Suscipit cum earum et et consectetur et. Tempore voluptates dolore ratione eveniet molestiae ullam. Est qui sit totam modi voluptas omnis officia. Illum nostrum vel unde iusto. Animi reiciendis odio et repellendus rem id. Qui deserunt rerum explicabo est dolorem dolorem nulla. Ratione dolorem libero doloremque laboriosam temporibus autem veniam corrupti. Accusantium ad autem excepturi quasi minus. Eveniet velit rem numquam ipsum. Voluptatibus eligendi nihil dolor hic perspiciatis. Qui omnis est voluptatem assumenda. Debitis fuga est blanditiis dolorem nihil impedit. Nihil est illum cupiditate unde beatae suscipit labore. Et alias eligendi sed quam blanditiis consequatur.",
+     *   "latitude": -47.854138,
+     *  "longitude": -18.526692,
+     * "image": "http://wajad.test/",
+     *"address": ""
+     *}
+     *]
+     *}
+     */
     public function __invoke(Request $request, $type = null)
     {
         $validate_request = Validator::make($request->all(), [

@@ -43,6 +43,7 @@ class PostsController extends Controller
      * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam questions array sometimes size:3
      * @bodyParam questions.* required min:9 max:500
+     * @bodyParam token Barier-token required
      *
      * @response
      * {
@@ -147,6 +148,7 @@ class PostsController extends Controller
      *
      * @bodyParam details string nullable max:1000
      * @bodyParam image image sometimes mimes:jpeg,jpg,png,gif max:5102
+     * @bodyParam token Barier-token required
      *
      * @response
      *{
@@ -199,6 +201,7 @@ class PostsController extends Controller
      * Show Post
      *
      * @urlParam id required int Post Id
+     * @bodyParam token Barier-token required
      * @response
      *  {
      * "data":  
@@ -335,6 +338,7 @@ class PostsController extends Controller
      * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam questions array sometimes size:3
      * @bodyParam questions.* required min:9 max:500
+     * @bodyParam token Barier-token required
      *
      * @response
      *{
@@ -365,7 +369,7 @@ class PostsController extends Controller
                 'city' => ['required', 'string'],
                 'images' => ['sometimes', 'array', 'between:1,5'],
                 'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
-                ]);
+            ]);
 
             if ($validate_request->fails()) {
                 throw new ApiException($validate_request->errors()->first(), 400);
@@ -390,7 +394,7 @@ class PostsController extends Controller
                     $image_name = \Str::random(15) . '.' . 'png';
                     $path = public_path('/images/posts/' . $image_name);
                     Image::make(file_get_contents($image))->save($path);
-               
+
                     $post->images()->create([
                         'image' =>   'images/posts/' . $image_name
                     ]);
@@ -408,6 +412,7 @@ class PostsController extends Controller
      * Delete Post
      *
      * @urlParam id required int Post Id
+     * @bodyParam token Barier-token required
      *
      * @response
      * {

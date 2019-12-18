@@ -22,6 +22,7 @@ class GenerateAndAssignQRCodeController extends Controller
      * Generate & Assign QRcodes (after payment)
      * @bodyParam package_id int required exists in packages
      * @bodyParam count int min:1
+     * @bodyParam token Barier-token required
      * @response 
      * {
      * "success": true,

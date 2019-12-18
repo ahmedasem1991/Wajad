@@ -175,7 +175,7 @@ class AuthController extends Controller
 
     /**
      * Logout
-     * [Destroy The Token]
+     * @bodyParam token Barier-token required
      *
      * @return void
      */
@@ -189,9 +189,7 @@ class AuthController extends Controller
     /**
      * Refresh Token
      * [Refresh the current API Beaerer Token]
-     *
-     * @queryParam token required Bearer Token
-     *
+     * @bodyParam token Barier-token required
      * @response {
      *     "token_type": "Bearer",
      *     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU3NTM2OTk2NCwiZXhwIjoxNTc1NTg1OTY0LCJuYmYiOjE1NzUzNjk5NjQsImp0aSI6IjU0dEQ5WDU5NHROd212QngiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.tja6CsTMHh2NIOYpCfAFVbshcX4DWRc2HQ4zYwid6zQ",

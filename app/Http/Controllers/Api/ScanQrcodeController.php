@@ -24,6 +24,7 @@ class ScanQrcodeController extends Controller
     /**
      * Scan QR Code
      * @urlParam qrcode_url required string exists in qrcodes
+     * @bodyParam token Barier-token required
      * @response 
      *{
      * "data": {

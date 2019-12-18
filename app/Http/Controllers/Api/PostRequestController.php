@@ -15,6 +15,7 @@ class PostRequestController extends Controller
     /**
      * This item is mine  
      * @urlParam post_id required int, exists in posts
+     * @bodyParam token Barier-token required
      * @response {
      * "success": true,
      *  "message": "Post request created successfully.",

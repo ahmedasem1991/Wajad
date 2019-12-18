@@ -13,6 +13,7 @@ class UserDataController extends Controller
 
     /**
      * User Data
+     * @bodyParam token Barier-token required
      * @response {
      *  "data": {
      *     "id": 2,

@@ -21,6 +21,7 @@ class RegisterQRCodeController extends Controller
      * Register QR Code
      * @urlParam qrcode_id required int exists in qrcodes
      * @urlParam item_id required int exists in items    
+     * @bodyParam token Barier-token required
      * @response 
      * {
      * "success": true,
@@ -41,7 +42,7 @@ class RegisterQRCodeController extends Controller
         }
 
         $item = Item::where('id', $request->item_id)->Where('owner_id', auth('api')->user()->id)->first();
-  
+
         if (!$item) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 404);
         }

@@ -15,9 +15,8 @@ class ChangePhoneNumberController extends Controller
 {
     /**
      * Change Phone Number
-     *
      * @bodyParam mobile_number numeric required digits_between:9,14 unique:user ignore:user-id
-     *
+     * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
      *  "message": "Verification code sent.",

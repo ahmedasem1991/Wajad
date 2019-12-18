@@ -19,6 +19,7 @@ class SendCodeController extends Controller
     /**
      * Send Code
      * @urlParam type required phone or email. Example:phone.
+     * @bodyParam token Barier-token required
      * @response
      * {
      *"success": true,

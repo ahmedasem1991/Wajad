@@ -31,6 +31,7 @@ class ItemsController extends Controller
      * @bodyParam brand_id exists:brands,id required
      * @bodyParam model_id exists:models,id required
      * @bodyParam sub_category_id exists:sub_category,id required
+     * @bodyParam token Barier-token required
      * @response {
      * "success": true,
      *  "message": "Item created successfully.",
@@ -87,6 +88,7 @@ class ItemsController extends Controller
     /**
      * Show Item
      * @urlParam item required int Item id. Example:1
+     * @bodyParam token Barier-token required
      * @response {
      *  "data": {
      *     "id": 1,
@@ -175,6 +177,7 @@ class ItemsController extends Controller
     /**
      * Edit Item
      * @urlParam item required int Item id. Example: 1
+     * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
      * "message": "Item updated successfully.",
@@ -226,6 +229,7 @@ class ItemsController extends Controller
     /**
      * Delete Item
      * @urlParam item required Item id. Example: 1
+     * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
      * "message": "Item deleted successfully.",

@@ -30,6 +30,7 @@ class PageController extends Controller
     /**
      * Pages
      * @urlParam type required about-us or contact-us or privacy-policy
+     * @bodyParam token Barier-token required
      * @response 
      * {
      * "data": {

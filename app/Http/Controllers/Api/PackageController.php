@@ -15,6 +15,7 @@ class PackageController extends Controller
 {
     /**
      * Packages
+     * @bodyParam token Barier-token required
      * @response 
      * {
      *    "data": [

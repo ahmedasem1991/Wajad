@@ -23,6 +23,7 @@ class VerifyPhoneOrEmailController extends Controller
      * Verify Code for Phone or Email
      * @urlParam type required phone or email. Example:phone.
      * @bodyParam code numeric required digits:4 Example:1234
+     * @bodyParam token Barier-token required
      * @response {
      *         "success": true,
      *         "message": "Phone Verified Successfully",

@@ -18,6 +18,7 @@ class AnswerController extends Controller
     /**
      * Answer question
      * @urlParam post_id required int, exists in posts
+     * @bodyParam token Barier-token required
      * @response {
      * "success": true,
      *  "message": "Answers created successfully.",

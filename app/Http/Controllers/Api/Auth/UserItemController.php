@@ -17,6 +17,7 @@ class UserItemController extends Controller
 
     /**
      * User Items
+     * @bodyParam token Barier-token required
      * @response 
      *  {
      *    "data": [

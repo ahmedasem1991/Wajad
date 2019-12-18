@@ -17,9 +17,8 @@ class ChangeEmailController extends Controller
 {
     /**
      * Change Email
-     *
      * @bodyParam email email required  
-     *
+     * @bodyParam token Barier-token required
      * @response  
      *{
      * "success": true,

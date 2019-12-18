@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/request/{post}/reject', 'RejectPostRequestController');
     Route::post('/post/{post}/answer', 'AnswerController');
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
-    Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
+    // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
     Route::post('/register/qrcode', 'RegisterQRCodeController');
     Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
 });

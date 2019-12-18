@@ -200,7 +200,7 @@ class SearchController extends Controller
         return  PostResource::collection($posts->get());
     }
     /**
-     * Fetch search data
+     * Get search data in Dropdown lists
      * @response
      * {
      *   "regions": [

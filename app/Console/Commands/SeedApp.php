@@ -73,10 +73,8 @@ class SeedApp extends Command
             'mobile_number' => '01142416124',
             'corporate_id' => 1,
             'mobile_country_id' => 1,
-            'posts_limitation' => 50,
-            'default_distance_unit' => 'kilo',
-            'city_id' => 1,
-            'device_type' => 'ios',
+            'posts_limitation' => 50
+
         ]);
         $this->info('Nova User Created Successfully');
 
@@ -107,37 +105,12 @@ class SeedApp extends Command
         ]);
         $this->info('Nova Corporate Admin Created Successfully');
 
-
-        $this->info('Create Test User');
-        User::create([
-            'name' => 'test test user',
-            'email' =>  'test@testuser.com',
-            'password' => bcrypt(123456789),
-            'type' => 1, // User
-            'mobile_number' => '01122416124',
-            'corporate_id' => 1,
-            'mobile_country_id' => 1,
-            'posts_limitation' => 50,
-            'default_distance_unit' => 'kilo',
-            'city_id' => 1,
-            'device_type' => 'ios',
-            'is_mobile_number_verified' => 1,
-            'email_verified_at' => Carbon::now()->toDateTimeString(),
-            'receive_emails' => 1,
-            'receive_push_notifications' => 1,
-            'remember_token' => 1,
-            'image' => 'images/profile/default-profile.png'
-        ]);
-        $this->info('test User Created Successfully');
-
-
-
         Artisan::call('seed:locations');
         Artisan::call('seed:settings');
 
         $create_banner_question = $this->ask('Banner Number ?', 5);
 
-        factory(Banner::class, (int) $create_banner_question)->create();
+        // factory(Banner::class, (int) $create_banner_question)->create();
 
         $create_wajad_offices_question = $this->ask('Count Wajad Offices', 5);
 
