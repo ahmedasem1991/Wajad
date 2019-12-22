@@ -19,4 +19,9 @@ class City extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function getNameAttribute()
+    {
+        return $this->{'name_' . app()->getLocale()};
+    }
 }
