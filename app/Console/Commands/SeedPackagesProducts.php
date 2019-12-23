@@ -92,13 +92,13 @@ class SeedPackagesProducts extends Command
                 'period' => '6'
             ],
         ];
-        $this->info('Seeding Packages Starts');
         foreach ($packages as $package) {
             $packages = Package::create($package);
         }
-        $this->info('Seeding Packages Done');
+        $this->info('|------------------------------------|');
+        $this->info('| Seed Packages |');
+        $this->info('|------------------------------------|');
 
-        $this->info('Seeding Products Starts');
         $products = [
             [
                 'name_en' => 'Sticker',
@@ -123,7 +123,9 @@ class SeedPackagesProducts extends Command
         foreach ($products as $product) {
             $products = Product::create($product);
         }
-        $this->info('Seeding Products Done');
+        $this->info('|------------------------------------|');
+        $this->info('| Seed Products |');
+        $this->info('|------------------------------------|');
 
         foreach (Package::all() as $package) {
             foreach (Product::all() as $product) {
