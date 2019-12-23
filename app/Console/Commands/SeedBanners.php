@@ -71,7 +71,7 @@ class SeedBanners extends Command
 
 
         $this->info('|------------------------------------|');
-        $this->info('| Seeding banners Done Successfully |');
+        $this->info('|  Seeding banners Done Successfully |');
         $this->info('|------------------------------------|');
     }
 }
