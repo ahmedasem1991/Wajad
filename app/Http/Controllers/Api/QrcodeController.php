@@ -39,7 +39,7 @@ class QrcodeController extends Controller
         ->user($user_id)
         ->allowedFilters([
             Filter::scope('item'),//Item ID
-            'id','reference_number', 'assign_reference_number','type','qrcode_url',
+            'id','generate_reference_number', 'assign_reference_number','type','qrcode_url',
         ])->paginate($request->get('per_page', 15));
 
         return $this->jsonResponse($QRodes);

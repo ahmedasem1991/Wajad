@@ -1,1 +1,1 @@
-{{$post->founder_name}}
+{{$post->title}}

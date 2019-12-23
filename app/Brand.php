@@ -11,6 +11,15 @@ class Brand extends ModelMaster
   use LogsActivity;
   protected  $fillable=['name_en','name_ar','description_en','description_ar','image','sub_category_id'];
 
+//   public function getNameEnAttribute($value)
+// {
+//     //return "{$this->name_en} - {$this->subcategory->name_en}";
+//     return $value . ' ( '.$this->subcategory->name_en . ' )';
+// }
+// public function getPeriodAttribute($value)
+// {
+//     return $value . ' Day/s';
+// }
   public function subcategory()
   {
    return  $this->belongsTo(SubCategory::class,'sub_category_id');

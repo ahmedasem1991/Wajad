@@ -27,7 +27,7 @@ class Activity extends Resource
      *
      * @var string
      */
-    public static $group = 'Classes';
+    public static $group = 'Resources';
 
 
     /**

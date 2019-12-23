@@ -21,7 +21,7 @@ class PostObserver
      */
     public function saving(Post $Post)
     {
-             if(Auth()->User()->isCorporateUser() ||Auth()->User()->isCorporateAdmin() )
+             if(Auth()->User()->isCorporateAdmin() )
              {
                  
                 $Post->appearance_status=1;

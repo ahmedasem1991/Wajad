@@ -30,6 +30,11 @@ class Brand extends Resource
      */
     public static $title = 'name_en';
 
+    //  public  function title()
+    // {
+    //    return $this->name_en. ' - ' . $this->subcategory->name_en;
+    // }
+
     /**
      * The columns that should be searched.
      *
@@ -69,7 +74,7 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable(),
-             BelongsTo::make('Category'),
+            // BelongsTo::make('Subcategory'),
         ];
     }
 

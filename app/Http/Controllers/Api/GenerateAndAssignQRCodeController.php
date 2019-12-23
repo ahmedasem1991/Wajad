@@ -44,18 +44,28 @@ class GenerateAndAssignQRCodeController extends Controller
         }
         $Package = Package::find($request->package_id);
         $now = Carbon::now();
+  
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
-        $generate_reference_number = 'N-' . $middle . $now->second;
-        $assign_reference_number = 'U-' . $middle . $now->second;
+        $generate_reference_number = NULL;
+        $assign_reference_number = 'C-' . $middle . $now->second;
+        $generate_id = NULL;
 
-        $GenerateQRCode = GenerateQrcode::create([
-            'reference_number' => $generate_reference_number,
-            'type' => $Package->type,
-            'quantity' => $Package->quantity,
-            'created_from' => 'mobile',
-        ]);
+        if (count(Qrcode::status('In Stock')->type($Package->type)->get()) < $Package->quantity) {
 
-        logger($Package->period);
+            $generate_reference_number = 'N-' . $middle . $now->second;
+            $GenerateQRCode = GenerateQrcode::create([
+                'generate_reference_number' => $generate_reference_number,
+                'type' => $Package->type,
+                'quantity' => $Package->quantity,
+                'created_by' => auth('api')->user()->id,
+                'created_from' => 'mobile',
+            ]);
+
+            $generate_id = $GenerateQRCode->id;
+        }
+
+
+ 
 
         AssignQrcode::create([
             'assign_reference_number' => $assign_reference_number,
@@ -69,7 +79,7 @@ class GenerateAndAssignQRCodeController extends Controller
         ]);
 
         $QRcodesData = [
-            'generate_id' => $GenerateQRCode->id,
+            'generate_id' => $generate_id,
             'generate_reference_number' => $generate_reference_number,
             'assign_reference_number' => $assign_reference_number,
             'quantity' => $Package->quantity,

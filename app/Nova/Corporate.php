@@ -37,7 +37,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $group = 'Classes';
+    public static $group = 'Resources';
 
     /**
      * The columns that should be searched.
@@ -46,6 +46,8 @@ class Corporate extends Resource
      */
     public static $search = [
         'id',
+        'address_en',
+        'address_ar'
     ];
 
     /**

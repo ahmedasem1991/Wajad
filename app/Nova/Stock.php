@@ -45,7 +45,7 @@ class Stock extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','unique_reference_number'
     ];
 
     /**
@@ -58,12 +58,15 @@ class Stock extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Unique Reference Number','unique_reference_number')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
             BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
-            // BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            // ->hideWhenCreating()
-            // ->hideWhenUpdating(),
+            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
@@ -142,7 +145,12 @@ class Stock extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            // (new Actions\DownloadQRCode)
+            //     ->confirmText('Are you sure you want to activate this user?')
+            //     ->confirmButtonText('Activate')
+            //     ->cancelButtonText("Don't activate"),
+        ];
     }
 
     

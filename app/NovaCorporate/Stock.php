@@ -6,11 +6,12 @@ use App\User;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Actions\DownloadQRCode;
+use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
@@ -46,7 +47,7 @@ class Stock extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id',''
     ];
 
     public static function availableForNavigation(Request $request)
@@ -63,7 +64,10 @@ class Stock extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            // BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            // ->hideWhenCreating()
+            // ->hideWhenUpdating(),
+            Text::make('Unique Reference Number','unique_reference_number')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
             // BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
@@ -84,6 +88,10 @@ class Stock extends Resource
                 ->path('images/qrcodes')
                 ->prunable()
                 ->deletable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+                Boolean::make('Print Status','printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
@@ -147,7 +155,15 @@ class Stock extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+
+        (new DownloadQRCode)->canRun(function(NovaRequest $request) {
+            return true;
+        }),
+                // ->confirmText('Are you sure you want to activate this user?')
+                // ->confirmButtonText('Activate')
+                // ->cancelButtonText("Don't activate"),
+        ];
     }
 
     

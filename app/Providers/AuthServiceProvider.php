@@ -23,6 +23,9 @@ class AuthServiceProvider extends ServiceProvider
         'App\Subscription' => 'App\Policies\SubscriptionPolicy',
       //  'App\Post' => 'App\Policies\UserPostPolicy',
        // 'App\Item' => 'App\Policies\UserItemPolicy',
+       'App\Answer' => 'App\Policies\AnswerPolicy',
+       'App\PostRequest' => 'App\Policies\PostRequestPolicy',
+      // 'App\Role' => 'App\Policies\RolePolicy',
     ];
 
     /**
@@ -35,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
-        foreach (config('novapermissions.permissions') as $key => $permissions) {
+        foreach (config('novapermissionsAdmin.permissions') as $key => $permissions) {
             Gate::define($key, function (User $user) use ($key) {
                 if ($this->nobodyHasAccess($key)) {
                     return true;

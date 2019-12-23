@@ -22,7 +22,7 @@ class QrcodeGenerateObserver
             if($generateQrcode->created_from=='web')
             {
                 $now = Carbon::now();
-                $generateQrcode->reference_number='N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
+                $generateQrcode->generate_reference_number='N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
                 $generateQrcode->created_by=Auth()->User()->id;
             }
            

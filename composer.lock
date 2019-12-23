@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e53e495e29161e633cfa4a0eb4dc689",
+    "content-hash": "8edae422cafeebdcc937e9f9939a2b7f",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1872,8 +1872,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "homepage": "https://github.com/filp",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "https://github.com/filp"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -1887,6 +1887,52 @@
                 "whoops"
             ],
             "time": "2019-08-07T09:00:00+00:00"
+        },
+        {
+            "name": "fourstacks/nova-checkboxes",
+            "version": "v0.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fourstacks/nova-checkboxes.git",
+                "reference": "73de263bfb500e5ab9159dba120818995f4605dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fourstacks/nova-checkboxes/zipball/73de263bfb500e5ab9159dba120818995f4605dc",
+                "reference": "73de263bfb500e5ab9159dba120818995f4605dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "laravel/nova": "^1.0",
+                "orchestra/testbench": "3.7.*",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Fourstacks\\NovaCheckboxes\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fourstacks\\NovaCheckboxes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-12-17T14:42:38+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -3201,8 +3247,8 @@
             "authors": [
                 {
                     "name": "Marian Gabriel",
-                    "email": "vladmariang@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "vladmariang@gmail.com"
                 }
             ],
             "description": "A Laravel Nova card for editing .env file .",
@@ -6500,6 +6546,53 @@
             "time": "2019-02-22T07:42:52+00:00"
         },
         {
+            "name": "silvanite/novafieldcheckboxes",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Silvanite/novafieldcheckboxes.git",
+                "reference": "5bd398fd1da79dfa5d53aaaaefb40ed9735fd7c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Silvanite/novafieldcheckboxes/zipball/5bd398fd1da79dfa5d53aaaaefb40ed9735fd7c5",
+                "reference": "5bd398fd1da79dfa5d53aaaaefb40ed9735fd7c5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Silvanite\\NovaFieldCheckboxes\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Silvanite\\NovaFieldCheckboxes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field to display a number of multi-select options using checkboxes.",
+            "keywords": [
+                "checkbox",
+                "checkboxes",
+                "field",
+                "input",
+                "laravel",
+                "multiple choice",
+                "multiselect",
+                "nova"
+            ],
+            "time": "2019-12-02T09:47:04+00:00"
+        },
+        {
             "name": "simplesoftwareio/simple-qrcode",
             "version": "2.0.0",
             "source": {
@@ -6850,9 +6943,9 @@
             "authors": [
                 {
                     "name": "Alex Vanderbist",
+                    "role": "Developer",
                     "email": "alex@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Easily build Eloquent queries from API requests",
@@ -6900,9 +6993,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "A magic memoization function",
@@ -9395,9 +9488,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
+                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondco.de",
-                    "role": "Developer"
+                    "homepage": "https://beyondco.de"
                 }
             ],
             "description": "Symfony Var-Dump Server for Laravel",
@@ -9991,8 +10084,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",

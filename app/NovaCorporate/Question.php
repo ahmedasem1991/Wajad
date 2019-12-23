@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
  
 class Question extends Resource
@@ -50,9 +51,11 @@ class Question extends Resource
     {
         return [
             ID::make()->sortable(),
+            
             Text::make('Question')->creationRules([
                 'required', 'min:6'
             ]),
+            HasMany::make('Answers')
 
 
 

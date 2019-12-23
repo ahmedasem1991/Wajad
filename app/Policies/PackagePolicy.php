@@ -31,9 +31,14 @@ class PackagePolicy
     public function view(User $user, Package $Package)
     {
        
-        // if(Auth()->User()->isCorporateAdmin()){
-        //     return  false;
-        // }
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('packages'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
         return  true;
     }
 

@@ -16,6 +16,10 @@ class CreateGatesTable extends Migration
             $table->Increments('id');
             $table->string('slug');
             $table->string('name')->nullable();
+            $table->integer('corporate_id')->nullable();
+            $table->integer('limitation_of_posts')->default(10);
+            $table->boolean('default_group')->default(0);
+            $table->boolean('auto_approve')->default(0);
             $table->timestamps();
         });
         Schema::create('role_permission', function (Blueprint $table) {

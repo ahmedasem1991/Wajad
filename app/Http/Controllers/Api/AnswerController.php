@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Answer;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use App\PostRequest;
 use App\Question;
 use Illuminate\Support\Facades\Validator;
 
@@ -44,11 +45,13 @@ class AnswerController extends Controller
             if (!$question->Post()->get()->contains($post->id)) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 404);
             }
-
+         $PostRequest=   PostRequest::where('post_id', $question->post->id)
+            ->where('user_id',auth('api')->user()->id)->first();
             Answer::create([
                 'answers' => $answer['answers'],
                 'question_id' => $answer['question_id'],
                 'user_id' => auth('api')->user()->id,
+                'post_request_id' => $PostRequest->id,
             ]);
         }, $request->data);
 

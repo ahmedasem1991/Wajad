@@ -64,17 +64,21 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
        }
        }
        else{
-
+        $now = Carbon::now();
+        $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
+        $unique_reference_number = 'QR-' . $middle . $now->second  .'-'.str_random(5);
         for ($x = 1; $x <= (int)$this->quantity; $x++) {
             $ImageName= time().str_random(20).'.png';
             $Url=$this->generate_id.time().str_random(20);
              \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
-             ->format('png')->merge(public_path('/images/'.env('QRCODE_LOGO','logo2.png')), 0.3, true)
+             ->format('png')->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.2, true)
              ->size(2000)
              ->generate(env('API_URL').'/scan-qr-code/'.$Url,
              public_path('images/qrcodes/'.$ImageName));
              Qrcode::create([
-              'reference_number'=>$this->generate_reference_number,
+              'unique_reference_number'=>$unique_reference_number,
+            
+              'generate_reference_number'=>$this->generate_reference_number,
               'assign_reference_number'=>$this->assign_reference_number,
               'type'=>$this->type,
               'status'=>$this->status,
@@ -102,7 +106,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
       else if($this->user_id !=NULL)
        {
         $message='"' .$this->quantity .'" QR Code Assigned Successfully To '. User::find($this->user_id)->corporate->name_en .'.';
-        User::find($this->user_id)->notify(new BroadcastNotification($level,$corporate_message,$url));
+        User::find($this->user_id)->notify(new BroadcastNotification('info',$corporate_message,$url));
   
        }
        else if($this->corporate_id !=NULL){
@@ -117,7 +121,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
        }
        foreach($Admins as $user)
        {
-         $user->notify(new BroadcastNotification($level,$message,$url));
+         $user->notify(new BroadcastNotification('info',$message,$url));
        }
 
        

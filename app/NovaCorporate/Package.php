@@ -45,6 +45,11 @@ class Package extends Resource
         return $this->name_en . ' - ' . $this->name_ar;
     }
 
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('packages')) ? true :false;
+    }
+
     /**
      * The columns that should be searched.
      *

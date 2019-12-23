@@ -352,11 +352,16 @@ return [
             'group'        => 'Items',
         ],
          ///////////////Packages///////////////
-        //  'view packages' => [
-        //     'display_name' => 'View packages',
-        //     'description'  => 'Can view packages',
-        //     'group'        => 'Packages',
-        // ],
+         'packages' => [
+            'display_name' => 'View packages',
+            'description'  => 'Can view packages',
+            'group'        => 'Packages',
+        ],
+        'subscription' => [
+            'display_name' => 'View subscription',
+            'description'  => 'Can view subscription',
+            'group'        => 'Packages',
+        ],
 
         // 'create packages' => [
         //     'display_name' => 'Create packages',
@@ -397,6 +402,18 @@ return [
         'delete posts' => [
             'display_name' => 'Delete posts',
             'description'  => 'Can delete posts',
+            'group'        => 'Posts',
+        ],
+
+        'hidden posts' => [
+            'display_name' => 'Hidden posts',
+            'description'  => 'Can display hidden posts',
+            'group'        => 'Posts',
+        ],
+
+        'closed posts' => [
+            'display_name' => 'Closed posts',
+            'description'  => 'Can display closed posts',
             'group'        => 'Posts',
         ],
          ///////////////Offices///////////////

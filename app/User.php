@@ -81,10 +81,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->type === self::Types['user'];
     }
-    public function isCorporateUser()
-    {
-        return $this->type === self::Types['corporate user'];
-    }
+    // public function isCorporateUser()
+    // {
+    //     return $this->type === self::Types['corporate user'];
+    // }
 
     public function scopeCorporates($query)
     {
@@ -195,8 +195,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function receivesBroadcastNotificationsOn()
     {
-        //  return 'users.' . $this->id;
-        return 'nova-notifications';
+         return 'users.' . $this->id;
+      //  return 'nova-notifications';
     }
 
     public function exceededPostLimitation()
@@ -224,4 +224,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(DeviceType::class, 'user_id');
     }
+
+    
+ 
 }

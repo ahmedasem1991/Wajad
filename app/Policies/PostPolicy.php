@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Post;
+use App\User;
+use Laravel\Nova\Nova;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
@@ -49,6 +50,11 @@ class PostPolicy
      */
     public function create(User $user)
     {
+        
+        if(\Request::url() == \URL::to('/') .Nova::path() . '/resources/closed-posts' ||\Request::url() == \URL::to('/') .Nova::path() . '/resources/hiden-posts')
+        {
+            return false;
+        }
         if (Auth()->User()->isCorporateAdmin()) {
             if ($user->hasPermissionTo('create posts')) {
                 return true;
@@ -69,6 +75,10 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
+        if(\Request::url() == \URL::to('/') .Nova::path() . '/resources/closed-posts' )
+        {
+            return false;
+        }
         if (Auth()->User()->isCorporateAdmin()) {
             if ($user->hasPermissionTo('edit posts')) {
                 return true;

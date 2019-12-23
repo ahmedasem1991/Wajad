@@ -32,9 +32,14 @@ class SubscriptionPolicy
     public function view(User $user, Subscription $Subscription)
     {
        
-        // if(Auth()->User()->isCorporateAdmin()){
-        //     return  false;
-        // }
+        if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('subscription'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
         return  true;
     }
 

@@ -131,9 +131,9 @@ class CorporateAssignQrcode extends Resource
          
 
  
-            Status::make('Status')
-            ->loadingWhen(['waiting'])
-            ->failedWhen(['finished']),
+            // Status::make('Status')
+            // ->loadingWhen(['waiting'])
+            // ->failedWhen(['finished']),
 
             RadioButton::make('Created From')
             ->options([

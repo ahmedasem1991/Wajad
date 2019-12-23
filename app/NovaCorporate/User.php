@@ -18,10 +18,12 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Bissolli\NovaPhoneField\PhoneNumber;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Laravel\Nova\Http\Requests\NovaRequest;
+
 class User extends Resource
 {
     /**
@@ -36,7 +38,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Classes';
+    public static $group = 'Users Management';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -85,7 +87,10 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            HasMany::make('Items','items',Item::class),
+          //  HasMany::make('Items','items',Item::class),
+          PhoneNumber::make('Mobile Number','mobile_number')
+          ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+          ->onlyCustomFormats(),
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -95,14 +100,15 @@ class User extends Resource
                 ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
                    '2' => 'Corpoare Admin',
-                   '1' => 'User',
-                ])->displayUsingLabels()->creationRules('required')
+                  // '4' => 'Corporate User',
+                ])->displayUsingLabels()
+                ->creationRules('required')
                 ->updateRules('required'),
          
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+          //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }

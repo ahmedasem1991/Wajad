@@ -150,9 +150,9 @@ class AssignQrcode extends Resource
             Number::make('Available Period In Days','available_period')
             ->min(1)->max(365)->step(1)
             ->rules('required'),
-            Status::make('Status')
-            ->loadingWhen(['waiting'])
-            ->failedWhen(['finished']),
+            // Status::make('Status')
+            // ->loadingWhen(['waiting'])
+            // ->failedWhen(['finished']),
             RadioButton::make('Created From')
             ->options([
                 'web' => 'web',

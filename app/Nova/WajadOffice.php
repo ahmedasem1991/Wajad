@@ -23,6 +23,7 @@ class WajadOffice extends Resource
      * @var string
      */
     public static $model = 'App\WajadOffice';
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -52,6 +53,7 @@ class WajadOffice extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+    public static $globallySearchable = false;
    
         public function fields(Request $request)
         {

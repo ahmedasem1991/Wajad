@@ -31,7 +31,7 @@ class Banner extends Resource
      * @var string
      */
     // public static $group = 'Banners';
-    public static $group = 'Classes';
+    public static $group = 'Resources';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

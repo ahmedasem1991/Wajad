@@ -192,7 +192,7 @@ class PaymentController extends Controller
 
                     $generate_reference_number = 'N-' . $middle . $now->second;
                     $GenerateQRCode = GenerateQrcode::create([
-                        'reference_number' => $generate_reference_number,
+                        'generate_reference_number' => $generate_reference_number,
                         'type' => $Package->type,
                         'quantity' => $Package->quantity,
                         'created_by' => auth()->user()->id,
@@ -238,7 +238,7 @@ class PaymentController extends Controller
 
                 $Users = User::superAdmin()->get();
                 foreach ($Users as $user) {
-                    $user->notify(new BroadcastNotification($level, $message, $url));
+                    $user->notify(new BroadcastNotification('info', $message, $url));
                 }
 
                 $request->session()->put('success_payment', 'Payment successful.');

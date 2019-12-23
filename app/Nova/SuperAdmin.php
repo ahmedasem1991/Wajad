@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -82,6 +83,9 @@ class SuperAdmin extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+                PhoneNumber::make('Mobile Number','mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
             
             Toggle::make('Active', 'status'),
 

@@ -18,6 +18,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -82,9 +83,12 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+                PhoneNumber::make('Mobile Number','mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
             HasMany::make('Items'),
             Toggle::make('Active', 'status'),
-            Boolean::make('Show My Data','show_my_data'),
+          //  Boolean::make('Show My Data','show_my_data'),
 
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -98,10 +102,12 @@ class User extends Resource
                 Select::make('Type', 'type')->options([
                   
                    '2' => 'Corpoare Admin',
-                   '1' => 'User',
+                 //  '4' => 'Corporate User',
+                   '1' => 'Normal User',
+                  
                 ])->displayUsingLabels(),
                 
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corporate Admin.</p>')->asHtml()->hideFromDetail(),
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
          
               BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
               ->creationRules('required_if:type,2')
