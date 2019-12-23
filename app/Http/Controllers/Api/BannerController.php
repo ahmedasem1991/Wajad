@@ -21,7 +21,21 @@ class BannerController extends Controller
      *         "type": "url",
      *        "image": "http:\/\/wajad.test\/ddd",
      *       "url": "c dvd"
-     *    }
+     *    },
+     * {
+     *   "type": "item",
+     *        "image": "http:\/\/wajad.test\/ddd",
+     *       "url": "c dvddfefe",
+     * "item_id":"1",
+     * "item":{
+     *   "latitude"  :"30.1111111",
+     *      "longitude"  : "30.1111111",
+     *     "name" : "khoih",
+     *    "description"  : "jgiugiugiu",
+     *   "city" : "Cairo",
+     *  "date": "2019-12-12 11:12:05"
+     *}
+     * }
      *  ]
      *}
      * @return void
