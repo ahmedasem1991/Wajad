@@ -27,8 +27,8 @@ class BannerResource extends JsonResource
                 'longitude' => $item->post->longitude ?? 0,
                 'name' => $item->post->title ?? "",
                 'description' => $item->post->description ?? "",
-                'city' => $item->post->city->{'name_' . app()->getLocale()},
-                'date' => $item->post->created_at->toDateTimeString()
+                // 'city' => $item->post->city ? $item->post->city->{'name_' . app()->getLocale()} : '',
+                // 'date' => $item->post->created_at->toDateTimeString()
                 // 'status' => $item->getStatus()
             ] : null;
     }

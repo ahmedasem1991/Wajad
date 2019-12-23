@@ -20,7 +20,9 @@ class BannerController extends Controller
      *        {
      *         "type": "url",
      *        "image": "http:\/\/wajad.test\/ddd",
-     *       "url": "c dvd"
+     *       "url": "c dvd",
+     * "item_id":null,
+     * "item": null
      *    },
      * {
      *   "type": "item",
