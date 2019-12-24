@@ -17,9 +17,9 @@ class ChangeEmailController extends Controller
 {
     /**
      * Change Email
-     * @bodyParam email email required  
+     * @bodyParam email email required
      * @bodyParam token Barier-token required
-     * @response  
+     * @response
      *{
      * "success": true,
      *"message": "Verification code sent.",
@@ -40,7 +40,8 @@ class ChangeEmailController extends Controller
 
         $user->update([
             'email' => request('email'),
-            'email_verified_at' => null
+            'email_verified_at' => null,
+            'receive_emails' => false
         ]);
 
         if ((new UserService())->createAndSendActivationCode($user, 'email')) {
