@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Item;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\Banners;
@@ -59,6 +60,8 @@ class Banner extends Resource
     {
         return [
             ID::make()->sortable(),
+            DateTime::make('Start Date'),
+            DateTime::make('End Date'),
             Select::make('Banner Type', 'type')->options([
                 "ads" => "Advertisement",
                 "url" => "URL",
