@@ -64,7 +64,7 @@ class MapController extends Controller
         if (in_array($type, self::TYPES)) {
             return $this->$type($request);
         }
-        throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
+        throw new ApiException(trans('messages.notfound', ['model' => trans('messages.attributes.page')]), 404);
     }
 
     private function lost(Request $request)
@@ -103,7 +103,7 @@ class MapController extends Controller
             $coordinate2 = new Coordinate($request->latitude, $request->longitude);
             $calculator  = new Vincenty();
             $item->distance = ($calculator->getDistance($coordinate1, $coordinate2)) / 1000;
-            return $item->distance < $request->radius;
+            return $item->distance < (int) $request->radius;
         });
     }
 }
