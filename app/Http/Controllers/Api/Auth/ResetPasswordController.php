@@ -54,6 +54,10 @@ class ResetPasswordController extends Controller
         $user = User::where($user_identifier, '=', request('user'))
             ->where('type', '=', User::Types['user'])
             ->first();
+            
+        if (!$user) {
+            throw new ApiException(trans('messages.notfound', ['model' => trans('messages.attributes.user')]), 404);
+        }
 
         $new_password = env('STATIC_NEW_PASSWORD', \Str::upper(\Str::random(6)));
 
