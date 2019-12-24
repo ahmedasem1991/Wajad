@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
         AssignQrcode::observe(QrcodeAssignObserver::class);
         CorporateAssignQrcode::observe(CorporateQrcodeAssignObserver::class);
         Post::observe(PostObserver::class);
-        
+
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');
         // foreach($Permissions as $Permission){
