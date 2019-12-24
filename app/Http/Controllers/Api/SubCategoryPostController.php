@@ -153,7 +153,7 @@ class SubCategoryPostController extends Controller
     public function index($status, $subcategory_id = null)
     {
         if (!in_array($status, self::TYPES)) {
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.category')]), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.category')]), 400);
         }
 
         $subCategory = SubCategory::whereHas($status . 'posts', function ($query) {

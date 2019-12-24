@@ -42,7 +42,7 @@ class ReregisterQRCodeController extends Controller
         $item = Item::where('id', $request->item_id)->Where('owner_id', auth('api')->user()->id)->first();
 
         if (!$item) {
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 400);
         }
 
         $qr_code = Qrcode::where('id', $request->qrcode_id)
@@ -53,7 +53,7 @@ class ReregisterQRCodeController extends Controller
             ->first();
 
         if (!$qr_code) {
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 
         if ($qr_code->isQrcodeExpired()) {

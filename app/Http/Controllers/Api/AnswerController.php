@@ -43,7 +43,7 @@ class AnswerController extends Controller
             $question = Question::find($answer['question_id']);
 
             if (!$question->Post()->get()->contains($post->id)) {
-                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 404);
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 400);
             }
 
             Answer::create([

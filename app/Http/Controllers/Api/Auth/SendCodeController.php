@@ -31,7 +31,7 @@ class SendCodeController extends Controller
     public function __invoke($type)
     {
         if (!in_array($type, $this->types)) {
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
         }
 
         if ((new UserService)->createAndSendActivationCode(auth('api')->user(), $type)) {

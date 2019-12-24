@@ -64,7 +64,7 @@ class MapController extends Controller
         if (in_array($type, self::TYPES)) {
             return $this->$type($request);
         }
-        throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
+        throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
     }
 
     private function lost(Request $request)

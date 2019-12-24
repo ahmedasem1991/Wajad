@@ -46,7 +46,7 @@ class PageController extends Controller
     public function __invoke($page = null)
     {
         if (!in_array($page, $this->pages)) {
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
         }
 
         return new PageResource(Page::whereKey($page)->first());

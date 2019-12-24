@@ -16,7 +16,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('qr_code', function ($qr_code) {
             $qr_code = \App\Qrcode::where('qrcode_url', $qr_code)->first();
             if (!$qr_code) {
-                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 404);
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
             }
             return $qr_code;
         });
@@ -24,14 +24,14 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('post', function ($post) {
             $post = \App\Post::whereId($post)->first();
             if (!$post) {
-                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 404);
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 400);
             }
             return $post;
         });
         Route::bind('item', function ($item) {
             $item = \App\Item::whereId($item)->first();
             if (!$item) {
-                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 404);
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 400);
             }
             return $item;
         });
