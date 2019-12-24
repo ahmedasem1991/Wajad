@@ -69,9 +69,13 @@ class AuthController extends Controller
         }
 
         if (is_numeric(request('user'))) {
+            request()->merge([
+                'user' => ltrim((string) request('user'), 0)
+            ]);
+
             $validate_mobile_number = Validator::make(
                 request()->all(),
-                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
+                ['user' => ['required', 'digits_between:9,14', 'exists:users,mobile_number']],
                 ['user.exists' => trans('auth.failed')]
             );
 
@@ -79,14 +83,6 @@ class AuthController extends Controller
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
 
-            if (app()->environment('production')) {
-                if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                    request()->merge(['user' =>  request('user')]);
-                } elseif (preg_match('/[0-9]{9}/', request('user'))) {
-                    $mobile_number = '00966' . request('user');
-                    request()->merge(['user' => $mobile_number]);
-                }
-            }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
 
@@ -160,7 +156,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'mobile_number' => $request->mobile_number,
+            'mobile_number' => ltrim((string) $request->mobile_number, 0),
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
             'posts_limitation' => env('POST_LIMITATION', 50),
