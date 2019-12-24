@@ -12,8 +12,9 @@ return [
 	'rejected' => ':model rejected successfully.',
 	'expired' => ':model is expired.',
 	'registered' => ':model registered successfully.',
+	'logged_out' => ':model logged out successfully.',
 
-	
+
 	'attributes' => [
 		'post' => 'Post',
 		'item'  => 'Item',

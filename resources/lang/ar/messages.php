@@ -11,7 +11,9 @@ return [
 	'accepted' => 'تم قبول :model بنجاح.',
 	'rejected' =>  'تم رفض :model بنجاح.',
 	'registered' =>  'تم تسجيل :model بنجاح.',
- 
+	'logged_out' => 'تم تسجيل الخروج بنجاح.',
+	'logged_out' =>  'تم تسجيل خروج :model بنجاح.',
+
 	'attributes' => [
 		'post' => 'المنشور',
 		'item'  => 'العنصر',

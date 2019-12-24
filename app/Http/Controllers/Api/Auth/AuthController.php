@@ -176,14 +176,21 @@ class AuthController extends Controller
     /**
      * Logout
      * @bodyParam token Barier-token required
-     *
+     * @response
+     * {
+     *  "success": true,
+     *  "message": "User logged out successfully.",
+     *  "status_code": 200
+     *}
      * @return void
      */
     public function logout()
     {
         auth('api')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        $this->addResponse(trans('messages.logged_out', ['model' => trans('messages.attributes.user')]))->addStatusCode(200);
+
+        return $this->response();
     }
 
     /**
