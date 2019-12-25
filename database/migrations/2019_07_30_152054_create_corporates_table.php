@@ -26,7 +26,8 @@ class CreateCorporatesTable extends Migration
             $table->double('longitude');
             $table->integer('status')->default(0);
             $table->text('image')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

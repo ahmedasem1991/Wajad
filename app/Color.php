@@ -5,16 +5,17 @@ namespace App;
 use App\Model;
 use App\Item;
 use Illuminate\Database\Eloquent\Model as MasterModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Color extends MasterModel
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable=['name_en','name_ar','icon'];
- 
- 
+
+
     public function items()
     {
         return $this->hasMany(Item::class);
@@ -28,5 +29,5 @@ class Color extends MasterModel
         return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
     }
 
- 
+
 }

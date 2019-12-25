@@ -4,11 +4,12 @@ namespace App;
 
 use App\Model;
 use Illuminate\Database\Eloquent\Model as ModelMaster;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Brand extends ModelMaster
 {
-  use LogsActivity;
+  use LogsActivity, SoftDeletes;
   protected  $fillable=['name_en','name_ar','description_en','description_ar','image','sub_category_id'];
 
 //   public function getNameEnAttribute($value)
@@ -20,9 +21,9 @@ class Brand extends ModelMaster
 // {
 //     return $value . ' Day/s';
 // }
-  public function subcategory()
+  public function subcategories()
   {
-   return  $this->belongsTo(SubCategory::class,'sub_category_id');
+   return  $this->belongsToMany(SubCategory::class,'brand_sub_category','sub_category_id','brand_id');
   }
 
   public function models()
@@ -35,7 +36,7 @@ class Brand extends ModelMaster
       return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
   }
 
-  public function scopeSubcategory($query, $sub_category_id)
+  public function scopeSubcategories($query, $sub_category_id)
   {
       return $query->where('sub_category_id', $sub_category_id);
   }

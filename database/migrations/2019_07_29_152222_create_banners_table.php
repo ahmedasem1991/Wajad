@@ -22,7 +22,8 @@ class CreateBannersTable extends Migration
             $table->integer('clicks')->default(0);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

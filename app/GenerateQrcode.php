@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 class GenerateQrcode extends Model
 {
-   use LogsActivity;
+   use LogsActivity,SoftDeletes;
 
     protected $fillable =['generate_reference_number','type','quantity','created_from'];
     protected $table='generate_qrcodes';
@@ -48,8 +48,8 @@ class GenerateQrcode extends Model
     }
 
 
-   
 
-   
- 
+
+
+
 }

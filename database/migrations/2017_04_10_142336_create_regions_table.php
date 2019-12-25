@@ -18,7 +18,8 @@ class CreateRegionsTable extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->unsignedInteger('country_id')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

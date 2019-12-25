@@ -17,7 +17,8 @@ class CreateRecipientsTable extends Migration
             $table->increments('id');
             $table->string('email')->index();
             $table->string('name')->index();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

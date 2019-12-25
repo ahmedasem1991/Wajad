@@ -41,8 +41,9 @@ class CreatePostsTable extends Migration
             $table->string('founder_email')->nullable();
             $table->string('founder_mobile_number')->nullable();
             $table->string('founder_address')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+           $table->softDeletes();
+$table->timestamps();
+
         });
     }
 

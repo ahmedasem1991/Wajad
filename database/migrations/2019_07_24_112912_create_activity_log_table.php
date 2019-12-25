@@ -20,7 +20,8 @@ class CreateActivityLogTable extends Migration
             $table->unsignedBigInteger('causer_id')->nullable();
             $table->string('causer_type')->nullable();
             $table->json('properties')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
 
             $table->index('log_name');
         });

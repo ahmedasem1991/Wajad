@@ -4,13 +4,14 @@ namespace App;
 
 use App\Item;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Banner extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $casts = [
         'start_date' => 'datetime',

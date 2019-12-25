@@ -5,11 +5,12 @@ namespace App;
 use App\Brand;
 use App\SubCategory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
 

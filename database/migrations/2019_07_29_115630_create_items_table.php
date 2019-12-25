@@ -17,8 +17,9 @@ class CreateItemsTable extends Migration
             $table->integer('color_id')->unsigned()->nullable();
             $table->integer('sub_category_id')->unsigned()->nullable();
             $table->integer('brand_id')->unsigned()->nullable();
-                 $table->softDeletes();
-            $table->timestamps();
+
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

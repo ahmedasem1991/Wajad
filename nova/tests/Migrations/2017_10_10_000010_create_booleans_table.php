@@ -16,7 +16,8 @@ class CreateBooleansTable extends Migration
         Schema::create('booleans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('active')->default('No');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

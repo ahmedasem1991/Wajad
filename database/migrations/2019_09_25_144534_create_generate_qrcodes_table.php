@@ -21,7 +21,8 @@ class CreateGenerateQrcodesTable extends Migration
             $table->integer('quantity')->default(1);
             $table->integer('created_by')->nullable();
             $table->string('created_from')->default('web');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

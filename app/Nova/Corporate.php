@@ -12,6 +12,7 @@ use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
+use Naif\Toggle\Toggle;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 
@@ -110,7 +111,7 @@ class Corporate extends Resource
             )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
             HasMany::make('Users', 'users'),
-            Boolean::make('Active','status'),
+            Toggle::make('Active','status'),
             MapMarker::make("Location")
             ->defaultZoom(5)
             ->defaultLatitude(21.4498898)
@@ -164,7 +165,7 @@ class Corporate extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
     }

@@ -5,6 +5,7 @@ namespace App;
 
 use App\Answer;
 use App\Question;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -14,7 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, LogsActivity,  HasRoles;
+    use Notifiable, LogsActivity,  HasRoles,SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -225,6 +226,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->hasMany(DeviceType::class, 'user_id');
     }
 
-    
- 
+
+
 }
