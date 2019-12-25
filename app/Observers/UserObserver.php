@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserObserver
 {
@@ -10,13 +11,13 @@ class UserObserver
 
     public function saving(User $User)
     {
-              if(Auth()->User()->isCorporateAdmin()   )
+              if(Auth::check() && Auth()->User()->isCorporateAdmin()   )
              {
-                 
+
                 $User->corporate_id=Auth()->User()->corporate_id;
-                
+
              }
-       
+
     }
     /**
      * Handle the user "created" event.

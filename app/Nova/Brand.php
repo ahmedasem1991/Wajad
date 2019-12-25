@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use App\Nova\Metrics\Brands;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\HasMany;
@@ -66,7 +67,8 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable(),
-             BelongsToMany::make('Subcategories')->rules('required'),
+             BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class)
+                 ->rules('required'),
              HasMany::make('Models'),
         ];
     }
