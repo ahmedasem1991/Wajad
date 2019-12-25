@@ -173,26 +173,26 @@ class SearchController extends Controller
     public function searchFilter(Request $request)
     {
         $posts = Post::isShow()->isApproved();
-        if ($request->has('color')) {
+        if ($request->has('color') && $request->color != "") {
             $posts->whereHas('color', function ($query) use ($request) {
                 $query->where('id', '=', $request->color);
             });
         }
-        if ($request->has('model')) {
+        if ($request->has('model') && $request->model != "") {
             $posts->whereHas('model', function ($query) use ($request) {
                 $query->where('id', $request->model);
             });
         }
-        if ($request->has('brand')) {
+        if ($request->has('brand') && $request->brand != "") {
             $posts->whereHas('brand', function ($query) use ($request) {
                 $query->where('id', $request->brand);
             });
         }
-        if ($request->has('date')) {
+        if ($request->has('date') && $request->date != "") {
             $posts->where('losted_at', Carbon::parse($request->date))
                 ->orWhere('founded_at', Carbon::parse($request->date));
         }
-        if ($request->has('subcategory')) {
+        if ($request->has('subcategory') && $request->subcategory != "") {
             $posts->whereHas('subcategory', function ($query) use ($request) {
                 $query->where('id', $request->subcategory);
             });
