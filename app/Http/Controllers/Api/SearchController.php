@@ -189,9 +189,10 @@ class SearchController extends Controller
             });
         }
         if ($request->has('date') && $request->date != "") {
-            $posts->where('losted_at', Carbon::parse($request->date))
-                ->orWhere('founded_at', Carbon::parse($request->date));
+            $posts->whereDate('losted_at', '=',  $request->date)
+                ->orWhereDate('founded_at', '=',  $request->date);
         }
+
         if ($request->has('subcategory') && $request->subcategory != "") {
             $posts->whereHas('subcategory', function ($query) use ($request) {
                 $query->where('id', $request->subcategory);
