@@ -56,30 +56,30 @@ class SeedCategories extends Command
             [
                 'name_en' => 'Apparel, Shoes & Accessories',
                 'name_ar' => 'أحذية، ملابس و اكسسواراتها',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [
                     [
                         'name_en' => 'Blouse',
                         'name_ar' => 'بلوزة',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 1,
                         'brands' => [
                             [
                                 'name_en' => 'LCWIKIKI',
                                 'name_ar' => 'ال سي واى كي كي',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 1,
                             ],
                             [
                                 'name_en' => 'H&M',
                                 'name_ar' => 'اتش اند ام',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 1,
                             ],
                             [
                                 'name_en' => 'Others',
                                 'name_ar' => 'اخرى',
-                                'icon' => 'default-icon.png',
+                                'icon' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 1,
                             ],
                         ],
@@ -87,25 +87,25 @@ class SeedCategories extends Command
                     [
                         'name_en' => 'shoes',
                         'name_ar' => 'حذاء',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 1,
                         'brands' => [
                             [
                                 'name_en' => 'lacoste',
                                 'name_ar' => 'لاكوست',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 2,
                             ],
                             [
                                 'name_en' => 'corocs',
                                 'name_ar' => 'كروكس',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 2,
                             ],
                             [
                                 'name_en' => 'Others',
                                 'name_ar' => 'اخرى',
-                                'icon' => 'default-icon.png',
+                                'icon' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 2,
                             ],
                         ],
@@ -113,7 +113,7 @@ class SeedCategories extends Command
                     [
                         'name_en' => 'Others',
                         'name_ar' => 'اخرى',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 1,
                     ],
                 ],
@@ -121,48 +121,48 @@ class SeedCategories extends Command
             [
                 'name_en' => 'Art, Crafts & Collectables',
                 'name_ar' => 'حرف و مقتنيات و فنون',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [
                     [
                         'name_en' => 'artifact',
                         'name_ar' => 'تحفة',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                     [
                         'name_en' => 'candlestick',
                         'name_ar' => 'شمعدان',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                     [
                         'name_en' => 'wall clock',
                         'name_ar' => 'ساعة حائط',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                     [
                         'name_en' => 'Antiquities',
                         'name_ar' => 'انتيكات',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                     [
                         'name_en' => 'Estatua',
                         'name_ar' => 'تمثال',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                     [
                         'name_en' => 'Art object',
                         'name_ar' => 'عمل فنى',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                     [
                         'name_en' => 'Others',
                         'name_ar' => 'اخرى',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 2,
                     ],
                 ],
@@ -170,49 +170,49 @@ class SeedCategories extends Command
             [
                 'name_en' => 'Baby',
                 'name_ar' => 'الطفل',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [
                     [
                         'name_en' => 'kids shampo',
                         'name_ar' => 'شامبو للاطفال',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 3,
                         'brands' => [
                             [
                                 'name_en' => 'gohnson',
                                 'name_ar' => 'جونسون',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 11,
                             ],
                             [
                                 'name_en' => 'panten',
                                 'name_ar' => 'بانتين',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 11,
                             ],
                             [
                                 'name_en' => 'sherosa',
                                 'name_ar' => 'شيروسا',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 11,
                             ],
                         ],
                         [
                             'name_en' => 'kids toys',
                             'name_ar' => 'العاب للاطفال',
-                            'icon' => 'default-icon.png',
+                            'icon' => 'images/profile/default-profile.png',
                             'category_id' => 3,
                         ],
                         [
                             'name_en' => 'kids pampers',
                             'name_ar' => 'بامبرز للاطفال',
-                            'icon' => 'default-icon.png',
+                            'icon' => 'images/profile/default-profile.png',
                             'category_id' => 3,
                         ],
                         [
                             'name_en' => 'Others',
                             'name_ar' => 'اخرى',
-                            'icon' => 'default-icon.png',
+                            'icon' => 'images/profile/default-profile.png',
                             'category_id' => 3,
                         ],
                     ],
@@ -221,61 +221,61 @@ class SeedCategories extends Command
             [
                 'name_en' => 'Beauty',
                 'name_ar' => 'الجمال',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Bed & Bath',
                 'name_ar' => 'مستلزمات النوم و الاستحمام',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Books',
                 'name_ar' => 'كـتـب',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Coins, Stamps & Paper money',
                 'name_ar' => 'عملات و طوابع و نقود ورقية',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
 
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Computers, IT & Networking',
                 'name_ar' => 'كمبيوتر و شبكات و برامج',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [
                     [
                         'name_en' => 'Lap top',
                         'name_ar' => 'لاب توب',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 8,
                         'brands' => [
                             [
                                 'name_en' => 'Toshiba',
                                 'name_ar' => 'توشيبا',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 1,
                             ],
                             [
                                 'name_en' => 'Hp',
                                 'name_ar' => 'إتش بي',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 1,
                             ],
                             [
                                 'name_en' => 'Dell',
                                 'name_ar' => 'ديل',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 1,
                                 'models' => [
                                     [
                                         'name_en' => 'Dell XPS 13',
                                         'name_ar' => 'ديل XPS 13',
-                                        'image' => 'default-icon.png',
+                                        'image' => 'images/profile/default-profile.png',
                                         'description_en' => 'CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch FHD (1,920 x 1,080) – 4k (3840 x 2160) | Storage: 256GB – 1TB SSD',
                                         // 'owner_id' =>  2,
                                         'brand_id' => 3,
@@ -283,7 +283,7 @@ class SeedCategories extends Command
                                     [
                                         'name_en' => 'Huawei MateBook 13',
                                         'name_ar' => 'هواوي MateBook 13',
-                                        'image' => 'default-icon.png',
+                                        'image' => 'images/profile/default-profile.png',
                                         'description_en' => 'CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 , Nvidia GeForce MX150 2GB GDDR5 | RAM: 8GB | Screen: 13-inch 1440p (2,160 x 1,440) | Storage: 256GB - 512GB SSD',
                                         // 'owner_id' =>  2,
                                         'brand_id' => 3,
@@ -292,7 +292,7 @@ class SeedCategories extends Command
                                         'name_en' => 'HP Spectre x360 (2019)',
                                         'name_ar' => 'HP Spectre x360 (2019)',
                                         'description_en' => 'CPU: Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch full HD (1,920 x 1,080) – UHD (3,840 x 2,160) touchscreen | Storage: 256GB – 2TB PCIe SSD',
-                                        'image' => 'default-icon.png',
+                                        'image' => 'images/profile/default-profile.png',
                                         // 'owner_id' =>  2,
                                         'brand_id' => 3,
                                     ],
@@ -312,58 +312,58 @@ class SeedCategories extends Command
             [
                 'name_en' => 'Eyewear & Optics',
                 'name_ar' => 'البصريات',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
 
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Garden & Outdoor',
                 'name_ar' => 'مستلزمات الحدائق',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
 
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Furniture',
                 'name_ar' => 'أثاث',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
 
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Electronics',
                 'name_ar' => 'الكتـرونيات',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
 
                 'sub_categories' => [
                     [
                         'name_en' => 'Cameras',
                         'name_ar' => 'الكاميرات',
-                        'icon' => 'default-icon.png',
+                        'icon' => 'images/profile/default-profile.png',
                         'category_id' => 12,
                         'brands' => [
                             [
                                 'name_en' => 'Nicon',
                                 'name_ar' => 'نيكون',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 2,
                             ],
                             [
                                 'name_en' => 'Canon',
                                 'name_ar' => 'كانون',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 2,
                             ],
                             [
                                 'name_en' => 'Sony',
                                 'name_ar' => 'سوني',
-                                'image' => 'default-icon.png',
+                                'image' => 'images/profile/default-profile.png',
                                 'sub_category_id' => 2,
                                 'models' => [
                                     [
                                         'name_en' => 'Sony SA1',
                                         'name_ar' => 'سوني اس اي 1',
-                                        'image' => 'default-icon.png',
+                                        'image' => 'images/profile/default-profile.png',
                                         'brand_id' => 4,
                                         'items' => [
                                             [
@@ -409,80 +409,80 @@ class SeedCategories extends Command
             [
                 'name_en' => 'Home Appliances',
                 'name_ar' => 'الأجهزة المنزلية',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
 
             ],
             [
                 'name_en' => 'Grocery, Food & Beverages',
                 'name_ar' => 'المأكولات و المشروبات',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Kitchen Appliances',
                 'name_ar' => 'اجهزة المطبخ',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Gaming',
                 'name_ar' => 'ألعاب الفيديو',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Health & Personal Care',
                 'name_ar' => 'الصحة و العناية الشخصية',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Music & Movies',
                 'name_ar' => 'أفلام و موسيقى',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Jewelry & Accessories',
                 'name_ar' => 'مجوهرات و اكسسواراتها',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Toys',
                 'name_ar' => 'الألعاب',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Mobile Phones, Tablets & Accessories',
                 'name_ar' => 'جوالات، أجهزة تابلت و اكسسواراتها',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Sports & Fitness',
                 'name_ar' => 'الرياضة و أدواتها',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Perfumes & Fragrances',
                 'name_ar' => 'العطور',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Vehicle Parts & Accessories',
                 'name_ar' => 'قطع المركبات و اكسسواراتها',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
             [
                 'name_en' => 'Others',
                 'name_ar' => 'اخرى',
-                'icon' => 'default-icon.png',
+                'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [],
             ],
         ];

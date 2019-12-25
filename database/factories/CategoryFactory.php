@@ -27,7 +27,8 @@ foreach ($categories as $key => $value) {
             'name_ar' =>  $value,
             'description_en' =>  $faker->paragraph(),
             'description_ar' => $faker->paragraph(),
-            'image' => 'default-icon.png',
+            'image' => 'images/profile/default-profile.png',
+
         ];
     });
 }

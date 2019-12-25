@@ -14,7 +14,7 @@ $factory->define(WajadOffice::class, function (Faker $faker) {
         'latitude' => $faker->latitude,
         'longitude' => $faker->longitude,
         'status' => 1,
-        'image' => 'default.png',
+        'image' => 'images/profile/default-profile.png',
     ];
 
     # English Data
