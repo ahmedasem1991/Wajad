@@ -46,19 +46,19 @@ class SeedBanners extends Command
         $banners = [
             [
                 "type" => "item",
-                "image" => "images/profile/default-profile.png",
+                "image" => "images/banners/banner1.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => "1",
             ],
             [
                 "type" => "ads",
-                "image" => "images/profile/default-profile.png",
+                "image" => "images/banners/banner2.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => null,
             ],
             [
                 "type" => "url",
-                "image" => "images/profile/default-profile.png",
+                "image" => "images/banners/banner3.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => null,
             ]
