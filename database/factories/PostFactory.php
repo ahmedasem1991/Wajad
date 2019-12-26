@@ -22,19 +22,13 @@ $factory->define(Post::class, function (Faker $faker) {
         'founded_at' => null,
         'latitude' => $faker->latitude,
         'longitude' => $faker->longitude,
-        'sub_category_id' => function () {
-            return factory(\App\SubCategory::class)->create()->id;
-        },
-        'model_id' => function () {
-            return factory(\App\Model::class)->create()->id;
-        },
+        'sub_category_id' =>  $faker->numberBetween(1, 13),
+        'model_id' =>  $faker->numberBetween(1, 5),
         'item_id' => null,
         'color_id' =>  $faker->numberBetween(1, 13),
         'city_id' =>  $faker->numberBetween(1, 147),
-        'brand_id' => function () {
-            return factory(\App\Brand::class)->create()->id;
-        },
-        'publisher_id' =>$faker->numberBetween(4, 8),
+        'brand_id' =>  $faker->numberBetween(1, 15),
+        'publisher_id' => $faker->numberBetween(4, 8),
         'reward' => $faker->sentence
     ];
 });

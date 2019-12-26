@@ -11,8 +11,8 @@ $factory->define(SubCategory::class, function (Faker $faker) {
         'name_ar' => $faker->sentence(),
         'description_en' => $faker->sentence(),
         'description_ar' => $faker->sentence(),
-        'image' => 'images/profile/default-profile.png',
-        'category_id' => function(){
+        'image' => 'images/posts/post1.jpg',
+        'category_id' => function () {
             return factory(App\Category::class)->create()->id;
         }
     ];
