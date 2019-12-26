@@ -24,16 +24,24 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::prefix('items')->group(function () {
         Route::get('/{item}', 'ItemsController@show');
-        Route::post('/', 'ItemsController@store');
-        Route::post('/{item}', 'ItemsController@update');
-        Route::delete('/{item}', 'ItemsController@destroy');
+        Route::middleware('phone_verified')->group(function () {
+            Route::post('/', 'ItemsController@store');
+            Route::post('/{item}', 'ItemsController@update');
+            Route::delete('/{item}', 'ItemsController@destroy');
+        });
     });
 
-    Route::post('/report/post/{post}', 'PostsController@report');
-    Route::post('/request/post/{post}', 'PostRequestController');
-    Route::post('/request/{post}/accept', 'AcceptPostRequestController');
-    Route::post('/request/{post}/reject', 'RejectPostRequestController');
-    Route::post('/post/{post}/answer', 'AnswerController');
+    Route::middleware('phone_verified')->group(function () {
+        Route::prefix('request')->group(function () {
+            Route::post('/post/{post}', 'PostRequestController');
+            Route::post('/{post}/accept', 'AcceptPostRequestController');
+            Route::post('/{post}/reject', 'RejectPostRequestController');
+        });
+
+        Route::post('/report/post/{post}', 'PostsController@report');
+        Route::post('/post/{post}/answer', 'AnswerController');
+    });
+
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
     Route::post('/register/qrcode', 'RegisterQRCodeController');
@@ -52,24 +60,34 @@ Route::prefix('home')->group(function () {
 });
 
 # Categories
-Route::get('/categories', 'CategoryController@index');
-Route::get('/categories/{category}', 'CategoryController@show');
+Route::prefix('categories')->group(function () {
+    Route::get('/', 'CategoryController@index');
+    Route::get('/{category}', 'CategoryController@show');
+});
 
 # Sub Categories
-Route::get('/subCategories/{type?}', 'SubCategoryController@index');
-Route::get('/subCategories/{subCategory}', 'SubCategoryController@show');
+Route::prefix('subCategories')->group(function () {
+    Route::get('/{type?}', 'SubCategoryController@index');
+    Route::get('/{subCategory}', 'SubCategoryController@show');
+});
 
 # Brands
-Route::get('/brands/{subcategory_id?}', 'BrandController@index');
-Route::get('/brands/{brand}', 'BrandController@show');
+Route::prefix('brands')->group(function () {
+    Route::get('/{subcategory_id?}', 'BrandController@index');
+    Route::get('/{brand}', 'BrandController@show');
+});
 
 # Models
-Route::get('/models/{brand_id?}', 'ModelController@index');
-Route::get('/models/{model}', 'ModelController@show');
+Route::prefix('models')->group(function () {
+    Route::get('/{brand_id?}', 'ModelController@index');
+    Route::get('/{model}', 'ModelController@show');
+});
 
 # Colors
-Route::get('/colors', 'ColorController@index');
-Route::get('/colors/{color}', 'ColorController@show');
+Route::prefix('colors')->group(function () {
+    Route::get('/', 'ColorController@index');
+    Route::get('/{color}', 'ColorController@show');
+});
 
 # Wajad Offices
 Route::get('/offices', 'OfficeController@index');
@@ -98,11 +116,10 @@ Route::get('/pages/{page?}', 'PageController');
 # Posts
 Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
-    Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::middleware(['auth:api', 'phone_verified'])->group(function () {
         Route::post('/add/{type}', 'PostsController@store');
         Route::post('/{post}', 'PostsController@update');
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
-
-Route::view('mario', 'mario');
