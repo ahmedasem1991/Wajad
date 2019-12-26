@@ -23,7 +23,7 @@ class Brand extends ModelMaster
 // }
   public function subcategories()
   {
-   return  $this->belongsToMany(SubCategory::class,'brand_sub_category','sub_category_id','brand_id');
+   return  $this->belongsToMany(SubCategory::class,'brand_sub_category','brand_id', 'sub_category_id');
   }
 
   public function models()

@@ -29,7 +29,7 @@ class SubCategory extends Model
     }
     public function brands()
     {
-        return $this->hasMany(Brand::class);
+        return $this->belongsToMany(Brand::class,'brand_sub_category','sub_category_id','brand_id');
     }
     public function posts()
     {
