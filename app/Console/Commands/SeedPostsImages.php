@@ -100,6 +100,79 @@ class SeedPostsImages extends Command
                 "post_id" => 5,
                 "image" => "images/posts/post5.jpg",
             ],
+            [
+                "post_id" => 6,
+                "image" => "images/posts/post1.jpg",
+            ],
+            [
+                "post_id" => 7,
+                "image" => "images/posts/post2.jpg",
+            ],
+            [
+                "post_id" => 8,
+                "image" => "images/posts/post3.jpg",
+            ],
+            [
+                "post_id" => 9,
+                "image" => "images/posts/post4.jpg",
+            ],
+            [
+                "post_id" => 10,
+                "image" => "images/posts/post6.jpg",
+            ],
+            [
+                "post_id" => 11,
+                "image" => "images/posts/post7.jpg",
+            ],
+            [
+                "post_id" => 12,
+                "image" => "images/posts/post1.jpg",
+            ],
+            [
+                "post_id" => 13,
+                "image" => "images/posts/post2.jpg",
+            ],
+            [
+                "post_id" => 14,
+                "image" => "images/posts/post3.jpg",
+            ],
+            [
+                "post_id" => 15,
+                "image" => "images/posts/post4.jpg",
+            ],
+            [
+                "post_id" => 16,
+                "image" => "images/posts/post5.jpg",
+            ],
+            [
+                "post_id" => 17,
+                "image" => "images/posts/post5.jpg",
+            ],
+            [
+                "post_id" => 18,
+                "image" => "images/posts/post1.jpg",
+            ],
+            [
+                "post_id" => 19,
+                "image" => "images/posts/post2.jpg",
+            ],
+            [
+                "post_id" => 20,
+                "image" => "images/posts/post3.jpg",
+            ],
+            [
+                "post_id" => 21,
+                "image" => "images/posts/post4.jpg",
+            ],
+            [
+                "post_id" => 5,
+                "image" => "images/posts/post6.jpg",
+            ],
+            [
+                "post_id" => 5,
+                "image" => "images/posts/post5.jpg",
+            ],
+
         ];
 
 
