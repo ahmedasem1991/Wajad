@@ -232,5 +232,10 @@ class HiddenPost extends Resource
         ->where('corporate_id',Auth()->user()->corporate->id);
     }
 
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+
 
 }

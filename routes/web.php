@@ -58,7 +58,7 @@ Route::get('/test600', function () { });
 
 route::get('/', function () {
 
-  return view('welcome');
+  return redirect(Nova::path());
 });
 
 

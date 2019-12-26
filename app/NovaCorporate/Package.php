@@ -115,7 +115,7 @@ class Package extends Resource
                 ->hideWhenUpdating(),
 
             Number::make('Package Period', 'period')->rules('required'),
-            Number::make('Number Of QR Codes', 'quantity')->rules('required'),
+            Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
 
            // Toggle::make('Show Package', 'is_active')->color('#4099de'),
             RadioButton::make('Type')

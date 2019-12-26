@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
         Post::observe(PostObserver::class);
         User::observe(UserObserver::class);
         PostRequest::observe(PostRequestObserver::class);
-       // \App\Role::observe(RoleObserver::class);
+        \App\Role::observe(RoleObserver::class);
         
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');

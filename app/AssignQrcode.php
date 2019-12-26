@@ -9,10 +9,10 @@ class AssignQrcode extends Model
    protected $table='assign_qrcodes';
    protected $fillable =['assign_reference_number','type','quantity','assign_to','user_id','corporate_id','available_period','created_from'];
    const Types = [
-    1 => 'Single Assign',
-    2 => 'Multi Assign',
-    'Single Assign' => 1,
-    'Multi Assign' => 2
+    1 => 'Single Use',
+    2 => 'Multi Use',
+    'Single Use' => 1,
+    'Multi Use' => 2
 ];
 
     public function typeTitle($type)

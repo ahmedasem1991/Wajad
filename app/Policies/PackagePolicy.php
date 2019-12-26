@@ -18,7 +18,14 @@ class PackagePolicy
      */
     public function viewAny(User $user)
     {
-      return true;
+      //  if(Auth()->User()->isAdmin()){
+            if($user->hasPermissionTo('packages'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+       // }
     }
 
     /**
@@ -31,15 +38,15 @@ class PackagePolicy
     public function view(User $user, Package $Package)
     {
        
-        if(Auth()->User()->isCorporateAdmin()){
+        //if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('packages'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**

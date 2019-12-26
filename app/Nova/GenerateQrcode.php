@@ -70,7 +70,7 @@ class GenerateQrcode extends Resource
                 1 => 'Single Assign',
                 2 => 'Multi Assign',
             ])->default(1), // optional
-            Number::make('Number Of QR Codes','quantity')
+            Number::make('Quantity Of QR Codes','quantity')
             ->min(1)->max(10000)->step(1)
             ->rules('required'),
             // Status::make('Status')

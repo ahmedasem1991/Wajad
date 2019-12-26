@@ -21,12 +21,13 @@ class CreatePostsTable extends Migration
             $table->boolean('status')->nullable();
             $table->boolean('appearance_status')->default(0);
             $table->boolean('open_status')->default(1);
-            $table->integer('approval_status')->default(1);
+            $table->boolean('approval_status')->default(0);
             $table->integer('reports_number')->default(0);
             $table->string('reward')->nullable();
             $table->unsignedInteger('owner_id')->nullable();
             $table->unsignedInteger('founder_id')->nullable();
             $table->unsignedInteger('publisher_id')->nullable();
+            $table->string('publisher_type')->nullable(); //1-user  2-corporate   3-admin
             $table->unsignedInteger('corporate_id')->nullable();
             $table->timestamp('losted_at')->nullable();
             $table->timestamp('founded_at')->nullable();
@@ -41,6 +42,13 @@ class CreatePostsTable extends Migration
             $table->string('founder_email')->nullable();
             $table->string('founder_mobile_number')->nullable();
             $table->string('founder_address')->nullable();
+            $table->string('owner_name')->nullable();
+            $table->string('owner_email')->nullable();
+            $table->string('owner_mobile_number')->nullable();
+            $table->string('owner_address')->nullable();
+            $table->unsignedInteger('owner_releated_to_system')->default(Null);
+            $table->unsignedInteger('founder_releated_to_system')->default(Null);
+            $table->text('reject_reasone')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

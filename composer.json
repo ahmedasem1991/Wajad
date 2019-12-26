@@ -21,6 +21,7 @@
         "depsimon/nova-stripe-checkout-field": "^1.0",
         "dillingham/nova-button": "^1.0",
         "edujugon/push-notification": "^4.1",
+        "emilianotisato/nova-belongsto-depends": "^0.1.4",
         "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
         "fourstacks/nova-checkboxes": "^0.1.7",

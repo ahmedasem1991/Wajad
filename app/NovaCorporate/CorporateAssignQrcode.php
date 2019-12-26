@@ -114,7 +114,7 @@ class CorporateAssignQrcode extends Resource
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
                 ->asHtml()->hideFromDetail()
                ,
-                Number::make('Number Of QR Codes','quantity')
+                Number::make('Quantity Of QR Codes','quantity')
                 ->min(1)->max($SingleCount)->step(1)
                 ->rules('required','max:'.$SingleCount),
             ])->dependsOn('type', '1'),
@@ -122,7 +122,7 @@ class CorporateAssignQrcode extends Resource
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
                 ->asHtml()->hideFromDetail()
                ,
-                Number::make('Number Of QR Codes','quantity')
+                Number::make('Quantity Of QR Codes','quantity')
                 ->min(1)->max($MultiCount)->step(1)
                 ->rules('required','max:'.$MultiCount),
             ])->dependsOn('type', '2'),

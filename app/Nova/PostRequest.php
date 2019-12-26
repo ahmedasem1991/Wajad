@@ -1,49 +1,48 @@
 <?php
 
-namespace App\NovaCorporate;
+namespace App\Nova;
 
-use App\User;
 use App\Nova\Resource;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Status;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
-use Faker\Provider\fr_CH\Text as FakerText;
+ 
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
+use App\NovaCorporate\Metrics\ApprovalPosts;
+ 
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
-class GenerateQrcode extends Resource
+class PostRequest extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\GenerateQrcode';
-
+    public static $model = 'App\PostRequest';
+    public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'QR Code';
-    public static $displayInNavigation = false;
+    public static $group = 'Posts';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'generate_reference_number';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -51,7 +50,7 @@ class GenerateQrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','generate_reference_number'
+        'id','title','description','owner_id','founder_id','publisher_id'
     ];
 
     /**
@@ -62,27 +61,26 @@ class GenerateQrcode extends Resource
      */
     public function fields(Request $request)
     {
+        session()->put('user_id',$this->user_id);
         return [
            ID::make()->sortable(),
-           Text::make('Reference Number','generate_reference_number')
-           ->hideWhenCreating()
-           ->hideWhenUpdating(),
-            RadioButton::make('Type')
-            ->options([
-                1 => 'Single Assign',
-                2 => 'Multi Assign',
-            ])->default(1), // optional
-            Number::make('Quantity Of QR Codes','quantity')
-            ->min(1)->max(10000)->step(1)
-            ->rules('required'),
-            // Status::make('Status')
-            // ->loadingWhen(['waiting'])
-            // ->failedWhen(['finished']),
-            HasMany::make('Qrcodes'),
-
-           // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
-
-             
+           RadioButton::make('Valid Status','is_request_valid')
+           ->options([
+               0 => 'Not Valid',
+               1 => 'Valid',
+           ])->default(0), // optional
+           BelongsTo::make('Post')
+           ->readonly()
+           ,
+           HasMany::make('Answers'),
+           BelongsTo::make('Claim user','postrequestuser',\App\Nova\NormalUser::class)
+           ->readonly()
+           ,
+           DateTime::make('Rejected At')
+           ->hideFromIndex()
+           ->exceptOnForms()
+           ->nullable(),
+            
 
         ];
     }
@@ -96,7 +94,10 @@ class GenerateQrcode extends Resource
     public function cards(Request $request)
     {
         return [
-           // new QrCodes,
+            // new PostsPeriod,
+            // new ShowVsHiddenPosts,
+            // new OpenVsClosedPosts,
+            new ApprovalPosts
         ];
     }
 
@@ -132,17 +133,16 @@ class GenerateQrcode extends Resource
     {
         return [];
     }
-
-    public static function singularLabel() {
-        return 'Generate';
-    }
-
-    public static function label() {
-        return 'Generate';
+    public static function icon() 
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-       return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
+         
+        
     }
+
+
 }

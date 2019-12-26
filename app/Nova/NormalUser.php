@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Corporate;
+use App\Nova\Resource;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
@@ -24,7 +24,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class User extends Resource
+class NormalUser extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -32,13 +32,14 @@ class User extends Resource
      * @var string
      */
     public static $model = 'App\\User';
+    public static $displayInNavigation = false;
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
-    public static $group = 'Users Management';
+    public static $group = 'Resources';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -56,6 +57,10 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+    }
     /**
      * Get the fields displayed by the resource.
      *
@@ -76,8 +81,8 @@ class User extends Resource
             Text::make('Email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email'),
-                //->updateRules('unique:users,email,{{ resourceId }}'),
+                ->creationRules('unique:users,email')
+                ->updateRules('unique:users,email,{{ resourceId }}'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -86,39 +91,24 @@ class User extends Resource
                 PhoneNumber::make('Mobile Number','mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-            HasMany::make('Items'),
+          //  HasMany::make('Items','items',Item::class),
             Toggle::make('Active', 'status'),
-          //  Boolean::make('Show My Data','show_my_data'),
-
 
             // CashierResourceTool::make()->onlyOnDetail(),
 
-            HasMany::make('Activity', 'activities')
+            HasMany::make('Activity', 'activities',Activity::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-
-            HasMany::make('Subscription')
-                ->hideWhenUpdating(),
-                Select::make('Type', 'type')->options([
+            Select::make('Type', 'type')->options([
                   
-                   '2' => 'Corpoare Admin',
-                 //  '4' => 'Corporate User',
-                   '1' => 'Normal User',
-                  
-                ])->displayUsingLabels(),
-                
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
+                   '1' => 'User',
+                ])->displayUsingLabels()->creationRules('required')
+                ->updateRules('required'),
          
-              BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
-              ->creationRules('required_if:type,2')
-              ->updateRules('required_if:type,2')
-              ->nullable(),
-                
-              BelongsToMany::make('Roles', 'roles',Role::class),
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+          //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -134,7 +124,7 @@ class User extends Resource
         return [
             // new NewUsers,
             // new UsersActivity,
-            new UsersTypes,
+            // new UsersTypes,
         ];
     }
 
@@ -175,10 +165,11 @@ class User extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        //return $query->NotSuperAdmin();
+        return $query->Normalusers();
     }
     public static function icon() 
     {
     return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
+    
 }

@@ -452,6 +452,21 @@ return [
             'description'  => 'Can display closed posts',
             'group'        => 'Posts',
         ],
+        'open posts' => [
+            'display_name' => 'Open posts',
+            'description'  => 'Can view open posts',
+            'group'        => 'Posts',
+        ],
+        'pending posts' => [
+            'display_name' => 'Pending posts',
+            'description'  => 'Can view pending posts',
+            'group'        => 'Posts',
+        ],
+        'rejected posts' => [
+            'display_name' => 'Rejected posts',
+            'description'  => 'Can view rejected posts',
+            'group'        => 'Posts',
+        ],
          ///////////////Offices///////////////
         //  'view offices' => [
         //     'display_name' => 'View offices',
@@ -522,6 +537,13 @@ return [
             'description'  => 'Can view expired qr code',
             'group'        => 'QR Code',
         ],
+
+                 ///////////////Activities///////////////
+                 'view activities' => [
+                    'display_name' => 'View activities',
+                    'description'  => 'Can view activities',
+                    'group'        => 'Activities',
+                ],
          ///////////////Setting///////////////
         //  'view setting' => [
         //     'display_name' => 'View setting',

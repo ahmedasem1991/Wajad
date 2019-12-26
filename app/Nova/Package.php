@@ -84,7 +84,7 @@ class Package extends Resource
                 ->hideWhenUpdating(),
 
             Number::make('Package Period', 'period')->rules('required'),
-            Number::make('Number Of QR Codes', 'quantity')->rules('required'),
+            Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
 
             Toggle::make('Show Package', 'is_active')->color('#4099de'),
             Toggle::make('Incrementally Available', 'incrementally')->color('#4099de'),
@@ -97,7 +97,7 @@ class Package extends Resource
             BelongsToMany::make('Product', 'products', Product::class)
                 ->fields(function () {
                     return [
-                        Number::make('Number Of Products In Package', 'product_count')
+                        Number::make('Quantity Of Products In Package', 'product_count')
                             ->rules(['required', 'integer'])
                     ];
                 })->hideWhenUpdating(),

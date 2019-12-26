@@ -18,7 +18,12 @@ class ItemPolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if($user->hasPermissionTo('view items'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -30,15 +35,15 @@ class ItemPolicy
      */
     public function view(User $user, Item $item)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+       // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('view items'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+      //  }
+      //  return  true;
     }
 
     /**
@@ -49,15 +54,15 @@ class ItemPolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        //if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('create items'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -69,7 +74,7 @@ class ItemPolicy
      */
     public function update(User $user, Item $item)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        if(Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin()){
             if($user->hasPermissionTo('edit items'))
             {
                 return true;
@@ -98,15 +103,15 @@ class ItemPolicy
      */
     public function delete(User $user, Item $item)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+      //  if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('delete items'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**

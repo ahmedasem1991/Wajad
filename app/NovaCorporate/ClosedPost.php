@@ -233,5 +233,10 @@ class ClosedPost extends Resource
         //->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+
 
 }

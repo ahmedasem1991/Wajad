@@ -18,7 +18,12 @@ class AssignQrcodePolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if($user->hasPermissionTo('view assign qr code'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -30,15 +35,15 @@ class AssignQrcodePolicy
      */
     public function view(User $user, AssignQrcode $AssignQrcode)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('view assign qr code'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -49,15 +54,15 @@ class AssignQrcodePolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+       // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('create assign qr code'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**

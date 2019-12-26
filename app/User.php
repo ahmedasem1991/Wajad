@@ -47,11 +47,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         1 => 'user',
         2 => 'corporate',// corporate admin
         3 => 'admin',
-        4 => 'corporate user',
         'user' => 1,
         'corporate' => 2,
-        'admin' => 3,
-        'corporate user' => 4
+        'admin' => 3
     ];
 
     const Status = [

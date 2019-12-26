@@ -165,9 +165,13 @@ class Post extends Resource
                 Text::make('Founder Address','founder_address',)
                 ->sortable()
                 ->rules('required', 'max:254'),
-                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
                 BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->readonly(),
+                ->readonly()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
                
 
 
