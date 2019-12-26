@@ -15,7 +15,7 @@ class BannerResource extends JsonResource
         }
 
         if ($item->type == 'item') {
-            return (string) $images_main_path . $this->item->images()->first('image')['image'] ?: null;
+             return (string) $images_main_path . $this->item->images()->first('image')['image'] ?? null;
         }
     }
 
