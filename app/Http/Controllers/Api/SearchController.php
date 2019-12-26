@@ -9,11 +9,13 @@ use App\Category;
 use Carbon\Carbon;
 use App\SubCategory;
 use Illuminate\Http\Request;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\ColorResource;
 use App\Http\Resources\RegionResource;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SubCategoryResource;
 
 /**
@@ -104,11 +106,12 @@ class SearchController extends Controller
     }
     /**
      * Search Filter
-     * @urlParam model int exist in models.
-     * @urlParam color int exist in colors.
-     * @urlParam brand int exist in brands.
-     * @urlParam subcategory int exist in subcategories.
-     * @urlParam date date
+     * @bodyParam model int exist in models.
+     * @bodyParam color int exist in colors.
+     * @bodyParam brand int exist in brands.
+     * @bodyParam subcategory int exist in subcategories.
+     * @bodyParam date date
+     * @bodyParam status int in:0,1,0 for lost, 1 for found
      * @response
      * {
      * "data": [
@@ -172,7 +175,15 @@ class SearchController extends Controller
      */
     public function searchFilter(Request $request)
     {
-        $posts = Post::isShow()->isApproved();
+        $validate_request = Validator::make($request->all(), [
+            'status' => ['nullable', 'integer', 'in:0,1'],
+        ]);
+
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
+        $posts = Post::isShow()->isApproved()->isOpen();
         if ($request->has('color') && $request->color != "") {
             $posts->whereHas('color', function ($query) use ($request) {
                 $query->where('id', '=', $request->color);
@@ -197,6 +208,10 @@ class SearchController extends Controller
             $posts->whereHas('subcategory', function ($query) use ($request) {
                 $query->where('id', $request->subcategory);
             });
+        }
+
+        if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
+            $posts->where('status', (int) $request->status);
         }
         return  PostResource::collection($posts->get());
     }
