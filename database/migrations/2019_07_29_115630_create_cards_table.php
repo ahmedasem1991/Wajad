@@ -12,7 +12,8 @@ class CreateCardsTable extends Migration
             $table->increments('id');
             $table->integer('item_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned()->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

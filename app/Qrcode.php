@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model
 {
-    use LogsActivity;
-    protected $fillable = ['reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number', 'item_id'];
+use LogsActivity,SoftDeletes;
+
+    protected $fillable =['unique_reference_number','generate_reference_number','assign_reference_number','type','status','quantity','qrcode_url','image','available_period','start_at','end_at','user_id','corporate_id','corporate_assign_reference_number'];
 
 
 
@@ -84,11 +85,19 @@ class Qrcode extends Model
 
     public function qrcodegenerate()
     {
+<<<<<<< HEAD
         return $this->belongsTo(GenerateQrcode::class, 'reference_number', 'reference_number');
     }
     public function assignqrcode()
     {
         return $this->belongsTo(AssignQrcode::class, 'assign_reference_number', 'assign_reference_number');
+=======
+        return $this->belongsTo(GenerateQrcode::class,'generate_reference_number','generate_reference_number');
+    }
+    public function assignqrcode()
+    {
+        return $this->belongsTo(AssignQrcode::class,'assign_reference_number','assign_reference_number');
+>>>>>>> 2019-12-23-MODIFY-BANNERS-PANEL
     }
 
     public function package_product_pivot()
@@ -115,11 +124,16 @@ class Qrcode extends Model
             $this->addResponse(trans('messages.successfully_registered'))->addStatusCode(201);
             Log::INFO($this->response());
             return $this->response();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2019-12-23-MODIFY-BANNERS-PANEL
         } catch (Exception $e) {
             $this->addResponse($e->getMessage)->addStatusCode(409);
             Log::ERROR($this->response());
             return $this->response();
         }
+<<<<<<< HEAD
     }
     public function scopeSingleAssign($query)
     {
@@ -144,6 +158,10 @@ class Qrcode extends Model
     public function scopeExpired($query)
     {
         return $query->where('status', 6);
+=======
+
+
+>>>>>>> 2019-12-23-MODIFY-BANNERS-PANEL
     }
 
     public function updateQrcodeToexpired()

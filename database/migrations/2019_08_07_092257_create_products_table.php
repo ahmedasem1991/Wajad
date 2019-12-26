@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('name_ar');
             $table->mediumText('description_en');
             $table->mediumText('description_ar');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

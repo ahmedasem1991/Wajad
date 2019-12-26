@@ -21,7 +21,8 @@ class CreateSubCategoriesTable extends Migration
             $table->string('description_ar', 500)->nullable();
             $table->string('image')->default('images/default.png');
             $table->integer('category_id');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

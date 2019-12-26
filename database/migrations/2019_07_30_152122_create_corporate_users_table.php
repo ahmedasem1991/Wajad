@@ -17,7 +17,8 @@ class CreateCorporateUsersTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('corporate_id');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

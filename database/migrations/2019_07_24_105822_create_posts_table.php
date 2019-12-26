@@ -42,15 +42,9 @@ class CreatePostsTable extends Migration
             $table->string('founder_email')->nullable();
             $table->string('founder_mobile_number')->nullable();
             $table->string('founder_address')->nullable();
-            $table->string('owner_name')->nullable();
-            $table->string('owner_email')->nullable();
-            $table->string('owner_mobile_number')->nullable();
-            $table->string('owner_address')->nullable();
-            $table->unsignedInteger('owner_releated_to_system')->default(Null);
-            $table->unsignedInteger('founder_releated_to_system')->default(Null);
-            $table->text('reject_reasone')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+           $table->softDeletes();
+$table->timestamps();
+
         });
     }
 

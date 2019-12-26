@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Corporate extends Model
 {
-    use LogsActivity;
+    use LogsActivity,SoftDeletes;
     protected $fillable=['name_en','name_ar','details_en','details_ar','address_en','address_ar','latitude','longitude','status','image','location'];
     // public function users()
     // {

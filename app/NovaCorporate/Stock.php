@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\DownloadQRCode;
 use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Naif\Toggle\Toggle;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -91,7 +92,7 @@ class Stock extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                Boolean::make('Print Status','printed')
+                Toggle::make('Print Status','printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
@@ -166,7 +167,7 @@ class Stock extends Resource
         ];
     }
 
-    
+
     public static function label() {
         return 'Stock';
     }

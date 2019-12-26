@@ -19,7 +19,8 @@ class CreateQrcodeRequestsTable extends Migration
             $table->Integer('corporate_id')->nullable();
             $table->Integer('corporate_admin_id')->nullable();
             $table->Integer('status')->default(0);
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

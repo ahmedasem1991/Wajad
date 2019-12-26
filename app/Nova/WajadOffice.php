@@ -12,6 +12,7 @@ use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
+use Naif\Toggle\Toggle;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 
@@ -54,7 +55,7 @@ class WajadOffice extends Resource
      * @return array
      */
     public static $globallySearchable = false;
-   
+
         public function fields(Request $request)
         {
             return [
@@ -107,9 +108,9 @@ class WajadOffice extends Resource
                     'mimes:jpeg,bmp,png',
                     'max:5012'
                 )->disk('public')->path('images/offices')->deletable(false),
-    
-               
-                Boolean::make('Active','status'),
+
+
+                Toggle::make('Active','status'),
                 MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)
@@ -117,7 +118,7 @@ class WajadOffice extends Resource
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3),
             ];
         }
-  
+
 
     /**
      * Get the cards available for the request.
@@ -162,7 +163,7 @@ class WajadOffice extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/office.png" style="height:22px;width:22px;margin=10px" />';
     }

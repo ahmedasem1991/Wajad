@@ -14,7 +14,7 @@ class BannerController extends Controller
 {
     /**
      * Banners
-     * @response 
+     * @response
      *      {
      *       "data": [
      *        {
@@ -24,10 +24,14 @@ class BannerController extends Controller
      *    }
      *  ]
      *}
-     * @return void
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request,Banner $banner = null)
     {
-        return BannerResource::collection(Banner::all());
+        if ($banner){
+            $banner->increment('clicks');
+            return new BannerResource($banner);
+        }
+        return BannerResource::collection(Banner::available()->get());
     }
 }
