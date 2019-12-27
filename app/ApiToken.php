@@ -9,4 +9,9 @@ class ApiToken extends Model
     protected $fillable = [
         'token'
     ];
+
+    public function getKey()
+    {
+        return 'token';
+    }
 }

@@ -33,5 +33,5 @@ return [
     'phone_not_verified' => 'Your phone number is not verified please verify it.',
     'something_wrong' => 'Something went wrong.',
     'cannot_recieve_emails' => 'You can not recieve emails before verifing your email.',
-
+    'token_mismatch' => 'Invalid Token.',
 ];

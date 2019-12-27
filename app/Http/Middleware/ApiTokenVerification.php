@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Exceptions\Api\ApiException;
+use App\Services\Auth\ApiCsrfVerification;
 
 class ApiTokenVerification
 {
@@ -15,9 +17,20 @@ class ApiTokenVerification
      */
     public function handle($request, Closure $next)
     {
-        if ($header = $request->header('__token')) {
-            # code...
+        if ($request->method() == 'GET') {
+            return $next($request);
         }
-        return $next($request);
+
+        $token = $request->get('__token') ?? null;
+
+        if (!$token || !is_array($token)) {
+            throw new ApiException(trans("auth.token_mismatch"), 400);
+        }
+
+        if (ApiCsrfVerification::tokenIsValid($token)) {
+            return $next($request);
+        }
+
+        throw new ApiException(trans("auth.token_mismatch"), 400);
     }
 }
