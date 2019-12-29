@@ -32,14 +32,13 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
 use Illuminate\Support\Facades\App;
 use App\Notifications\BroadcastNotification;
 
- 
+
 
 class PDFController extends Controller
 {
-    
+
     public function __construct()
     {
-        
     }
 
     public function receipt(Request $request)
@@ -52,12 +51,11 @@ class PDFController extends Controller
 
     public function qrcodepdf(Request $request)
     {
-         
-        $models=  session()->get('models');
+        $models =  session()->get('models');
         $pdf = App::make('dompdf.wrapper');
         $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
         $pdf->loadView('Pdf.qrcode', compact('models'));
-        return $pdf->stream();
+        return $pdf->download(now() . '_QR_CODE.pdf');
     }
 
     

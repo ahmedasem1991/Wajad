@@ -10,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class SubCategory extends Model
 {
-    use LogsActivity,SoftDeletes;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'category_id'];
     protected $table = "sub_categories";
@@ -29,7 +29,7 @@ class SubCategory extends Model
     }
     public function brands()
     {
-        return $this->belongsToMany(Brand::class,'brand_sub_category','sub_category_id','brand_id');
+        return $this->belongsToMany(Brand::class, 'brand_sub_category', 'sub_category_id', 'brand_id');
     }
     public function posts()
     {
@@ -47,7 +47,7 @@ class SubCategory extends Model
     }
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
     public function brandsData()
     {
