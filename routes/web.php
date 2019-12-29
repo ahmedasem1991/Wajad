@@ -42,6 +42,7 @@ Route::get('/home', function () {
   return  redirect(Nova::path());
 });
 
+Route::view('qrcode', 'Pdf.qrcode');
 Auth::routes();
 //Test Notification
 Route::get('/sendfcm', 'NotificationController@sendFCM');
@@ -101,10 +102,11 @@ Route::get('/test500', function () {
 // else{
 //  return 'false';
 // }
- 
+
+
 //   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
 //  return $pdf->stream('receipt.pdf');
-  
+
 })->name('test500');
 
 

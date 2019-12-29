@@ -30,7 +30,7 @@ class CreateQrcodesTable extends Migration
             $table->integer('package_product_pivot_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('corporate_id')->nullable();
-            $table->tinyInteger('printed')->define(0);
+            $table->tinyInteger('printed')->default(0);
 
             $table->integer('item_id')->unsigned()->nullable();
            $table->softDeletes();
