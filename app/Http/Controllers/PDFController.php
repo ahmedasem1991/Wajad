@@ -60,6 +60,18 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
+    
+    public function assginqrcodepdf(Request $request)
+    {
+        $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
+        logger( $assignqrcode);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('Pdf.assignqrcode', compact('assignqrcode'));
+
+        
+        return $pdf->stream();
+    }
+
 
  
 }

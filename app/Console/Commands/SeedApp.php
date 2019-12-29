@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\User;
 use App\Banner;
 use App\Corporate;
-use App\User;
 use App\WajadOffice;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 
 class SeedApp extends Command
@@ -104,6 +105,20 @@ class SeedApp extends Command
         ]);
         $this->info('Nova Corporate Admin Created Successfully');
 
+
+         /**---------------------------------------------*\
+        |                 Seed Roles                     |
+        \-----------------------------------------------*/
+        // Seeed Countries
+        $this->info( 'Seed Roles' );
+        $path = 'app/developer_docs/roles.sql';
+        DB::unprepared( file_get_contents($path) );
+        $path = 'app/developer_docs/permissions.sql';
+        DB::unprepared( file_get_contents($path) );
+        $path = 'app/developer_docs/role_user.sql';
+        DB::unprepared( file_get_contents($path) );
+
+        $this->info( 'Seed Roles and permissions Successfully' );
         Artisan::call('seed:locations');
         Artisan::call('seed:settings');
 

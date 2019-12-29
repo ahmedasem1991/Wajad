@@ -51,6 +51,7 @@ Route::get('paypal', 'PaymentController@payWithpaypal');
 //PDF
 Route::get('receipt', 'PDFController@receipt');
 Route::get('qrcodepdf', 'PDFController@qrcodepdf');
+Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () { });

@@ -124,7 +124,7 @@ class Role extends Resource
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
-            Number::make('Limitation Of Posts','limitation_of_posts')->min(1)->max(10000)->step(1),
+            Number::make('Limitation Of Posts','limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
 
             Toggle::make('Default Group'),
             Toggle::make('Auto Approve'),

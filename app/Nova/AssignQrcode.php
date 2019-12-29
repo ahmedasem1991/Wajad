@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\User;
 use App\Qrcode;
 use App\Corporate;
+use NovaButton\Button;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -17,6 +18,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
+use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
@@ -153,10 +155,15 @@ class AssignQrcode extends Resource
             // Status::make('Status')
             // ->loadingWhen(['waiting'])
             // ->failedWhen(['finished']),
+            Button::make('PDF')
+            ->link(URL::to('assignqrcodepdf?p='.base64_encode($this->id)),'_blank')
+            ->style('danger'),
             RadioButton::make('Created From')
             ->options([
                 'web' => 'web',
           ])->default('web'), // optional,
+
+          
             HasMany::make('Qrcodes'),
 
         ];

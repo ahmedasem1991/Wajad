@@ -572,7 +572,7 @@ return [
 
         'categories' => [
             'display_name' => 'Categories',
-            'description'  => 'Sub categories',
+            'description'  => 'categories',
             'group'        => 'Categories',
         ],
         'sub categories' => [
