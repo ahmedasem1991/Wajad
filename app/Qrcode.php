@@ -85,19 +85,11 @@ use LogsActivity,SoftDeletes;
 
     public function qrcodegenerate()
     {
-<<<<<<< HEAD
-        return $this->belongsTo(GenerateQrcode::class, 'reference_number', 'reference_number');
-    }
-    public function assignqrcode()
-    {
-        return $this->belongsTo(AssignQrcode::class, 'assign_reference_number', 'assign_reference_number');
-=======
         return $this->belongsTo(GenerateQrcode::class,'generate_reference_number','generate_reference_number');
     }
     public function assignqrcode()
     {
         return $this->belongsTo(AssignQrcode::class,'assign_reference_number','assign_reference_number');
->>>>>>> 2019-12-23-MODIFY-BANNERS-PANEL
     }
 
     public function package_product_pivot()
@@ -124,44 +116,13 @@ use LogsActivity,SoftDeletes;
             $this->addResponse(trans('messages.successfully_registered'))->addStatusCode(201);
             Log::INFO($this->response());
             return $this->response();
-<<<<<<< HEAD
-=======
-
->>>>>>> 2019-12-23-MODIFY-BANNERS-PANEL
         } catch (Exception $e) {
             $this->addResponse($e->getMessage)->addStatusCode(409);
             Log::ERROR($this->response());
             return $this->response();
         }
-<<<<<<< HEAD
-    }
-    public function scopeSingleAssign($query)
-    {
-        return $query->where('type', 1);
-    }
-    public function scopeMultiAssign($query)
-    {
-        return $query->where('type', 2);
-    }
-    public function scopeInStock($query)
-    {
-        return $query->where('status', 1);
-    }
-    public function scopeRegistered($query)
-    {
-        return $query->where('status', 4);
-    }
-    public function scopeReRegistered($query)
-    {
-        return $query->where('status', 5);
-    }
-    public function scopeExpired($query)
-    {
-        return $query->where('status', 6);
-=======
 
 
->>>>>>> 2019-12-23-MODIFY-BANNERS-PANEL
     }
 
     public function updateQrcodeToexpired()
@@ -201,5 +162,10 @@ use LogsActivity,SoftDeletes;
     public function isQrcodeExpired()
     {
         return Carbon::now()->toDateTimeString() > $this->end_at;
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('status', 6);
     }
 }
