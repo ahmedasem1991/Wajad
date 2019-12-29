@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Item;
 use App\User;
+use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\ApprovalPosts;
+use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
@@ -205,6 +207,8 @@ class Post extends Resource
                     
                         ])->dependsOn('founder_releated_to_system', 0),
 
+
+
                         NovaDependencyContainer::make([
                            
                             NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
@@ -217,7 +221,13 @@ class Post extends Resource
 
                             HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                             HasMany::make('Questions'),
-                            HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
+                            HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
+
+
+                                           
+                            Button::make('PDF')
+                            ->link(URL::to('receipt?p='.base64_encode($this->id)),'_blank')
+                            ->style('danger'),
           //  NovaDependencyContainer::make([
 
               //  DateTime::make('Losted At')->hideFromIndex(),

@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Actions\DownloadQRCode;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
@@ -146,10 +147,13 @@ class Stock extends Resource
     public function actions(Request $request)
     {
         return [
-            // (new Actions\DownloadQRCode)
-            //     ->confirmText('Are you sure you want to activate this user?')
-            //     ->confirmButtonText('Activate')
-            //     ->cancelButtonText("Don't activate"),
+
+        (new DownloadQRCode)->canRun(function(NovaRequest $request) {
+            return true;
+        }),
+                // ->confirmText('Are you sure you want to activate this user?')
+                // ->confirmButtonText('Activate')
+                // ->cancelButtonText("Don't activate"),
         ];
     }
 
