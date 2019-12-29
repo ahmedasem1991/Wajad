@@ -78,6 +78,19 @@ class PostsController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+        if ($type == "found") {
+            $validate_found_post = Validator::make($request->all(), [
+                'questions' => ['required',  'array', 'between:1,3'],
+                'questions.0' => ['required', 'min:9', 'max:500'],
+                'questions.1' => ['min:9', 'max:500'],
+                'questions.2' => ['min:9', 'max:500'],
+            ]);
+
+            if ($validate_found_post->fails()) {
+                throw new ApiException($validate_found_post->errors()->first(), 400);
+            }
+        }
+
         if (auth('api')->user()->exceededPostLimitation()) {
             throw new ApiException(trans('messages.limited',  ['model' => trans('messages.attributes.post')]), 400);
         }
@@ -375,6 +388,19 @@ class PostsController extends Controller
                 throw new ApiException($validate_request->errors()->first(), 400);
             }
 
+            if ($post->status == self::TYPES['found']) {
+                $validate_found_post = Validator::make($request->all(), [
+                    'questions' => ['required',  'array', 'between:1,3'],
+                    'questions.0' => ['required', 'min:9', 'max:500'],
+                    'questions.1' => ['min:9', 'max:500'],
+                    'questions.2' => ['min:9', 'max:500'],
+                ]);
+
+                if ($validate_found_post->fails()) {
+                    throw new ApiException($validate_found_post->errors()->first(), 400);
+                }
+            }
+
             $city =  City::where('name_en', 'like', '%' . $request->city . '%')
                 ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
             if (empty($city)) {
@@ -387,6 +413,12 @@ class PostsController extends Controller
             $request->merge(['city_id' => $city_id]);
 
             $post->update($request->all());
+
+            if ($request->has('questions')) {
+                $post->questions()->sync([
+                    $request->questions
+                ]);
+            }
 
             if ($request->has('images')) {
                 $post->images()->delete();
