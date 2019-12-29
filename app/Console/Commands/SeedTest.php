@@ -40,7 +40,7 @@ class SeedTest extends Command
     public function handle()
     {
         $client = new Client([
-            'base_uri' => 'https://ddo1.mideastsoft.com/',
+            'base_uri' => 'https://test.com/',
         ]);
 
         $faker = Factory::create();
