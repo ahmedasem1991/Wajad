@@ -59,7 +59,7 @@ class PDFController extends Controller
     }
 
     
-    public function assginqrcodepdf(Request $request)
+    public function assignqrcodepdf(Request $request)
     {
         $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
         logger( $assignqrcode);

@@ -250,6 +250,10 @@ class Post extends MasterModel
     {
         return $query->where('approval_status', 2);
     }
+    public function scopeIsReported($query)
+    {
+        return $query->where('reports_number','!=', 0);
+    }
 
     public function scopeLost($query)
     {

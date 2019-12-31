@@ -15,6 +15,7 @@ class CreateCorporatesTable extends Migration
     {
         Schema::create('corporates', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('unique_id');
             $table->string('name_en');
             $table->string('name_ar');
             $table->text('details_en');

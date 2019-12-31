@@ -19,11 +19,12 @@ class CreateBannersTable extends Migration
             $table->string('image')->nullable();
             $table->string('url')->nullable();
             $table->integer('item_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('clicks')->default(0);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

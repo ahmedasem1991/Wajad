@@ -12,6 +12,7 @@ use App\Nova\Metrics\PostsCount;
 use App\Nova\Metrics\UsersTypes;
 use App\Nova\Metrics\PostsPeriod;
 use App\Nova\Metrics\QRCodeCount;
+use App\Nova\Metrics\ReportPosts;
 use App\Nova\Metrics\UsersStatus;
 use App\Nova\Metrics\ApprovalPosts;
 use App\Nova\Metrics\UsersActivity;
@@ -85,6 +86,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 new ShowVsHiddenPosts,
                 new OpenVsClosedPosts,
                new ApprovalPosts,
+               new ReportPosts,
                // new PostsCount,
                
                 

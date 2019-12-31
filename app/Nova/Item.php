@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\User;
 use App\SubCategory;
 use App\Nova\Metrics\Items;
 use Laravel\Nova\Fields\ID;
@@ -78,8 +79,19 @@ class Item extends Resource
             ->rules('required')
             ->dependsOn('Brand'),
            
-            BelongsTo::make('Owner', 'owner', User::class),
-         //   ->searchable(),
+            Select2::make('Owner','owner_id')
+            ->sortable()
+            ->options(\App\User::normalusers()->get()->pluck('name', 'id'))
+            ->displayUsingLabels()
+            ->rules('required')
+            ->showAsLink(User::class)
+          // ->default(0)
+            ->configuration([
+                'placeholder'             => __('Choose an option'),
+                'allowClear'              => true,
+                'minimumResultsForSearch' => 1,
+                'multiple'                => false,
+            ]),
             BelongsTo::make('Color'),
          //   ->searchable(),
             HasMany::make('Images', 'images', ItemImage::class),

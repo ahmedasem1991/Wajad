@@ -92,6 +92,7 @@ class SeedApp extends Command
             'mobile_country_id' => 1
         ]);
         Corporate::create([
+            'unique_id' => time().'-WAJAD-Corporate',
             'name_en' => 'WAJAD Corporate',
             'name_ar' => 'مؤسسة وجد',
             'details_en' => 'WAJAD Corporate For Haj & Omra',

@@ -37,7 +37,12 @@ class BannerPolicy
      */
     public function view(User $user, Banner $banner)
     {
-        //
+        if($user->hasPermissionTo('banners'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -48,7 +53,12 @@ class BannerPolicy
      */
     public function create(User $user)
     {
-        //
+        if($user->hasPermissionTo('banners'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -60,7 +70,12 @@ class BannerPolicy
      */
     public function update(User $user, Banner $banner)
     {
-        //
+        if($user->hasPermissionTo('banners'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -72,7 +87,12 @@ class BannerPolicy
      */
     public function delete(User $user, Banner $banner)
     {
-        //
+        if($user->hasPermissionTo('banners'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -84,7 +104,12 @@ class BannerPolicy
      */
     public function restore(User $user, Banner $banner)
     {
-        //
+        if($user->hasPermissionTo('banners'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -96,6 +121,11 @@ class BannerPolicy
      */
     public function forceDelete(User $user, Banner $banner)
     {
-        //
+        if($user->hasPermissionTo('banners'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

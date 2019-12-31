@@ -61,6 +61,13 @@ class Corporate extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Unique ID', 'unique_id')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            )
+            ->creationRules('unique:corporates'),
             Text::make('Corporate English Name', 'name_en')->rules(
                 'required',
                 'string',

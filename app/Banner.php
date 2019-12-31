@@ -23,9 +23,31 @@ class Banner extends Model
         return $this->belongsTo(Item::class, 'item_id');
     }
 
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function user2()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function scopeAvailable($query)
     {
         return $query->where('start_date', '<=', Carbon::now())
             ->where('end_date','>=', Carbon::now());
     }
+    
+    public function notStarted()
+    {
+        return ($this->start_date > Carbon::now()) ? true:false;
+    }
+    
+    public function ended()
+    {
+        return ($this->end_date < Carbon::now()) ? true:false;
+    }
+    
+ 
 }

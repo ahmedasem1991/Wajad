@@ -1,6 +1,6 @@
  
 <center>
-<h1>assgin qrcode</h1>
+<h1>assign qrcode</h1>
  
  {{$assignqrcode->assign_reference_number}} 
  <br>

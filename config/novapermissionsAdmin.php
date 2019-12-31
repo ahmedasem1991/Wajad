@@ -467,6 +467,11 @@ return [
             'description'  => 'Can view rejected posts',
             'group'        => 'Posts',
         ],
+        'reported posts' => [
+            'display_name' => 'Reported posts',
+            'description'  => 'Can view reported posts',
+            'group'        => 'Posts',
+        ],
          ///////////////Offices///////////////
         //  'view offices' => [
         //     'display_name' => 'View offices',
