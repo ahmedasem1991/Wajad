@@ -21,34 +21,28 @@ class PostObserver
      */
     public function saving(Post $Post)
     {
-        
-             if(Auth()->User()->isCorporateAdmin() )
-             {
-                $Post->appearance_status=1;
-                $Post->open_status=1;
-                $Post->approval_status=1;
-                $Post->corporate_id=Auth()->User()->corporate_id;
-                $Post->publisher_id=Auth()->User()->id;
-                $Post->publisher_type=2;
-             }
-             if(Auth()->User()->isAdmin() )
-             {
-                // if(!isset($Post->owner_releated_to_system)) 
-                // $Post->owner_releated_to_system=NULL;
-                // if(!isset($Post->founder_releated_to_system)) 
-                // $Post->founder_releated_to_system=NULL;
-                 
 
-                $Post->publisher_type=3 ;
-                $Post->publisher_id=Auth()->User()->id;
-             }
-             
-           
-       
+        if (Auth()->User()->isCorporateAdmin()) {
+            $Post->appearance_status = 1;
+            $Post->open_status = 1;
+            $Post->approval_status = 1;
+            $Post->corporate_id = Auth()->User()->corporate_id;
+            $Post->publisher_id = Auth()->User()->id;
+            $Post->publisher_type = 2;
+        }
+        if (Auth()->User()->isAdmin()) {
+            // if(!isset($Post->owner_releated_to_system)) 
+            // $Post->owner_releated_to_system=NULL;
+            // if(!isset($Post->founder_releated_to_system)) 
+            // $Post->founder_releated_to_system=NULL;
+
+
+            $Post->publisher_type = 3;
+            $Post->publisher_id = Auth()->User()->id;
+        }
     }
     public function saved(Post $Post)
     {
-        
     }
 
     /**

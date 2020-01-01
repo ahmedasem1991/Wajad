@@ -10,17 +10,13 @@ class RoleObserver
     public function saving(Role $Role)
     {
         if (Auth()->User()->isCorporateAdmin()) {
-            
-            $Role->corporate_id=Auth()->User()->corporate_id;
-            
+
+            $Role->corporate_id = Auth()->User()->corporate_id;
         }
-        
-       
-     
     }
+    
     public function saved(Role $Role)
     {
-        
     }
     /**
      * Handle the role "created" event.
