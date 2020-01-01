@@ -59,13 +59,13 @@ class Model extends Resource
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
-            Image::make('Model Image', 'image') 
+            Image::make('Model Image', 'image')
                 ->disk('public')
                 ->path('images/models')
                 ->prunable()
                 ->deletable(),
-             BelongsTo::make('Brand'),
-             //HasMany::make('Colors'),
+            BelongsTo::make('Brand'),
+            //HasMany::make('Colors'),
         ];
     }
 
@@ -114,8 +114,8 @@ class Model extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/model.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/model.png" style="height:22px;width:22px;margin=10px" />';
     }
 }
