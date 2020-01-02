@@ -12,8 +12,9 @@ class RoleObserver
         if (Auth()->User()->isCorporateAdmin()) {
            $Role->corporate_id=Auth()->User()->corporate_id;
         }
- 
+  
     }
+    
     public function saved(Role $Role)
     {
         if (Auth()->User()->isAdmin()) {

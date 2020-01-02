@@ -94,6 +94,12 @@ return [
             'description'  => 'Can delete roles',
             'group'        => 'Roles',
         ],
+        
+        'create models' => [
+            'display_name' => 'Create models',
+            'description'  => 'Can create models',
+            'group'        => 'Models',
+        ],
              ///////////////Brands///////////////
         // 'view brands' => [
         //     'display_name' => 'View brands',

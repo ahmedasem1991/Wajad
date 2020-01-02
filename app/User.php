@@ -15,7 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, LogsActivity,  HasRoles,SoftDeletes;
+    use Notifiable, LogsActivity,  HasRoles, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -46,7 +46,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     const Types = [
         1 => 'user',
-        2 => 'corporate',// corporate admin
+        2 => 'corporate', // corporate admin
         3 => 'admin',
         'user' => 1,
         'corporate' => 2,
@@ -194,8 +194,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function receivesBroadcastNotificationsOn()
     {
-         return 'users.' . $this->id;
-      //  return 'nova-notifications';
+        return 'users.' . $this->id;
+        //  return 'nova-notifications';
     }
 
     public function exceededPostLimitation()
@@ -222,7 +222,4 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(DeviceType::class, 'user_id');
     }
-
-
-
 }
