@@ -44,7 +44,7 @@ class GenerateAndAssignQRCodeController extends Controller
         }
         $Package = Package::find($request->package_id);
         $now = Carbon::now();
-  
+
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
         $generate_reference_number = NULL;
         $assign_reference_number = 'C-' . $middle . $now->second;
@@ -63,13 +63,6 @@ class GenerateAndAssignQRCodeController extends Controller
 
             $generate_id = $GenerateQRCode->id;
         }
-
-
- 
-
-                $generate_id = $generateQRCode->id;
-            }
-
         $QRcodesData = [
             'generate_id' => $generate_id,
             'generate_reference_number' => $generate_reference_number,
@@ -77,26 +70,14 @@ class GenerateAndAssignQRCodeController extends Controller
             'quantity' => $Package->quantity,
             'status' => 2,
             'type' => $Package->type,
-            'user_id' => $request->user_id,
+            'auth_id' => auth('api')->user()->id,
+            'user_id' => auth('api')->user()->id,
             'corporate_id' => NULL,
             'available_period' => str_replace(" Day/s", "", $Package->period),
         ];
 
-            $QRcodesData = [
-                'generate_id' => $generate_id,
-                'generate_reference_number' => $generate_reference_number,
-                'assign_reference_number' => $assign_reference_number,
-                'quantity' => $package->quantity,
-                'status' => 2,
-                'type' => $package->type,
-                'auth_id' => auth('api')->user()->id,
-                'user_id' => auth('api')->user()->id,
-                'corporate_id' => NULL,
-                'available_period' => str_replace(" Day/s", "", $package->period),
-            ];
+        GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
 
-            GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
-        }
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.qrcode')]))->addStatusCode(201);
         Log::INFO($this->response());
         return $this->response();
