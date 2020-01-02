@@ -162,7 +162,7 @@ class Post extends Resource
                 PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-                Text::make('Founder Address','founder_address',)
+                Text::make('Founder Address','founder_address')
                 ->sortable()
                 ->rules('required', 'max:254'),
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
