@@ -160,7 +160,7 @@ class Post extends Resource
                 PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-                Text::make('Founder Address','founder_address',)
+                Text::make('Founder Address','founder_address')
                 ->sortable()
                 ->rules('required', 'max:254')
                ,
