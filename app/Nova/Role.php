@@ -2,15 +2,21 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Resource;
+use App\Nova\Resource;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Laravel\Nova\Fields\BelongsToMany;
 use Pktharindu\NovaPermissions\Checkboxes;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Pktharindu\NovaPermissions\Role as RoleModel;
+//use Silvanite\NovaFieldCheckboxes\Checkboxes;
 
 class Role extends Resource
 {
@@ -19,23 +25,25 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $model = RoleModel::class;
+    public static $model =\App\Role::class;
+    public static $displayInNavigation = true;
 
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
- 
-    public static $group = 'Users Management';
+    public static function group()
+    {
+        return config('novapermissionsAdmin.roleResourceGroup', 'Other');
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
-    public static $displayInNavigation = false;
-
 
     /**
      * The columns that should be searched.
@@ -85,6 +93,8 @@ class Role extends Resource
      */
     public function fields(Request $request)
     {
+       // logger(collect(config('novapermissions.permissions')) );
+
         return [
             ID::make()->sortable(),
 
@@ -101,7 +111,8 @@ class Role extends Resource
 
             Checkboxes::make(__('Permissions'), 'permissions')
                 ->withGroups()
-                ->options(collect(config('novapermissions.permissions'))->map(function ($permission, $key) {
+                ->options( collect(config('novapermissionsAdmin.permissions'))
+                ->map(function ($permission, $key) {
                     return [
                         'group'        => ucfirst($permission['group']),
                         'option'       => $key,
@@ -113,9 +124,15 @@ class Role extends Resource
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
+            Number::make('Limitation Of Posts','limitation_of_posts')->min(1)->max(10000)->step(1),
 
-            BelongsToMany::make(__('Users'), 'users', config('novapermissions.userResource', 'App\Nova\User'))
+            Toggle::make('Default Group'),
+            Toggle::make('Auto Approve'),
+            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User'))
                 ->searchable(),
+                BelongsTo::make('Corporate')
+                ->nullable(),
+                // ->searchable(),
         ];
     }
 
@@ -156,4 +173,9 @@ class Role extends Resource
     {
     return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }
+
+    // public static function indexQuery(NovaRequest $request, $query)
+    // {
+    //    // return $query->whe();
+    // }
 }

@@ -33,6 +33,15 @@ class Post extends MasterModel
         'rejected' => 2
     ];
 
+    const PUBLISHER_TYPE = [
+        1 => 'user',
+        2 => 'corporate',
+        3 => 'admin',
+        'user' => 1,
+        'corporate' => 2,
+        'admin' => 3
+    ];
+
     const Status = [
         0 => 'lost',
         1 => 'found',
@@ -278,4 +287,32 @@ class Post extends MasterModel
     {
         return $this->hasMany(PostRequest::class, 'post_id');
     }
+
+    public function getPublisherTypeAttribute($value)
+    {
+        if($value==1)
+        return 'user';
+        if($value==2)
+        return 'corporate';
+        if($value==3)
+        return 'admin';
+    }
+
+ 
+    // public function getOwnerReleatedToSystemAttribute($value)
+    // {
+    //     if($value==1)
+    //     return 'Yes';
+    //     if($value==0)
+    //     return 'No';
+        
+    // }
+    // public function getFounderReleatedToSystemAttribute($value)
+    // {
+    //     if($value==1)
+    //     return 'Yes';
+    //     if($value==0)
+    //     return 'No';
+        
+    // }
 }

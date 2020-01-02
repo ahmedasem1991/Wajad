@@ -41,7 +41,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Nova::resourcesIn(app_path('Nova'));
         }
 
-        if(Auth()->user()->isCorporateAdmin())
+        if(!Auth()->user()->isAdmin())
         {
             Nova::resourcesIn(app_path('NovaCorporate'));
         }
@@ -67,6 +67,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
            {
             return $user->isCorporateAdmin();
            }
+
          });
     }
 
@@ -100,13 +101,21 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         if(Auth()->user()->isCorporateAdmin())
         {
-            return[
-                new \App\NovaCorporate\Metrics\PostsPeriod,
-                new \App\NovaCorporate\Metrics\ShowVsHiddenPosts,
-                new \App\NovaCorporate\Metrics\OpenVsClosedPosts,
-                new \App\NovaCorporate\Metrics\ApprovalPosts,
-                new \App\NovaCorporate\Metrics\QrCodes,
-            ];
+            $array=[];
+            if(Auth()->user()->hasPermissionTo('view posts'))
+            {
+                array_push($array,new \App\NovaCorporate\Metrics\PostsPeriod);
+                array_push($array,new \App\NovaCorporate\Metrics\ShowVsHiddenPosts);
+                array_push($array,new \App\NovaCorporate\Metrics\OpenVsClosedPosts,);
+                
+             
+            }
+            if(Auth()->user()->hasPermissionTo('view stock'))
+            {
+                array_push($array, new \App\NovaCorporate\Metrics\QRCodeCount);
+            }
+            return $array;
+            
         }
         return [];
 
@@ -114,17 +123,27 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     public function tools()
     {
+ 
         if(Auth()->user()->isCorporateAdmin())
         {
+          //  copy(config_path() . "/novapermissionsCorporate.php", config_path() . "/novapermissions.php");
             return[
                 new NovaSidebarIcons,
+               // new \Pktharindu\NovaPermissions\NovaPermissions(),
+               \Pktharindu\NovaPermissions\NovaPermissions::make()
+            ->roleResource(\App\NovaCorporate\Role::class),
             ];
         }
+
+
         if(Auth()->user()->isAdmin())
         {
+           // copy(config_path() . "/novapermissionsAdmin.php", config_path() . "/novapermissions.php");
         return [
             new NovaSidebarIcons,
-            new \Pktharindu\NovaPermissions\NovaPermissions(),
+            //new \Pktharindu\NovaPermissions\NovaPermissions(),
+            \Pktharindu\NovaPermissions\NovaPermissions::make()
+            ->roleResource(\App\Nova\Role::class),
         ];
         }
     }

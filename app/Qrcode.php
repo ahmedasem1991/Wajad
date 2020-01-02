@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model
 {
-    use LogsActivity;
-    protected $fillable = ['reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number', 'item_id'];
+use LogsActivity,SoftDeletes;
+
+    protected $fillable =['unique_reference_number','generate_reference_number','assign_reference_number','type','status','quantity','qrcode_url','image','available_period','start_at','end_at','user_id','corporate_id','corporate_assign_reference_number'];
 
 
 
@@ -84,11 +85,11 @@ class Qrcode extends Model
 
     public function qrcodegenerate()
     {
-        return $this->belongsTo(GenerateQrcode::class, 'reference_number', 'reference_number');
+        return $this->belongsTo(GenerateQrcode::class,'generate_reference_number','generate_reference_number');
     }
     public function assignqrcode()
     {
-        return $this->belongsTo(AssignQrcode::class, 'assign_reference_number', 'assign_reference_number');
+        return $this->belongsTo(AssignQrcode::class,'assign_reference_number','assign_reference_number');
     }
 
     public function package_product_pivot()
@@ -120,30 +121,8 @@ class Qrcode extends Model
             Log::ERROR($this->response());
             return $this->response();
         }
-    }
-    public function scopeSingleAssign($query)
-    {
-        return $query->where('type', 1);
-    }
-    public function scopeMultiAssign($query)
-    {
-        return $query->where('type', 2);
-    }
-    public function scopeInStock($query)
-    {
-        return $query->where('status', 1);
-    }
-    public function scopeRegistered($query)
-    {
-        return $query->where('status', 4);
-    }
-    public function scopeReRegistered($query)
-    {
-        return $query->where('status', 5);
-    }
-    public function scopeExpired($query)
-    {
-        return $query->where('status', 6);
+
+
     }
 
     public function updateQrcodeToexpired()
@@ -183,5 +162,10 @@ class Qrcode extends Model
     public function isQrcodeExpired()
     {
         return Carbon::now()->toDateTimeString() > $this->end_at;
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('status', 6);
     }
 }

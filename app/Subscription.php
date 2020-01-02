@@ -3,16 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subscription extends Model
 {
+    use SoftDeletes;
     protected $table = 'package_user';
 
     protected $fillable = [
         'user_id','package_id','corporate_id','subscriber'
     ];
 
- 
+
 
     public function user()
     {

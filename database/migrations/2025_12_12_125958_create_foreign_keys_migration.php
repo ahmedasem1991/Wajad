@@ -62,6 +62,12 @@ class CreateForeignKeysMigration extends Migration
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('SET NULL');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('SET NULL');
         });
+
+        Schema::table('brand_sub_category', function (Blueprint $table){
+            $table->engine = "InnoDB";
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('SET NULL');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('SET NULL');
+        });
     }
 
     /**

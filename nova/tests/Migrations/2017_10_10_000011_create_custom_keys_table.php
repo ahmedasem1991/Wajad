@@ -15,7 +15,8 @@ class CreateCustomKeysTable extends Migration
     {
         Schema::create('custom_keys', function (Blueprint $table) {
             $table->increments('pk');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

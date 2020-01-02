@@ -17,7 +17,12 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if($user->hasPermissionTo('view users'))
+            {
+                return true;
+            }else{
+                return false;
+            }
     }
 
     /**
@@ -29,15 +34,15 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+       // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('view users'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+       // }
+       // return  true;
     }
 
     /**
@@ -48,15 +53,15 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+      //  if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('create users'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -68,15 +73,15 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+       // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('edit users'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -88,15 +93,15 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('delete users'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**

@@ -2,8 +2,10 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Post;
+use App\User;
+use Laravel\Nova\Nova;
+use App\Exceptions\Api\ApiException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
@@ -18,7 +20,11 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        if ($user->hasPermissionTo('view posts')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -31,14 +37,14 @@ class PostPolicy
     public function view(User $user, Post $post)
     {
 
-        if (Auth()->User()->isCorporateAdmin()) {
+        // if (Auth()->User()->isCorporateAdmin()) {
             if ($user->hasPermissionTo('view posts')) {
                 return true;
             } else {
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -49,15 +55,20 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        if (Auth()->User()->isCorporateAdmin()) {
+        
+        // if(\Request::url() == \URL::to('/') .Nova::path() . '/resources/closed-posts' ||\Request::url() == \URL::to('/') .Nova::path() . '/resources/hiden-posts')
+        // {
+        //     return false;
+        // }
+       // if (Auth()->User()->isCorporateAdmin()) {
             if ($user->hasPermissionTo('create posts')) {
                 return true;
             } else {
                 return false;
             }
-        }
+        // }
         
-        return  true;
+        // return  true;
     }
 
     /**
@@ -69,13 +80,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        if (Auth()->User()->isCorporateAdmin()) {
-            if ($user->hasPermissionTo('edit posts')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+ 
         if($user->isUser())
         {
         if ($user->id == $post->publisher_id) {
@@ -83,7 +88,16 @@ class PostPolicy
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
        } 
-        return  true;
+
+       // if (Auth()->User()->isCorporateAdmin()) {
+            if ($user->hasPermissionTo('edit posts')) {
+                return true;
+            } else {
+                return false;
+            }
+        // }
+
+        // return  true;
     }
 
     /**
@@ -96,14 +110,14 @@ class PostPolicy
     public function delete(User $user, Post $post)
     {
        
-        if (Auth()->User()->isCorporateAdmin()) {
+        // if (Auth()->User()->isCorporateAdmin()) {
             if ($user->hasPermissionTo('delete posts')) {
                 return true;
             } else {
                 return false;
             }
-        }
-        return  false;
+        // }
+        // return  false;
     }
 
     /**

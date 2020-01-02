@@ -50,6 +50,16 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
+    public function qrcodepdf(Request $request)
+    {
+         
+        $models=  session()->get('models');
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->loadView('Pdf.qrcode', compact('models'));
+        return $pdf->stream();
+    }
+
 
  
 }

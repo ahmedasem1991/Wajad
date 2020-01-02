@@ -13,8 +13,10 @@ class CreateAnswersTable extends Migration
             $table->unsignedInteger('question_id');
             $table->text('answers');
             $table->unsignedInteger('user_id');
-            $table->softDeletes();
-            $table->timestamps();
+            $table->unsignedInteger('post_request_id');
+
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

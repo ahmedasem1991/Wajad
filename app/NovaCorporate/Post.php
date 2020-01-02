@@ -113,6 +113,8 @@ class Post extends Resource
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
              DateTime::make('Founded At')->hideFromIndex()
              ->Rules('required_if:status,1'),
+             
+      
 
              NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
             ->placeholder('Optional Placeholder')  
@@ -162,8 +164,17 @@ class Post extends Resource
                 ->onlyCustomFormats(),
                 Text::make('Founder Address','founder_address',)
                 ->sortable()
-                ->rules('required', 'max:254')
-               ,
+                ->rules('required', 'max:254'),
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+                BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+                ->readonly()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+               
+
+
             // Password::make('Password')
             //     ->onlyOnForms()
             //     ->creationRules('required', 'string', 'min:8')
@@ -178,7 +189,9 @@ class Post extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-             HasMany::make('Images','images',\App\Nova\PostImage::class)
+             HasMany::make('Images','images',\App\Nova\PostImage::class),
+             HasMany::make('Questions'),
+             HasMany::make('Post Requests','postrequests' ,\App\NovaCorporate\PostRequest::class)
  
          ];
  

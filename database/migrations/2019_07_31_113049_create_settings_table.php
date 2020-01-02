@@ -19,7 +19,8 @@ class CreateSettingsTable extends Migration
             $table->json('title')->nullable();
             $table->json('value');
             $table->string('image')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

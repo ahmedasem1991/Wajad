@@ -15,6 +15,7 @@ use App\Notifications\TestNotification;
 use App\Notifications\BroadcastNotification;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
+use App\PostRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::get('/sendsms', 'NotificationController@sendSMS');
 Route::get('paypal', 'PaymentController@payWithpaypal');
 //PDF
 Route::get('receipt', 'PDFController@receipt');
+Route::get('qrcodepdf', 'PDFController@qrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () { });
@@ -56,13 +58,12 @@ Route::get('/test600', function () { });
 
 route::get('/', function () {
 
-return redirect(Nova::path());
+  return redirect(Nova::path());
 });
 
 
 Route::get('test', function () {
-  logger(event(new App\Events\StatusLiked('Someone')));
-  return "Event has been sent!";
+  return now()->toDatetimeString();
 });
 
 
@@ -90,10 +91,17 @@ Route::get('/broadcast', function () {
   return view('home');
 });
 Route::get('/test500', function () {
+  return $_SERVER['nova.role.updatable'];
+//  dd( $user->roles());
+//  foreach()
 
-  $pdf = App::make('dompdf.wrapper');
-  $pdf->loadView('Pdf.receipt', $data=[]);
-  return $pdf->stream();
+//  if($user->permissions()) {
+//   return 'true';
+// }
+// else{
+//  return 'false';
+// }
+ 
 //   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
 //  return $pdf->stream('receipt.pdf');
   

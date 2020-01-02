@@ -74,7 +74,7 @@ class Product extends Resource
             BelongsToMany::make('Package', 'packages', Package::class)
                 ->fields(function () {
                     return [
-                        Number::make('Number Of Products In Package', 'product_count')
+                        Number::make('Quantity Of Products In Package', 'product_count')
                             ->rules(['required', 'integer'])
                     ];
                 })->hideWhenUpdating(),

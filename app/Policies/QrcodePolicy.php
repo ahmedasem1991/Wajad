@@ -18,7 +18,12 @@ class QrcodePolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if($user->hasPermissionTo('view stock'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -30,15 +35,15 @@ class QrcodePolicy
      */
     public function view(User $user, Qrcode $qrcode)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+       // if(Auth()->User()->isCorporateAdmin()){
             if($user->hasPermissionTo('view stock'))
             {
                 return true;
             }else{
                 return false;
             }
-        }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**

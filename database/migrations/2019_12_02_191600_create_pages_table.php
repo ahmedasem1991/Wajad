@@ -20,7 +20,8 @@ class CreatePagesTable extends Migration
             $table->longText('body_en');
             $table->string('title_ar');
             $table->longText('body_ar');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

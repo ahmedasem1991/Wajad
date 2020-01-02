@@ -84,20 +84,20 @@ class Package extends Resource
                 ->hideWhenUpdating(),
 
             Number::make('Package Period', 'period')->rules('required'),
-            Number::make('Number Of QR Codes', 'quantity')->rules('required'),
+            Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
 
             Toggle::make('Show Package', 'is_active')->color('#4099de'),
             Toggle::make('Incrementally Available', 'incrementally')->color('#4099de'),
             RadioButton::make('Type')
-            ->options([
-                1 => 'Single Assign',
-                2 => 'Multi Assign',
-            ])->default(1), // optional
+                ->options([
+                    1 => 'Single Assign',
+                    2 => 'Multi Assign',
+                ])->default(1), // optional
 
             BelongsToMany::make('Product', 'products', Product::class)
                 ->fields(function () {
                     return [
-                        Number::make('Number Of Products In Package', 'product_count')
+                        Number::make('Quantity Of Products In Package', 'product_count')
                             ->rules(['required', 'integer'])
                     ];
                 })->hideWhenUpdating(),
@@ -118,20 +118,20 @@ class Package extends Resource
     public function cards(Request $request)
     {
         return [
-            (new Paypal())
-      
-        //     //you can set days to retrieve transacitons
-        //     (new Paypal())->days(3)  //default last 5 days
-      
-        //     //you can specifivy how many transactions to retreive
-        //     (new Paypal())->count(5) //default is 10 transactions
-      
-        //     //you can hide PayPal logo
-        //     (new Paypal())->hideLogo(true) //default false
-      
-        //    //Example for all options
-        //    (new Paypal())->days(3)->count(5)->hideLogo(true)
-          ];
+            // (new Paypal())
+
+            //     //you can set days to retrieve transacitons
+            //     (new Paypal())->days(3)  //default last 5 days
+
+            //     //you can specifivy how many transactions to retreive
+            //     (new Paypal())->count(5) //default is 10 transactions
+
+            //     //you can hide PayPal logo
+            //     (new Paypal())->hideLogo(true) //default false
+
+            //    //Example for all options
+            //    (new Paypal())->days(3)->count(5)->hideLogo(true)
+        ];
     }
 
     /**
@@ -166,8 +166,8 @@ class Package extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

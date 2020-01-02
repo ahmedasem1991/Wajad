@@ -67,7 +67,7 @@ class Item extends MasterModel
 
     public function isFound()
     {
-        return $this->status == self::ITEM_STATUS['lost'];
+        return $this->status == self::ITEM_STATUS['found'];
     }
 
     public function subcategory()

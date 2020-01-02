@@ -17,15 +17,16 @@ class CreateCorporateAssignQrcodesTable extends Migration
             $table->Increments('id');
            // $table->string('assign_reference_number')->nullable();
             $table->string('corporate_assign_reference_number')->nullable();
-            $table->integer('user_id')->nullable(); 
-            $table->integer('corporate_id')->nullable(); 
+            $table->integer('user_id')->nullable();
+            $table->integer('corporate_id')->nullable();
             $table->integer('type')->default(1);//default  (single)
             $table->integer('quantity')->default(1);
             $table->integer('created_by')->nullable();
             $table->string('created_from')->default('web');
             $table->string('status')->default('waiting');//finished
-            
-            $table->timestamps();
+
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

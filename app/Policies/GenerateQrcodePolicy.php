@@ -18,7 +18,12 @@ class GenerateQrcodePolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if($user->hasPermissionTo('view generate qr code'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -30,7 +35,12 @@ class GenerateQrcodePolicy
      */
     public function view(User $user, GenerateQrcode $GenerateQrcode)
     {
-        return true;
+        if($user->hasPermissionTo('view generate qr code'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -41,7 +51,12 @@ class GenerateQrcodePolicy
      */
     public function create(User $user)
     {
-        return true;
+        if($user->hasPermissionTo('create generate qr code'))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

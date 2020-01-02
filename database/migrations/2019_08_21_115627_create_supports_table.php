@@ -19,7 +19,8 @@ class CreateSupportsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->text('message');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 
