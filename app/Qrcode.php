@@ -86,7 +86,7 @@ class Qrcode extends Model
 
     public function qrcodegenerate()
     {
-        return $this->belongsTo(GenerateQrcode::class, 'reference_number', 'reference_number');
+        return $this->belongsTo(GenerateQrcode::class, 'generate_reference_number', 'generate_reference_number');
     }
 
     public function assignqrcode()
