@@ -45,7 +45,7 @@ class SeedApp extends Command
      */
     public function handle()
     {
-        return;
+        // return;
         $this->call('migrate:fresh');
         $this->info('App seeds is processing ....');
 
