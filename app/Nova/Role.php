@@ -16,6 +16,7 @@ use Pktharindu\NovaPermissions\Checkboxes;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Pktharindu\NovaPermissions\Role as RoleModel;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 //use Silvanite\NovaFieldCheckboxes\Checkboxes;
 
 class Role extends Resource
@@ -124,10 +125,16 @@ class Role extends Resource
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
-            Number::make('Limitation Of Posts','limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
-
             Toggle::make('Default Group'),
-            Toggle::make('Auto Approve'),
+            NovaDependencyContainer::make([
+                Number::make('Limitation Of Posts','limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
+                Toggle::make('Auto Approve'),
+
+            ])->dependsOn('default_group', 1),
+          
+
+           
+           
             BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User'))
                 ->searchable(),
                 BelongsTo::make('Corporate')
