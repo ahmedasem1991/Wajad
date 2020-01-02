@@ -48,10 +48,8 @@ class CreatePostsTable extends Migration
             $table->string('owner_address')->nullable();
             $table->unsignedInteger('owner_releated_to_system')->nullable();
             $table->unsignedInteger('founder_releated_to_system')->nullable();
-            $table->unsignedInteger('publisher_id')->nullable();
-           $table->softDeletes();
-$table->timestamps();
-
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
