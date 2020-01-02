@@ -4,12 +4,15 @@ namespace App\Policies;
 
 use App\User;
 use App\Country;
+use App\Policies\Helpers\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CountryPolicy
 {
-    use HandlesAuthorization;
-    
+    use HandlesAuthorization, Permission;
+
+    public $permission = 'countries';
+
     /**
      * Determine whether the user can view any countries.
      *
@@ -18,14 +21,7 @@ class CountryPolicy
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('countries'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -37,7 +33,7 @@ class CountryPolicy
      */
     public function view(User $user, Country $country)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -48,7 +44,7 @@ class CountryPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -60,7 +56,7 @@ class CountryPolicy
      */
     public function update(User $user, Country $country)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -72,7 +68,7 @@ class CountryPolicy
      */
     public function delete(User $user, Country $country)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -84,7 +80,7 @@ class CountryPolicy
      */
     public function restore(User $user, Country $country)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -96,6 +92,6 @@ class CountryPolicy
      */
     public function forceDelete(User $user, Country $country)
     {
-        //
+        return $this->permission($user);
     }
 }

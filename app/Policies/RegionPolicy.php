@@ -2,14 +2,17 @@
 
 namespace App\Policies;
 
+use App\Policies\Helpers\Permission;
 use App\User;
 use App\Region;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RegionPolicy
 {
-    use HandlesAuthorization;
-    
+    use HandlesAuthorization, Permission;
+
+    public $permission = 'areas';
+
     /**
      * Determine whether the user can view any regions.
      *
@@ -18,14 +21,7 @@ class RegionPolicy
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('areas'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -37,7 +33,7 @@ class RegionPolicy
      */
     public function view(User $user, Region $region)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -48,7 +44,7 @@ class RegionPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -60,7 +56,7 @@ class RegionPolicy
      */
     public function update(User $user, Region $region)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -72,7 +68,7 @@ class RegionPolicy
      */
     public function delete(User $user, Region $region)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -84,7 +80,7 @@ class RegionPolicy
      */
     public function restore(User $user, Region $region)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -96,6 +92,6 @@ class RegionPolicy
      */
     public function forceDelete(User $user, Region $region)
     {
-        //
+        return $this->permission($user);
     }
 }

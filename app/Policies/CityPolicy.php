@@ -4,12 +4,15 @@ namespace App\Policies;
 
 use App\User;
 use App\City;
+use App\Policies\Helpers\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CityPolicy
 {
-    use HandlesAuthorization;
-    
+    use HandlesAuthorization, Permission;
+
+    public $permission = 'cities';
+
     /**
      * Determine whether the user can view any cities.
      *
@@ -18,14 +21,7 @@ class CityPolicy
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('cities'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -37,7 +33,7 @@ class CityPolicy
      */
     public function view(User $user, City $city)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -48,7 +44,7 @@ class CityPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -60,7 +56,7 @@ class CityPolicy
      */
     public function update(User $user, City $city)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -72,7 +68,7 @@ class CityPolicy
      */
     public function delete(User $user, City $city)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -84,7 +80,7 @@ class CityPolicy
      */
     public function restore(User $user, City $city)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -96,6 +92,6 @@ class CityPolicy
      */
     public function forceDelete(User $user, City $city)
     {
-        //
+        return $this->permission($user);
     }
 }

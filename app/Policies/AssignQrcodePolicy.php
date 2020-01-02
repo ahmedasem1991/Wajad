@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class AssignQrcodePolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any qrcodes.
      *
@@ -18,10 +18,9 @@ class AssignQrcodePolicy
      */
     public function viewAny(User $user)
     {
-        if($user->hasPermissionTo('view assign qr code'))
-        {
+        if ($user->hasPermissionTo('view assign qr code')) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -36,12 +35,11 @@ class AssignQrcodePolicy
     public function view(User $user, AssignQrcode $AssignQrcode)
     {
         // if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('view assign qr code'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        if ($user->hasPermissionTo('view assign qr code')) {
+            return true;
+        } else {
+            return false;
+        }
         // }
         // return  true;
     }
@@ -54,13 +52,12 @@ class AssignQrcodePolicy
      */
     public function create(User $user)
     {
-       // if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('create assign qr code'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        // if(Auth()->User()->isCorporateAdmin()){
+        if ($user->hasPermissionTo('create assign qr code')) {
+            return true;
+        } else {
+            return false;
+        }
         // }
         // return  true;
     }
