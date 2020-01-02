@@ -120,20 +120,20 @@ class SeedApp extends Command
         //     'corporate_id' => 1,
         //     'mobile_country_id' => 1
         // ]);
-        Corporate::create([
-            'unique_id' => time() . '-WAJAD-Corporate',
-            'name_en' => 'WAJAD Corporate',
-            'name_ar' => 'مؤسسة وجد',
-            'details_en' => 'WAJAD Corporate For Haj & Omra',
-            'details_ar' => 'مؤسسة وجد للحج والعمرة', // User
-            'address_en' => 'Jadda - KSA',
-            'address_ar' => 'جده - المملكة العربية السعودية',
-            'latitude' => '21.4498898',
-            'longitude' => '39.4913423',
-            'status' => 1,
+        // Corporate::create([
+        //     'unique_id' => time() . '-WAJAD-Corporate',
+        //     'name_en' => 'WAJAD Corporate',
+        //     'name_ar' => 'مؤسسة وجد',
+        //     'details_en' => 'WAJAD Corporate For Haj & Omra',
+        //     'details_ar' => 'مؤسسة وجد للحج والعمرة', // User
+        //     'address_en' => 'Jadda - KSA',
+        //     'address_ar' => 'جده - المملكة العربية السعودية',
+        //     'latitude' => '21.4498898',
+        //     'longitude' => '39.4913423',
+        //     'status' => 1,
 
-        ]);
-        $this->info('Nova Corporate Admin Created Successfully');
+        // ]);
+        // $this->info('Nova Corporate Admin Created Successfully');
 
 
         /**---------------------------------------------*\
