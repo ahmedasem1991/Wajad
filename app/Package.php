@@ -43,9 +43,9 @@ class Package extends Model
         return $this->period . ' Day/s';
     }
 
-    public function getPriceAttribute($value)
+    public function getPrice()
     {
-        return $value . ' - ' . env('CURRENCY', 'USD');
+        return $this->price . ' - ' . env('CURRENCY', 'USD');
     }
 
     public function subscription()

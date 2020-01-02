@@ -80,8 +80,7 @@ class Package extends Resource
                 )->hideFromIndex(),
 
             Number::make('Package Price', 'price')
-                ->rules(['required', 'integer'])
-                ->hideWhenUpdating(),
+                ->rules(['required', 'integer']),
 
             Number::make('Package Period', 'period')->rules('required'),
             Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
