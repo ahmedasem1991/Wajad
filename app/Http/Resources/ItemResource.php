@@ -27,7 +27,7 @@ class ItemResource extends JsonResource
             'color' => new ColorResource($this->color),
             'brand' => new BrandResource($this->brand),
             'qrcode' => new QrcodeResource($this->qrcode),
-            'date' => $this->created_at->toDateTimeString(),
+            'date' => $this->created_at ? $this->created_at->toDateTimeString() : null,
             'images' =>  ItemImagesResource::collection($this->images),
         ];
     }

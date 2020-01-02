@@ -181,8 +181,8 @@ class SeedPostsImages extends Command
         }
 
 
-        $this->info('|------------------------------------|');
+        $this->info('|-----------------------------------------|');
         $this->info('|  Seeding Posts Images Done Successfully |');
-        $this->info('|------------------------------------|');
+        $this->info('|-----------------------------------------|');
     }
 }

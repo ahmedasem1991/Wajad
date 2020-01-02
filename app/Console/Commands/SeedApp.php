@@ -60,7 +60,11 @@ class SeedApp extends Command
         factory(WajadOffice::class, 5)->create();
         factory(Item::class, 5)->create();
         factory(Post::class, 5)->create();
+
         $this->call('seed:posts_images');
+        $this->call('seed:postrequest');
+        $this->call('seed:questions');
+        $this->call('seed:answers');
 
         $this->info('Database App Seed Successfully');
     }
