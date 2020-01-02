@@ -62,23 +62,21 @@ class Banner extends Resource
     {
         return [
             ID::make()->sortable(),
-            DateTime::make('Start Date'),
-            DateTime::make('End Date'),
+            DateTime::make('Start Date')->rules(['required']),
+            DateTime::make('End Date')->rules(['required', 'after:start_date']),
             Text::make('Status', function () {
-                if($this->notStarted())
-                return "<span style='color:orange'> Not Started </span>";
-               else if($this->ended())
-                return "<span style='color:red'>Expired </span>";
-                else 
-                return "<span style='color:green'> Active </span>";
-            
-               
+                if ($this->notStarted())
+                    return "<span style='color:orange'> Not Started </span>";
+                else if ($this->ended())
+                    return "<span style='color:red'>Expired </span>";
+                else
+                    return "<span style='color:green'> Active </span>";
             })->asHtml()
-            ->hideWhenUpdating()
-            ->hideWhenCreating(),
-            Number::make('Number of clicks','clicks')
-            ->hideWhenUpdating()
-            ->hideWhenCreating(),
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+            Number::make('Number of clicks', 'clicks')
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
             Select::make('Banner Type', 'type')->options([
                 "ads" => "Advertisement",
                 "url" => "URL",
@@ -109,38 +107,38 @@ class Banner extends Resource
                 ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
 
                 NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
-                  ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                      ->placeholder('Select User')
-                      ->options(User::NormalUsers()->get())
-                      ->rules('required'),
-  
-                      NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                      ->placeholder('Select Item')
-                     
-                      ->optionsResolve(function ($user) {
-                          return $user->items()->get();
-                      })
-                      ->rules('required')
-                     ->dependsOn('User'),
-            
+                    ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    ->placeholder('Select User')
+                    ->options(User::NormalUsers()->get())
+                    ->rules('required'),
 
-                
+                NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
+                    ->placeholder('Select Item')
+
+                    ->optionsResolve(function ($user) {
+                        return $user->items()->get();
+                    })
+                    ->rules('required')
+                    ->dependsOn('User'),
+
+
+
                 // NovaDependencyContainer::make([
                 //     NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
                 //   ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                 //       ->placeholder('Select User')
                 //       ->options(User::NormalUsers()->get())
                 //       ->rules('required_if:item_type,0'),
-  
+
                 //       NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                 //       ->placeholder('Select Item')
-                     
+
                 //       ->optionsResolve(function ($user) {
                 //           return $user->items()->lost()->get();
                 //       })
                 //       ->rules('required_if:item_type,0')
                 //      ->dependsOn('User'),
-                 
+
                 //   ])->dependsOn('item_type',0),
 
                 //   NovaDependencyContainer::make([
@@ -149,7 +147,7 @@ class Banner extends Resource
                 //       ->placeholder('Select User')
                 //       ->options(User::NormalUsers()->get())
                 //       ->rules('required_if:item_type,1'),
-  
+
                 //       NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                 //       ->placeholder('Select Item')
                 //       ->optionsResolve(function ($user) {
@@ -157,9 +155,9 @@ class Banner extends Resource
                 //       })
                 //       ->rules('required_if:item_type,1')
                 //      ->dependsOn('user'),
-                 
+
                 //   ])->dependsOn('item_type',1),
-                
+
             ])->dependsOn('type', 'item'),
 
             //BelongsTo::make('item')->hideWhenCreating()

@@ -41,10 +41,9 @@ class Schedule extends Command
         $Corporates = Corporate::all();
 
         foreach ($Corporates as $corporate) {
-            if($corporate->ended())
-            $corporate->status=0;
+            if ($corporate->ended())
+                $corporate->status = 0;
             $corporate->save();
-
         }
 
         $this->info('|----------------------------------|');
