@@ -68,18 +68,18 @@ class SeedCategories extends Command
                                 'name_en' => 'LCWIKIKI',
                                 'name_ar' => 'ال سي واى كي كي',
                                 'image' => 'images/posts/post7.jpg',
-                                'sub_category_id' => 1,
+                                 
                             ],
                             [
                                 'name_en' => 'H&M',
                                 'name_ar' => 'اتش اند ام',
                                 'image' => 'images/posts/post7.jpg',
-                                'sub_category_id' => 1,
+                                
                             ],
                             [
                                 'name_en' => 'Others',
                                 'name_ar' => 'اخرى',
-                                'icon' => 'images/posts/post1.jpg',                                'sub_category_id' => 1,
+                                'icon' => 'images/posts/post1.jpg',                                
                             ],
                         ],
                     ],
@@ -93,19 +93,19 @@ class SeedCategories extends Command
                                 'name_en' => 'lacoste',
                                 'name_ar' => 'لاكوست',
                                 'image' => 'images/posts/post7.jpg',
-                                'sub_category_id' => 2,
+                                
                             ],
                             [
                                 'name_en' => 'corocs',
                                 'name_ar' => 'كروكس',
                                 'image' => 'images/posts/post7.jpg',
-                                'sub_category_id' => 2,
+                                
                             ],
                             [
                                 'name_en' => 'Others',
                                 'name_ar' => 'اخرى',
                                 'icon' => 'images/posts/post1.jpg',
-                                'sub_category_id' => 2,
+                                
                             ],
                         ],
                     ],
@@ -181,19 +181,19 @@ class SeedCategories extends Command
                                 'name_en' => 'gohnson',
                                 'name_ar' => 'جونسون',
                                 'image' => 'images/posts/post7.jpg',
-                                'sub_category_id' => 11,
+                                 
                             ],
                             [
                                 'name_en' => 'panten',
                                 'name_ar' => 'بانتين',
                                 'image' => 'images/posts/post1.jpg',
-                                'sub_category_id' => 11,
+                                
                             ],
                             [
                                 'name_en' => 'sherosa',
                                 'name_ar' => 'شيروسا',
                                 'image' => 'images/posts/post1.jpg',
-                                'sub_category_id' => 11,
+                                 
                             ],
                         ],
                         [
@@ -257,19 +257,19 @@ class SeedCategories extends Command
                                 'name_en' => 'Toshiba',
                                 'name_ar' => 'توشيبا',
                                 'image' => 'images/posts/post2.jpg',
-                                'sub_category_id' => 1,
+                               
                             ],
                             [
                                 'name_en' => 'Hp',
                                 'name_ar' => 'إتش بي',
                                 'image' => 'images/posts/post2.jpg',
-                                'sub_category_id' => 1,
+                                
                             ],
                             [
                                 'name_en' => 'Dell',
                                 'name_ar' => 'ديل',
                                 'image' => 'images/posts/post3.jpg',
-                                'sub_category_id' => 1,
+                                
                                 'models' => [
                                     [
                                         'name_en' => 'Dell XPS 13',
@@ -345,19 +345,19 @@ class SeedCategories extends Command
                                 'name_en' => 'Nicon',
                                 'name_ar' => 'نيكون',
                                 'image' => 'images/posts/post5.jpg',
-                                'sub_category_id' => 2,
+                               
                             ],
                             [
                                 'name_en' => 'Canon',
                                 'name_ar' => 'كانون',
                                 'image' => 'images/posts/post5.jpg',
-                                'sub_category_id' => 2,
+                                
                             ],
                             [
                                 'name_en' => 'Sony',
                                 'name_ar' => 'سوني',
                                 'image' => 'images/posts/post6.jpg',
-                                'sub_category_id' => 2,
+                              
                                 'models' => [
                                     [
                                         'name_en' => 'Sony SA1',
