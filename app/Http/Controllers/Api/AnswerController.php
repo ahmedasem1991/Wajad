@@ -20,7 +20,7 @@ class AnswerController extends Controller
      * Answer question
      * @urlParam post_id required int, exists in posts
      * @bodyParam data array required 
-     * @bodyParam data.*.answers string min:20,max:500
+     * @bodyParam data.*.answers string required min:20,max:500
      * @bodyParam data.*.question_id integer required exists:questions,id
      * @bodyParam token Barier-token required
      * @response {
