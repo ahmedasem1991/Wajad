@@ -62,7 +62,7 @@ class SeedApp extends Command
         factory(Post::class, 5)->create();
 
         $this->call('seed:posts_images');
-        $this->call('seed:postrequest');
+        $this->call('seed:post_requests');
         $this->call('seed:questions');
         $this->call('seed:answers');
 

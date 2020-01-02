@@ -6,14 +6,14 @@ use App\PostRequest;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class SeedPostRequest extends Command
+class SeedPostRequests extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'seed:postrequest';
+    protected $signature = 'seed:post_requests';
 
     /**
      * The console command description.
