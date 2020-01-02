@@ -71,13 +71,20 @@ class Stock extends Resource
             Text::make('Status', function () {
                 return $this->statusTitle($this->status);
             }),
-            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->showUrl(true)
-                ->qrCodeRouteName(route('api.scan-qrcode-api'))
-                ->hideWhenUpdating()
-                ->hideFromIndex(),
+            // QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
+            //     ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
+            //     ->length(15)
+            //     ->showUrl(true)
+            //     ->qrCodeRouteName(route('api.scan-qrcode-api'))
+            //     ->hideWhenUpdating()
+            //     ->hideFromIndex(),
+            Text::make('QR CODE URL', 'qrcode_url', function () {
+               
+                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+             })->asHtml()
+            ->hideWhenUpdating()
+            ->hideFromIndex(),
+         
             Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
