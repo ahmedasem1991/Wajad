@@ -21,7 +21,7 @@ class PostObserver
      */
     public function saving(Post $Post)
     {
-        if (Auth()->User()->isCorporateAdmin()) {
+        if (Auth()->check() && Auth()->User()->isCorporateAdmin()) {
             $Post->appearance_status = 1;
             $Post->open_status = 1;
             $Post->approval_status = 1;
@@ -29,7 +29,7 @@ class PostObserver
             $Post->publisher_id = Auth()->User()->id;
             $Post->publisher_type = 2;
         }
-        if (Auth()->User()->isAdmin()) {
+        if (Auth()->check() &&Auth()->User()->isAdmin()) {
             // if(!isset($Post->owner_releated_to_system))
             // $Post->owner_releated_to_system=NULL;
             // if(!isset($Post->founder_releated_to_system))

@@ -10,7 +10,7 @@ class PostRequestObserver
 
     public function saving(PostRequest $postRequest)
     {
-        if(Auth()->User()->isCorporateAdmin() )
+        if(Auth()->check() && Auth()->User()->isCorporateAdmin() )
         {
          
             if($postRequest->is_request_valid==0){

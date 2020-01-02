@@ -57,66 +57,69 @@ class SeedApp extends Command
         $this->call('seed:banners');
         $this->call('seed:colors');
         $this->call('seed:pp');
-
+        $this->info('|Start User factory------------------------------------------|');
         factory(User::class, 5)->create();
+        $this->info('|Start wajadoffice factory------------------------------------------|');
         factory(WajadOffice::class, 5)->create();
-        factory(Item::class, 5)->create();
+        $this->info('|Start item factory------------------------------------------|');
+       // factory(Item::class, 5)->create();
+        $this->info('|Start post factory------------------------------------------|');
+        $dispatcher = Post::getEventDispatcher();
+        Post::unsetEventDispatcher();
         factory(Post::class, 5)->create();
+        Post::setEventDispatcher($dispatcher);
+       
 
         $this->call('seed:posts_images');
         $this->call('seed:post_requests');
         $this->call('seed:questions');
-        $this->call('seed:answers');
+       // $this->call('seed:answers');
 
         $this->info('Database App Seed Successfully');
-        Artisan::call('migrate:fresh');
+        // $this->info('Create Nova Admin');
+        // $username = $this->ask('Username', 'Admin');
+        // $email = $this->ask('Email Address', 'admin@nova.com');
+        // $password = $this->ask('Password', 123456789);
+        // User::create([
+        //     'name' => $username,
+        //     'email' => $email,
+        //     'password' => bcrypt($password),
+        //     'type' => 3, // Admin
+        //     'mobile_number' => '01111086890',
+        //     'mobile_country_id' => 1
+        // ]);
+        // $this->info('Nova Admin Created Successfully');
 
-        $this->info('Database Migrated Successfully');
-
-        $this->info('Create Nova Admin');
-        $username = $this->ask('Username', 'Admin');
-        $email = $this->ask('Email Address', 'admin@nova.com');
-        $password = $this->ask('Password', 123456789);
-        User::create([
-            'name' => $username,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'type' => 3, // Admin
-            'mobile_number' => '01111086890',
-            'mobile_country_id' => 1
-        ]);
-        $this->info('Nova Admin Created Successfully');
-
-        $this->info('Create Nova User');
-        $username = $this->ask('Username', 'User');
-        $email = $this->ask('Email Address', 'user@nova.com');
-        $password = $this->ask('Password', 123456789);
-        User::create([
-            'name' => $username,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'type' => 1, // User
-            'mobile_number' => '01142416124',
-            'corporate_id' => 1,
-            'mobile_country_id' => 1,
-            'posts_limitation' => 50
-        ]);
-        $this->info('Nova User Created Successfully');
+        // $this->info('Create Nova User');
+        // $username = $this->ask('Username', 'User');
+        // $email = $this->ask('Email Address', 'user@nova.com');
+        // $password = $this->ask('Password', 123456789);
+        // User::create([
+        //     'name' => $username,
+        //     'email' => $email,
+        //     'password' => bcrypt($password),
+        //     'type' => 1, // User
+        //     'mobile_number' => '01142416124',
+        //     'corporate_id' => 1,
+        //     'mobile_country_id' => 1,
+        //     'posts_limitation' => 50
+        // ]);
+        // $this->info('Nova User Created Successfully');
 
 
-        $this->info('Create Nova Corporate Admin');
-        $username = $this->ask('Username', 'Corporate');
-        $email = $this->ask('Email Address', 'corporate@nova.com');
-        $password = $this->ask('Password', 123456789);
-        User::create([
-            'name' => $username,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'type' => 2, // Corporate
-            'mobile_number' => '+201095781611',
-            'corporate_id' => 1,
-            'mobile_country_id' => 1
-        ]);
+        // $this->info('Create Nova Corporate Admin');
+        // $username = $this->ask('Username', 'Corporate');
+        // $email = $this->ask('Email Address', 'corporate@nova.com');
+        // $password = $this->ask('Password', 123456789);
+        // User::create([
+        //     'name' => $username,
+        //     'email' => $email,
+        //     'password' => bcrypt($password),
+        //     'type' => 2, // Corporate
+        //     'mobile_number' => '+201095781611',
+        //     'corporate_id' => 1,
+        //     'mobile_country_id' => 1
+        // ]);
         Corporate::create([
             'unique_id' => time() . '-WAJAD-Corporate',
             'name_en' => 'WAJAD Corporate',
@@ -146,15 +149,15 @@ class SeedApp extends Command
         DB::unprepared(file_get_contents($path));
 
         $this->info('Seed Roles and permissions Successfully');
-        Artisan::call('seed:locations');
+       // Artisan::call('seed:locations');
         Artisan::call('seed:settings');
 
-        $create_banner_question = $this->ask('Banner Number ?', 5);
+        // $create_banner_question = $this->ask('Banner Number ?', 5);
 
-        factory(Banner::class, (int) $create_banner_question)->create();
+        // factory(Banner::class, (int) $create_banner_question)->create();
 
-        $create_wajad_offices_question = $this->ask('Count Wajad Offices', 5);
+        // $create_wajad_offices_question = $this->ask('Count Wajad Offices', 5);
 
-        factory(WajadOffice::class, (int) $create_wajad_offices_question)->create();
+        // factory(WajadOffice::class, (int) $create_wajad_offices_question)->create();
     }
 }
