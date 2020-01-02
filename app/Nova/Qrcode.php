@@ -59,22 +59,31 @@ class Qrcode extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-            Text::make('Status',function(){
+            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', 'App\Nova\GenerateQrcode')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+            BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+            Text::make('Status', function () {
                 return $this->statusTitle($this->status);
             }),
-            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->showUrl(true)
-                ->qrCodeRouteName(route('api.scan-qrcode-api'))
-                ->hideWhenUpdating(),
-                Image::make('QRCode Images', 'image')
+
+            // QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
+            //     ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
+            //     ->length(15)
+            //     ->showUrl(true)
+            //     ->qrCodeRouteName(route('api.scan-qrcode-api'))
+            //     ->hideWhenUpdating(),
+
+
+            Text::make('QR CODE URL', 'qrcode_url', function () {
+                return  '<a target="_blank" href=' . $this->qrcode_url . '>URL</a>';
+            })->asHtml()
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
+
+            Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()
@@ -145,8 +154,9 @@ class Qrcode extends Resource
         return [];
     }
 
-    
-    public static function label() {
+
+    public static function label()
+    {
         return 'All QR Code';
     }
     // public static function indexQuery(NovaRequest $request, $query)
@@ -154,8 +164,8 @@ class Qrcode extends Resource
     //   //  return $query->whereNull('assign_reference_number');
     // }
 
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

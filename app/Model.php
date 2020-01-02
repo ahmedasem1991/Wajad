@@ -11,8 +11,8 @@ class Model extends MasterModel
 {
     use LogsActivity;
 
-    protected $fillable=['name_en','name_ar','description_en','description_ar','image','brand_id'];
-    
+    protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'brand_id'];
+
 
     /**
      * Define Items Relation With Each Category
@@ -30,7 +30,6 @@ class Model extends MasterModel
 
     public function scopeName($query, $name)
     {
-        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
+        return $query->where('name_ar', $name)->orWhere('name_en', $name) ?? null;
     }
-
 }

@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::prefix('home')->group(function () {
-    Route::get('/banners', 'BannerController');
+    Route::get('/banners/{banner?}', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
 
     Route::group(['prefix' => 'search'], function () {

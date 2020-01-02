@@ -17,7 +17,8 @@ class CreateDevicesTypesTable extends Migration
             $table->Increments('id');
             $table->integer('user_id');
             $table->string('device_type');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

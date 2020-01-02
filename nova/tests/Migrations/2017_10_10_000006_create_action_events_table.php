@@ -27,7 +27,8 @@ class CreateActionEventsTable extends Migration
             $table->text('fields');
             $table->string('status', 25)->default('running');
             $table->text('exception');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
 
             $table->index(['actionable_type', 'actionable_id']);
             $table->index(['batch_id', 'model_type', 'model_id']);

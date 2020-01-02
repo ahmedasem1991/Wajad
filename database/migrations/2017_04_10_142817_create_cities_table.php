@@ -21,7 +21,8 @@ class CreateCitiesTable extends Migration
             $table->float('longitude', 12, 7)->unsigned()->nullable();
             $table->integer('radius')->unsigned()->nullable();
             $table->unsignedInteger('region_id')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

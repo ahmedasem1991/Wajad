@@ -12,7 +12,8 @@ class CreateItemImagesTable extends Migration
             $table->increments('id');
             $table->integer('item_id')->unsigned();
             $table->string('image', 255);
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

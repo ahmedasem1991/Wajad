@@ -17,7 +17,8 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
             $table->string('name');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

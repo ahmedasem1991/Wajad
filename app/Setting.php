@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -9,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Setting extends Model
 {
-    use LogsActivity;
+    use LogsActivity,SoftDeletes;
 
     protected $fillable = [
         'key', 'value', 'image', 'title'

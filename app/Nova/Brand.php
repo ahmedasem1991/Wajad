@@ -4,9 +4,11 @@ namespace App\Nova;
 
 use App\Nova\Category;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use App\Nova\Metrics\Brands;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\HasMany;
@@ -65,7 +67,8 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable(),
-             BelongsTo::make('Subcategory')->rules('required'),
+             BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class)
+                 ->rules('required'),
              HasMany::make('Models'),
         ];
     }
@@ -115,7 +118,7 @@ class Brand extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/brand.png" style="height:22px;width:22px;margin=10px" />';
     }

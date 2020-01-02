@@ -18,7 +18,14 @@ class BrandPolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if(Auth()->User()->isAdmin()){
+            if($user->hasPermissionTo('brands'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+   }
     }
 
     /**

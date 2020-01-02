@@ -2,7 +2,7 @@
 
 namespace App\Nova;
 
- 
+
 use App\Nova\Metrics\Regions;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -57,8 +57,8 @@ class Area extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name_ar'),
-            Text::make('name_en'),
+            Text::make('Area Arabic Name', 'name_ar')->rules(['required', 'string', 'max:255']),
+            Text::make('Area English Name', 'name_en')->rules(['required', 'string', 'max:255']),
             BelongsTo::make('Country'),
             HasMany::make('City', 'cities', 'App\Nova\City'),
         ];
@@ -109,7 +109,7 @@ class Area extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
     }

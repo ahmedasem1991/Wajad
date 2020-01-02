@@ -18,7 +18,8 @@ class CreateColorsTable extends Migration
             $table->string('name_en');
             $table->string('name_ar');
             $table->string('icon')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

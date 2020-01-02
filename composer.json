@@ -21,9 +21,12 @@
         "darkaonline/l5-swagger": "5.8.*",
         "depsimon/nova-stripe-checkout-field": "^1.0",
         "dillingham/nova-button": "^1.0",
+        "ebess/advanced-nova-media-library": "^2.9",
         "edujugon/push-notification": "^4.1",
+        "emilianotisato/nova-belongsto-depends": "^0.1.4",
         "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
+        "fourstacks/nova-checkboxes": "^0.1.7",
         "genealabs/nova-map-marker-field": "^0.1.12",
         "guzzlehttp/guzzle": "^6.4",
         "halimtuhu/array-images": "^1.1",
@@ -50,6 +53,7 @@
         "pktharindu/nova-permissions": "^1.2",
         "predis/predis": "^1.1",
         "pusher/pusher-http-laravel": "^4.2",
+        "silvanite/novafieldcheckboxes": "^1.2",
         "simplesoftwareio/simple-qrcode": "^2.0",
         "smartappco/download-qrcode-image": "*",
         "smartappco/google-maps": "*",
@@ -83,6 +87,11 @@
         "psr-4": {
             "App\\": "app/"
         },
+        "files": [
+ 
+            "app/helper.php"
+     
+        ],
         "classmap": [
             "database/seeds",
             "database/factories"

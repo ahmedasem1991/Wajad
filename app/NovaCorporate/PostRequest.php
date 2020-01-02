@@ -30,7 +30,7 @@ class PostRequest extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = 'App\PostRequest';
     public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
@@ -63,52 +63,26 @@ class PostRequest extends Resource
      */
     public function fields(Request $request)
     {
-
+        session()->put('user_id',$this->user_id);
         return [
            ID::make()->sortable(),
-           Text::make('Title'),
-           Textarea::make('description'),
-           RadioButton::make('Status')
+           RadioButton::make('Valid Status','is_request_valid')
            ->options([
-               0 => 'Lost',
-               1 => 'Found',
+               0 => 'Not Valid',
+               1 => 'Valid',
            ])->default(0), // optional
-           RadioButton::make('Approval Status','approval_status')
-           ->options([
-               0 => 'Pending',
-               1 => 'Approval',
-               2 => 'Rejected',
-           ])->default(0), // optional
-            Toggle::make('Appearance Status','appearance_status'),
-           // Toggle::make('Open Status','open_status'),
+           BelongsTo::make('Post')
+           ->readonly()
+           ,
+           HasMany::make('Answers'),
+           BelongsTo::make('Claim user','postrequestuser',\App\NovaCorporate\NormalUser::class)
+           ->readonly()
+           ,
+           DateTime::make('Rejected At')
+           ->hideFromIndex()
+           ->exceptOnForms()
+           ->nullable(),
             
-           // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-            DateTime::make('Losted At')->hideFromIndex(),
-            DateTime::make('Founded At')->hideFromIndex(),
-        //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
-        //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-        //     ->options(\App\User::all())
-        //      ->withMeta(['extraAttributes' => [
-        //         'readonly' => true,
-        //         'disabled'=> true
-        //   ]])->setAttribute( 'disabled', true),
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly(),
-            BelongsTo::make('Founder', 'founder', 'App\Nova\User')->readonly(),
-            BelongsTo::make('Owner', 'owner', 'App\Nova\User')->readonly(),
-            BelongsTo::make('Item')->readonly(),
-            // NovaBelongsToDepend::make('Item')
-            // ->placeholder('Item')
-            // ->optionsResolve(function ($user) {
-            //     $user_items = [];
-            //     $user_items_with_qrcode = $user->items()
-            //         ->Has('qrcode')
-            //         ->get();
-            //     foreach ($user_items_with_qrcode as $user_item_with_qrcode) {
-            //         array_push($user_items, $user_item_with_qrcode);
-            //     }
-            //     return $user_items;
-            // })->dependsOn('publisher')->nullable()->readonly(),
-            HasMany::make('Images','images',\App\Nova\PostImage::class)
 
         ];
     }
@@ -168,9 +142,7 @@ class PostRequest extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->IsPending()
-        ->where('corporate_id',Auth()->user()->corporate->id);
-       // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+         
         
     }
 

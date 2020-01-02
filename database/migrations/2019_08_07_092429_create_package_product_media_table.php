@@ -18,7 +18,8 @@ class CreatePackageProductMediaTable extends Migration
             $table->string('media_path');
             $table->string('package_product_media_type');
             $table->integer('package_product_media_id');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

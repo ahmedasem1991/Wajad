@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class PackagePolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any Package.
      *
@@ -18,7 +18,13 @@ class PackagePolicy
      */
     public function viewAny(User $user)
     {
-      return true;
+        //  if(Auth()->User()->isAdmin()){
+        if ($user->hasPermissionTo('packages')) {
+            return true;
+        } else {
+            return false;
+        }
+        // }
     }
 
     /**
@@ -30,11 +36,15 @@ class PackagePolicy
      */
     public function view(User $user, Package $Package)
     {
-       
-        // if(Auth()->User()->isCorporateAdmin()){
-        //     return  false;
+
+        //if(Auth()->User()->isCorporateAdmin()){
+        if ($user->hasPermissionTo('packages')) {
+            return true;
+        } else {
+            return false;
+        }
         // }
-        return  true;
+        // return  true;
     }
 
     /**
@@ -45,9 +55,9 @@ class PackagePolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        if (Auth()->User()->isCorporateAdmin()) {
             return  false;
-    }
+        }
         return  true;
     }
 
@@ -60,9 +70,9 @@ class PackagePolicy
      */
     public function update(User $user, Package $Package)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        if (Auth()->User()->isCorporateAdmin()) {
             return  false;
-    }
+        }
         return  true;
     }
 
@@ -75,9 +85,9 @@ class PackagePolicy
      */
     public function delete(User $user, Package $Package)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        if (Auth()->User()->isCorporateAdmin()) {
             return  false;
-    }
+        }
         return  true;
     }
 

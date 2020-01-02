@@ -40,7 +40,10 @@ class BannerResource extends JsonResource
             'image' => $this->getImage($this) ?? "",
             'url' => $this->url ?? "",
             'item_id' => $this->item_id ?? null,
-            'item' => $this->getItem($this) ?? null
+            'item' => $this->getItem($this) ?? null,
+            'clicks' => $this->clicks ?? null,
+            'start_date' => $this->start_date ?? null,
+            'end_date' => $this->end_date ?? null,
         ];
     }
 }
