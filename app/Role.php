@@ -65,7 +65,7 @@ class Role extends Model
 
     public function corporate()
     {
-        return $this->belongsTo(Corporate::class);
+        return $this->belongsTo(Corporate::class, 'corporate_id');
     }
 
     /**

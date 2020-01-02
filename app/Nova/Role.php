@@ -26,7 +26,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $model =\App\Role::class;
+    public static $model = \App\Role::class;
     public static $displayInNavigation = true;
 
     /**
@@ -94,7 +94,7 @@ class Role extends Resource
      */
     public function fields(Request $request)
     {
-       // logger(collect(config('novapermissions.permissions')) );
+        // logger(collect(config('novapermissions.permissions')) );
 
         return [
             ID::make()->sortable(),
@@ -112,34 +112,32 @@ class Role extends Resource
 
             Checkboxes::make(__('Permissions'), 'permissions')
                 ->withGroups()
-                ->options( collect(config('novapermissionsAdmin.permissions'))
-                ->map(function ($permission, $key) {
-                    return [
-                        'group'        => ucfirst($permission['group']),
-                        'option'       => $key,
-                        'label'        => $permission['display_name'],
-                        'description'  => $permission['description'],
-                    ];
-                })->groupBy('group')->toArray()),
+                ->options(collect(config('novapermissionsAdmin.permissions'))
+                    ->map(function ($permission, $key) {
+                        return [
+                            'group'        => ucfirst($permission['group']),
+                            'option'       => $key,
+                            'label'        => $permission['display_name'],
+                            'description'  => $permission['description'],
+                        ];
+                    })->groupBy('group')->toArray()),
 
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
             Toggle::make('Default Group'),
             NovaDependencyContainer::make([
-                Number::make('Limitation Of Posts','limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
+                Number::make('Limitation Of Posts', 'limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
                 Toggle::make('Auto Approve'),
 
             ])->dependsOn('default_group', 1),
-          
 
-           
-           
             BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User'))
                 ->searchable(),
-                BelongsTo::make('Corporate')
-                ->nullable(),
-                // ->searchable(),
+
+            // BelongsTo::make('Corporate')
+            //     ->nullable(),
+            // ->searchable(),
         ];
     }
 
@@ -176,9 +174,9 @@ class Role extends Resource
     {
         return __('Role');
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     // public static function indexQuery(NovaRequest $request, $query)
