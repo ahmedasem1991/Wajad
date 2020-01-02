@@ -4,11 +4,14 @@ namespace App\Policies;
 
 use App\User;
 use App\Model;
+use App\Policies\Helpers\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ModelPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, Permission;
+
+    public $permission = 'models';
 
     /**
      * Determine whether the user can view any models.
@@ -18,13 +21,7 @@ class ModelPolicy
      */
     public function viewAny(User $user)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 
     /**
@@ -36,13 +33,7 @@ class ModelPolicy
      */
     public function view(User $user, Model $model)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 
     /**
@@ -53,13 +44,7 @@ class ModelPolicy
      */
     public function create(User $user)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 
     /**
@@ -71,13 +56,7 @@ class ModelPolicy
      */
     public function update(User $user, Model $model)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 
     /**
@@ -89,13 +68,7 @@ class ModelPolicy
      */
     public function delete(User $user, Model $model)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 
     /**
@@ -107,13 +80,7 @@ class ModelPolicy
      */
     public function restore(User $user, Model $model)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 
     /**
@@ -125,12 +92,6 @@ class ModelPolicy
      */
     public function forceDelete(User $user, Model $model)
     {
-        if (Auth()->User()->isAdmin()) {
-            if ($user->hasPermissionTo('models')) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return $this->permission($user);
     }
 }

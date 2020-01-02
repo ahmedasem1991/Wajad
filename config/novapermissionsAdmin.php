@@ -39,7 +39,7 @@ return [
     */
 
     'permissions' => [
-         ///////////////Users///////////////
+        ///////////////Users///////////////
         'view users' => [
             'display_name' => 'View users',
             'description'  => 'Can view users',
@@ -69,9 +69,9 @@ return [
             'group'        => 'Users',
         ],
 
-        
-         ///////////////Roles///////////////
-         'view roles' => [
+
+        ///////////////Roles///////////////
+        'view roles' => [
             'display_name' => 'View roles',
             'description'  => 'Can view roles',
             'group'        => 'Roles',
@@ -94,13 +94,13 @@ return [
             'description'  => 'Can delete roles',
             'group'        => 'Roles',
         ],
-        
+
         'create models' => [
             'display_name' => 'Create models',
             'description'  => 'Can create models',
             'group'        => 'Models',
         ],
-             ///////////////Brands///////////////
+        ///////////////Brands///////////////
         // 'view brands' => [
         //     'display_name' => 'View brands',
         //     'description'  => 'Can view brands',
@@ -124,7 +124,7 @@ return [
         //     'description'  => 'Can delete brands',
         //     'group'        => 'Brands',
         // ],
-         ///////////////Categories///////////////
+        ///////////////Categories///////////////
         //  'view categories' => [
         //     'display_name' => 'View categories',
         //     'description'  => 'Can view categories',
@@ -292,8 +292,8 @@ return [
         //     'description'  => 'Can delete countries',
         //     'group'        => 'Countries',
         // ],
-         ///////////////Activities///////////////
-         'activities' => [
+        ///////////////Activities///////////////
+        'activities' => [
             'display_name' => 'Activities',
             'description'  => 'Activities',
             'group'        => 'Resources',
@@ -316,8 +316,8 @@ return [
         //     'description'  => 'Can delete activities',
         //     'group'        => 'Activities',
         // ],
-         ///////////////Banners///////////////
-         'banners' => [
+        ///////////////Banners///////////////
+        'banners' => [
             'display_name' => 'Banners',
             'description'  => 'Banners',
             'group'        => 'Resources',
@@ -369,8 +369,8 @@ return [
         //     'description'  => 'Can delete corporates',
         //     'group'        => 'Corporates',
         // ],
-         ///////////////Items///////////////
-         'view items' => [
+        ///////////////Items///////////////
+        'view items' => [
             'display_name' => 'View items',
             'description'  => 'Can view items',
             'group'        => 'Items',
@@ -393,8 +393,8 @@ return [
             'description'  => 'Can delete items',
             'group'        => 'Items',
         ],
-         ///////////////Packages///////////////
-         'packages' => [
+        ///////////////Packages///////////////
+        'packages' => [
             'display_name' => 'View packages',
             'description'  => 'Can view packages',
             'group'        => 'Packages',
@@ -422,8 +422,8 @@ return [
         //     'description'  => 'Can delete packages',
         //     'group'        => 'Packages',
         // ],
-         ///////////////Posts///////////////
-         'view posts' => [
+        ///////////////Posts///////////////
+        'view posts' => [
             'display_name' => 'View posts',
             'description'  => 'Can view posts',
             'group'        => 'Posts',
@@ -478,7 +478,7 @@ return [
             'description'  => 'Can view reported posts',
             'group'        => 'Posts',
         ],
-         ///////////////Offices///////////////
+        ///////////////Offices///////////////
         //  'view offices' => [
         //     'display_name' => 'View offices',
         //     'description'  => 'Can view offices',
@@ -503,7 +503,7 @@ return [
         //     'group'        => 'Offices',
         // ],
         //  ///////////////Assign QR Code///////////////
-         'view assign qr code' => [
+        'view assign qr code' => [
             'display_name' => 'View assign qr code',
             'description'  => 'Can view assign qr code',
             'group'        => 'QR Code',
@@ -516,8 +516,8 @@ return [
         ],
 
 
-         ///////////////Generate QR Code///////////////
-         'view generate qr code' => [
+        ///////////////Generate QR Code///////////////
+        'view generate qr code' => [
             'display_name' => 'View generate qr code',
             'description'  => 'Can view generate qr code',
             'group'        => 'QR Code',
@@ -531,8 +531,8 @@ return [
 
 
 
-         ///////////////QR Code Stock///////////////
-         'view stock' => [
+        ///////////////QR Code Stock///////////////
+        'view stock' => [
             'display_name' => 'View stock',
             'description'  => 'Can view stock',
             'group'        => 'QR Code',
@@ -549,13 +549,13 @@ return [
             'group'        => 'QR Code',
         ],
 
-                 ///////////////Activities///////////////
-                 'view activities' => [
-                    'display_name' => 'View activities',
-                    'description'  => 'Can view activities',
-                    'group'        => 'Activities',
-                ],
-         ///////////////Setting///////////////
+        ///////////////Activities///////////////
+        'view activities' => [
+            'display_name' => 'View activities',
+            'description'  => 'Can view activities',
+            'group'        => 'Activities',
+        ],
+        ///////////////Setting///////////////
         //  'view setting' => [
         //     'display_name' => 'View setting',
         //     'description'  => 'Can view setting',

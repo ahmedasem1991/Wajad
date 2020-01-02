@@ -4,12 +4,15 @@ namespace App\Policies;
 
 use App\User;
 use App\Color;
+use App\Policies\Helpers\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ColorPolicy
 {
-    use HandlesAuthorization;
-    
+    use HandlesAuthorization, Permission;
+
+    public $permission = 'colors';
+
     /**
      * Determine whether the user can view any colors.
      *
@@ -18,14 +21,7 @@ class ColorPolicy
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('colors'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -37,7 +33,7 @@ class ColorPolicy
      */
     public function view(User $user, Color $color)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -48,7 +44,7 @@ class ColorPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -60,7 +56,7 @@ class ColorPolicy
      */
     public function update(User $user, Color $color)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -72,7 +68,7 @@ class ColorPolicy
      */
     public function delete(User $user, Color $color)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -84,7 +80,7 @@ class ColorPolicy
      */
     public function restore(User $user, Color $color)
     {
-        //
+        return $this->permission($user);
     }
 
     /**
@@ -96,6 +92,6 @@ class ColorPolicy
      */
     public function forceDelete(User $user, Color $color)
     {
-        //
+        return $this->permission($user);
     }
 }

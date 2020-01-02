@@ -2,14 +2,17 @@
 
 namespace App\Policies;
 
+use App\Policies\Helpers\Permission;
 use App\User;
 use App\Subcategory;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SubcategoryPolicy
 {
-    use HandlesAuthorization;
-    
+    use HandlesAuthorization, Permission;
+
+    public $permission = 'sub categories';
+
     /**
      * Determine whether the user can view any subcategories.
      *
@@ -18,14 +21,7 @@ class SubcategoryPolicy
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -37,14 +33,7 @@ class SubcategoryPolicy
      */
     public function view(User $user, Subcategory $subcategory)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -55,14 +44,7 @@ class SubcategoryPolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -74,14 +56,7 @@ class SubcategoryPolicy
      */
     public function update(User $user, Subcategory $subcategory)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -93,14 +68,7 @@ class SubcategoryPolicy
      */
     public function delete(User $user, Subcategory $subcategory)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -112,14 +80,7 @@ class SubcategoryPolicy
      */
     public function restore(User $user, Subcategory $subcategory)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 
     /**
@@ -131,13 +92,6 @@ class SubcategoryPolicy
      */
     public function forceDelete(User $user, Subcategory $subcategory)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('sub categories'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-   }
+        return $this->permission($user);
     }
 }
