@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
-use Illuminate\Http\Request;
 use App\Answer;
+use App\Question;
+use App\PostRequest;
+use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use App\Question;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -21,7 +22,7 @@ class AnswerController extends Controller
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
-     *  "message": "Answers created successfully.",
+     *  "message": "Post Request created successfully.",
      *   "status_code": 200
      *}
      * @return void
@@ -38,7 +39,12 @@ class AnswerController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        array_map(function ($answer) use ($post) {
+        $post_request = PostRequest::create([
+            'post_id' => $post->id,
+            'user_id' => auth('api')->user()->id,
+        ]);
+
+        array_map(function ($answer) use ($post, $post_request) {
 
             $question = Question::find($answer['question_id']);
 
@@ -50,10 +56,11 @@ class AnswerController extends Controller
                 'answers' => $answer['answers'],
                 'question_id' => $answer['question_id'],
                 'user_id' => auth('api')->user()->id,
+                'post_request_id' => $post_request->id,
             ]);
         }, $request->data);
 
-        $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.answer')]))->addStatusCode(201);
+        $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 
         return $this->response();
     }
