@@ -93,7 +93,7 @@ Route::get('/broadcast', function () {
   return view('home');
 });
 Route::get('/test500', function () {
-  return $_SERVER['nova.role.updatable'];
+   return  defaultGroup();
 //  dd( $user->roles());
 //  foreach()
 

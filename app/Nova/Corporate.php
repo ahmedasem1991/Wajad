@@ -2,17 +2,19 @@
 
 namespace App\Nova;
 
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Naif\MapAddress\MapAddress;
 use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
-use Naif\Toggle\Toggle;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 
@@ -117,6 +119,7 @@ class Corporate extends Resource
                 'max:5012'
             )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
+            DateTime::make('Availabe End Date','end_date'),
             HasMany::make('Users', 'users'),
             Toggle::make('Active','status'),
             MapMarker::make("Location")

@@ -226,6 +226,9 @@ class RejectedPost extends Resource
             new ApprovalPosts
         ];
     }
+    
+
+
 
     /**
      * Get the filters available for the resource.

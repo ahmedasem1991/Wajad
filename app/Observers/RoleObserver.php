@@ -10,17 +10,26 @@ class RoleObserver
     public function saving(Role $Role)
     {
         if (Auth()->User()->isCorporateAdmin()) {
-            
-            $Role->corporate_id=Auth()->User()->corporate_id;
-            
+           $Role->corporate_id=Auth()->User()->corporate_id;
         }
-        
-       
-     
+ 
     }
     public function saved(Role $Role)
     {
-        
+        if (Auth()->User()->isAdmin()) {
+            if( $Role->default_group==1){
+            $Roles= Role::where('id','!=',$Role->id)->get();
+            $dispatcher = Role::getEventDispatcher();
+            Role::unsetEventDispatcher();
+           
+             foreach($Roles as $role)
+              {
+             $role->default_group=0;
+             $role->save();
+              }
+              Role::setEventDispatcher($dispatcher);
+             }
+         }  
     }
     /**
      * Handle the role "created" event.
@@ -39,9 +48,22 @@ class RoleObserver
      * @param  \App\Role  $role
      * @return void
      */
-    public function updated(Role $role)
+    public function updated(Role $Role)
     {
-        //
+        if (Auth()->User()->isAdmin()) {
+            if( $Role->default_group==1){
+            $Roles= Role::where('id','!=',$Role->id)->get();
+            $dispatcher = Role::getEventDispatcher();
+            Role::unsetEventDispatcher();
+           
+             foreach($Roles as $role)
+              {
+             $role->default_group=0;
+             $role->save();
+              }
+              Role::setEventDispatcher($dispatcher);
+             }
+         }
     }
 
     /**

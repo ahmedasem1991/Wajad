@@ -90,4 +90,17 @@ class LoginController extends Controller
     {
         return Auth::guard(config('nova.guard'));
     }
+
+    public function authenticated(Request $request, $user)
+    {
+        if ($user->isCorporateAdmin())
+        {
+            if ($user->corporate->isNotActive())
+            {
+                auth()->logout();
+                return redirect('/');
+            }
+        }
+        
+    }
 }
