@@ -72,7 +72,8 @@ class Category extends Resource
                 ->disk('public')
                 ->path('images/categories')
                 ->prunable()
-                ->deletable(),
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_width=100'),
              HasMany::make('Subcategories'),
         ];
     }

@@ -5,10 +5,11 @@ namespace App;
 
 use App\Brand;
 use App\Model;
+use Carbon\Carbon;
 use App\Helpers\Api\ResponseTrait;
-use Illuminate\Database\Eloquent\Model as MasterModel;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model as MasterModel;
 
 
 class Post extends MasterModel
@@ -21,7 +22,8 @@ class Post extends MasterModel
 
     protected $casts = [
         'losted_at' => 'datetime',
-        'founded_at' => 'datetime'
+        'founded_at' => 'datetime',
+        'end_date' => 'datetime'
     ];
 
     const APPROVALSTATUS = [
@@ -302,6 +304,10 @@ class Post extends MasterModel
         return 'admin';
     }
 
+    public function ended()
+    {
+        return ($this->end_date < Carbon::now()) ? true:false;
+    }
  
     // public function getOwnerReleatedToSystemAttribute($value)
     // {

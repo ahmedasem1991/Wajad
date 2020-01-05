@@ -21,8 +21,8 @@ class CreateModelsTable extends Migration
             $table->string('description_ar', 500)->nullable();
             $table->string('image')->default('images/default.png');
             $table->integer('brand_id');
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

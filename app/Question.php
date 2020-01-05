@@ -10,6 +10,8 @@ class Question extends Model
 {
     use SoftDeletes, LogsActivity;
     protected $fillable = ['post_id', 'question'];
+
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'founder_id');

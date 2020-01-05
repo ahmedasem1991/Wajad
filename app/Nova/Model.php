@@ -38,7 +38,7 @@ class Model extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','name_en','name_ar'
     ];
 
     /**
@@ -63,7 +63,8 @@ class Model extends Resource
                 ->disk('public')
                 ->path('images/models')
                 ->prunable()
-                ->deletable(),
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_width=100'),
             BelongsTo::make('Brand'),
             //HasMany::make('Colors'),
         ];
