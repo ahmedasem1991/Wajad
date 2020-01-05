@@ -14,12 +14,13 @@ class CreatePostImagesTable extends Migration
     public function up()
     {
         Schema::create('post_images', function (Blueprint $table) {
-           
+
                 $table->increments('id');
                 $table->integer('post_id')->unsigned()->nullable();
                 $table->string('image', 500);
-                $table->timestamps();
-          
+               $table->softDeletes();
+$table->timestamps();
+
         });
     }
 

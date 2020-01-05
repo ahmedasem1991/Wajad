@@ -6,12 +6,14 @@ use App\User;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Actions\DownloadQRCode;
+use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Naif\Toggle\Toggle;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -46,7 +48,7 @@ class Stock extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id',''
     ];
 
     public static function availableForNavigation(Request $request)
@@ -63,7 +65,10 @@ class Stock extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            // BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            // ->hideWhenCreating()
+            // ->hideWhenUpdating(),
+            Text::make('Unique Reference Number','unique_reference_number')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
             // BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
@@ -72,18 +77,28 @@ class Stock extends Resource
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
-            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->showUrl(true)
-                ->qrCodeRouteName(route('api.scan-qrcode-api'))
-                ->hideWhenUpdating()
-                ->hideFromIndex(),
+            // QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
+            //     ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
+            //     ->length(15)
+            //     ->showUrl(true)
+            //     ->qrCodeRouteName(route('api.scan-qrcode-api'))
+            //     ->hideWhenUpdating()
+            //     ->hideFromIndex(),
+            Text::make('QR CODE URL', 'qrcode_url', function () {
+               
+                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+             })->asHtml()
+            ->hideWhenUpdating()
+            ->hideFromIndex(),
                 Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()
                 ->deletable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+                Toggle::make('Print Status','printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
@@ -147,10 +162,18 @@ class Stock extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+
+        (new DownloadQRCode)->canRun(function(NovaRequest $request) {
+            return true;
+        }),
+                // ->confirmText('Are you sure you want to activate this user?')
+                // ->confirmButtonText('Activate')
+                // ->cancelButtonText("Don't activate"),
+        ];
     }
 
-    
+
     public static function label() {
         return 'Stock';
     }

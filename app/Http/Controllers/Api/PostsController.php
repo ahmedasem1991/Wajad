@@ -86,6 +86,13 @@ class PostsController extends Controller
             ->orWhere('name_ar', 'like', '%' .  $request->city . '%')
             ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
 
+        $auto_approve=0;
+        
+       if(defaultGroup()->auto_approve==1) 
+       {
+           $auto_approve=1;
+           $appearance_status=1;
+        }
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -100,13 +107,18 @@ class PostsController extends Controller
             'city' => $request->city,
             'city_id' => $city_id->id,
             'publisher_id' => auth('api')->user()->id,
+            'publisher_type' => 1,
+            'auto_approve'=>$auto_approve,
+            'appearance_status'=>$appearance_status,
+            
         ]);
 
         if ($type == "lost") {
             $post->fill([
                 'status' => self::TYPES[$type],
                 'owner_id' => auth('api')->user()->id,
-                'losted_at' => Carbon::now()->toDateTimeString()
+                'losted_at' => Carbon::now()->toDateTimeString(),
+                'owner_releated_to_system'=>1
             ]);
             $post->save();
         }
@@ -116,6 +128,7 @@ class PostsController extends Controller
                 'status' => self::TYPES[$type],
                 'founder_id' => auth('api')->user()->id,
                 'founded_at' => Carbon::now()->toDateTimeString(),
+                'founder_releated_to_system'=>1
             ]);
             $post->save();
             array_map(function ($question) use ($post) {

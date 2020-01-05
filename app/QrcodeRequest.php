@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class QrcodeRequest extends Model
 {
-    protected $table='qrcode_requests'; 
+    use SoftDeletes;
+    protected $table='qrcode_requests';
     protected $fillable=['number'];
     const Status = [
         0 => 'Pending',
@@ -21,10 +23,10 @@ class QrcodeRequest extends Model
     }
     public function corporateAdmin()
     {
-        return $this->belongsTo(User::class,'corporate_admin_id');   
+        return $this->belongsTo(User::class,'corporate_admin_id');
     }
     public function corporate()
     {
-        return $this->belongsTo(Corporate::class);   
+        return $this->belongsTo(Corporate::class);
     }
 }

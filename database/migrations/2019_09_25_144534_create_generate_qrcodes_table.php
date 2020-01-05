@@ -15,13 +15,14 @@ class CreateGenerateQrcodesTable extends Migration
     {
         Schema::create('generate_qrcodes', function (Blueprint $table) {
             $table->Increments('id');
-            $table->string('reference_number')->nullable();
+            $table->string('generate_reference_number')->nullable();
             $table->integer('type')->default(1);//default  (single)
             $table->string('status')->default('waiting');//finished
             $table->integer('quantity')->default(1);
             $table->integer('created_by')->nullable();
             $table->string('created_from')->default('web');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

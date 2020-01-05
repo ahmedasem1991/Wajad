@@ -18,6 +18,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -76,15 +77,18 @@ class User extends Resource
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email'),
-                //->updateRules('unique:users,email,{{ resourceId }}'),
+            //->updateRules('unique:users,email,{{ resourceId }}'),
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+            PhoneNumber::make('Mobile Number', 'mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
             HasMany::make('Items'),
             Toggle::make('Active', 'status'),
-            Boolean::make('Show My Data','show_my_data'),
+            //  Boolean::make('Show My Data','show_my_data'),
 
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -95,20 +99,22 @@ class User extends Resource
 
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
-                Select::make('Type', 'type')->options([
-                  
-                   '2' => 'Corpoare Admin',
-                   '1' => 'User',
-                ])->displayUsingLabels(),
-                
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corporate Admin.</p>')->asHtml()->hideFromDetail(),
-         
-              BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
-              ->creationRules('required_if:type,2')
-              ->updateRules('required_if:type,2')
-              ->nullable(),
-                
-              BelongsToMany::make('Roles', 'roles',Role::class),
+            Select::make('Type', 'type')->options([
+
+                '2' => 'Corpoare Admin',
+                //  '4' => 'Corporate User',
+                '1' => 'Normal User',
+
+            ])->displayUsingLabels(),
+
+            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
+
+            BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
+                ->creationRules('required_if:type,2')
+                ->updateRules('required_if:type,2')
+                ->nullable(),
+
+            BelongsToMany::make('Roles', 'roles', Role::class),
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
@@ -169,10 +175,10 @@ class User extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->NotSuperAdmin();
+        //return $query->NotSuperAdmin();
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

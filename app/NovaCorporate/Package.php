@@ -45,6 +45,11 @@ class Package extends Resource
         return $this->name_en . ' - ' . $this->name_ar;
     }
 
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('packages')) ? true :false;
+    }
+
     /**
      * The columns that should be searched.
      *
@@ -110,7 +115,7 @@ class Package extends Resource
                 ->hideWhenUpdating(),
 
             Number::make('Package Period', 'period')->rules('required'),
-            Number::make('Number Of QR Codes', 'quantity')->rules('required'),
+            Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
 
            // Toggle::make('Show Package', 'is_active')->color('#4099de'),
             RadioButton::make('Type')

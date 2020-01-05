@@ -19,7 +19,14 @@ class SubscriptionPolicy
      */
     public function viewAny(User $user)
     {
-      return true;
+        //if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('subscription'))
+            {
+                return true;
+            }else{
+                return false;
+            }
+      //  }
     }
 
     /**
@@ -32,10 +39,15 @@ class SubscriptionPolicy
     public function view(User $user, Subscription $Subscription)
     {
        
-        // if(Auth()->User()->isCorporateAdmin()){
-        //     return  false;
+       // if(Auth()->User()->isCorporateAdmin()){
+            if($user->hasPermissionTo('subscription'))
+            {
+                return true;
+            }else{
+                return false;
+            }
         // }
-        return  true;
+        // return  true;
     }
 
     /**

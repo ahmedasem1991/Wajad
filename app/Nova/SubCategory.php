@@ -65,8 +65,8 @@ class SubCategory extends Resource
                 ->path('images/subcategories')
                 ->prunable()
                 ->deletable(),
-             BelongsTo::make('Category')->rules('required'),
-             HasMany::make('Brands'),
+            BelongsTo::make('Category')->rules('required'),
+            HasMany::make('Brands'),
         ];
     }
 
@@ -115,8 +115,8 @@ class SubCategory extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

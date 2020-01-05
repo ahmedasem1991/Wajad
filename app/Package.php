@@ -3,15 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
 {
+    use SoftDeletes;
+
     const Types = [
         1 => "single",
         2 => "multi",
         "single" => 1,
         "multi" => 2,
     ];
+
     protected $guarded = [];
 
     /**
@@ -42,14 +46,14 @@ class Package extends Model
      * @param integer $value
      * @return void
      */
-    public function getPeriodAttribute($value)
+    public function getPeriod()
     {
-        return $value . " Day/s";
+        return $this->period . ' Day/s';
     }
 
-    public function getPriceAttribute($value)
+    public function getPrice()
     {
-        return $value . ' - ' . env('CURRENCY', 'USD');
+        return $this->price . ' - ' . env('CURRENCY', 'USD');
     }
 
     public function subscription()

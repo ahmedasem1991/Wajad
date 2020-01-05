@@ -14,9 +14,11 @@ class UserPostAnswersResource extends JsonResource
             'questions' => QuestionResource::collection(
                 $this->post
                     ->questions()
-                    ->whereHas('answers', function ($query) use ($user) {
-                        return $query->where('user_id', $user->id);
-                    })->get()
+                    ->with([
+                        'answers' => function ($query) use ($user) {
+                            return $query->where('user_id', $user->id);
+                        }
+                    ])->get()
             )
         ]);
         return $questions->merge($user);

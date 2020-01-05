@@ -16,7 +16,8 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
 
         Schema::create('taggables', function (Blueprint $table) {

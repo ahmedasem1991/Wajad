@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Resource as NovaResource;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Titasgailius\SearchRelations\SearchesRelations;
+
 abstract class Resource extends NovaResource
 {
     use SearchesRelations;
@@ -57,8 +58,8 @@ abstract class Resource extends NovaResource
     {
         return parent::relatableQuery($request, $query);
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

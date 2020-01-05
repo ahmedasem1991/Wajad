@@ -19,7 +19,7 @@ class AnswerController extends Controller
     /**
      * Answer question
      * @urlParam post_id required int, exists in posts
-     * @bodyParam data array required 
+     * @bodyParam data array required
      * @bodyParam data.*.answers string required min:20,max:500
      * @bodyParam data.*.question_id integer required exists:questions,id
      * @bodyParam token Barier-token required
@@ -54,7 +54,8 @@ class AnswerController extends Controller
             if (!$question->Post()->get()->contains($post->id)) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 400);
             }
-
+            $PostRequest = PostRequest::where('post_id', $question->post->id)
+                ->where('user_id', auth('api')->user()->id)->first();
             Answer::create([
                 'answers' => $answer['answers'],
                 'question_id' => $answer['question_id'],

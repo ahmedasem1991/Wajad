@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Exception;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
@@ -12,8 +13,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model
 {
-    use LogsActivity;
-    protected $fillable = ['reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number', 'item_id'];
+    use LogsActivity, SoftDeletes;
+
+    protected $fillable = ['unique_reference_number', 'generate_reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number'];
 
 
 
@@ -84,8 +86,9 @@ class Qrcode extends Model
 
     public function qrcodegenerate()
     {
-        return $this->belongsTo(GenerateQrcode::class, 'reference_number', 'reference_number');
+        return $this->belongsTo(GenerateQrcode::class, 'generate_reference_number', 'generate_reference_number');
     }
+
     public function assignqrcode()
     {
         return $this->belongsTo(AssignQrcode::class, 'assign_reference_number', 'assign_reference_number');

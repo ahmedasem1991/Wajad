@@ -43,7 +43,7 @@ class GenerateQrcode extends Resource
      *
      * @var string
      */
-    public static $title = 'reference_number';
+    public static $title = 'generate_reference_number';
 
     /**
      * The columns that should be searched.
@@ -51,7 +51,7 @@ class GenerateQrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','reference_number'
+        'id','generate_reference_number'
     ];
 
     /**
@@ -64,7 +64,7 @@ class GenerateQrcode extends Resource
     {
         return [
            ID::make()->sortable(),
-           Text::make('Reference Number','reference_number')
+           Text::make('Reference Number','generate_reference_number')
            ->hideWhenCreating()
            ->hideWhenUpdating(),
             RadioButton::make('Type')
@@ -72,13 +72,13 @@ class GenerateQrcode extends Resource
                 1 => 'Single Assign',
                 2 => 'Multi Assign',
             ])->default(1), // optional
-            Number::make('Number Of QR Codes','quantity')
+            Number::make('Quantity Of QR Codes','quantity')
             ->min(1)->max(10000)->step(1)
             ->rules('required'),
-            Status::make('Status')
-            ->loadingWhen(['waiting'])
-            ->failedWhen(['finished']),
-            HasMany::make('Qrcodes'),
+            // Status::make('Status')
+            // ->loadingWhen(['waiting'])
+            // ->failedWhen(['finished']),
+            HasMany::make('Qrcodes','qrcodes',\App\Nova\Stock::class),
 
            // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
 

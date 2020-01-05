@@ -29,7 +29,8 @@ class CreateActionEventsTable extends Migration
             $table->text('exception');
             $table->text('original')->nullable();
             $table->text('changes')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
             $table->index(['actionable_type', 'actionable_id']);
             $table->index(['batch_id', 'model_type', 'model_id']);
         });
