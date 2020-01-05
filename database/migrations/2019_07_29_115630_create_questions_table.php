@@ -12,7 +12,7 @@ class CreateQuestionsTable extends Migration
 			$table->increments('id');
 			$table->integer('founder_id')->unsigned()->nullable();
 			$table->integer('corporate_id')->unsigned()->nullable();
-			$table->integer('post_id')->unsigned();
+			$table->integer('post_id')->unsigned()->nullable();
 			$table->char('question');
 			$table->timestamps();
 			$table->softDeletes();

@@ -11,7 +11,7 @@ class CreateCardsTable extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('item_id')->unsigned()->nullable();
-            $table->integer('product_id')->unsigned()->nullable();
+            $table->bigInteger('product_id')->unsigned()->nullable();
            $table->softDeletes();
 $table->timestamps();
         });

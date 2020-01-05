@@ -15,8 +15,8 @@ class CreateCorporateUsersTable extends Migration
     {
         Schema::create('corporate_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('corporate_id');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('corporate_id')->nullable();
            $table->softDeletes();
 $table->timestamps();
         });
