@@ -49,6 +49,7 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
     public function brandsData()
     {
         return $this->hasMany(Brand::class)

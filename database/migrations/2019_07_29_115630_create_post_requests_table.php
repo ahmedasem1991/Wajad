@@ -9,8 +9,8 @@ class CreatePostRequestsTable extends Migration
     {
         Schema::create('post_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('post_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('post_id')->unsigned()->nullable();
             $table->boolean('is_request_valid')->default(0);
             $table->timestamp('rejected_at')->nullable();
            $table->softDeletes();

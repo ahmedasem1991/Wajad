@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateColorsTable extends Migration
+class CreateApiTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateColorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->string('name_en');
-            $table->string('name_ar');
-            $table->string('icon')->nullable();
-            $table->softDeletes();
+        Schema::create('api_tokens', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('token')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateColorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('api_tokens');
     }
 }

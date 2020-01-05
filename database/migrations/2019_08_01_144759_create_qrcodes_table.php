@@ -27,9 +27,9 @@ class CreateQrcodesTable extends Migration
             $table->string('available_period')->default(1);
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
-            $table->integer('package_product_pivot_id')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('corporate_id')->nullable();
+            $table->integer('package_product_pivot_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('corporate_id')->unsigned()->nullable();
             $table->tinyInteger('printed')->default(0);
 
             $table->integer('item_id')->unsigned()->nullable();

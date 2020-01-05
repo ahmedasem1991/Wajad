@@ -10,10 +10,10 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('question_id');
+            $table->unsignedInteger('question_id')->nullable();
             $table->text('answers');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('post_request_id');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('post_request_id')->nullable();
 
            $table->softDeletes();
 $table->timestamps();
