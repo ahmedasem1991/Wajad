@@ -15,8 +15,8 @@ class CreatePackageProductTable extends Migration
     {
         Schema::create('package_product_table', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('package_id');
-            $table->integer('product_id');
+            $table->unsignedBigInteger('package_id');
+            $table->unsignedBigInteger('product_id');
             $table->integer('product_count');
            $table->softDeletes();
 $table->timestamps();

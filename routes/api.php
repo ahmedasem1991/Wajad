@@ -126,3 +126,6 @@ Route::prefix('posts')->group(function () {
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
+
+Route::view('mario', 'mario');
+Route::view('receipt', 'receipt'); 
