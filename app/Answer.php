@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Answer extends Model
 {
     use SoftDeletes, LogsActivity;
-    protected $fillable = ['user_id', 'answers', 'question_id','post_request_id'];
+    protected $fillable = ['user_id', 'answers', 'question_id', 'post_request_id'];
 
     public function question()
     {
@@ -24,8 +24,6 @@ class Answer extends Model
 
     public function post_request()
     {
-        return $this->belongsTo(PostRequest::class,'post_request_id');
+        return $this->belongsTo(PostRequest::class, 'post_request_id');
     }
-
-
 }
