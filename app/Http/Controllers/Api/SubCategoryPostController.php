@@ -26,7 +26,7 @@ class SubCategoryPostController extends Controller
      * Posts
      * @urlParam status required string lost or found
      * @urlParam subcategory_id int, sub_category_id, exists in sub_categories  Example: 1
-     * @response 
+     * @response
      * {
      *"data": [
      * {
@@ -41,7 +41,7 @@ class SubCategoryPostController extends Controller
      *"subCategoryIcon": "http:\/\/wajad.test\/subcategories\/all.png",
      *"subCategoryPostsCount": 3
      *},
-     
+
      * "posts": [
      *  {
      *   "id": 3,
