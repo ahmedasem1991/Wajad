@@ -510,8 +510,8 @@ class SeedCategories extends Command
                 }
             }
         }
-        $this->info('|--------------------------------------------------------------------|');
-        $this->info('| Seeding Categories, Subcategories, Brand, Models Done Successfully |');
-        $this->info('|--------------------------------------------------------------------|');
+        $this->line('|--------------------------------------------------------------------|');
+        $this->line('| Seeding Categories, Subcategories, Brand, Models Done Successfully |');
+        $this->line('|--------------------------------------------------------------------|');
     }
 }

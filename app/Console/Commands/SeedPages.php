@@ -78,8 +78,8 @@ class SeedPages extends Command
             Page::create($page);
         }, $pages);
 
-        $this->info('|-------------------------------------|');
-        $this->info('|-- Seeding Pages Done Successfully --|');
-        $this->info('|-------------------------------------|');
+        $this->line('|-------------------------------------|');
+        $this->line('|-- Seeding Pages Done Successfully --|');
+        $this->line('|-------------------------------------|');
     }
 }

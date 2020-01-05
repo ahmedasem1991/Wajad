@@ -15,7 +15,27 @@ class Post extends MasterModel
 {
     use LogsActivity, ResponseTrait, SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'latitude', 'longitude', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status', 'brand_id', 'city_id', 'reward'];
+    protected $fillable = [
+        'title',
+        'description',
+        'publisher_id',
+        'item_id',
+        'status',
+        'losted_at',
+        'founded_at',
+        'owner_id',
+        'founder_id',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'post_type_id',
+        'appearance_status',
+        'brand_id',
+        'city_id',
+        'reward'
+    ];
 
     protected static $logAttributes = ['title', 'description'];
 
@@ -183,7 +203,15 @@ class Post extends MasterModel
         return $query->where('founder_id', $founder_id);
     }
 
+    public function isLost()
+    {
+        return $this->status == self::Status['lost'];
+    }
 
+    public function isFound()
+    {
+        return $this->status == self::Status['found'];
+    }
 
     public function scopeModel($query, $model_id)
     {
@@ -252,7 +280,7 @@ class Post extends MasterModel
     }
     public function scopeIsReported($query)
     {
-        return $query->where('reports_number','!=', 0);
+        return $query->where('reports_number', '!=', 0);
     }
 
     public function scopeLost($query)
@@ -281,7 +309,7 @@ class Post extends MasterModel
     {
         return $this->hasMany(Question::class, 'post_id');
     }
-    
+
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
@@ -294,22 +322,22 @@ class Post extends MasterModel
 
     public function getPublisherTypeAttribute($value)
     {
-        if($value==1)
-        return 'user';
-        if($value==2)
-        return 'corporate';
-        if($value==3)
-        return 'admin';
+        if ($value == 1)
+            return 'user';
+        if ($value == 2)
+            return 'corporate';
+        if ($value == 3)
+            return 'admin';
     }
 
- 
+
     // public function getOwnerReleatedToSystemAttribute($value)
     // {
     //     if($value==1)
     //     return 'Yes';
     //     if($value==0)
     //     return 'No';
-        
+
     // }
     // public function getFounderReleatedToSystemAttribute($value)
     // {
@@ -317,6 +345,6 @@ class Post extends MasterModel
     //     return 'Yes';
     //     if($value==0)
     //     return 'No';
-        
+
     // }
 }

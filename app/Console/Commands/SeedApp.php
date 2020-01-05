@@ -25,8 +25,6 @@ class SeedApp extends Command
             $this->call('migrate:fresh');
         }
 
-        $this->call('seed:users');
-
         $this->call('seed:locations');
 
         $this->call('seed:pages');
@@ -38,6 +36,8 @@ class SeedApp extends Command
         $this->call('seed:colors');
 
         $this->call('seed:pp');
+
+        $this->call('seed:users');
 
         $usersNumber = $this->ask('Users Count', 100);
 
@@ -55,12 +55,9 @@ class SeedApp extends Command
         $this->info('| Corporate Seeder Completed |');
         $this->info('|----------------------------|');
 
+        $this->call('seed:items');
 
-
-        // $this->call('seed:posts_images');
-        // $this->call('seed:post_requests');
-        // $this->call('seed:questions');
-        // // $this->call('seed:answers');
+        $this->call('seed:posts');
 
         // $this->info('Database App Seed Successfully');
 

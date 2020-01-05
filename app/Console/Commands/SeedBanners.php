@@ -74,14 +74,12 @@ class SeedBanners extends Command
             ]
         ];
 
-
         foreach ($banners as $banner) {
             Banner::create($banner);
         }
 
-
-        $this->info('|------------------------------------|');
-        $this->info('|  Seeding banners Done Successfully |');
-        $this->info('|------------------------------------|');
+        $this->line('|------------------------------------|');
+        $this->line('|  Seeding banners Done Successfully |');
+        $this->line('|------------------------------------|');
     }
 }

@@ -95,9 +95,9 @@ class SeedPackagesProducts extends Command
         foreach ($packages as $package) {
             $packages = Package::create($package);
         }
-        $this->info('|------------------------------------|');
-        $this->info('| Seed Packages |');
-        $this->info('|------------------------------------|');
+        $this->line('|------------------------------------|');
+        $this->line('| Seed Packages |');
+        $this->line('|------------------------------------|');
 
         $products = [
             [
@@ -123,9 +123,9 @@ class SeedPackagesProducts extends Command
         foreach ($products as $product) {
             $products = Product::create($product);
         }
-        $this->info('|------------------------------------|');
-        $this->info('| Seed Products |');
-        $this->info('|------------------------------------|');
+        $this->line('|------------------------------------|');
+        $this->line('| Seed Products |');
+        $this->line('|------------------------------------|');
 
         foreach (Package::all() as $package) {
             foreach (Product::all() as $product) {
