@@ -288,35 +288,35 @@ class PostsController extends Controller
      * ],
      * "claimers": [
      *   {
-     *   questions: [
-     * {
-     * id: 1,
-     * question: "question1?",
-     * answer: null
-     * },
-     * {
-     * id: 2,
-     * question: "question2?",
-     * answer: null
-     * },
-     * {
-     * id: 3,
-     * question: "question3?",
-     * answer: null
-     * }
-     * ],
-     * id: 4,
-     * name: "Braden Heathcote",
-     * email: "matt.koelpin@wunsch.com",
-     * status: 1,
-     * mobile_number: "+18155885009",
-     * receive_emails: true,
-     * receive_push_notifications: true,
-     * is_email_verified: true,
-     * is_mobile_number_verified: false,
-     * default_distance_unit: "kilo",
-     * image: "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
      *}
+     *],
+     *"id": 4,
+     *"name": "Braden Heathcote",
+     *"email": "matt.koelpin@wunsch.com",
+     *"status": 1,
+     *"mobile_number": "+18155885009",
+     *"receive_emails": true,
+     *"receive_push_notifications": true,
+     *"is_email_verified": true,
+     *"is_mobile_number_verified": false,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
+     *   }
      *],
      *"city": {
      * "id": 1,

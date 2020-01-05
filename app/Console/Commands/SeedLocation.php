@@ -40,35 +40,18 @@ class SeedLocation extends Command
      */
     public function handle()
     {
-
-
-
-        /**---------------------------------------------*\
-        |                 Seed Countries                 |
-        \-----------------------------------------------*/
-        // Seeed Countries
-        $this->info('|------------------------------------|');
-        $this->info('| Seed Countries |');
-        $this->info('|------------------------------------|');
+        $this->line('|------------------------|');
+        $this->line('|---- Seed Countries ----|');
+        $this->line('|------------------------|');
 
         $path = 'app/developer_docs/countries.sql';
         DB::unprepared(file_get_contents($path));
 
-        $this->countries = \App\Country::all();
-
-        /**---------------------------------------------*\
-        |          Seed Regions, Cities                  |
-        \-----------------------------------------------*/
-
-        // Seeed Regions
-        $this->info('|------------------------------------|');
-        $this->info('|   Seed Regions and Governorates    |');
-        $this->info('|------------------------------------|');
+        $this->line('|---------------------------------------|');
+        $this->line('|---- Seed Regions and Governorates ----|');
+        $this->line('|---------------------------------------|');
 
         $path = 'app/developer_docs/regions.sql';
         DB::unprepared(file_get_contents($path));
-
-        $cities_ids = \App\City::pluck('id')->values()->toArray();
-        $countries_ids = \App\Country::pluck('id')->values()->toArray();
     }
 }

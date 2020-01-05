@@ -14,7 +14,7 @@ class PostRequest extends Model
 
     ];
 
-    protected $fillable = ['user_id', 'post_id', 'is_request_valid', 'rejected_at', 'post_request_id'];
+    protected $fillable = ['user_id', 'post_id', 'is_request_valid', 'rejected_at'];
 
     public function post()
     {

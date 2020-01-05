@@ -214,16 +214,25 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth('api')->refresh());
+        try {
+            return $this->respondWithToken(auth('api')->refresh(), false);
+        } catch (\Throwable $th) {
+            throw new ApiException(trans("auth.failed"), 401);
+        }
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $include_user = true)
     {
-        return response()->json([
+        $response = [
             'token_type' => 'Bearer',
             'access_token' => $token,
-            'expires_in' => config('jwt.ttl') * 60,
-            'user' => new UserResource(auth('api')->user())
-        ]);
+            'expires_in' => config('jwt.ttl') * 60
+        ];
+
+        if ($include_user) {
+            $response['user'] = new UserResource(auth('api')->user()) ?? null;
+        }
+
+        return response()->json($response);
     }
 }

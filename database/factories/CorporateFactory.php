@@ -2,14 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-
-use App\WajadOffice;
+use App\Corporate;
+use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
-
-$factory->define(WajadOffice::class, function (Faker $faker) {
-    # Data
+$factory->define(Corporate::class, function (Faker $faker) {
     $data = [
+        'unique_id' => 'WJ-' . Str::random(15),
         'location' => $faker->paragraph(5),
         'latitude' => $faker->latitude,
         'longitude' => $faker->longitude,

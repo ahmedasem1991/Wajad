@@ -39,64 +39,79 @@ class SeedUsers extends Command
      */
     public function handle()
     {
+        $this->line('|-------------------------------|');
+        $this->line('|------- Superadmin Seed -------|');
+        $this->line('|-------------------------------|');
 
-        $this->info('Create Nova Admin');
-        $username = $this->ask('Username', 'Admin');
-        $email = $this->ask('Email Address', 'admin@nova.com');
-        $password = $this->ask('Password', 123456789);
+        $username = $this->ask('Superadmin Username', 'Admin');
+        $email = $this->ask('Superadmin Email Address', 'admin@nova.com');
+        $password = $this->ask('Superadmin Password', 123456789);
+
         User::create([
             'name' => $username,
             'email' => $email,
             'password' => bcrypt($password),
-            'type' => 3, // Admin
-            'mobile_number' => '01111086890',
+            'type' => User::Types['admin'],
+            'mobile_number' => '01006994920',
             'mobile_country_id' => 1
         ]);
-        $this->info('Nova Admin Created Successfully');
 
-        $this->info('Create Nova User');
-        $username = $this->ask('Username', 'User');
-        $email = $this->ask('Email Address', 'user@nova.com');
-        $password = $this->ask('Password', 123456789);
+        $this->line('|----------------------------------|');
+        $this->line('|-Superadmin Created Successfully -|');
+        $this->line('|----------------------------------|');
+        $this->line("|----- Email Address : $email -----|");
+        $this->line("|------ Password : $password ------|");
+        $this->line('|----------------------------------|');
+
+        $this->line('|--------------------------------|');
+        $this->line('|-------- Nova User Seed --------|');
+        $this->line('|--------------------------------|');
+
+        $username = $this->ask('Nova User', 'User');
+        $email = $this->ask('Nova Email Address', 'user@nova.com');
+        $password = $this->ask('Nova Password', 123456789);
+
         User::create([
             'name' => $username,
             'email' => $email,
             'password' => bcrypt($password),
-            'type' => 1, // User
+            'type' => User::Types['user'],
             'mobile_number' => '01142416124',
             'corporate_id' => 1,
             'mobile_country_id' => 1,
             'posts_limitation' => 50
         ]);
-        $this->info('Nova User Created Successfully');
 
+        $this->line('|---------------------------------|');
+        $this->line('|-Nova User Created Successfully -|');
+        $this->line('|---------------------------------|');
+        $this->line("|----- Email Address : $email ----|");
+        $this->line("|------ Password : $password -----|");
+        $this->line('|---------------------------------|');
 
-        $this->info('Create Nova Corporate Admin');
+        $this->line('|-------------------------------------|');
+        $this->line('|-------- Nova Corporate Seed --------|');
+        $this->line('|-------------------------------------|');
+
         $username = $this->ask('Username', 'Corporate');
         $email = $this->ask('Email Address', 'corporate@nova.com');
         $password = $this->ask('Password', 123456789);
+
         User::create([
             'name' => $username,
             'email' => $email,
             'password' => bcrypt($password),
-            'type' => 2, // Corporate
+            'type' => User::Types['corporate'],
             'mobile_number' => '+201095781611',
             'corporate_id' => 1,
             'mobile_country_id' => 1
         ]);
-        Corporate::create([
-            'unique_id' => time() . '-WAJAD-Corporate',
-            'name_en' => 'WAJAD Corporate',
-            'name_ar' => 'مؤسسة وجد',
-            'details_en' => 'WAJAD Corporate For Haj & Omra',
-            'details_ar' => 'مؤسسة وجد للحج والعمرة', // User
-            'address_en' => 'Jadda - KSA',
-            'address_ar' => 'جده - المملكة العربية السعودية',
-            'latitude' => '21.4498898',
-            'longitude' => '39.4913423',
-            'status' => 1,
 
-        ]);
-        $this->info('Nova Corporate Admin Created Successfully');
+        $this->line('|---------------------------------|');
+        $this->line('|-Corporate Created Successfully -|');
+        $this->line('|---------------------------------|');
+        $this->line("|----- Email Address : $email ----|");
+        $this->line("|------ Password : $password -----|");
+        $this->line('|---------------------------------|');
     }
 }

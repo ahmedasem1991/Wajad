@@ -1,6 +1,6 @@
 <?php
 
-
+use App\ApiToken;
 use App\Post;
 use App\User;
 use App\Qrcode;
@@ -8,10 +8,13 @@ use App\Corporate;
 
 use Laravel\Nova\Nova;
 use Barryvdh\DomPDF\PDF;
+use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
 use App\Notifications\TestNotification;
+use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
@@ -30,16 +33,72 @@ use App\PostRequest;
 
 \Mpociot\ApiDoc\ApiDoc::routes("/apidoc");
 
-Route::get('/test23', function () {
-  // $users= User::all()->random(3);
-  // return $users[0]->id;
-  return \App\Category::all()->pluck('name_en', 'id');
+
+Route::get('/rsa-signature', function () {
+    $rsa = new RSA();
+
+    $privateKey = file_get_contents(storage_path('app/keys/privateKey.pem'));
+
+    $rsa->loadKey($privateKey);
+
+    $plaintext = 'test';
+
+    $signature = $rsa->sign($plaintext);
+
+    echo base64_encode($signature);
+
+    die;
+
+    $publicKey = file_get_contents(public_path('keys/publicKey.pem'));
+
+    $rsa->loadKey($publicKey);
+
+    echo $rsa->verify($plaintext, $signature) ? 'verified' : 'unverified';
 });
 
 
+Route::post('validrsa', function (Request $request) {
+    if (ApiToken::whereToken($request->rsa)->first()) {
+        return 'unverified';
+    }
+
+    $rsa = new RSA;
+
+    $publicKey = file_get_contents(public_path('keys/publicKey.pem'));
+
+    $rsa->loadKey($publicKey);
+
+    $rsa->verify('test', base64_decode($request->rsa)) ? 'verified' : 'unverified';
+
+    ApiToken::create([
+        'token' => $request->rsa
+    ]);
+})->name('validrsa');
+
+Route::view('testrsa', 'testrsa');
+
+
+Route::get('rsa-encrypt', function () {
+    $rsa = new RSA();
+
+    $publicKey = file_get_contents(public_path('keys/publicKey.pem'));
+
+    $rsa->loadKey($publicKey);
+
+    $plaintext = env("APP_KEY");
+
+    $ciphertext = base64_encode($rsa->encrypt($plaintext));
+
+    $privateKey = file_get_contents(storage_path('app/keys/privateKey.pem'));
+
+    $rsa->loadKey($privateKey);
+
+    echo $rsa->decrypt(base64_decode($ciphertext)) == $plaintext ? 'verified' : 'unverified';
+});
+
 Route::get('/home', function () {
 
-  return  redirect(Nova::path());
+    return  redirect(Nova::path());
 });
 
 Route::view('qrcode', 'Pdf.qrcode');
@@ -55,7 +114,8 @@ Route::get('qrcodepdf', 'PDFController@qrcodepdf');
 Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
-Route::get('/test600', function () { });
+Route::get('/test600', function () {
+});
 
 
 route::get('/', function () {
@@ -72,25 +132,25 @@ Route::get('test', function () {
 
 
 Route::get('/bridge', function () {
-  $pusher = App::make('pusher');
+    $pusher = App::make('pusher');
 
-  $pusher->trigger(
-    'test-channel',
-    'test-event',
-    array('text' => 'Preparing the Pusher Laracon.eu workshop!')
-  );
+    $pusher->trigger(
+        'test-channel',
+        'test-event',
+        array('text' => 'Preparing the Pusher Laracon.eu workshop!')
+    );
 
-  return view('welcome');
+    return view('welcome');
 });
 
 Route::get('/broadcast', function () {
 
-  // Pusher::trigger('test-channel', 'TestEvent', [
-  //     'text' => 'Preparing the Pusher Laracon.eu workshop!'
-  //     ]);
-  // event(new TestEvent('Broadcasting in Laravel using Pusher! Broadcasting in Laravel using Pusher!'));
+    // Pusher::trigger('test-channel', 'TestEvent', [
+    //     'text' => 'Preparing the Pusher Laracon.eu workshop!'
+    //     ]);
+    // event(new TestEvent('Broadcasting in Laravel using Pusher! Broadcasting in Laravel using Pusher!'));
 
-  return view('home');
+    return view('home');
 });
 Route::get('/test500', function () {
    return  defaultGroup();
@@ -112,8 +172,8 @@ Route::get('/test500', function () {
 
 
 Route::get('/test400', function () {
-  $user = User::find(20);
+    $user = User::find(20);
 
-  $user->notify(new BroadcastNotification('error', 'test message', 'facebook.com'));
-  return view('welcome');
+    $user->notify(new BroadcastNotification('error', 'test message', 'facebook.com'));
+    return view('welcome');
 })->name('test400');
