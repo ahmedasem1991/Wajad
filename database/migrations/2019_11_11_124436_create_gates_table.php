@@ -20,8 +20,10 @@ class CreateGatesTable extends Migration
             $table->integer('limitation_of_posts')->default(10);
             $table->boolean('default_group')->default(0);
             $table->boolean('auto_approve')->default(0);
-           $table->softDeletes();
-$table->timestamps();
+            $table->boolean('mobile_group')->default(0);
+            $table->integer('posts_period')->default(30);
+            $table->softDeletes();
+            $table->timestamps();
         });
         Schema::create('role_permission', function (Blueprint $table) {
             $table->Integer('role_id');

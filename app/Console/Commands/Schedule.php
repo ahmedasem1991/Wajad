@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Corporate;
+use App\Post;
 use Illuminate\Console\Command;
 
 class Schedule extends Command
@@ -44,6 +45,15 @@ class Schedule extends Command
             if ($corporate->ended())
                 $corporate->status = 0;
             $corporate->save();
+        }
+
+        //$Posts = Post::isApproved()->isShow()->isOpen()->get();
+        $Posts = Post::isOpen()->get();
+
+        foreach ($Posts as $post) {
+            if ($post->ended())
+                $post->open_status = 0;
+            $post->save();
         }
 
         $this->info('|----------------------------------|');

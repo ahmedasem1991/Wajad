@@ -107,6 +107,8 @@ class Post extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
+                DateTime::make('Post Closing Date','end_date')->updateRules('required')
+            ->hideWhenCreating(),
             //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
             //DateTime::make('Losted At')->hideFromIndex()

@@ -222,4 +222,5 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(DeviceType::class, 'user_id');
     }
+
 }

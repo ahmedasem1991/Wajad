@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -125,15 +126,20 @@ class Role extends Resource
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
-            Toggle::make('Default Group'),
+            Toggle::make('Mobile Users Group','mobile_group'),
             NovaDependencyContainer::make([
-                Number::make('Limitation Of Posts', 'limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
+                Toggle::make('Default Group'),
                 Toggle::make('Auto Approve'),
+                Number::make('Limitation Of Posts Number', 'limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
+                
+                Number::make('Posts Active Period In Days', 'posts_period')->min(1)->max(10000)->step(1)->rules('required'),
+                
+                
 
-            ])->dependsOn('default_group', 1),
+            ])->dependsOn('mobile_group', 1),
 
             BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User'))
-                ->searchable(),
+                ,
 
             // BelongsTo::make('Corporate')
             //     ->nullable(),

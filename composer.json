@@ -90,7 +90,7 @@
         },
         "files": [
  
-            "app/helper.php"
+            "app/Services/Helpers/helper.php"
      
         ],
         "classmap": [

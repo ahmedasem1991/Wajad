@@ -6,6 +6,8 @@ use App\User;
 use App\Qrcode;
 use App\Corporate;
 
+use Carbon\Carbon;
+use App\PostRequest;
 use Laravel\Nova\Nova;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
@@ -18,7 +20,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
-use App\PostRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,7 +154,7 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/test500', function () {
-   return  defaultGroup();
+    return  defaultGroup()->posts_period;
 //  dd( $user->roles());
 //  foreach()
 
