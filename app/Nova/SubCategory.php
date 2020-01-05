@@ -64,7 +64,8 @@ class SubCategory extends Resource
                 ->disk('public')
                 ->path('images/subcategories')
                 ->prunable()
-                ->deletable(),
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_width=100'),
             BelongsTo::make('Category')->rules('required'),
             HasMany::make('Brands'),
         ];
