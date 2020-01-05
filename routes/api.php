@@ -106,5 +106,4 @@ Route::prefix('posts')->group(function () {
 });
 
 Route::view('mario', 'mario');
-
-Route::post('/test', 'TestController');
+Route::view('receipt', 'receipt');
