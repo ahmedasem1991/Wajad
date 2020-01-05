@@ -50,6 +50,7 @@ class SeedBanners extends Command
                 "image" => "images/banners/banner1.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => "1",
+                "clicks" => 0,
                 "start_date" => Carbon::now()->toDateTimeString(),
                 "end_date" => Carbon::now()->toDateTimeString(),
             ],
@@ -58,6 +59,7 @@ class SeedBanners extends Command
                 "image" => "images/banners/banner2.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => null,
+                "clicks" => 0,
                 "start_date" => Carbon::now()->toDateTimeString(),
                 "end_date" => Carbon::now()->toDateTimeString(),
             ],
@@ -66,6 +68,7 @@ class SeedBanners extends Command
                 "image" => "images/banners/banner3.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => null,
+                "clicks" => 0,
                 "start_date" => Carbon::now()->toDateTimeString(),
                 "end_date" => Carbon::now()->toDateTimeString(),
             ]
