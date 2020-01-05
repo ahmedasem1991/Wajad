@@ -23,10 +23,12 @@ $factory->define(WajadOffice::class, function (Faker $faker) {
     $data['address_en'] = $faker->paragraph(15);
 
     # Arabic Data
-
-    $data['name_ar'] = $faker->text();
     $data['details_ar'] = $faker->text();
     $data['address_ar'] = $faker->text();
+
+    $faker = \Faker\Factory::create('ar_JO');
+    // dd($factory->)
+    $data['name_ar'] = $faker->text();
 
     return $data;
 });

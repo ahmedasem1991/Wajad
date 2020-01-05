@@ -21,42 +21,42 @@ class SeedApp extends Command
 
     public function handle()
     {
-        // if ($this->argument('fresh')) {
-        //     $this->call('migrate:fresh');
-        // }
-
-        // $this->call('seed:users');
-
-        // $this->call('seed:corporate');
-
-        // $this->call('seed:locations');
-
-        // $this->call('seed:pages');
-
-        // $this->call('seed:categories');
-
-        // $this->call('seed:banners');
-
-        // $this->call('seed:colors');
-
-        // $this->call('seed:pp');
-
-        $models = [
-            'User',
-            'WajadOffice'
-        ];
-
-        foreach ($models as $model) {
-            ${$model . '_count'} = $this->ask("$model Count", 100);
-
-            $modelName = "\\App\\$model";
-
-            factory($modelName::class, 5)->create();
-
-            $this->info('|-------------------------|');
-            $this->info("| $model Seeder Completed |");
-            $this->info('|-------------------------|');
+        if ($this->argument('fresh')) {
+            $this->call('migrate:fresh');
         }
+
+        $this->call('seed:users');
+
+        $this->call('seed:corporate');
+
+        $this->call('seed:locations');
+
+        $this->call('seed:pages');
+
+        $this->call('seed:categories');
+
+        $this->call('seed:banners');
+
+        $this->call('seed:colors');
+
+        $this->call('seed:pp');
+
+        $usersNumber = $this->ask('Users Count', 100);
+
+        factory(User::class, (int) $usersNumber)->create();
+
+        $this->info('|------------------------|');
+        $this->info('| Users Seeder Completed |');
+        $this->info('|------------------------|');
+
+        $wajadOfficesNumber = $this->ask('Wajad Offices Count', 100);
+
+        factory(WajadOffice::class, (int) $wajadOfficesNumber)->create();
+
+        $this->info('|--------------------------------|');
+        $this->info('| Wajad Offices Seeder Completed |');
+        $this->info('|--------------------------------|');
+
 
         $this->info('|Start item factory------------------------------------------|');
         // factory(Item::class, 5)->create();
