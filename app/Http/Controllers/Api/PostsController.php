@@ -86,12 +86,11 @@ class PostsController extends Controller
             ->orWhere('name_ar', 'like', '%' .  $request->city . '%')
             ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
 
-        $auto_approve=0;
-        
-       if(defaultGroup()->auto_approve==1) 
-       {
-           $auto_approve=1;
-           $appearance_status=1;
+        $auto_approve = 0;
+
+        if (defaultGroup()->auto_approve == 1) {
+            $auto_approve = 1;
+            $appearance_status = 1;
         }
         $post = Post::create([
             'title' => $request->title,
@@ -108,9 +107,9 @@ class PostsController extends Controller
             'city_id' => $city_id->id,
             'publisher_id' => auth('api')->user()->id,
             'publisher_type' => 1,
-            'auto_approve'=>$auto_approve,
-            'appearance_status'=>$appearance_status,
-            
+            'auto_approve' => $auto_approve,
+            'appearance_status' => $appearance_status,
+
         ]);
 
         if ($type == "lost") {
@@ -118,7 +117,7 @@ class PostsController extends Controller
                 'status' => self::TYPES[$type],
                 'owner_id' => auth('api')->user()->id,
                 'losted_at' => Carbon::now()->toDateTimeString(),
-                'owner_releated_to_system'=>1
+                'owner_releated_to_system' => 1
             ]);
             $post->save();
         }
@@ -128,7 +127,7 @@ class PostsController extends Controller
                 'status' => self::TYPES[$type],
                 'founder_id' => auth('api')->user()->id,
                 'founded_at' => Carbon::now()->toDateTimeString(),
-                'founder_releated_to_system'=>1
+                'founder_releated_to_system' => 1
             ]);
             $post->save();
             array_map(function ($question) use ($post) {
@@ -287,37 +286,37 @@ class PostsController extends Controller
      * "image": "http:\/\/wajad.test\/default-icon.png"
      * }
      * ],
-     * "post_requests": [
+     * "claimers": [
      *   {
-     *     "id": 3,
-     *    "is_request_valid": 0,
-     *   "cliamers": {
-     *    "questions": [
-     *     {
-     *      "id": 1,
-     *     "question": "kp'[k'[p\r\n",
-     *    "answers": [
-     *     {
-     *      "id": 1,
-     *     "answer": ";lokpok",
-     *    "date": "2019-12-10 00:00:00"
-     *  }
-     *]
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
      *}
      *],
-     *"id": 1,
-     *"name": "Admin",
-     *"email": "admin@nova.com",
+     *"id": 4,
+     *"name": "Braden Heathcote",
+     *"email": "matt.koelpin@wunsch.com",
      *"status": 1,
-     *"mobile_number": "01111086890",
-     *"receive_emails": false,
-     *"receive_push_notifications": false,
-     *"is_email_verified": false,
+     *"mobile_number": "+18155885009",
+     *"receive_emails": true,
+     *"receive_push_notifications": true,
+     *"is_email_verified": true,
      *"is_mobile_number_verified": false,
-     *"default_distance_unit": "kilo"
-     *},
-     *"date": "2019-12-10 00:00:00"
-     *}
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
+     *   }
      *],
      *"city": {
      * "id": 1,

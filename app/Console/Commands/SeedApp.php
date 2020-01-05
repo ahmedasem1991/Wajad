@@ -27,8 +27,6 @@ class SeedApp extends Command
 
         $this->call('seed:users');
 
-        $this->call('seed:corporate');
-
         $this->call('seed:locations');
 
         $this->call('seed:pages');
@@ -49,43 +47,35 @@ class SeedApp extends Command
         $this->info('| Users Seeder Completed |');
         $this->info('|------------------------|');
 
-        $wajadOfficesNumber = $this->ask('Wajad Offices Count', 100);
+        $corporateCount = $this->ask('Corporates Count', 100);
 
-        factory(WajadOffice::class, (int) $wajadOfficesNumber)->create();
+        factory(Corporate::class, (int) $corporateCount)->create();
 
-        $this->info('|--------------------------------|');
-        $this->info('| Wajad Offices Seeder Completed |');
-        $this->info('|--------------------------------|');
-
-
-        $this->info('|Start item factory------------------------------------------|');
-        // factory(Item::class, 5)->create();
-        $this->info('|Start post factory------------------------------------------|');
-        $dispatcher = Post::getEventDispatcher();
-        Post::unsetEventDispatcher();
-        factory(Post::class, 5)->create();
-        Post::setEventDispatcher($dispatcher);
+        $this->info('|----------------------------|');
+        $this->info('| Corporate Seeder Completed |');
+        $this->info('|----------------------------|');
 
 
-        $this->call('seed:posts_images');
-        $this->call('seed:post_requests');
-        $this->call('seed:questions');
-        // $this->call('seed:answers');
 
-        $this->info('Database App Seed Successfully');
+        // $this->call('seed:posts_images');
+        // $this->call('seed:post_requests');
+        // $this->call('seed:questions');
+        // // $this->call('seed:answers');
 
-        // Seeed Countries
-        $this->info('Seed Roles');
-        $path = 'app/developer_docs/roles.sql';
-        DB::unprepared(file_get_contents($path));
-        $path = 'app/developer_docs/permissions.sql';
-        DB::unprepared(file_get_contents($path));
-        $path = 'app/developer_docs/role_user.sql';
-        DB::unprepared(file_get_contents($path));
+        // $this->info('Database App Seed Successfully');
 
-        $this->info('Seed Roles and permissions Successfully');
-        // Artisan::call('seed:locations');
-        Artisan::call('seed:settings');
+        // // Seeed Countries
+        // $this->info('Seed Roles');
+        // $path = 'app/developer_docs/roles.sql';
+        // DB::unprepared(file_get_contents($path));
+        // $path = 'app/developer_docs/permissions.sql';
+        // DB::unprepared(file_get_contents($path));
+        // $path = 'app/developer_docs/role_user.sql';
+        // DB::unprepared(file_get_contents($path));
+
+        // $this->info('Seed Roles and permissions Successfully');
+        // // Artisan::call('seed:locations');
+        // Artisan::call('seed:settings');
 
         // $create_banner_question = $this->ask('Banner Number ?', 5);
 

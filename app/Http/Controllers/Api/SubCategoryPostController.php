@@ -107,37 +107,37 @@ class SubCategoryPostController extends Controller
      *  },
      *"date": "2019-12-08 15:40:37",
      *"images": [],
-     *"post_requests": [
-     *  {
-     *   "id": 3,
-     *  "is_request_valid": 0,
-     * "cliamers": {
-     *  "questions": [
+      * "claimers": [
      *   {
-     *    "id": 1,
-     *   "question": "kp'[k'[p\r\n",
-     *  "answers": [
-     *   {
-     *    "id": 1,
-     *   "answer": ";lokpok",
-     *  "date": "2019-12-10 00:00:00"
-     *}
-     *]
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
      *}
      *],
-     *"id": 1,
-     *"name": "Admin",
-     * "email": "admin@nova.com",
-     * "status": 1,
-     * "mobile_number": "01111086890",
-     * "receive_emails": false,
-     * "receive_push_notifications": false,
-     * "is_email_verified": false,
-     * "is_mobile_number_verified": false,
-     * "default_distance_unit": "kilo"
-     *},
-     * "date": "2019-12-10 00:00:00"
-     *}
+     *"id": 4,
+     *"name": "Braden Heathcote",
+     *"email": "matt.koelpin@wunsch.com",
+     *"status": 1,
+     *"mobile_number": "+18155885009",
+     *"receive_emails": true,
+     *"receive_push_notifications": true,
+     *"is_email_verified": true,
+     *"is_mobile_number_verified": false,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
+     *   }
      *],
      *"city": {
      *  "id": 1,

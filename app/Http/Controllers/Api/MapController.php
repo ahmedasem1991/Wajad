@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
-use App\WajadOffice;
+use App\Corporate;
 use Location\Coordinate;
 use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
@@ -27,13 +27,13 @@ class MapController extends Controller
     ];
     /**
      * Map
-     * @urlParam type required in:lost,found,office   
-     * @bodyParam longitude string required  
-     * @bodyParam latitude string required  
-     * @bodyParam radius int required  
-     * @bodyParam unit string,in:kilo,mile required   
+     * @urlParam type required in:lost,found,office
+     * @bodyParam longitude string required
+     * @bodyParam latitude string required
+     * @bodyParam radius int required
+     * @bodyParam unit string,in:kilo,mile required
      *
-     * @response  
+     * @response
      * {
      *"data": [
      *   {
@@ -87,7 +87,7 @@ class MapController extends Controller
 
     private function office($request)
     {
-        $office = WajadOffice::active()->get();
+        $office = Corporate::active()->get();
 
         $office = $this->getItemsBasedOnLocation($request, $office);
 
