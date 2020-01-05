@@ -179,7 +179,18 @@ class Banner extends Resource
     public static function fill(NovaRequest $request, $model)
     {
 
-        if ($request->input('item_type')) {
+        if ($request->has('item_type')) {
+
+            $request->offsetUnset('item_type');
+        }
+
+        return parent::fill($request, $model);
+    }
+
+    public static function fillForUpdate(NovaRequest $request, $model)
+    {
+
+        if ($request->has('item_type')) {
 
             $request->offsetUnset('item_type');
         }

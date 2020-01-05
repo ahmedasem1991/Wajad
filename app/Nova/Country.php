@@ -40,6 +40,10 @@ class Country extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar',
+        'iso_code',
+        'country_code',
     ];
 
     /**
@@ -54,7 +58,7 @@ class Country extends Resource
             ID::make()->sortable(),
             Text::make('Country English Name', 'name_en')->rules(['required']),
             Text::make('Country Arabic Name', 'name_ar')->rules(['required']),
-            Text::make('Country Iso Code', 'iso_code')->rules(['required'])->creationRules([
+            Text::make('Country Iso Code', 'iso_code')->rules('required','between:1,2')->creationRules([
                 'unique:countries,iso_code'
             ]),
             Number::make('Country Code', 'country_code')->rules(['required']),
