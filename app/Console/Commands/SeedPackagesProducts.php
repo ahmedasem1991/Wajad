@@ -41,9 +41,6 @@ class SeedPackagesProducts extends Command
      */
     public function handle()
     {
-        DB::table('packages')->truncate();
-        DB::table('products')->truncate();
-        DB::table('package_product_table')->truncate();
 
         $packages = [
             [

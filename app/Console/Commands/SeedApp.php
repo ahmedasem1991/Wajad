@@ -31,8 +31,6 @@ class SeedApp extends Command
 
         $this->call('seed:categories');
 
-        $this->call('seed:banners');
-
         $this->call('seed:colors');
 
         $this->call('seed:pp');
@@ -56,6 +54,8 @@ class SeedApp extends Command
         $this->info('|----------------------------|');
 
         $this->call('seed:items');
+
+        $this->call('seed:banners');
 
         $this->call('seed:posts');
 
