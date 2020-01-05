@@ -43,11 +43,11 @@ class SeedPosts extends Command
                 'owner_id' => $usersIds->random(),
                 'latitude' => $faker->latitude,
                 'longitude' => $faker->longitude,
-                'approval_status' => $faker->boolean(),
+                'approval_status' => 1,
                 'sub_category_id' => $subCategoriesIds->random(),
                 'model_id' => $modelIds->random(),
                 'color_id' => $colorIds->random(),
-                'appearance_status' => $faker->boolean(),
+                'appearance_status' => 1,
                 'brand_id' => $brandIds->random(),
                 'city_id' => $citiesIds->random(),
                 'reward' => $faker->numberBetween(5, 1000) . 'USD'
