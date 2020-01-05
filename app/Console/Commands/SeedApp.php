@@ -59,6 +59,7 @@ class SeedApp extends Command
 
         $this->call('seed:posts');
 
+        $this->call('seed:post-questions-and-answears');
         // $this->info('Database App Seed Successfully');
 
         // // Seeed Countries
