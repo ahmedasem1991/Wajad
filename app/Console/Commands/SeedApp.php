@@ -46,13 +46,16 @@ class SeedApp extends Command
      */
     public function handle()
     {
-        // return;
         $this->call('migrate:fresh');
-        $this->info('App seeds is processing ....');
 
         $this->call('seed:users');
+
+        $this->call('seed:corporate');
+
         $this->call('seed:locations');
+
         $this->call('seed:pages');
+
         $this->call('seed:categories');
         $this->call('seed:banners');
         $this->call('seed:colors');
@@ -62,18 +65,18 @@ class SeedApp extends Command
         $this->info('|Start wajadoffice factory------------------------------------------|');
         factory(WajadOffice::class, 5)->create();
         $this->info('|Start item factory------------------------------------------|');
-       // factory(Item::class, 5)->create();
+        // factory(Item::class, 5)->create();
         $this->info('|Start post factory------------------------------------------|');
         $dispatcher = Post::getEventDispatcher();
         Post::unsetEventDispatcher();
         factory(Post::class, 5)->create();
         Post::setEventDispatcher($dispatcher);
-       
+
 
         $this->call('seed:posts_images');
         $this->call('seed:post_requests');
         $this->call('seed:questions');
-       // $this->call('seed:answers');
+        // $this->call('seed:answers');
 
         $this->info('Database App Seed Successfully');
         // $this->info('Create Nova Admin');
@@ -149,7 +152,7 @@ class SeedApp extends Command
         DB::unprepared(file_get_contents($path));
 
         $this->info('Seed Roles and permissions Successfully');
-       // Artisan::call('seed:locations');
+        // Artisan::call('seed:locations');
         Artisan::call('seed:settings');
 
         // $create_banner_question = $this->ask('Banner Number ?', 5);
