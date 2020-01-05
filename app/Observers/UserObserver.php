@@ -11,13 +11,10 @@ class UserObserver
 
     public function saving(User $User)
     {
-              if(Auth::check() && Auth()->User()->isCorporateAdmin()   )
-             {
+        if (Auth::check() && Auth()->User()->isCorporateAdmin()) {
 
-                $User->corporate_id=Auth()->User()->corporate_id;
-
-             }
-
+            $User->corporate_id = Auth()->User()->corporate_id;
+        }
     }
     /**
      * Handle the user "created" event.
