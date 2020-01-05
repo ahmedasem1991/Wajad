@@ -8,7 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Page extends Model
 {
-    use LogsActivity,SoftDeletes;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = [
         'key',
