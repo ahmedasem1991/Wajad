@@ -39,6 +39,9 @@ class Model extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar',
+        'brand_id',
     ];
 
     /**
