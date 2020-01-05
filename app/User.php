@@ -200,7 +200,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function exceededPostLimitation()
     {
-            return $this->posts()->count() > defaultGroup()->limitation_of_posts;
+            return $this->posts()->count()-> defaultGroup()->limitation_of_posts;
     }
 
     public function routeNotificationForNexmo($notification)
