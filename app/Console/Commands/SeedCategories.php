@@ -487,21 +487,19 @@ class SeedCategories extends Command
         ];
 
         foreach ($Categories as $Category) {
-            Category::create($Category);
+            $category = Category::create($Category);
             if (!empty($Category['sub_categories'])) {
                 foreach ($Category['sub_categories'] as $sub_category) {
-                    logger($sub_category);
-                    SubCategory::create([
+                    $SubCategory = SubCategory::create([
                         'name_en' => $sub_category['name_en'],
                         'name_ar' => $sub_category['name_ar'],
                         'icon' => $sub_category['icon'],
-                        'category_id' => $sub_category['category_id'],
+                        'category_id' => $category->id,
                     ]);
 
                     if (!empty($sub_category['brands'])) {
                         foreach ($sub_category['brands'] as $brand) {
-                            logger($brand);
-                            Brand::create($brand);
+                            $SubCategory->brands()->create($brand);
                             if (!empty($brand['models'])) {
                                 foreach ($brand['models'] as $model) {
                                     Model::create($model);
