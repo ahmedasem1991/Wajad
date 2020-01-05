@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Banner;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -49,18 +50,24 @@ class SeedBanners extends Command
                 "image" => "images/banners/banner1.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => "1",
+                "start_date" => Carbon::now()->toDateTimeString(),
+                "end_date" => Carbon::now()->toDateTimeString(),
             ],
             [
                 "type" => "ads",
                 "image" => "images/banners/banner2.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => null,
+                "start_date" => Carbon::now()->toDateTimeString(),
+                "end_date" => Carbon::now()->toDateTimeString(),
             ],
             [
                 "type" => "url",
                 "image" => "images/banners/banner3.jpg",
                 "url" => "https://translate.google.com.eg/",
                 "item_id" => null,
+                "start_date" => Carbon::now()->toDateTimeString(),
+                "end_date" => Carbon::now()->toDateTimeString(),
             ]
         ];
 

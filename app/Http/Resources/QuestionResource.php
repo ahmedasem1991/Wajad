@@ -17,7 +17,7 @@ class QuestionResource extends JsonResource
         return [
             'id' => $this->id,
             'question' => $this->question,
-            'answer' =>  $this->answers()->first()->answers,
+            'answer' =>  $this->answers()->first() ? $this->answers()->first()->answers : null,
         ];
     }
 }
