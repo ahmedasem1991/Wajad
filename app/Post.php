@@ -27,6 +27,7 @@ class Post extends MasterModel
         'founder_id',
         'latitude',
         'longitude',
+        'approval_status',
         'sub_category_id',
         'model_id',
         'color_id',

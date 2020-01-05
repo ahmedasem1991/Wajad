@@ -4,12 +4,13 @@ namespace App;
 
 use App\Brand;
 use Illuminate\Database\Eloquent\Model as MasterModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Model extends MasterModel
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'brand_id'];
 

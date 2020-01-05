@@ -46,6 +46,7 @@ class Item extends Resource
      */
     public static $search = [
         'id',
+        'title'
     ];
 
     /**
@@ -65,20 +66,20 @@ class Item extends Resource
                 'required', 'min:6'
             ]),
 
-             
+
             NovaBelongsToDepend::make('Brand')
-            ->placeholder('Optional Placeholder')  
+            ->placeholder('Optional Placeholder')
             ->options(\App\Brand::all())
             ->rules('required'),
 
-            NovaBelongsToDepend::make('Model', 'model') 
-            ->placeholder('Optional Placeholder')    
+            NovaBelongsToDepend::make('Model', 'model')
+            ->placeholder('Optional Placeholder')
             ->optionsResolve(function ($brand) {
             return $brand->models()->get(['id','name_en']);
             })
             ->rules('required')
             ->dependsOn('Brand'),
-           
+
             Select2::make('Owner','owner_id')
             ->sortable()
             ->options(\App\User::normalusers()->get()->pluck('name', 'id'))
@@ -95,7 +96,7 @@ class Item extends Resource
             BelongsTo::make('Color'),
          //   ->searchable(),
             HasMany::make('Images', 'images', ItemImage::class),
-            
+
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),
         ];
     }
@@ -145,9 +146,9 @@ class Item extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
     }
- 
+
 }
