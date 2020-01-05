@@ -66,7 +66,8 @@ class Brand extends Resource
                 ->disk('public')
                 ->path('images/brands')
                 ->prunable()
-                ->deletable(),
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_width=100'),
              BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class)
                  ->rules('required'),
              HasMany::make('Models'),

@@ -42,6 +42,7 @@ class Model extends Resource
         'name_en',
         'name_ar',
         'brand_id',
+        
     ];
 
     /**
@@ -66,7 +67,8 @@ class Model extends Resource
                 ->disk('public')
                 ->path('images/models')
                 ->prunable()
-                ->deletable(),
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_width=100'),
             BelongsTo::make('Brand'),
             //HasMany::make('Colors'),
         ];

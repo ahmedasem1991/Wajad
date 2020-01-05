@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use OwenMelbz\RadioField\RadioButton;
@@ -78,10 +79,12 @@ class Package extends Resource
                 ->rules(
                     ['required', 'string']
                 )->hideFromIndex(),
-
+                Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>USD</big> Unit </p>')
+                ->asHtml(),
             Number::make('Package Price', 'price')
                 ->rules(['required', 'integer']),
-
+                Heading::make('<p class="text-info" style="margin-left:20%"> Package Period In <big>Days</big>  </p>')
+                ->asHtml(),
             Number::make('Package Period', 'period')->rules('required'),
             Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
 

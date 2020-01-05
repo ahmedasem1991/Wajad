@@ -23,6 +23,8 @@ class Role extends Model
         'limitation_of_posts',
         'default_group',
         'auto_approve',
+        'mobile_group',
+        'posts_period',
     ];
 
     /**

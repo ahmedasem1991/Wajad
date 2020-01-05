@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
 
     const Types = [
         1 => "single",

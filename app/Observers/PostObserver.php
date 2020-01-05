@@ -21,6 +21,8 @@ class PostObserver
      */
     public function saving(Post $Post)
     {
+         $now =Carbon::now();
+         $end_date= Carbon::instance($now)->addDays(defaultGroup()->posts_period)->toDateTimeString();
         if (Auth()->check() && Auth()->User()->isCorporateAdmin()) {
             $Post->appearance_status = 1;
             $Post->open_status = 1;
@@ -28,16 +30,13 @@ class PostObserver
             $Post->corporate_id = Auth()->User()->corporate_id;
             $Post->publisher_id = Auth()->User()->id;
             $Post->publisher_type = 2;
+            $Post->end_date = $end_date;
         }
         if (Auth()->check() &&Auth()->User()->isAdmin()) {
-            // if(!isset($Post->owner_releated_to_system))
-            // $Post->owner_releated_to_system=NULL;
-            // if(!isset($Post->founder_releated_to_system))
-            // $Post->founder_releated_to_system=NULL;
-
-
+            
             $Post->publisher_type = 3;
             $Post->publisher_id = Auth()->User()->id;
+            $Post->end_date = $end_date;
         }
     }
 

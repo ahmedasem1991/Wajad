@@ -67,8 +67,9 @@ class Color extends Resource
             ->path('images/colors')
             ->disableDownload()
             ->prunable()
-            ->deletable(),
-             //BelongsTo::make('Model')->rules('required'),
+            ->deletable()
+            ->rules('required','dimensions:max_width=100,max_width=100'),
+             
         ];
     }
 

@@ -114,11 +114,8 @@ class User extends Resource
                 ->updateRules('required_if:type,2')
                 ->nullable(),
 
-            BelongsToMany::make('Roles', 'roles', Role::class),
-            // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
-            // ->creationRules('required'),
-
-            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+                BelongsToMany::make('Roles', 'roles', Role::class),
+                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }

@@ -39,8 +39,8 @@ class PostsController extends Controller
      * @bodyParam color_id int required exists:colors,id
      * @bodyParam item_id int nullable exists:items,id
      * @bodyParam city string required
-     * @bodyParam images array sometimes between:1,5
-     * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
+     * @bodyParam images array required between:1,5
+     * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam questions array sometimes size:3
      * @bodyParam questions.* required min:9 max:500
      * @bodyParam token Barier-token required
@@ -59,7 +59,7 @@ class PostsController extends Controller
         $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:255'],
             'description' => ['required', 'min:9', 'max:500'],
-            'reward' => ['string'],
+            'reward' => ['nullable', 'string'],
             'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
@@ -70,8 +70,6 @@ class PostsController extends Controller
             'city' => ['required', 'string'],
             'images' => ['sometimes', 'array', 'between:1,5'],
             'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
-            'questions' => ['sometimes',  'array', 'between:1,3'],
-            'questions.*' => ['min:9', 'max:500'],
         ]);
 
         if ($validate_request->fails()) {
@@ -82,6 +80,16 @@ class PostsController extends Controller
             throw new ApiException(trans('messages.limited',  ['model' => trans('messages.attributes.post')]), 400);
         }
 
+        if ($type == "found") {
+            $validate_questions = Validator::make($request->all(), [
+                'questions' => ['required',  'array', 'between:1,3'],
+                'questions.*' => ['required', 'min:9', 'max:500'],
+            ]);
+            if ($validate_questions->fails()) {
+                throw new ApiException($validate_questions->errors()->first(), 400);
+            }
+        }
+        
         $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
             ->orWhere('name_ar', 'like', '%' .  $request->city . '%')
             ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
@@ -95,7 +103,6 @@ class PostsController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
-            'reward' => $request->reward,
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
             'sub_category_id' => $request->sub_category_id,
@@ -109,7 +116,6 @@ class PostsController extends Controller
             'publisher_type' => 1,
             'auto_approve' => $auto_approve,
             'appearance_status' => $appearance_status,
-
         ]);
 
         if ($type == "lost") {
@@ -117,6 +123,7 @@ class PostsController extends Controller
                 'status' => self::TYPES[$type],
                 'owner_id' => auth('api')->user()->id,
                 'losted_at' => Carbon::now()->toDateTimeString(),
+                'reward' => $request->reward,
                 'owner_releated_to_system' => 1
             ]);
             $post->save();
