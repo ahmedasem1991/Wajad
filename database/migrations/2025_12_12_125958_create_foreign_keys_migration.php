@@ -34,6 +34,8 @@ class CreateForeignKeysMigration extends Migration
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('SET NULL');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('SET NULL');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('SET NULL');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('SET NULL');
+            $table->foreign('corporate_id')->references('id')->on('corporates')->onDelete('SET NULL');
         });
 
         Schema::table('questions', function (Blueprint $table) {

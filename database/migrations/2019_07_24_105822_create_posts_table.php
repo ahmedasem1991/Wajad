@@ -33,7 +33,7 @@ class CreatePostsTable extends Migration
             $table->timestamp('founded_at')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->integer('sub_category_id')->nullable();
+            $table->unsignedInteger('sub_category_id')->nullable();
             $table->unsignedInteger('model_id')->nullable();
             $table->unsignedInteger('color_id')->nullable();
             $table->unsignedInteger('brand_id')->nullable();
