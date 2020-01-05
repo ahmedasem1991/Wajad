@@ -3,7 +3,7 @@
 use App\Role;
   
   function defaultGroup(){
-   if(Auth()->check()) 
+   if(Auth('api')->check()) 
    {
     if(count(Auth('api')->User()->roles)>0)
     return Auth('api')->User()->roles()->latest('id')->first();
