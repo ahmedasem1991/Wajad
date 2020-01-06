@@ -45,11 +45,9 @@ class Permissions extends Resource
      * @var array
      */
     public static $search = [
-        'id',
-        'name',
-        'display_name',
-        'description',
-        'group',
+        'role_id',
+        'permission_slug',
+        'deleted_at',
         'created_at',
         'updated_at',
     ];
