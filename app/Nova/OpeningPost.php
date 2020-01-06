@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\People;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -113,23 +114,11 @@ class OpeningPost extends Resource
                 
                  // optional
                   NovaDependencyContainer::make([
-                      
-                    Text::make('Owner Name','owner_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:owner_releated_to_system,0'),
-    
-                    Text::make('Owner Email','owner_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:owner_releated_to_system,0'),
-     
-                    PhoneNumber::make('Owner Mobile Number','owner_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
-                    ->rules('required_if:owner_releated_to_system,0')
-                    ,
-                    Text::make('Owner Address','owner_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:owner_releated_to_system,0'),
+                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    ->placeholder('Select Person')
+                    ->options(People::all())
+                    ->rules('required_if:owner_releated_to_system,0'),
+
                 
                     ])->dependsOn('owner_releated_to_system', 0),
 
@@ -167,23 +156,11 @@ class OpeningPost extends Resource
                            ->default(2)
                            ,
                     NovaDependencyContainer::make([
-                        Text::make('Founder Name','founder_name')
-                        ->sortable()
-                        ->rules( 'max:255','required_if:founder_releated_to_system,0'),
-                      
-        
-                        Text::make('Founder Email','founder_email')
-                        ->sortable()
-                        ->rules( 'email', 'max:254','required_if:founder_releated_to_system,0'),
-         
-                        PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                        ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                        ->onlyCustomFormats()
+                        NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                        ->placeholder('Select Person')
+                        ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
-                        Text::make('Founder Address','founder_address')
-                        ->sortable()
-                        ->rules( 'max:254','required_if:founder_releated_to_system,0'),
-                    
+                
                         ])->dependsOn('founder_releated_to_system', 0),
 
                         NovaDependencyContainer::make([

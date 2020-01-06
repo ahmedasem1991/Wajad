@@ -49,6 +49,8 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('owner_releated_to_system')->nullable();
             $table->unsignedInteger('founder_releated_to_system')->nullable();
             $table->dateTime('end_date')->nullable();
+            $table->integer('person_id')->nullable();
+            $table->integer('person_type')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
