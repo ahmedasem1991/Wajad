@@ -95,6 +95,7 @@ class PostsController extends Controller
             ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
 
         $auto_approve = 0;
+        $appearance_status = 0;
 
         if (defaultGroup()->auto_approve == 1) {
             $auto_approve = 1;

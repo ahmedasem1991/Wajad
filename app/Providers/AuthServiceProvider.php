@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Item' => 'App\Policies\ItemPolicy',
         'App\Package' => 'App\Policies\PackagePolicy',
         'App\Subscription' => 'App\Policies\SubscriptionPolicy',
-      //  'App\Post' => 'App\Policies\UserPostPolicy',
+        'App\Subcategory' => 'App\Policies\SubcategoryPolicy',
        // 'App\Item' => 'App\Policies\UserItemPolicy',
        'App\Answer' => 'App\Policies\AnswerPolicy',
        'App\PostRequest' => 'App\Policies\PostRequestPolicy',
