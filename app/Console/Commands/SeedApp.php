@@ -34,13 +34,13 @@ class SeedApp extends Command
         $this->call('seed:colors');
 
         $this->call('seed:pp');
-
-        $this->call('seed:users');
-
         $usersNumber = $this->ask('Users Count', 100);
 
         factory(User::class, (int) $usersNumber)->create();
 
+        $this->call('seed:users');
+
+        
         $this->info('|------------------------|');
         $this->info('| Users Seeder Completed |');
         $this->info('|------------------------|');
@@ -53,6 +53,14 @@ class SeedApp extends Command
         $this->info('| Corporate Seeder Completed |');
         $this->info('|----------------------------|');
 
+        $this->info('Seed Roles');
+        $path = 'app/developer_docs/roles.sql';
+        DB::unprepared(file_get_contents($path));
+        $path = 'app/developer_docs/permissions.sql';
+        DB::unprepared(file_get_contents($path));
+        $path = 'app/developer_docs/role_user.sql';
+        DB::unprepared(file_get_contents($path));
+
         $this->call('seed:items');
 
         $this->call('seed:banners');
@@ -63,13 +71,7 @@ class SeedApp extends Command
         // $this->info('Database App Seed Successfully');
 
         // // Seeed Countries
-        // $this->info('Seed Roles');
-        // $path = 'app/developer_docs/roles.sql';
-        // DB::unprepared(file_get_contents($path));
-        // $path = 'app/developer_docs/permissions.sql';
-        // DB::unprepared(file_get_contents($path));
-        // $path = 'app/developer_docs/role_user.sql';
-        // DB::unprepared(file_get_contents($path));
+
 
         // $this->info('Seed Roles and permissions Successfully');
         // // Artisan::call('seed:locations');

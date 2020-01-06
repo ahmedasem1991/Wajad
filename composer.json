@@ -89,9 +89,7 @@
             "App\\": "app/"
         },
         "files": [
- 
             "app/Services/Helpers/helper.php"
-     
         ],
         "classmap": [
             "database/seeds",
