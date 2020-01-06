@@ -297,6 +297,23 @@ class PostsController extends Controller
      * "image": "http:\/\/wajad.test\/default-icon.png"
      * }
      * ],
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
+     *}
+     *],
      * "claimers": [
      *   {
      * "questions": [
