@@ -1,4 +1,5 @@
- @section('content')
+@include('partials.header') 
+@section('content')
 {{$post->title}}
 @endsection
 @include('partials.footer') 
