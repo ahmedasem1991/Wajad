@@ -119,6 +119,7 @@ class PostsController extends Controller
             //'appearance_status' => $appearance_status,
             'auto_approve' => 1,
             'appearance_status' => 1,
+            'approval_status' => 1,
             
         ]);
 

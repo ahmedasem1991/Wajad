@@ -131,6 +131,11 @@ class Post extends MasterModel
         return $this->belongsTo(Corporate::class);
     }
 
+    public function person()
+    {
+        return $this->belongsTo(People::class);
+    }
+
     /**
      * Define The Category Of The Post
      */
