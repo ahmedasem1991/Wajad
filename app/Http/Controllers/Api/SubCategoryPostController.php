@@ -159,6 +159,19 @@ class SubCategoryPostController extends Controller
      *"city": {
      *  "id": 1,
      *  "name": "Al Riyadh"
+     *},
+     *"publisher": {
+     *"id": 105,
+     *"name": "teddy tf high j",
+     *"email": "ss@ss.com",
+     *"status": 1,
+     *"mobile_number": "966512345678",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": true,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/sKtIyY1Kl67j9gp.png"
      *}
      *}
      *]
