@@ -142,10 +142,12 @@ class PostsController extends Controller
             ]);
             $post->save();
             array_map(function ($question) use ($post) {
-                $post->questions()->create([
-                    'founder_id' => auth('api')->user()->id,
-                    'question' => $question,
-                ]);
+                if ($question) {
+                    $post->questions()->create([
+                        'founder_id' => auth('api')->user()->id,
+                        'question' => $question,
+                    ]);
+                }
             }, $request->questions);
         }
 
