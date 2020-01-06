@@ -115,8 +115,11 @@ class PostsController extends Controller
             'city_id' => $city_id->id,
             'publisher_id' => auth('api')->user()->id,
             'publisher_type' => 1,
-            'auto_approve' => $auto_approve,
-            'appearance_status' => $appearance_status,
+           // 'auto_approve' => $auto_approve,
+            //'appearance_status' => $appearance_status,
+            'auto_approve' => 1,
+            'appearance_status' => 1,
+            
         ]);
 
         if ($type == "lost") {

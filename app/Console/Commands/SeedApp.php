@@ -34,13 +34,13 @@ class SeedApp extends Command
         $this->call('seed:colors');
 
         $this->call('seed:pp');
-
-        $this->call('seed:users');
-
         $usersNumber = $this->ask('Users Count', 100);
 
         factory(User::class, (int) $usersNumber)->create();
 
+        $this->call('seed:users');
+
+        
         $this->info('|------------------------|');
         $this->info('| Users Seeder Completed |');
         $this->info('|------------------------|');
