@@ -67,7 +67,24 @@ class UserPostController extends Controller
      * "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
      *},
      *"date": "2019-12-13 00:00:00",
-     *"images": []
+       *"images": [],
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
+     *}
+     *],
      * "claimers": [
      *   {
      * "questions": [
@@ -100,10 +117,23 @@ class UserPostController extends Controller
      *"image": "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
      *   }
      *],
-    
      *"city": {
-     * "id": 1,
-     * "name": "Al Riyadh"
+     *  "id": 1,
+     *  "name": "Al Riyadh"
+     *},
+     *"publisher": {
+     *"id": 105,
+     *"name": "teddy tf high j",
+     *"email": "ss@ss.com",
+     *"status": 1,
+     *"mobile_number": "966512345678",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": true,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/sKtIyY1Kl67j9gp.png"
+     *}
      *}
      *}
      *]

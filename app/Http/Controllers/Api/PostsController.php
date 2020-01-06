@@ -68,7 +68,7 @@ class PostsController extends Controller
             'color_id' => ['required', 'exists:colors,id'],
             'item_id' => ['nullable', 'exists:items,id'],
             'city' => ['required', 'string'],
-            'images' => ['sometimes', 'array', 'between:1,5'],
+            'images' => ['sometimes', 'array', 'between:0,5'],
             'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
         ]);
 
@@ -83,13 +83,13 @@ class PostsController extends Controller
         if ($type == "found") {
             $validate_questions = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
-                'questions.*' => ['required', 'min:9', 'max:500'],
+                'questions.*' => ['nullable', 'min:9', 'max:500'],
             ]);
             if ($validate_questions->fails()) {
                 throw new ApiException($validate_questions->errors()->first(), 400);
             }
         }
-        
+
         $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
             ->orWhere('name_ar', 'like', '%' .  $request->city . '%')
             ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
@@ -115,12 +115,13 @@ class PostsController extends Controller
             'city_id' => $city_id->id,
             'publisher_id' => auth('api')->user()->id,
             'publisher_type' => 1,
-           // 'auto_approve' => $auto_approve,
+            // 'auto_approve' => $auto_approve,
             //'appearance_status' => $appearance_status,
             'auto_approve' => 1,
             'appearance_status' => 1,
             'approval_status' => 1,
             
+
         ]);
 
         if ($type == "lost") {
@@ -143,10 +144,12 @@ class PostsController extends Controller
             ]);
             $post->save();
             array_map(function ($question) use ($post) {
-                $post->questions()->create([
-                    'founder_id' => auth('api')->user()->id,
-                    'question' => $question,
-                ]);
+                if ($question) {
+                    $post->questions()->create([
+                        'founder_id' => auth('api')->user()->id,
+                        'question' => $question,
+                    ]);
+                }
             }, $request->questions);
         }
 
@@ -298,6 +301,23 @@ class PostsController extends Controller
      * "image": "http:\/\/wajad.test\/default-icon.png"
      * }
      * ],
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
+     *}
+     *],
      * "claimers": [
      *   {
      * "questions": [
@@ -333,6 +353,19 @@ class PostsController extends Controller
      *"city": {
      * "id": 1,
      * "name": "Al Riyadh"
+     *},
+     *"publisher": {
+     *"id": 105,
+     *"name": "teddy tf high j",
+     *"email": "ss@ss.com",
+     *"status": 1,
+     *"mobile_number": "966512345678",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": true,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/sKtIyY1Kl67j9gp.png"
      *}
      *}
      *}
