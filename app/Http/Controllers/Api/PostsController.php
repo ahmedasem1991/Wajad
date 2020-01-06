@@ -83,7 +83,7 @@ class PostsController extends Controller
         if ($type == "found") {
             $validate_questions = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
-                'questions.*' => ['required', 'min:9', 'max:500'],
+                'questions.*' => ['nullable', 'min:9', 'max:500'],
             ]);
             if ($validate_questions->fails()) {
                 throw new ApiException($validate_questions->errors()->first(), 400);
