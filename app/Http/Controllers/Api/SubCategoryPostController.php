@@ -107,7 +107,24 @@ class SubCategoryPostController extends Controller
      *  },
      *"date": "2019-12-08 15:40:37",
      *"images": [],
-      * "claimers": [
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
+     *}
+     *],
+     * "claimers": [
      *   {
      * "questions": [
      *{
