@@ -45,6 +45,12 @@ class Area extends Resource
      */
     public static $search = [
         'id',
+        'name_ar',
+        'name_en',
+        'country_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

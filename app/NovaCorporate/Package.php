@@ -60,7 +60,16 @@ class Package extends Resource
         'name_en',
         'name_ar',
         'description_en',
-        'description_ar'
+        'description_ar',
+        'price',
+        'type',
+        'quantity',
+        'period',
+        'is_active',
+        'incrementally',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -71,27 +80,27 @@ class Package extends Resource
      */
     public function fields(Request $request)
     {
-        
+
         $feild=Help::make('Package Information');
         if ($request->session()->has('success_payment')) {
             $message=  $request->session()->get('success_payment');
             $feild= Help::info($message,'Your QR Codes Will generated now.');
-           
+
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
         if ($request->session()->has('error_payment')) {
             $message=  $request->session()->get('error_payment');
             $feild= Help::danger($message,'Try again later.');
-           
+
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
- 
-        
+
+
         return [
             $feild,
-            
+
            // $request->session()->forget('success_payment'),
             ID::make()->sortable(),
             Text::make('Package English Name', 'name_en')
@@ -173,7 +182,7 @@ class Package extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
     }

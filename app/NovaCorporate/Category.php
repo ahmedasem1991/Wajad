@@ -46,7 +46,13 @@ class Category extends Resource
     public static $search = [
         'id',
         'name_en',
-        'name_ar'
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

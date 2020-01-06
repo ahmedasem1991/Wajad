@@ -47,6 +47,16 @@ class Activity extends Resource
      */
     public static $search = [
         'id',
+        'log_name',
+        'description',
+        'subject_id',
+        'subject_type',
+        'causer_id',
+        'causer_type',
+        'properties',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -116,7 +126,7 @@ class Activity extends Resource
     {
         return $query->whereIn('causer_id',Auth()->user()->corporate->users()->pluck('id'));
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
     }

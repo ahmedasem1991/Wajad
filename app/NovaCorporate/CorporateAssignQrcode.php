@@ -56,7 +56,18 @@ class CorporateAssignQrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','corporate_assign_reference_number'
+        'id',
+        'corporate_assign_reference_number',
+        'user_id',
+        'corporate_id',
+        'type',
+        'quantity',
+        'created_by',
+        'created_from',
+        'status',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -83,9 +94,9 @@ class CorporateAssignQrcode extends Resource
             ->hideWhenUpdating(),
 
 
- 
 
-             
+
+
                 Select2::make('User','user_id')
                 ->sortable()
                 ->options(User::normalusers()->get()->pluck('name', 'id'))
@@ -99,8 +110,8 @@ class CorporateAssignQrcode extends Resource
                     'minimumResultsForSearch' => 1,
                     'multiple'                => false,
                 ]),
-              
-             
+
+
             BelongsTo::make('User')
             ->hideWhenCreating()
             ->hideWhenUpdating(),
@@ -126,11 +137,11 @@ class CorporateAssignQrcode extends Resource
                 ->min(1)->max($MultiCount)->step(1)
                 ->rules('required','max:'.$MultiCount),
             ])->dependsOn('type', '2'),
-            
-          
-         
 
- 
+
+
+
+
             // Status::make('Status')
             // ->loadingWhen(['waiting'])
             // ->failedWhen(['finished']),
@@ -194,7 +205,7 @@ class CorporateAssignQrcode extends Resource
         return [];
     }
 
-    
+
     public static function label() {
         return 'Assign';
     }

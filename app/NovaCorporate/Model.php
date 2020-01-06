@@ -40,6 +40,15 @@ class Model extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'brand_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -60,7 +69,7 @@ class Model extends Resource
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
-            Image::make('Model Image', 'image') 
+            Image::make('Model Image', 'image')
                 ->disk('public')
                 ->path('images/models')
                 ->prunable()

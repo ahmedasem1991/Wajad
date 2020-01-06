@@ -50,6 +50,13 @@ class Role extends Resource
         'id',
         'slug',
         'name',
+        'corporate_id',
+        'limitation_of_posts',
+        'default_group',
+        'auto_approve',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static $with = [
@@ -92,7 +99,7 @@ class Role extends Resource
     {
       return  (Auth()->User()->hasPermissionTo('view roles')) ? true :false;
     }
-    
+
     public function fields(Request $request)
     {
        // logger(collect(config('novapermissions.permissions')) );
@@ -165,7 +172,7 @@ class Role extends Resource
     {
         return __('Role');
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }

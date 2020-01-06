@@ -17,7 +17,7 @@ class ItemImage extends Resource
      * @var string
      */
     public static $model = 'App\ItemImage';
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -41,6 +41,11 @@ class ItemImage extends Resource
      */
     public static $search = [
         'id',
+        'item_id',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -53,7 +58,7 @@ class ItemImage extends Resource
     {
         return [
             ID::make()->sortable(),
- 
+
             Image::make('Image', 'image')
             ->creationRules([
                 'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'

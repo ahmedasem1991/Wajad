@@ -53,7 +53,28 @@ class SuperAdmin extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
+        'name',
+        'email',
+        'password',
+        'default_distance_unit',
+        'type',
+        'status',
+        'mobile_country_id',
+        'corporate_id',
+        'city_id',
+        'posts_limitation',
+        'device_token',
+        'mobile_number',
+        'receive_emails',
+        'receive_push_notifications',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'image',
+        'remember_token',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -86,7 +107,7 @@ class SuperAdmin extends Resource
                 PhoneNumber::make('Mobile Number','mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-            
+
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -94,7 +115,7 @@ class SuperAdmin extends Resource
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
- 
+
 
         ];
     }
@@ -149,8 +170,8 @@ class SuperAdmin extends Resource
         ];
     }
 
- 
-    
+
+
     /**
      * Build an "index" query for the given resource.
      *
@@ -162,7 +183,7 @@ class SuperAdmin extends Resource
     {
         return $query->SuperAdmin();
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }

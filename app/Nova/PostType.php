@@ -40,6 +40,11 @@ class PostType extends Resource
      */
     public static $search = [
         'id',
+        'title',
+        'description',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -102,7 +107,7 @@ class PostType extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

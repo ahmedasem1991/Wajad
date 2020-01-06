@@ -46,6 +46,14 @@ class Subscription extends Resource
      */
     public static $search = [
         'id',
+        'subscriber',
+        'corporate_id',
+        'user_id',
+        'package_id',
+        'created_from',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -84,7 +92,7 @@ class Subscription extends Resource
                 'minimumResultsForSearch' => 1,
                 'multiple'                => false,
             ])
-          
+
         ]) ->hideFromDetail()->dependsOn('subscriber', '1'),
         NovaDependencyContainer::make([
             Select2::make('Corporate Name','corporate_id')
@@ -102,13 +110,13 @@ class Subscription extends Resource
                 'minimumResultsForSearch' => 1,
                 'multiple'                => false,
             ])
-           
+
         ])->hideFromDetail()->dependsOn('subscriber', '2'),
 
             BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Package')->rules('required'),
-            DateTime::make('Created At') 
+            DateTime::make('Created At')
             ->hideWhenUpdating()
             ->hideWhenCreating(),
             RadioButton::make('Created From')
@@ -162,7 +170,7 @@ class Subscription extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }

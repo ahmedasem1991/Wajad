@@ -20,7 +20,7 @@ class ItemImage extends Resource
      * @var string
      */
     public static $model = 'App\ItemImage';
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -43,6 +43,11 @@ class ItemImage extends Resource
      */
     public static $search = [
         'id',
+        'item_id',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -55,7 +60,7 @@ class ItemImage extends Resource
     {
         return [
             ID::make()->sortable(),
- 
+
             Image::make('Image', 'image')
             ->creationRules([
                 'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
@@ -116,7 +121,7 @@ class ItemImage extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

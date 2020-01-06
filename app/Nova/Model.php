@@ -41,8 +41,13 @@ class Model extends Resource
         'id',
         'name_en',
         'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
         'brand_id',
-        
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

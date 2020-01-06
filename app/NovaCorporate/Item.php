@@ -43,6 +43,17 @@ class Item extends Resource
      */
     public static $search = [
         'id',
+        'title',
+        'details',
+        'status',
+        'owner_id',
+        'model_id',
+        'color_id',
+        'sub_category_id',
+        'brand_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
     public static function availableForNavigation(Request $request)
     {
@@ -66,26 +77,26 @@ class Item extends Resource
                 'required', 'min:6'
             ]),
 
-             
+
             NovaBelongsToDepend::make('Brand')
-            ->placeholder('Optional Placeholder')  
+            ->placeholder('Optional Placeholder')
             ->options(\App\Brand::all())
             ->rules('required'),
 
-            NovaBelongsToDepend::make('Model', 'model') 
-            ->placeholder('Optional Placeholder')    
+            NovaBelongsToDepend::make('Model', 'model')
+            ->placeholder('Optional Placeholder')
             ->optionsResolve(function ($brand) {
             return $brand->models()->get(['id','name_en']);
             })
             ->rules('required')
             ->dependsOn('Brand'),
-           
+
             BelongsTo::make('Owner', 'owner', User::class),
          //   ->searchable(),
             BelongsTo::make('Color','color','App\Nova\Color'),
          //   ->searchable(),
             HasMany::make('Images', 'images', ItemImage::class),
-            
+
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),
         ];
     }
@@ -141,7 +152,7 @@ class Item extends Resource
        return $query->whereIn('owner_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
     }

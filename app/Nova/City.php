@@ -39,6 +39,15 @@ class City extends Resource
      */
     public static $search = [
         'id',
+        'name_ar',
+        'name_en',
+        'latitude',
+        'longitude',
+        'radius',
+        'region_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -102,7 +111,7 @@ class City extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/city.png" style="height:22px;width:22px;margin=10px" />';
     }

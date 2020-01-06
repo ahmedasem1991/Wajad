@@ -41,6 +41,11 @@ class PostImage extends Resource
      */
     public static $search = [
         'id',
+        'post_id',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

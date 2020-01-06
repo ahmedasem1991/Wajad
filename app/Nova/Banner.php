@@ -50,6 +50,17 @@ class Banner extends Resource
      */
     public static $search = [
         'id',
+        'type',
+        'image',
+        'url',
+        'item_id',
+        'user_id',
+        'clicks',
+        'start_date',
+        'end_date',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

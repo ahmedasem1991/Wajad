@@ -56,7 +56,43 @@ class HiddenPost extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id',
+        'title',
+        'description',
+        'item_id',
+        'status',
+        'appearance_status',
+        'open_status',
+        'approval_status',
+        'reports_number',
+        'reward',
+        'owner_id',
+        'founder_id',
+        'publisher_id',
+        'publisher_type',
+        'corporate_id',
+        'losted_at',
+        'founded_at',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'brand_id',
+        'city_id',
+        'founder_name',
+        'founder_email',
+        'founder_mobile_number',
+        'founder_address',
+        'owner_name',
+        'owner_email',
+        'owner_mobile_number',
+        'owner_address',
+        'owner_releated_to_system',
+        'founder_releated_to_system',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static function availableForNavigation(Request $request)
@@ -84,8 +120,8 @@ class HiddenPost extends Resource
             ->hideFromIndex()
             ->hideWhenCreating()
             ->hideWhenUpdating(),
-           
-            
+
+
             Toggle::make('Appearance Status','appearance_status'),
             //Toggle::make('Open Status','open_status'),
            //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
@@ -95,17 +131,17 @@ class HiddenPost extends Resource
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
              DateTime::make('Founded At')->hideFromIndex()
              ->Rules('required_if:status,1'),
-             
-      
+
+
 
              NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
-            ->placeholder('Optional Placeholder')  
+            ->placeholder('Optional Placeholder')
             ->options(Brand::all())
             ->rules('required'),
-          
 
-            NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
-            ->placeholder('Optional Placeholder')    
+
+            NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model')
+            ->placeholder('Optional Placeholder')
             ->optionsResolve(function ($brand) {
             return $brand->models()->get(['id','name_en']);
             })
@@ -130,7 +166,7 @@ class HiddenPost extends Resource
             //  ->creationRules('required_if:status,1','same:publisher')
             //  ->updateRules('required_if:status,1')
             //  ->nullable(),
-            
+
 
                Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
                 Text::make('Founder Name','founder_name')
@@ -140,7 +176,7 @@ class HiddenPost extends Resource
                 Text::make('Founder Email','founder_email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254'),
- 
+
                 PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
@@ -150,15 +186,15 @@ class HiddenPost extends Resource
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
                 BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                 ->readonly(),
-               
+
 
 
             // Password::make('Password')
             //     ->onlyOnForms()
             //     ->creationRules('required', 'string', 'min:8')
             //     ->updateRules('nullable', 'string', 'min:8'),
-                
-               
+
+
             // Button::make('PDF')
             // ->link(URL::to('receipt?p='.base64_encode($this->id)),'_blank')
             // ->style('danger'),
@@ -221,7 +257,7 @@ class HiddenPost extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/hidden.png" style="height:22px;width:22px;margin=10px" />';
     }

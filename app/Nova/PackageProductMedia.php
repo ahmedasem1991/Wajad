@@ -40,6 +40,12 @@ class PackageProductMedia extends Resource
      */
     public static $search = [
         'id',
+        'media_path',
+        'package_product_media_type',
+        'package_product_media_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

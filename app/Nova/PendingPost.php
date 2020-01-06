@@ -55,7 +55,43 @@ class PendingPost extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id',
+        'title',
+        'description',
+        'item_id',
+        'status',
+        'appearance_status',
+        'open_status',
+        'approval_status',
+        'reports_number',
+        'reward',
+        'owner_id',
+        'founder_id',
+        'publisher_id',
+        'publisher_type',
+        'corporate_id',
+        'losted_at',
+        'founded_at',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'brand_id',
+        'city_id',
+        'founder_name',
+        'founder_email',
+        'founder_mobile_number',
+        'founder_address',
+        'owner_name',
+        'owner_email',
+        'owner_mobile_number',
+        'owner_address',
+        'owner_releated_to_system',
+        'founder_releated_to_system',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
 
@@ -94,8 +130,8 @@ class PendingPost extends Resource
            ])->default(0), // optional
             Toggle::make('Appearance Status','appearance_status')
             ,
-          
-            
+
+
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
             ->hideWhenCreating()
             ->hideWhenUpdating(),
@@ -104,17 +140,17 @@ class PendingPost extends Resource
             ->hideWhenCreating()
             ->hideWhenUpdating()
             ->readonly(),
-            
-           
+
+
                   //  ->rules('required'),
-            
-                
+
+
 
                   Heading::make('<p class="text-info" style="margin-left:20%">Owner data if post type is lost</p>')->asHtml(),
                   DateTime::make('Losted At')->hideFromIndex()
                   ->readonly()
                   ->Rules('required_if:status,0'),
-                     
+
                   RadioButton::make('Owner Releated To System','owner_releated_to_system')
                   ->options([
                     2=> 'default',
@@ -124,19 +160,19 @@ class PendingPost extends Resource
                   ->default(2)
                   ->hideFromIndex()
                   ->readonly(),
-                
+
                  // optional
                   NovaDependencyContainer::make([
-                      
+
                     Text::make('Owner Name','owner_name')
                     ->sortable()
                     ->rules( 'max:255','required_if:owner_releated_to_system,0')
                     ->readonly(),
-    
+
                     Text::make('Owner Email','owner_email')
                     ->sortable()
                     ->rules( 'email', 'max:254','required_if:owner_releated_to_system,0'),
-     
+
                     PhoneNumber::make('Owner Mobile Number','owner_mobile_number')
                     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                     ->onlyCustomFormats()
@@ -147,7 +183,7 @@ class PendingPost extends Resource
                     ->sortable()
                     ->rules( 'max:254','required_if:owner_releated_to_system,0')
                     ->readonly(),
-                
+
                     ])->dependsOn('owner_releated_to_system', 0),
 
                     NovaDependencyContainer::make([
@@ -157,17 +193,17 @@ class PendingPost extends Resource
                             ->options(User::NormalUsers()->get())
                             ->rules('required_if:owner_releated_to_system,1')
                             ->readonly(),
-        
+
                             NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                             ->placeholder('Select Item')
-                           
+
                             ->optionsResolve(function ($owner) {
                                 return $owner->items()->lost()->get();
                             })
                             ->rules('required_if:owner_releated_to_system,1')
                             ->readonly()
                            ->dependsOn('Owner'),
-                       
+
                         ])->dependsOn('owner_releated_to_system', 1),
 
 
@@ -175,13 +211,13 @@ class PendingPost extends Resource
                         DateTime::make('Founded At')->hideFromIndex()
                         ->Rules('required_if:status,1')
                         ->readonly(),
-        
+
                         RadioButton::make('Founder Releated To System','founder_releated_to_system')
                         ->options([
                             2=> 'default',
                             0 => 'No',
                             1 => 'yes',
-                           
+
                             ])
                             ->hideFromIndex()
                            ->default(2)
@@ -192,13 +228,13 @@ class PendingPost extends Resource
                         ->sortable()
                         ->rules( 'max:255','required_if:founder_releated_to_system,0')
                         ->readonly(),
-                      
-        
+
+
                         Text::make('Founder Email','founder_email')
                         ->sortable()
                         ->rules( 'email', 'max:254','required_if:founder_releated_to_system,0')
                         ->readonly(),
-         
+
                         PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
                         ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                         ->onlyCustomFormats()
@@ -208,11 +244,11 @@ class PendingPost extends Resource
                         ->sortable()
                         ->rules( 'max:254','required_if:founder_releated_to_system,0')
                         ->readonly(),
-                    
+
                         ])->dependsOn('founder_releated_to_system', 0),
 
                         NovaDependencyContainer::make([
-                           
+
                             NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
                             ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                                 ->placeholder('Select Owner')
@@ -277,7 +313,7 @@ class PendingPost extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }

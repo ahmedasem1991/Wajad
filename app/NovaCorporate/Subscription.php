@@ -45,6 +45,14 @@ class Subscription extends Resource
      */
     public static $search = [
         'id',
+        'subscriber',
+        'corporate_id',
+        'user_id',
+        'package_id',
+        'created_from',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static function availableForNavigation(Request $request)
@@ -66,8 +74,8 @@ class Subscription extends Resource
 
            // Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
 
-        
- 
+
+
 
             //BelongsTo::make('User'),
             BelongsTo::make('Corporate','corporate','App\Nova\Corporate'),
@@ -123,7 +131,7 @@ class Subscription extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }

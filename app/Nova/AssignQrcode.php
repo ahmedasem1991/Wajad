@@ -56,7 +56,20 @@ class AssignQrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','assign_reference_number'
+        'id',
+        'assign_reference_number',
+        'assign_to',
+        'user_id',
+        'corporate_id',
+        'type',
+        'available_period',
+        'quantity',
+        'created_by',
+        'created_from',
+        'status',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -80,7 +93,7 @@ class AssignQrcode extends Resource
             Select::make('Assign To', 'assign_to')->options([
                 '1' => 'To User',
                 '2' => 'To Corporate',
-          
+
             ])->rules('required')
             ->displayUsingLabels(),
 
@@ -98,7 +111,7 @@ class AssignQrcode extends Resource
                     'minimumResultsForSearch' => 1,
                     'multiple'                => false,
                 ])
-              
+
             ])->dependsOn('assign_to', '1'),
             NovaDependencyContainer::make([
                 Select2::make('Corporate','corporate_id')
@@ -115,7 +128,7 @@ class AssignQrcode extends Resource
                     'minimumResultsForSearch' => 1,
                     'multiple'                => false,
                 ])
-               
+
             ])->dependsOn('assign_to', '2'),
             BelongsTo::make('User')
             ->hideWhenCreating()
@@ -145,9 +158,9 @@ class AssignQrcode extends Resource
                 ->min(1)->max($MultiCount)->step(1)
                 ->rules('required','max:'.$MultiCount),
             ])->dependsOn('type', '2'),
-            
-          
-         
+
+
+
 
             Number::make('Available Period In Days','available_period')
             ->min(1)->max(365)->step(1)
@@ -163,7 +176,7 @@ class AssignQrcode extends Resource
                 'web' => 'web',
           ])->default('web'), // optional,
 
-          
+
             HasMany::make('Qrcodes'),
 
         ];
@@ -215,11 +228,11 @@ class AssignQrcode extends Resource
         return [];
     }
 
-    
+
     public static function label() {
         return 'Assign';
     }
-    public static function icon() 
+    public static function icon()
 {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
 }

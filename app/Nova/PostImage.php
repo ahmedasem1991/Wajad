@@ -40,6 +40,11 @@ class PostImage extends Resource
      */
     public static $search = [
         'id',
+        'post_id',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -111,7 +116,7 @@ class PostImage extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

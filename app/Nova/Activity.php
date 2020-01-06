@@ -43,7 +43,17 @@ class Activity extends Resource
      * @var array
      */
     public static $search = [
-        'id','description'
+        'id',
+        'log_name',
+        'description',
+        'subject_id',
+        'subject_type',
+        'causer_id',
+        'causer_type',
+        'properties',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -108,7 +118,7 @@ class Activity extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
     }
