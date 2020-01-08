@@ -50,7 +50,7 @@ class PDFController extends Controller
 
 
         // $pdf = PdfWrapper::loadView('Pdf.receipt',  ['test' =>$post]);
-        return $pdf->stream('document.pdf');
+        return $pdf->stream();
 
       
 
