@@ -9,6 +9,7 @@ use App\City;
 use App\Color;
 use App\Item;
 use App\Model;
+use App\PostImage;
 use App\SubCategory;
 use Illuminate\Console\Command;
 
@@ -27,6 +28,15 @@ class SeedPosts extends Command
         $brandIds = Brand::get()->pluck('id');
         $citiesIds = City::get()->pluck('id');
         $itemsIds = Item::get()->pluck('id');
+        $images = [
+            "images/posts/post1.jpg",
+            "images/posts/post2.jpg",
+            "images/posts/post3.jpg",
+            "images/posts/post4.jpg",
+            "images/posts/post5.jpg",
+            "images/posts/post6.jpg",
+            "images/posts/post7.jpg",
+        ];
 
         $postsCount = $this->ask('Posts Count', 10);
 
@@ -67,6 +77,11 @@ class SeedPosts extends Command
                     'founded_at' => $faker->dateTime()
                 ]);
             }
+
+            PostImage::create([
+                'post_id' => $post->id,
+                'image' => $images->random(),
+            ]);
         }
 
         $posts = Post::get()->random($postRelatedToItems);

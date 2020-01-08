@@ -7,22 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
 
-/**
- * @group Post Request
- */
 class PostRequestController extends Controller
 {
-    /**
-     * This item is mine
-     * @urlParam post_id required int, exists in posts
-     * @bodyParam token Barier-token required
-     * @response {
-     * "success": true,
-     *  "message": "Post request created successfully.",
-     *   "status_code": 200
-     *}
-     * @return void
-     */
     public function  __invoke(Request $request, Post $post)
     {
         PostRequest::create([
