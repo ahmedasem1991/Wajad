@@ -444,7 +444,7 @@ class PostsController extends Controller
 
             $post->update($request->all());
 
-            if ($request->has('images')) {
+            if ($request->has('images') && count($request->images) > 0) {
                 $post->images()->delete();
                 array_map(function ($image) use ($post, $request) {
                     $image_name = \Str::random(15) . '.' . 'png';
