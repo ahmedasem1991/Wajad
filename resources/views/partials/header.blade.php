@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-     <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <title>Wajad Receipt</title>
-</head>
-<body>
-    <div id="container">
+ 
               <div class="row">
                 <div class="col-12">
                     <style type="text/css">
+                      body { font-family: DejaVu Sans, sans-serif; }
                         .tg  {border-collapse:collapse;border-spacing:0;border-width:1px;border-style:solid;border-color:black;}
-                        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-                        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+                        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+                        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
                         .tg .tg-9ehk{font-size:100%;font-family:"Arial Black", Gadget, sans-serif !important;;border-color:inherit;text-align:center;vertical-align:top}
                         .tg .tg-wesv{font-family:"Arial Black", Gadget, sans-serif !important;;border-color:inherit;text-align:left;vertical-align:top}
                         .tg .tg-xqpp{font-family:"Arial Black", Gadget, sans-serif !important;;border-color:inherit;text-align:center;vertical-align:top}
@@ -76,10 +64,4 @@
                         </table>           
                 </div>
             </div>
-        </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-
-</body>
-</html>
+ 
