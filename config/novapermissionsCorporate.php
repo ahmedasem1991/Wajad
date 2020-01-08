@@ -441,6 +441,11 @@ return [
             'description'  => 'Can display closed posts',
             'group'        => 'Posts',
         ],
+        'reported posts' => [
+            'display_name' => 'Reported posts',
+            'description'  => 'Can display reported posts',
+            'group'        => 'Posts',
+        ],
          ///////////////Offices///////////////
         //  'view offices' => [
         //     'display_name' => 'View offices',

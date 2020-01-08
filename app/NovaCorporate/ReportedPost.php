@@ -28,7 +28,7 @@ use App\NovaCorporate\Metrics\OpenVsClosedPosts;
 use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
-class ClosedPost extends Resource
+class ReportedPost extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -43,7 +43,7 @@ class ClosedPost extends Resource
      * @var string
      */
     public static $group = 'Posts';
-
+   // public static $displayInNavigation = false;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -59,9 +59,10 @@ class ClosedPost extends Resource
     public static $search = [
         'id','title','description','owner_id','founder_id','publisher_id'
     ];
+
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('closed posts')) ? true :false;
+      return  (Auth()->User()->hasPermissionTo('reported posts')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -86,8 +87,8 @@ class ClosedPost extends Resource
             ->hideWhenUpdating(),
            
             
-           // Toggle::make('Appearance Status','appearance_status'),
-            Toggle::make('Open Status','open_status'),
+            Toggle::make('Appearance Status','appearance_status'),
+            //Toggle::make('Open Status','open_status'),
            //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
              //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
              //DateTime::make('Losted At')->hideFromIndex()
@@ -98,20 +99,20 @@ class ClosedPost extends Resource
              
       
 
-             NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
-            ->placeholder('Optional Placeholder')  
-            ->options(Brand::all())
-            ->rules('required'),
+            //  NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
+            // ->placeholder('Optional Placeholder')  
+            // ->options(Brand::all())
+            // ->rules('required'),
           
 
-            NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
-            ->placeholder('Optional Placeholder')    
-            ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['id','name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-            BelongsTo::make('Color','color','App\Nova\Color'),
+            // NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
+            // ->placeholder('Optional Placeholder')    
+            // ->optionsResolve(function ($brand) {
+            // return $brand->models()->get(['id','name_en']);
+            // })
+            // ->rules('required')
+            // ->dependsOn('Brand'),
+            // BelongsTo::make('Color','color','App\Nova\Color'),
 
              //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')
@@ -133,24 +134,12 @@ class ClosedPost extends Resource
             
 
                Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
+               
                NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
                ->placeholder('Select Person')
                ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
                ->rules('required'),
-                // Text::make('Founder Name','founder_name')
-                // ->sortable()
-                // ->rules('required', 'max:255'),
-
-                // Text::make('Founder Email','founder_email')
-                // ->sortable()
-                // ->rules('required', 'email', 'max:254'),
- 
-                // PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                // ->onlyCustomFormats(),
-                // Text::make('Founder Address','founder_address',)
-                // ->sortable()
-                // ->rules('required', 'max:254'),
+               
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
                 BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                 ->readonly(),
@@ -173,7 +162,8 @@ class ClosedPost extends Resource
             //  ->nullable(),
              HasMany::make('Images','images',\App\Nova\PostImage::class),
              HasMany::make('Questions'),
-             HasMany::make('Post Requests','postrequests' ,\App\NovaCorporate\PostRequest::class)
+             HasMany::make('Post Requests','postrequests' ,\App\NovaCorporate\PostRequest::class),
+             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class)
 
         ];
     }
@@ -188,9 +178,8 @@ class ClosedPost extends Resource
     {
         return [
             // new PostsPeriod,
-           
-            new OpenVsClosedPosts,
             new ShowVsHiddenPosts,
+            // new OpenVsClosedPosts,
         ];
     }
 
@@ -228,17 +217,27 @@ class ClosedPost extends Resource
     }
     public static function icon() 
     {
-    return  '<img class="sidebar-icon" src="/images/icons/rejected.png" style="height:22px;width:22px;margin=10px" />';
+    return  '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->IsClosed()->isApproved()
+        return $query->IsReported()
         ->where('corporate_id',Auth()->user()->corporate->id);
-        //->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
+ 
+
+
     public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToDelete(Request $request)
     {
         return false;
     }

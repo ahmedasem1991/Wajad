@@ -38,16 +38,6 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('color_id')->nullable();
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('city_id')->nullable();
-            $table->string('founder_name')->nullable();
-            $table->string('founder_email')->nullable();
-            $table->string('founder_mobile_number')->nullable();
-            $table->string('founder_address')->nullable();
-            $table->string('owner_name')->nullable();
-            $table->string('owner_email')->nullable();
-            $table->string('owner_mobile_number')->nullable();
-            $table->string('owner_address')->nullable();
-            $table->unsignedInteger('owner_releated_to_system')->nullable();
-            $table->unsignedInteger('founder_releated_to_system')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->integer('person_id')->nullable();
             $table->integer('person_type')->default(1);

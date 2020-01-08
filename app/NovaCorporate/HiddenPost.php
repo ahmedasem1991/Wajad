@@ -3,6 +3,7 @@
 namespace App\NovaCorporate;
 
 use App\Brand;
+use App\People;
 use App\Nova\Resource;
 use NovaButton\Button;
 use Naif\Toggle\Toggle;
@@ -133,20 +134,12 @@ class HiddenPost extends Resource
             
 
                Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-                Text::make('Founder Name','founder_name')
-                ->sortable()
-                ->rules('required', 'max:255'),
-
-                Text::make('Founder Email','founder_email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254'),
- 
-                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                ->onlyCustomFormats(),
-                Text::make('Founder Address','founder_address',)
-                ->sortable()
-                ->rules('required', 'max:254'),
+               
+               NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
+               ->placeholder('Select Person')
+               ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
+               ->rules('required'),
+               
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
                 BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                 ->readonly(),

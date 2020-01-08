@@ -26,6 +26,7 @@ class BrandPolicy
                 return false;
             }
    }
+   return true;
     }
 
     /**
