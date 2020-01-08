@@ -124,7 +124,7 @@ class SearchController extends Controller
      * "status": "lost",
      * "attached_to_item": false,
      * "item": null,
-     * "subCategory": {
+     * "sub_category": {
      *  "id": 6,
      * "name": "Et expedita est explicabo qui sit veritatis.",
      *  "description": "Dolore rerum quo quis explicabo magni occaecati.",
@@ -151,7 +151,7 @@ class SearchController extends Controller
      * "status": "found",
      *  "attached_to_item": false,
      * "item": null,
-     * "subCategory": {
+     * "sub_category": {
      * "id": 8,
      * "name": "Qui maiores aut sapiente aut molestiae in quam ipsam.",
      *  "description": "Aut soluta laborum sequi et similique.",
