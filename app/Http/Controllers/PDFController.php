@@ -46,13 +46,11 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-		$pdf= new Pdf(View::make('Pdf.receipt', $post)->render() );
+		$pdf= new Pdf(View::make('Pdf.receipt',  ['post' =>$post])->render() );
+        return $pdf->stream('document.pdf');
 
 
         // $pdf = PdfWrapper::loadView('Pdf.receipt',  ['test' =>$post]);
-        return $pdf->stream();
-
-      
 
         // $pdf = App::make('dompdf.wrapper');
         // $pdf->loadView('Pdf.receipt', compact('post'));
