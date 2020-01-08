@@ -31,7 +31,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
 use Illuminate\Support\Facades\App;
 use App\Notifications\BroadcastNotification;
-use niklasravnsborg\LaravelPdf\Pdf as PDF;
+use niklasravnsborg\LaravelPdf\Pdf as PDF;   
+use niklasravnsborg\LaravelPdf\PdfWrapper as PdfWrapper;  
 
 
 class PDFController extends Controller
@@ -44,7 +45,7 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $pdf = PDF::loadView('Pdf.receipt', ['data' => $post]);
+        $pdf = PdfWrapper::loadView('Pdf.receipt', $post);
         return $pdf->stream('document.pdf');
 
       
