@@ -12,12 +12,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * @group Answers
+ * @group Post Request
  */
 class AnswerController extends Controller
 {
     /**
-     * Answer question
+     * This item is mine
      * @urlParam post_id required int, exists in posts
      * @bodyParam data array required
      * @bodyParam data.*.answers string required min:20,max:500

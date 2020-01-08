@@ -116,6 +116,15 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
+//     $array=[];
+//     foreach(Auth()->User()->roles as $role)
+//     {
+//         foreach($role->permissions as $permission)
+//         {
+//         $array[$permission]= $permission;
+//         }
+//     }
+//    return $array;
 });
 
 

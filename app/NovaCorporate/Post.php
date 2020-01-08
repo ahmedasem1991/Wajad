@@ -4,6 +4,7 @@ namespace App\NovaCorporate;
 
 use App\User;
 use App\Brand;
+use App\People;
 use App\Corporate;
 use App\PostImage;
 use App\Nova\Resource;
@@ -99,13 +100,32 @@ class Post extends Resource
                     // 0 => 'Lost',
                     1 => 'Found',
                 ])->default(1)
-                ->hideFromIndex()
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideFromIndex(),
+                // ->hideWhenCreating()
+                // ->hideWhenUpdating(),
 
+            //     NovaBelongsToDepend::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
+            //     ->placeholder('Optional Placeholder')
+            //     ->options(Brand::all())
+            //     ->rules('required'),
+
+
+            // NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            //     ->placeholder('Optional Placeholder')
+            //     ->optionsResolve(function ($brand) {
+            //         return $brand->models()->get(['id', 'name_en']);
+            //     })
+            //     ->rules('required')
+            //     ->dependsOn('Brand'),
+            // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+
+            Toggle::make('Open Status', 'open_status')
+            // ->hideWhenCreating()
+            // ->hideWhenUpdating()
+            ->hideFromIndex(),
             Toggle::make('Appearance Status', 'appearance_status')
-                ->hideWhenCreating()
-                ->hideWhenUpdating()
+                // ->hideWhenCreating()
+                // ->hideWhenUpdating()
                 ->hideFromIndex(),
                 DateTime::make('Post Closing Date','end_date')->updateRules('required')
             ->hideWhenCreating(),
@@ -119,21 +139,7 @@ class Post extends Resource
 
 
 
-            NovaBelongsToDepend::make('Brand', 'brand', 'App\NovaCorporate\Brand')
-                ->placeholder('Optional Placeholder')
-                ->options(Brand::all())
-                ->rules('required'),
-
-
-            NovaBelongsToDepend::make('Model', 'model', 'App\NovaCorporate\Model')
-                ->placeholder('Optional Placeholder')
-                ->optionsResolve(function ($brand) {
-                    return $brand->models()->get(['id', 'name_en']);
-                })
-                ->rules('required')
-                ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', 'App\Nova\Color'),
-
+           
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')
             //  ->placeholder('Publisher')
@@ -154,44 +160,47 @@ class Post extends Resource
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            Text::make('Founder Name', 'founder_name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
+            ->placeholder('Select Person')
+            ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
+            ->rules('required'),
 
-            Text::make('Founder Email', 'founder_email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254'),
+            // Text::make('Founder Name', 'founder_name')
+            //     ->sortable()
+            //     ->rules('required', 'max:255'),
 
-            PhoneNumber::make('Founder Mobile Number', 'founder_mobile_number')
-                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                ->onlyCustomFormats(),
-            Text::make('Founder Address', 'founder_address')
-                ->sortable()
-                ->rules('required', 'max:254'),
+            // Text::make('Founder Email', 'founder_email')
+            //     ->sortable()
+            //     ->rules('required', 'email', 'max:254'),
+
+            // PhoneNumber::make('Founder Mobile Number', 'founder_mobile_number')
+            //     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+            //     ->onlyCustomFormats(),
+            // Text::make('Founder Address', 'founder_address')
+            //     ->sortable()
+            //     ->rules('required', 'max:254'),
             Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
-                ->hideWhenUpdating()
+                // ->hideWhenUpdating(),
                 ->hideWhenCreating(),
-            BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->readonly()
-                ->hideWhenUpdating()
-                ->hideWhenCreating(),
+            // BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+            //   //  ->readonly()
+            //     //->hideWhenUpdating(),
+            //      ->hideWhenCreating(),
+
+                 NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+               ->placeholder('Select Person')
+               ->options(User::Normalusers()->get())
+              // ->rules('required')
+               ->hideWhenCreating(),
 
 
 
-            // Password::make('Password')
-            //     ->onlyOnForms()
-            //     ->creationRules('required', 'string', 'min:8')
-            //     ->updateRules('nullable', 'string', 'min:8'),
-
+             
 
             Button::make('PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
-            //  Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
-            //  BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\User')
-            //  ->creationRules('required_if:status,0','same:publisher')
-            //  ->updateRules('required_if:status,0')
-            //  ->nullable(),
+            
             HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)

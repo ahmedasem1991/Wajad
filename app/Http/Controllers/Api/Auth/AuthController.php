@@ -214,11 +214,11 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        try {
-            return $this->respondWithToken(auth('api')->refresh(), false);
-        } catch (\Throwable $th) {
-            throw new ApiException(trans("auth.failed"), 401);
-        }
+        // try {
+        return $this->respondWithToken(auth('api')->refresh(), false);
+        // } catch (\Throwable $th) {
+        // throw new ApiException(trans("auth.failed"), 401);
+        // }
     }
 
     protected function respondWithToken($token, $include_user = true)
