@@ -122,7 +122,7 @@ class PostsController extends Controller
             'auto_approve' => 1,
             'appearance_status' => 1,
             'approval_status' => 1,
-            
+
 
         ]);
 
@@ -203,7 +203,7 @@ class PostsController extends Controller
             'details' => $request->details,
         ]);
 
-        if ($request->has('image')) {
+        if ($request->has('image') && $request->image != "" && !is_null($request->image)) {
             $image_name = \Str::random(15) . '.' . 'png';
             $path = public_path('/images/postreports/' . $image_name);
             Image::make(file_get_contents($request->image))->save($path);
