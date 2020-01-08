@@ -122,8 +122,6 @@ class PostsController extends Controller
             'auto_approve' => 1,
             'appearance_status' => 1,
             'approval_status' => 1,
-
-
         ]);
 
         if ($type == "lost") {
@@ -155,7 +153,7 @@ class PostsController extends Controller
             }, $request->questions);
         }
 
-        if ($request->has('images')) {
+        if ($request->has('images') && count($request->images) > 0) {
             array_map(function ($image) use ($post, $request) {
                 $image_name = \Str::random(15) . '.' . 'png';
                 $path = public_path('/images/posts/' . $image_name);
