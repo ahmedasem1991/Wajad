@@ -8,6 +8,7 @@ use App\Corporate;
 
 use Carbon\Carbon;
 use App\PostRequest;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
@@ -115,9 +116,12 @@ Route::get('qrcodepdf', 'PDFController@qrcodepdf');
 Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
-Route::get('/test600', function () {
-});
-
+Route::get('/test600', function () { });
+Route::domain(config('nova.domain', null))
+    ->prefix(Nova::path())
+    ->group(function (){
+        Route::post('/updatePassword', 'UpdatePasswordController@updatePassword')->name('update_password');
+    });
 
 route::get('/', function () {
 

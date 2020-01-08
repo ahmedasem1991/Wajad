@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('default_distance_unit')->default('kilo');
+            $table->boolean('first_time_login')->default(true);
 
             $table->integer('type')->default(3); // Super Admin
             $table->integer('status')->default(1); // Active
