@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\App;
 use App\Notifications\BroadcastNotification;
 use niklasravnsborg\LaravelPdf\Pdf as PDF;   
 use niklasravnsborg\LaravelPdf\PdfWrapper as PdfWrapper;  
+use View;
 
 
 class PDFController extends Controller
