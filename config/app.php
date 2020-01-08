@@ -168,7 +168,6 @@ return [
         L5Swagger\L5SwaggerServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
 
         /*
@@ -186,7 +185,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Pusher\Laravel\PusherServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+        // Barryvdh\DomPDF\ServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 ],
 
 
@@ -241,8 +241,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'PDFArabic' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
 

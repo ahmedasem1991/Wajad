@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
 use Illuminate\Support\Facades\App;
 use App\Notifications\BroadcastNotification;
-
+use niklasravnsborg\LaravelPdf\Pdf;
 
 
 class PDFController extends Controller
@@ -44,9 +44,12 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('Pdf.receipt', compact('post'));
-        return $pdf->stream();
+        $pdf = PDF::loadView('Pdf.receipt', $post);
+        return $pdf->stream('document.pdf');
+
+        // $pdf = App::make('dompdf.wrapper');
+        // $pdf->loadView('Pdf.receipt', compact('post'));
+        // return $pdf->stream();
     }
 
     public function qrcodepdf(Request $request)
@@ -58,18 +61,15 @@ class PDFController extends Controller
         return $pdf->download(now() . '_QR_CODE.pdf');
     }
 
-    
+
     public function assignqrcodepdf(Request $request)
     {
         $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
-        logger( $assignqrcode);
+        logger($assignqrcode);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('Pdf.assignqrcode', compact('assignqrcode'));
 
-        
+
         return $pdf->stream();
     }
-
-
- 
 }
