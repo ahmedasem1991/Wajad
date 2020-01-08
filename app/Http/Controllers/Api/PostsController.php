@@ -423,7 +423,7 @@ class PostsController extends Controller
                 'color_id' => ['required', 'exists:colors,id'],
                 'item_id' => ['nullable', 'exists:items,id'],
                 'city' => ['required', 'string'],
-                'images' => ['sometimes', 'array', 'between:1,5'],
+                'images' => ['sometimes', 'array', 'between:0,5'],
                 'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
             ]);
 
