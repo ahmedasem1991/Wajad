@@ -1,6 +1,7 @@
 <?php
 
 namespace App\NovaCorporate;
+use App\Color;
 use App\Nova\Resource;
 use App\Nova\Metrics\Items;
 use Laravel\Nova\Fields\ID;
@@ -91,10 +92,14 @@ class Item extends Resource
             ->rules('required')
             ->dependsOn('Brand'),
 
-            BelongsTo::make('Owner', 'owner', User::class),
-         //   ->searchable(),
-            BelongsTo::make('Color','color','App\Nova\Color'),
-         //   ->searchable(),
+            NovaBelongsToDepend::make('Owner', 'owner', User::class)
+            ->placeholder('Owner')
+            ->options(\App\User::all()),
+
+            NovaBelongsToDepend::make('Color','color','App\Nova\Color')
+            ->placeholder('Color')
+            ->options(Color::all()),
+
             HasMany::make('Images', 'images', ItemImage::class),
 
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),

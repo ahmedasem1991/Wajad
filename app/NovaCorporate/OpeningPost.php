@@ -101,26 +101,26 @@ class OpeningPost extends Resource
     {
 
         return [
-           ID::make()->sortable(),
-           Text::make('Title'),
-           Textarea::make('description'),
-           RadioButton::make('Status')
-           ->options([
-               0 => 'Lost',
-               1 => 'Found',
-           ])->default(0), // optional
+            ID::make()->sortable(),
+            Text::make('Title'),
+            Textarea::make('description'),
+            RadioButton::make('Status')
+                ->options([
+                    0 => 'Lost',
+                    1 => 'Found',
+                ])->default(0), // optional
             Toggle::make('Appearance Status','appearance_status'),
             Toggle::make('Open Status','open_status'),
-           // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
+            // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
-        //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
-        //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-        //     ->options(\App\User::all())
-        //      ->withMeta(['extraAttributes' => [
-        //         'readonly' => true,
-        //         'disabled'=> true
-        //   ]])->setAttribute( 'disabled', true),
+            //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
+            //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
+            //     ->options(\App\User::all())
+            //      ->withMeta(['extraAttributes' => [
+            //         'readonly' => true,
+            //         'disabled'=> true
+            //   ]])->setAttribute( 'disabled', true),
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly(),
             BelongsTo::make('Founder', 'founder', 'App\Nova\User')->readonly(),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User')->readonly(),
@@ -192,14 +192,14 @@ class OpeningPost extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/open.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/open.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsOpen()->isApproved()->IsShow()
-        ->where('corporate_id',Auth()->user()->corporate->id);
-       // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+            ->where('corporate_id',Auth()->user()->corporate->id);
+        // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
 

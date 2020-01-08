@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Subscription extends Resource
 {
@@ -78,9 +79,14 @@ class Subscription extends Resource
 
 
             //BelongsTo::make('User'),
-            BelongsTo::make('Corporate','corporate','App\Nova\Corporate'),
+            NovaBelongsToDepend::make('Corporate','corporate','App\Nova\Corporate')
+                ->options(\App\Corporate::all())
+                ->placeholder('Corporate'),
 
-            BelongsTo::make('Package')->rules('required'),
+            NovaBelongsToDepend::make('Package')->rules('required')
+                ->options(\App\Package::all())
+                ->placeholder('Package'),
+
             DateTime::make('Created At')
             ->hideWhenUpdating()
             ->hideWhenCreating()

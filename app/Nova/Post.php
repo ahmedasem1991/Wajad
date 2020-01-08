@@ -127,7 +127,7 @@ class Post extends Resource
             Toggle::make('Appearance Status', 'appearance_status'),
             Toggle::make('Open Status', 'open_status'),
             DateTime::make('Post Closing Date','end_date')->updateRules('required')
-            ->hideWhenCreating(),
+                ->hideWhenCreating(),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',

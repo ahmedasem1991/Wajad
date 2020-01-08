@@ -103,8 +103,9 @@ class Item extends Resource
                     'minimumResultsForSearch' => 1,
                     'multiple'                => false,
                 ]),
-            BelongsTo::make('Color'),
-            //   ->searchable(),
+            NovaBelongsToDepend::make('Color')
+            ->placeholder('Color')
+            ->options(\App\Color::all()),
             HasMany::make('Images', 'images', ItemImage::class),
 
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),

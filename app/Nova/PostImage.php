@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\BelongsTo;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class PostImage extends Resource
 {
@@ -68,7 +69,9 @@ class PostImage extends Resource
                 ->path('images/posts'),
 
 
-            BelongsTo::make('Post', 'Post', \App\Nova\Post::class)
+            NovaBelongsToDepend::make('Post', 'Post', \App\Nova\Post::class)
+                ->placeholder('Post')
+                ->options(\App\Post::all())
         ];
     }
     /**
@@ -118,6 +121,6 @@ class PostImage extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }

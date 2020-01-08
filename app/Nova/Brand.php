@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Brand extends Resource
 {
@@ -74,7 +75,9 @@ class Brand extends Resource
                 ->prunable()
                 ->deletable()
                 ->rules('required','dimensions:max_width=100,max_width=100'),
-             BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class)
+            NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
+                ->placeholder('Sub Categories')
+                ->options(\App\SubCategory::all())
                  ->rules('required'),
              HasMany::make('Models'),
         ];

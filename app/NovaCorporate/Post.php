@@ -168,7 +168,11 @@ class Post extends Resource
                 })
                 ->rules('required')
                 ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', 'App\Nova\Color'),
+
+            NovaBelongsToDepend::make('Color','color','App\Nova\Color')
+                ->placeholder('Color')
+                ->options(\App\Color::all()),
+
 
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')

@@ -8,6 +8,7 @@ use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class ItemImage extends Resource
 {
@@ -69,7 +70,10 @@ class ItemImage extends Resource
             ->prunable()
             ->deletable(),
 
-            BelongsTo::make('Item', 'item', Item::class)->rules('required')
+            NovaBelongsToDepend::make('Item', 'item', Item::class)
+                ->placeholder('Item')
+                ->options(\App\Item::all())
+                ->rules('required')
 
         ];
     }

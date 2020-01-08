@@ -56,7 +56,6 @@ class SuperAdmin extends Resource
         'id',
         'name',
         'email',
-        'password',
         'default_distance_unit',
         'type',
         'status',

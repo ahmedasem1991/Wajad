@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Answer extends Resource
 {
@@ -59,8 +60,12 @@ class Answer extends Resource
             ID::make()->sortable(),
 
             Text::make('answers')->readonly(),
-            BelongsTo::make('User')->readonly(),
-            BelongsTo::make('question')->readonly(),
+            NovaBelongsToDepend::make('User')->readonly()
+                ->placeholder('User')
+                ->options(\App\User::all()),
+            NovaBelongsToDepend::make('question')->readonly()
+                ->placeholder('Question')
+                ->options(\App\Question::all()),
 
 
 

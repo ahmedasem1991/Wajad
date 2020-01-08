@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\BelongsTo;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class PostImage extends Resource
 {
@@ -69,7 +70,9 @@ class PostImage extends Resource
                 ->path('images/posts'),
 
 
-            BelongsTo::make('Post', 'Post', \App\NovaCorporate\Post::class)
+            NovaBelongsToDepend::make('Post', 'Post', \App\NovaCorporate\Post::class)
+                ->placeholder('Post')
+                ->options(\App\Post::all())
         ];
     }
     /**
@@ -81,7 +84,7 @@ class PostImage extends Resource
     public function cards(Request $request)
     {
         return [
-         //   new PostImages()
+            //   new PostImages()
         ];
     }
 

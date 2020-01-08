@@ -56,7 +56,6 @@ class User extends Resource
         'id',
         'name',
         'email',
-        'password',
         'default_distance_unit',
         'type',
         'status',
@@ -79,7 +78,7 @@ class User extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -108,10 +107,10 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-          //  HasMany::make('Items','items',Item::class),
-          PhoneNumber::make('Mobile Number','mobile_number')
-          ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-          ->onlyCustomFormats(),
+            //  HasMany::make('Items','items',Item::class),
+            PhoneNumber::make('Mobile Number','mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -120,16 +119,16 @@ class User extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
-                   '2' => 'Corpoare Admin',
-                  // '4' => 'Corporate User',
-                ])->displayUsingLabels()
+                '2' => 'Corpoare Admin',
+                // '4' => 'Corporate User',
+            ])->displayUsingLabels()
                 ->creationRules('required')
                 ->updateRules('required'),
 
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-          //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -190,7 +189,7 @@ class User extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
 
 }

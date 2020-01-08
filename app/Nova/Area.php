@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Area extends Resource
 {
@@ -65,7 +66,9 @@ class Area extends Resource
             ID::make()->sortable(),
             Text::make('Area Arabic Name', 'name_ar')->rules(['required', 'string', 'max:255']),
             Text::make('Area English Name', 'name_en')->rules(['required', 'string', 'max:255']),
-            BelongsTo::make('Country'),
+            NovaBelongsToDepend::make('Country')
+            ->placeholder('Country')
+            ->options(\App\Country::all()),
             HasMany::make('City', 'cities', 'App\Nova\City'),
         ];
     }

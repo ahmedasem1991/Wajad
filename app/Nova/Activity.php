@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
 use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Activity extends Resource
 {
@@ -71,7 +72,9 @@ class Activity extends Resource
             Text::make('SUBJECT TYPE'),
             // Text::make('CAUSER ID'),
             Text::make('CREATED_AT'),
-            BelongsTo::make('User'),
+            NovaBelongsToDepend::make('User')
+            ->placeholder('User')
+            ->options(\App\User::all()),
         ];
     }
 

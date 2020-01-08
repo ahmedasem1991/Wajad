@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Model extends Resource
 {
@@ -74,7 +75,9 @@ class Model extends Resource
                 ->prunable()
                 ->deletable()
                 ->rules('required','dimensions:max_width=100,max_width=100'),
-            BelongsTo::make('Brand'),
+            NovaBelongsToDepend::make('Brand')
+            ->placeholder('Brand')
+            ->options(\App\Brand::all()),
             //HasMany::make('Colors'),
         ];
     }
