@@ -226,7 +226,7 @@ class AuthController extends Controller
         $response = [
             'token_type' => 'Bearer',
             'access_token' => $token,
-            'expires_in' => config('jwt.ttl') * 60
+            'expires_in' => config('jwt.ttl') * 60 *100000
         ];
 
         if ($include_user) {
