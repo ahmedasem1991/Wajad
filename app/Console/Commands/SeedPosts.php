@@ -80,7 +80,7 @@ class SeedPosts extends Command
 
             PostImage::create([
                 'post_id' => $post->id,
-                'image' => $images->random(),
+                'image' =>  $faker->randomElement($images),
             ]);
         }
 
