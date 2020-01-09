@@ -48,7 +48,7 @@ class PDFController extends Controller
     {
         $post = Post::find(base64_decode($request->get('p')));
         // dd($post);
-        $pdf= new Pdf(View::make('Pdf.receipt',  ['post' =>$post])->render() );
+        $pdf= new Pdf(View::make('Pdf.receipt', compact('post'))->render() );
         return $pdf->stream('document.pdf');
 
 
