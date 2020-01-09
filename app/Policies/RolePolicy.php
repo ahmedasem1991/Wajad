@@ -38,15 +38,11 @@ class RolePolicy
      */
     public function view(User $user, Role $role)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('view roles'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        if ($user->hasPermissionTo('view roles')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
     }
 
     /**
@@ -57,15 +53,11 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('create roles'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        if ($user->hasPermissionTo('create roles')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
     }
 
     /**
@@ -77,15 +69,11 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('edit roles'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        if ($user->hasPermissionTo('edit roles')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
     }
 
     /**
@@ -97,15 +85,11 @@ class RolePolicy
      */
     public function delete(User $user, Role $role)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('delete roles'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        if ($user->hasPermissionTo('delete roles')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
     }
 
     /**
