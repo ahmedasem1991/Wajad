@@ -4,6 +4,7 @@ namespace App\NovaCorporate;
 
 use App\User;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -73,7 +74,7 @@ class Stock extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view stock')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view stock')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -89,8 +90,8 @@ class Stock extends Resource
             // ->hideWhenCreating()
             // ->hideWhenUpdating(),
             Text::make('Unique Reference Number','unique_reference_number')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             // BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
             // ->hideWhenCreating()
             // ->hideWhenUpdating(),
@@ -107,10 +108,12 @@ class Stock extends Resource
             Text::make('QR CODE URL', 'qrcode_url', function () {
 
                 return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
-             })->asHtml()
-            ->hideWhenUpdating()
-            ->hideFromIndex(),
-                Image::make('QRCode Images', 'image')
+            })->asHtml()
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
+            Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()
@@ -118,7 +121,7 @@ class Stock extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                Toggle::make('Print Status','printed')
+            Toggle::make('Print Status','printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
@@ -184,12 +187,12 @@ class Stock extends Resource
     {
         return [
 
-        (new DownloadQRCode)->canRun(function(NovaRequest $request) {
-            return true;
-        }),
-                // ->confirmText('Are you sure you want to activate this user?')
-                // ->confirmButtonText('Activate')
-                // ->cancelButtonText("Don't activate"),
+            (new DownloadQRCode)->canRun(function(NovaRequest $request) {
+                return true;
+            }),
+            // ->confirmText('Are you sure you want to activate this user?')
+            // ->confirmButtonText('Activate')
+            // ->cancelButtonText("Don't activate"),
         ];
     }
 
@@ -200,6 +203,6 @@ class Stock extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->whereNull('corporate_assign_reference_number')
-        ->where('corporate_id',Auth()->user()->corporate->id);
+            ->where('corporate_id',Auth()->user()->corporate->id);
     }
 }

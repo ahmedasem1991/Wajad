@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -71,36 +72,38 @@ class PostReport extends Resource
     {
 
         return [
-           ID::make()->sortable(),
-           Trix::make('Details', 'details')
-           ->rules(
-               'required',
-               'string',
-               'max:255',
-               'min:6'
-           ),
+            ID::make()->sortable(),
+            Trix::make('Details', 'details')
+                ->rules(
+                    'required',
+                    'string',
+                    'max:255',
+                    'min:6'
+                ),
 
-           Image::make('Report Image', 'image')
-           ->creationRules([
-               'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-           ])
-           ->updateRules([
-               'image', 'mimes:jpeg,bmp,png', 'max:5012'
-           ])
-           ->disk('public')
-           ->path('images/postreports'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
+            Image::make('Report Image', 'image')
+                ->creationRules([
+                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->updateRules([
+                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->disk('public')
+                ->path('images/postreports'),
 
 
-           BelongsTo::make('User','user',\App\Nova\NormalUser::class)
-           ->readonly()
-           ,
-           BelongsTo::make('Post','post',\App\Nova\Post::class)
-           ->readonly()
-           ,
-           DateTime::make('Created At')
-           ->hideFromIndex()
-           ->exceptOnForms()
-           ->nullable(),
+            BelongsTo::make('User','user',\App\Nova\NormalUser::class)
+                ->readonly()
+            ,
+            BelongsTo::make('Post','post',\App\Nova\Post::class)
+                ->readonly()
+            ,
+            DateTime::make('Created At')
+                ->hideFromIndex()
+                ->exceptOnForms()
+                ->nullable(),
 
 
         ];
@@ -156,7 +159,7 @@ class PostReport extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)

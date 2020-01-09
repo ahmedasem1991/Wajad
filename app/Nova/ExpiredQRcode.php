@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\User;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -79,14 +80,14 @@ class ExpiredQRcode extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Unique Reference Number','unique_reference_number')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
@@ -97,7 +98,9 @@ class ExpiredQRcode extends Resource
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
-                Image::make('QRCode Images', 'image')
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
+            Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()
@@ -105,19 +108,19 @@ class ExpiredQRcode extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                BelongsTo::make('User')
+            BelongsTo::make('User')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-                BelongsTo::make('Item')
+            BelongsTo::make('Item')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-                Text::make('Start Date','start_at')
+            Text::make('Start Date','start_at')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-                Text::make('End Date','end_at')
+            Text::make('End Date','end_at')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
@@ -202,6 +205,6 @@ class ExpiredQRcode extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 }
