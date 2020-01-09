@@ -57,7 +57,7 @@ class PostsController extends Controller
         abort_unless(in_array($type, self::TYPES), 404);
 
         $validate_request = Validator::make($request->all(), [
-            'title' => ['required', 'min:6', 'max:255'],
+            'title' => ['required', 'min:6', 'max:128'],
             'description' => ['required', 'min:9', 'max:500'],
             'reward' => ['nullable', 'string'],
             'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
@@ -83,7 +83,9 @@ class PostsController extends Controller
         if ($type == "found") {
             $validate_questions = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
-                'questions.*' => ['required', 'min:9', 'max:500'],
+                'questions.0' => ['required', 'min:9', 'max:500'],
+                'questions.1' => ['nullable', 'min:9', 'max:500'],
+                'questions.2' => ['nullable', 'min:9', 'max:500'],
             ]);
             if ($validate_questions->fails()) {
                 throw new ApiException($validate_questions->errors()->first(), 400);
@@ -119,7 +121,7 @@ class PostsController extends Controller
             //'appearance_status' => $appearance_status,
             'auto_approve' => 1,
             'appearance_status' => 1,
-
+            'approval_status' => 1,
         ]);
 
         if ($type == "lost") {
@@ -142,14 +144,16 @@ class PostsController extends Controller
             ]);
             $post->save();
             array_map(function ($question) use ($post) {
-                $post->questions()->create([
-                    'founder_id' => auth('api')->user()->id,
-                    'question' => $question,
-                ]);
+                if ($question) {
+                    $post->questions()->create([
+                        'founder_id' => auth('api')->user()->id,
+                        'question' => $question,
+                    ]);
+                }
             }, $request->questions);
         }
 
-        if ($request->has('images')) {
+        if ($request->has('images') && count($request->images) > 0) {
             array_map(function ($image) use ($post, $request) {
                 $image_name = \Str::random(15) . '.' . 'png';
                 $path = public_path('/images/posts/' . $image_name);
@@ -197,7 +201,7 @@ class PostsController extends Controller
             'details' => $request->details,
         ]);
 
-        if ($request->has('image')) {
+        if ($request->has('image') && $request->image != "" && !is_null($request->image)) {
             $image_name = \Str::random(15) . '.' . 'png';
             $path = public_path('/images/postreports/' . $image_name);
             Image::make(file_get_contents($request->image))->save($path);
@@ -410,7 +414,6 @@ class PostsController extends Controller
             $validate_request = Validator::make($request->all(), [
                 'title' => ['required', 'min:6', 'max:255'],
                 'description' => ['required', 'min:9', 'max:500'],
-                'status' => ['required', 'in:0,1'],
                 'reward' => ['string'],
                 'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
@@ -420,7 +423,7 @@ class PostsController extends Controller
                 'color_id' => ['required', 'exists:colors,id'],
                 'item_id' => ['nullable', 'exists:items,id'],
                 'city' => ['required', 'string'],
-                'images' => ['sometimes', 'array', 'between:1,5'],
+                'images' => ['sometimes', 'array', 'between:0,5'],
                 'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
             ]);
 
@@ -441,7 +444,7 @@ class PostsController extends Controller
 
             $post->update($request->all());
 
-            if ($request->has('images')) {
+            if ($request->has('images') && count($request->images) > 0) {
                 $post->images()->delete();
                 array_map(function ($image) use ($post, $request) {
                     $image_name = \Str::random(15) . '.' . 'png';

@@ -11,10 +11,16 @@ class UserObserver
 
     public function saving(User $User)
     {
+        $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
         if (Auth::check() && Auth()->User()->isCorporateAdmin()) {
 
             $User->corporate_id = Auth()->User()->corporate_id;
         }
+        
+    }
+    public function updating(User $User)
+    {
+        $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
     }
     /**
      * Handle the user "created" event.

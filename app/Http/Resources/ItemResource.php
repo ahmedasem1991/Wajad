@@ -23,6 +23,7 @@ class ItemResource extends JsonResource
             'details' => $this->details ?? '',
             'status' => Post::Status[$this->status] ?? '',
             'owner' => new UserResource($this->owner),
+            'subcategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
             'brand' => new BrandResource($this->brand),

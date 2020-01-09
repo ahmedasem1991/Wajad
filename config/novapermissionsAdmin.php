@@ -478,6 +478,12 @@ return [
             'description'  => 'Can view reported posts',
             'group'        => 'Posts',
         ],
+
+        'people' => [
+            'display_name' => 'People',
+            'description'  => 'Can access People',
+            'group'        => 'Users',
+        ],
         ///////////////Offices///////////////
         //  'view offices' => [
         //     'display_name' => 'View offices',

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\User;
+use App\People;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -97,7 +98,7 @@ class RejectedPost extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('rejected posts')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('rejected posts')) ? true : false;
     }
 
     /**
@@ -113,26 +114,26 @@ class RejectedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('Description')->readonly(),
-            Textarea::make('Reject Reasone','reject_reasone'),
+            Textarea::make('Reject Reasone', 'reject_reasone'),
             RadioButton::make('Status')
                 ->options([
                     0 => 'Lost',
                     1 => 'Found',
                 ])->default(0), // optional
-            RadioButton::make('Approval Status','approval_status')
+            RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
                     1 => 'Approval',
                     2 => 'Rejected',
                 ])->default(0), // optional
-            Toggle::make('Appearance Status','appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status'),
 
 
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            Text::make('Publisher type','publisher_type')
+            Text::make('Publisher type', 'publisher_type')
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
@@ -146,9 +147,9 @@ class RejectedPost extends Resource
             DateTime::make('Losted At')->hideFromIndex()
                 ->Rules('required_if:status,0'),
 
-            RadioButton::make('Owner Releated To System','owner_releated_to_system')
+            RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
                 ->options([
-                    2=> 'default',
+                    2 => 'default',
                     0 => 'No',
                     1 => 'Yes',
                 ])
@@ -157,23 +158,10 @@ class RejectedPost extends Resource
 
             // optional
             NovaDependencyContainer::make([
-
-                Text::make('Owner Name','owner_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:owner_releated_to_system,0'),
-
-                Text::make('Owner Email','owner_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:owner_releated_to_system,0'),
-
-                PhoneNumber::make('Owner Mobile Number','owner_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
-                    ->rules('required_if:owner_releated_to_system,0')
-                ,
-                Text::make('Owner Address','owner_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:owner_releated_to_system,0'),
+                NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    ->placeholder('Select Person')
+                    ->options(People::all())
+                    ->rules('required_if:owner_releated_to_system,0'),
 
             ])->dependsOn('owner_releated_to_system', 0),
 
@@ -200,33 +188,20 @@ class RejectedPost extends Resource
             DateTime::make('Founded At')->hideFromIndex()
                 ->Rules('required_if:status,1'),
 
-            RadioButton::make('Founder Releated To System','founder_releated_to_system')
+            RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
                 ->options([
-                    2=> 'default',
+                    2 => 'default',
                     0 => 'No',
                     1 => 'yes',
 
                 ])
                 ->hideFromIndex()
-                ->default(2)
-            ,
+                ->default(2),
             NovaDependencyContainer::make([
-                Text::make('Founder Name','founder_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:founder_releated_to_system,0'),
-
-
-                Text::make('Founder Email','founder_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:founder_releated_to_system,0'),
-
-                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
+                NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    ->placeholder('Select Person')
+                    ->options(People::all())
                     ->rules('required_if:founder_releated_to_system,0'),
-                Text::make('Founder Address','founder_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:founder_releated_to_system,0'),
 
             ])->dependsOn('founder_releated_to_system', 0),
 
@@ -238,7 +213,7 @@ class RejectedPost extends Resource
                     ->options(User::NormalUsers()->get()),
             ])
                 ->dependsOn('founder_releated_to_system', 1)
-                ->rules('required_if:founder_releated_to_system,1')  ,
+                ->rules('required_if:founder_releated_to_system,1'),
 
             HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
@@ -313,6 +288,4 @@ class RejectedPost extends Resource
     {
         return false;
     }
-
-
 }

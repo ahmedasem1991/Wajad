@@ -21,6 +21,9 @@ class ModelPolicy
      */
     public function viewAny(User $user)
     {
+        if(Auth()->User()->isCorporateAdmin()){
+            return true;
+        }
         return $this->permission($user);
     }
 

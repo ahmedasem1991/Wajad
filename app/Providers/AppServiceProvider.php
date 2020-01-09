@@ -17,6 +17,7 @@ use App\Jobs\GenerateQrcodeJob;
 use App\Observers\PostObserver;
 use App\Observers\RoleObserver;
 use App\Observers\UserObserver;
+use App\Observers\PeopleObserver;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use App\Observers\PostRequestObserver;
@@ -65,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         PostRequest::observe(PostRequestObserver::class);
         \App\Role::observe(RoleObserver::class);
+        \App\People::observe(PeopleObserver::class);
 
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');

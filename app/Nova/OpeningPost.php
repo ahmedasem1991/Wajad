@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\People;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -141,100 +142,76 @@ class OpeningPost extends Resource
             RadioButton::make('Owner Releated To System','owner_releated_to_system')
                 ->options([
                     2=> 'default',
-                    0 => 'No',
-                    1 => 'Yes',
-                ])
-                ->default(2)
-                ->hideFromIndex(),
+                      0 => 'No',
+                      1 => 'Yes',
+                  ])
+                  ->default(2)
+                  ->hideFromIndex(),
 
-            // optional
-            NovaDependencyContainer::make([
-
-                Text::make('Owner Name','owner_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:owner_releated_to_system,0'),
-
-                Text::make('Owner Email','owner_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:owner_releated_to_system,0'),
-
-                PhoneNumber::make('Owner Mobile Number','owner_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
-                    ->rules('required_if:owner_releated_to_system,0')
-                ,
-                Text::make('Owner Address','owner_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:owner_releated_to_system,0'),
-
-            ])->dependsOn('owner_releated_to_system', 0),
-
-            NovaDependencyContainer::make([
-                NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                    ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                    ->placeholder('Select Owner')
-                    ->options(\App\User::NormalUsers()->get())
-                    ->rules('required_if:owner_releated_to_system,1'),
-
-                NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                    ->placeholder('Select Item')
-
-                    ->optionsResolve(function ($owner) {
-                        return $owner->items()->lost()->get();
-                    })
-                    ->rules('required_if:owner_releated_to_system,1')
-                    ->dependsOn('Owner'),
-
-            ])->dependsOn('owner_releated_to_system', 1),
+                 // optional
+                  NovaDependencyContainer::make([
+                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    ->placeholder('Select Person')
+                    ->options(People::all())
+                    ->rules('required_if:owner_releated_to_system,0'),
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">Founder data if post type is found</p>')->asHtml(),
-            DateTime::make('Founded At')->hideFromIndex()
-                ->Rules('required_if:status,1'),
+                    ])->dependsOn('owner_releated_to_system', 0),
 
-            RadioButton::make('Founder Releated To System','founder_releated_to_system')
-                ->options([
-                    2=> 'default',
-                    0 => 'No',
-                    1 => 'yes',
+                    NovaDependencyContainer::make([
+                          NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
+                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                            ->placeholder('Select Owner')
+                            ->options(\App\User::NormalUsers()->get())
+                            ->rules('required_if:owner_releated_to_system,1'),
 
-                ])
-                ->hideFromIndex()
-                ->default(2)
-            ,
-            NovaDependencyContainer::make([
-                Text::make('Founder Name','founder_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:founder_releated_to_system,0'),
+                            NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
+                            ->placeholder('Select Item')
+
+                            ->optionsResolve(function ($owner) {
+                                return $owner->items()->lost()->get();
+                            })
+                            ->rules('required_if:owner_releated_to_system,1')
+                           ->dependsOn('Owner'),
+
+                        ])->dependsOn('owner_releated_to_system', 1),
 
 
-                Text::make('Founder Email','founder_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:founder_releated_to_system,0'),
+                        Heading::make('<p class="text-info" style="margin-left:20%">Founder data if post type is found</p>')->asHtml(),
+                        DateTime::make('Founded At')->hideFromIndex()
+                        ->Rules('required_if:status,1'),
 
-                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
-                    ->rules('required_if:founder_releated_to_system,0'),
-                Text::make('Founder Address','founder_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:founder_releated_to_system,0'),
+                        RadioButton::make('Founder Releated To System','founder_releated_to_system')
+                        ->options([
+                            2=> 'default',
+                            0 => 'No',
+                            1 => 'yes',
 
-            ])->dependsOn('founder_releated_to_system', 0),
+                            ])
+                            ->hideFromIndex()
+                           ->default(2)
+                           ,
+                    NovaDependencyContainer::make([
+                        NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                        ->placeholder('Select Person')
+                        ->options(People::all())
+                        ->rules('required_if:founder_releated_to_system,0'),
 
-            NovaDependencyContainer::make([
+                        ])->dependsOn('founder_releated_to_system', 0),
 
-                NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                    ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                    ->placeholder('Select Owner')
-                    ->options(\App\User::NormalUsers()->get()),
-            ])
-                ->dependsOn('founder_releated_to_system', 1)
-                ->rules('required_if:founder_releated_to_system,1')  ,
+                        NovaDependencyContainer::make([
 
-            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-            HasMany::make('Questions'),
-            HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
+                            NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
+                            ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                                ->placeholder('Select Owner')
+                                ->options(\App\User::NormalUsers()->get()),
+                            ])
+                            ->dependsOn('founder_releated_to_system', 1)
+                            ->rules('required_if:founder_releated_to_system,1')  ,
+
+                            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+                            HasMany::make('Questions'),
+                            HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
 
         ];
     }

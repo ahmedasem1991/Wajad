@@ -128,4 +128,5 @@ Route::prefix('posts')->group(function () {
 });
 
 Route::view('mario', 'mario');
-Route::view('receipt', 'receipt'); 
+Route::view('header', 'Pdf/partials/header'); 
+Route::view('footer', 'Pdf/partials/footer'); 

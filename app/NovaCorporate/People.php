@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Nova;
+namespace App\NovaCorporate;
 
 use App\Corporate;
+use App\Nova\Resource;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
@@ -23,16 +23,15 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
-class User extends Resource
+class People extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = 'App\\People';
 
     /**
      * The logical group associated with the resource.
@@ -48,33 +47,14 @@ class User extends Resource
      */
     public static $title = 'name';
 
+
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'id',
-        'name',
-        'email',
-        'default_distance_unit',
-        'type',
-        'status',
-        'mobile_country_id',
-        'corporate_id',
-        'city_id',
-        'posts_limitation',
-        'device_token',
-        'mobile_number',
-        'receive_emails',
-        'receive_push_notifications',
-        'is_mobile_number_verified',
-        'email_verified_at',
-        'image',
-        'remember_token',
-        'deleted_at',
-        'created_at',
-        'updated_at',
+        'id', 'name', 'email','mobile_number','address'
     ];
 
     /**
@@ -88,7 +68,7 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+           
 
             Text::make('Name')
                 ->sortable()
@@ -96,49 +76,17 @@ class User extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email'),
-            //->updateRules('unique:users,email,{{ resourceId }}'),
+                ->rules('required', 'email', 'max:254'),
 
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
-            PhoneNumber::make('Mobile Number', 'mobile_number')
+            PhoneNumber::make('Mobile Number','mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-            HasMany::make('Items'),
-            Toggle::make('Active', 'status'),
-            //  Boolean::make('Show My Data','show_my_data'),
 
-
-            // CashierResourceTool::make()->onlyOnDetail(),
-
-            HasMany::make('Activity', 'activities')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
-
-            HasMany::make('Subscription')
-                ->hideWhenUpdating(),
-            Select::make('Type', 'type')->options([
-
-                '2' => 'Corpoare Admin',
-                //  '4' => 'Corporate User',
-                '1' => 'Normal User',
-
-            ])->displayUsingLabels(),
-
-            Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
-
-            NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
-                ->placeholder('Corporate')
-                ->options(Corporate::all())
-                ->creationRules('required_if:type,2')
-                ->updateRules('required_if:type,2')
-                ->nullable(),
-
-                BelongsToMany::make('Roles', 'roles', Role::class),
-                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            Text::make('Address')
+                ->sortable()
+                ->rules('required', 'max:255'),
+               
+  
 
         ];
     }
@@ -154,7 +102,7 @@ class User extends Resource
         return [
             // new NewUsers,
             // new UsersActivity,
-            new UsersTypes,
+           // new UsersTypes,
         ];
     }
 
@@ -189,16 +137,30 @@ class User extends Resource
     public function actions(Request $request)
     {
         return [
-            new DownloadExcel,
+           // new DownloadExcel,
         ];
     }
 
+ 
+    
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->NotSuperAdmin();
+        return $query->where('corporate_id',auth()->user()->corporate->id);
     }
-    public static function icon()
+    public static function icon() 
     {
-        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+    return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+    }
+
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
     }
 }

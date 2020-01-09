@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Laravel\Nova\Fields\BelongsToMany;
-use Pktharindu\NovaPermissions\Checkboxes;
+//use Pktharindu\NovaPermissions\Checkboxes;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Pktharindu\NovaPermissions\Role as RoleModel;
-//use Silvanite\NovaFieldCheckboxes\Checkboxes;
+use Silvanite\NovaFieldCheckboxes\Checkboxes;
+//use Fourstacks\NovaCheckboxes\Checkboxes;
 
 class Role extends Resource
 {
@@ -103,6 +104,15 @@ class Role extends Resource
     public function fields(Request $request)
     {
        // logger(collect(config('novapermissions.permissions')) );
+       $array=[];
+       foreach(Auth()->User()->roles as $role)
+       {
+        foreach($role->permissions as $permission)
+        {
+        $array[$permission]= $permission;
+        }
+       }
+        
 
         return [
             ID::make()->sortable(),
@@ -118,17 +128,13 @@ class Role extends Resource
                 ->updateRules('unique:roles,slug,{{resourceId}}')
                 ->sortable(),
 
-            Checkboxes::make(__('Permissions'), 'permissions')
-                ->withGroups()
-                ->options( collect(config('novapermissionsCorporate.permissions'))
-                ->map(function ($permission, $key) {
-                    return [
-                        'group'        => ucfirst($permission['group']),
-                        'option'       => $key,
-                        'label'        => $permission['display_name'],
-                        'description'  => $permission['description'],
-                    ];
-                })->groupBy('group')->toArray()),
+                Checkboxes::make(__('Permissions'), 'permissions')
+                //->withGroups()
+                ->options( $array)
+                ->hideFromIndex()
+                ->columns(3)
+               -> withoutTypeCasting()
+                ,
 
             Text::make(__('Users'), function () {
                 return \count($this->users);

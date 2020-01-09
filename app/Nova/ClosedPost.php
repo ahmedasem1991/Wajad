@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Nova;
+
 use App\User;
+use App\People;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -94,7 +96,7 @@ class ClosedPost extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('closed posts')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('closed posts')) ? true : false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -114,12 +116,12 @@ class ClosedPost extends Resource
                     0 => 'Lost',
                     1 => 'Found',
                 ])->default(0), // optional
-            Toggle::make('Appearance Status','appearance_status'),
-            Toggle::make('Open Status','open_status'),
+            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Open Status', 'open_status'),
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            Text::make('Publisher type','publisher_type')
+            Text::make('Publisher type', 'publisher_type')
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
@@ -135,9 +137,9 @@ class ClosedPost extends Resource
                 ->readonly()
                 ->Rules('required_if:status,0'),
 
-            RadioButton::make('Owner Releated To System','owner_releated_to_system')
+            RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
                 ->options([
-                    2=> 'default',
+                    2 => 'default',
                     0 => 'No',
                     1 => 'Yes',
                 ])
@@ -147,26 +149,10 @@ class ClosedPost extends Resource
 
             // optional
             NovaDependencyContainer::make([
-
-                Text::make('Owner Name','owner_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:owner_releated_to_system,0')
-                    ->readonly(),
-
-                Text::make('Owner Email','owner_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:owner_releated_to_system,0'),
-
-                PhoneNumber::make('Owner Mobile Number','owner_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
-                    ->rules('required_if:owner_releated_to_system,0')
-                    ->readonly()
-                ,
-                Text::make('Owner Address','owner_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:owner_releated_to_system,0')
-                    ->readonly(),
+                NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    ->placeholder('Select Person')
+                    ->options(People::all())
+                    ->rules('required_if:owner_releated_to_system,0'),
 
             ])->dependsOn('owner_releated_to_system', 0),
 
@@ -196,38 +182,22 @@ class ClosedPost extends Resource
                 ->Rules('required_if:status,1')
                 ->readonly(),
 
-            RadioButton::make('Founder Releated To System','founder_releated_to_system')
+            RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
                 ->options([
-                    2=> 'default',
+                    2 => 'default',
                     0 => 'No',
                     1 => 'yes',
 
                 ])
                 ->hideFromIndex()
                 ->default(2)
-                ->readonly()
-            ,
+                ->readonly(),
             NovaDependencyContainer::make([
-                Text::make('Founder Name','founder_name')
-                    ->sortable()
-                    ->rules( 'max:255','required_if:founder_releated_to_system,0')
-                    ->readonly(),
+                NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    ->placeholder('Select Person')
+                    ->options(People::all())
+                    ->rules('required_if:founder_releated_to_system,0'),
 
-
-                Text::make('Founder Email','founder_email')
-                    ->sortable()
-                    ->rules( 'email', 'max:254','required_if:founder_releated_to_system,0')
-                    ->readonly(),
-
-                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats()
-                    ->rules('required_if:founder_releated_to_system,0')
-                    ->readonly(),
-                Text::make('Founder Address','founder_address')
-                    ->sortable()
-                    ->rules( 'max:254','required_if:founder_releated_to_system,0')
-                    ->readonly(),
 
             ])->dependsOn('founder_releated_to_system', 0),
 
@@ -240,7 +210,7 @@ class ClosedPost extends Resource
             ])
                 ->dependsOn('founder_releated_to_system', 1)
                 ->rules('required_if:founder_releated_to_system,1')
-                ->readonly()  ,
+                ->readonly(),
 
             HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
@@ -310,6 +280,4 @@ class ClosedPost extends Resource
     {
         return false;
     }
-
-
 }
