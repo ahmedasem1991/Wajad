@@ -6,11 +6,11 @@ use App\City;
 use App\Post;
 use Carbon\Carbon;
 use App\PostReport;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -154,15 +154,22 @@ class PostsController extends Controller
         }
 
         if ($request->has('images') && count($request->images) > 0) {
-            array_map(function ($image) use ($post, $request) {
-                $image_name = \Str::random(15) . '.' . 'png';
-                $path = public_path('/images/posts/' . $image_name);
+            $post_images = [];
+
+            array_map(function ($image) {
+                $image_name = Str::random(15) . '.' . 'png';
+                $path = public_path('/images//' . $image_name);
                 Image::make(file_get_contents($image))->save($path);
-                $post->images()->create([
-                    'image' =>   'images/posts/' . $image_name
-                ]);
+                array_push($post_images, '/images//' . $image_name);
             }, $request->images);
+
+            $post->fill([
+                'images' => $post_images
+            ]);
+
+            $post->save();
         }
+
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
 
@@ -231,7 +238,7 @@ class PostsController extends Controller
      * @bodyParam token Barier-token required
      * @response
      *  {
-     * "data":  
+     * "data":
      *  {
      *   "id": 3,
      *  "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
@@ -445,16 +452,20 @@ class PostsController extends Controller
             $post->update($request->all());
 
             if ($request->has('images') && count($request->images) > 0) {
-                $post->images()->delete();
-                array_map(function ($image) use ($post, $request) {
-                    $image_name = \Str::random(15) . '.' . 'png';
-                    $path = public_path('/images/posts/' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
+                $post_images= [];
 
-                    $post->images()->create([
-                        'image' =>   'images/posts/' . $image_name
-                    ]);
+                array_map(function ($image) {
+                    $image_name = Str::random(15) . '.' . 'png';
+                    $path = public_path('/images//' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+                    array_push($post_images, '/images//' . $image_name);
                 }, $request->images);
+
+                $post->fill([
+                    'images' => $post_images
+                ]);
+
+                $post->save();
             }
 
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);

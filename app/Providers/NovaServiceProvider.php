@@ -126,6 +126,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             // copy(config_path() . "/novapermissionsAdmin.php", config_path() . "/novapermissions.php");
             return [
                 new NovaSidebarIcons,
+                new \ClassicO\NovaMediaLibrary\NovaMediaLibrary(),
                 //new \Pktharindu\NovaPermissions\NovaPermissions(),
                 \Pktharindu\NovaPermissions\NovaPermissions::make()
                     ->roleResource(\App\Nova\Role::class),

@@ -11,8 +11,10 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use ClassicO\NovaMediaLibrary\MediaField;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -85,12 +87,12 @@ class Item extends Resource
             NovaBelongsToDepend::make('Model', 'model')
                 ->placeholder('Optional Placeholder')
                 ->optionsResolve(function ($brand) {
-                    return $brand->models()->get(['id','name_en']);
+                    return $brand->models()->get(['id', 'name_en']);
                 })
                 ->rules('required')
                 ->dependsOn('Brand'),
 
-            Select2::make('Owner','owner_id')
+            Select2::make('Owner', 'owner_id')
                 ->sortable()
                 ->options(\App\User::normalusers()->get()->pluck('name', 'id'))
                 ->displayUsingLabels()
@@ -104,9 +106,13 @@ class Item extends Resource
                     'multiple'                => false,
                 ]),
             NovaBelongsToDepend::make('Color')
-            ->placeholder('Color')
-            ->options(\App\Color::all()),
-            HasMany::make('Images', 'images', ItemImage::class),
+                ->placeholder('Color')
+                ->options(\App\Color::all()),
+
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
+
+            MediaField::make('Post Image', 'images')->listing(),
 
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),
         ];
@@ -161,5 +167,4 @@ class Item extends Resource
     {
         return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
     }
-
 }
