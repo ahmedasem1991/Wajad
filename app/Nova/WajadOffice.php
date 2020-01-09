@@ -39,7 +39,21 @@ class WajadOffice extends Resource
      * @var array
      */
     public static $search = [
-        'id','name_en','name_en'
+        'id',
+        'name_en',
+        'name_ar',
+        'details_en',
+        'details_ar',
+        'address_en',
+        'address_ar',
+        'location',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
         /**
      * The logical group associated with the resource.

@@ -51,7 +51,16 @@ class GenerateQrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','generate_reference_number'
+        'id',
+        'generate_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'created_by',
+        'created_from',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -82,7 +91,7 @@ class GenerateQrcode extends Resource
 
            // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
 
-             
+
 
         ];
     }

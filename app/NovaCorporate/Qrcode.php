@@ -46,6 +46,26 @@ class Qrcode extends Resource
      */
     public static $search = [
         'id',
+        'unique_reference_number',
+        'generate_reference_number',
+        'assign_reference_number',
+        'corporate_assign_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'qrcode_url',
+        'image',
+        'available_period',
+        'start_at',
+        'end_at',
+        'package_product_pivot_id',
+        'user_id',
+        'corporate_id',
+        'printed',
+        'item_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
     public static $displayInNavigation = false;
 
@@ -145,7 +165,7 @@ class Qrcode extends Resource
         return [];
     }
 
-    
+
     public static function label() {
         return 'All QR Code';
     }

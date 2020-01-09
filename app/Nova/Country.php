@@ -40,10 +40,13 @@ class Country extends Resource
      */
     public static $search = [
         'id',
-        'name_en',
         'name_ar',
+        'name_en',
         'iso_code',
         'country_code',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

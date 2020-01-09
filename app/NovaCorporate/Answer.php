@@ -12,7 +12,8 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
- 
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+
 class Answer extends Resource
 {
     /**
@@ -29,7 +30,7 @@ class Answer extends Resource
      * @var string
      */
     public static $title = 'answers';
-    
+
 
     /**
      * The columns that should be searched.
@@ -37,7 +38,14 @@ class Answer extends Resource
      * @var array
      */
     public static $search = [
-        'id','answers'
+        'id',
+        'question_id',
+        'answers',
+        'user_id',
+        'post_request_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -50,10 +58,14 @@ class Answer extends Resource
     {
         return [
             ID::make()->sortable(),
-            
+
             Text::make('answers')->readonly(),
-            BelongsTo::make('User')->readonly(),
-            BelongsTo::make('question')->readonly(),
+            NovaBelongsToDepend::make('User')->readonly()
+                ->placeholder('User')
+                ->options(\App\User::all()),
+            NovaBelongsToDepend::make('question')->readonly()
+                ->placeholder('Question')
+                ->options(\App\Question::all()),
 
 
 

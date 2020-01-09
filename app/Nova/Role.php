@@ -56,6 +56,13 @@ class Role extends Resource
         'id',
         'slug',
         'name',
+        'corporate_id',
+        'limitation_of_posts',
+        'default_group',
+        'auto_approve',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static $with = [
@@ -131,10 +138,10 @@ class Role extends Resource
                 Toggle::make('Default Group'),
                 Toggle::make('Auto Approve'),
                 Number::make('Limitation Of Posts Number', 'limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
-                
+
                 Number::make('Posts Active Period In Days', 'posts_period')->min(1)->max(10000)->step(1)->rules('required'),
-                
-                
+
+
 
             ])->dependsOn('mobile_group', 1),
 

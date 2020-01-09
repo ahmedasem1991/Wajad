@@ -47,7 +47,13 @@ class Category extends Resource
     public static $search = [
         'id',
         'name_en',
-        'name_ar'
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -123,7 +129,7 @@ class Category extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/list.png" style="height:22px;width:22px;margin=10px" />';
     }

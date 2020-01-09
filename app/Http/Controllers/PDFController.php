@@ -17,8 +17,8 @@ use PayPal\Api\Amount;
 use App\GenerateQrcode;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
+ 
 use PayPal\Api\WebProfile;
-
 use PayPal\Api\InputFields;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
@@ -26,14 +26,15 @@ use Illuminate\Http\Request;
 use League\Flysystem\Config;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
-use Illuminate\Support\Facades\App;
 use App\Notifications\BroadcastNotification;
 use niklasravnsborg\LaravelPdf\Pdf as PDF;   
 use niklasravnsborg\LaravelPdf\PdfWrapper as PdfWrapper;  
-use View;
+
 
 
 class PDFController extends Controller
@@ -46,7 +47,8 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-		$pdf= new Pdf(View::make('Pdf.receipt',  ['post' =>$post])->render() );
+        // dd($post);
+        $pdf= new Pdf(View::make('Pdf.receipt', compact('post'))->render() );
         return $pdf->stream('document.pdf');
 
 

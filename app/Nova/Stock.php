@@ -46,7 +46,27 @@ class Stock extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'unique_reference_number'
+        'id',
+        'unique_reference_number',
+        'generate_reference_number',
+        'assign_reference_number',
+        'corporate_assign_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'qrcode_url',
+        'image',
+        'available_period',
+        'start_at',
+        'end_at',
+        'package_product_pivot_id',
+        'user_id',
+        'corporate_id',
+        'printed',
+        'item_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -79,12 +99,12 @@ class Stock extends Resource
             //     ->hideWhenUpdating()
             //     ->hideFromIndex(),
             Text::make('QR CODE URL', 'qrcode_url', function () {
-               
+
                 return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
              })->asHtml()
             ->hideWhenUpdating()
             ->hideFromIndex(),
-         
+
             Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')

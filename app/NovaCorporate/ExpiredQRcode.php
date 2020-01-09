@@ -46,7 +46,27 @@ class ExpiredQRcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','unique_reference_number'
+        'id',
+        'unique_reference_number',
+        'generate_reference_number',
+        'assign_reference_number',
+        'corporate_assign_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'qrcode_url',
+        'image',
+        'available_period',
+        'start_at',
+        'end_at',
+        'package_product_pivot_id',
+        'user_id',
+        'corporate_id',
+        'printed',
+        'item_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -173,7 +193,7 @@ class ExpiredQRcode extends Resource
         ];
     }
 
-    
+
     public static function label() {
         return 'Expired QRCode';
     }
@@ -187,7 +207,7 @@ class ExpiredQRcode extends Resource
     //     return $query->where('type', 'Series');
     // }
 
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

@@ -41,6 +41,11 @@ class PostType extends Resource
      */
     public static $search = [
         'id',
+        'title',
+        'description',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

@@ -47,6 +47,13 @@ class Product extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -125,7 +132,7 @@ class Product extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class SubCategory extends Resource
 {
@@ -39,7 +40,14 @@ class SubCategory extends Resource
     public static $search = [
         'id',
         'name_en',
-        'name_ar'
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'category_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -66,7 +74,9 @@ class SubCategory extends Resource
                 ->prunable()
                 ->deletable()
                 ->rules('required','dimensions:max_width=100,max_width=100'),
-            BelongsTo::make('Category')->rules('required'),
+            NovaBelongsToDepend::make('Category')->rules('required')
+                ->placeholder('Category')
+                ->options(\App\Category::all()),
             HasMany::make('Brands'),
         ];
     }
