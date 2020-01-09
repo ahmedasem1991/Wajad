@@ -17,7 +17,11 @@ class Item extends MasterModel
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id'];
+    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images'];
+
+    protected $casts =[
+        'images' => 'array'
+    ];
 
     /**
      * Define Items Status Const

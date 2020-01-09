@@ -11,6 +11,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('title', 255)->nullable();
             $table->mediumText('details')->nullable();
+            $table->text('images')->nullable();
             $table->integer('status')->unsigned()->default(1);
             $table->integer('owner_id')->unsigned();
             $table->integer('model_id')->unsigned()->nullable();

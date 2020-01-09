@@ -26,6 +26,7 @@ use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -143,7 +144,10 @@ class Post extends Resource
                 ->default(0)
                 ->rules('required'), // optional
 
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+            ->asHtml()->hideFromDetail(),
 
+            MediaField::make('Post Image', 'images')->listing(),
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
@@ -229,11 +233,9 @@ class Post extends Resource
                 ->dependsOn('founder_releated_to_system', 1)
                 ->rules('required_if:founder_releated_to_system,1'),
 
-            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
-
-
 
             Button::make('PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
@@ -270,8 +272,21 @@ class Post extends Resource
             $request->offsetUnset('founder_releated_to_system');
         }
 
-
         return parent::fill($request, $model);
+    }
+
+
+    public static function fillForUpdate(NovaRequest $request, $model)
+    {
+        if ($request->input('owner_releated_to_system')) {
+            $request->offsetUnset('owner_releated_to_system');
+        }
+
+        if ($request->input('founder_releated_to_system')) {
+            $request->offsetUnset('founder_releated_to_system');
+        }
+
+        return parent::fillForUpdate($request, $model);
     }
 
     /**
