@@ -26,6 +26,12 @@ class Model extends MasterModel
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
+
     public function items()
     {
         return $this->hasMany(Item::class);

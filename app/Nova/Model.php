@@ -75,10 +75,25 @@ class Model extends Resource
                 ->prunable()
                 ->deletable()
                 ->rules('required','dimensions:max_width=100,max_width=100'),
-            NovaBelongsToDepend::make('Brand')
-            ->placeholder('Brand')
-            ->options(\App\Brand::all()),
-            //HasMany::make('Colors'),
+          
+          
+                // NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+                // ->placeholder('Select Sub category')
+                // ->options(\App\SubCategory::all())
+                // ->rules('required'),
+
+
+            // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            //     ->placeholder('Select Brand')
+            //     ->optionsResolve(function ($subcategory) {
+            //         return $subcategory->brands()->get(['id', 'name_en']);
+            //     })
+            //     ->rules('required')
+            //     ->dependsOn('Subcategory'),
+            BelongsTo::make('Brand'),
+           // ->placeholder('Brand')
+            // ->options(\App\Brand::all()),
+            HasMany::make('Colors'),
         ];
     }
 
