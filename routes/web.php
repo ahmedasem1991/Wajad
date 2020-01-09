@@ -117,27 +117,31 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
-   return str_replace(' ', '', '+996 45 464 6466');
-//     $array=[];
-//     foreach(Auth()->User()->roles as $role)
-//     {
-//         foreach($role->permissions as $permission)
-//         {
-//         $array[$permission]= $permission;
-//         }
-//     }
-//    return $array;
+    return str_replace(' ', '', '+996 45 464 6466');
+    //     $array=[];
+    //     foreach(Auth()->User()->roles as $role)
+    //     {
+    //         foreach($role->permissions as $permission)
+    //         {
+    //         $array[$permission]= $permission;
+    //         }
+    //     }
+    //    return $array;
 });
 
-
+Route::domain(config('nova.domain', null))
+    ->prefix(Nova::path())
+    ->group(function () {
+        Route::post('/updatePassword', 'UpdatePasswordController@updatePassword')->name('update_password');
+    });
 route::get('/', function () {
 
-  return redirect(Nova::path());
+    return redirect(Nova::path());
 });
 
 
 Route::get('test', function () {
-  return now()->toDatetimeString();
+    return now()->toDatetimeString();
 });
 
 
@@ -166,19 +170,19 @@ Route::get('/broadcast', function () {
 });
 Route::get('/test500', function () {
     return  defaultGroup()->posts_period;
-//  dd( $user->roles());
-//  foreach()
+    //  dd( $user->roles());
+    //  foreach()
 
-//  if($user->permissions()) {
-//   return 'true';
-// }
-// else{
-//  return 'false';
-// }
+    //  if($user->permissions()) {
+    //   return 'true';
+    // }
+    // else{
+    //  return 'false';
+    // }
 
 
-//   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
-//  return $pdf->stream('receipt.pdf');
+    //   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
+    //  return $pdf->stream('receipt.pdf');
 
 })->name('test500');
 
