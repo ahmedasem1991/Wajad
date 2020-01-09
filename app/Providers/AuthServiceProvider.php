@@ -11,7 +11,7 @@ class AuthServiceProvider extends ServiceProvider
     use ValidatesPermissions;
 
     protected $policies = [
-        'App\Activity' => 'App\Policies\ActivityPolicy',
+       // 'App\Activity' => 'App\Policies\ActivityPolicy',
         'App\Post' => 'App\Policies\PostPolicy',
         'App\Brand' => 'App\Policies\BrandPolicy',
         'App\Qrcode' => 'App\Policies\QrcodePolicy',
