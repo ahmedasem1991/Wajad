@@ -17,8 +17,7 @@ use PayPal\Api\Amount;
 use App\GenerateQrcode;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
-use Illuminate\View\View;
-
+ 
 use PayPal\Api\WebProfile;
 use PayPal\Api\InputFields;
 use PayPal\Api\Transaction;
@@ -28,6 +27,7 @@ use League\Flysystem\Config;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
