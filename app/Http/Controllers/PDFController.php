@@ -48,8 +48,8 @@ class PDFController extends Controller
     {
         $post = Post::find(base64_decode($request->get('p')));
         $pdf = (new PdfWrapper)->loadView('Pdf.receipt',['post'=>$post]);
-        // return $pdf->stream('document.pdf');
-        return view('Pdf.receipt',compact('post'));
+        return $pdf->stream('document.pdf');
+        // return view('Pdf.receipt',compact('post'));
     }
 
     public function qrcodepdf(Request $request)
