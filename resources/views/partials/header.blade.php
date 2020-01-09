@@ -18,7 +18,7 @@
       </tr>
       <tr>
         <td class="tg-xqpp" colspan="2">Cairo</td>
-        <td class="tg-xqpp" rowspan="5"><img src="http://wajad.test/images/smart_appco_logo.png"></td>
+        <td class="tg-xqpp" rowspan="5"><img src="http://admin-wajad.smartappco.net/images/smart_appco_logo.png"></td>
         <td class="tg-xqpp" colspan="2">القاهرة</td>
       </tr>
       <tr>
