@@ -102,7 +102,7 @@ Route::get('/home', function () {
     return  redirect(Nova::path());
 });
 
-Route::view('qrcode', 'Pdf.qrcode');
+Route::view('qrcode', 'Pdf.qrcode'); 
 Auth::routes();
 //Test Notification
 Route::get('/sendfcm', 'NotificationController@sendFCM');
