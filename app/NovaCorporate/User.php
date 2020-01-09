@@ -53,12 +53,32 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
+        'name',
+        'email',
+        'default_distance_unit',
+        'type',
+        'status',
+        'mobile_country_id',
+        'corporate_id',
+        'city_id',
+        'posts_limitation',
+        'device_token',
+        'mobile_number',
+        'receive_emails',
+        'receive_push_notifications',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'image',
+        'remember_token',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -87,10 +107,10 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-          //  HasMany::make('Items','items',Item::class),
-          PhoneNumber::make('Mobile Number','mobile_number')
-          ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-          ->onlyCustomFormats(),
+            //  HasMany::make('Items','items',Item::class),
+            PhoneNumber::make('Mobile Number','mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -99,16 +119,16 @@ class User extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
-                   '2' => 'Corpoare Admin',
-                  // '4' => 'Corporate User',
-                ])->displayUsingLabels()
+                '2' => 'Corpoare Admin',
+                // '4' => 'Corporate User',
+            ])->displayUsingLabels()
                 ->creationRules('required')
                 ->updateRules('required'),
-         
+
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-          //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -167,9 +187,9 @@ class User extends Resource
     {
         return $query->where('corporate_id',Auth()->user()->corporate_id);
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
-    
+
 }

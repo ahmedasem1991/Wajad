@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Heading;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -49,8 +50,22 @@ class Corporate extends Resource
      */
     public static $search = [
         'id',
+        'unique_id',
+        'name_en',
+        'name_ar',
+        'details_en',
+        'details_ar',
         'address_en',
-        'address_ar'
+        'address_ar',
+        'location',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+        'end_date',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -108,6 +123,8 @@ class Corporate extends Resource
                 'max:255',
                 'min:6'
             ),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Corporate Image', 'image')->creationRules(
                 'required',
                 'image',

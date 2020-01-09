@@ -6,6 +6,7 @@ use App\Nova\Category;
 use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Models;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -14,6 +15,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Model extends Resource
 {
@@ -41,8 +43,13 @@ class Model extends Resource
         'id',
         'name_en',
         'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
         'brand_id',
-        
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -63,13 +70,17 @@ class Model extends Resource
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Model Image', 'image')
                 ->disk('public')
                 ->path('images/models')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_width=100'),
-            BelongsTo::make('Brand'),
+                ->rules('required','dimensions:max_width=100,max_height=100'),
+            NovaBelongsToDepend::make('Brand')
+            ->placeholder('Brand')
+            ->options(\App\Brand::all()),
             //HasMany::make('Colors'),
         ];
     }

@@ -45,7 +45,11 @@ class Permissions extends Resource
      * @var array
      */
     public static $search = [
-        'id','name'
+        'role_id',
+        'permission_slug',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -70,9 +74,9 @@ class Permissions extends Resource
             Text::make('Group', 'group')->creationRules([
                 'required', 'min:6'
             ]),
-            
- 
-                 
+
+
+
         ];
     }
     /**
@@ -84,7 +88,7 @@ class Permissions extends Resource
     public function cards(Request $request)
     {
         return [
-           
+
         ];
     }
 
@@ -120,7 +124,7 @@ class Permissions extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

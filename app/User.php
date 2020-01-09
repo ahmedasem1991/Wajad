@@ -65,6 +65,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     //     return $this->type === self::Types[$status];
     // }
 
+    public function firstTimeLogin()
+    {
+        return $this->first_time_login === 1;
+    }
+
     public function isAdmin()
     {
         return $this->type === self::Types['admin'];
@@ -79,6 +84,16 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function isUser()
     {
         return $this->type === self::Types['user'];
+    }
+
+    public function adminFirstLogin()
+    {
+        return $this->isAdmin() && $this->firstTimeLogin();
+    }
+
+    public function corporateAdminFirstLogin()
+    {
+        return $this->isCorporateAdmin() && $this->firstTimeLogin();
     }
     // public function isCorporateUser()
     // {

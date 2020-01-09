@@ -65,7 +65,43 @@ class Post extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title', 'description', 'owner_id', 'founder_id', 'publisher_id',
+        'id',
+        'title',
+        'description',
+        'item_id',
+        'status',
+        'appearance_status',
+        'open_status',
+        'approval_status',
+        'reports_number',
+        'reward',
+        'owner_id',
+        'founder_id',
+        'publisher_id',
+        'publisher_type',
+        'corporate_id',
+        'losted_at',
+        'founded_at',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'brand_id',
+        'city_id',
+        'founder_name',
+        'founder_email',
+        'founder_mobile_number',
+        'founder_address',
+        'owner_name',
+        'owner_email',
+        'owner_mobile_number',
+        'owner_address',
+        'owner_releated_to_system',
+        'founder_releated_to_system',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
     public static $searchRelations = [
         'color' => ['name_en'],
@@ -116,7 +152,7 @@ class Post extends Resource
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
- 
+
             Heading::make('<p class="text-info" style="margin-left:20%">Owner data if post type is lost</p>')->asHtml(),
             DateTime::make('Losted At')->hideFromIndex()
                 ->Rules('required_if:status,0'),
