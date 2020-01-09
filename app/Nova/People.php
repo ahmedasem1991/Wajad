@@ -157,4 +157,9 @@ class People extends Resource
     {
     return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }
+
+    public static function availableForNavigation(Request $request)
+    {
+      return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
+    }
 }

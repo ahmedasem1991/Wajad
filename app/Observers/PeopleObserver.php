@@ -16,10 +16,17 @@ class PeopleObserver
   
     public function saving(People $people)
     {
+        $people->mobile_number=   str_replace(' ', '',$people->mobile_number);
         if (Auth()->check() && Auth()->User()->isCorporateAdmin()) {
 
             $people->corporate_id = Auth()->User()->corporate_id;
         }
+
+    }
+ 
+    public function updating(People $people)
+    {
+        $people->mobile_number=   str_replace(' ', '',$people->mobile_number);
     }
 
 

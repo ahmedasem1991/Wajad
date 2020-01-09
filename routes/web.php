@@ -116,6 +116,7 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
+   return str_replace(' ', '', '+996 45 464 6466');
 //     $array=[];
 //     foreach(Auth()->User()->roles as $role)
 //     {
