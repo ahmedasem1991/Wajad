@@ -210,7 +210,7 @@ class ItemsController extends Controller
 
             $item->update($request->all());
 
-            if ($request->has('images')) {
+            if ($request->has('images') && count($request->images) > 0) {
                 $item->images()->delete();
                 array_map(function ($image) use ($item, $request) {
                     $image_name = \Str::random(15) . '.' . 'png';
