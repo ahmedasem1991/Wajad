@@ -1641,16 +1641,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.13",
+            "version": "2.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "834593d5900615639208417760ba6a17299e2497"
+                "reference": "c4b8d12921999d8a561004371701dbc2e05b5ece"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/834593d5900615639208417760ba6a17299e2497",
-                "reference": "834593d5900615639208417760ba6a17299e2497",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c4b8d12921999d8a561004371701dbc2e05b5ece",
+                "reference": "c4b8d12921999d8a561004371701dbc2e05b5ece",
                 "shasum": ""
             },
             "require": {
@@ -1694,7 +1694,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-12-30T08:14:25+00:00"
+            "time": "2020-01-05T14:11:20+00:00"
         },
         {
             "name": "emilianotisato/nova-belongsto-depends",
@@ -4149,16 +4149,16 @@
         },
         {
             "name": "mpociot/laravel-apidoc-generator",
-            "version": "4.0.2",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpociot/laravel-apidoc-generator.git",
-                "reference": "672c4f26c807a09b0d56205f68578f5c5266e376"
+                "reference": "027a429735a0fbc7aea2f8f9f05d1db2678fd352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/672c4f26c807a09b0d56205f68578f5c5266e376",
-                "reference": "672c4f26c807a09b0d56205f68578f5c5266e376",
+                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/027a429735a0fbc7aea2f8f9f05d1db2678fd352",
+                "reference": "027a429735a0fbc7aea2f8f9f05d1db2678fd352",
                 "shasum": ""
             },
             "require": {
@@ -4218,7 +4218,7 @@
                 "documentation",
                 "laravel"
             ],
-            "time": "2019-11-25T21:07:05+00:00"
+            "time": "2020-01-05T23:16:42+00:00"
         },
         {
             "name": "mpociot/reflection-docblock",
@@ -7675,16 +7675,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "7.17.1",
+            "version": "7.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "acf2141f81e7ea9fb40e33b5a26c4467f69054b2"
+                "reference": "6461708267ca8863b351eb70f6d5eb324a3eec0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/acf2141f81e7ea9fb40e33b5a26c4467f69054b2",
-                "reference": "acf2141f81e7ea9fb40e33b5a26c4467f69054b2",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/6461708267ca8863b351eb70f6d5eb324a3eec0b",
+                "reference": "6461708267ca8863b351eb70f6d5eb324a3eec0b",
                 "shasum": ""
             },
             "require": {
@@ -7755,20 +7755,20 @@
                 "media",
                 "spatie"
             ],
-            "time": "2019-12-15T19:03:04+00:00"
+            "time": "2020-01-05T12:27:11+00:00"
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "3.4.1",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "fe0573ddb6fd95378eec67e401882564db830312"
+                "reference": "e9c08249ec3c24258531d0f967bd3d5559e0f79e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/fe0573ddb6fd95378eec67e401882564db830312",
-                "reference": "fe0573ddb6fd95378eec67e401882564db830312",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/e9c08249ec3c24258531d0f967bd3d5559e0f79e",
+                "reference": "e9c08249ec3c24258531d0f967bd3d5559e0f79e",
                 "shasum": ""
             },
             "require": {
@@ -7823,7 +7823,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2019-12-28T13:22:00+00:00"
+            "time": "2020-01-07T16:34:21+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
@@ -11264,16 +11264,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.18",
+            "version": "7.5.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fcf6c4bfafaadc07785528b06385cce88935474d"
+                "reference": "9467db479d1b0487c99733bb1e7944d32deded2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fcf6c4bfafaadc07785528b06385cce88935474d",
-                "reference": "fcf6c4bfafaadc07785528b06385cce88935474d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9467db479d1b0487c99733bb1e7944d32deded2c",
+                "reference": "9467db479d1b0487c99733bb1e7944d32deded2c",
                 "shasum": ""
             },
             "require": {
@@ -11344,7 +11344,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-12-06T05:14:37+00:00"
+            "time": "2020-01-08T08:45:45+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

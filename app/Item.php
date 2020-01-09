@@ -72,7 +72,7 @@ class Item extends MasterModel
 
     public function subcategory()
     {
-        return $this->belongsTo(subcategory::class);
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
     public function model()
     {
