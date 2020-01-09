@@ -15,12 +15,11 @@ class CreatePostImagesTable extends Migration
     {
         Schema::create('post_images', function (Blueprint $table) {
 
-                $table->increments('id');
-                $table->integer('post_id')->unsigned()->nullable();
-                $table->string('image', 500);
-               $table->softDeletes();
-$table->timestamps();
-
+            $table->increments('id');
+            $table->integer('post_id')->unsigned()->nullable();
+            $table->text('image');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

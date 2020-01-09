@@ -2,14 +2,13 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\Heading;
-use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use App\Nova\Metrics\Categories;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 
 class Category extends Resource
@@ -134,6 +133,6 @@ class Category extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/list.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/list.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

@@ -77,11 +77,6 @@ class SeedPosts extends Command
                     'founded_at' => $faker->dateTime()
                 ]);
             }
-
-            PostImage::create([
-                'post_id' => $post->id,
-                'image' =>  $faker->randomElement($images),
-            ]);
         }
 
         $posts = Post::get()->random($postRelatedToItems);
