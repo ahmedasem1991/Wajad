@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
+use App\SubCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,8 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
+      $sub= SubCategory::with('brands')->first();
+    return $sub->brands;
     return str_replace(' ', '', '+996 45 464 6466');
     //     $array=[];
     //     foreach(Auth()->User()->roles as $role)

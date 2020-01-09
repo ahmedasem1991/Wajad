@@ -6,6 +6,7 @@ use App\Post;
 use App\Color;
 use App\Region;
 use App\Category;
+use App\Keyword;
 use Carbon\Carbon;
 use App\SubCategory;
 use Illuminate\Http\Request;
@@ -91,6 +92,14 @@ class SearchController extends Controller
     public function searchByKeyWords(Request $request)
     {
         $keywords = $request->keywords ?? "";
+
+        $exp_keywords = explode(' ', $keywords);
+        foreach ($exp_keywords as $key){
+            $keyword = strtolower($key);
+            $found = Keyword::firstOrNew(['keyword'=>$keyword]);
+            $found->increment('searches');
+            $found->save();
+        }
 
         $posts = Post::isApproved()->isShow()->isOpen()
             ->where('title', 'like', "%$keywords%")

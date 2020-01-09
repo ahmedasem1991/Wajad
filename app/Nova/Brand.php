@@ -78,10 +78,11 @@ class Brand extends Resource
                 ->prunable()
                 ->deletable()
                 ->rules('required','dimensions:max_width=100,max_height=100'),
-            NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
-                ->placeholder('Sub Categories')
-                ->options(\App\SubCategory::all())
-                 ->rules('required'),
+                BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class),
+            // NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
+            //     ->placeholder('Sub Categories')
+            //     ->options(\App\SubCategory::all())
+            //      ->rules('required'),
              HasMany::make('Models'),
         ];
     }
