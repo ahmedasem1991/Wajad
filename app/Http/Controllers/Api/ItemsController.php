@@ -31,6 +31,8 @@ class ItemsController extends Controller
      * @bodyParam brand_id exists:brands,id required
      * @bodyParam model_id exists:models,id required
      * @bodyParam sub_category_id exists:sub_category,id required
+     * @bodyParam images array required between:1,5
+     * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
@@ -48,6 +50,8 @@ class ItemsController extends Controller
             'model_id' => ['required', 'exists:models,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
+            'images' => ['sometimes', 'array', 'between:0,5'],
+            'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
         ]);
 
         if ($validate_request->fails()) {
@@ -69,7 +73,7 @@ class ItemsController extends Controller
                 'item_id' => $item->id
             ]);
         }
-        if ($request->has('images')) {
+        if ($request->has('images') && count($request->images) > 0) {
             array_map(function ($image) use ($item) {
                 $image_name = \Str::random(15) . '.' . 'png';
                 $path = public_path('/images/items/' . $image_name);
