@@ -3,11 +3,7 @@
 namespace App\NovaCorporate;
 
 use App\Brand;
-use App\People;
 use App\Nova\Resource;
-use NovaButton\Button;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
@@ -43,7 +39,7 @@ class HiddenPost extends Resource
      * @var string
      */
     public static $group = 'Posts';
-   // public static $displayInNavigation = false;
+    // public static $displayInNavigation = false;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -57,12 +53,48 @@ class HiddenPost extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id',
+        'title',
+        'description',
+        'item_id',
+        'status',
+        'appearance_status',
+        'open_status',
+        'approval_status',
+        'reports_number',
+        'reward',
+        'owner_id',
+        'founder_id',
+        'publisher_id',
+        'publisher_type',
+        'corporate_id',
+        'losted_at',
+        'founded_at',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'brand_id',
+        'city_id',
+        'founder_name',
+        'founder_email',
+        'founder_mobile_number',
+        'founder_address',
+        'owner_name',
+        'owner_email',
+        'owner_mobile_number',
+        'owner_address',
+        'owner_releated_to_system',
+        'founder_releated_to_system',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('hidden posts')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('hidden posts')) ? true : false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -78,43 +110,45 @@ class HiddenPost extends Resource
             Text::make('Title'),
             Textarea::make('description'),
             RadioButton::make('Status')
-            ->options([
-               // 0 => 'Lost',
-                1 => 'Found',
-            ])->default(1)
-            ->hideFromIndex()
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-           
-            
-            Toggle::make('Appearance Status','appearance_status'),
+                ->options([
+                    // 0 => 'Lost',
+                    1 => 'Found',
+                ])->default(1)
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+
+            Toggle::make('Appearance Status', 'appearance_status'),
             //Toggle::make('Open Status','open_status'),
-           //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
-             //DateTime::make('Losted At')->hideFromIndex()
-             //->Rules('required_if:status,0'),
+            //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
+            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
+            //DateTime::make('Losted At')->hideFromIndex()
+            //->Rules('required_if:status,0'),
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
-             DateTime::make('Founded At')->hideFromIndex()
-             ->Rules('required_if:status,1'),
-             
-      
+            DateTime::make('Founded At')->hideFromIndex()
+                ->Rules('required_if:status,1'),
 
-             NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
-            ->placeholder('Optional Placeholder')  
-            ->options(Brand::all())
-            ->rules('required'),
-          
 
-            NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
-            ->placeholder('Optional Placeholder')    
-            ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['id','name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-            BelongsTo::make('Color','color','App\Nova\Color'),
 
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
+            NovaBelongsToDepend::make('Brand', 'brand', 'App\NovaCorporate\Brand')
+                ->placeholder('Optional Placeholder')
+                ->options(Brand::all())
+                ->rules('required'),
+
+
+            NovaBelongsToDepend::make('Model', 'model', 'App\NovaCorporate\Model')
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
+            NovaBelongsToDepend::make('Color', 'color', 'App\Nova\Color')
+                ->placeholder('Color')
+                ->options(Color::all()),
+
+            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')
             //  ->placeholder('Publisher')
             //  ->options(Auth()->User()->corporate->users),
@@ -126,32 +160,31 @@ class HiddenPost extends Resource
             //          ->get();
             //      return $user_items_with_qrcode;
             //  })->dependsOn('publisher')->nullable(),
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
+            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
             //  BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
             //  ->creationRules('required_if:status,1','same:publisher')
             //  ->updateRules('required_if:status,1')
             //  ->nullable(),
-            
 
-               Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-               
-               NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
-               ->placeholder('Select Person')
-               ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
-               ->rules('required'),
-               
-                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
-                BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+            Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
+
+            NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
+                ->placeholder('Select Person')
+                ->options(People::where('corporate_id', auth()->user()->corporate->id)->get())
+                ->rules('required'),
+
+            Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
+            BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                 ->readonly(),
-               
+
 
 
             // Password::make('Password')
             //     ->onlyOnForms()
             //     ->creationRules('required', 'string', 'min:8')
             //     ->updateRules('nullable', 'string', 'min:8'),
-                
-               
+
+
             // Button::make('PDF')
             // ->link(URL::to('receipt?p='.base64_encode($this->id)),'_blank')
             // ->style('danger'),
@@ -160,9 +193,9 @@ class HiddenPost extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-             HasMany::make('Images','images',\App\Nova\PostImage::class),
-             HasMany::make('Questions'),
-             HasMany::make('Post Requests','postrequests' ,\App\NovaCorporate\PostRequest::class)
+            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+            HasMany::make('Questions'),
+            HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
 
         ];
     }
@@ -214,21 +247,19 @@ class HiddenPost extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/hidden.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/hidden.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->isApproved()->IsHidden()
-        ->where('corporate_id',Auth()->user()->corporate->id);
+            ->where('corporate_id', Auth()->user()->corporate->id);
     }
 
     public static function authorizedToCreate(Request $request)
     {
         return false;
     }
-
-
 }

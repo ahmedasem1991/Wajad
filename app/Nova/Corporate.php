@@ -49,8 +49,22 @@ class Corporate extends Resource
      */
     public static $search = [
         'id',
+        'unique_id',
+        'name_en',
+        'name_ar',
+        'details_en',
+        'details_ar',
         'address_en',
-        'address_ar'
+        'address_ar',
+        'location',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+        'end_date',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

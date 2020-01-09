@@ -23,6 +23,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class User extends Resource
 {
@@ -53,7 +54,27 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
+        'name',
+        'email',
+        'default_distance_unit',
+        'type',
+        'status',
+        'mobile_country_id',
+        'corporate_id',
+        'city_id',
+        'posts_limitation',
+        'device_token',
+        'mobile_number',
+        'receive_emails',
+        'receive_push_notifications',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'image',
+        'remember_token',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -109,7 +130,9 @@ class User extends Resource
 
             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
 
-            BelongsTo::make('Corporate', 'corporate', 'App\Nova\Corporate')
+            NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
+                ->placeholder('Corporate')
+                ->options(Corporate::all())
                 ->creationRules('required_if:type,2')
                 ->updateRules('required_if:type,2')
                 ->nullable(),

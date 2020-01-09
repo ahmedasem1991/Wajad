@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
- 
+
 class Brand extends Resource
 {
     /**
@@ -42,6 +42,14 @@ class Brand extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

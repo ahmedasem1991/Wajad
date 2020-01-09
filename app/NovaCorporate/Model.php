@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Model extends Resource
 {
@@ -40,6 +41,15 @@ class Model extends Resource
      */
     public static $search = [
         'id',
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'brand_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -60,13 +70,16 @@ class Model extends Resource
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
-            Image::make('Model Image', 'image') 
+            Image::make('Model Image', 'image')
                 ->disk('public')
                 ->path('images/models')
                 ->prunable()
                 ->deletable(),
-             BelongsTo::make('Brand'),
-             //HasMany::make('Colors'),
+             NovaBelongsToDepend::make('Brand')
+                 ->placeholder('Brand')
+                 ->options(\App\Brand::all()),
+            //HasMany::make('Colors'),
+
         ];
     }
 

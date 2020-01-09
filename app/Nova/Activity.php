@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
 use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Activity extends Resource
 {
@@ -43,7 +44,17 @@ class Activity extends Resource
      * @var array
      */
     public static $search = [
-        'id','description'
+        'id',
+        'log_name',
+        'description',
+        'subject_id',
+        'subject_type',
+        'causer_id',
+        'causer_type',
+        'properties',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -61,7 +72,9 @@ class Activity extends Resource
             Text::make('SUBJECT TYPE'),
             // Text::make('CAUSER ID'),
             Text::make('CREATED_AT'),
-            BelongsTo::make('User'),
+            NovaBelongsToDepend::make('User')
+            ->placeholder('User')
+            ->options(\App\User::all()),
         ];
     }
 
@@ -108,7 +121,7 @@ class Activity extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
     }

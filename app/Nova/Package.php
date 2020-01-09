@@ -51,7 +51,16 @@ class Package extends Resource
         'name_en',
         'name_ar',
         'description_en',
-        'description_ar'
+        'description_ar',
+        'price',
+        'type',
+        'quantity',
+        'period',
+        'is_active',
+        'incrementally',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

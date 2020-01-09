@@ -15,10 +15,10 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
- 
+
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\ApprovalPosts;
- 
+
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class PostRequest extends Resource
@@ -50,7 +50,14 @@ class PostRequest extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id',
+        'user_id',
+        'post_id',
+        'is_request_valid',
+        'rejected_at',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -80,7 +87,7 @@ class PostRequest extends Resource
            ->hideFromIndex()
            ->exceptOnForms()
            ->nullable(),
-            
+
 
         ];
     }
@@ -133,15 +140,15 @@ class PostRequest extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-         
-        
+
+
     }
 
 

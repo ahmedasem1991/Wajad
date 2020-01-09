@@ -51,7 +51,43 @@ class OpeningPost extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id',
+        'title',
+        'description',
+        'item_id',
+        'status',
+        'appearance_status',
+        'open_status',
+        'approval_status',
+        'reports_number',
+        'reward',
+        'owner_id',
+        'founder_id',
+        'publisher_id',
+        'publisher_type',
+        'corporate_id',
+        'losted_at',
+        'founded_at',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'brand_id',
+        'city_id',
+        'founder_name',
+        'founder_email',
+        'founder_mobile_number',
+        'founder_address',
+        'owner_name',
+        'owner_email',
+        'owner_mobile_number',
+        'owner_address',
+        'owner_releated_to_system',
+        'founder_releated_to_system',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
     public static $displayInNavigation = false;
 
@@ -65,26 +101,26 @@ class OpeningPost extends Resource
     {
 
         return [
-           ID::make()->sortable(),
-           Text::make('Title'),
-           Textarea::make('description'),
-           RadioButton::make('Status')
-           ->options([
-               0 => 'Lost',
-               1 => 'Found',
-           ])->default(0), // optional
+            ID::make()->sortable(),
+            Text::make('Title'),
+            Textarea::make('description'),
+            RadioButton::make('Status')
+                ->options([
+                    0 => 'Lost',
+                    1 => 'Found',
+                ])->default(0), // optional
             Toggle::make('Appearance Status','appearance_status'),
             Toggle::make('Open Status','open_status'),
-           // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
+            // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             DateTime::make('Losted At')->hideFromIndex(),
             DateTime::make('Founded At')->hideFromIndex(),
-        //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
-        //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-        //     ->options(\App\User::all())
-        //      ->withMeta(['extraAttributes' => [
-        //         'readonly' => true,
-        //         'disabled'=> true
-        //   ]])->setAttribute( 'disabled', true),
+            //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
+            //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
+            //     ->options(\App\User::all())
+            //      ->withMeta(['extraAttributes' => [
+            //         'readonly' => true,
+            //         'disabled'=> true
+            //   ]])->setAttribute( 'disabled', true),
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly(),
             BelongsTo::make('Founder', 'founder', 'App\Nova\User')->readonly(),
             BelongsTo::make('Owner', 'owner', 'App\Nova\User')->readonly(),
@@ -118,7 +154,7 @@ class OpeningPost extends Resource
             // new PostsPeriod,
             new OpenVsClosedPosts,
             new ShowVsHiddenPosts,
-           
+
         ];
     }
 
@@ -154,16 +190,16 @@ class OpeningPost extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/open.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/open.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsOpen()->isApproved()->IsShow()
-        ->where('corporate_id',Auth()->user()->corporate->id);
-       // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
+            ->where('corporate_id',Auth()->user()->corporate->id);
+        // ->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
 

@@ -39,7 +39,11 @@ class Color extends Resource
     public static $search = [
         'id',
         'name_en',
-        'name_ar'
+        'name_ar',
+        'icon',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -58,7 +62,7 @@ class Color extends Resource
             Text::make('Color Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:6'
             ]),
-            
+
             Image::make('Icon', 'icon')
             ->creationRules([
                 'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
@@ -69,7 +73,7 @@ class Color extends Resource
             ->prunable()
             ->deletable()
             ->rules('required','dimensions:max_width=100,max_width=100'),
-             
+
         ];
     }
 
@@ -118,7 +122,7 @@ class Color extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/colors.png" style="height:22px;width:22px;margin=10px" />';
     }

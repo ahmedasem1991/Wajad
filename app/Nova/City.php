@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class City extends Resource
 {
@@ -39,6 +40,15 @@ class City extends Resource
      */
     public static $search = [
         'id',
+        'name_ar',
+        'name_en',
+        'latitude',
+        'longitude',
+        'radius',
+        'region_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -53,7 +63,9 @@ class City extends Resource
             ID::make()->sortable(),
             Text::make('City English Name', 'name_en')->rules(['required', 'min:6']),
             Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:6']),
-            BelongsTo::make('Area', 'region'),
+            NovaBelongsToDepend::make('Area', 'region')
+            ->placeholder('Area')
+            ->options(\App\City::all()),
         ];
     }
 
@@ -102,7 +114,7 @@ class City extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/city.png" style="height:22px;width:22px;margin=10px" />';
     }
