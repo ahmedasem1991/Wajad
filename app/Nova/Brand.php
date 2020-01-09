@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Category;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use App\Nova\Metrics\Brands;
 use Illuminate\Http\Request;
@@ -69,16 +70,19 @@ class Brand extends Resource
             ]),
             Textarea::make('Brand English Body', 'description_en'),
             Textarea::make('Brand Arabic Body', 'description_ar'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Brand Image', 'image')
                 ->disk('public')
                 ->path('images/brands')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_width=100'),
-            NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
-                ->placeholder('Sub Categories')
-                ->options(\App\SubCategory::all())
-                 ->rules('required'),
+                ->rules('required','dimensions:max_width=100,max_height=100'),
+                BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class),
+            // NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
+            //     ->placeholder('Sub Categories')
+            //     ->options(\App\SubCategory::all())
+            //      ->rules('required'),
              HasMany::make('Models'),
         ];
     }

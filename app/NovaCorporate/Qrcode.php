@@ -3,6 +3,7 @@
 namespace App\NovaCorporate;
 
 use App\User;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -80,11 +81,11 @@ class Qrcode extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
@@ -94,7 +95,9 @@ class Qrcode extends Resource
                 ->showUrl(true)
                 ->qrCodeRouteName(route('api.scan-qrcode-api'))
                 ->hideWhenUpdating(),
-                Image::make('QRCode Images', 'image')
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
+            Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()

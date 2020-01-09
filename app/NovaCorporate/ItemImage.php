@@ -2,6 +2,7 @@
 
 namespace App\NovaCorporate;
 use App\Nova\Metrics\ItemImages;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use App\Nova\Resource;
@@ -59,16 +60,17 @@ class ItemImage extends Resource
     {
         return [
             ID::make()->sortable(),
-
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Image', 'image')
-            ->creationRules([
-                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])
-            ->disk('public')
-            ->path('images/items')
-            ->disableDownload()
-            ->prunable()
-            ->deletable(),
+                ->creationRules([
+                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+                ])
+                ->disk('public')
+                ->path('images/items')
+                ->disableDownload()
+                ->prunable()
+                ->deletable(),
 
             NovaBelongsToDepend::make('Item', 'item', Item::class)
                 ->placeholder('Item')
@@ -87,7 +89,7 @@ class ItemImage extends Resource
     public function cards(Request $request)
     {
         return [
-          //  new ItemImages()
+            //  new ItemImages()
         ];
     }
 

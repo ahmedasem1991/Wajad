@@ -6,6 +6,7 @@ use App\Nova\Category;
 use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Models;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -69,6 +70,8 @@ class Model extends Resource
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Model Image', 'image')
                 ->disk('public')
                 ->path('images/models')
@@ -77,22 +80,20 @@ class Model extends Resource
                 ->rules('required','dimensions:max_width=100,max_width=100'),
           
           
-                // NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-                // ->placeholder('Select Sub category')
-                // ->options(\App\SubCategory::all())
-                // ->rules('required'),
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get())
+                ->rules('required'),
 
 
-            // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-            //     ->placeholder('Select Brand')
-            //     ->optionsResolve(function ($subcategory) {
-            //         return $subcategory->brands()->get(['id', 'name_en']);
-            //     })
-            //     ->rules('required')
-            //     ->dependsOn('Subcategory'),
-            BelongsTo::make('Brand'),
-           // ->placeholder('Brand')
-            // ->options(\App\Brand::all()),
+            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+                ->rules('required')
+                ->dependsOn('Subcategory'),
+           
             HasMany::make('Colors'),
         ];
     }

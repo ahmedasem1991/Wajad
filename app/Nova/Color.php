@@ -6,6 +6,7 @@ use App\Nova\Category;
 use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Colors;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -62,7 +63,8 @@ class Color extends Resource
             Text::make('Color Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:6'
             ]),
-
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Icon', 'icon')
             ->creationRules([
                 'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
@@ -72,7 +74,7 @@ class Color extends Resource
             ->disableDownload()
             ->prunable()
             ->deletable()
-            ->rules('required','dimensions:max_width=100,max_width=100'),
+            ->rules('required','dimensions:max_width=100,max_height=100'),
 
         ];
     }

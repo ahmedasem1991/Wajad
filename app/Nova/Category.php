@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Heading;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -74,12 +75,14 @@ class Category extends Resource
             ]),
             Textarea::make('Category English Body', 'description_en'),
             Textarea::make('Category Arabic Body', 'description_ar'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Category Image', 'image')
                 ->disk('public')
                 ->path('images/categories')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_width=100'),
+                ->rules('required','dimensions:max_width=100,max_height=100'),
              HasMany::make('Subcategories'),
         ];
     }

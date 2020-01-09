@@ -1,6 +1,5 @@
- 
-    <div style="float:right;">
-              <div class="row">
+<div  style="float:right; text-align:right;">
+      <div class="row">
                 <div class="col-12">
                   <style type="text/css">
                     .tg  {border-collapse:collapse;border-spacing:0;}
@@ -10,7 +9,8 @@
                     .tg .tg-0w69{border-color:#ffffff;text-align:right;vertical-align:middle}
                     .tg .tg-ofj5{border-color:#ffffff;text-align:right;vertical-align:top}
                     @media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
-                    <div class="tg-wrap"><table class="tg">
+                    <div class="tg-wrap">
+                      <table class="tg">
                       <tr>
                         <th class="tg-0w69">التوقيع</th>
                         <th class="tg-zv4m"></th>

@@ -17,7 +17,7 @@ use PayPal\Api\Amount;
 use App\GenerateQrcode;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
- 
+
 use PayPal\Api\WebProfile;
 use PayPal\Api\InputFields;
 use PayPal\Api\Transaction;
@@ -31,9 +31,9 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
+use niklasravnsborg\LaravelPdf\PdfWrapper;
 use App\Notifications\BroadcastNotification;
-use niklasravnsborg\LaravelPdf\Pdf as PDF;   
-use niklasravnsborg\LaravelPdf\PdfWrapper as PdfWrapper;  
+use niklasravnsborg\LaravelPdf\Pdf as PDF;
 
 
 
@@ -47,16 +47,9 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        // dd($post);
-        $pdf= new Pdf(View::make('Pdf.receipt', compact('post'))->render() );
-        return $pdf->stream('document.pdf');
-
-
-        // $pdf = PdfWrapper::loadView('Pdf.receipt',  ['test' =>$post]);
-
-        // $pdf = App::make('dompdf.wrapper');
-        // $pdf->loadView('Pdf.receipt', compact('post'));
-        // return $pdf->stream();
+        $pdf = (new PdfWrapper)->loadView('Pdf.receipt',['post'=>$post]);
+        // return $pdf->stream('document.pdf');
+        return view('Pdf.receipt',compact('post'));
     }
 
     public function qrcodepdf(Request $request)
