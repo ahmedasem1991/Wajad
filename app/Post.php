@@ -88,6 +88,18 @@ class Post extends MasterModel
         'open' => 1
     ];
 
+    public function getImages()
+    {
+        $images = [];
+
+        foreach ($this->images as $index => $image) {
+            $images['id'] = $index;
+            $images['image'] = $image;
+        }
+
+        return [$images];
+    }
+
     /**
      * Define The Relation Of The Item with Post
      */
