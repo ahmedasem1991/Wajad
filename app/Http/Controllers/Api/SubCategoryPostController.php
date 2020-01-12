@@ -86,7 +86,7 @@ class SubCategoryPostController extends Controller
      * "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
      *},
      *"date": "2019-12-13 00:00:00",
-     *"images": []
+     *"images": [ "/images/image.png", "/images/image.png"]
      * },
      * "sub_category": {
      *   "id": 5,
@@ -106,7 +106,7 @@ class SubCategoryPostController extends Controller
      *       "icon": "images\/colors\/red.png"
      *  },
      *"date": "2019-12-08 15:40:37",
-     *"images": [],
+     *"images": [ "/images/image.png", "/images/image.png"],
      * "questions": [
      *{
      *"id": 1,
