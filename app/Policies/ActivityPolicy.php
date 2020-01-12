@@ -18,9 +18,9 @@ class ActivityPolicy
      */
     public function viewAny(User $user)
     {
-        if (Auth()->User()->isAdmin()) {
-            return $user->hasPermissionTo('veiw activities');
-        }
+       // if (Auth()->User()->isAdmin()) {
+           return $user->hasPermissionTo('activities');
+        //}
     }
 
     /**

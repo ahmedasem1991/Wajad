@@ -111,6 +111,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
 
+       
         if (Auth()->user()->isCorporateAdmin()) {
             //  copy(config_path() . "/novapermissionsCorporate.php", config_path() . "/novapermissions.php");
             return [
@@ -118,6 +119,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 // new \Pktharindu\NovaPermissions\NovaPermissions(),
                 \Pktharindu\NovaPermissions\NovaPermissions::make()
                     ->roleResource(\App\NovaCorporate\Role::class),
+                   // new \Bolechen\NovaActivitylog\NovaActivitylog(),
             ];
         }
 
@@ -130,6 +132,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 //new \Pktharindu\NovaPermissions\NovaPermissions(),
                 \Pktharindu\NovaPermissions\NovaPermissions::make()
                     ->roleResource(\App\Nova\Role::class),
+                   // new \Bolechen\NovaActivitylog\NovaActivitylog(),
             ];
         }
     }

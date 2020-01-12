@@ -70,7 +70,7 @@ class Activity extends Resource
             Text::make('DESCRIPTION'),
             Text::make('SUBJECT ID'),
             Text::make('SUBJECT TYPE'),
-            // Text::make('CAUSER ID'),
+            Text::make('USER ID','causer_id'),
             Text::make('CREATED_AT'),
             NovaBelongsToDepend::make('User')
             ->placeholder('User')

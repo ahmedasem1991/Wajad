@@ -2,6 +2,7 @@
 
 namespace App\Nova\Metrics;
 
+use App\ActiveLogin;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Trend;
 use App\User;
@@ -16,7 +17,7 @@ class UsersActivity extends Trend
      */
     public function calculate(Request $request)
     {
-        return $this->countByDays($request, User::class);
+        return $this->countByDays($request, ActiveLogin::class);
     }
 
     /**

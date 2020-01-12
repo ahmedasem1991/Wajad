@@ -19,7 +19,7 @@ class Item extends MasterModel
 
     protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images'];
 
-    protected $casts =[
+    protected $casts = [
         'images' => 'array'
     ];
 
