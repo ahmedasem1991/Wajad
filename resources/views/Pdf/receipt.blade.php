@@ -21,7 +21,7 @@
         </header><br><br>
         <div id="main" dir="rtl" class="row">
             أقر أنا أ/
-        <b> {{$post->owner->name}} </b>  
+        <b> {{$post->owner->name ?? " "}} </b>  
             فى يوم ................. الموافق ................. <br> <br>
             بأنى استلمت العنصر المفقود الخاص بي 
         <b> {{$post->title}}</b>  <br> <br>
