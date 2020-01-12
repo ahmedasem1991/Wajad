@@ -112,7 +112,7 @@ class Item extends Resource
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
 
-            MediaField::make('Post Image', 'images')->listing(),
+            MediaField::make('Item Image', 'images')->listing(),
 
             HasOne::make('Qrcode', 'qrcode', Qrcode::class),
         ];

@@ -237,4 +237,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(DeviceType::class, 'user_id');
     }
+
+    public function activeLogin()
+    {
+        return $this->hasMany(ActiveLogin::class, 'user_id');
+    }
 }
