@@ -58,7 +58,11 @@ class Keyword extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new \Tightenco\NovaGoogleAnalytics\PageViewsMetric,
+            new \Tightenco\NovaGoogleAnalytics\VisitorsMetric,
+            new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard,
+        ];
     }
 
     /**
