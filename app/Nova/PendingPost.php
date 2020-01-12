@@ -23,6 +23,7 @@ use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -131,6 +132,30 @@ class PendingPost extends Resource
                 ])->default(0), // optional
             Toggle::make('Appearance Status', 'appearance_status'),
 
+            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+            ->placeholder('Select Sub category')
+            ->options(\App\SubCategory::with('brands')->get())
+            ->rules('required'),
+
+
+        NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            ->placeholder('Select Brand')
+            ->optionsResolve(function ($subcategory) {
+                return $subcategory->brands;
+            })
+            ->rules('required')
+            ->dependsOn('Subcategory'),
+
+
+        NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            ->placeholder('Optional Placeholder')
+            ->optionsResolve(function ($brand) {
+                return $brand->models()->get(['id', 'name_en']);
+            })
+            ->rules('required')
+            ->dependsOn('Brand'),
+        BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
@@ -227,14 +252,29 @@ class PendingPost extends Resource
                 ->dependsOn('founder_releated_to_system', 1)
                 ->rules('required_if:founder_releated_to_system,1')
                 ->readonly(),
+                MediaField::make('Item Image', 'images')->listing(),
 
-            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+           // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
 
         ];
     }
 
+
+    public static function fill(NovaRequest $request, $model)
+    {
+        if ($request->input('owner_releated_to_system')) {
+            $request->offsetUnset('owner_releated_to_system');
+        }
+
+        if ($request->input('founder_releated_to_system')) {
+            $request->offsetUnset('founder_releated_to_system');
+        }
+
+
+        return parent::fill($request, $model);
+    }
     /**
      * Get the cards available for the request.
      *
