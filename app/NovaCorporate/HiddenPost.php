@@ -3,7 +3,10 @@
 namespace App\NovaCorporate;
 
 use App\Brand;
+use App\People;
 use App\Nova\Resource;
+use Naif\Toggle\Toggle;
+use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use App\NovaCorporate\Metrics\PostsCount;
+use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\OpenVsClosedPosts;
@@ -118,6 +122,32 @@ class HiddenPost extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
+                
+                
+            //     NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+            //     ->placeholder('Select Sub category')
+            //     ->options(\App\SubCategory::with('brands')->get()),
+            //    // ->rules('required'),
+
+
+            // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            //     ->placeholder('Select Brand')
+            //     ->optionsResolve(function ($subcategory) {
+            //         return $subcategory->brands;
+            //     })
+            //   //  ->rules('required')
+            //     ->dependsOn('Subcategory'),
+
+
+            // NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
+            //     ->placeholder('Optional Placeholder')
+            //     ->optionsResolve(function ($brand) {
+            //         return $brand->models()->get(['id', 'name_en']);
+            //     })
+            //   //  ->rules('required')
+            //     ->dependsOn('Brand'),
+            // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+
 
             Toggle::make('Appearance Status', 'appearance_status'),
             //Toggle::make('Open Status','open_status'),
@@ -131,22 +161,7 @@ class HiddenPost extends Resource
 
 
 
-            NovaBelongsToDepend::make('Brand', 'brand', 'App\NovaCorporate\Brand')
-                ->placeholder('Optional Placeholder')
-                ->options(Brand::all())
-                ->rules('required'),
-
-
-            NovaBelongsToDepend::make('Model', 'model', 'App\NovaCorporate\Model')
-                ->placeholder('Optional Placeholder')
-                ->optionsResolve(function ($brand) {
-                    return $brand->models()->get(['id', 'name_en']);
-                })
-                ->rules('required')
-                ->dependsOn('Brand'),
-            NovaBelongsToDepend::make('Color', 'color', 'App\Nova\Color')
-                ->placeholder('Color')
-                ->options(Color::all()),
+          
 
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')
@@ -193,7 +208,9 @@ class HiddenPost extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+           
+           // MediaField::make('Item Image', 'images')->listing(),
+            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
 

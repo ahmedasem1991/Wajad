@@ -2,39 +2,36 @@
 
 namespace App\NovaCorporate;
 
-use App\Nova\Metrics\PostImages;
+use App\Nova\Category;
+use App\Nova\Metrics\Brands;
+use App\Nova\Metrics\Colors;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Resource;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class PostImage extends Resource
+class Color extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\PostImage';
+    public static $model = 'App\Color';
+    public static $group = 'Categories';
     public static $displayInNavigation = false;
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Posts';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
@@ -43,8 +40,9 @@ class PostImage extends Resource
      */
     public static $search = [
         'id',
-        'post_id',
-        'image',
+        'name_en',
+        'name_ar',
+        'icon',
         'deleted_at',
         'created_at',
         'updated_at',
@@ -60,24 +58,28 @@ class PostImage extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Color English Name', 'name_en')->creationRules([
+                'required', 'min:6'
+            ]),
+            Text::make('Color Arabic Name', 'name_ar')->creationRules([
+                'required', 'min:6'
+            ]),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Post Image', 'image')
-                ->creationRules([
-                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->updateRules([
-                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->disk('public')
-                ->path('images/posts'),
+            Image::make('Icon', 'icon')
+            ->creationRules([
+                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
+            ])
+            ->disk('public')
+            ->path('images/colors')
+            ->disableDownload()
+            ->prunable()
+            ->deletable()
+            ->rules('required','dimensions:max_width=100,max_height=100'),
 
-
-            NovaBelongsToDepend::make('Post', 'Post', \App\NovaCorporate\Post::class)
-                ->placeholder('Post')
-                ->options(\App\Post::all())
         ];
     }
+
     /**
      * Get the cards available for the request.
      *
@@ -87,7 +89,7 @@ class PostImage extends Resource
     public function cards(Request $request)
     {
         return [
-            //   new PostImages()
+            new Colors()
         ];
     }
 
@@ -122,5 +124,9 @@ class PostImage extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon()
+    {
+    return  '<img class="sidebar-icon" src="/images/icons/colors.png" style="height:22px;width:22px;margin=10px" />';
     }
 }
