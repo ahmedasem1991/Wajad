@@ -33,7 +33,7 @@ class AnswerController extends Controller
     public function  __invoke(Request $request, Post $post)
     {
         $validate_request = Validator::make($request->all(), [
-            'data' => ['required', 'array', 'size:3'],
+            'data' => ['required', 'array', 'between:1,3'],
             'data.*.answers' => ['required', 'min:20', 'max:500'],
             'data.*.question_id' => ['required', 'exists:questions,id'],
         ]);

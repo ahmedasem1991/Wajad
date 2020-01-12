@@ -23,7 +23,7 @@ class PostResource extends JsonResource
             'brand' => new BrandResource($this->brand),
             'color' => new ColorResource($this->color),
             'date' => $this->created_at ? $this->created_at->toDateTimeString() : null,
-            'images' =>  $this->images,
+            'images' => $this->images ?? [],
             'questions' =>  QuestionResource::collection($this->questions),
             'claimers' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
