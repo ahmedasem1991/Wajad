@@ -21,7 +21,7 @@ class UserPostController extends Controller
      * User Posts
      * @urlParam type required lost or found. Example:found.
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      *  {
      * "data": [
      *  {
@@ -67,7 +67,11 @@ class UserPostController extends Controller
      * "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
      *},
      *"date": "2019-12-13 00:00:00",
-       *"images": [],
+     *"images": [
+           "/images/image.png",
+           "/images/image.png",
+           "/images/image.png",
+       ],
      * "questions": [
      *{
      *"id": 1,
