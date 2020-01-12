@@ -42,8 +42,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/facade/ignition-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fideloper/proxy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/filp/whoops" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/firebase/php-jwt" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/genealabs/nova-map-marker-field" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/apiclient-services" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/auth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/graham-campbell/manager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/gregoriohc/laravel-nova-theme-responsive" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
@@ -64,6 +68,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maatwebsite/excel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maatwebsite/laravel-nova-excel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/madewithlove/illuminate-psr-cache-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/manmohanjit/nova-belongs-to-dependency" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/marianvlad/nova-env-card" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/markbaker/complex" />
@@ -119,6 +124,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pktharindu/nova-permissions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/predis/predis" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
@@ -159,6 +165,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/smartappco/google-maps" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/smartappco/qrcode-generator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-activitylog" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-analytics" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-permission" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-query-builder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/once" />
@@ -196,6 +203,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tightenco/nova-google-analytics" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/titasgailius/search-relations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tymon/jwt-auth" />

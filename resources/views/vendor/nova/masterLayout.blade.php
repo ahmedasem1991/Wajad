@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full font-sans antialiased">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+   {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-M6HNJBTMT6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-M6HNJBTMT6');
+    </script>--}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=1280">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,6 +26,16 @@
     @foreach(Nova::availableStyles(request()) as $name => $path)
         <link rel="stylesheet" href="/nova-api/styles/{{ $name }}">
     @endforeach
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156033330-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-156033330-1');
+    </script>
 </head>
 <body class="min-w-site bg-40 text-black min-h-full">
 <div id="nova">
