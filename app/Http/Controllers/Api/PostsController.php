@@ -156,7 +156,7 @@ class PostsController extends Controller
         if ($request->has('images') && count($request->images) > 0) {
             $post_images = [];
 
-            array_map(function ($image) {
+            array_map(function ($image) use ($post_images) {
                 $image_name = Str::random(15) . '.' . 'png';
                 $path = public_path('/images//' . $image_name);
                 Image::make(file_get_contents($image))->save($path);
@@ -452,9 +452,9 @@ class PostsController extends Controller
             $post->update($request->all());
 
             if ($request->has('images') && count($request->images) > 0) {
-                $post_images= [];
+                $post_images = [];
 
-                array_map(function ($image) {
+                array_map(function ($image) use ($post_images) {
                     $image_name = Str::random(15) . '.' . 'png';
                     $path = public_path('/images//' . $image_name);
                     Image::make(file_get_contents($image))->save($path);

@@ -38,17 +38,6 @@ class Item extends MasterModel
     ];
     protected $images_path = "/images/items/";
 
-    public function getImages()
-    {
-        $images = [];
-
-        foreach ($this->images as $index => $image) {
-            $images['id'] = $index;
-            $images['image'] = $image;
-        }
-
-        return [$images];
-    }
     /**
      * Define Owner OF The Item
      *
