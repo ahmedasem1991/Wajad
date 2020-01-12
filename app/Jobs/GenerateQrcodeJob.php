@@ -50,7 +50,9 @@ class GenerateQrcodeJob implements ShouldQueue
            $ImageName= time().str_random(20).'.png';
            $Url=$this->id.time().str_random(20);
             \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
-            ->format('png')->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.3, true)->size(2000)
+            ->format('png')
+            ->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.1, true)
+            ->size(2000)
             ->generate(env('API_URL').'/scan-qr-code/'.$Url,
             public_path('images/qrcodes/'.$ImageName));
             Qrcode::create([
