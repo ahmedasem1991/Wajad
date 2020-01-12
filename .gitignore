@@ -17,5 +17,5 @@ composer.lock
 # /public/images
 resources/views/apidoc/*
 resources/docs/*
-wajad.log
+worker.log
 /.idea
