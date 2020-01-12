@@ -47,29 +47,22 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $pdf = (new PdfWrapper)->loadView('Pdf.receipt',['post'=>$post]);
+        $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
         return $pdf->stream('document.pdf');
-        // return view('Pdf.receipt',compact('post'));
     }
 
     public function qrcodepdf(Request $request)
     {
         $models =  session()->get('models');
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
-        $pdf->loadView('Pdf.qrcode', compact('models'));
+        $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
         return $pdf->download(now() . '_QR_CODE.pdf');
     }
-
 
     public function assignqrcodepdf(Request $request)
     {
         $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
         logger($assignqrcode);
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('Pdf.assignqrcode', compact('assignqrcode'));
-
-
-        return $pdf->stream();
+        $pdf = (new PdfWrapper)->loadView('Pdf.assignqrcode', ['assignqrcode' => $assignqrcode]);
+        return $pdf->stream('document.pdf');      
     }
 }

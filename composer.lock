@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9a95631f4d14402e5fe17135478832c",
+    "content-hash": "2882107bcb532a7172984adae3e3bce9",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -379,16 +379,16 @@
         },
         {
             "name": "bolechen/nova-activitylog",
-            "version": "v0.1.7",
+            "version": "v0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bolechen/nova-activitylog.git",
-                "reference": "e3547ada38a3ad263a5db82b975ab4769bf987fa"
+                "reference": "f7f3f4348f46b2b25fbf78a8abd2b224034c45a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bolechen/nova-activitylog/zipball/e3547ada38a3ad263a5db82b975ab4769bf987fa",
-                "reference": "e3547ada38a3ad263a5db82b975ab4769bf987fa",
+                "url": "https://api.github.com/repos/bolechen/nova-activitylog/zipball/f7f3f4348f46b2b25fbf78a8abd2b224034c45a7",
+                "reference": "f7f3f4348f46b2b25fbf78a8abd2b224034c45a7",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
                 "log",
                 "nova"
             ],
-            "time": "2019-11-06T00:51:13+00:00"
+            "time": "2020-01-09T11:08:17+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -529,6 +529,50 @@
                 "websocket"
             ],
             "time": "2017-12-12T00:49:31+00:00"
+        },
+        {
+            "name": "classic-o/nova-media-library",
+            "version": "0.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/classic-o/nova-media-library.git",
+                "reference": "873cb09990b9b179093ef746db550c297b40cf75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/classic-o/nova-media-library/zipball/873cb09990b9b179093ef746db550c297b40cf75",
+                "reference": "873cb09990b9b179093ef746db550c297b40cf75",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "^2.4",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ClassicO\\NovaMediaLibrary\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ClassicO\\NovaMediaLibrary\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Tool and field that will let you managing files and add them to the posts",
+            "keywords": [
+                "gallery",
+                "laravel",
+                "media",
+                "nova"
+            ],
+            "time": "2019-12-16T19:47:33+00:00"
         },
         {
             "name": "clue/buzz-react",
@@ -3000,7 +3044,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-                "reference": "f56a30dbb82aa98ff049502a67f9190768ae41f8"
+                "reference": "b3dba5c742507977c346ecf74e2924fc918b7c07"
             },
             "require": {
                 "cakephp/chronos": "^1.0",
@@ -3580,8 +3624,8 @@
             "authors": [
                 {
                     "name": "Marian Gabriel",
-                    "role": "Developer",
-                    "email": "vladmariang@gmail.com"
+                    "email": "vladmariang@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "A Laravel Nova card for editing .env file .",
@@ -7494,29 +7538,30 @@
         },
         {
             "name": "spatie/image",
-            "version": "1.5.2",
+            "version": "1.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "d4cb6afff1b98fd6e17396d91e0e584c3d91bb23"
+                "reference": "9e36dcc1c5da4e8756a4fd00228342a9c9953f4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/d4cb6afff1b98fd6e17396d91e0e584c3d91bb23",
-                "reference": "d4cb6afff1b98fd6e17396d91e0e584c3d91bb23",
+                "url": "https://api.github.com/repos/spatie/image/zipball/9e36dcc1c5da4e8756a4fd00228342a9c9953f4b",
+                "reference": "9e36dcc1c5da4e8756a4fd00228342a9c9953f4b",
                 "shasum": ""
             },
             "require": {
-                "league/glide": "^1.2",
+                "ext-exif": "*",
+                "league/glide": "^1.4",
                 "php": "^7.0",
                 "spatie/image-optimizer": "^1.0",
                 "spatie/temporary-directory": "^1.0.0",
-                "symfony/process": "^3.0|^4.0"
+                "symfony/process": "^3.0|^4.0|^5.0"
             },
             "require-dev": {
                 "larapack/dd": "^1.1",
                 "phpunit/phpunit": "^6.0|^7.0",
-                "symfony/var-dumper": "^3.2"
+                "symfony/var-dumper": "^3.2|^5.0"
             },
             "type": "library",
             "autoload": {
@@ -7542,7 +7587,7 @@
                 "image",
                 "spatie"
             ],
-            "time": "2018-05-05T21:44:52+00:00"
+            "time": "2019-11-23T17:56:34+00:00"
         },
         {
             "name": "spatie/image-optimizer",
@@ -7869,9 +7914,9 @@
             "authors": [
                 {
                     "name": "Alex Vanderbist",
-                    "role": "Developer",
                     "email": "alex@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "Easily build Eloquent queries from API requests",
@@ -7919,9 +7964,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
-                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "A magic memoization function",
@@ -7937,24 +7982,24 @@
         },
         {
             "name": "spatie/pdf-to-image",
-            "version": "1.2.2",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/pdf-to-image.git",
-                "reference": "9a5cb264a99e87e010c65d4ece03b51f821d55bd"
+                "reference": "22a580e03550c95ce810ad430e3c44d2f7a1c75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/9a5cb264a99e87e010c65d4ece03b51f821d55bd",
-                "reference": "9a5cb264a99e87e010c65d4ece03b51f821d55bd",
+                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/22a580e03550c95ce810ad430e3c44d2f7a1c75a",
+                "reference": "22a580e03550c95ce810ad430e3c44d2f7a1c75a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.0"
+                "ext-imagick": "*",
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*",
-                "scrutinizer/ocular": "~1.1"
+                "phpunit/phpunit": "^6.2"
             },
             "type": "library",
             "autoload": {
@@ -7983,7 +8028,7 @@
                 "pdf-to-image",
                 "spatie"
             ],
-            "time": "2016-12-14T15:37:00+00:00"
+            "time": "2019-07-31T06:46:19+00:00"
         },
         {
             "name": "spatie/string",
@@ -10511,9 +10556,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
-                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondco.de"
+                    "homepage": "https://beyondco.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Symfony Var-Dump Server for Laravel",
@@ -11059,8 +11104,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",

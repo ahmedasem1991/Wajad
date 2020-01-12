@@ -17,7 +17,11 @@ class Item extends MasterModel
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id'];
+    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images'];
+
+    protected $casts = [
+        'images' => 'array'
+    ];
 
     /**
      * Define Items Status Const
@@ -34,6 +38,17 @@ class Item extends MasterModel
     ];
     protected $images_path = "/images/items/";
 
+    public function getImages()
+    {
+        $images = [];
+
+        foreach ($this->images as $index => $image) {
+            $images['id'] = $index;
+            $images['image'] = $image;
+        }
+
+        return [$images];
+    }
     /**
      * Define Owner OF The Item
      *

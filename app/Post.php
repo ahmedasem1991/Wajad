@@ -36,6 +36,7 @@ class Post extends MasterModel
         'appearance_status',
         'brand_id',
         'city_id',
+        'images',
         'reward'
     ];
 
@@ -44,7 +45,8 @@ class Post extends MasterModel
     protected $casts = [
         'losted_at' => 'datetime',
         'founded_at' => 'datetime',
-        'end_date' => 'datetime'
+        'end_date' => 'datetime',
+        'images' => 'array'
     ];
 
     const APPROVALSTATUS = [
@@ -85,6 +87,18 @@ class Post extends MasterModel
         'closed' => 0,
         'open' => 1
     ];
+
+    public function getImages()
+    {
+        $images = [];
+
+        foreach ($this->images as $index => $image) {
+            $images['id'] = $index;
+            $images['image'] = $image;
+        }
+
+        return [$images];
+    }
 
     /**
      * Define The Relation Of The Item with Post
@@ -165,15 +179,11 @@ class Post extends MasterModel
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+
     /**
-     * Images Of Post"
-     */
-    public function images()
-    {
-        return $this->hasMany(PostImage::class);
-    }
-    /**
-     * Images Of Report"
+     *
+     * Post Reports
+     *
      */
     public function reports()
     {
@@ -341,9 +351,9 @@ class Post extends MasterModel
 
     public function ended()
     {
-        return ($this->end_date < Carbon::now()) ? true:false;
+        return ($this->end_date < Carbon::now()) ? true :  false;
     }
- 
+
     // public function getOwnerReleatedToSystemAttribute($value)
     // {
     //     if($value==1)
