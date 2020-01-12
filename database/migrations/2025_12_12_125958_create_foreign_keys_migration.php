@@ -53,10 +53,7 @@ class CreateForeignKeysMigration extends Migration
             $table->foreign('post_request_id')->references('id')->on('post_requests')->onDelete('SET NULL');
         });
 
-        Schema::table('item_images', function (Blueprint $table) {
-            $table->engine = "InnoDB";
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('CASCADE');
-        });
+
 
         Schema::table('user_verifications', function (Blueprint $table) {
             $table->engine = "InnoDB";
@@ -139,10 +136,7 @@ class CreateForeignKeysMigration extends Migration
             $table->foreign('package_id')->references('id')->on('packages');
         });
 
-        Schema::table('post_images', function (Blueprint $table){
-            $table->engine = "InnoDB";
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('SET NULL');
-        });
+
 
         Schema::table('post_requests', function (Blueprint $table){
             $table->engine = "InnoDB";
