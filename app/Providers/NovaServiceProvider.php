@@ -71,6 +71,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         $Offices = WajadOffice::all();
         if (Auth()->user()->isAdmin()) {
             return [
+                new \Tightenco\NovaGoogleAnalytics\PageViewsMetric,
+                new \Tightenco\NovaGoogleAnalytics\VisitorsMetric,
+                new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard,
                 new UsersActivity,
                 new UsersTypes,
                 new UsersStatus,
