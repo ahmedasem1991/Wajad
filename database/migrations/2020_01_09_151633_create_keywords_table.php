@@ -16,7 +16,7 @@ class CreateKeywordsTable extends Migration
         Schema::create('keywords', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('keyword')->unique();
-            $table->bigInteger('searches');
+            $table->bigInteger('searches')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
