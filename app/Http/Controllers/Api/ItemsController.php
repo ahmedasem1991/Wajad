@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Item;
 use App\Qrcode;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use App\Exceptions\Api\ApiException;
@@ -74,14 +75,20 @@ class ItemsController extends Controller
             ]);
         }
         if ($request->has('images') && count($request->images) > 0) {
-            array_map(function ($image) use ($item) {
-                $image_name = \Str::random(15) . '.' . 'png';
-                $path = public_path('/images/items/' . $image_name);
+            $item_images = [];
+
+            array_map(function ($image) use ($item_images) {
+                $image_name = Str::random(15) . '.' . 'png';
+                $path = public_path('/images//' . $image_name);
                 Image::make(file_get_contents($image))->save($path);
-                $item->images()->create([
-                    'image' =>   'images/items/' . $image_name
-                ]);
+                array_push($item_images, '/images//' . $image_name);
             }, $request->images);
+
+            $item->fill([
+                'images' => $item_images
+            ]);
+
+            $item->save();
         }
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.item')]))->addStatusCode(201);
@@ -211,16 +218,18 @@ class ItemsController extends Controller
             $item->update($request->all());
 
             if ($request->has('images') && count($request->images) > 0) {
-                $item->images()->delete();
-                array_map(function ($image) use ($item, $request) {
-                    $image_name = \Str::random(15) . '.' . 'png';
-                    $path = public_path('/images/items/' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
+                $item_images = [];
 
-                    $item->images()->create([
-                        'image' =>   'images/items/' . $image_name
-                    ]);
+                array_map(function ($image) use ($item_images) {
+                    $image_name = Str::random(15) . '.' . 'png';
+                    $path = public_path('/images//' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+                    array_push($item_images, '/images//' . $image_name);
                 }, $request->images);
+
+                $item->update([
+                    'images' => $item_images
+                ]);
             }
 
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
