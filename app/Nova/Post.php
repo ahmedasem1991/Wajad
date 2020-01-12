@@ -144,6 +144,29 @@ class Post extends Resource
                 ->rules('required'), // optional
 
 
+            //     NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+            //     ->placeholder('Select Sub category')
+            //     ->options(\App\SubCategory::with('brands')->get())
+            //     ->rules('required'),
+
+
+            // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            //     ->placeholder('Select Brand')
+            //     ->optionsResolve(function ($subcategory) {
+            //         return $subcategory->brands;
+            //     })
+            //     ->rules('required')
+            //     ->dependsOn('Subcategory'),
+
+
+            // NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            //     ->placeholder('Optional Placeholder')
+            //     ->optionsResolve(function ($brand) {
+            //         return $brand->models()->get(['id', 'name_en']);
+            //     })
+            //     ->rules('required')
+            //     ->dependsOn('Brand'),
+            // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()

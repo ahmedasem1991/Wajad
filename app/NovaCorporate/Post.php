@@ -140,20 +140,29 @@ class Post extends Resource
                 // ->hideWhenCreating()
                 // ->hideWhenUpdating(),
 
-            //     NovaBelongsToDepend::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
-            //     ->placeholder('Optional Placeholder')
-            //     ->options(Brand::all())
-            //     ->rules('required'),
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get())
+                ->rules('required'),
 
 
-            // NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
-            //     ->placeholder('Optional Placeholder')
-            //     ->optionsResolve(function ($brand) {
-            //         return $brand->models()->get(['id', 'name_en']);
-            //     })
-            //     ->rules('required')
-            //     ->dependsOn('Brand'),
-            // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+                ->rules('required')
+                ->dependsOn('Subcategory'),
+
+
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
+            BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
             Toggle::make('Open Status', 'open_status')
             // ->hideWhenCreating()
