@@ -33,6 +33,8 @@ class Keyword extends Resource
         'id', 'keyword','searches'
     ];
 
+    public static $group = 'Resources';
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -90,5 +92,10 @@ class Keyword extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    public static function icon()
+    {
+        return  '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
     }
 }
