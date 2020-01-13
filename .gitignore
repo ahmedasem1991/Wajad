@@ -19,3 +19,4 @@ resources/views/apidoc/*
 resources/docs/*
 worker.log
 /.idea
+/ttfontdata
