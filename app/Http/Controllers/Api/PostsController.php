@@ -163,9 +163,9 @@ class PostsController extends Controller
                 array_push($post_images, '/images//' . $image_name);
             }, $request->images);
 
-            $post->fill([
+            dd($post->fill([
                 'images' => $post_images
-            ]);
+            ]));
 
             $post->save();
         }
