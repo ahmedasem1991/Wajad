@@ -483,23 +483,29 @@ class SeedCategories extends Command
                 'name_ar' => 'اخرى',
                 'icon' => 'images/profile/default-profile.png',
                 'sub_categories' => [
-                    'name_en' => 'Others',
-                    'name_ar' => 'اخرى',
-                    'icon' => 'images/posts/post7.jpg',
-                    'category_id' => 12,
-                    'brands' => [
+                    [
                         'name_en' => 'Others',
                         'name_ar' => 'اخرى',
-                        'image' => 'images/posts/post6.jpg',
-                        'models' => [
-                            'name_en' => 'Others',
-                            'name_ar' => 'اخرى',
-                            'image' => 'images/posts/post6.jpg',
-                            'brand_id' => 4,
+                        'icon' => 'images/posts/post7.jpg',
+                        'category_id' => 12,
+                        'brands' => [
+                            [
+                                'name_en' => 'Others',
+                                'name_ar' => 'اخرى',
+                                'image' => 'images/posts/post6.jpg',
+                                'models' => [
+                                    [
+                                        'name_en' => 'Others',
+                                        'name_ar' => 'اخرى',
+                                        'image' => 'images/posts/post6.jpg',
+                                        'brand_id' => 4,
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
-                ],
-            ],
+                ]
+            ]
         ];
 
         foreach ($Categories as $Category) {
