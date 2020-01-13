@@ -71,6 +71,21 @@ class SeedUsers extends Command
         $email = $this->ask('Nova Email Address', 'user@nova.com');
         $password = $this->ask('Nova Password', 123456789);
 
+        Corporate::create([
+            'unique_id' => time() . '-WAJAD-Corporate',
+            'name_en' => 'WAJAD Corporate',
+            'name_ar' => 'مؤسسة وجد',
+            'details_en' => 'WAJAD Corporate For Haj & Omra',
+            'details_ar' => 'مؤسسة وجد للحج والعمرة', // User
+            'address_en' => 'Jadda - KSA',
+            'address_ar' => 'جده - المملكة العربية السعودية',
+            'latitude' => '21.4498898',
+            'longitude' => '39.4913423',
+            'status' => 1,
+            'end_date' => '2030-01-12 19:15:23',
+        ]);
+
+
         User::create([
             'name' => $username,
             'email' => $email,
