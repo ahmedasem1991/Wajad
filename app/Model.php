@@ -37,6 +37,11 @@ class Model extends MasterModel
         return $this->hasMany(Item::class);
     }
 
+    // public function colors()
+    // {
+    //     return $this->hasMany(Color::class);
+    // }
+
     public function scopeName($query, $name)
     {
         return $query->where('name_ar', $name)->orWhere('name_en', $name) ?? null;

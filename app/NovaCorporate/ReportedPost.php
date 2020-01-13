@@ -88,29 +88,29 @@ class ReportedPost extends Resource
             ->hideWhenUpdating(),
            
             
-        //     NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-        //     ->placeholder('Select Sub category')
-        //     ->options(\App\SubCategory::with('brands')->get()),
-        //    // ->rules('required'),
+            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+            ->placeholder('Select Sub category')
+            ->options(\App\SubCategory::with('brands')->get()),
+           // ->rules('required'),
 
 
-        // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-        //     ->placeholder('Select Brand')
-        //     ->optionsResolve(function ($subcategory) {
-        //         return $subcategory->brands;
-        //     })
-        //   //  ->rules('required')
-        //     ->dependsOn('Subcategory'),
+        NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+            ->placeholder('Select Brand')
+            ->optionsResolve(function ($subcategory) {
+                return $subcategory->brands;
+            })
+          //  ->rules('required')
+            ->dependsOn('Subcategory'),
 
 
-        // NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
-        //     ->placeholder('Optional Placeholder')
-        //     ->optionsResolve(function ($brand) {
-        //         return $brand->models()->get(['id', 'name_en']);
-        //     })
-        //   //  ->rules('required')
-        //     ->dependsOn('Brand'),
-        // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+        NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            ->placeholder('Optional Placeholder')
+            ->optionsResolve(function ($brand) {
+                return $brand->models()->get(['id', 'name_en']);
+            })
+          //  ->rules('required')
+            ->dependsOn('Brand'),
+        BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
 
             
             Toggle::make('Appearance Status','appearance_status'),
@@ -123,41 +123,7 @@ class ReportedPost extends Resource
              DateTime::make('Founded At')->hideFromIndex()
              ->Rules('required_if:status,1'),
              
-      
-
-            //  NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
-            // ->placeholder('Optional Placeholder')  
-            // ->options(Brand::all())
-            // ->rules('required'),
-          
-
-            // NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
-            // ->placeholder('Optional Placeholder')    
-            // ->optionsResolve(function ($brand) {
-            // return $brand->models()->get(['id','name_en']);
-            // })
-            // ->rules('required')
-            // ->dependsOn('Brand'),
-            // BelongsTo::make('Color','color','App\Nova\Color'),
-
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
-            //  NovaBelongsToDepend::make('User', 'publisher')
-            //  ->placeholder('Publisher')
-            //  ->options(Auth()->User()->corporate->users),
-            //  NovaBelongsToDepend::make('Item')
-            //  ->placeholder('Item')
-            //  ->optionsResolve(function ($user) {
-            //      $user_items_with_qrcode = $user->items()
-            //          ->Has('qrcode')
-            //          ->get();
-            //      return $user_items_with_qrcode;
-            //  })->dependsOn('publisher')->nullable(),
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
-            //  BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
-            //  ->creationRules('required_if:status,1','same:publisher')
-            //  ->updateRules('required_if:status,1')
-            //  ->nullable(),
-            
+       
 
                Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
                
@@ -186,7 +152,7 @@ class ReportedPost extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-          //  MediaField::make('Item Image', 'images')->listing(),
+            MediaField::make('Item Image', 'images')->listing(),
 
              //HasMany::make('Images','images',\App\Nova\PostImage::class),
              HasMany::make('Questions'),
