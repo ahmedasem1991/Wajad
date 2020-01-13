@@ -17,7 +17,7 @@ $factory->define(Corporate::class, function (Faker $faker) {
     ];
 
     # English Data
-    $data['name_en'] =  $faker->text(20);
+    $data['name_en'] =  $faker->text(5);
     $data['details_en'] = $faker->paragraph(15);
     $data['address_en'] = $faker->paragraph(15);
 
