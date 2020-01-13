@@ -35,6 +35,11 @@ class Keyword extends Resource
 
     public static $group = 'Resources';
 
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('keywords')) ? true : false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *

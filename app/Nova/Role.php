@@ -40,6 +40,11 @@ class Role extends Resource
         return config('novapermissionsAdmin.roleResourceGroup', 'Other');
     }
 
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('view roles')) ? true : false;
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

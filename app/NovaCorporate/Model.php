@@ -95,7 +95,7 @@ class Model extends Resource
     public function cards(Request $request)
     {
         return [
-            new Models()
+          //  new Models()
         ];
     }
 

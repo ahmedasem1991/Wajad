@@ -25,6 +25,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
+use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\ApprovalPosts;
@@ -140,18 +141,20 @@ class Post extends Resource
                 // ->hideWhenCreating()
                 // ->hideWhenUpdating(),
 
-                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+ 
+
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->placeholder('Select Sub category')
-                ->options(\App\SubCategory::with('brands')->get())
-                ->rules('required'),
+                ->options(\App\SubCategory::with('brands')->get()),
+               // ->rules('required'),
 
 
-            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
                 })
-                ->rules('required')
+              //  ->rules('required')
                 ->dependsOn('Subcategory'),
 
 
@@ -160,9 +163,10 @@ class Post extends Resource
                 ->optionsResolve(function ($brand) {
                     return $brand->models()->get(['id', 'name_en']);
                 })
-                ->rules('required')
+              //  ->rules('required')
                 ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+           BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
+
 
             Toggle::make('Open Status', 'open_status')
             // ->hideWhenCreating()
@@ -182,26 +186,7 @@ class Post extends Resource
             DateTime::make('Founded At')->hideFromIndex()
                 ->rules('required_if:status,1'),
 
-
-
-
-            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
-            //  NovaBelongsToDepend::make('User', 'publisher')
-            //  ->placeholder('Publisher')
-            //  ->options(Auth()->User()->corporate->users),
-            //  NovaBelongsToDepend::make('Item')
-            //  ->placeholder('Item')
-            //  ->optionsResolve(function ($user) {
-            //      $user_items_with_qrcode = $user->items()
-            //          ->Has('qrcode')
-            //          ->get();
-            //      return $user_items_with_qrcode;
-            //  })->dependsOn('publisher')->nullable(),
-            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
-            //  BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
-            //  ->creationRules('required_if:status,1','same:publisher')
-            //  ->updateRules('required_if:status,1')
-            //  ->nullable(),
+ 
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
@@ -210,28 +195,10 @@ class Post extends Resource
             ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
             ->rules('required'),
 
-            // Text::make('Founder Name', 'founder_name')
-            //     ->sortable()
-            //     ->rules('required', 'max:255'),
-
-            // Text::make('Founder Email', 'founder_email')
-            //     ->sortable()
-            //     ->rules('required', 'email', 'max:254'),
-
-            // PhoneNumber::make('Founder Mobile Number', 'founder_mobile_number')
-            //     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-            //     ->onlyCustomFormats(),
-            // Text::make('Founder Address', 'founder_address')
-            //     ->sortable()
-            //     ->rules('required', 'max:254'),
-            Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                        Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 // ->hideWhenUpdating(),
                 ->hideWhenCreating(),
-            // BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-            //   //  ->readonly()
-            //     //->hideWhenUpdating(),
-            //      ->hideWhenCreating(),
-
+            
                  NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                ->placeholder('Select Person')
                ->options(User::Normalusers()->get())
@@ -245,8 +212,9 @@ class Post extends Resource
             Button::make('PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
+           MediaField::make('Item Image', 'images')->listing(),
 
-            HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+            //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
 

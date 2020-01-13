@@ -94,7 +94,7 @@ class Model extends Resource
                 ->rules('required')
                 ->dependsOn('Subcategory'),
            
-            HasMany::make('Colors'),
+          //  HasMany::make('Colors'),
         ];
     }
 

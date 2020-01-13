@@ -46,7 +46,7 @@ class SeedPosts extends Command
 
         for ($i = 0; $i < $postsCount; $i++) {
             $posts = Post::create([
-                'title' => $faker->text(200),
+                'title' => $faker->text(20),
                 'description' => $faker->paragraph(),
                 'publisher_id' => $usersIds->random(),
                 'status' => $faker->boolean(),
@@ -60,7 +60,14 @@ class SeedPosts extends Command
                 'appearance_status' => 1,
                 'brand_id' => $brandIds->random(),
                 'city_id' => $citiesIds->random(),
-                'reward' => $faker->numberBetween(5, 1000) . 'USD'
+                'reward' => $faker->numberBetween(5, 1000) . 'USD',
+                'images' =>[
+                    "images/posts/post1.jpg",
+                    "images/posts/post2.jpg",
+                    "images/posts/post3.jpg",
+                    "images/posts/post4.jpg",
+                    "images/posts/post5.jpg",
+                ]
             ]);
         }
         $posts = Post::all();
