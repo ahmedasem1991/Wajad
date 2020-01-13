@@ -65,9 +65,9 @@
         "spatie/laravel-query-builder": "^1.17",
         "srmklive/paypal": "^1.6",
         "stephenlake/nova-fixed-bars": "^1.1",
-        "tightenco/nova-google-analytics": "^0.1.7",
         "titasgailius/search-relations": "^1.0",
-        "tymon/jwt-auth": "1.0.*"
+        "tymon/jwt-auth": "1.0.*",
+        "tightenco/nova-google-analytics": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -142,6 +142,10 @@
         {
             "type": "path",
             "url": "./nova-components/Analytics"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/tightenco/nova-google-analytics"
         }
     ]
 }
