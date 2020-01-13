@@ -3,13 +3,14 @@
 namespace App\Nova;
 
 use App\User;
-use Laravel\Nova\Fields\Heading;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\DownloadQRCode;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -112,6 +113,10 @@ class Stock extends Resource
                 ->path('images/qrcodes')
                 ->prunable()
                 ->deletable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+                Toggle::make('Print Status','printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
