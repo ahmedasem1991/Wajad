@@ -637,5 +637,12 @@ return [
             'description'  => 'Support',
             'group'        => 'Settings',
         ],
+        'keywords' => [
+            'display_name' => 'Keywords',
+            'description'  => 'Keywords',
+            'group'        => 'Settings',
+        ],
+
+        
     ],
 ];
