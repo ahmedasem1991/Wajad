@@ -498,7 +498,7 @@ class SeedCategories extends Command
                                         'name_en' => 'Others',
                                         'name_ar' => 'اخرى',
                                         'image' => 'images/posts/post6.jpg',
-                                        'brand_id' => 4,
+                                        'brand_id' => 14,
                                     ]
                                 ]
                             ]
