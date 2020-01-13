@@ -82,6 +82,7 @@ class SeedUsers extends Command
             'latitude' => '21.4498898',
             'longitude' => '39.4913423',
             'status' => 1,
+            'image' => 'images/corporates/default-profile.png',
             'end_date' => '2030-01-12 19:15:23',
         ]);
 
