@@ -45,13 +45,13 @@ class SeedApp extends Command
         $this->info('| Users Seeder Completed |');
         $this->info('|------------------------|');
 
-        $corporateCount = $this->ask('Corporates Count', 100);
+        // $corporateCount = $this->ask('Corporates Count', 100);
 
-        factory(Corporate::class, (int) $corporateCount)->create();
+        // factory(Corporate::class, (int) $corporateCount)->create();
 
-        $this->info('|----------------------------|');
-        $this->info('| Corporate Seeder Completed |');
-        $this->info('|----------------------------|');
+        // $this->info('|----------------------------|');
+        // $this->info('| Corporate Seeder Completed |');
+        // $this->info('|----------------------------|');
 
         $this->info('Seed Roles');
         $path = 'app/developer_docs/roles.sql';
