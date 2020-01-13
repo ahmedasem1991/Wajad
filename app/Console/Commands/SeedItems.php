@@ -30,7 +30,7 @@ class SeedItems extends Command
 
         for ($i = 0; $i < (int) $itemsCount; $i++) {
             Item::create([
-                'title' => $faker->text(10),
+                'title' => $faker->text(20),
                 'details' => $faker->paragraph(),
                 'owner_id' => $usersIds->random(),
                 'model_id' => $modelIds->random(),
