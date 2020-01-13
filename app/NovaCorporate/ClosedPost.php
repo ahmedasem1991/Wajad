@@ -123,29 +123,29 @@ class ClosedPost extends Resource
                 ->hideWhenUpdating(),
 
                 
-            //     NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-            //     ->placeholder('Select Sub category')
-            //     ->options(\App\SubCategory::with('brands')->get()),
-            //    // ->rules('required'),
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get()),
+               // ->rules('required'),
 
 
-            // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-            //     ->placeholder('Select Brand')
-            //     ->optionsResolve(function ($subcategory) {
-            //         return $subcategory->brands;
-            //     })
-            //   //  ->rules('required')
-            //     ->dependsOn('Subcategory'),
+            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+              //  ->rules('required')
+                ->dependsOn('Subcategory'),
 
 
-            // NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
-            //     ->placeholder('Optional Placeholder')
-            //     ->optionsResolve(function ($brand) {
-            //         return $brand->models()->get(['id', 'name_en']);
-            //     })
-            //   //  ->rules('required')
-            //     ->dependsOn('Brand'),
-            // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+              //  ->rules('required')
+                ->dependsOn('Brand'),
+            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
 
 
             // Toggle::make('Appearance Status','appearance_status'),
@@ -220,7 +220,7 @@ class ClosedPost extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-         //   MediaField::make('Item Image', 'images')->listing(),
+            MediaField::make('Item Image', 'images')->listing(),
 
            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
