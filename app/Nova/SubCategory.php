@@ -26,6 +26,11 @@ class SubCategory extends Resource
     public static $model = 'App\SubCategory';
     public static $group = 'Categories';
 
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('sub categories')) ? true : false;
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
