@@ -26,7 +26,7 @@
             بأنى استلمت العنصر المفقود الخاص بي 
         <b> {{$post->title}}</b>  <br> <br>
             بالمواصفات التالية : 
-        <b> {{$post->description}}</b>  <br> <br>
+        <b> {{$post->description ?? " "}}</b>  <br> <br>
             من فئة 
         <b> {{$post->subcategory->name_ar}} </b>  
             ماركة

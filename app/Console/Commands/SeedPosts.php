@@ -46,7 +46,7 @@ class SeedPosts extends Command
 
         for ($i = 0; $i < $postsCount; $i++) {
             $posts = Post::create([
-                'title' => $faker->text(200),
+                'title' => $faker->text(20),
                 'description' => $faker->paragraph(),
                 'publisher_id' => $usersIds->random(),
                 'status' => $faker->boolean(),
