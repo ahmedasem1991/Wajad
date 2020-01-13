@@ -76,11 +76,11 @@ class SeedCategories extends Command
                                 'image' => 'images/posts/post7.jpg',
 
                             ],
-                            [
-                                'name_en' => 'Others',
-                                'name_ar' => 'اخرى',
-                                'icon' => 'images/posts/post1.jpg',
-                            ],
+                            // [
+                            //     'name_en' => 'Others',
+                            //     'name_ar' => 'اخرى',
+                            //     'icon' => 'images/posts/post1.jpg',
+                            // ],
                         ],
                     ],
                     [
@@ -101,20 +101,20 @@ class SeedCategories extends Command
                                 'image' => 'images/posts/post7.jpg',
 
                             ],
-                            [
-                                'name_en' => 'Others',
-                                'name_ar' => 'اخرى',
-                                'icon' => 'images/posts/post1.jpg',
+                            // [
+                            //     'name_en' => 'Others',
+                            //     'name_ar' => 'اخرى',
+                            //     'icon' => 'images/posts/post1.jpg',
 
-                            ],
+                            // ],
                         ],
                     ],
-                    [
-                        'name_en' => 'Others',
-                        'name_ar' => 'اخرى',
-                        'icon' => 'images/posts/post1.jpg',
-                        'category_id' => 1,
-                    ],
+                    // [
+                    //     'name_en' => 'Others',
+                    //     'name_ar' => 'اخرى',
+                    //     'icon' => 'images/posts/post1.jpg',
+                    //     'category_id' => 1,
+                    // ],
                 ],
             ],
             [
@@ -158,12 +158,12 @@ class SeedCategories extends Command
                         'icon' => 'images/posts/post2.jpg',
                         'category_id' => 2,
                     ],
-                    [
-                        'name_en' => 'Others',
-                        'name_ar' => 'اخرى',
-                        'icon' => 'images/posts/post3.jpg',
-                        'category_id' => 2,
-                    ],
+                    // [
+                    //     'name_en' => 'Others',
+                    //     'name_ar' => 'اخرى',
+                    //     'icon' => 'images/posts/post3.jpg',
+                    //     'category_id' => 2,
+                    // ],
                 ],
             ],
             [
@@ -208,12 +208,12 @@ class SeedCategories extends Command
                             'icon' => 'images/posts/post4.jpg',
                             'category_id' => 3,
                         ],
-                        [
-                            'name_en' => 'Others',
-                            'name_ar' => 'اخرى',
-                            'icon' => 'images/posts/post5.jpg',
-                            'category_id' => 3,
-                        ],
+                        // [
+                        //     'name_en' => 'Others',
+                        //     'name_ar' => 'اخرى',
+                        //     'icon' => 'images/posts/post5.jpg',
+                        //     'category_id' => 3,
+                        // ],
                     ],
                 ],
             ],
