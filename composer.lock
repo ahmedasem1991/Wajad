@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "c3482c594b5735480a1560e48b33cb84",
-=======
-    "content-hash": "48e7cd4619dd944304e0efac346338d8",
->>>>>>> 2020-1-10-ADD-GOOGLE-ANALYTICS
+    "content-hash": "8b0e8bd7990bcbe73d68a138a05ba77c",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -10407,11 +10403,17 @@
         },
         {
             "name": "tightenco/nova-google-analytics",
-            "version": "dev-2020-1-10-ADD-GOOGLE-ANALYTICS",
+            "version": "v0.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tightenco/nova-google-analytics.git",
+                "reference": "bfb9fe10f018c721b1dfe87295291d5aedb7b5c7"
+            },
             "dist": {
-                "type": "path",
-                "url": "./nova-components/tightenco/nova-google-analytics",
-                "reference": "8a3955dff12252e6bf39947c714e1e34be2f7968"
+                "type": "zip",
+                "url": "https://api.github.com/repos/tightenco/nova-google-analytics/zipball/bfb9fe10f018c721b1dfe87295291d5aedb7b5c7",
+                "reference": "bfb9fe10f018c721b1dfe87295291d5aedb7b5c7",
+                "shasum": ""
             },
             "require": {
                 "laravel/nova": "*",
@@ -10435,11 +10437,7 @@
                     "Tightenco\\NovaGoogleAnalytics\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tightenco\\NovaGoogleAnalytics\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -10455,7 +10453,8 @@
             "keywords": [
                 "laravel",
                 "nova"
-            ]
+            ],
+            "time": "2019-09-20T14:42:46+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

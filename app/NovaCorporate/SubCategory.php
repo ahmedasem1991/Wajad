@@ -2,9 +2,8 @@
 
 namespace App\NovaCorporate;
 
-use App\NovaCorporate\Category;
-use App\NovaCorporate\Metrics\Brands;
-use App\NoNovaCorporateva\Metrics\Models;
+use App\Nova\Category;
+use App\Nova\Metrics\SubCategories;
 use App\Nova\Resource;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
@@ -17,17 +16,16 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
-class Model extends Resource
+class SubCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Model';
+    public static $model = 'App\SubCategory';
     public static $group = 'Categories';
     public static $displayInNavigation = false;
-
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -47,7 +45,7 @@ class Model extends Resource
         'description_en',
         'description_ar',
         'image',
-        'brand_id',
+        'category_id',
         'deleted_at',
         'created_at',
         'updated_at',
@@ -63,26 +61,26 @@ class Model extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Model English Name', 'name_en')->creationRules([
+            Text::make('Sub-Category English Name', 'name_en')->creationRules([
                 'required', 'min:6'
             ]),
-            Text::make('Model Arabic Name', 'name_ar')->creationRules([
+            Text::make('Sub-Category Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:6'
             ]),
-            Textarea::make('Model English Body', 'description_en'),
-            Textarea::make('Model Arabic Body', 'description_ar'),
-            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+            Textarea::make('Sub-Category English Body', 'description_en'),
+            Textarea::make('Sub-Category Arabic Body', 'description_ar'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Model Image', 'image')
+            Image::make('Sub-Category Image', 'image')
                 ->disk('public')
-                ->path('images/models')
+                ->path('images/subcategories')
                 ->prunable()
-                ->deletable(),
-            NovaBelongsToDepend::make('Brand')
-                ->placeholder('Brand')
-                ->options(\App\Brand::all()),
-            //HasMany::make('Colors'),
-
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_height=100'),
+            NovaBelongsToDepend::make('Category')->rules('required')
+                ->placeholder('Category')
+                ->options(\App\Category::all()),
+            HasMany::make('Brands'),
         ];
     }
 
@@ -95,7 +93,7 @@ class Model extends Resource
     public function cards(Request $request)
     {
         return [
-          //  new Models()
+            new SubCategories()
         ];
     }
 
@@ -130,5 +128,9 @@ class Model extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+    public static function icon()
+    {
+        return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

@@ -143,29 +143,29 @@ class Post extends Resource
 
  
 
-        //         NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-        //         ->placeholder('Select Sub category')
-        //         ->options(\App\SubCategory::with('brands')->get()),
-        //        // ->rules('required'),
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get()),
+               // ->rules('required'),
 
 
-        //     NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-        //         ->placeholder('Select Brand')
-        //         ->optionsResolve(function ($subcategory) {
-        //             return $subcategory->brands;
-        //         })
-        //       //  ->rules('required')
-        //         ->dependsOn('Subcategory'),
+            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+              //  ->rules('required')
+                ->dependsOn('Subcategory'),
 
 
-        //     NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
-        //         ->placeholder('Optional Placeholder')
-        //         ->optionsResolve(function ($brand) {
-        //             return $brand->models()->get(['id', 'name_en']);
-        //         })
-        //       //  ->rules('required')
-        //         ->dependsOn('Brand'),
-        //    BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+              //  ->rules('required')
+                ->dependsOn('Brand'),
+           BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
 
 
             Toggle::make('Open Status', 'open_status')
@@ -212,7 +212,7 @@ class Post extends Resource
             Button::make('PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
-       // MediaField::make('Item Image', 'images')->listing(),
+           MediaField::make('Item Image', 'images')->listing(),
 
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
