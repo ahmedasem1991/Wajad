@@ -147,8 +147,8 @@ class Post extends Resource
 
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
-                ->options(\App\SubCategory::with('brands')->get())
-                ->rules('required'),
+                ->options(\App\SubCategory::with('brands')->get()),
+               // ->rules('required'),
 
 
             NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
@@ -156,16 +156,16 @@ class Post extends Resource
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
                 })
-                ->rules('required')
+              //  ->rules('required')
                 ->dependsOn('Subcategory'),
 
 
-            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
                 ->placeholder('Optional Placeholder')
                 ->optionsResolve(function ($brand) {
                     return $brand->models()->get(['id', 'name_en']);
                 })
-                ->rules('required')
+              //  ->rules('required')
                 ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
@@ -286,19 +286,19 @@ class Post extends Resource
         ];
     }
 
-    public static function fill(NovaRequest $request, $model)
-    {
-        if ($request->input('owner_releated_to_system')) {
-            $request->offsetUnset('owner_releated_to_system');
-        }
+    // public static function fill(NovaRequest $request, $model)
+    // {
+    //     if ($request->input('owner_releated_to_system')) {
+    //         $request->offsetUnset('owner_releated_to_system');
+    //     }
 
-        if ($request->input('founder_releated_to_system')) {
-            $request->offsetUnset('founder_releated_to_system');
-        }
+    //     if ($request->input('founder_releated_to_system')) {
+    //         $request->offsetUnset('founder_releated_to_system');
+    //     }
 
 
-        return parent::fill($request, $model);
-    }
+    //     return parent::fill($request, $model);
+    // }
 
     /**
      * Get the filters available for the resource.

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use App\NovaCorporate\Metrics\PostsCount;
+use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\OpenVsClosedPosts;
@@ -86,6 +87,31 @@ class ReportedPost extends Resource
             ->hideWhenCreating()
             ->hideWhenUpdating(),
            
+            
+        //     NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+        //     ->placeholder('Select Sub category')
+        //     ->options(\App\SubCategory::with('brands')->get()),
+        //    // ->rules('required'),
+
+
+        // NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+        //     ->placeholder('Select Brand')
+        //     ->optionsResolve(function ($subcategory) {
+        //         return $subcategory->brands;
+        //     })
+        //   //  ->rules('required')
+        //     ->dependsOn('Subcategory'),
+
+
+        // NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
+        //     ->placeholder('Optional Placeholder')
+        //     ->optionsResolve(function ($brand) {
+        //         return $brand->models()->get(['id', 'name_en']);
+        //     })
+        //   //  ->rules('required')
+        //     ->dependsOn('Brand'),
+        // BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+
             
             Toggle::make('Appearance Status','appearance_status'),
             //Toggle::make('Open Status','open_status'),
@@ -160,7 +186,9 @@ class ReportedPost extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-             HasMany::make('Images','images',\App\Nova\PostImage::class),
+          //  MediaField::make('Item Image', 'images')->listing(),
+
+             //HasMany::make('Images','images',\App\Nova\PostImage::class),
              HasMany::make('Questions'),
              HasMany::make('Post Requests','postrequests' ,\App\NovaCorporate\PostRequest::class),
              HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class)
