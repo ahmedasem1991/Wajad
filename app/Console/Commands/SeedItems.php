@@ -37,6 +37,13 @@ class SeedItems extends Command
                 'color_id' => $colorIds->random(),
                 'sub_category_id' => $subCategoriesIds->random(),
                 'brand_id' => $brandIds->random(),
+                'images' => [
+                    "images/posts/post1.jpg",
+                    "images/posts/post2.jpg",
+                    "images/posts/post3.jpg",
+                    "images/posts/post4.jpg",
+                    "images/posts/post5.jpg",
+                ]
             ]);
         }
 
