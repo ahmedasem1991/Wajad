@@ -17,13 +17,13 @@ $factory->define(Corporate::class, function (Faker $faker) {
     ];
 
     # English Data
-    $data['name_en'] = $faker->sentence;
+    $data['name_en'] =  $faker->text(20);
     $data['details_en'] = $faker->paragraph(15);
     $data['address_en'] = $faker->paragraph(15);
 
     # Arabic Data
     $data['details_ar'] = $faker->text();
-    $data['address_ar'] = $faker->text();
+    $data['address_ar'] = $faker->text(100);
 
     $faker = \Faker\Factory::create('ar_JO');
 
