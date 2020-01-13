@@ -21,7 +21,7 @@
         </header><br><br>
         <div id="main" dir="rtl" class="row">  
             أقر أنا أ/
-            <b> {{$assignqrcode->user->name ?? " "}} </b>    
+            <b> {{$assignqrcode->user->name ?? ".................."}} </b>    
             فى يوم ................. الموافق ................. <br> <br>
             بأنى حصلت على عدد <b>{{$assignqrcode->quantity}}</b> QRcode
             من فئة <b>{{$assignqrcode->type==1? "Single Assign":"Multi Assign"}}</b><br> <br>
