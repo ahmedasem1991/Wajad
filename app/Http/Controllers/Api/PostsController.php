@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\City;
+use App\Item;
 use App\Post;
 use Carbon\Carbon;
 use App\PostReport;
@@ -133,6 +134,11 @@ class PostsController extends Controller
                 'owner_releated_to_system' => 1
             ]);
             $post->save();
+
+            if ($request->item_id) {
+                $item = Item::findOrFail($request->item_id);
+                $item->update(['status' => 0]);
+            }
         }
 
         if ($type == "found") {
