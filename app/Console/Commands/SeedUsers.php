@@ -44,7 +44,7 @@ class SeedUsers extends Command
         $this->line('|-------------------------------|');
 
         $username = $this->ask('Superadmin Username', 'Admin');
-        $email = $this->ask('Superadmin Email Address', 'admin@nova.com');
+        $email = $this->ask('Superadmin Email Address', 'admin@wajad.com');
         $password = $this->ask('Superadmin Password', 123456789);
 
         User::create([
@@ -68,7 +68,7 @@ class SeedUsers extends Command
         $this->line('|--------------------------------|');
 
         $username = $this->ask('Nova User', 'User');
-        $email = $this->ask('Nova Email Address', 'user@nova.com');
+        $email = $this->ask('Nova Email Address', 'user@wajad.com');
         $password = $this->ask('Nova Password', 123456789);
 
         Corporate::create([
@@ -110,7 +110,7 @@ class SeedUsers extends Command
         $this->line('|-------------------------------------|');
 
         $username = $this->ask('Username', 'Corporate');
-        $email = $this->ask('Email Address', 'corporate@nova.com');
+        $email = $this->ask('Email Address', 'corporate@wajad.com');
         $password = $this->ask('Password', 123456789);
 
         User::create([
