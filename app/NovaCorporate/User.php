@@ -62,7 +62,7 @@ class User extends Resource
         'mobile_country_id',
         'corporate_id',
         'city_id',
-        'posts_limitation',
+        'posts_number',
         'device_token',
         'mobile_number',
         'receive_emails',

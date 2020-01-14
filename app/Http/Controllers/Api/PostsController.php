@@ -159,6 +159,7 @@ class PostsController extends Controller
             }, $request->questions);
         }
 
+        auth('api')->user()->increment('posts_number');
         if ($request->has('images') && count($request->images) > 0) {
             $post_images = [];
             foreach ($request->images as $image) {

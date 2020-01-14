@@ -162,7 +162,7 @@ class AuthController extends Controller
             'mobile_number' => ltrim((string) $request->mobile_number, 0),
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
-            'posts_limitation' => env('POST_LIMITATION', 50),
+            'posts_number' => 0,
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
