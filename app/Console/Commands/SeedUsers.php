@@ -95,6 +95,7 @@ class SeedUsers extends Command
             'mobile_number' => '01142416124',
             'corporate_id' => 1,
             'mobile_country_id' => 1,
+            'is_mobile_number_verified' => 1,
             'posts_number' => 0
         ]);
 
@@ -106,6 +107,7 @@ class SeedUsers extends Command
             'mobile_number' => '01143416124',
             'corporate_id' => 1,
             'mobile_country_id' => 1,
+            'is_mobile_number_verified' => 1,
             'posts_number' => 0
         ]);
 
@@ -117,6 +119,7 @@ class SeedUsers extends Command
             'mobile_number' => '01142516124',
             'corporate_id' => 1,
             'mobile_country_id' => 1,
+            'is_mobile_number_verified' => 1,
             'posts_number' => 0
         ]);
 
