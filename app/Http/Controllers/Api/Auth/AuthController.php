@@ -218,9 +218,12 @@ class AuthController extends Controller
     public function refresh()
     {
         // try {
-            auth('api')->user()->activeLogin()->Create([
-                'user_id' => auth('api')->user()->id
-            ]);
+        if (!auth('api')->user()) {
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.user')]), 400);
+        }
+        auth('api')->user()->activeLogin()->Create([
+            'user_id' => auth('api')->user()->id
+        ]);
         return $this->respondWithToken(auth('api')->refresh(), false);
         // } catch (\Throwable $th) {
         // throw new ApiException(trans("auth.failed"), 401);
