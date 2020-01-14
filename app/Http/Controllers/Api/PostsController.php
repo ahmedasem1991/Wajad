@@ -138,7 +138,7 @@ class PostsController extends Controller
             if ($request->item_id) {
                 $item = Item::findOrFail($request->item_id);
                 $item->update(['status' => 0]);
-            }
+             }
         }
 
         if ($type == "found") {
