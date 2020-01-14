@@ -228,6 +228,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         logger($this->posts_number);
         logger(defaultGroup());
+        logger( Auth('api')->User()->roles);
             return $this->posts_number > defaultGroup()->limitation_of_posts;
     }
 
