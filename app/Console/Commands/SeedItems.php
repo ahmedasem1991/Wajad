@@ -32,7 +32,7 @@ class SeedItems extends Command
             Item::create([
                 'title' => $faker->text(20),
                 'details' => $faker->paragraph(),
-                'owner_id' => $usersIds->random(),
+                'owner_id' => [2,4,5]->random(),
                 'model_id' => $modelIds->random(),
                 'color_id' => $colorIds->random(),
                 'sub_category_id' => $subCategoriesIds->random(),
