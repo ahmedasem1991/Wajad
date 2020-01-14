@@ -172,7 +172,6 @@ class PostsController extends Controller
                 array_push($post_images, $image);
                 }
             }
-            dd($post_images);
             $post->fill([
                 'images' => $post_images
             ]);
