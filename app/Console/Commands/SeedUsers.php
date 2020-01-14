@@ -99,29 +99,6 @@ class SeedUsers extends Command
             'posts_number' => 0
         ]);
 
-        User::create([
-            'name' => 'ahmed gamal',
-            'email' => 'a@nova.com',
-            'password' => bcrypt('123456'),
-            'type' => User::Types['user'],
-            'mobile_number' => '01143416124',
-            'corporate_id' => 1,
-            'mobile_country_id' => 1,
-            'is_mobile_number_verified' => 1,
-            'posts_number' => 0
-        ]);
-
-        User::create([
-            'name' => 'Ahmed Samir',
-            'email' => 's@s.com',
-            'password' => bcrypt('123456789'),
-            'type' => User::Types['user'],
-            'mobile_number' => '01142516124',
-            'corporate_id' => 1,
-            'mobile_country_id' => 1,
-            'is_mobile_number_verified' => 1,
-            'posts_number' => 0
-        ]);
 
         $this->line('|---------------------------------|');
         $this->line('|-Nova User Created Successfully -|');
@@ -154,5 +131,31 @@ class SeedUsers extends Command
         $this->line("|----- Email Address : $email ----|");
         $this->line("|------ Password : $password -----|");
         $this->line('|---------------------------------|');
+
+
+        
+        User::create([
+            'name' => 'ahmed gamal',
+            'email' => 'a@nova.com',
+            'password' => bcrypt('123456'),
+            'type' => User::Types['user'],
+            'mobile_number' => '01143416124',
+            'corporate_id' => 1,
+            'mobile_country_id' => 1,
+            'is_mobile_number_verified' => 1,
+            'posts_number' => 0
+        ]);
+
+        User::create([
+            'name' => 'Ahmed Samir',
+            'email' => 's@s.com',
+            'password' => bcrypt('123456789'),
+            'type' => User::Types['user'],
+            'mobile_number' => '01142516124',
+            'corporate_id' => 1,
+            'mobile_country_id' => 1,
+            'is_mobile_number_verified' => 1,
+            'posts_number' => 0
+        ]);
     }
 }
