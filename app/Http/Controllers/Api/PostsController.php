@@ -154,14 +154,15 @@ class PostsController extends Controller
         }
 
         if ($request->has('images') && count($request->images) > 0) {
-            $post_images = [];         
-            foreach($request->images as $image) {
+            $post_images = [];
+            foreach ($request->images as $image) {
                 $image_name = Str::random(15) . '.' . 'png';
                 $path = public_path('/images//' . $image_name);
                 Image::make(file_get_contents($image))->save($path);
                 array_push($post_images, '/images//' . $image_name);
             }
             $post->fill([
+
                 'images' => $post_images
             ]);
 
