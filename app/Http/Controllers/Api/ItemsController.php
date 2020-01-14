@@ -118,6 +118,12 @@ class ItemsController extends Controller
      *"is_mobile_number_verified": false,
      *"default_distance_unit": "kilo"
      *},
+   *"subcategory": {
+     *  "id": 5,
+     * "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+     * "description": "Quia impedit hic nesciunt quis eum.",
+     * "image": "http:\/\/wajad.test\/default-icon.png"
+     *},
      *"model": {
      *   "id": 1,
      *  "name": "jhinoi",
