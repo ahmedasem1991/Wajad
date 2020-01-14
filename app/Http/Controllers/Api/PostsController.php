@@ -138,7 +138,7 @@ class PostsController extends Controller
             if ($request->item_id) {
                 $item = Item::findOrFail($request->item_id);
                 $item->update(['status' => 0]);
-             }
+            }
         }
 
         if ($type == "found") {
@@ -163,13 +163,17 @@ class PostsController extends Controller
         if ($request->has('images') && count($request->images) > 0) {
             $post_images = [];
             foreach ($request->images as $image) {
-                $image_name = Str::random(15) . '.' . 'png';
-                $path = public_path('/images//' . $image_name);
-                Image::make(file_get_contents($image))->save($path);
-                array_push($post_images, '/images//' . $image_name);
+                if (preg_match("/^data:image/", $image)) {
+                    $image_name = Str::random(15) . '.' . 'png';
+                    $path = public_path('/images//' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+                    array_push($post_images, '/images//' . $image_name);
+                }else{
+                array_push($post_images, $image);
+                }
             }
+            dd($post_images);
             $post->fill([
-
                 'images' => $post_images
             ]);
 
