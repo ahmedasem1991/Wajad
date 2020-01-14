@@ -92,7 +92,14 @@ class LoginController extends Controller
     }
 
     public function authenticated(Request $request, $user)
-    {
+    {       
+         if ($user->isNotActive())
+        {
+            auth()->logout();
+            return redirect('/');
+        }
+
+        
         if ($user->isCorporateAdmin())
         {
             if ($user->corporate->isNotActive())
