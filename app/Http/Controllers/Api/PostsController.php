@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\City;
+use App\Item;
 use App\Post;
 use Carbon\Carbon;
 use App\PostReport;
@@ -11,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use App\Item;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -134,11 +134,12 @@ class PostsController extends Controller
                 'owner_releated_to_system' => 1
             ]);
             $post->save();
-        
+
             if ($request->item_id) {
-                $item = Item::find($request->item_id);
+                $item = Item::findOrFail($request->item_id);
                 $item->update(['status' => 0]);
             }
+        }
 
         if ($type == "found") {
             $post->fill([
