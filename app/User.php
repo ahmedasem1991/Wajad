@@ -227,8 +227,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function exceededPostLimitation()
     {
         logger($this->posts_number);
+        logger('max number');
         logger(defaultGroup());
+        logger('defaultGroup ');
         logger( Auth('api')->User()->roles);
+        logger('roles ');
             return $this->posts_number > defaultGroup()->limitation_of_posts;
     }
 
