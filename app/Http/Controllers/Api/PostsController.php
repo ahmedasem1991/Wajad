@@ -168,8 +168,10 @@ class PostsController extends Controller
                     $path = public_path('/images//' . $image_name);
                     Image::make(file_get_contents($image))->save($path);
                     array_push($post_images, '/images//' . $image_name);
-                }else{
-                array_push($post_images, $image);
+                }
+                
+                if (!preg_match("/^data:image/", $image)) {
+                    array_push($post_images, $image);
                 }
             }
             $post->fill([
