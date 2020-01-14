@@ -27,8 +27,8 @@ class CreateUsersTable extends Migration
             $table->integer('corporate_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('role_id')->nullable();
-            //$table->integer('posts_limitation')->default(env('POST_LIMITATION',50));
-            $table->integer('posts_limitation')->nullable();
+            //$table->integer('posts_number')->default(env('POST_LIMITATION',50));
+            $table->integer('posts_number')->default(0);
 
             $table->text('device_token')->nullable();
 

@@ -20,6 +20,6 @@ $factory->define(User::class, function (Faker $faker) {
         'image' => 'images/profile/default-profile.png',
         'email_verified_at' => Carbon::now()->toDateTimeString(),
         'receive_emails' => 1,
-        'posts_limitation' => 50,
+        'posts_number' => 0,
      ];
 });

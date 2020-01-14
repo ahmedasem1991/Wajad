@@ -95,7 +95,7 @@ class SeedUsers extends Command
             'mobile_number' => '01142416124',
             'corporate_id' => 1,
             'mobile_country_id' => 1,
-            'posts_limitation' => 50
+            'posts_number' => 0
         ]);
 
         $this->line('|---------------------------------|');
