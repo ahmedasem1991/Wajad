@@ -139,7 +139,7 @@ Route::domain(config('nova.domain', null))
     });
 route::get('/', function () {
 
-    return redirect(Nova::path());
+   // return redirect(Nova::path());
 });
 
 
