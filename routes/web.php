@@ -138,8 +138,8 @@ Route::domain(config('nova.domain', null))
         Route::post('/updatePassword', 'UpdatePasswordController@updatePassword')->name('update_password');
     });
 route::get('/', function () {
-    return 'Welcome To Wajad';
-   // return redirect(Nova::path());
+   // return 'Welcome To Wajad';
+    return redirect(Nova::path());
 });
 
 
