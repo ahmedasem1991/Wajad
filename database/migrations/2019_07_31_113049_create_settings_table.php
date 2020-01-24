@@ -17,7 +17,8 @@ class CreateSettingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('key')->unique();
             $table->json('title')->nullable();
-            $table->json('value');
+           // $table->json('value');
+            $table->text('value');
             $table->string('image')->nullable();
            $table->softDeletes();
 $table->timestamps();
