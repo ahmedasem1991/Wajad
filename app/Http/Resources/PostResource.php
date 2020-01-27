@@ -13,6 +13,8 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'approval_status' => $this->approval_status,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'reward' => $this->reward,
             'description' => $this->description,
             'status' => Post::Status[$this->status] ?? '',
