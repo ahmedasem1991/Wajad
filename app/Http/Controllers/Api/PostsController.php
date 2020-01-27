@@ -169,7 +169,7 @@ class PostsController extends Controller
                     Image::make(file_get_contents($image))->save($path);
                     array_push($post_images, '/images//' . $image_name);
                 }
-                
+
                 if (!preg_match("/^data:image/", $image)) {
                     array_push($post_images, $image);
                 }
@@ -432,7 +432,7 @@ class PostsController extends Controller
             $validate_request = Validator::make($request->all(), [
                 'title' => ['required', 'min:6', 'max:255'],
                 'description' => ['required', 'min:9', 'max:500'],
-                'reward' => ['string'],
+                'reward' => ['nullable', 'string'],
                 'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'sub_category_id' => ['required', 'exists:sub_categories,id'],
