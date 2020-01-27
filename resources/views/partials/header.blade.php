@@ -18,7 +18,7 @@
       </tr>
       <tr style="padding-top:0px;padding-bottom:0px;">
         <td class="tg-xqpp" style="padding-top:0px;padding-bottom:0px;" colspan="2">Cairo</td>
-        <td class="tg-xqpp" style="padding-top:0px;padding-bottom:0px;" rowspan="5"><img src="http://admin-wajad.smartappco.net/images/smart_appco_logo.png"></td>
+        <td class="tg-xqpp" style="padding-top:0px;padding-bottom:0px;" rowspan="5"><img src="http://admin.smartappco.net/images/smart_appco_logo.png"></td>
         <td class="tg-xqpp" style="padding-top:0px;padding-bottom:0px;" colspan="2">القاهرة</td>
       </tr>
       <tr style="padding-top:0px;padding-bottom:0px;">
