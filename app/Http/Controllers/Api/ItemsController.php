@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Item;
+use App\ItemImage;
 use App\Qrcode;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -74,6 +75,19 @@ class ItemsController extends Controller
                 'item_id' => $item->id
             ]);
         }
+
+        if ($request->has('image') && $request->image != "" && !is_null($request->image)) {
+            $image_name = \Str::random(15) . '.' . 'png';
+            $path = public_path('/images/' . $image_name);
+            Image::make(file_get_contents($request->image))->save($path);
+
+            $item->fill([
+                'images' =>   'images/postreports/' . $image_name
+            ]);
+
+            $item->save();
+        }
+
         if ($request->has('images') && count($request->images) > 0) {
             $item_images = [];
             foreach ($request->images as $image) { 
