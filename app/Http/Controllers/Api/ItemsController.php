@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Item;
+use App\ItemImage;
 use App\Qrcode;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -77,12 +78,12 @@ class ItemsController extends Controller
         if ($request->has('images') && count($request->images) > 0) {
             $item_images = [];
 
-            array_map(function ($image) use ($item_images) {
+            foreach ($request->images as $image) {
                 $image_name = Str::random(15) . '.' . 'png';
                 $path = public_path('/images//' . $image_name);
                 Image::make(file_get_contents($image))->save($path);
                 array_push($item_images, '/images//' . $image_name);
-            }, $request->images);
+            };
 
             $item->fill([
                 'images' => $item_images
