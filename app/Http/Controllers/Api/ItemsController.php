@@ -82,7 +82,7 @@ class ItemsController extends Controller
             Image::make(file_get_contents($request->image))->save($path);
 
             $item->fill([
-                'images' =>   'images/postreports/' . $image_name
+                'images' =>   ['images/' . $image_name]
             ]);
 
             $item->save();
