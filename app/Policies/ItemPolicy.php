@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Item;
+use App\User;
+use App\Exceptions\Api\ApiException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ItemPolicy
