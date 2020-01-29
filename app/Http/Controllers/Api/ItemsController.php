@@ -86,7 +86,7 @@ class ItemsController extends Controller
                     array_push($item_images, '/images//' . $image_name);
                 }
                 if (!preg_match("/^data:image/", $image)) {
-                    array_push($post_images, $image);
+                    array_push($item_images, $image);
                 }
             }
             $item->fill([
