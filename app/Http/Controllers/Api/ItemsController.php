@@ -237,12 +237,13 @@ class ItemsController extends Controller
                         array_push($item_images, '/images//' . $image_name);
                     }
                     if (!preg_match("/^data:image/", $image)) {
-                        array_push($post_images, $image);
+                        array_push($item_images, $image);
                     }
                 }
-                $item->update([
+                $item->fill([
                     'images' => $item_images
                 ]);
+                $item->save();
             }
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
 

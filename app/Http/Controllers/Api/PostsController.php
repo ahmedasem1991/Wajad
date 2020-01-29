@@ -483,9 +483,10 @@ class PostsController extends Controller
                         array_push($post_images, $image);
                     }
                 }
-                $post->update([
+                $post->fill([
                     'images' => $post_images
                 ]);
+                $post->save();
             }
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
