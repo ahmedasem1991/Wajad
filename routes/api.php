@@ -2,7 +2,7 @@
 Route::post('csrf-token', function(){
     return 'we are done';
 })->middleware('csrf_api_token');
-# Auth
+# Auth 
 Route::group(['namespace' => 'Auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
