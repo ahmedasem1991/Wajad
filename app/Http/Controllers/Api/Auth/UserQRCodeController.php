@@ -20,6 +20,7 @@ class UserQRCodeController extends Controller
      *  {
      *   "id": 1,
      *  "url": "http:\/\/api.wajad.test\/api\/scan-qr-code\/1",
+     *  "unique_reference_number":22,
      * "user": {
      *  "id": 2,
      * "name": "User",
