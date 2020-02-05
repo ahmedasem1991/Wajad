@@ -233,7 +233,7 @@ class ItemsController extends Controller
                     if (preg_match("/^data:image/", $image)) {
                         $image_name = Str::random(15) . '.' . 'png';
                         $path = public_path('/images//' . $image_name);
-                        Image::make(file_get_contents($image))->save($path);
+                        Image::make(file_get_contents($image))->encode('data-url')->save($path);
                         array_push($item_images, '/images//' . $image_name);
                     }
                     if (!preg_match("/^data:image/", $image)) {
