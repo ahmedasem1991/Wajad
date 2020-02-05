@@ -76,36 +76,24 @@ class ItemsController extends Controller
             ]);
         }
 
-        if ($request->has('image') && $request->image != "" && !is_null($request->image)) {
-            $image_name = \Str::random(15) . '.' . 'png';
-            $path = public_path('/images/' . $image_name);
-            Image::make(file_get_contents($request->image))->save($path);
-
-            $item->fill([
-                'images' =>   ['images/' . $image_name]
-            ]);
-
-            $item->save();
-        }
-
         if ($request->has('images') && count($request->images) > 0) {
             $item_images = [];
-            foreach ($request->images as $image) { 
-                $image_name = Str::random(15) . '.' . 'png';
-                $path = public_path('/images//' . $image_name);
-                Image::make(file_get_contents($image))->save($path);
-                array_push($item_images, '/images//' . $image_name);
-            } 
-            if (!preg_match("/^data:image/", $image)) {
-                array_push($post_images, $image);
+            foreach ($request->images as $image) {
+                if (preg_match("/^data:image/", $image)) {
+                    $image_name = Str::random(15) . '.' . 'png';
+                    $path = public_path('/images//' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+                    array_push($item_images, '/images//' . $image_name);
+                }
+                if (!preg_match("/^data:image/", $image)) {
+                    array_push($item_images, $image);
+                }
             }
-
             $item->fill([
                 'images' => $item_images
             ]);
-
-            $item->save();
         }
+        $item->save();
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.item')]))->addStatusCode(201);
 
@@ -134,7 +122,7 @@ class ItemsController extends Controller
      *"is_mobile_number_verified": false,
      *"default_distance_unit": "kilo"
      *},
-   *"subcategory": {
+     *"subcategory": {
      *  "id": 5,
      * "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
      * "description": "Quia impedit hic nesciunt quis eum.",
@@ -241,19 +229,22 @@ class ItemsController extends Controller
 
             if ($request->has('images') && count($request->images) > 0) {
                 $item_images = [];
-
-                array_map(function ($image) use ($item_images) {
-                    $image_name = Str::random(15) . '.' . 'png';
-                    $path = public_path('/images//' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
-                    array_push($item_images, '/images//' . $image_name);
-                }, $request->images);
-
-                $item->update([
+                foreach ($request->images as $image) {
+                    if (preg_match("/^data:image/", $image)) {
+                        $image_name = Str::random(15) . '.' . 'png';
+                        $path = public_path('/images//' . $image_name);
+                        Image::make(file_get_contents($image))->save($path);
+                        array_push($item_images, '/images//' . $image_name);
+                    }
+                    if (!preg_match("/^data:image/", $image)) {
+                        array_push($item_images, $image);
+                    }
+                }
+                $item->fill([
                     'images' => $item_images
                 ]);
+                $item->save();
             }
-
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
 
             return $this->response();

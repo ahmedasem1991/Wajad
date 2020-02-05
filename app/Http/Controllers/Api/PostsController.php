@@ -181,7 +181,6 @@ class PostsController extends Controller
             $post->save();
         }
 
-
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
 
         return $this->response();
@@ -220,12 +219,20 @@ class PostsController extends Controller
         ]);
 
         if ($request->has('image') && $request->image != "" && !is_null($request->image)) {
-            $image_name = \Str::random(15) . '.' . 'png';
-            $path = public_path('/images/postreports/' . $image_name);
-            Image::make(file_get_contents($request->image))->save($path);
+
+            if (preg_match("/^data:image/", $request->image)) {
+                $image_name = Str::random(15) . '.' . 'png';
+                $path = public_path('/images//' . $image_name);
+                Image::make(file_get_contents($request->image))->save($path);
+                $imageURL = '/images//' . $image_name;
+            }
+
+            if (!preg_match("/^data:image/", $request->image)) {
+                $imageURL = '/images//' . $request->image;
+            }
 
             $postReport->fill([
-                'image' =>   'images/postreports/' . $image_name
+                'image' =>     $imageURL
             ]);
 
             $postReport->save();
@@ -464,21 +471,23 @@ class PostsController extends Controller
 
             if ($request->has('images') && count($request->images) > 0) {
                 $post_images = [];
+                foreach ($request->images as $image) {
+                    if (preg_match("/^data:image/", $image)) {
+                        $image_name = Str::random(15) . '.' . 'png';
+                        $path = public_path('/images//' . $image_name);
+                        Image::make(file_get_contents($image))->save($path);
+                        array_push($post_images, '/images//' . $image_name);
+                    }
 
-                array_map(function ($image) use ($post_images) {
-                    $image_name = Str::random(15) . '.' . 'png';
-                    $path = public_path('/images//' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
-                    array_push($post_images, '/images//' . $image_name);
-                }, $request->images);
-
+                    if (!preg_match("/^data:image/", $image)) {
+                        array_push($post_images, $image);
+                    }
+                }
                 $post->fill([
                     'images' => $post_images
                 ]);
-
                 $post->save();
             }
-
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
             return $this->response();
