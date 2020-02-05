@@ -144,7 +144,23 @@ route::get('/', function () {
 
 
 Route::get('test', function () {
-    return now()->toDatetimeString();
+    $ImageName= time().str_random(20).'.png';
+    $Url=time().str_random(20);
+    $pngImage= \QrCode::format('png')
+    ->merge(public_path('/images/'.env('QRCODE_LOGO','wajad_logo.png')), 0.2, true)
+   ->color(93 ,188 ,210)
+   ->size(2000)
+    ->generate(env('API_URL').'/scan-qr-code/'.$Url,
+    public_path('images/qrcodes/'.$ImageName));
+  return '<img height=300px" width="300px" src=images/qrcodes/'.$ImageName.'>';
+//   return response($pngImage)->header('Content-type','image/png');
+//     $pngImage = \QrCode::format('png')
+//     ->merge(public_path('/images/'.env('QRCODE_LOGO','logo22.png')), 0.3, true)
+//     //->backgroundColor(255, 255, 0)
+//     ->color(255, 0, 127)
+//     ->size(500)->generate('Welcome to kerneldev.com!'); 
+
+// return response($pngImage)->header('Content-type','image/png');
 });
 
 
@@ -172,7 +188,46 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/test500', function () {
-    return  defaultGroup()->posts_period;
+   
+ 
+    
+  $client = new \GuzzleHttp\Client();
+  $url = "https://qrcode-monkey.p.rapidapi.com/qr/transparent";
+ 
+
+           $array=[];
+     $x =0;
+ 
+    $form_params['x'] = '0';
+    $form_params['y'] ='0';
+    $form_params['data'] = 'https%3A%2F%2Fqrcode.studio';
+    $form_params['size'] = "400";
+ 
+
+      $request = $client->get($url,[
+      'headers' => [
+        'x-rapidapi-host' => 'qrcode-monkey.p.rapidapi.com',
+        'x-rapidapi-key' => 'b9f31e753dmsha87e82bfd8b0f36p14c4b2jsn8e9e036bc6e9'
+  
+    ],
+    // 'multipart' => [
+    //   [
+    //       'x'     => '0',
+    //       'y'     => '0',
+    //       'data' => 'https%3A%2F%2Fqrcode.studio',
+    //       'size' => '400',
+         
+    //   ]],
+    array('form_params' =>  $form_params )
+       ] );
+      
+    
+   
+// echo  json_decode( $request->getBody());
+ return( $request->getBody());
+ 
+  
+    // return  defaultGroup()->posts_period;
     //  dd( $user->roles());
     //  foreach()
 
