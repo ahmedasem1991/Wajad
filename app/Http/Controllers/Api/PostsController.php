@@ -166,12 +166,12 @@ class PostsController extends Controller
                 if (preg_match("/^data:image/", $image)) {
                     $image_name = Str::random(15) . '.' . 'png';
                     $path = public_path('/images//' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
-                    array_push($post_images, '/images//' . $image_name);
+                    Image::make(file_get_contents($image))->encode('data-url')->save($path);
+                    $post_images[] = '/images//' . $image_name;
                 }
 
                 if (!preg_match("/^data:image/", $image)) {
-                    array_push($post_images, $image);
+                    $post_images[] = $image;
                 }
             }
             $post->fill([
@@ -474,11 +474,11 @@ class PostsController extends Controller
                         $image_name = Str::random(15) . '.' . 'png';
                         $path = public_path('/images//' . $image_name);
                         Image::make(file_get_contents($image))->encode('data-url')->save($path);
-                        array_push($post_images, '/images//' . $image_name);
+                        $post_images[] = '/images//' . $image_name;
                     }
 
                     if (!preg_match("/^data:image/", $image)) {
-                        array_push($post_images, $image);
+                        $post_images[] = $image;
                     }
                 }
                 $post->fill([
