@@ -166,12 +166,12 @@ class PostsController extends Controller
                 if (preg_match("/^data:image/", $image)) {
                     $image_name = Str::random(15) . '.' . 'png';
                     $path = public_path('/images//' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
-                    array_push($post_images, '/images//' . $image_name);
+                    Image::make(file_get_contents($image))->encode('data-url')->save($path);
+                    $post_images[] = '/images//' . $image_name;
                 }
 
                 if (!preg_match("/^data:image/", $image)) {
-                    array_push($post_images, $image);
+                    $post_images[] = $image;
                 }
             }
             $post->fill([
@@ -418,8 +418,6 @@ class PostsController extends Controller
      * @bodyParam city string required
      * @bodyParam images array sometimes between:1,5
      * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
-     * @bodyParam questions array sometimes size:3
-     * @bodyParam questions.* required min:9 max:500
      * @bodyParam token Barier-token required
      *
      * @response
@@ -475,8 +473,8 @@ class PostsController extends Controller
                     if (Str::startsWith($image, 'data:image')) {
                         $image_name = Str::random(15) . '.' . 'png';
                         $path = public_path('/images//' . $image_name);
-                        Image::make(file_get_contents($image))->save($path);
-                        array_push($post_images, '/images//' . $image_name);
+                        Image::make(file_get_contents($image))->encode('data-url')->save($path);
+                        $post_images[] = '/images//' . $image_name;
                     }
 
                     if (!Str::startsWith($image, 'data:image')) {

@@ -144,7 +144,68 @@ route::get('/', function () {
 
 
 Route::get('test', function () {
-    return now()->toDatetimeString();
+    //return now()->toDatetimeString();
+    /*
+        $ImageName= time().str_random(20).'.png';
+    $Url=time().str_random(20);
+    $pngImage= \QrCode::format('png')
+    ->merge(public_path('/images/'.env('QRCODE_LOGO','wajad_logo.png')), 0.2, true)
+   ->color(93 ,188 ,210)
+   ->size(2000)
+    ->generate(env('API_URL').'/scan-qr-code/'.$Url,
+    public_path('images/qrcodes/'.$ImageName));
+  return '<img height=300px" width="300px" src=images/qrcodes/'.$ImageName.'>';
+
+  */
+
+    $client = new \GuzzleHttp\Client();
+  $url = "https://qrcode3.p.rapidapi.com/generateQR?text=wajad.com&gradient_stop_color=%235DBCD2&fill_style=radialGradient&inner_eye_style=Diamond&inner_eye_color=%235DBCD2&outer_eye_color=%234F4F50&image=http://admin.smartappco.net/images/models/H3JQHCZXT775K3ItbrWr7Kfq1zhDpmfmSiSwJyDJ.png&outer_eye_style=Diamond&remove_background=false&format=png&size=500";
+ 
+
+           $array=[];
+     $x =0;
+ 
+    $form_params['text'] = 'wajad.com';
+    $form_params['gradient_stop_color'] ='#5DBCD2';
+    $form_params['fill_style'] = 'radialGradient';
+    $form_params['inner_eye_style'] = "Diamond";
+    $form_params['style'] = "";
+    $form_params['style_color'] = "";
+    $form_params['inner_eye_color'] = "#5DBCD2";
+    $form_params['outer_eye_color'] = "#4F4F50";
+    $form_params['image'] = "http://admin.smartappco.net/images/models/H3JQHCZXT775K3ItbrWr7Kfq1zhDpmfmSiSwJyDJ.png";
+    $form_params['outer_eye_style'] = "Diamond";
+    $form_params['bg_color'] = "";
+    $form_params['remove_background'] = "false";
+    $form_params['format'] = "png";
+    $form_params['size'] = "400";
+
+
+ 
+
+      $request = $client->get($url,[
+      'headers' => [
+        'Content-Type' => 'qrcode-monkey.p.rapidapi.com',
+        'X-RapidAPI-Key' => 'b9f31e753dmsha87e82bfd8b0f36p14c4b2jsn8e9e036bc6e9'
+  
+    ],
+    // 'multipart' => [
+    //   [
+    //       'x'     => '0',
+    //       'y'     => '0',
+    //       'data' => 'https%3A%2F%2Fqrcode.studio',
+    //       'size' => '400',
+         
+    //   ]],
+    array('form_params' =>  $form_params )
+       ] );
+      
+    
+   
+// echo  json_decode( $request->getBody());
+ return   $request;
+ 
+
 });
 
 
