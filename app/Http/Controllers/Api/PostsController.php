@@ -471,7 +471,7 @@ class PostsController extends Controller
                 $post_images = [];
                 foreach ($request->images as $image) {
 
-                    return response()->json([(string) Str::startsWith($image, 'data:image')]);
+                    return response()->json([Str::startsWith($image, 'data:image')]);
 
                     if (Str::startsWith($image, 'data:image')) {
                         $image_name = Str::random(15) . '.' . 'png';
