@@ -470,6 +470,9 @@ class PostsController extends Controller
             if ($request->has('images') && count($request->images) > 0) {
                 $post_images = [];
                 foreach ($request->images as $image) {
+
+                    dd(Str::startsWith($image, 'data:image'));
+
                     if (Str::startsWith($image, 'data:image')) {
                         $image_name = Str::random(15) . '.' . 'png';
                         $path = public_path('/images//' . $image_name);
