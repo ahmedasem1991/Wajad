@@ -15,8 +15,8 @@ class UserQRCodeController extends Controller
      * User QR Codes
      * @bodyParam token Barier-token required
      * @response 
-     *{
-     * "available_single": [
+     *{"available":{
+     * "single": [
      *  {
      *   "id": 1,
      *  "url": "http:\/\/api.wajad.test\/api\/scan-qr-code\/1",
@@ -45,8 +45,8 @@ class UserQRCodeController extends Controller
      *}
      *],
      *"available_single_count":1,
-     *"available_multi": [],
-     *"available_multi_count":1,     
+     *"multi": [],
+     *"available_multi_count":1},     
      *"active": [],
      *"available_active":1,
      *"expired": [],
@@ -56,8 +56,8 @@ class UserQRCodeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $qrcodes = collect([
-            'available_single' => QrcodeResource::collection(
+        $availableQrCodes = collect([
+            'single' => QrcodeResource::collection(
                 auth('api')->user()->qrcodes()->singleAssign()->get()
             ),
             'available_single_count' => count(
@@ -65,14 +65,17 @@ class UserQRCodeController extends Controller
                     auth('api')->user()->qrcodes()->singleAssign()->get()
                 )
             ),
-            'available_multi' => QrcodeResource::collection(
+            'multi' => QrcodeResource::collection(
                 auth('api')->user()->qrcodes()->multiAssign()->get()
             ),
             'available_multi_count' => count(
                 QrcodeResource::collection(
                     auth('api')->user()->qrcodes()->multiAssign()->get()
                 )
-            ),
+            )
+        ]);
+        $qrcodes = collect([
+            'available' => $availableQrCodes,
             'active' => QrcodeResource::collection(
                 auth('api')->user()->qrcodes()->registered()->get()
             ),
