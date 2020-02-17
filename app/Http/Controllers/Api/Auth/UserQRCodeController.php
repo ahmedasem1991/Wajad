@@ -58,19 +58,19 @@ class UserQRCodeController extends Controller
     {
         $availableQrCodes = collect([
             'single' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->singleAssign()->get()
+                auth('api')->user()->qrcodes()->singleAssign()->availableToUser()->get()
             ),
             'available_single_count' => count(
                 QrcodeResource::collection(
-                    auth('api')->user()->qrcodes()->singleAssign()->get()
+                    auth('api')->user()->qrcodes()->singleAssign()->availableToUser()->get()
                 )
             ),
             'multi' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->multiAssign()->get()
+                auth('api')->user()->qrcodes()->multiAssign()->availableToUser()->get()
             ),
             'available_multi_count' => count(
                 QrcodeResource::collection(
-                    auth('api')->user()->qrcodes()->multiAssign()->get()
+                    auth('api')->user()->qrcodes()->multiAssign()->availableToUser()->get()
                 )
             )
         ]);

@@ -187,4 +187,8 @@ class Qrcode extends Model
     {
         return Carbon::now()->toDateTimeString() > $this->end_at;
     }
+    public function scopeAvailableToUser($query)
+    {
+        return $query->where('status', 2);
+    }
 }
