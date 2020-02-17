@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Qrcode;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class QrcodeResource extends JsonResource
@@ -18,6 +19,8 @@ class QrcodeResource extends JsonResource
             'id' => $this->id,
             'url' => $this->qrcode_url,
             'image' => $this->image,
+            'type' =>  Qrcode::Types[(int) $this->type] ?? "",
+            'status' => Qrcode::STATUS[(int) $this->status] ?? "",
             'unique_reference_number' => $this->unique_reference_number,
             'generate_reference_number' => $this->generate_reference_number,
             'assign_reference_number' => $this->assign_reference_number,
