@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -20,10 +21,10 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class User extends Resource
 {
@@ -88,7 +89,13 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+            //Gravatar::make(),
+            Image::make('Profile Image', 'image')
+            ->disk('public')
+            ->path('images/profile')
+            ->prunable()
+            ->deletable()
+            ->rules('required','dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
