@@ -48,7 +48,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
      */
     public function handle()
     {
-        $QRCodes=[];
+        
         if ($this->generate_reference_number == NULL) {
             $QRCodes = Qrcode::status('In Stock')->where('type',$this->type)->take($this->quantity)->get();
             foreach ($QRCodes as $QRCode) {
@@ -74,7 +74,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
                         env('API_URL') . '/scan-qr-code/' . $Url,
                         public_path('images/qrcodes/' . $ImageName)
                     );
-               $qr= Qrcode::create([
+                Qrcode::create([
                     'unique_reference_number' => $unique_reference_number,
 
                     'generate_reference_number' => $this->generate_reference_number,
@@ -87,32 +87,10 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
                     'user_id' => $this->user_id,
                     'corporate_id' => $this->corporate_id,
                 ]);
-                array_push($QRCodes,$qr);
+                
             }
         }
-        session()->put('qrcodes',$QRCodes) ;
-
-        $level = 'success';
-        $url = Nova::path() . '/resources/stocks';
-        $Admins = User::superAdmin()->get();
-        $corporate_message = '"' . $this->quantity . '" QR Code Assigned Successfully To You.';
-        if ($this->auth_id != NULL) {
-            $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->auth_id)->corporate->name_en . '.';
-            User::find($this->auth_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
-        } else if ($this->user_id != NULL) {
-            $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->user_id)->corporate->name_en . '.';
-            User::find($this->user_id)->notify(new BroadcastNotification('info', $corporate_message, $url));
-        } else if ($this->corporate_id != NULL) {
-            $Corporate = Corporate::find($this->corporate_id);
-            $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . '.';
-            $CorporateAdmins = $Corporate->users->where('type', 2);
-            foreach ($CorporateAdmins as $user) {
-                $user->notify(new BroadcastNotification($level, $corporate_message, $url));
-            }
-        }
-        foreach ($Admins as $user) {
-            $user->notify(new BroadcastNotification('info', $message, $url));
-        }
+        
 
         $level = 'success';
         $url = Nova::path() . '/resources/stocks';
@@ -133,8 +111,30 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
             }
         }
         foreach ($Admins as $user) {
-            $user->notify(new BroadcastNotification($level, $message, $url));
+            $user->notify(new BroadcastNotification('info', $message, $url));
         }
+
+        // $level = 'success';
+        // $url = Nova::path() . '/resources/stocks';
+        // $Admins = User::superAdmin()->get();
+        // $corporate_message = '"' . $this->quantity . '" QR Code Assigned Successfully To You.';
+        // if ($this->auth_id != NULL) {
+        //     $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->auth_id)->corporate->name_en . '.';
+        //     User::find($this->auth_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
+        // } else if ($this->user_id != NULL) {
+        //     $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->user_id)->corporate->name_en . '.';
+        //     User::find($this->user_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
+        // } else if ($this->corporate_id != NULL) {
+        //     $Corporate = Corporate::find($this->corporate_id);
+        //     $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . '.';
+        //     $CorporateAdmins = $Corporate->users->where('type', 2);
+        //     foreach ($CorporateAdmins as $user) {
+        //         $user->notify(new BroadcastNotification($level, $corporate_message, $url));
+        //     }
+        // }
+        // foreach ($Admins as $user) {
+        //     $user->notify(new BroadcastNotification($level, $message, $url));
+        // }
 
         
     }
