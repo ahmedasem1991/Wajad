@@ -88,7 +88,7 @@ class SuperAdmin extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+            //Gravatar::make(),
             Image::make('Profile Image', 'image')
             ->disk('public')
             ->path('images/profile')
