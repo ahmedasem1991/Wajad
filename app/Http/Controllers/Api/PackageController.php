@@ -20,6 +20,7 @@ class PackageController extends Controller
      * {
      *    "data": [
      *     {
+     *      "id": 12,
      *      "name": "Platinum Package",
      *     "description": "Get 25 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.",
      *    "qrcodes_count": 1500,

@@ -48,6 +48,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
      */
     public function handle()
     {
+        $QRCodes=[];
         if ($this->generate_reference_number == NULL) {
             $QRCodes = Qrcode::status('In Stock')->type($this->type)->take($this->quantity)->get();
             foreach ($QRCodes as $QRCode) {
@@ -73,7 +74,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
                         env('API_URL') . '/scan-qr-code/' . $Url,
                         public_path('images/qrcodes/' . $ImageName)
                     );
-                Qrcode::create([
+               $qr= Qrcode::create([
                     'unique_reference_number' => $unique_reference_number,
 
                     'generate_reference_number' => $this->generate_reference_number,
@@ -86,8 +87,10 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
                     'user_id' => $this->user_id,
                     'corporate_id' => $this->corporate_id,
                 ]);
+                array_push($QRCodes,$qr);
             }
         }
+        session()->put('qrcodes',$QRCodes) ;
 
         $level = 'success';
         $url = Nova::path() . '/resources/stocks';
@@ -132,5 +135,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
         foreach ($Admins as $user) {
             $user->notify(new BroadcastNotification($level, $message, $url));
         }
+
+        
     }
 }
