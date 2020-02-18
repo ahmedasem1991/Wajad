@@ -94,7 +94,7 @@ class SuperAdmin extends Resource
             ->path('images/profile')
             ->prunable()
             ->deletable()
-            ->rules('required','dimensions:max_width=1000,max_height=1000'),
+            ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
