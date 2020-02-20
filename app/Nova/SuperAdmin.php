@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -87,7 +88,13 @@ class SuperAdmin extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+            //Gravatar::make(),
+            Image::make('Profile Image', 'image')
+            ->disk('public')
+            ->path('images/profile')
+            ->prunable()
+            ->deletable()
+            ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()

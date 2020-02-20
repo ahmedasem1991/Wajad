@@ -13,6 +13,8 @@ return [
 	'registered' =>  'تم تسجيل :model بنجاح.',
 	'logged_out' => 'تم تسجيل الخروج بنجاح.',
 	'logged_out' =>  'تم تسجيل خروج :model بنجاح.',
+	'cannot_buy' =>  'عذرا .. حاول مرة أخرى بعد بضع دقائق',
+
 
 	'attributes' => [
 		'post' => 'المنشور',

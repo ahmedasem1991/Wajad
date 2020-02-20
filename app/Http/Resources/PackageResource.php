@@ -17,6 +17,7 @@ class PackageResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()},
             'description' => $this->{'description_' . app()->getLocale()},
             'qrcodes_count' => $this->quantity,

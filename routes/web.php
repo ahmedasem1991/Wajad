@@ -118,9 +118,18 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
-      $sub= SubCategory::with('brands')->first();
-    return $sub->brands;
-    return str_replace(' ', '', '+996 45 464 6466');
+    $im = new Imagick("https://pngimg.com/uploads/qr_code/qr_code_PNG6.png");
+$height = $im->getImageHeight();
+$width = $im->getImageWidth(); 
+$im->resizeImage($width * 2, $height * 2, Imagick::FILTER_POINT, 0); 
+$im->medianFilterImage(8);
+
+header("Content-Type: image/png");
+echo $im;
+   
+    //   $sub= SubCategory::with('brands')->first();
+    // return $sub->brands;
+    // return str_replace(' ', '', '+996 45 464 6466');
     //     $array=[];
     //     foreach(Auth()->User()->roles as $role)
     //     {
