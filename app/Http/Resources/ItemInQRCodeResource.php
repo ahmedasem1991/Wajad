@@ -6,7 +6,7 @@ use App\Item;
 use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResourceNew extends JsonResource
+class ItemInQRCodeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
