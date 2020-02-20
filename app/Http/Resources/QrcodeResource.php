@@ -27,7 +27,7 @@ class QrcodeResource extends JsonResource
             'user' => new UserResource($this->user),
             // 'package' => $this->package,
             // 'product' => $this->package_product_pivot->product,
-            'item' => new ItemResource($this->item),
+            'item' => new ItemResourceNew($this->item),
             'available_period' => $this->available_period,
             'start_at' => $this->start_at ? $this->start_at : null,
             'end_at' => $this->end_at ? $this->end_at  : null,
