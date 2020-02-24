@@ -50,9 +50,9 @@ class UserQRCodeController extends Controller
      *"multi": [],
      *"available_multi_count":1},     
      *"active": [],
-     *"available_active":1,
+     *"active_count":1,
      *"expired": [],
-     *"available_expired":1
+     *"expired_count":1
      *}
      * @return void
      */
