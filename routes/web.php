@@ -161,7 +161,7 @@ Route::get('test', function () {
     ->merge(public_path('/images/'.env('QRCODE_LOGO','wajad_logo.png')), 0.2, true)
    ->color(93 ,188 ,210)
    ->size(2000)
-    ->generate(env('API_URL').'/scan-qr-code/'.$Url,
+    ->generate(env('API_URL').'/api/scan-qr-code/'.$Url,
     public_path('images/qrcodes/'.$ImageName));
   return '<img height=300px" width="300px" src=images/qrcodes/'.$ImageName.'>';
 
