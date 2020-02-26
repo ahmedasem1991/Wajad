@@ -24,6 +24,7 @@ use Bissolli\NovaPhoneField\PhoneNumber;
 use App\NovaCorporate\Metrics\PostsCount;
 use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\OpenVsClosedPosts;
 use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
@@ -153,7 +154,11 @@ class ReportedPost extends Resource
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
             MediaField::make('Item Image', 'images')->listing(),
-
+            MapMarker::make("Location")
+            ->defaultZoom(5)
+            ->defaultLatitude(21.4498898)
+            ->defaultLongitude(39.4913431)
+            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
              //HasMany::make('Images','images',\App\Nova\PostImage::class),
              HasMany::make('Questions'),
              HasMany::make('Post Requests','postrequests' ,\App\NovaCorporate\PostRequest::class),
