@@ -23,6 +23,7 @@ use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -240,7 +241,11 @@ class ClosedPost extends Resource
                 ->readonly(),
 
                 MediaField::make('Item Image', 'images')->listing(),
-
+                MapMarker::make("Location")
+                ->defaultZoom(5)
+                ->defaultLatitude(21.4498898)
+                ->defaultLongitude(39.4913431)
+                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)

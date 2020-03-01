@@ -71,7 +71,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
                    // ->merge(public_path('/images/' . env('QRCODE_LOGO', 'logo.png')), 0.1, true)
                     ->size(2000)
                     ->generate(
-                        env('API_URL') . '/scan-qr-code/' . $Url,
+                        env('API_URL') . '/api/scan-qr-code/' . $Url,
                         public_path('images/qrcodes/' . $ImageName)
                     );
                 Qrcode::create([
