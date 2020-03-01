@@ -20,9 +20,9 @@ class RegisterQRCodeController extends Controller
     /**
      * Register QR Code
      * @urlParam qrcode_id required int exists in qrcodes
-     * @urlParam item_id required int exists in items    
+     * @urlParam item_id required int exists in items
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      * {
      * "success": true,
      * "message": "qrcode registered successfully.",

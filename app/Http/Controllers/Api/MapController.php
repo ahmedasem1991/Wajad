@@ -27,13 +27,13 @@ class MapController extends Controller
     ];
     /**
      * Map
-     * @urlParam type required in:lost,found,office   
-     * @bodyParam longitude string required  
-     * @bodyParam latitude string required  
-     * @bodyParam radius int required  
-     * @bodyParam unit string,in:kilo,mile required   
+     * @urlParam type required in:lost,found,office
+     * @bodyParam longitude string required
+     * @bodyParam latitude string required
+     * @bodyParam radius int required
+     * @bodyParam unit string,in:kilo,mile required
      *
-     * @response  
+     * @response
      * {
      *"data": [
      *   {

@@ -12,11 +12,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model
 {
-use LogsActivity,SoftDeletes;
+    use LogsActivity, SoftDeletes;
 
-    protected $fillable =['unique_reference_number','generate_reference_number','assign_reference_number','type','status','quantity','qrcode_url','image','available_period','start_at','end_at','user_id','corporate_id','corporate_assign_reference_number'];
-
-
+    protected $fillable = [
+        'unique_reference_number',
+        'generate_reference_number',
+        'assign_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'qrcode_url',
+        'image',
+        'available_period',
+        'start_at',
+        'item_id',
+        'end_at',
+        'user_id',
+        'corporate_id',
+        'corporate_assign_reference_number'
+    ];
 
     const Types = [
         1 => 'Single Assign',
@@ -85,11 +99,11 @@ use LogsActivity,SoftDeletes;
 
     public function qrcodegenerate()
     {
-        return $this->belongsTo(GenerateQrcode::class,'generate_reference_number','generate_reference_number');
+        return $this->belongsTo(GenerateQrcode::class, 'generate_reference_number', 'generate_reference_number');
     }
     public function assignqrcode()
     {
-        return $this->belongsTo(AssignQrcode::class,'assign_reference_number','assign_reference_number');
+        return $this->belongsTo(AssignQrcode::class, 'assign_reference_number', 'assign_reference_number');
     }
 
     public function package_product_pivot()
@@ -121,8 +135,6 @@ use LogsActivity,SoftDeletes;
             Log::ERROR($this->response());
             return $this->response();
         }
-
-
     }
 
     public function updateQrcodeToexpired()
