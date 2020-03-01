@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Item;
-use App\ItemImage;
 use App\Qrcode;
+use App\ItemImage;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
@@ -33,6 +34,7 @@ class ItemsController extends Controller
      * @bodyParam brand_id exists:brands,id required
      * @bodyParam model_id exists:models,id required
      * @bodyParam sub_category_id exists:sub_category,id required
+     * @bodyParam qrcode_id exists:qrcodes,id  
      * @bodyParam images array required between:1,5
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
@@ -52,6 +54,7 @@ class ItemsController extends Controller
             'model_id' => ['required', 'exists:models,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
+            'qrcode_id' => ['nullable', 'exists:qrcodes,id'],
             'images' => ['sometimes', 'array', 'between:0,5'],
             'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
         ]);
@@ -69,10 +72,22 @@ class ItemsController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'owner_id' => auth('api')->user()->id,
         ]);
+
         if ($request->has('qrcode_id')) {
-            $qr_code = Qrcode::find($request->qrcode_id);
-            $qr_code::update([
-                'item_id' => $item->id
+            $qr_code = Qrcode::where('id', $request->qrcode_id)
+                ->Where('user_id', auth('api')->user()->id)
+                ->Where('item_id', null)
+                ->Where('status', 2)
+                ->first();
+
+            if (!$qr_code) {
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+            }
+            $qr_code::where('id', $request->qrcode_id)->update([
+                'item_id' => $item->id,
+                'status' => 4,
+                'start_at' => Carbon::now()->toDateTimeString(),
+                'end_at' => Carbon::now()->addDays($qr_code->available_period)
             ]);
         }
 
@@ -198,6 +213,15 @@ class ItemsController extends Controller
     /**
      * Edit Item
      * @urlParam item required int Item id. Example: 1
+     * @bodyParam title min:6,max:255 required
+     * @bodyParam details min:20,max:500 required
+     * @bodyParam color_id exists:colors,id required
+     * @bodyParam brand_id exists:brands,id required
+     * @bodyParam model_id exists:models,id required
+     * @bodyParam sub_category_id exists:sub_category,id required
+     * @bodyParam qrcode_id exists:qrcodes,id  
+     * @bodyParam images array required between:1,5
+     * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
@@ -217,6 +241,7 @@ class ItemsController extends Controller
                 'brand_id' => ['required', 'exists:brands,id'],
                 'model_id' => ['required', 'exists:models,id'],
                 'color_id' => ['required', 'exists:colors,id'],
+                'qrcode_id' => ['nullable', 'exists:qrcodes,id'],
                 'images' => ['sometimes', 'array', 'between:0,5'],
                 'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
             ]);
@@ -226,6 +251,24 @@ class ItemsController extends Controller
             }
 
             $item->update($request->all());
+
+            if ($request->has('qrcode_id')) {
+                $qr_code = Qrcode::where('id', $request->qrcode_id)
+                    ->Where('user_id', auth('api')->user()->id)
+                    ->Where('item_id', null)
+                    ->Where('status', 2)
+                    ->first();
+
+                if (!$qr_code) {
+                    throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+                }
+                $qr_code::where('id', $request->qrcode_id)->update([
+                    'item_id' => $item->id,
+                    'status' => 4,
+                    'start_at' => Carbon::now()->toDateTimeString(),
+                    'end_at' => Carbon::now()->addDays($qr_code->available_period)
+                ]);
+            }
 
             if ($request->has('images') && count($request->images) > 0) {
                 $item_images = [];
