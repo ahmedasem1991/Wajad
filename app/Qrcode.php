@@ -15,8 +15,7 @@ class Qrcode extends Model
 {
     use LogsActivity, SoftDeletes;
 
-    protected $fillable = ['unique_reference_number', 'generate_reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number'];
-
+    protected $fillable = ['unique_reference_number', 'generate_reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number', 'item_id'];
 
 
     const Types = [
