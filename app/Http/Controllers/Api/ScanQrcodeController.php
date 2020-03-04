@@ -58,6 +58,7 @@ class ScanQrcodeController extends Controller
             throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
         ScanQRCodeNotificationJob::dispatch($request, $qr_code);
+        logger('qrcode scaned successfully ....');
         return new QrcodeResource($qr_code);
     }
 
