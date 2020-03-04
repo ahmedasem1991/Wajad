@@ -259,13 +259,17 @@ class ItemsController extends Controller
             if ($request->has('qrcode_id')) {
                 $qr_code = Qrcode::where('id', $request->qrcode_id)
                     ->Where('user_id', auth('api')->user()->id)
-                    ->Where('item_id', null)
                     ->Where('status', 2)
                     ->first();
 
                 if (!$qr_code) {
                     throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
                 }
+                
+                if ($qr_code->type == 1 && $qr_code->status == 4) {
+                    throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+                }
+                
                 $qr_code::where('id', $request->qrcode_id)->update([
                     'item_id' => $item->id,
                     'status' => 4,
