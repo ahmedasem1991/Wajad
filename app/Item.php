@@ -179,16 +179,4 @@ class Item extends MasterModel
     {
         return $query->where('owner_id', $user_id)->orWhere('founder_id', $user_id);
     }
-
-    /**
-     * Scope Single Item
-     *
-     * @param object $query
-     * @param int $item_id
-     * @return void
-     */
-    public function scopeItem($query, $item_id)
-    {
-        return $query->where('id', $item_id) ?? null;
-    }
 }
