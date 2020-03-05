@@ -90,14 +90,12 @@ class UserQRCodeController extends Controller
             'available_multi_count' => $available_multi_qr_code->count()
         ]);
 
-        $qrcodes = collect([
+        return collect([
             'available' => $availableQrCodes,
             'active' => QrcodeResource::collection($registered_qr_code->get()),
             'active_count' => $registered_qr_code->count(),
             'expired' => QrcodeResource::collection($expired_qe_code->get()),
             'expired_count' => $expired_qe_code->count()
         ]);
-
-        return $qrcodes;
     }
 }
