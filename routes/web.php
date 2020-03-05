@@ -20,10 +20,12 @@ use Illuminate\Support\Facades\Route;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
+use App\Services\Filters\QRCodeFilters\Expired;
+use App\Services\Filters\QRCodeFilters\InStock;
+use App\Services\Filters\QRCodeFilters\MultiAssign;
 use App\Services\Filters\QRCodeFilters\SingleAssign;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
-use App\Services\Filters\QRCodeFilters\MultiAssign;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,11 +94,10 @@ route::get('/', function () {
 
 
 Route::get('filters', function () {
-    $qrcode = Qrcode::query();
-
-    $filter = (new SingleAssign)->apply($qrcode);
-
-    dd($filter->get());
+    $qrcode = Qrcode::withFilters(
+        new SingleAssign,
+        new Expired,
+    )->get();
 
     dd($qrcode);
 });

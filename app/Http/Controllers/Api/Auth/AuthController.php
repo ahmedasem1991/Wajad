@@ -220,7 +220,6 @@ class AuthController extends Controller
         try {
             return $this->respondWithToken(auth('api')->refresh(), false);
         } catch (\Throwable $th) {
-            dd($th);
             throw new ApiException(trans("auth.failed"), 400);
         }
     }

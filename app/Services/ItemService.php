@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
 use App\Exceptions\Api\ApiException;
+use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
+use App\Services\Filters\QRCodeFilters\AssignedToUser;
 use Illuminate\Support\Facades\Validator;
 
 class ItemService
@@ -29,12 +31,10 @@ class ItemService
 
         if ($request->has('qrcode_id')) {
             $qr_code = Qrcode::find($request->qrcode_id)
-                ->assignedForLoginUser()
-                ->assignedToUser()
-                ->first();
-            // ->where('user_id', auth('api')->user()->id)
-            // ->status('Assigned To User')
-            // ->first();
+                ->withFilters(
+                    new AssignedToSpecificUser,
+                    new AssignedToUser
+                )->first();
 
             if (!$qr_code) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);

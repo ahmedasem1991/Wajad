@@ -2,12 +2,14 @@
 
 namespace App\Services\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait Filters
 {
-    public function withFilters(array $filters)
+    public function scopeWithFilters(Builder $query, ...$filters)
     {
-        foreach ($filters as $filter) {
-            $filter->apply($this->query());
+        foreach (array_flatten($filters) as $filter) {
+            $filter->apply($query);
         }
     }
 }

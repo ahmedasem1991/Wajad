@@ -2,7 +2,6 @@
 
 namespace App\Services\Filters\Constants;
 
-
 interface QrcodeConstants
 {
     const STATUS = [
