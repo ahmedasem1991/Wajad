@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
 use App\Exceptions\Api\ApiException;
+use App\Services\Checkers\QrCodeCheckers\IsExpired;
+use App\Services\Checkers\QrCodeCheckers\IsSingleAssign;
 use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
 use App\Services\Filters\QRCodeFilters\AssignedToUser;
 use Illuminate\Support\Facades\Validator;
@@ -44,39 +46,32 @@ class ItemService
                 )->first();
 
             if (!$qr_code) {
-                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+                throw new ApiException(
+                    trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]),
+                    400
+                );
             }
 
-            if ($qr_code->type == 1 && $qr_code->status == 4) {
-                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+            if ($qr_code->checkFor(
+                new IsSingleAssign,
+                new IsExpired
+            )) {
+                throw new ApiException(
+                    trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]),
+                    400
+                );
             }
 
-            $qr_code::where('id', $request->qrcode_id)->update([
-                'item_id' => $item->id,
-                'status' => 4,
-                'start_at' => Carbon::now()->toDateTimeString(),
-                'end_at' => Carbon::now()->addDays($qr_code->available_period)
-            ]);
+            $qr_code->assignQrcodeToItem($item->id);
         }
 
 
         if ($request->has('images') && count($request->images) > 0) {
-            $item_images = [];
-            foreach ($request->images as $image) {
-                if (preg_match("/^data:image/", $image)) {
-                    $image_name = Str::random(15) . '.' . 'png';
-                    $path = public_path('/images//' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
-                    array_push($item_images, '/images//' . $image_name);
-                }
-                if (!preg_match("/^data:image/", $image)) {
-                    array_push($item_images, $image);
-                }
-            }
             $item->fill([
-                'images' => $item_images
+                'images' => $this->uploadImages($request->images)
             ]);
         }
+
         $item->save();
     }
 
@@ -101,5 +96,22 @@ class ItemService
         if ($validate_request->fails()) {
             throw new ApiException($validate_request->errors()->first(), 400);
         }
+    }
+
+    private function uploadImages($images)
+    {
+        $item_images = [];
+        foreach ($images as $image) {
+            if (preg_match("/^data:image/", $image)) {
+                $image_name = Str::random(15) . '.' . 'png';
+                $path = public_path('/images//' . $image_name);
+                Image::make(file_get_contents($image))->save($path);
+                array_push($item_images, '/images//' . $image_name);
+            }
+            if (!preg_match("/^data:image/", $image)) {
+                array_push($item_images, $image);
+            }
+        }
+        return $item_images;
     }
 }
