@@ -6,6 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
+use App\Services\Checkers\Checkers;
 use App\Services\Filters\Constants\QrcodeConstants;
 use App\Services\Filters\Contracts\FilterContract;
 use App\Services\Filters\Filters;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model implements QrcodeConstants
 {
-    use LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes, Filters, Checkers;
 
     protected $fillable = [
         'unique_reference_number',

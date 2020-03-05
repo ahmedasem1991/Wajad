@@ -26,6 +26,8 @@ use App\Services\Filters\QRCodeFilters\MultiAssign;
 use App\Services\Filters\QRCodeFilters\SingleAssign;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
+use App\Services\Checkers\QrCodeCheckers\IsMultiAssign;
+use App\Services\Checkers\QrCodeCheckers\IsSingleAssign;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,17 +91,23 @@ Route::domain(config('nova.domain', null))
     });
 route::get('/', function () {
 
-  return redirect(Nova::path());
+    return redirect(Nova::path());
 });
 
 
 Route::get('filters', function () {
     $qrcode = Qrcode::withFilters(
         new SingleAssign,
-        new Expired,
-    )->get();
-
-    dd($qrcode);
+        // new Expired,
+    )->first();
+    // dd($qrcode);
+    dd(
+        $qrcode->checkFor(
+            new IsSingleAssign,
+            // new IsMultiAssign,
+            // new IsExpired
+        )
+    );
 });
 
 Route::get('test', function () {
