@@ -34,7 +34,7 @@ class ItemsController extends Controller
      * @bodyParam brand_id exists:brands,id required
      * @bodyParam model_id exists:models,id required
      * @bodyParam sub_category_id exists:sub_category,id required
-     * @bodyParam qrcode_id exists:qrcodes,id  
+     * @bodyParam qrcode_id exists:qrcodes,id
      * @bodyParam images array required between:1,5
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
@@ -223,7 +223,7 @@ class ItemsController extends Controller
      * @bodyParam brand_id exists:brands,id required
      * @bodyParam model_id exists:models,id required
      * @bodyParam sub_category_id exists:sub_category,id required
-     * @bodyParam qrcode_id exists:qrcodes,id  
+     * @bodyParam qrcode_id exists:qrcodes,id
      * @bodyParam images array required between:1,5
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
@@ -265,11 +265,6 @@ class ItemsController extends Controller
                 if (!$qr_code) {
                     throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
                 }
-                
-                if ($qr_code->type == 1 && $qr_code->status == 4) {
-                    throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
-                }
-                
                 $qr_code::where('id', $request->qrcode_id)->update([
                     'item_id' => $item->id,
                     'status' => 4,

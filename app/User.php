@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->first_time_login === 1;
     }
 
-    
+
     public function isActive()
     {
         return $this->status === self::Status['Active'];
