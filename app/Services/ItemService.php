@@ -65,7 +65,6 @@ class ItemService
             $qr_code->assignQrcodeToItem($item->id);
         }
 
-
         if ($request->has('images') && count($request->images) > 0) {
             $item->fill([
                 'images' => $this->uploadImages($request->images)
