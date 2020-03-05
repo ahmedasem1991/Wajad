@@ -8,15 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
 {
-    use SoftDeletes, LogsActivity;
-
-    const Types = [
-        1 => "single",
-        2 => "multi",
-        "single" => 1,
-        "multi" => 2,
-    ];
-
+    use SoftDeletes;
     protected $guarded = [];
 
     /**

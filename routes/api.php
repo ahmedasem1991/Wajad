@@ -126,7 +126,9 @@ Route::prefix('posts')->group(function () {
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
+ 
 
 Route::view('mario', 'mario');
-Route::view('header', 'Pdf/partials/header'); 
-Route::view('footer', 'Pdf/partials/footer'); 
+
+Route::post('/test', 'TestController');
+ 

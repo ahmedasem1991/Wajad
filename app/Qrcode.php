@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qrcode extends Model implements QrcodeConstants
 {
-    use LogsActivity, SoftDeletes, Filters;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = [
         'unique_reference_number',
@@ -29,11 +29,18 @@ class Qrcode extends Model implements QrcodeConstants
         'image',
         'available_period',
         'start_at',
+        'item_id',
         'end_at',
         'user_id',
         'corporate_id',
-        'corporate_assign_reference_number',
-        'item_id'
+        'corporate_assign_reference_number'
+    ];
+
+    const Types = [
+        1 => 'Single Assign',
+        2 => 'Multi Assign',
+        'Single Assign' => 1,
+        'Multi Assign' => 2
     ];
 
     public function typeTitle($type)
@@ -130,5 +137,14 @@ class Qrcode extends Model implements QrcodeConstants
     public function isQrcodeRegistered()
     {
         return $this->status == 4;
+    }
+    public function isQrcodeExpired()
+    {
+        return Carbon::now()->toDateTimeString() > $this->end_at;
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('status', 6);
     }
 }

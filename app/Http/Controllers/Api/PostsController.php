@@ -77,6 +77,19 @@ class PostsController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+        if ($type == "found") {
+            $validate_found_post = Validator::make($request->all(), [
+                'questions' => ['required',  'array', 'between:1,3'],
+                'questions.0' => ['required', 'min:9', 'max:500'],
+                'questions.1' => ['min:9', 'max:500'],
+                'questions.2' => ['min:9', 'max:500'],
+            ]);
+
+            if ($validate_found_post->fails()) {
+                throw new ApiException($validate_found_post->errors()->first(), 400);
+            }
+        }
+
         if (auth('api')->user()->exceededPostLimitation()) {
             throw new ApiException(trans('messages.limited',  ['model' => trans('messages.attributes.post')]), 400);
         }
@@ -454,6 +467,19 @@ class PostsController extends Controller
                 throw new ApiException($validate_request->errors()->first(), 400);
             }
 
+            if ($post->status == self::TYPES['found']) {
+                $validate_found_post = Validator::make($request->all(), [
+                    'questions' => ['required',  'array', 'between:1,3'],
+                    'questions.0' => ['required', 'min:9', 'max:500'],
+                    'questions.1' => ['min:9', 'max:500'],
+                    'questions.2' => ['min:9', 'max:500'],
+                ]);
+
+                if ($validate_found_post->fails()) {
+                    throw new ApiException($validate_found_post->errors()->first(), 400);
+                }
+            }
+
             $city =  City::where('name_en', 'like', '%' . $request->city . '%')
                 ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
             if (empty($city)) {
@@ -467,25 +493,23 @@ class PostsController extends Controller
 
             $post->update($request->all());
 
-            if ($request->has('images') && count($request->images) > 0) {
-                $post_images = [];
-                foreach ($request->images as $image) {
-
-                    if (Str::startsWith($image, 'data:image')) {
-                        $image_name = Str::random(15) . '.' . 'png';
-                        $path = public_path('/images//' . $image_name);
-                        Image::make(file_get_contents($image))->encode('data-url')->save($path);
-                        $post_images[] = '/images//' . $image_name;
-                    }
-
-                    if (!Str::startsWith($image, 'data:image')) {
-                        array_push($post_images, $image);
-                    }
-                }
-                $post->fill([
-                    'images' => $post_images
+            if ($request->has('questions')) {
+                $post->questions()->sync([
+                    $request->questions
                 ]);
-                $post->save();
+            }
+
+            if ($request->has('images')) {
+                $post->images()->delete();
+                array_map(function ($image) use ($post, $request) {
+                    $image_name = \Str::random(15) . '.' . 'png';
+                    $path = public_path('/images/posts/' . $image_name);
+                    Image::make(file_get_contents($image))->save($path);
+
+                    $post->images()->create([
+                        'image' =>   'images/posts/' . $image_name
+                    ]);
+                }, $request->images);
             }
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
