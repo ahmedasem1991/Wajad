@@ -24,6 +24,7 @@ use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
+use App\Services\Filters\ItemFilters\Lost;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -210,7 +211,7 @@ class PendingPost extends Resource
                     ->placeholder('Select Item')
 
                     ->optionsResolve(function ($owner) {
-                        return $owner->items()->lost()->get();
+                        return $owner->items()->withFilters(new Lost)->get();
                     })
                     ->rules('required_if:owner_releated_to_system,1')
                     ->readonly()

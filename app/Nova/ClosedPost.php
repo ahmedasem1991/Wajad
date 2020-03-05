@@ -21,6 +21,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
+use App\Services\Filters\ItemFilters\Lost;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
@@ -122,28 +123,28 @@ class ClosedPost extends Resource
             Toggle::make('Open Status', 'open_status'),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-            ->placeholder('Select Sub category')
-            ->options(\App\SubCategory::with('brands')->get())
-            ->rules('required'),
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get())
+                ->rules('required'),
 
 
-        NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-            ->placeholder('Select Brand')
-            ->optionsResolve(function ($subcategory) {
-                return $subcategory->brands;
-            })
-            ->rules('required')
-            ->dependsOn('Subcategory'),
+            NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+                ->rules('required')
+                ->dependsOn('Subcategory'),
 
 
-        NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
-            ->placeholder('Optional Placeholder')
-            ->optionsResolve(function ($brand) {
-                return $brand->models()->get(['id', 'name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-        BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
+            BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
@@ -196,7 +197,7 @@ class ClosedPost extends Resource
                     ->placeholder('Select Item')
 
                     ->optionsResolve(function ($owner) {
-                        return $owner->items()->lost()->get();
+                        return $owner->items()->withFilters(new Lost)->get();
                     })
                     ->rules('required_if:owner_releated_to_system,1')
                     ->readonly()
@@ -240,8 +241,8 @@ class ClosedPost extends Resource
                 ->rules('required_if:founder_releated_to_system,1')
                 ->readonly(),
 
-                MediaField::make('Item Image', 'images')->listing(),
-                MapMarker::make("Location")
+            MediaField::make('Item Image', 'images')->listing(),
+            MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)
                 ->defaultLongitude(39.4913431)
