@@ -1,14 +1,14 @@
 <?php
 
-use App\ApiToken;
 use App\Post;
 use App\User;
 use App\Qrcode;
+use App\ApiToken;
 use App\Corporate;
 
 use Carbon\Carbon;
 use App\PostRequest;
-use Illuminate\Support\Facades\Route;
+use App\SubCategory;
 use Laravel\Nova\Nova;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
@@ -16,12 +16,16 @@ use App\Events\TestEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
+use Illuminate\Support\Facades\Route;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
+use App\Services\Filters\QRCodeFilters\Expired;
+use App\Services\Filters\QRCodeFilters\InStock;
+use App\Services\Filters\QRCodeFilters\MultiAssign;
+use App\Services\Filters\QRCodeFilters\SingleAssign;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
-use App\SubCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,13 +60,13 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
     $im = new Imagick("https://pngimg.com/uploads/qr_code/qr_code_PNG6.png");
-$height = $im->getImageHeight();
-$width = $im->getImageWidth();
-$im->resizeImage($width * 2, $height * 2, Imagick::FILTER_POINT, 0);
-$im->medianFilterImage(8);
+    $height = $im->getImageHeight();
+    $width = $im->getImageWidth();
+    $im->resizeImage($width * 2, $height * 2, Imagick::FILTER_POINT, 0);
+    $im->medianFilterImage(8);
 
-header("Content-Type: image/png");
-echo $im;
+    header("Content-Type: image/png");
+    echo $im;
 
     //   $sub= SubCategory::with('brands')->first();
     // return $sub->brands;
@@ -84,10 +88,19 @@ Route::domain(config('nova.domain', null))
         Route::post('/updatePassword', 'UpdatePasswordController@updatePassword')->name('update_password');
     });
 route::get('/', function () {
-   // return 'Welcome To Wajad';
-    return redirect(Nova::path());
+
+  return redirect(Nova::path());
 });
 
+
+Route::get('filters', function () {
+    $qrcode = Qrcode::withFilters(
+        new SingleAssign,
+        new Expired,
+    )->get();
+
+    dd($qrcode);
+});
 
 Route::get('test', function () {
     //return now()->toDatetimeString();
@@ -105,14 +118,14 @@ Route::get('test', function () {
   */
 
     $client = new \GuzzleHttp\Client();
-  $url = "https://qrcode3.p.rapidapi.com/generateQR?text=wajad.com&gradient_stop_color=%235DBCD2&fill_style=radialGradient&inner_eye_style=Diamond&inner_eye_color=%235DBCD2&outer_eye_color=%234F4F50&image=http://admin.smartappco.net/images/models/H3JQHCZXT775K3ItbrWr7Kfq1zhDpmfmSiSwJyDJ.png&outer_eye_style=Diamond&remove_background=false&format=png&size=500";
+    $url = "https://qrcode3.p.rapidapi.com/generateQR?text=wajad.com&gradient_stop_color=%235DBCD2&fill_style=radialGradient&inner_eye_style=Diamond&inner_eye_color=%235DBCD2&outer_eye_color=%234F4F50&image=http://admin.smartappco.net/images/models/H3JQHCZXT775K3ItbrWr7Kfq1zhDpmfmSiSwJyDJ.png&outer_eye_style=Diamond&remove_background=false&format=png&size=500";
 
 
-           $array=[];
-     $x =0;
+    $array = [];
+    $x = 0;
 
     $form_params['text'] = 'wajad.com';
-    $form_params['gradient_stop_color'] ='#5DBCD2';
+    $form_params['gradient_stop_color'] = '#5DBCD2';
     $form_params['fill_style'] = 'radialGradient';
     $form_params['inner_eye_style'] = "Diamond";
     $form_params['style'] = "";
@@ -129,29 +142,27 @@ Route::get('test', function () {
 
 
 
-      $request = $client->get($url,[
-      'headers' => [
-        'Content-Type' => 'qrcode-monkey.p.rapidapi.com',
-        'X-RapidAPI-Key' => 'b9f31e753dmsha87e82bfd8b0f36p14c4b2jsn8e9e036bc6e9'
+    $request = $client->get($url, [
+        'headers' => [
+            'Content-Type' => 'qrcode-monkey.p.rapidapi.com',
+            'X-RapidAPI-Key' => 'b9f31e753dmsha87e82bfd8b0f36p14c4b2jsn8e9e036bc6e9'
 
-    ],
-    // 'multipart' => [
-    //   [
-    //       'x'     => '0',
-    //       'y'     => '0',
-    //       'data' => 'https%3A%2F%2Fqrcode.studio',
-    //       'size' => '400',
+        ],
+        // 'multipart' => [
+        //   [
+        //       'x'     => '0',
+        //       'y'     => '0',
+        //       'data' => 'https%3A%2F%2Fqrcode.studio',
+        //       'size' => '400',
 
-    //   ]],
-    array('form_params' =>  $form_params )
-       ] );
-
-
-
-// echo  json_decode( $request->getBody());
- return   $request;
+        //   ]],
+        array('form_params' =>  $form_params)
+    ]);
 
 
+
+    // echo  json_decode( $request->getBody());
+    return   $request;
 });
 
 

@@ -208,6 +208,24 @@ class Post extends Resource
 
 
 
+                Text::make('Founder Email','founder_email')
+                ->sortable()
+                ->rules('required', 'email', 'max:254'),
+ 
+                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
+                Text::make('Founder Address','founder_address')
+                ->sortable()
+                ->rules('required', 'max:254'),
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+                BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+                ->readonly()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+               
 
 
             Button::make('PDF')

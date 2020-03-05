@@ -13,10 +13,6 @@ class Banner extends Model
 {
     use LogsActivity, SoftDeletes;
 
-    protected $fillable = [
-        'type', 'image', 'url', 'item_id', 'start_date', 'end_date', 'clicks'
-    ];
-
     protected $casts = [
         'start_date' => 'datetime',
         'end_date'   => 'datetime'

@@ -20,12 +20,12 @@ class AnswerController extends Controller
      * This item is mine
      * @urlParam post_id required int, exists in posts
      * @bodyParam data array required
-     * @bodyParam data.*.answers string required min:20,max:500
+     * @bodyParam data.*.answers string required min:20, max:500
      * @bodyParam data.*.question_id integer required exists:questions,id
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
-     *  "message": "Post Request created successfully.",
+     *  "message": "Post request created successfully.",
      *   "status_code": 200
      *}
      * @return void
@@ -54,7 +54,7 @@ class AnswerController extends Controller
             if (!$question->Post()->get()->contains($post->id)) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 400);
             }
-            $PostRequest = PostRequest::where('post_id', $question->post->id)
+            $PostRequest =   PostRequest::where('post_id', $question->post->id)
                 ->where('user_id', auth('api')->user()->id)->first();
             Answer::create([
                 'answers' => $answer['answers'],
@@ -65,7 +65,6 @@ class AnswerController extends Controller
         }, $request->data);
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
-
         return $this->response();
     }
 }

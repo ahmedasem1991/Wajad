@@ -51,12 +51,7 @@ class GenerateAndAssignQRCodeController extends Controller
             $this->addResponse($validate_request->errors()->first())->addStatusCode(400);
             return $this->response();
         }
-
-        $package = Package::find($request->package_id);
-
-        if ($package->incrementally == 1) {
-            $package->quantity = $request->count * $package->quantity;
-        }
+        $Package = Package::find($request->package_id);
         $now = Carbon::now();
 
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
@@ -111,57 +106,23 @@ class GenerateAndAssignQRCodeController extends Controller
             $QRCode->corporate_id = NULL;
             $QRCode->save();
         }
-        // $QRcodesData = [
-        //     'generate_id' => $generate_id,
-        //     'generate_reference_number' => $generate_reference_number,
-        //     'assign_reference_number' => $assign_reference_number,
-        //     'quantity' => $package->quantity,
-        //     'status' => 2,
-        //     'type' => $package->type,
-        //     'auth_id' => auth('api')->user()->id,
-        //     'user_id' => auth('api')->user()->id,
-        //     'corporate_id' => NULL,
-        //     'available_period' => str_replace(" Day/s", "", $package->period),
-        // ];
+        $QRcodesData = [
+            'generate_id' => $generate_id,
+            'generate_reference_number' => $generate_reference_number,
+            'assign_reference_number' => $assign_reference_number,
+            'quantity' => $Package->quantity,
+            'status' => 2,
+            'type' => $Package->type,
+            'auth_id' => auth('api')->user()->id,
+            'user_id' => auth('api')->user()->id,
+            'corporate_id' => NULL,
+            'available_period' => str_replace(" Day/s", "", $Package->period),
+        ];
 
-        // GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
+        GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
 
-        $url = Nova::path() . '/resources/stocks';
-        $Admins = User::superAdmin()->get();
-        // $usr_fcm_message = '"' . $package->quantity . '" QR Code Assigned Successfully To You.';
-        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find(auth('api')->user()->id)->name . '.';
-        // User::find($this->user_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
-        foreach ($Admins as $user) {
-            $user->notify(new BroadcastNotification('info', $message, $url));
-        }
-
-        // $data=[
-        //     'notification' => [
-        //     'title'=>'Payment completed successfully',
-        //     'body'=>'Payment completed successfully and your QRcodes create successfully.',
-        //     'sound' => 'default'
-        //     ],
-        //       ];
-        // $token= auth('api')->user()->device_token;
-        // event(new SendFCMEvent($token,$data));
-
-        return ([
-            'success' => true,
-            'message' => trans(
-                'messages.created',
-                ['model' => trans('messages.attributes.qrcode')]
-            ),
-            'status_code' => 200,
-            'data' => $qrcode_images
-        ]);
-        // $this->addResponse(
-        //     trans('messages.created', 
-        //     ['model' => trans('messages.attributes.qrcode')]))
-        //     ->addStatusCode(201);
-
-        // Log::INFO($this->response());
-        // return $this->response();
-
-
+        $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.qrcode')]))->addStatusCode(201);
+        Log::INFO($this->response());
+        return $this->response();
     }
 }

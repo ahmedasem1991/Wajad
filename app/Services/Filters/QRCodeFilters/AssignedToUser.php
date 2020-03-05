@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Services\Filters\QRCodeFilters;
+
+use Illuminate\Database\Eloquent\Builder;
+use App\Services\Filters\Contracts\FilterContract;
+use App\Services\Filters\Constants\QrcodeConstants;
+
+class AssignedToUser implements FilterContract, QrcodeConstants
+{
+    public function apply(Builder $query)
+    {
+        return $query->where('status', self::STATUS['Assigned To User']);
+    }
+}
