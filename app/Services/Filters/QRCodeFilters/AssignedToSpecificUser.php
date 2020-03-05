@@ -8,6 +8,11 @@ use App\Services\Filters\Constants\QrcodeConstants;
 
 class AssignedToSpecificUser implements FilterContract, QrcodeConstants
 {
+    /**
+     * User id
+     *
+     * @var int
+     */
     protected $user_id;
 
     /**

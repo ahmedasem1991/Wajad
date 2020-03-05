@@ -7,8 +7,8 @@ use App\Services\Filters\Constants\QrcodeConstants;
 
 class IsSingleAssign implements CheckerContract, QrcodeConstants
 {
-    public function checkFor()
+    public function checkFor($model)
     {
-        return $this->status === self::TYPES['Single Assign'];
+        return $model->type === self::TYPES['Single Assign'];
     }
 }

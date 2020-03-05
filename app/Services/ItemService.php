@@ -18,18 +18,25 @@ class ItemService
     {
         $this->validateItemRequest($request);
 
-        $item = Item::create([
-            'title' =>  $request->title,
-            'details' =>  $request->details,
-            'category_id' =>  $request->category_id,
-            'model_id' =>  $request->model_id,
-            'brand_id' =>  $request->brand_id,
-            'color_id' =>  $request->color_id,
-            'sub_category_id' => $request->sub_category_id,
+        $request->merge([
             'owner_id' => auth('api')->user()->id,
         ]);
 
+        $item = Item::create(
+            $request->only([
+                'title',
+                'details',
+                'category_id',
+                'model_id',
+                'brand_id',
+                'color_id',
+                'sub_category_id',
+                'owner_id'
+            ])
+        );
+
         if ($request->has('qrcode_id')) {
+
             $qr_code = Qrcode::find($request->qrcode_id)
                 ->withFilters(
                     new AssignedToSpecificUser,
