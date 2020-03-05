@@ -87,8 +87,6 @@ class Item extends MasterModel
         return $this->belongsTo(Color::class);
     }
 
-
-
     /**
      * Define QrCode Of The Item
      *
@@ -98,9 +96,6 @@ class Item extends MasterModel
     {
         return $this->hasOne(Qrcode::class);
     }
-
-
-
 
     /**
      * Define The Images Of The Item
@@ -112,7 +107,6 @@ class Item extends MasterModel
         return $this->hasMany(ItemImage::class, 'item_id');
     }
 
-
     /**
      * Define Questions For This Item "In Case Of Lost Item"
      *
@@ -121,28 +115,6 @@ class Item extends MasterModel
     public function questions()
     {
         return $this->hasMany(Question::class);
-    }
-
-    /**
-     * Scope Lost Items
-     *
-     * @param object $query
-     * @return void
-     */
-    public function scopeLost($query)
-    {
-        return $query->where('status', self::ITEM_STATUS['lost']);
-    }
-
-    /**
-     * Scope Found Items
-     *
-     * @param object $query
-     * @return void
-     */
-    public function scopeFound($query)
-    {
-        return $query->where('status', self::ITEM_STATUS['found']);
     }
 
     /**
