@@ -14,4 +14,4 @@ trait Checkers
 
         return !(bool) count($checkers_result);
     }
-}
+}git

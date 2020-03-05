@@ -14,16 +14,15 @@ use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
 use Illuminate\Http\Request;
+use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
-use App\Services\Filters\QRCodeFilters\Expired;
-use App\Services\Filters\QRCodeFilters\InStock;
-use App\Services\Filters\QRCodeFilters\MultiAssign;
-use App\Services\Filters\QRCodeFilters\SingleAssign;
+use App\Notifications\ScanQRCodeNotification;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
 use App\Services\Checkers\QrCodeCheckers\IsMultiAssign;
@@ -217,8 +216,10 @@ Route::get('/test500', function () {
 
 
 Route::get('/test400', function () {
-    $user = User::find(20);
+    $user = User::find(3);
+    Mail::to($user)->send(new EmailVerificationCode('1234'));
 
-    $user->notify(new BroadcastNotification('error', 'test message', 'facebook.com'));
-    return view('welcome');
+   // $user->notify(new ScanQRCodeNotification('30.5458554','20.2545544'));
 })->name('test400');
+
+
