@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Api\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QrcodeResource;
+use App\Services\Filters\QRCodeFilters\AssignedToUser;
+use App\Services\Filters\QRCodeFilters\Expired;
+use App\Services\Filters\QRCodeFilters\MultiAssign;
+use App\Services\Filters\QRCodeFilters\Registered;
+use App\Services\Filters\QRCodeFilters\SingleAssign;
 
 /**
  * @group QR Codes
@@ -14,7 +19,7 @@ class UserQRCodeController extends Controller
     /**
      * User QR Codes
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      *{"available":{
      * "single": [
      *  {
@@ -48,7 +53,7 @@ class UserQRCodeController extends Controller
      *],
      *"available_single_count":1,
      *"multi": [],
-     *"available_multi_count":1},     
+     *"available_multi_count":1},
      *"active": [],
      *"active_count":1,
      *"expired": [],
@@ -58,42 +63,39 @@ class UserQRCodeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $auth_user_qr_codes = auth('api')->user()->qrcodes();
+
+        $available_single_qr_code =  $auth_user_qr_codes->withFilters(
+            new SingleAssign,
+            new AssignedToUser
+        );
+
+        $available_multi_qr_code = $auth_user_qr_codes->withFilters(
+            new MultiAssign,
+            new AssignedToUser
+        );
+
+        $registered_qr_code = $auth_user_qr_codes->withFilters(
+            new Registered
+        );
+
+        $expired_qe_code = $auth_user_qr_codes->withFilters(
+            new Expired
+        );
+
         $availableQrCodes = collect([
-            'single' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->singleAssign()->availableToUser()->get()
-            ),
-            'available_single_count' => count(
-                QrcodeResource::collection(
-                    auth('api')->user()->qrcodes()->singleAssign()->availableToUser()->get()
-                )
-            ),
-            'multi' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->multiAssign()->availableToUser()->get()
-            ),
-            'available_multi_count' => count(
-                QrcodeResource::collection(
-                    auth('api')->user()->qrcodes()->multiAssign()->availableToUser()->get()
-                )
-            )
+            'single' => QrcodeResource::collection($available_single_qr_code->get()),
+            'available_single_count' => $available_single_qr_code->count(),
+            'multi' => QrcodeResource::collection($available_multi_qr_code->get()),
+            'available_multi_count' => $available_multi_qr_code->count()
         ]);
+
         $qrcodes = collect([
             'available' => $availableQrCodes,
-            'active' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->registered()->get()
-            ),
-            'active_count' => count(
-                QrcodeResource::collection(
-                    auth('api')->user()->qrcodes()->registered()->get()
-                )
-            ),
-            'expired' => QrcodeResource::collection(
-                auth('api')->user()->qrcodes()->expired()->get()
-            ),
-            'expired_count' => count(
-                QrcodeResource::collection(
-                    auth('api')->user()->qrcodes()->expired()->get()
-                )
-            )
+            'active' => QrcodeResource::collection($registered_qr_code->get()),
+            'active_count' => $registered_qr_code->count(),
+            'expired' => QrcodeResource::collection($expired_qe_code->get()),
+            'expired_count' => $expired_qe_code->count()
         ]);
 
         return $qrcodes;

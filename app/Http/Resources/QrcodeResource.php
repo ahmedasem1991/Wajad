@@ -19,7 +19,7 @@ class QrcodeResource extends JsonResource
             'id' => $this->id,
             'url' => $this->qrcode_url,
             'image' => $this->image,
-            'type' =>  Qrcode::Types[(int) $this->type] ?? "",
+            'type' =>  Qrcode::TYPES[(int) $this->type] ?? "",
             'status' => Qrcode::STATUS[(int) $this->status] ?? "",
             'unique_reference_number' => $this->unique_reference_number,
             'generate_reference_number' => $this->generate_reference_number,

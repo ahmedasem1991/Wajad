@@ -9,6 +9,6 @@ class IsSingleAssign implements CheckerContract, QrcodeConstants
 {
     public function checkFor($model)
     {
-        return $model->status === self::TYPES['Single Assign'];
+        return $model->type === self::TYPES['Single Assign'];
     }
 }

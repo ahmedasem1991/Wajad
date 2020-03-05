@@ -265,15 +265,6 @@ class ItemsController extends Controller
                 if (!$qr_code) {
                     throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
                 }
-<<<<<<< HEAD
-
-=======
-                
-                if ($qr_code->type == 1 && $qr_code->status == 4) {
-                    throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
-                }
-                
->>>>>>> new_development
                 $qr_code::where('id', $request->qrcode_id)->update([
                     'item_id' => $item->id,
                     'status' => 4,

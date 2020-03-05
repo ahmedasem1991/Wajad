@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
 use App\Services\Checkers\Checkers;
 use App\Services\Filters\Constants\QrcodeConstants;
-use App\Services\Filters\Contracts\FilterContract;
 use App\Services\Filters\Filters;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
@@ -30,24 +29,41 @@ class Qrcode extends Model implements QrcodeConstants
         'image',
         'available_period',
         'start_at',
-        'item_id',
         'end_at',
         'user_id',
         'corporate_id',
-        'corporate_assign_reference_number'
-    ];
-
-    const Types = [
-        1 => 'Single Assign',
-        2 => 'Multi Assign',
-        'Single Assign' => 1,
-        'Multi Assign' => 2
+        'corporate_assign_reference_number',
+        'item_id'
     ];
 
     public function typeTitle($type)
     {
-        return $this->type === self::Types[$type];
+        return $this->type === self::TYPES[$type];
     }
+
+    public function scopeType($query, $type)
+    {
+        return $query->where('type', self::TYPES[$type]);
+    }
+
+    public function scopeUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+    public function scopeItem($query, $item_id)
+    {
+        return $query->where('item_id', $item_id);
+    }
+
+    public function statusTitle($status)
+    {
+        return $this->status = self::STATUS[$status];
+    }
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', self::STATUS[$status]);
+    }
+
 
     public function productPackagePivot()
     {
@@ -104,6 +120,30 @@ class Qrcode extends Model implements QrcodeConstants
             return $this->response();
         }
     }
+    public function scopeSingleAssign($query)
+    {
+        return $query->where('type', 1);
+    }
+    public function scopeMultiAssign($query)
+    {
+        return $query->where('type', 2);
+    }
+    public function scopeInStock($query)
+    {
+        return $query->where('status', 1);
+    }
+    public function scopeRegistered($query)
+    {
+        return $query->where('status', 4);
+    }
+    public function scopeReRegistered($query)
+    {
+        return $query->where('status', 5);
+    }
+    public function scopeExpired($query)
+    {
+        return $query->where('status', 6);
+    }
 
     public function updateQrcodeToexpired()
     {
@@ -143,9 +183,8 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return Carbon::now()->toDateTimeString() > $this->end_at;
     }
-
-    public function scopeExpired($query)
+    public function scopeAvailableToUser($query)
     {
-        return $query->where('status', 6);
+        return $query->where('status', 2);
     }
 }

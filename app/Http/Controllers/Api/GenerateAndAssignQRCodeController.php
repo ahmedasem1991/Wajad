@@ -35,7 +35,7 @@ class GenerateAndAssignQRCodeController extends Controller
      * "data": [
      *  "http://admin.wajad.test/images/qrcodes/1582038260RUIWysWSgVQdk9wRiw0p.png",
      *  "http://admin.wajad.test/images/qrcodes/15820382600Mew2xPd332r1BoV7sIn.png",
-     *  "http://admin.wajad.test/images/qrcodes/1582038260bpxW4CDRAAZ0C1jtJApP.png"  
+     *  "http://admin.wajad.test/images/qrcodes/1582038260bpxW4CDRAAZ0C1jtJApP.png"
      * ]
      *}
      * @return void

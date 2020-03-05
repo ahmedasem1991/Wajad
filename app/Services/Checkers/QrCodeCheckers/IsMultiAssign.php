@@ -9,6 +9,6 @@ class IsMultiAssign implements CheckerContract, QrcodeConstants
 {
     public function checkFor($model)
     {
-        return $model->status === self::TYPES['Multi Assign'];
+        return $model->type === self::TYPES['Multi Assign'];
     }
 }
