@@ -97,19 +97,19 @@ route::get('/', function () {
 });
 
 
-Route::get('filters', function () {
-    $qrcode = Qrcode::withFilters(
-        new MultiAssign,
-        
-    )->first();
-
-    dd(
-        $qrcode->checkFor(
-            new IsMultiAssign,
-            new IsSingleAssign,
-        )
-    );
-});
+//Route::get('filters', function () {
+//    $qrcode = Qrcode::withFilters(
+//        new MultiAssign
+//        // new Expired,
+//    )->first();
+//
+//    dd(
+//        $qrcode->checkFor(
+//            new IsMultiAssign,
+//            new IsSingleAssign,
+//        )
+//    );
+//});
 
 Route::get('test', function () {
     //return now()->toDatetimeString();

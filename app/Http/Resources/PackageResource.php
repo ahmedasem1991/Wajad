@@ -24,7 +24,7 @@ class PackageResource extends JsonResource
             'price' => $this->getOriginal('price'),
             'currency' => env('CURRENCY', 'USD'),
             'period' => $this->period,
-            'type' => Package::Types[$this->type] ?? '',
+            'type' => Package::TYPES[$this->type] ?? '',
             'incrementally' => (bool) $this->incrementally,
         ];
     }
