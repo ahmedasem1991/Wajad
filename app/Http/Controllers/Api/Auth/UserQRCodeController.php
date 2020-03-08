@@ -66,26 +66,26 @@ class UserQRCodeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $auth_user_qr_codes = auth('api')->user()->qrcodes();
+        $auth_user = auth('api')->user();
 
         $available_single_qr_code =  Qrcode::withFilters(
             new SingleAssign,
-            new AssignedToSpecificUser
+            new AssignedToSpecificUser($auth_user->id)
         );
 
         $available_multi_qr_code = Qrcode::withFilters(
             new MultiAssign,
-            new AssignedToSpecificUser
+            new AssignedToSpecificUser($auth_user->id)
         );
 
         $registered_qr_code = Qrcode::withFilters(
             new RegisteredOrRerigstered,
-            new AssignedToSpecificUser
+            new AssignedToSpecificUser($auth_user->id)
         );
 
         $expired_qe_code = Qrcode::withFilters(
             new Expired,
-            new AssignedToSpecificUser
+            new AssignedToSpecificUser($auth_user->id)
         );
 
         $availableQrCodes = collect([
