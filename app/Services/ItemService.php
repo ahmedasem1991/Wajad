@@ -42,8 +42,8 @@ class ItemService
 
             $qr_code = Qrcode::withFilters(
                 new FindWhereId($request->qrcode_id),
-                new AssignedToSpecificUser,
-                new AssignedToUser
+                new AssignedToSpecificUser//,
+               // new AssignedToUser
             )->first();
 
             if (!$qr_code) {
