@@ -49,7 +49,7 @@ class ReregisterQRCodeController extends Controller
             ->Where('user_id', auth('api')->user()->id)
             ->WhereNotNull('item_id')
             ->Where('status', 4)
-            ->Where('status', 5)
+            ->orWhere('status', 5)
             ->Where('type', 2)
             ->first();
 
