@@ -71,7 +71,7 @@ class UserQRCodeController extends Controller
         $available_single_qr_code =  $auth_user_qr_codes->withFilters(
             new SingleAssign
         );
-        dd($available_single_qr_code->get());
+
         $available_multi_qr_code = $auth_user_qr_codes->withFilters(
             new MultiAssign
         );
