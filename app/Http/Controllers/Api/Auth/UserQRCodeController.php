@@ -13,7 +13,6 @@ use App\Services\Filters\QRCodeFilters\Expired;
 use App\Services\Filters\QRCodeFilters\MultiAssign;
 use App\Services\Filters\QRCodeFilters\Registered;
 use App\Services\Filters\QRCodeFilters\SingleAssign;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @group QR Codes
@@ -69,29 +68,33 @@ class UserQRCodeController extends Controller
     {
         $auth_user = auth('api')->user();
 
-        $available_single_qr_code =  Qrcode::withFilters(
-            new SingleAssign,
-            new AssignedToSpecificUser($auth_user->id)
-        );
+        $available_single_qr_code =  $auth_user->with('qrcodes', function($query){
+          $query->withFilters(
+              new SingleAssign,
+              new AssignedToSpecificUser
+          );
+        });
 
-        $available_multi_qr_code = Qrcode::withFilters(
-            new MultiAssign,
-            new AssignedToSpecificUser($auth_user->id)
-        );
+        $available_multi_qr_code = $auth_user->with('qrcodes', function($query){
+          $query->withFilters(
+              new MultiAssign,
+              new AssignedToSpecificUser
+          );
+        });
 
-        $registered_qr_code = Qrcode::withFilters(
-            new RegisteredOrRerigstered,
-            new AssignedToSpecificUser($auth_user->id)
-        );
-        DB::enableQueryLog(); // Enable query log
+        $registered_qr_code = $auth_user->with('qrcodes', function($query){
+          $query->withFilters(
+              new RegisteredOrRerigstered,
+              new AssignedToSpecificUser
+          );
+        });
 
-// Your Eloquent query executed by using get()
-
-        dd(DB::getQueryLog());
-        $expired_qe_code = Qrcode::withFilters(
-            new Expired,
-            new AssignedToSpecificUser($auth_user->id)
-        );
+        $expired_qe_code = $auth_user->with('qrcodes', function($query){
+          $query->withFilters(
+              new Expired,
+              new AssignedToSpecificUser
+          );
+        });
 
         $availableQrCodes = collect([
             'single' => QrcodeResource::collection($available_single_qr_code->get()),
