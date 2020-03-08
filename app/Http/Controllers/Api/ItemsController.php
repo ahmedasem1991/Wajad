@@ -180,65 +180,16 @@ class ItemsController extends Controller
     public function update(Request $request, Item $item)
     {
         $user = auth('api')->user();
-        if ($user->can('update', $item)) {
-            $validate_request = Validator::make($request->all(), [
-                'title' => ['required', 'min:6', 'max:255'],
-                'details' => ['required', 'min:9', 'max:500'],
-                'sub_category_id' => ['required', 'exists:sub_categories,id'],
-                'brand_id' => ['required', 'exists:brands,id'],
-                'model_id' => ['required', 'exists:models,id'],
-                'color_id' => ['required', 'exists:colors,id'],
-                'qrcode_id' => ['nullable', 'exists:qrcodes,id'],
-                'images' => ['sometimes', 'array', 'between:0,5'],
-                'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
-            ]);
 
-            if ($validate_request->fails()) {
-                throw new ApiException($validate_request->errors()->first(), 400);
-            }
-
-            $item->update($request->all());
-
-            if ($request->has('qrcode_id')) {
-                $qr_code = Qrcode::where('id', $request->qrcode_id)
-                    ->Where('user_id', auth('api')->user()->id)
-                    ->Where('status', 2)
-                    ->first();
-
-                if (!$qr_code) {
-                    throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
-                }
-                $qr_code::where('id', $request->qrcode_id)->update([
-                    'item_id' => $item->id,
-                    'status' => 4,
-                    'start_at' => Carbon::now()->toDateTimeString(),
-                    'end_at' => Carbon::now()->addDays($qr_code->available_period)
-                ]);
-            }
-
-            if ($request->has('images') && count($request->images) > 0) {
-                $item_images = [];
-                foreach ($request->images as $image) {
-                    if (preg_match("/^data:image/", $image)) {
-                        $image_name = Str::random(15) . '.' . 'png';
-                        $path = public_path('/images//' . $image_name);
-                        Image::make(file_get_contents($image))->encode('data-url')->save($path);
-                        array_push($item_images, '/images//' . $image_name);
-                    }
-                    if (!preg_match("/^data:image/", $image)) {
-                        array_push($item_images, $image);
-                    }
-                }
-                $item->fill([
-                    'images' => $item_images
-                ]);
-                $item->save();
-            }
-            $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
-
-            return $this->response();
+        if (!$user->can('update', $item)) {
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
+
+        $this->itemService->updateItem($item, $request);
+
+        $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
+
+        return $this->response();
     }
 
     /**
@@ -255,13 +206,18 @@ class ItemsController extends Controller
     public function destroy(Item $item)
     {
         $user = auth('api')->user();
-        if ($user->can('destroy', $item)) {
-            $item->delete();
-            $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
-            return  $this->response();
+
+        if (!$user->can('destroy', $item)) {
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
+
+        $item->delete();
+
+        $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
+
+        return  $this->response();
     }
+
     public function userItems()
     {
         return  ItemResource::collection(auth('api')->user()->items()->get());

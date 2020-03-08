@@ -5,14 +5,15 @@ namespace App\Services;
 use App\Item;
 use App\Qrcode;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Support\Carbon;
 use App\Exceptions\Api\ApiException;
+use Illuminate\Support\Facades\Validator;
+use App\Services\Filters\QRCodeFilters\FindWhere;
 use App\Services\Checkers\QrCodeCheckers\IsExpired;
+use App\Services\Filters\QRCodeFilters\FindWhereId;
+use Intervention\Image\ImageManagerStatic as Image;
+use App\Services\Filters\QRCodeFilters\AssignedToUser;
 use App\Services\Checkers\QrCodeCheckers\IsSingleAssign;
 use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
-use App\Services\Filters\QRCodeFilters\AssignedToUser;
-use Illuminate\Support\Facades\Validator;
 
 class ItemService
 {
@@ -39,11 +40,11 @@ class ItemService
 
         if ($request->has('qrcode_id')) {
 
-            $qr_code = Qrcode::find($request->qrcode_id)
-                ->withFilters(
-                    new AssignedToSpecificUser,
-                    new AssignedToUser
-                )->first();
+            $qr_code = Qrcode::withFilters(
+                new FindWhereId($request->qrcode_id),
+                new AssignedToSpecificUser,
+                new AssignedToUser
+            )->first();
 
             if (!$qr_code) {
                 throw new ApiException(
@@ -74,8 +75,42 @@ class ItemService
         $item->save();
     }
 
-    protected function updateItem()
+    protected function updateItem(Item $item, $request)
     {
+        $this->validateItemRequest($request);
+
+        $item->update($request->only([
+            'title',
+            'details',
+            'category_id',
+            'model_id',
+            'brand_id',
+            'color_id',
+            'sub_category_id',
+        ]));
+
+        if ($request->has('qrcode_id')) {
+            $qr_code = Qrcode::withFilters(
+                new FindWhereId($request->qrcode_id),
+                new AssignedToSpecificUser,
+                new AssignedToUser
+            )->first();
+
+            if (!$qr_code) {
+                throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+            }
+
+            $qr_code->assignQrcodeToItem($item->id);
+        }
+
+        if ($request->has('images') && count($request->images) > 0) {
+
+            $item->fill([
+                'images' => $this->uploadImages($request->images)
+            ]);
+
+            $item->save();
+        }
     }
 
     private function validateItemRequest($request)
