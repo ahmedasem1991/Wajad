@@ -156,7 +156,7 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->update([
             'item_id' => $item_id,
-            'status' => 5,
+            'status' => self::STATUS['Re-Registered'],
         ]);
     }
 
