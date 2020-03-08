@@ -20,7 +20,7 @@ class ReregisterQRCodeController extends Controller
      * @urlParam qrcode_id required int exists in qrcodes
      * @urlParam item_id required int exists in items
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      * {
      * "success": true,
      * "message": "qrcode registered successfully.",
@@ -49,6 +49,7 @@ class ReregisterQRCodeController extends Controller
             ->Where('user_id', auth('api')->user()->id)
             ->WhereNotNull('item_id')
             ->Where('status', 4)
+            ->Where('status', 5)
             ->Where('type', 2)
             ->first();
 

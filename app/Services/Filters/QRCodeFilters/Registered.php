@@ -10,6 +10,6 @@ class Registered implements FilterContract, QrcodeConstants
 {
     public function apply(Builder $query)
     {
-        return $query->where('status', self::STATUS['Registered']);
+        return $query->where('status', self::STATUS['Registered']) || $query->where('status', self::STATUS['Re-Registered']);
     }
 }
