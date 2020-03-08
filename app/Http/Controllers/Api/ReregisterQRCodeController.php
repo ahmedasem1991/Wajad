@@ -46,7 +46,12 @@ class ReregisterQRCodeController extends Controller
         }
 
         $qr_code = Qrcode::find( $request->qrcode_id)
-           ;
+            ->Where('user_id', auth('api')->user()->id)
+            ->WhereNotNull('item_id')
+            // ->Where('status', 4)
+            // ->orWhere('status', 5)
+            ->Where('type', 2)
+            ->first();
             dd($qr_code);
 
         if (!$qr_code) {
