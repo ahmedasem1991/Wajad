@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Qrcode;
 use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
 use App\Services\Filters\QRCodeFilters\RegisteredOrRerigstered;
 use Illuminate\Http\Request;
@@ -67,7 +68,7 @@ class UserQRCodeController extends Controller
     {
         $auth_user_qr_codes = auth('api')->user()->qrcodes();
 
-        $available_single_qr_code =  $auth_user_qr_codes->withFilters(
+        $available_single_qr_code =  Qrcode::withFilters(
             new SingleAssign,
             new AssignedToSpecificUser
         );
