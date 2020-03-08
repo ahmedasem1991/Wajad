@@ -68,6 +68,7 @@ class UserQRCodeController extends Controller
     {
         $auth_user_qr_codes = Qrcode::where('user_id', auth('api')->id());
 
+        dd($auth_user_qr_codes);
         $available_single_qr_code =  $auth_user_qr_codes->withFilters(
             new SingleAssign,
             new AssignedToSpecificUser
