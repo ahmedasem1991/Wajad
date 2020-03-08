@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
+use App\Services\Filters\QRCodeFilters\RegisteredOrRerigstered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QrcodeResource;
@@ -77,7 +78,7 @@ class UserQRCodeController extends Controller
         );
 
         $registered_qr_code = $auth_user_qr_codes->withFilters(
-            new Registered
+            new RegisteredOrRerigstered
         );
 
         $expired_qe_code = $auth_user_qr_codes->withFilters(
