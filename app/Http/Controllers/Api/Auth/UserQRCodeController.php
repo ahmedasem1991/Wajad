@@ -82,7 +82,7 @@ class UserQRCodeController extends Controller
             new RegisteredOrRerigstered,
             new AssignedToSpecificUser($auth_user->id)
         );
-
+dd($registered_qr_code);
         $expired_qe_code = Qrcode::withFilters(
             new Expired,
             new AssignedToSpecificUser($auth_user->id)
