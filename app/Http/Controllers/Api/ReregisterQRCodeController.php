@@ -45,13 +45,8 @@ class ReregisterQRCodeController extends Controller
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 400);
         }
 
-        $qr_code = Qrcode::where('id', $request->qrcode_id)
-            ->Where('user_id', auth('api')->user()->id)
-            ->WhereNotNull('item_id')
-            ->Where('status', 4)
-            ->orWhere('status', 5)
-            ->Where('type', 2)
-            ->first();
+        $qr_code = Qrcode::find( $request->qrcode_id)
+           ;
             dd($qr_code);
 
         if (!$qr_code) {
