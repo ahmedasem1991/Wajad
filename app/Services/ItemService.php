@@ -17,7 +17,7 @@ use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
 
 class ItemService
 {
-    protected function createItem($request)
+    public function createItem($request)
     {
         $this->validateItemRequest($request);
 
@@ -75,7 +75,7 @@ class ItemService
         $item->save();
     }
 
-    protected function updateItem(Item $item, $request)
+    public function updateItem(Item $item, $request)
     {
         $this->validateItemRequest($request);
 
