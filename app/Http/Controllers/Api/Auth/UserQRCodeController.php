@@ -72,18 +72,20 @@ class UserQRCodeController extends Controller
             new SingleAssign,
             new AssignedToSpecificUser
         );
-dd($available_single_qr_code);
-        $available_multi_qr_code = $auth_user_qr_codes->withFilters(
+
+        $available_multi_qr_code = Qrcode::withFilters(
             new MultiAssign,
             new AssignedToSpecificUser
         );
 
-        $registered_qr_code = $auth_user_qr_codes->withFilters(
-            new RegisteredOrRerigstered
+        $registered_qr_code = Qrcode::withFilters(
+            new RegisteredOrRerigstered,
+            new AssignedToSpecificUser
         );
 
-        $expired_qe_code = $auth_user_qr_codes->withFilters(
-            new Expired
+        $expired_qe_code = Qrcode::withFilters(
+            new Expired,
+            new AssignedToSpecificUser
         );
 
         $availableQrCodes = collect([
