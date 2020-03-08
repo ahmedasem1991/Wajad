@@ -13,6 +13,7 @@ use App\Services\Filters\QRCodeFilters\Expired;
 use App\Services\Filters\QRCodeFilters\MultiAssign;
 use App\Services\Filters\QRCodeFilters\Registered;
 use App\Services\Filters\QRCodeFilters\SingleAssign;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @group QR Codes
@@ -82,7 +83,11 @@ class UserQRCodeController extends Controller
             new RegisteredOrRerigstered,
             new AssignedToSpecificUser($auth_user->id)
         );
-dd($registered_qr_code);
+        DB::enableQueryLog(); // Enable query log
+
+// Your Eloquent query executed by using get()
+
+        dd(DB::getQueryLog());
         $expired_qe_code = Qrcode::withFilters(
             new Expired,
             new AssignedToSpecificUser($auth_user->id)
