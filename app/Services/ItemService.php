@@ -92,8 +92,8 @@ class ItemService
         if ($request->has('qrcode_id') && $request->qrcode_id !== '' && $request->qrcode_id != null) {
             $qr_code = Qrcode::withFilters(
                 new FindWhereId($request->qrcode_id),
-                new AssignedToSpecificUser,
-                new AssignedToUser
+                new AssignedToSpecificUser//,
+              //  new AssignedToUser
             )->first();
 
             if (!$qr_code) {
