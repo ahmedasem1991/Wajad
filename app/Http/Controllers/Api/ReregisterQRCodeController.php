@@ -52,7 +52,7 @@ class ReregisterQRCodeController extends Controller
             // ->orWhere('status', 5)
             ->Where('type', 2)
             ->first();
-            dd($qr_code);
+            //dd($qr_code);
 
         if (!$qr_code) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
