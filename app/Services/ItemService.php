@@ -38,7 +38,7 @@ class ItemService
             ])
         );
 
-        if ($request->has('qrcode_id')) {
+        if ($request->has('qrcode_id') && $request->qrcode_id !== '' && $request->qrcode_id != null) {
 
             $qr_code = Qrcode::withFilters(
                 new FindWhereId($request->qrcode_id),
@@ -89,7 +89,7 @@ class ItemService
             'sub_category_id',
         ]));
 
-        if ($request->has('qrcode_id')) {
+        if ($request->has('qrcode_id') && $request->qrcode_id !== '' && $request->qrcode_id != null) {
             $qr_code = Qrcode::withFilters(
                 new FindWhereId($request->qrcode_id),
                 new AssignedToSpecificUser,
