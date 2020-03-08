@@ -71,6 +71,7 @@ class UserQRCodeController extends Controller
         $available_single_qr_code =  $auth_user_qr_codes->withFilters(
             new SingleAssign
         );
+        dd ($available_single_qr_code->get());
 
         $available_multi_qr_code = $auth_user_qr_codes->withFilters(
             new MultiAssign
@@ -83,7 +84,7 @@ class UserQRCodeController extends Controller
         $expired_qe_code = $auth_user_qr_codes->withFilters(
             new Expired
         );
-    dd ($available_single_qr_code->get());
+
         $availableQrCodes = collect([
             'single' => QrcodeResource::collection($available_single_qr_code->get()),
             'available_single_count' => $available_single_qr_code->count(),
