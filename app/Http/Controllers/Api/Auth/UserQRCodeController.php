@@ -66,7 +66,6 @@ class UserQRCodeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd( auth('api')->user()->qrcodes());
         $available_single_qr_code = auth('api')->user()->qrcodes()->withFilters(
             new SingleAssign , new AssignedToUser
         );
