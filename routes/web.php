@@ -100,7 +100,7 @@ route::get('/', function () {
 Route::get('filters', function () {
     $qrcode = Qrcode::withFilters(
         new MultiAssign,
-        // new Expired,
+        
     )->first();
 
     dd(
