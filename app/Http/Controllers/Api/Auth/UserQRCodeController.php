@@ -68,20 +68,19 @@ class UserQRCodeController extends Controller
     {
         $auth_user_qr_codes = Qrcode::where('user_id', auth('api')->id());
 
-        $available_single_qr_code =  $auth_user_qr_codes->withFilters(
+        $available_single_qr_code = clone $auth_user_qr_codes->withFilters(
             new SingleAssign
         );
 
-        $available_multi_qr_code = $auth_user_qr_codes->withFilters(
+        $available_multi_qr_code = clone $auth_user_qr_codes->withFilters(
             new MultiAssign
         );
-        dd ($available_single_qr_code->get());
 
-        $registered_qr_code = $auth_user_qr_codes->withFilters(
+        $registered_qr_code = clone $auth_user_qr_codes->withFilters(
             new RegisteredOrRerigstered
         );
 
-        $expired_qe_code = $auth_user_qr_codes->withFilters(
+        $expired_qe_code = clone $auth_user_qr_codes->withFilters(
             new Expired
         );
 
