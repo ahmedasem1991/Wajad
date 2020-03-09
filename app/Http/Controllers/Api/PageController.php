@@ -50,13 +50,17 @@ class PageController extends Controller
         if (!in_array($page, $this->pages)) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
         }
-        if($page == 'contact-us'){
+        if ($page == 'contact-us') {
+
             $data = [];
-            $settings = Setting::all()->map->only('key', 'value');
-            foreach ($settings as $setting){
+
+            $settings = Setting::get(['key', 'value']);
+
+            foreach ($settings as $setting) {
                 $data['data'][$setting['key']] = $setting['value'];
             }
-            return json_encode($data);
+
+            return response()->json($data);
         }
 
         return new PageResource(Page::whereKey($page)->first());
