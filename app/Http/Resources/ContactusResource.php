@@ -16,8 +16,7 @@ class ContactusResource extends JsonResource
     public function toArray($request)
     {
         return [
-            $request
-            //$this['key'] => $this['value'],
+            $this['key'] => $this['value'],
            // 'value' =>$this['value'],
         //    'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1'])->pluck('value')->first() ?? '',
         //    'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2'])->pluck('value')->first() ?? '',
@@ -25,6 +24,6 @@ class ContactusResource extends JsonResource
         //    'Address-2' => $this->where(['key'=> 'Address-2'])->pluck('value')->first() ?? '',
         //    'Email-1' => $this->where(['key'=> 'Email-1'])->pluck('value')->first() ?? '',
         //    'Email-2' => $this->where(['key'=> 'Email-2'])->pluck('value')->first() ?? '',
-         ];
+        // ];
     }
 }
