@@ -8,6 +8,7 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PageResource;
 use App\Page;
+use Illuminate\Support\Arr;
 
 /**
  * @group Pages
@@ -50,7 +51,12 @@ class PageController extends Controller
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
         }
         if($page == 'contact-us'){
-            return ContactusResource::collection(Setting::all());
+            $data = [];
+            $settings = Setting::all()->map->only('key', 'value');
+            foreach ($settings as $setting){
+                $data['data'][$setting['key']] = $setting['value'];
+            }
+            return json_encode($data);
         }
 
         return new PageResource(Page::whereKey($page)->first());
