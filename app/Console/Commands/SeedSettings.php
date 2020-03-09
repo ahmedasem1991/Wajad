@@ -128,6 +128,13 @@ class SeedSettings extends Command
                 'created_at' => null,
                 'updated_at' => null
             ],
+            [
+                'key' => 'Email',
+                //'title' => 'Limited Posts',
+                'value' => 'info@wajad.com',
+                'created_at' => null,
+                'updated_at' => null
+            ],
             
         ];
 
