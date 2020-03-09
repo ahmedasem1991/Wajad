@@ -51,13 +51,13 @@ class SeedSettings extends Command
                 'created_at' => null,
                 'updated_at' => null
             ],
-            [
-                'key' => 'contact-us',
-                //'title' => 'Contact us',
-                'value' => 'contact-us.',
-                'created_at' => null,
-                'updated_at' => null
-            ],
+            // [
+            //     'key' => 'contact-us',
+            //     //'title' => 'Contact us',
+            //     'value' => 'contact-us.',
+            //     'created_at' => null,
+            //     'updated_at' => null
+            // ],
             [
                 'key' => 'privacy-policy',
                 //'title' => 'Privacy And Policy',
