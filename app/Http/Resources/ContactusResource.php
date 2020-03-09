@@ -18,12 +18,12 @@ class ContactusResource extends JsonResource
         return [
             // 'key' => $this['key'],
             // 'value' =>$this['value'],
-           'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1']) ? $this->value : null,
-           'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2']) ? $this->value : null,
-           'Address-1' => $this->where(['key'=> 'Address-1']) ? $this->value : null,
-           'Address-2' => $this->where(['key'=> 'Address-2']) ? $this->value : null,
-           'Email-1' => $this->where(['key'=> 'Email-1']) ? $this->value : null,
-           'Email-2' => $this->where(['key'=> 'Email-2']) ? $this->value : null,
+           'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1'])->pluck('value') ?? '',
+           'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2'])->pluck('value') ?? '',
+           'Address-1' => $this->where(['key'=> 'Address-1'])->pluck('value') ?? '',
+           'Address-2' => $this->where(['key'=> 'Address-2'])->pluck('value') ?? '',
+           'Email-1' => $this->where(['key'=> 'Email-1'])->pluck('value') ?? '',
+           'Email-2' => $this->where(['key'=> 'Email-2'])->pluck('value') ?? '',
         ];
     }
 }
