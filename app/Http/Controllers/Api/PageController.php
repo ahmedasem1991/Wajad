@@ -50,7 +50,10 @@ class PageController extends Controller
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
         }
         if($page == 'contact-us'){
-            return ContactusResource::collection(Setting::all());
+
+            return ContactusResource::collection(['mob'=> '4444444',
+            'mob2'=>'555555'
+            ]);
         }
 
         return new PageResource(Page::whereKey($page)->first());
