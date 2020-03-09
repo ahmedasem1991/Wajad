@@ -298,6 +298,11 @@ return [
             'description'  => 'Activities',
             'group'        => 'Resources',
         ],
+        'pages' => [
+            'display_name' => 'Pages',
+            'description'  => 'Pages',
+            'group'        => 'Resources',
+        ],
 
         // 'create activities' => [
         //     'display_name' => 'Create activities',
