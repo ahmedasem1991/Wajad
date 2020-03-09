@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Settings;
+use App\Setting;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SettingsPolicy
@@ -15,7 +15,7 @@ class SettingsPolicy
         return true;
     }
 
-    public function view(User $user, Settings $settings)
+    public function view(User $user, Setting $settings)
     {
         return true;
     }
@@ -25,17 +25,17 @@ class SettingsPolicy
         return false;
     }
 
-    public function update(User $user, Settings $settings)
+    public function update(User $user, Setting $settings)
     {
         return auth()->user()->isAdmin();
     }
 
-    public function delete(User $user, Settings $settings)
+    public function delete(User $user, Setting $settings)
     {
         return false;
     }
 
-    public function restore(User $user, Settings $settings)
+    public function restore(User $user, Setting $settings)
     {
         return false;
     }
@@ -47,7 +47,7 @@ class SettingsPolicy
      * @param  \App\Settings  $settings
      * @return mixed
      */
-    public function forceDelete(User $user, Settings $settings)
+    public function forceDelete(User $user, Setting $settings)
     {
         return false;
     }
