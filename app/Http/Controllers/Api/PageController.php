@@ -51,7 +51,8 @@ class PageController extends Controller
         }
         if($page == 'contact-us'){
 
-            return ContactusResource::collection(['mob'=> '4444444',
+            return new  ContactusResource(
+            ['mob'=> '4444444',
             'mob2'=>'555555'
             ]);
         }
