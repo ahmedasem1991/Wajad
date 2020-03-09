@@ -65,7 +65,7 @@ class Setting extends Resource
             // Text::make('Title', 'title')->rules([
             //     'required', 'min:3', 'max:255', 'unique:settings,key'
             // ]),
-            Textarea::make('Value', 'value')->creationRules([
+            Text::make('Value', 'value')->creationRules([
                 'required', 'min:6'
             ]),
 
