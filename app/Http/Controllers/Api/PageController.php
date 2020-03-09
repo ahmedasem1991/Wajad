@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\ContactusResource;
 use App\Setting;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,7 @@ class PageController extends Controller
      * Pages
      * @urlParam type required about-us or contact-us or privacy-policy
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      * {
      * "data": {
      *  "id": 1,
@@ -47,6 +48,9 @@ class PageController extends Controller
     {
         if (!in_array($page, $this->pages)) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
+        }
+        if($page == 'contact-us'){
+            return ContactusResource::collection(Setting::all());
         }
 
         return new PageResource(Page::whereKey($page)->first());

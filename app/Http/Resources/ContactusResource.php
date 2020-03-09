@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Support\Str;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ContactusResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            'key' => $this['key'],
+            'value' =>$this['value'],
+//            'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1']) ? $this->value : null,
+//            'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2']) ? $this->value : null,
+//            'Address1' => $this->where(['key'=> 'Address1']) ? $this->value : null,
+//            'Address2' => $this->where(['key'=> 'Address2']) ? $this->value : null,
+//            'Email1' => $this->where(['key'=> 'Email1']) ? $this->value : null,
+//            'Email2' => $this->where(['key'=> 'Email2']) ? $this->value : null,
+        ];
+    }
+}
