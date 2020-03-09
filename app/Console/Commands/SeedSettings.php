@@ -47,31 +47,31 @@ class SeedSettings extends Command
             [
                 'key' => 'about-us',
                 //'title' => 'About us',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'value' => 'about-us.',
                 'created_at' => null,
                 'updated_at' => null
             ],
             [
                 'key' => 'contact-us',
                 //'title' => 'Contact us',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'value' => 'contact-us.',
                 'created_at' => null,
                 'updated_at' => null
             ],
             [
                 'key' => 'privacy-policy',
                 //'title' => 'Privacy And Policy',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+                'value' => 'privacy-policy.',
                 'created_at' => null,
                 'updated_at' => null
             ],
-            [
-                'key' => 'lorem-ipsum',
-                // 'title' => 'Privacy And Policy',
-                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
-                'created_at' => null,
-                'updated_at' => null
-            ],
+            // [
+            //     'key' => 'lorem-ipsum',
+            //     // 'title' => 'Privacy And Policy',
+            //     'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio autem ducimus nemo rem. Placeat aliquam delectus itaque illo nobis facere explicabo corporis qui praesentium nemo voluptates quod harum vel, culpa nesciunt sint tempora maxime non. Quidem nihil iure tenetur minus quia sint totam dolores magnam illo! Unde repellendus vitae consequuntur.',
+            //     'created_at' => null,
+            //     'updated_at' => null
+            // ],
             [
                 'key' => 'facebook-link',
                 //'title' => 'Facebook Link',
@@ -97,6 +97,34 @@ class SeedSettings extends Command
                 'key' => 'max_post_reports_number',
                 //'title' => 'Limited Posts',
                 'value' => 50,
+                'created_at' => null,
+                'updated_at' => null
+            ],
+            [
+                'key' => 'Phone-Number',
+                //'title' => 'Limited Posts',
+                'value' => '+96611111111',
+                'created_at' => null,
+                'updated_at' => null
+            ],
+            [
+                'key' => 'Phone-Number2',
+                //'title' => 'Limited Posts',
+                'value' => '+96611111111',
+                'created_at' => null,
+                'updated_at' => null
+            ],
+            [
+                'key' => 'Address',
+                //'title' => 'Limited Posts',
+                'value' => 'KSA / Jedda',
+                'created_at' => null,
+                'updated_at' => null
+            ],
+            [
+                'key' => 'Address2',
+                //'title' => 'Limited Posts',
+                'value' => 'KSA / Jedda 2',
                 'created_at' => null,
                 'updated_at' => null
             ],
