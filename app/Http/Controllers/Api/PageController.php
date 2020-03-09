@@ -32,7 +32,6 @@ class PageController extends Controller
     /**
      * Pages
      * @urlParam type required about-us or contact-us or privacy-policy
-     * @bodyParam token Barier-token required
      * @response
      * {
      * "data": {
@@ -45,6 +44,25 @@ class PageController extends Controller
      * @return void
      */
 
+    /**
+     * Contact Us
+     * @urlParam contact-us required
+     * @urlParam about-us required
+     * @urlParam privacy-policy required
+     * @response
+     * {
+     * "data contact-us": {
+     * "Facebook-Link": "http://www.facebook.com",
+     * "Twitter-Link": "http://www.twitter.com",
+     * "Phone-Number-1": "+96611111111",
+     * "Phone-Number-2": "+96622222222",
+     * "Address1": "KSA / Jedda",
+     * "Address2": "KSA / Jedda 2",
+     * "Email1": "info@wajad.com",
+     * "Email2": "info2@wajad.com"
+     * }
+     * }
+     */
     public function __invoke($page = null)
     {
         if (!in_array($page, $this->pages)) {
