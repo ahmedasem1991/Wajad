@@ -115,28 +115,28 @@ class SeedSettings extends Command
                         'updated_at' => null
                     ],
                     [
-                        'key' => 'Address1',
+                        'key' => 'Address-1',
                         //'title' => 'Limited Posts',
                         'value' => 'KSA / Jedda',
                         'created_at' => null,
                         'updated_at' => null
                     ],
                     [
-                        'key' => 'Address2',
+                        'key' => 'Address-2',
                         //'title' => 'Limited Posts',
                         'value' => 'KSA / Jedda 2',
                         'created_at' => null,
                         'updated_at' => null
                     ],
                     [
-                        'key' => 'Email1',
+                        'key' => 'Email-1',
                         //'title' => 'Limited Posts',
                         'value' => 'info@wajad.com',
                         'created_at' => null,
                         'updated_at' => null
                     ],
                     [
-                        'key' => 'Email2',
+                        'key' => 'Email-2',
                         //'title' => 'Limited Posts',
                         'value' => 'info@wajad.com',
                         'created_at' => null,

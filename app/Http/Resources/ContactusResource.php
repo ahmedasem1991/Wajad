@@ -16,14 +16,14 @@ class ContactusResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key' => $this['key'],
-            'value' =>$this['value'],
-//            'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1']) ? $this->value : null,
-//            'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2']) ? $this->value : null,
-//            'Address1' => $this->where(['key'=> 'Address1']) ? $this->value : null,
-//            'Address2' => $this->where(['key'=> 'Address2']) ? $this->value : null,
-//            'Email1' => $this->where(['key'=> 'Email1']) ? $this->value : null,
-//            'Email2' => $this->where(['key'=> 'Email2']) ? $this->value : null,
+            // 'key' => $this['key'],
+            // 'value' =>$this['value'],
+           'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1']) ? $this->value : null,
+           'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2']) ? $this->value : null,
+           'Address-1' => $this->where(['key'=> 'Address1']) ? $this->value : null,
+           'Address-2' => $this->where(['key'=> 'Address2']) ? $this->value : null,
+           'Email-1' => $this->where(['key'=> 'Email1']) ? $this->value : null,
+           'Email-2' => $this->where(['key'=> 'Email2']) ? $this->value : null,
         ];
     }
 }
