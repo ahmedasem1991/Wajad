@@ -21,6 +21,7 @@ class ItemInQRCodeResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'details' => $this->details ?? '',
+            'deleted_at' => $this->deleted_at ?? '',
             'status' => Post::Status[$this->status] ?? '',
             'owner' => new UserResource($this->owner),
             'subcategory' => new SubCategoryResource($this->subcategory),
