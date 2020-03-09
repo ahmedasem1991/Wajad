@@ -17,7 +17,8 @@ class ContactusResource extends JsonResource
     {
         return [
             $this['key'] => $this['value'],
-           // 'value' =>$this['value'],
+//            'key' => $this['key'],
+//            'value' =>$this['value'],
         //    'Phone-Number-1' => $this->where(['key'=> 'Phone-Number-1'])->pluck('value')->first() ?? '',
         //    'Phone-Number-2' => $this->where(['key'=> 'Phone-Number-2'])->pluck('value')->first() ?? '',
         //    'Address-1' => $this->where(['key'=> 'Address-1'])->pluck('value')->first() ?? '',
