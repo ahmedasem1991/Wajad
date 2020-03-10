@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -89,7 +90,7 @@ class User extends Resource
     {
         return [
             ID::make()->sortable(),
-            Avatar::make('Avatar'),
+            //  Avatar::make('Avatar'),
             //Gravatar::make(),
             Image::make('Profile Image', 'image')
             ->disk('public')
@@ -112,9 +113,16 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            PhoneNumber::make('Mobile Number', 'mobile_number')
-                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                ->onlyCustomFormats(),
+
+            NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
+            ->placeholder('Select Country')
+            ->options(\App\Country::all()),
+            Number::make('Mobile Number', 'mobile_number')
+            ->creationRules('required', 'min:9','max:14')
+            ->updateRules('nullable',  'min:9','max:14'),
+            //->rules('required' 'max:14'),
+               // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+               // ->onlyCustomFormats(),
             HasMany::make('Items'),
             Toggle::make('Active', 'status'),
             //  Boolean::make('Show My Data','show_my_data'),

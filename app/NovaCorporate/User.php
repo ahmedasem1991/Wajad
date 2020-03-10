@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -21,6 +22,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -116,9 +118,16 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
             //  HasMany::make('Items','items',Item::class),
-            PhoneNumber::make('Mobile Number','mobile_number')
-                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                ->onlyCustomFormats(),
+            // PhoneNumber::make('Mobile Number','mobile_number')
+            //     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+            //     ->onlyCustomFormats(),
+
+            NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
+            ->placeholder('Select Country')
+            ->options(\App\Country::all()),
+            Number::make('Mobile Number', 'mobile_number')
+            ->creationRules('required', 'min:9','max:14')
+            ->updateRules('nullable',  'min:9','max:14'),
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
