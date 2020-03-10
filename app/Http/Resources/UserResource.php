@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             "is_mobile_number_verified" =>  (bool) $this->is_mobile_number_verified,
             "default_distance_unit" =>  $this->default_distance_unit,
             'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'country' => $this->country,
         ];
     }
 }

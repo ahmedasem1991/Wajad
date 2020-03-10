@@ -1,9 +1,13 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 Route::post('csrf-token', function(){
     return 'we are done';
 })->middleware('csrf_api_token');
-# Auth 
+# Auth
 Route::group(['namespace' => 'Auth'], function () {
+    Route::get('/countrycodes', 'AuthController@getCountries');
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
     Route::post('/resetPassword', 'ResetPasswordController');
@@ -126,9 +130,8 @@ Route::prefix('posts')->group(function () {
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
- 
+
 
 Route::view('mario', 'mario');
 
 Route::post('/test', 'TestController');
- 

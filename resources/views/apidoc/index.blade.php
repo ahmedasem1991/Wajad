@@ -49,6 +49,2498 @@
 <a href="{{ route("apidoc", ["format" => ".json"]) }}">Get Postman Collection</a></p>
 <!-- END_INFO -->
 <h1>Auth</h1>
+<!-- START_a8e9988fc450431ae63401388912b16a -->
+<h2>Countries</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://api.wajad.test/api/countrycodes" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/countrycodes"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">[
+    {
+        "id": 1,
+        "name_ar": "أفغانستان",
+        "name_en": "Afghanistan",
+        "iso_code": "AF",
+        "country_code": "93",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 2,
+        "name_ar": "ألبانيا",
+        "name_en": "Albania",
+        "iso_code": "AL",
+        "country_code": "355",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 3,
+        "name_ar": "الجزائر",
+        "name_en": "Algeria",
+        "iso_code": "DZ",
+        "country_code": "213",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 4,
+        "name_ar": "ساموا الأمريكية",
+        "name_en": "American Samoa",
+        "iso_code": "AS",
+        "country_code": "684",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 5,
+        "name_ar": "أندورا",
+        "name_en": "Andorra",
+        "iso_code": "AD",
+        "country_code": "376",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 6,
+        "name_ar": "أنجولا",
+        "name_en": "Angola",
+        "iso_code": "AO",
+        "country_code": "244",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 7,
+        "name_ar": "أنجويلا",
+        "name_en": "Anguilla",
+        "iso_code": "AI",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 8,
+        "name_ar": "القطب الجنوبي",
+        "name_en": "Antarctica",
+        "iso_code": "AQ",
+        "country_code": "268",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 9,
+        "name_ar": "أنتيجوا وبربودا",
+        "name_en": "Antigua and Barbuda",
+        "iso_code": "AG",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 10,
+        "name_ar": "الأرجنتين",
+        "name_en": "Argentina",
+        "iso_code": "AR",
+        "country_code": "54",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 11,
+        "name_ar": "أرمينيا",
+        "name_en": "Armenia",
+        "iso_code": "AM",
+        "country_code": "374",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 12,
+        "name_ar": "آروبا",
+        "name_en": "Aruba",
+        "iso_code": "AW",
+        "country_code": "297",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 13,
+        "name_ar": "أستراليا",
+        "name_en": "Australia",
+        "iso_code": "AU",
+        "country_code": "61",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 14,
+        "name_ar": "النمسا",
+        "name_en": "Austria",
+        "iso_code": "AT",
+        "country_code": "43",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 15,
+        "name_ar": "أذربيجان",
+        "name_en": "Azerbaijan",
+        "iso_code": "AZ",
+        "country_code": "994",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 16,
+        "name_ar": "الباهاما",
+        "name_en": "Bahamas",
+        "iso_code": "BS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 17,
+        "name_ar": "البحرين",
+        "name_en": "Bahrain",
+        "iso_code": "BH",
+        "country_code": "973",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 18,
+        "name_ar": "بنجلاديش",
+        "name_en": "Bangladesh",
+        "iso_code": "BD",
+        "country_code": "880",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 19,
+        "name_ar": "بربادوس",
+        "name_en": "Barbados",
+        "iso_code": "BB",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 20,
+        "name_ar": "روسيا البيضاء",
+        "name_en": "Belarus",
+        "iso_code": "BY",
+        "country_code": "375",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 21,
+        "name_ar": "بلجيكا",
+        "name_en": "Belgium",
+        "iso_code": "BE",
+        "country_code": "32",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 22,
+        "name_ar": "بليز",
+        "name_en": "Belize",
+        "iso_code": "BZ",
+        "country_code": "501",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 23,
+        "name_ar": "بنين",
+        "name_en": "Benin",
+        "iso_code": "BJ",
+        "country_code": "229",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 24,
+        "name_ar": "برمودا",
+        "name_en": "Bermuda",
+        "iso_code": "BM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 25,
+        "name_ar": "بوتان",
+        "name_en": "Bhutan",
+        "iso_code": "BT",
+        "country_code": "975",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 26,
+        "name_ar": "بوليفيا",
+        "name_en": "Bolivia",
+        "iso_code": "BO",
+        "country_code": "591",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 27,
+        "name_ar": "البوسنة والهرسك",
+        "name_en": "Bosnia and Herzegovina",
+        "iso_code": "BA",
+        "country_code": "387",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 28,
+        "name_ar": "بتسوانا",
+        "name_en": "Botswana",
+        "iso_code": "BW",
+        "country_code": "267",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 29,
+        "name_ar": "جزيرة بوفيه",
+        "name_en": "Bouvet Island",
+        "iso_code": "BV",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 30,
+        "name_ar": "البرازيل",
+        "name_en": "Brazil",
+        "iso_code": "BR",
+        "country_code": "55",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 31,
+        "name_ar": "المحيط الهندي البريطاني",
+        "name_en": "British Indian Ocean Territory",
+        "iso_code": "IO",
+        "country_code": "246",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 32,
+        "name_ar": "جزر فرجين البريطانية",
+        "name_en": "British Virgin Islands",
+        "iso_code": "VG",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 33,
+        "name_ar": "بروناي",
+        "name_en": "Brunei",
+        "iso_code": "BN",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 34,
+        "name_ar": "بلغاريا",
+        "name_en": "Bulgaria",
+        "iso_code": "BG",
+        "country_code": "359",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 35,
+        "name_ar": "بوركينا فاسو",
+        "name_en": "Burkina Faso",
+        "iso_code": "BF",
+        "country_code": "226",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 36,
+        "name_ar": "بوروندي",
+        "name_en": "Burundi",
+        "iso_code": "BI",
+        "country_code": "257",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 37,
+        "name_ar": "كمبوديا",
+        "name_en": "Cambodia",
+        "iso_code": "KH",
+        "country_code": "855",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 38,
+        "name_ar": "الكاميرون",
+        "name_en": "Cameroon",
+        "iso_code": "CM",
+        "country_code": "237",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 39,
+        "name_ar": "كندا",
+        "name_en": "Canada",
+        "iso_code": "CA",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 40,
+        "name_ar": "الرأس الأخضر",
+        "name_en": "Cape Verde",
+        "iso_code": "CV",
+        "country_code": "238",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 41,
+        "name_ar": "جزر الكايمن",
+        "name_en": "Cayman Islands",
+        "iso_code": "KY",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 42,
+        "name_ar": "جمهورية افريقيا الوسطى",
+        "name_en": "Central African Republic",
+        "iso_code": "CF",
+        "country_code": "236",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 43,
+        "name_ar": "تشاد",
+        "name_en": "Chad",
+        "iso_code": "TD",
+        "country_code": "235",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 44,
+        "name_ar": "شيلي",
+        "name_en": "Chile",
+        "iso_code": "CL",
+        "country_code": "56",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 45,
+        "name_ar": "الصين",
+        "name_en": "China",
+        "iso_code": "CN",
+        "country_code": "86",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 46,
+        "name_ar": "جزيرة الكريسماس",
+        "name_en": "Christmas Island",
+        "iso_code": "CX",
+        "country_code": "16",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 47,
+        "name_ar": "جزر كوكوس",
+        "name_en": "Cocos [Keeling] Islands",
+        "iso_code": "CC",
+        "country_code": "16",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 48,
+        "name_ar": "كولومبيا",
+        "name_en": "Colombia",
+        "iso_code": "CO",
+        "country_code": "57",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 49,
+        "name_ar": "جزر القمر",
+        "name_en": "Comoros",
+        "iso_code": "KM",
+        "country_code": "269",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 50,
+        "name_ar": "الكونغو - برازافيل",
+        "name_en": "Congo - Brazzaville",
+        "iso_code": "CG",
+        "country_code": "242",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 51,
+        "name_ar": "جمهورية الكونغو الديمقراطية",
+        "name_en": "Congo - Kinshasa",
+        "iso_code": "CD",
+        "country_code": "243",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 52,
+        "name_ar": "جزر كوك",
+        "name_en": "Cook Islands",
+        "iso_code": "CK",
+        "country_code": "682",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 53,
+        "name_ar": "كوستاريكا",
+        "name_en": "Costa Rica",
+        "iso_code": "CR",
+        "country_code": "506",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 54,
+        "name_ar": "كرواتيا",
+        "name_en": "Croatia",
+        "iso_code": "HR",
+        "country_code": "385",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 55,
+        "name_ar": "كوبا",
+        "name_en": "Cuba",
+        "iso_code": "CU",
+        "country_code": "53",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 56,
+        "name_ar": "قبرص",
+        "name_en": "Cyprus",
+        "iso_code": "CY",
+        "country_code": "357",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 57,
+        "name_ar": "جمهورية التشيك",
+        "name_en": "Czech Republic",
+        "iso_code": "CZ",
+        "country_code": "420",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 58,
+        "name_ar": "ساحل العاج",
+        "name_en": "Côte d’Ivoire",
+        "iso_code": "CI",
+        "country_code": "225",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 59,
+        "name_ar": "الدانمرك",
+        "name_en": "Denmark",
+        "iso_code": "DK",
+        "country_code": "45",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 60,
+        "name_ar": "جيبوتي",
+        "name_en": "Djibouti",
+        "iso_code": "DJ",
+        "country_code": "253",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 61,
+        "name_ar": "دومينيكا",
+        "name_en": "Dominica",
+        "iso_code": "DM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 62,
+        "name_ar": "جمهورية الدومينيك",
+        "name_en": "Dominican Republic",
+        "iso_code": "DO",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 63,
+        "name_ar": "الاكوادور",
+        "name_en": "Ecuador",
+        "iso_code": "EC",
+        "country_code": "593",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 64,
+        "name_ar": "مصر",
+        "name_en": "Egypt",
+        "iso_code": "EG",
+        "country_code": "20",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 65,
+        "name_ar": "السلفادور",
+        "name_en": "El Salvador",
+        "iso_code": "SV",
+        "country_code": "503",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 66,
+        "name_ar": "غينيا الاستوائية",
+        "name_en": "Equatorial Guinea",
+        "iso_code": "GQ",
+        "country_code": "240",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 67,
+        "name_ar": "اريتريا",
+        "name_en": "Eritrea",
+        "iso_code": "ER",
+        "country_code": "291",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 68,
+        "name_ar": "استونيا",
+        "name_en": "Estonia",
+        "iso_code": "EE",
+        "country_code": "372",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 69,
+        "name_ar": "اثيوبيا",
+        "name_en": "Ethiopia",
+        "iso_code": "ET",
+        "country_code": "251",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 70,
+        "name_ar": "جزر فوكلاند",
+        "name_en": "Falkland Islands",
+        "iso_code": "FK",
+        "country_code": "500",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 71,
+        "name_ar": "جزر فارو",
+        "name_en": "Faroe Islands",
+        "iso_code": "FO",
+        "country_code": "298",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 72,
+        "name_ar": "فيجي",
+        "name_en": "Fiji",
+        "iso_code": "FJ",
+        "country_code": "679",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 73,
+        "name_ar": "فنلندا",
+        "name_en": "Finland",
+        "iso_code": "FI",
+        "country_code": "358",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 74,
+        "name_ar": "فرنسا",
+        "name_en": "France",
+        "iso_code": "FR",
+        "country_code": "33",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 75,
+        "name_ar": "غويانا",
+        "name_en": "French Guiana",
+        "iso_code": "GF",
+        "country_code": "594",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 76,
+        "name_ar": "بولينيزيا الفرنسية",
+        "name_en": "French Polynesia",
+        "iso_code": "PF",
+        "country_code": "689",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 77,
+        "name_ar": "المقاطعات الجنوبية الفرنسية",
+        "name_en": "French Southern Territories",
+        "iso_code": "TF",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 78,
+        "name_ar": "الجابون",
+        "name_en": "Gabon",
+        "iso_code": "GA",
+        "country_code": "241",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 79,
+        "name_ar": "غامبيا",
+        "name_en": "Gambia",
+        "iso_code": "GM",
+        "country_code": "220",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 80,
+        "name_ar": "جورجيا",
+        "name_en": "Georgia",
+        "iso_code": "GE",
+        "country_code": "995",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 81,
+        "name_ar": "ألمانيا",
+        "name_en": "Germany",
+        "iso_code": "DE",
+        "country_code": "49",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 82,
+        "name_ar": "غانا",
+        "name_en": "Ghana",
+        "iso_code": "GH",
+        "country_code": "233",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 83,
+        "name_ar": "جبل طارق",
+        "name_en": "Gibraltar",
+        "iso_code": "GI",
+        "country_code": "350",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 84,
+        "name_ar": "اليونان",
+        "name_en": "Greece",
+        "iso_code": "GR",
+        "country_code": "30",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 85,
+        "name_ar": "جرينلاند",
+        "name_en": "Greenland",
+        "iso_code": "GL",
+        "country_code": "299",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 86,
+        "name_ar": "جرينادا",
+        "name_en": "Grenada",
+        "iso_code": "GD",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 87,
+        "name_ar": "جوادلوب",
+        "name_en": "Guadeloupe",
+        "iso_code": "GP",
+        "country_code": "590",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 88,
+        "name_ar": "جوام",
+        "name_en": "Guam",
+        "iso_code": "GU",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 89,
+        "name_ar": "جواتيمالا",
+        "name_en": "Guatemala",
+        "iso_code": "GT",
+        "country_code": "502",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 90,
+        "name_ar": "غينيا",
+        "name_en": "Guinea",
+        "iso_code": "GN",
+        "country_code": "224",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 91,
+        "name_ar": "غينيا بيساو",
+        "name_en": "Guinea-Bissau",
+        "iso_code": "GW",
+        "country_code": "245",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 92,
+        "name_ar": "غيانا",
+        "name_en": "Guyana",
+        "iso_code": "GY",
+        "country_code": "592",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 93,
+        "name_ar": "هايتي",
+        "name_en": "Haiti",
+        "iso_code": "HT",
+        "country_code": "509",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 94,
+        "name_ar": "جزيرة هيرد وماكدونالد",
+        "name_en": "Heard Island and McDonald Islands",
+        "iso_code": "HM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 95,
+        "name_ar": "هندوراس",
+        "name_en": "Honduras",
+        "iso_code": "HN",
+        "country_code": "504",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 96,
+        "name_ar": "هونج كونج الصينية",
+        "name_en": "Hong Kong SAR China",
+        "iso_code": "HK",
+        "country_code": "852",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 97,
+        "name_ar": "المجر",
+        "name_en": "Hungary",
+        "iso_code": "HU",
+        "country_code": "36",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 98,
+        "name_ar": "أيسلندا",
+        "name_en": "Iceland",
+        "iso_code": "IS",
+        "country_code": "354",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 99,
+        "name_ar": "الهند",
+        "name_en": "India",
+        "iso_code": "IN",
+        "country_code": "91",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 100,
+        "name_ar": "اندونيسيا",
+        "name_en": "Indonesia",
+        "iso_code": "ID",
+        "country_code": "62",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 101,
+        "name_ar": "ايران",
+        "name_en": "Iran",
+        "iso_code": "IR",
+        "country_code": "98",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 102,
+        "name_ar": "العراق",
+        "name_en": "Iraq",
+        "iso_code": "IQ",
+        "country_code": "964",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 103,
+        "name_ar": "أيرلندا",
+        "name_en": "Ireland",
+        "iso_code": "IE",
+        "country_code": "353",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 104,
+        "name_ar": "جزيرة مان",
+        "name_en": "Isle of Man",
+        "iso_code": "IM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 105,
+        "name_ar": "اسرائيل",
+        "name_en": "Israel",
+        "iso_code": "IL",
+        "country_code": "972",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 106,
+        "name_ar": "ايطاليا",
+        "name_en": "Italy",
+        "iso_code": "IT",
+        "country_code": "39",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 107,
+        "name_ar": "جامايكا",
+        "name_en": "Jamaica",
+        "iso_code": "JM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 108,
+        "name_ar": "اليابان",
+        "name_en": "Japan",
+        "iso_code": "JP",
+        "country_code": "81",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 109,
+        "name_ar": "جيرسي",
+        "name_en": "Jersey",
+        "iso_code": "JE",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 110,
+        "name_ar": "الأردن",
+        "name_en": "Jordan",
+        "iso_code": "JO",
+        "country_code": "962",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 111,
+        "name_ar": "كازاخستان",
+        "name_en": "Kazakhstan",
+        "iso_code": "KZ",
+        "country_code": "7",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 112,
+        "name_ar": "كينيا",
+        "name_en": "Kenya",
+        "iso_code": "KE",
+        "country_code": "254",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 113,
+        "name_ar": "كيريباتي",
+        "name_en": "Kiribati",
+        "iso_code": "KI",
+        "country_code": "686",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 114,
+        "name_ar": "الكويت",
+        "name_en": "Kuwait",
+        "iso_code": "KW",
+        "country_code": "59",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 115,
+        "name_ar": "قرغيزستان",
+        "name_en": "Kyrgyzstan",
+        "iso_code": "KG",
+        "country_code": "996",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 116,
+        "name_ar": "لاوس",
+        "name_en": "Laos",
+        "iso_code": "LA",
+        "country_code": "856",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 117,
+        "name_ar": "لاتفيا",
+        "name_en": "Latvia",
+        "iso_code": "LV",
+        "country_code": "371",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 118,
+        "name_ar": "لبنان",
+        "name_en": "Lebanon",
+        "iso_code": "LB",
+        "country_code": "961",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 119,
+        "name_ar": "ليسوتو",
+        "name_en": "Lesotho",
+        "iso_code": "LS",
+        "country_code": "266",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 120,
+        "name_ar": "ليبيريا",
+        "name_en": "Liberia",
+        "iso_code": "LR",
+        "country_code": "231",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 121,
+        "name_ar": "ليبيا",
+        "name_en": "Libya",
+        "iso_code": "LY",
+        "country_code": "218",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 122,
+        "name_ar": "ليختنشتاين",
+        "name_en": "Liechtenstein",
+        "iso_code": "LI",
+        "country_code": "243",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 123,
+        "name_ar": "ليتوانيا",
+        "name_en": "Lithuania",
+        "iso_code": "LT",
+        "country_code": "370",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 124,
+        "name_ar": "لوكسمبورج",
+        "name_en": "Luxembourg",
+        "iso_code": "LU",
+        "country_code": "352",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 125,
+        "name_ar": "ماكاو الصينية",
+        "name_en": "Macau SAR China",
+        "iso_code": "MO",
+        "country_code": "853",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 126,
+        "name_ar": "مقدونيا",
+        "name_en": "Macedonia",
+        "iso_code": "MK",
+        "country_code": "389",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 127,
+        "name_ar": "مدغشقر",
+        "name_en": "Madagascar",
+        "iso_code": "MG",
+        "country_code": "261",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 128,
+        "name_ar": "ملاوي",
+        "name_en": "Malawi",
+        "iso_code": "MW",
+        "country_code": "265",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 129,
+        "name_ar": "ماليزيا",
+        "name_en": "Malaysia",
+        "iso_code": "MY",
+        "country_code": "60",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 130,
+        "name_ar": "جزر الملديف",
+        "name_en": "Maldives",
+        "iso_code": "MV",
+        "country_code": "960",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 131,
+        "name_ar": "مالي",
+        "name_en": "Mali",
+        "iso_code": "ML",
+        "country_code": "223",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 132,
+        "name_ar": "مالطا",
+        "name_en": "Malta",
+        "iso_code": "MT",
+        "country_code": "356",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 133,
+        "name_ar": "جزر المارشال",
+        "name_en": "Marshall Islands",
+        "iso_code": "MH",
+        "country_code": "692",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 134,
+        "name_ar": "مارتينيك",
+        "name_en": "Martinique",
+        "iso_code": "MQ",
+        "country_code": "596",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 135,
+        "name_ar": "موريتانيا",
+        "name_en": "Mauritania",
+        "iso_code": "MR",
+        "country_code": "222",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 136,
+        "name_ar": "موريشيوس",
+        "name_en": "Mauritius",
+        "iso_code": "MU",
+        "country_code": "230",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 137,
+        "name_ar": "مايوت",
+        "name_en": "Mayotte",
+        "iso_code": "YT",
+        "country_code": "262",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 138,
+        "name_ar": "المكسيك",
+        "name_en": "Mexico",
+        "iso_code": "MX",
+        "country_code": "52",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 139,
+        "name_ar": "ميكرونيزيا",
+        "name_en": "Micronesia",
+        "iso_code": "FM",
+        "country_code": "691",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 140,
+        "name_ar": "مولدافيا",
+        "name_en": "Moldova",
+        "iso_code": "MD",
+        "country_code": "373",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 141,
+        "name_ar": "موناكو",
+        "name_en": "Monaco",
+        "iso_code": "MC",
+        "country_code": "377",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 142,
+        "name_ar": "منغوليا",
+        "name_en": "Mongolia",
+        "iso_code": "MN",
+        "country_code": "976",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 143,
+        "name_ar": "الجبل الأسود",
+        "name_en": "Montenegro",
+        "iso_code": "ME",
+        "country_code": "382",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 144,
+        "name_ar": "مونتسرات",
+        "name_en": "Montserrat",
+        "iso_code": "MS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 145,
+        "name_ar": "المغرب",
+        "name_en": "Morocco",
+        "iso_code": "MA",
+        "country_code": "212",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 146,
+        "name_ar": "موزمبيق",
+        "name_en": "Mozambique",
+        "iso_code": "MZ",
+        "country_code": "258",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 147,
+        "name_ar": "ميانمار",
+        "name_en": "Myanmar [Burma]",
+        "iso_code": "MM",
+        "country_code": "95",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 148,
+        "name_ar": "ناميبيا",
+        "name_en": "Namibia",
+        "iso_code": "NA",
+        "country_code": "264",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 149,
+        "name_ar": "نورو",
+        "name_en": "Nauru",
+        "iso_code": "NR",
+        "country_code": "674",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 150,
+        "name_ar": "نيبال",
+        "name_en": "Nepal",
+        "iso_code": "NP",
+        "country_code": "977",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 151,
+        "name_ar": "هولندا",
+        "name_en": "Netherlands",
+        "iso_code": "NL",
+        "country_code": "31",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 152,
+        "name_ar": "جزر الأنتيل الهولندية",
+        "name_en": "Netherlands Antilles",
+        "iso_code": "AN",
+        "country_code": "599",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 153,
+        "name_ar": "كاليدونيا الجديدة",
+        "name_en": "New Caledonia",
+        "iso_code": "NC",
+        "country_code": "687",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 154,
+        "name_ar": "نيوزيلاندا",
+        "name_en": "New Zealand",
+        "iso_code": "NZ",
+        "country_code": "64",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 155,
+        "name_ar": "نيكاراجوا",
+        "name_en": "Nicaragua",
+        "iso_code": "NI",
+        "country_code": "505",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 156,
+        "name_ar": "النيجر",
+        "name_en": "Niger",
+        "iso_code": "NE",
+        "country_code": "227",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 157,
+        "name_ar": "نيجيريا",
+        "name_en": "Nigeria",
+        "iso_code": "NG",
+        "country_code": "234",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 158,
+        "name_ar": "نيوي",
+        "name_en": "Niue",
+        "iso_code": "NU",
+        "country_code": "683",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 159,
+        "name_ar": "جزيرة نورفوك",
+        "name_en": "Norfolk Island",
+        "iso_code": "NF",
+        "country_code": "672",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 160,
+        "name_ar": "كوريا الشمالية",
+        "name_en": "North Korea",
+        "iso_code": "KP",
+        "country_code": "850",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 161,
+        "name_ar": "جزر ماريانا الشمالية",
+        "name_en": "Northern Mariana Islands",
+        "iso_code": "MP",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 162,
+        "name_ar": "النرويج",
+        "name_en": "Norway",
+        "iso_code": "NO",
+        "country_code": "47",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 163,
+        "name_ar": "عمان",
+        "name_en": "Oman",
+        "iso_code": "OM",
+        "country_code": "968",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 164,
+        "name_ar": "باكستان",
+        "name_en": "Pakistan",
+        "iso_code": "PK",
+        "country_code": "92",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 165,
+        "name_ar": "بالاو",
+        "name_en": "Palau",
+        "iso_code": "PW",
+        "country_code": "680",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 166,
+        "name_ar": "فلسطين",
+        "name_en": "Palestinian Territories",
+        "iso_code": "PS",
+        "country_code": "970",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 167,
+        "name_ar": "بنما",
+        "name_en": "Panama",
+        "iso_code": "PA",
+        "country_code": "507",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 168,
+        "name_ar": "بابوا غينيا الجديدة",
+        "name_en": "Papua New Guinea",
+        "iso_code": "PG",
+        "country_code": "675",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 169,
+        "name_ar": "باراجواي",
+        "name_en": "Paraguay",
+        "iso_code": "PY",
+        "country_code": "595",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 170,
+        "name_ar": "بيرو",
+        "name_en": "Peru",
+        "iso_code": "PE",
+        "country_code": "51",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 171,
+        "name_ar": "الفيلبين",
+        "name_en": "Philippines",
+        "iso_code": "PH",
+        "country_code": "63",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 172,
+        "name_ar": "بتكايرن",
+        "name_en": "Pitcairn Islands",
+        "iso_code": "PN",
+        "country_code": "870",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 173,
+        "name_ar": "بولندا",
+        "name_en": "Poland",
+        "iso_code": "PL",
+        "country_code": "48",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 174,
+        "name_ar": "البرتغال",
+        "name_en": "Portugal",
+        "iso_code": "PT",
+        "country_code": "351",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 175,
+        "name_ar": "بورتوريكو",
+        "name_en": "Puerto Rico",
+        "iso_code": "PR",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 176,
+        "name_ar": "قطر",
+        "name_en": "Qatar",
+        "iso_code": "QA",
+        "country_code": "974",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 177,
+        "name_ar": "رومانيا",
+        "name_en": "Romania",
+        "iso_code": "RO",
+        "country_code": "40",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 178,
+        "name_ar": "روسيا",
+        "name_en": "Russia",
+        "iso_code": "RU",
+        "country_code": "7",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 179,
+        "name_ar": "رواندا",
+        "name_en": "Rwanda",
+        "iso_code": "RW",
+        "country_code": "250",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 180,
+        "name_ar": "روينيون",
+        "name_en": "Réunion",
+        "iso_code": "RE",
+        "country_code": "262",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 181,
+        "name_ar": "سانت هيلنا",
+        "name_en": "Saint Helena",
+        "iso_code": "SH",
+        "country_code": "290",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 182,
+        "name_ar": "سانت كيتس ونيفيس",
+        "name_en": "Saint Kitts and Nevis",
+        "iso_code": "KN",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 183,
+        "name_ar": "سانت لوسيا",
+        "name_en": "Saint Lucia",
+        "iso_code": "LC",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 184,
+        "name_ar": "سانت مارتين",
+        "name_en": "Saint Martin",
+        "iso_code": "MF",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 185,
+        "name_ar": "سانت بيير وميكولون",
+        "name_en": "Saint Pierre and Miquelon",
+        "iso_code": "PM",
+        "country_code": "508",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 186,
+        "name_ar": "سانت فنسنت وغرنادين",
+        "name_en": "Saint Vincent and the Grenadines",
+        "iso_code": "VC",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 187,
+        "name_ar": "ساموا",
+        "name_en": "Samoa",
+        "iso_code": "WS",
+        "country_code": "685",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 188,
+        "name_ar": "سان مارينو",
+        "name_en": "San Marino",
+        "iso_code": "SM",
+        "country_code": "378",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 189,
+        "name_ar": "المملكة العربية السعودية",
+        "name_en": "Saudi Arabia",
+        "iso_code": "SA",
+        "country_code": "966",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 190,
+        "name_ar": "السنغال",
+        "name_en": "Senegal",
+        "iso_code": "SN",
+        "country_code": "221",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 191,
+        "name_ar": "صربيا",
+        "name_en": "Serbia",
+        "iso_code": "RS",
+        "country_code": "381",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 192,
+        "name_ar": "صربيا والجبل الأسود",
+        "name_en": "Serbia and Montenegro",
+        "iso_code": "CS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 193,
+        "name_ar": "سيشل",
+        "name_en": "Seychelles",
+        "iso_code": "SC",
+        "country_code": "248",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 194,
+        "name_ar": "سيراليون",
+        "name_en": "Sierra Leone",
+        "iso_code": "SL",
+        "country_code": "232",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 195,
+        "name_ar": "سنغافورة",
+        "name_en": "Singapore",
+        "iso_code": "SG",
+        "country_code": "65",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 196,
+        "name_ar": "سلوفاكيا",
+        "name_en": "Slovakia",
+        "iso_code": "SK",
+        "country_code": "421",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 197,
+        "name_ar": "سلوفينيا",
+        "name_en": "Slovenia",
+        "iso_code": "SI",
+        "country_code": "386",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 198,
+        "name_ar": "جزر سليمان",
+        "name_en": "Solomon Islands",
+        "iso_code": "SB",
+        "country_code": "677",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 199,
+        "name_ar": "الصومال",
+        "name_en": "Somalia",
+        "iso_code": "SO",
+        "country_code": "252",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 200,
+        "name_ar": "جمهورية جنوب افريقيا",
+        "name_en": "South Africa",
+        "iso_code": "ZA",
+        "country_code": "27",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 201,
+        "name_ar": "جورجيا الجنوبية وجزر ساندويتش الجنوبية",
+        "name_en": "South Georgia and the South Sandwich Islands",
+        "iso_code": "GS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 202,
+        "name_ar": "كوريا الجنوبية",
+        "name_en": "South Korea",
+        "iso_code": "KR",
+        "country_code": "82",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 203,
+        "name_ar": "أسبانيا",
+        "name_en": "Spain",
+        "iso_code": "ES",
+        "country_code": "34",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 204,
+        "name_ar": "سريلانكا",
+        "name_en": "Sri Lanka",
+        "iso_code": "LK",
+        "country_code": "94",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 205,
+        "name_ar": "السودان",
+        "name_en": "Sudan",
+        "iso_code": "SD",
+        "country_code": "249",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 206,
+        "name_ar": "سورينام",
+        "name_en": "Suriname",
+        "iso_code": "SR",
+        "country_code": "597",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 207,
+        "name_ar": "سفالبارد وجان مايان",
+        "name_en": "Svalbard and Jan Mayen",
+        "iso_code": "SJ",
+        "country_code": "47",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 208,
+        "name_ar": "سوازيلاند",
+        "name_en": "Swaziland",
+        "iso_code": "SZ",
+        "country_code": "268",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 209,
+        "name_ar": "السويد",
+        "name_en": "Sweden",
+        "iso_code": "SE",
+        "country_code": "46",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 210,
+        "name_ar": "سويسرا",
+        "name_en": "Switzerland",
+        "iso_code": "CH",
+        "country_code": "41",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 211,
+        "name_ar": "سوريا",
+        "name_en": "Syria",
+        "iso_code": "SY",
+        "country_code": "963",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 212,
+        "name_ar": "ساو تومي وبرينسيبي",
+        "name_en": "São Tomé and Príncipe",
+        "iso_code": "ST",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 213,
+        "name_ar": "تايوان",
+        "name_en": "Taiwan",
+        "iso_code": "TW",
+        "country_code": "886",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 214,
+        "name_ar": "طاجكستان",
+        "name_en": "Tajikistan",
+        "iso_code": "TJ",
+        "country_code": "992",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 215,
+        "name_ar": "تانزانيا",
+        "name_en": "Tanzania",
+        "iso_code": "TZ",
+        "country_code": "255",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 216,
+        "name_ar": "تايلند",
+        "name_en": "Thailand",
+        "iso_code": "TH",
+        "country_code": "66",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 217,
+        "name_ar": "تيمور الشرقية",
+        "name_en": "Timor-Leste",
+        "iso_code": "TL",
+        "country_code": "670",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 218,
+        "name_ar": "توجو",
+        "name_en": "Togo",
+        "iso_code": "TG",
+        "country_code": "228",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 219,
+        "name_ar": "توكيلو",
+        "name_en": "Tokelau",
+        "iso_code": "TK",
+        "country_code": "690",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 220,
+        "name_ar": "تونجا",
+        "name_en": "Tonga",
+        "iso_code": "TO",
+        "country_code": "676",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 221,
+        "name_ar": "ترينيداد وتوباغو",
+        "name_en": "Trinidad and Tobago",
+        "iso_code": "TT",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 222,
+        "name_ar": "تونس",
+        "name_en": "Tunisia",
+        "iso_code": "TN",
+        "country_code": "216",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 223,
+        "name_ar": "تركيا",
+        "name_en": "Turkey",
+        "iso_code": "TR",
+        "country_code": "90",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 224,
+        "name_ar": "تركمانستان",
+        "name_en": "Turkmenistan",
+        "iso_code": "TM",
+        "country_code": "993",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 225,
+        "name_ar": "جزر الترك وجايكوس",
+        "name_en": "Turks and Caicos Islands",
+        "iso_code": "TC",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 226,
+        "name_ar": "توفالو",
+        "name_en": "Tuvalu",
+        "iso_code": "TV",
+        "country_code": "688",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 227,
+        "name_ar": "جزر الولايات المتحدة البعيدة الصغيرة",
+        "name_en": "U.S. Minor Outlying Islands",
+        "iso_code": "UM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 228,
+        "name_ar": "جزر فرجين الأمريكية",
+        "name_en": "U.S. Virgin Islands",
+        "iso_code": "VI",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 229,
+        "name_ar": "أوغندا",
+        "name_en": "Uganda",
+        "iso_code": "UG",
+        "country_code": "256",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 230,
+        "name_ar": "أوكرانيا",
+        "name_en": "Ukraine",
+        "iso_code": "UA",
+        "country_code": "380",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 231,
+        "name_ar": "الامارات العربية المتحدة",
+        "name_en": "United Arab Emirates",
+        "iso_code": "AE",
+        "country_code": "971",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 232,
+        "name_ar": "المملكة المتحدة",
+        "name_en": "United Kingdom",
+        "iso_code": "GB",
+        "country_code": "44",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 233,
+        "name_ar": "الولايات المتحدة الأمريكية",
+        "name_en": "United States",
+        "iso_code": "US",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 234,
+        "name_ar": "منطقة غير معرفة",
+        "name_en": "Unknown or Invalid Region",
+        "iso_code": "ZZ",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 235,
+        "name_ar": "أورجواي",
+        "name_en": "Uruguay",
+        "iso_code": "UY",
+        "country_code": "598",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 236,
+        "name_ar": "أوزبكستان",
+        "name_en": "Uzbekistan",
+        "iso_code": "UZ",
+        "country_code": "998",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 237,
+        "name_ar": "فانواتو",
+        "name_en": "Vanuatu",
+        "iso_code": "VU",
+        "country_code": "678",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 238,
+        "name_ar": "الفاتيكان",
+        "name_en": "Vatican City",
+        "iso_code": "VA",
+        "country_code": "379",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 239,
+        "name_ar": "فنزويلا",
+        "name_en": "Venezuela",
+        "iso_code": "VE",
+        "country_code": "58",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 240,
+        "name_ar": "فيتنام",
+        "name_en": "Vietnam",
+        "iso_code": "VN",
+        "country_code": "84",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 241,
+        "name_ar": "جزر والس وفوتونا",
+        "name_en": "Wallis and Futuna",
+        "iso_code": "WF",
+        "country_code": "681",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 242,
+        "name_ar": "الصحراء الغربية",
+        "name_en": "Western Sahara",
+        "iso_code": "EH",
+        "country_code": "212",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 243,
+        "name_ar": "اليمن",
+        "name_en": "Yemen",
+        "iso_code": "YE",
+        "country_code": "967",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 244,
+        "name_ar": "زامبيا",
+        "name_en": "Zambia",
+        "iso_code": "ZM",
+        "country_code": "260",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 245,
+        "name_ar": "زيمبابوي",
+        "name_en": "Zimbabwe",
+        "iso_code": "ZW",
+        "country_code": "236",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 246,
+        "name_ar": "جزر أولان",
+        "name_en": "Åland Islands",
+        "iso_code": "AX",
+        "country_code": "358",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    }
+]</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/countrycodes</code></p>
+<!-- END_a8e9988fc450431ae63401388912b16a -->
 <!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
 <h2>Login</h2>
 <blockquote>
@@ -58,7 +2550,7 @@
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789","device_type":"qui"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"rerum"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/login"
@@ -72,7 +2564,7 @@ let headers = {
 let body = {
     "user": "00966236363256",
     "password": "123456789",
-    "device_type": "qui"
+    "device_type": "rerum"
 }
 
 fetch(url, {
@@ -162,7 +2654,7 @@ fetch(url, {
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"laudantium"}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"ut","mobile_country_id":4}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register"
@@ -178,7 +2670,8 @@ let body = {
     "email": "api@wajad.com",
     "password": "123456789",
     "mobile_number": "123456789",
-    "device_type": "laudantium"
+    "device_type": "ut",
+    "mobile_country_id": 4
 }
 
 fetch(url, {
@@ -206,7 +2699,17 @@ fetch(url, {
         "is_email_verified": false,
         "is_mobile_number_verified": false,
         "default_distance_unit": "kilo",
-        "image": "image.png"
+        "image": "image.png",
+        "country": {
+            "id": 64,
+            "name_ar": "مصر",
+            "name_en": "Egypt",
+            "iso_code": "EG",
+            "country_code": "20",
+            "deleted_at": null,
+            "created_at": null,
+            "updated_at": null
+        }
     }
 }</code></pre>
 <h3>HTTP Request</h3>
@@ -252,6 +2755,12 @@ fetch(url, {
 <td>required</td>
 <td>android or ios</td>
 </tr>
+<tr>
+<td><code>mobile_country_id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>exists:countries,id</td>
+</tr>
 </tbody>
 </table>
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
@@ -265,7 +2774,7 @@ fetch(url, {
     "http://api.wajad.test/api/refreshToken" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"quibusdam"}'
+    -d '{"token":"voluptatem"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/refreshToken"
@@ -277,7 +2786,7 @@ let headers = {
 };
 
 let body = {
-    "token": "quibusdam"
+    "token": "voluptatem"
 }
 
 fetch(url, {
@@ -337,7 +2846,7 @@ fetch(url, {
     "http://api.wajad.test/api/sendCode/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"voluptas"}'
+    -d '{"token":"ipsam"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/sendCode/phone."
@@ -349,7 +2858,7 @@ let headers = {
 };
 
 let body = {
-    "token": "voluptas"
+    "token": "ipsam"
 }
 
 fetch(url, {
@@ -414,7 +2923,7 @@ fetch(url, {
     "http://api.wajad.test/api/logout" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"perspiciatis"}'
+    -d '{"token":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/logout"
@@ -426,7 +2935,7 @@ let headers = {
 };
 
 let body = {
-    "token": "perspiciatis"
+    "token": "et"
 }
 
 fetch(url, {
@@ -527,11 +3036,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/deleniti/1" \
+    -G "http://api.wajad.test/api/home/posts/explicabo/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/home/posts/deleniti/1"
+    "http://api.wajad.test/api/home/posts/explicabo/1"
 );
 
 let headers = {
@@ -737,7 +3246,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userItems" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"optio"}'
+    -d '{"token":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userItems"
@@ -749,7 +3258,7 @@ let headers = {
 };
 
 let body = {
-    "token": "optio"
+    "token": "et"
 }
 
 fetch(url, {
@@ -858,7 +3367,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"nam"}'
+    -d '{"token":"officiis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -870,7 +3379,7 @@ let headers = {
 };
 
 let body = {
-    "token": "nam"
+    "token": "officiis"
 }
 
 fetch(url, {
@@ -1015,7 +3524,7 @@ fetch(url, {
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"nesciunt","details":"voluptatibus","color_id":"nobis","brand_id":"hic","model_id":"eum","sub_category_id":"at","qrcode_id":"sequi","images":["earum"],"token":"ut"}'
+    -d '{"title":"dolores","details":"sit","color_id":"vero","brand_id":"non","model_id":"consequatur","sub_category_id":"ex","qrcode_id":"saepe","images":["ullam"],"token":"quia"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items"
@@ -1027,17 +3536,17 @@ let headers = {
 };
 
 let body = {
-    "title": "nesciunt",
-    "details": "voluptatibus",
-    "color_id": "nobis",
-    "brand_id": "hic",
-    "model_id": "eum",
-    "sub_category_id": "at",
-    "qrcode_id": "sequi",
+    "title": "dolores",
+    "details": "sit",
+    "color_id": "vero",
+    "brand_id": "non",
+    "model_id": "consequatur",
+    "sub_category_id": "ex",
+    "qrcode_id": "saepe",
     "images": [
-        "earum"
+        "ullam"
     ],
-    "token": "ut"
+    "token": "quia"
 }
 
 fetch(url, {
@@ -1132,7 +3641,7 @@ fetch(url, {
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"dolorum","details":"iste","color_id":"facilis","brand_id":"aut","model_id":"assumenda","sub_category_id":"nam","qrcode_id":"expedita","images":["dolorem"],"token":"blanditiis"}'
+    -d '{"title":"architecto","details":"dolores","color_id":"voluptate","brand_id":"eius","model_id":"dolor","sub_category_id":"voluptas","qrcode_id":"nobis","images":["ut"],"token":"hic"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -1144,17 +3653,17 @@ let headers = {
 };
 
 let body = {
-    "title": "dolorum",
-    "details": "iste",
-    "color_id": "facilis",
-    "brand_id": "aut",
-    "model_id": "assumenda",
-    "sub_category_id": "nam",
-    "qrcode_id": "expedita",
+    "title": "architecto",
+    "details": "dolores",
+    "color_id": "voluptate",
+    "brand_id": "eius",
+    "model_id": "dolor",
+    "sub_category_id": "voluptas",
+    "qrcode_id": "nobis",
     "images": [
-        "dolorem"
+        "ut"
     ],
-    "token": "blanditiis"
+    "token": "hic"
 }
 
 fetch(url, {
@@ -1266,7 +3775,7 @@ fetch(url, {
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"ipsum"}'
+    -d '{"token":"dolores"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -1278,7 +3787,7 @@ let headers = {
 };
 
 let body = {
-    "token": "ipsum"
+    "token": "dolores"
 }
 
 fetch(url, {
@@ -1341,13 +3850,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/maps/eveniet" \
+    -G "http://api.wajad.test/api/maps/rerum" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"longitude":"harum","latitude":"neque","radius":2,"unit":"non"}'
+    -d '{"longitude":"sed","latitude":"laudantium","radius":10,"unit":"dolorum"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/maps/eveniet"
+    "http://api.wajad.test/api/maps/rerum"
 );
 
 let headers = {
@@ -1356,10 +3865,10 @@ let headers = {
 };
 
 let body = {
-    "longitude": "harum",
-    "latitude": "neque",
-    "radius": 2,
-    "unit": "non"
+    "longitude": "sed",
+    "latitude": "laudantium",
+    "radius": 10,
+    "unit": "dolorum"
 }
 
 fetch(url, {
@@ -1448,7 +3957,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/packages" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"voluptatem"}'
+    -d '{"token":"nesciunt"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/packages"
@@ -1460,7 +3969,7 @@ let headers = {
 };
 
 let body = {
-    "token": "voluptatem"
+    "token": "nesciunt"
 }
 
 fetch(url, {
@@ -1586,7 +4095,7 @@ fetch(url, {
     "http://api.wajad.test/api/request/1/accept" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":"eligendi","token":"perferendis"}'
+    -d '{"user_id":"tempora","token":"aut"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/request/1/accept"
@@ -1598,8 +4107,8 @@ let headers = {
 };
 
 let body = {
-    "user_id": "eligendi",
-    "token": "perferendis"
+    "user_id": "tempora",
+    "token": "aut"
 }
 
 fetch(url, {
@@ -1670,7 +4179,7 @@ fetch(url, {
     "http://api.wajad.test/api/request/1/reject" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":20,"token":"sint"}'
+    -d '{"user_id":17,"token":"veniam"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/request/1/reject"
@@ -1682,8 +4191,8 @@ let headers = {
 };
 
 let body = {
-    "user_id": 20,
-    "token": "sint"
+    "user_id": 17,
+    "token": "veniam"
 }
 
 fetch(url, {
@@ -1754,7 +4263,7 @@ fetch(url, {
     "http://api.wajad.test/api/post/1/answer" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"data":[{"answers":"eius","question_id":1}],"token":"rerum"}'
+    -d '{"data":[{"answers":"quia","question_id":19}],"token":"in"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/post/1/answer"
@@ -1768,11 +4277,11 @@ let headers = {
 let body = {
     "data": [
         {
-            "answers": "eius",
-            "question_id": 1
+            "answers": "quia",
+            "question_id": 19
         }
     ],
-    "token": "rerum"
+    "token": "in"
 }
 
 fetch(url, {
@@ -1855,7 +4364,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userPosts/found." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"ut"}'
+    -d '{"token":"possimus"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userPosts/found."
@@ -1867,7 +4376,7 @@ let headers = {
 };
 
 let body = {
-    "token": "ut"
+    "token": "possimus"
 }
 
 fetch(url, {
@@ -1928,7 +4437,7 @@ fetch(url, {
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"est","image":"optio","token":"deleniti"}'
+    -d '{"details":"ratione","image":"omnis","token":"amet"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/report/post/1"
@@ -1940,9 +4449,9 @@ let headers = {
 };
 
 let body = {
-    "details": "est",
-    "image": "optio",
-    "token": "deleniti"
+    "details": "ratione",
+    "image": "omnis",
+    "token": "amet"
 }
 
 fetch(url, {
@@ -2019,7 +4528,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"et"}'
+    -d '{"token":"distinctio"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -2031,7 +4540,7 @@ let headers = {
 };
 
 let body = {
-    "token": "et"
+    "token": "distinctio"
 }
 
 fetch(url, {
@@ -2226,13 +4735,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/posts/add/qui" \
+    "http://api.wajad.test/api/posts/add/in" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"quia","description":"temporibus","reward":"repellat","longitude":"sed","latitude":"non","sub_category_id":1,"brand_id":7,"model_id":14,"color_id":9,"item_id":18,"city":"voluptates","images":["est"],"questions":["tempora"],"token":"illo"}'
+    -d '{"title":"rem","description":"molestiae","reward":"est","longitude":"inventore","latitude":"rerum","sub_category_id":17,"brand_id":8,"model_id":15,"color_id":3,"item_id":19,"city":"corrupti","images":["quam"],"questions":["dolor"],"token":"dolores"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/posts/add/qui"
+    "http://api.wajad.test/api/posts/add/in"
 );
 
 let headers = {
@@ -2241,24 +4750,24 @@ let headers = {
 };
 
 let body = {
-    "title": "quia",
-    "description": "temporibus",
-    "reward": "repellat",
-    "longitude": "sed",
-    "latitude": "non",
-    "sub_category_id": 1,
-    "brand_id": 7,
-    "model_id": 14,
-    "color_id": 9,
-    "item_id": 18,
-    "city": "voluptates",
+    "title": "rem",
+    "description": "molestiae",
+    "reward": "est",
+    "longitude": "inventore",
+    "latitude": "rerum",
+    "sub_category_id": 17,
+    "brand_id": 8,
+    "model_id": 15,
+    "color_id": 3,
+    "item_id": 19,
+    "city": "corrupti",
     "images": [
-        "est"
+        "quam"
     ],
     "questions": [
-        "tempora"
+        "dolor"
     ],
-    "token": "illo"
+    "token": "dolores"
 }
 
 fetch(url, {
@@ -2411,7 +4920,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"sit","description":"illum","status":"voluptatem","reward":"quas","longitude":"dignissimos","latitude":"consequatur","sub_category_id":19,"brand_id":7,"model_id":16,"color_id":2,"item_id":19,"city":"et","images":["beatae"],"token":"maxime"}'
+    -d '{"title":"veniam","description":"sed","status":"et","reward":"recusandae","longitude":"reiciendis","latitude":"officiis","sub_category_id":8,"brand_id":11,"model_id":8,"color_id":17,"item_id":20,"city":"sit","images":["totam"],"token":"eos"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -2423,22 +4932,22 @@ let headers = {
 };
 
 let body = {
-    "title": "sit",
-    "description": "illum",
-    "status": "voluptatem",
-    "reward": "quas",
-    "longitude": "dignissimos",
-    "latitude": "consequatur",
-    "sub_category_id": 19,
-    "brand_id": 7,
-    "model_id": 16,
-    "color_id": 2,
-    "item_id": 19,
-    "city": "et",
+    "title": "veniam",
+    "description": "sed",
+    "status": "et",
+    "reward": "recusandae",
+    "longitude": "reiciendis",
+    "latitude": "officiis",
+    "sub_category_id": 8,
+    "brand_id": 11,
+    "model_id": 8,
+    "color_id": 17,
+    "item_id": 20,
+    "city": "sit",
     "images": [
-        "beatae"
+        "totam"
     ],
-    "token": "maxime"
+    "token": "eos"
 }
 
 fetch(url, {
@@ -2585,7 +5094,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"officiis"}'
+    -d '{"token":"modi"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -2597,7 +5106,7 @@ let headers = {
 };
 
 let body = {
-    "token": "officiis"
+    "token": "modi"
 }
 
 fetch(url, {
@@ -2663,7 +5172,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userQRCodes" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"optio"}'
+    -d '{"token":"iste"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userQRCodes"
@@ -2675,7 +5184,7 @@ let headers = {
 };
 
 let body = {
-    "token": "optio"
+    "token": "iste"
 }
 
 fetch(url, {
@@ -2759,7 +5268,7 @@ fetch(url, {
     "http://api.wajad.test/api/qrcodes/create" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"package_id":14,"count":2,"token":"ut"}'
+    -d '{"package_id":1,"count":1,"token":"qui"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/qrcodes/create"
@@ -2771,9 +5280,9 @@ let headers = {
 };
 
 let body = {
-    "package_id": 14,
-    "count": 2,
-    "token": "ut"
+    "package_id": 1,
+    "count": 1,
+    "token": "qui"
 }
 
 fetch(url, {
@@ -2838,7 +5347,7 @@ fetch(url, {
     "http://api.wajad.test/api/register/qrcode" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"incidunt"}'
+    -d '{"token":"excepturi"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register/qrcode"
@@ -2850,7 +5359,7 @@ let headers = {
 };
 
 let body = {
-    "token": "incidunt"
+    "token": "excepturi"
 }
 
 fetch(url, {
@@ -2920,7 +5429,7 @@ fetch(url, {
     "http://api.wajad.test/api/reregister/qrcode" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"atque"}'
+    -d '{"token":"quo"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/reregister/qrcode"
@@ -2932,7 +5441,7 @@ let headers = {
 };
 
 let body = {
-    "token": "atque"
+    "token": "quo"
 }
 
 fetch(url, {
@@ -3002,7 +5511,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/scan-qr-code/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"qui"}'
+    -d '{"token":"nihil"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/scan-qr-code/1"
@@ -3014,7 +5523,7 @@ let headers = {
 };
 
 let body = {
-    "token": "qui"
+    "token": "nihil"
 }
 
 fetch(url, {
@@ -3099,7 +5608,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":10,"color":9,"brand":17,"subcategory":10,"date":"animi","status":14}'
+    -d '{"model":2,"color":5,"brand":5,"subcategory":4,"date":"architecto","status":15}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/home/search"
@@ -3111,12 +5620,12 @@ let headers = {
 };
 
 let body = {
-    "model": 10,
-    "color": 9,
-    "brand": 17,
-    "subcategory": 10,
-    "date": "animi",
-    "status": 14
+    "model": 2,
+    "color": 5,
+    "brand": 5,
+    "subcategory": 4,
+    "date": "architecto",
+    "status": 15
 }
 
 fetch(url, {
@@ -3487,7 +5996,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userData" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"aliquid"}'
+    -d '{"token":"eos"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userData"
@@ -3499,7 +6008,7 @@ let headers = {
 };
 
 let body = {
-    "token": "aliquid"
+    "token": "eos"
 }
 
 fetch(url, {
@@ -3557,7 +6066,7 @@ fetch(url, {
     "http://api.wajad.test/api/verify/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"code":"1234","token":"non"}'
+    -d '{"code":"1234","token":"amet"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/verify/phone."
@@ -3570,7 +6079,7 @@ let headers = {
 
 let body = {
     "code": "1234",
-    "token": "non"
+    "token": "amet"
 }
 
 fetch(url, {
@@ -3641,7 +6150,7 @@ fetch(url, {
     "http://api.wajad.test/api/updateUserProfile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"rerum","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"optio","token":"qui"}'
+    -d '{"name":"cumque","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"natus","token":"facere"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/updateUserProfile"
@@ -3653,12 +6162,12 @@ let headers = {
 };
 
 let body = {
-    "name": "rerum",
+    "name": "cumque",
     "receive_emails": true,
     "receive_push_notifications": true,
     "default_distance_unit": "mile",
-    "image": "optio",
-    "token": "qui"
+    "image": "natus",
+    "token": "facere"
 }
 
 fetch(url, {
@@ -3736,7 +6245,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"distinctio","new_password":"impedit","new_password_confirmation":"unde","token":"unde"}'
+    -d '{"old_password":"pariatur","new_password":"iure","new_password_confirmation":"cumque","token":"sint"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -3748,10 +6257,10 @@ let headers = {
 };
 
 let body = {
-    "old_password": "distinctio",
-    "new_password": "impedit",
-    "new_password_confirmation": "unde",
-    "token": "unde"
+    "old_password": "pariatur",
+    "new_password": "iure",
+    "new_password_confirmation": "cumque",
+    "token": "sint"
 }
 
 fetch(url, {
@@ -3817,7 +6326,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"voluptatem","token":"sunt"}'
+    -d '{"mobile_number":"repellendus","token":"fugiat"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -3829,8 +6338,8 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "voluptatem",
-    "token": "sunt"
+    "mobile_number": "repellendus",
+    "token": "fugiat"
 }
 
 fetch(url, {
@@ -3884,7 +6393,7 @@ fetch(url, {
     "http://api.wajad.test/api/changeEmail" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email":"autem","token":"est"}'
+    -d '{"email":"sit","token":"sit"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changeEmail"
@@ -3896,8 +6405,8 @@ let headers = {
 };
 
 let body = {
-    "email": "autem",
-    "token": "est"
+    "email": "sit",
+    "token": "sit"
 }
 
 fetch(url, {
