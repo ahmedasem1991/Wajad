@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -88,7 +89,7 @@ class User extends Resource
     {
         return [
             ID::make()->sortable(),
-
+            Avatar::make('Avatar'),
             //Gravatar::make(),
             Image::make('Profile Image', 'image')
             ->disk('public')
