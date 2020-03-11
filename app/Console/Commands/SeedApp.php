@@ -63,7 +63,7 @@ class SeedApp extends Command
 
         $this->call('seed:items');
 
-        $this->call('seed:banners');
+        //$this->call('seed:banners');
 
         $this->call('seed:posts');
 
