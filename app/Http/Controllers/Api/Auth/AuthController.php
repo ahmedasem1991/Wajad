@@ -171,7 +171,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'mobile_country_id' => $request->mobile_country_id,
+//            'mobile_country_id' => $request->mobile_country_id,
             'mobile_number' => ltrim((string) $request->mobile_number, 0),
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,

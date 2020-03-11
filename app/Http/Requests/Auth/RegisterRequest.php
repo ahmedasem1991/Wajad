@@ -20,7 +20,7 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'unique:users,mobile_number'],
             'device_type' => ['required', 'string', 'in:android,ios'],
-            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
+//            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ];
     }
 

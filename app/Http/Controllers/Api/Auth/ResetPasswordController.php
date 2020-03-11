@@ -36,7 +36,7 @@ class ResetPasswordController extends Controller
         }
 
         if (is_numeric(request('user'))) {
-            request()->merge(['user'=>ltrim(request('user'), 0)]);
+//            request()->merge(['user'=>ltrim(request('user'), 0)]);
             $user_validation = ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']];
 
             $user_identifier = 'mobile_number';
@@ -75,7 +75,7 @@ class ResetPasswordController extends Controller
         if (is_numeric(request('user'))) {
             $message = trans('auth.new_password') . $new_password;
 
-            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
+//            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
             Mail::to($user->email)->send(new ResetPasswordRequestMail());
 

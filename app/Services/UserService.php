@@ -88,7 +88,7 @@ class UserService
         if ($code_valid_for == 'phone') {
             $message = 'Wajad, Register activation code is ' . $activation_code;
 
-            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
+//            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
             return true;
         }
