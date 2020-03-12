@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->first_time_login === 1;
     }
 
-    
+
     public function isActive()
     {
         return $this->status === self::Status['Active'];
@@ -258,5 +258,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function activeLogin()
     {
         return $this->hasMany(ActiveLogin::class, 'user_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'mobile_country_id');
     }
 }

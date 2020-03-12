@@ -27,6 +27,8 @@ use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
+use App\Services\Filters\ItemFilters\Lost;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -210,7 +212,7 @@ class Post extends Resource
                     ->placeholder('Select Item')
 
                     ->optionsResolve(function ($owner) {
-                        return $owner->items()->lost()->get();
+                        return $owner->items()->withFilters(new Lost)->get();
                     })
                     ->rules('required_if:owner_releated_to_system,1')
                     ->dependsOn('Owner'),
@@ -256,6 +258,12 @@ class Post extends Resource
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             MediaField::make('Item Image', 'images')->listing(),
 
+            MapMarker::make("Location")
+            ->defaultZoom(5)
+            ->defaultLatitude(21.4498898)
+            ->defaultLongitude(39.4913431)
+            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
 
@@ -264,6 +272,8 @@ class Post extends Resource
             Button::make('PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
+
+
 
 
 

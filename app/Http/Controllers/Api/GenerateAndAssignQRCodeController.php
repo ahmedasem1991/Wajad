@@ -33,10 +33,10 @@ class GenerateAndAssignQRCodeController extends Controller
      *"message": "qrcode created successfully.",
      *"status_code": 200,
      * "data": [
-      *  "http://admin.wajad.test/images/qrcodes/1582038260RUIWysWSgVQdk9wRiw0p.png",
-      *  "http://admin.wajad.test/images/qrcodes/15820382600Mew2xPd332r1BoV7sIn.png",
-      *  "http://admin.wajad.test/images/qrcodes/1582038260bpxW4CDRAAZ0C1jtJApP.png"  
-   * ]
+     *  "http://admin.wajad.test/images/qrcodes/1582038260RUIWysWSgVQdk9wRiw0p.png",
+     *  "http://admin.wajad.test/images/qrcodes/15820382600Mew2xPd332r1BoV7sIn.png",
+     *  "http://admin.wajad.test/images/qrcodes/1582038260bpxW4CDRAAZ0C1jtJApP.png"
+     * ]
      *}
      * @return void
      */
@@ -56,7 +56,7 @@ class GenerateAndAssignQRCodeController extends Controller
         $now = Carbon::now();
 
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
-       // $generate_reference_number = NULL;
+        // $generate_reference_number = NULL;
         $assign_reference_number = 'C-' . $middle . $now->second;
         //$generate_id = NULL;
 
@@ -72,7 +72,7 @@ class GenerateAndAssignQRCodeController extends Controller
 
         //     $generate_id = $generate_qr_code->id;
         // }
-        $qrcode_images=[];
+        $qrcode_images = [];
         // if (count(Qrcode::status('In Stock')->where('type',$package->type)->get()) < $package->quantity)
         // {
         //     return( [
@@ -92,13 +92,13 @@ class GenerateAndAssignQRCodeController extends Controller
             'quantity' => $package->quantity,
             'created_from' => 'mobile',
         ]);
-        $QRCodes = Qrcode::status('In Stock')->where('type',$package->type)->take($package->quantity)->get();
-      
-        foreach($QRCodes as $Qrcode){
-           array_push($qrcode_images,env('ADMIN_URL').'/'.$Qrcode->image);
+        $QRCodes = Qrcode::status('In Stock')->where('type', $package->type)->take($package->quantity)->get();
+
+        foreach ($QRCodes as $Qrcode) {
+            array_push($qrcode_images, env('ADMIN_URL') . '/' . $Qrcode->image);
         }
-           
-           foreach ($QRCodes as $QRCode) {
+
+        foreach ($QRCodes as $QRCode) {
             $QRCode->assign_reference_number = $assign_reference_number;
             $QRCode->status = 2;
             $QRCode->available_period = str_replace(" Day/s", "", $package->period);
@@ -120,41 +120,43 @@ class GenerateAndAssignQRCodeController extends Controller
         // ];
 
         // GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
-        
+
         $url = Nova::path() . '/resources/stocks';
         $Admins = User::superAdmin()->get();
         $usr_fcm_message = '"' . $package->quantity . '" QR Code Assigned Successfully To You.';
-        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find( auth('api')->user()->id)->name . '.';
+        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find(auth('api')->user()->id)->name . '.';
         // User::find($this->user_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
         foreach ($Admins as $user) {
             $user->notify(new BroadcastNotification('info', $message, $url));
         }
 
-        $data=[
+        $data = [
             'notification' => [
-            'title'=>'Payment completed successfully',
-            'body'=>'Payment completed successfully and your QRcodes create successfully.',
-            'sound' => 'default'
+                'title' => 'Payment completed successfully',
+                'body' => 'Payment completed successfully and your QRcodes create successfully.',
+                'sound' => 'default'
             ],
-              ];
+        ];
         // $token= auth('api')->user()->device_token;
         // event(new SendFCMEvent($token,$data));
 
-        return( [
-            'success'=> true,
-            'message'=> trans('messages.created', 
-            ['model' => trans('messages.attributes.qrcode')]),
-            'status_code'=> 200,
-            'data'=> $qrcode_images
-         ]);
+        return ([
+            'success' => true,
+            'message' => trans(
+                'messages.created',
+                ['model' => trans('messages.attributes.qrcode')]
+            ),
+            'status_code' => 200,
+            'data' => $qrcode_images
+        ]);
         // $this->addResponse(
-        //     trans('messages.created', 
+        //     trans('messages.created',
         //     ['model' => trans('messages.attributes.qrcode')]))
         //     ->addStatusCode(201);
 
         // Log::INFO($this->response());
         // return $this->response();
 
-       
+
     }
 }

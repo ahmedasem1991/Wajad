@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActiveLogin extends Model
 {
-   // use LogsActivity, SoftDeletes;
+    protected $table = "active_login";
 
-   protected $table="active_login";
-   protected $fillable=['user_id'];
-   
-   public function user()
-   {
-       return $this->belongsTo(User::class);
-   }
+    protected $fillable = ['user_id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -91,11 +91,17 @@ class ExpiredQRcode extends Resource
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
-            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->showUrl(true)
-                ->qrCodeRouteName(route('api.scan-qrcode-api'))
+            // QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
+            //     ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
+            //     ->length(15)
+            //     ->showUrl(true)
+            //     ->qrCodeRouteName(route('api.scan-qrcode-api'))
+            //     ->hideWhenUpdating()
+            //     ->hideFromIndex(),
+            Text::make('QR CODE URL', 'qrcode_url', function () {
+
+                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+            })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')

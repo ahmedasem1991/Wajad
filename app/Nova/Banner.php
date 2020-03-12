@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\Banners;
+use App\Services\Filters\ItemFilters\Found;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
@@ -19,6 +20,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use App\Services\Filters\ItemFilters\Lost;
 
 class Banner extends Resource
 {
@@ -150,8 +152,9 @@ class Banner extends Resource
                 //       ->placeholder('Select Item')
 
                 //       ->optionsResolve(function ($user) {
-                //           return $user->items()->lost()->get();
-                //       })
+                //           return $user->items()->withFilters(
+                //   new Lost)->get();
+                //   })
                 //       ->rules('required_if:item_type,0')
                 //      ->dependsOn('User'),
 
@@ -167,7 +170,7 @@ class Banner extends Resource
                 //       NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                 //       ->placeholder('Select Item')
                 //       ->optionsResolve(function ($user) {
-                //           return $user->items()->found()->get();
+                        //   return $user->items()->withFilters(new Found)->get();
                 //       })
                 //       ->rules('required_if:item_type,1')
                 //      ->dependsOn('user'),

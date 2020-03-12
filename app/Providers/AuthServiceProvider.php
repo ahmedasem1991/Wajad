@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
        'App\PostRequest' => 'App\Policies\PostRequestPolicy',
        'App\Role' => 'App\Policies\RolePolicy',
        'App\Keyword' => 'App\Policies\KeywordPolicy',
+       'App\Setting' => 'App\Policies\SettingsPolicy',
     ];
 
     /**

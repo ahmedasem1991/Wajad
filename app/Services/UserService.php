@@ -67,10 +67,10 @@ class UserService
      * Create And Send Activation Code For User
      *
      * @param User $user
-     * @param String[mobile_number|email] $code_valid_for
+     * @param String[phone|email] $code_valid_for
      * @return void
      */
-    public function createAndSendActivationCode(User $user, $code_valid_for)
+    public function createAndSendActivationCode(User $user, string $code_valid_for)
     {
         if ($user->userVerification && $user->userVerification->sendCodeWithinMinute()) {
             throw new ApiException(trans('auth.verification_code_wait_time_one_minute'), 400);
@@ -88,13 +88,13 @@ class UserService
         if ($code_valid_for == 'phone') {
             $message = 'Wajad, Register activation code is ' . $activation_code;
 
-            (new SmsProvider)->sendMessage($message, $user->mobile_number);
+//            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
             return true;
         }
 
         if ($code_valid_for == 'email') {
-             Mail::to($user)->send(new EmailVerificationCode($activation_code));
+            Mail::to($user)->send(new EmailVerificationCode($activation_code));
 
             return true;
         }

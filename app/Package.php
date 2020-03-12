@@ -2,21 +2,14 @@
 
 namespace App;
 
+use App\Services\Filters\Constants\QrcodeConstants;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Package extends Model
+class Package extends Model implements QrcodeConstants
 {
-    use SoftDeletes, LogsActivity;
-
-    const Types = [
-        1 => "single",
-        2 => "multi",
-        "single" => 1,
-        "multi" => 2,
-    ];
-
+    use SoftDeletes;
     protected $guarded = [];
 
     /**

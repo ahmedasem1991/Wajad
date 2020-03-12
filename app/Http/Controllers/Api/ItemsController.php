@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Item;
-use App\ItemImage;
 use App\Qrcode;
+use App\ItemImage;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Services\ItemService;
 use Spatie\QueryBuilder\Filter;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
@@ -20,6 +22,13 @@ use Intervention\Image\ImageManagerStatic as Image;
  */
 class ItemsController extends Controller
 {
+    protected $itemService;
+
+    public function __construct(ItemService $itemService)
+    {
+        $this->itemService = $itemService;
+    }
+
     public function index()
     {
         return ItemResource::collection(Item::all());
@@ -33,6 +42,7 @@ class ItemsController extends Controller
      * @bodyParam brand_id exists:brands,id required
      * @bodyParam model_id exists:models,id required
      * @bodyParam sub_category_id exists:sub_category,id required
+     * @bodyParam qrcode_id exists:qrcodes,id
      * @bodyParam images array required between:1,5
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
@@ -45,55 +55,7 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $validate_request = Validator::make($request->all(), [
-            'title' => ['required', 'min:6', 'max:255'],
-            'details' => ['required', 'min:20', 'max:500'],
-            'color_id' => ['required', 'exists:colors,id'],
-            'model_id' => ['required', 'exists:models,id'],
-            'brand_id' => ['required', 'exists:brands,id'],
-            'sub_category_id' => ['required', 'exists:sub_categories,id'],
-            'images' => ['sometimes', 'array', 'between:0,5'],
-            'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
-        ]);
-
-        if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors()->first(), 400);
-        }
-        $item = Item::create([
-            'title' =>  $request->title,
-            'details' =>  $request->details,
-            'category_id' =>  $request->category_id,
-            'model_id' =>  $request->model_id,
-            'brand_id' =>  $request->brand_id,
-            'color_id' =>  $request->color_id,
-            'sub_category_id' => $request->sub_category_id,
-            'owner_id' => auth('api')->user()->id,
-        ]);
-        if ($request->has('qrcode_id')) {
-            $qr_code = Qrcode::find($request->qrcode_id);
-            $qr_code::update([
-                'item_id' => $item->id
-            ]);
-        }
-
-        if ($request->has('images') && count($request->images) > 0) {
-            $item_images = [];
-            foreach ($request->images as $image) {
-                if (preg_match("/^data:image/", $image)) {
-                    $image_name = Str::random(15) . '.' . 'png';
-                    $path = public_path('/images//' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
-                    array_push($item_images, '/images//' . $image_name);
-                }
-                if (!preg_match("/^data:image/", $image)) {
-                    array_push($item_images, $image);
-                }
-            }
-            $item->fill([
-                'images' => $item_images
-            ]);
-        }
-        $item->save();
+        $this->itemService->createItem($request);
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.item')]))->addStatusCode(201);
 
@@ -198,6 +160,15 @@ class ItemsController extends Controller
     /**
      * Edit Item
      * @urlParam item required int Item id. Example: 1
+     * @bodyParam title min:6,max:255 required
+     * @bodyParam details min:20,max:500 required
+     * @bodyParam color_id exists:colors,id required
+     * @bodyParam brand_id exists:brands,id required
+     * @bodyParam model_id exists:models,id required
+     * @bodyParam sub_category_id exists:sub_category,id required
+     * @bodyParam qrcode_id exists:qrcodes,id
+     * @bodyParam images array required between:1,5
+     * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
@@ -209,47 +180,16 @@ class ItemsController extends Controller
     public function update(Request $request, Item $item)
     {
         $user = auth('api')->user();
-        if ($user->can('update', $item)) {
-            $validate_request = Validator::make($request->all(), [
-                'title' => ['required', 'min:6', 'max:255'],
-                'details' => ['required', 'min:9', 'max:500'],
-                'sub_category_id' => ['required', 'exists:sub_categories,id'],
-                'brand_id' => ['required', 'exists:brands,id'],
-                'model_id' => ['required', 'exists:models,id'],
-                'color_id' => ['required', 'exists:colors,id'],
-                'images' => ['sometimes', 'array', 'between:0,5'],
-                'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
-            ]);
 
-            if ($validate_request->fails()) {
-                throw new ApiException($validate_request->errors()->first(), 400);
-            }
-
-            $item->update($request->all());
-
-            if ($request->has('images') && count($request->images) > 0) {
-                $item_images = [];
-                foreach ($request->images as $image) {
-                    if (preg_match("/^data:image/", $image)) {
-                        $image_name = Str::random(15) . '.' . 'png';
-                        $path = public_path('/images//' . $image_name);
-                        Image::make(file_get_contents($image))->encode('data-url')->save($path);
-                        array_push($item_images, '/images//' . $image_name);
-                    }
-                    if (!preg_match("/^data:image/", $image)) {
-                        array_push($item_images, $image);
-                    }
-                }
-                $item->fill([
-                    'images' => $item_images
-                ]);
-                $item->save();
-            }
-            $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
-
-            return $this->response();
+        if (!$user->can('update', $item)) {
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
+
+        $this->itemService->updateItem($item, $request);
+
+        $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
+
+        return $this->response();
     }
 
     /**
@@ -266,13 +206,18 @@ class ItemsController extends Controller
     public function destroy(Item $item)
     {
         $user = auth('api')->user();
-        if ($user->can('destroy', $item)) {
-            $item->delete();
-            $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
-            return  $this->response();
+
+        if (!$user->can('destroy', $item)) {
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
+
+        $item->delete();
+
+        $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
+
+        return  $this->response();
     }
+
     public function userItems()
     {
         return  ItemResource::collection(auth('api')->user()->items()->get());

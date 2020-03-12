@@ -27,6 +27,7 @@ use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\ApprovalPosts;
 use KossShtukert\LaravelNovaSelect2\Select2;
@@ -207,6 +208,24 @@ class Post extends Resource
 
 
 
+                Text::make('Founder Email','founder_email')
+                ->sortable()
+                ->rules('required', 'email', 'max:254'),
+ 
+                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
+                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                ->onlyCustomFormats(),
+                Text::make('Founder Address','founder_address')
+                ->sortable()
+                ->rules('required', 'max:254'),
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+                BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+                ->readonly()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+               
 
 
             Button::make('PDF')
@@ -214,6 +233,11 @@ class Post extends Resource
                 ->style('danger'),
            MediaField::make('Item Image', 'images')->listing(),
 
+           MapMarker::make("Location")
+            ->defaultZoom(5)
+            ->defaultLatitude(21.4498898)
+            ->defaultLongitude(39.4913431)
+            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)

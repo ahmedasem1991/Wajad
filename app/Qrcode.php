@@ -6,35 +6,46 @@ use Exception;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
+use App\Services\Checkers\Checkers;
+use App\Services\Filters\Constants\QrcodeConstants;
+use App\Services\Filters\Filters;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Qrcode extends Model
+class Qrcode extends Model implements QrcodeConstants
 {
-    use LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes, Filters, Checkers;
 
-    protected $fillable = ['unique_reference_number', 'generate_reference_number', 'assign_reference_number', 'type', 'status', 'quantity', 'qrcode_url', 'image', 'available_period', 'start_at', 'end_at', 'user_id', 'corporate_id', 'corporate_assign_reference_number'];
-
-
-
-    const Types = [
-        1 => 'Single Assign',
-        2 => 'Multi Assign',
-        'Single Assign' => 1,
-        'Multi Assign' => 2
+    protected $fillable = [
+        'unique_reference_number',
+        'generate_reference_number',
+        'assign_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'qrcode_url',
+        'image',
+        'available_period',
+        'start_at',
+        'end_at',
+        'user_id',
+        'corporate_id',
+        'corporate_assign_reference_number',
+        'item_id'
     ];
 
     public function typeTitle($type)
     {
-        return $this->type === self::Types[$type];
+        return $this->type === self::TYPES[$type];
     }
 
     public function scopeType($query, $type)
     {
-        return $query->where('type', self::Types[$type]);
+        return $query->where('type', self::TYPES[$type]);
     }
+
     public function scopeUser($query, $user_id)
     {
         return $query->where('user_id', $user_id);
@@ -44,21 +55,6 @@ class Qrcode extends Model
         return $query->where('item_id', $item_id);
     }
 
-
-    const STATUS = [
-        1 => 'In Stock',
-        2 => 'Assigned To User',
-        3 => 'Assigned To Corporate',
-        4 => 'Registered',
-        5 => 'Re-Registered',
-        6 => 'Expired',
-        'In Stock' => 1,
-        'Assigned To User' => 2,
-        'Assigned To Corporate' => 3,
-        'Registered' => 4,
-        'Re-Registered' => 5,
-        'Expired' => 6,
-    ];
     public function statusTitle($status)
     {
         return $this->status = self::STATUS[$status];
@@ -101,7 +97,7 @@ class Qrcode extends Model
 
     public function item()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Item::class)->withTrashed();
     }
 
 
@@ -160,7 +156,7 @@ class Qrcode extends Model
     {
         return $this->update([
             'item_id' => $item_id,
-            'status' => 5,
+            'status' => self::STATUS['Re-Registered'],
         ]);
     }
 
@@ -168,7 +164,7 @@ class Qrcode extends Model
     {
         return $this->update([
             'item_id' => $item_id,
-            'status' => 4,
+            'status' => self::STATUS['Registered'],
             'start_at' => Carbon::now()->toDateTimeString(),
             'end_at' => Carbon::now()->addDays($this->available_period),
         ]);

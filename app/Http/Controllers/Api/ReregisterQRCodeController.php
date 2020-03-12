@@ -20,7 +20,7 @@ class ReregisterQRCodeController extends Controller
      * @urlParam qrcode_id required int exists in qrcodes
      * @urlParam item_id required int exists in items
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      * {
      * "success": true,
      * "message": "qrcode registered successfully.",
@@ -45,12 +45,14 @@ class ReregisterQRCodeController extends Controller
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 400);
         }
 
-        $qr_code = Qrcode::where('id', $request->qrcode_id)
+        $qr_code = Qrcode::find( $request->qrcode_id)
             ->Where('user_id', auth('api')->user()->id)
             ->WhereNotNull('item_id')
-            ->Where('status', 4)
+            // ->Where('status', 4)
+            // ->orWhere('status', 5)
             ->Where('type', 2)
             ->first();
+            //dd($qr_code);
 
         if (!$qr_code) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
