@@ -29,12 +29,12 @@ class PostObserver
             $Post->corporate_id = Auth()->User()->corporate_id;
             $Post->publisher_id = Auth()->User()->id;
             $Post->publisher_type = 2;
-            $Post->end_date = $end_date;
+            $Post->end_date = $Post->end_date;
         }
         if (Auth()->check() && Auth()->User()->isAdmin()) {
             $Post->publisher_type = 3;
             $Post->publisher_id = Auth()->User()->id;
-            $Post->end_date = $end_date;
+            $Post->end_date = $Post->end_date;
         }
     }
 
