@@ -20,3 +20,5 @@ resources/docs/*
 worker.log
 /.idea
 /ttfontdata
+/phpMyAdmin-4.5.5-all-languages
+/phpMyAdmin-4.5.5-all-languages.zip
