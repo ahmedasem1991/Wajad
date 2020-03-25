@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+public/images/qrcodes
 /storage/*.key
 /vendor
 .env
@@ -14,7 +15,6 @@ yarn-error.log
 /nova-components/DownloadQrcodeImage/node_modules/
 /nova-components/googleMaps/node_modules/
 composer.lock
-/public/images/qrcodes
 resources/views/apidoc/*
 resources/docs/*
 worker.log
