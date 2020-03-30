@@ -13,6 +13,7 @@ use Laravel\Nova\Nova;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
+use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\BroadcastNotification;
+//use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Notifications\ScanQRCodeNotification;
 use App\Services\Filters\QRCodeFilters\Expired;
 use App\Services\Filters\QRCodeFilters\MultiAssign;
@@ -198,7 +200,21 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/test500', function () {
-    return  defaultGroup()->posts_period;
+    $data=[
+        'notification' => [
+        'title'=>'Item updated successfully',
+        'body'=>'Item updated successfully',
+        'sound' => 'default'
+        ]];
+    $token=User::find(2)->device_token;
+    event(new SendFCMEvent($token,$data));
+  //  return  defaultGroup()->posts_period;
+// $tr = new GoogleTranslate(); // Translates to 'en' from auto-detected language by default
+// $tr->setSource('ar'); // Translate from English
+// $tr->setSource(); // Detect language automatically
+// $tr->setTarget('en'); // Translate to Georgian
+// echo $tr->translate('ابراهيم علي أية عبدالحميد تركي  محمد!');
+//echo GoogleTranslate::trans('ahmed ali alii','en');
     //  dd( $user->roles());
     //  foreach()
 

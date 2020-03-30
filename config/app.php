@@ -187,6 +187,7 @@ return [
         Pusher\Laravel\PusherServiceProvider::class,
         // Barryvdh\DomPDF\ServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 ],
 
 
@@ -242,8 +243,10 @@ return [
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        'DomPDF' => Barryvdh\DomPDF\Facade::class,
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
 
 
 

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Item;
 use App\Qrcode;
 use Illuminate\Support\Str;
+use App\Events\SendFCMEvent;
 use App\Exceptions\Api\ApiException;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Filters\QRCodeFilters\FindWhere;
@@ -73,6 +74,17 @@ class ItemService
         }
 
         $item->save();
+
+        $data=[
+            'notification' => [
+            'title'=>'Item added successfully',
+            'body'=>'Item added successfully',
+            'sound' => 'default'
+            ]];
+        $token=auth('api')->user()->device_token;
+        event(new SendFCMEvent($token,$data));
+
+
     }
 
     public function updateItem(Item $item, $request)
@@ -110,6 +122,15 @@ class ItemService
             ]);
 
             $item->save();
+
+            $data=[
+                'notification' => [
+                'title'=>'Item updated successfully',
+                'body'=>'Item updated successfully',
+                'sound' => 'default'
+                ]];
+            $token=auth('api')->user()->device_token;
+            event(new SendFCMEvent($token,$data));
         }
     }
 
