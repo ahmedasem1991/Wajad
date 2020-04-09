@@ -17,8 +17,8 @@ use PayPal\Api\Amount;
 use App\GenerateQrcode;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
-use PayPal\Api\WebProfile;
 
+use PayPal\Api\WebProfile;
 use PayPal\Api\InputFields;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
@@ -26,30 +26,51 @@ use Illuminate\Http\Request;
 use League\Flysystem\Config;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
-use Illuminate\Support\Facades\App;
+use niklasravnsborg\LaravelPdf\PdfWrapper;
 use App\Notifications\BroadcastNotification;
+use niklasravnsborg\LaravelPdf\Pdf as PDF;
 
- 
+
 
 class PDFController extends Controller
 {
-    
+
     public function __construct()
     {
-        
     }
 
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('Pdf.receipt', compact('post'));
-        return $pdf->stream();
+        $data=['post'=>$post];
+       // $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
+        $pdf = \DomPDF::loadView('Pdf.receipt2', $data);
+  
+        
+        return $pdf->stream('document.pdf');
+     }
+
+    public function qrcodepdf(Request $request)
+    {
+        $models =  session()->get('models');
+      //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
+        $data=['models' => $models];
+        $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
+        return $pdf->download(now() . '_QR_CODE.pdf');
     }
 
-
- 
+    public function assignqrcodepdf(Request $request)
+    {
+        $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
+        //logger($assignqrcode);
+        //$pdf = (new PdfWrapper)->loadView('Pdf.assignqrcode', ['assignqrcode' => $assignqrcode]);
+        $data=['assignqrcode' => $assignqrcode];
+        $pdf = \DomPDF::loadView('Pdf.assignqrcode', $data);
+        return $pdf->stream('document.pdf');      
+    }
 }

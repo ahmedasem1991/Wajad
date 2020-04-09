@@ -15,9 +15,10 @@ class CreateDevicesTypesTable extends Migration
     {
         Schema::create('devices_types', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('device_type');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

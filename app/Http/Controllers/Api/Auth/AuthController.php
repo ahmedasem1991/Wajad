@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Country;
 use App\DeviceType;
 use App\User;
 use App\PostLimitation;
@@ -69,9 +70,13 @@ class AuthController extends Controller
         }
 
         if (is_numeric(request('user'))) {
+            request()->merge([
+                'user' => ltrim((string) request('user'), 0)
+            ]);
+
             $validate_mobile_number = Validator::make(
                 request()->all(),
-                ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']],
+                ['user' => ['required', 'digits_between:9,14', 'exists:users,mobile_number']],
                 ['user.exists' => trans('auth.failed')]
             );
 
@@ -79,14 +84,6 @@ class AuthController extends Controller
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
 
-            if (app()->environment('production')) {
-                if (preg_match('/(00966)[0-9]{9}/', request('user'))) {
-                    request()->merge(['user' =>  request('user')]);
-                } elseif (preg_match('/[0-9]{9}/', request('user'))) {
-                    $mobile_number = '00966' . request('user');
-                    request()->merge(['user' => $mobile_number]);
-                }
-            }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
 
@@ -122,6 +119,16 @@ class AuthController extends Controller
             'device_type' => request('device_type')
         ]);
 
+        auth('api')->user()->activeLogin()->Create([
+            'user_id' => auth('api')->user()->id
+        ]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+        auth('api')->user()->setLanguage($langHeader);
+
         return $this->respondWithToken($token);
     }
 
@@ -132,6 +139,7 @@ class AuthController extends Controller
      * @bodyParam password string required min:6 . Example: 123456789
      * @bodyParam mobile_number numeric required min:6,unique:users,mobile_number,digits_between:9,14. Example: 123456789
      * @bodyParam device_type string required android or ios
+     * @bodyParam mobile_country_id int required exists:countries,id
      *
      * @response {
      *     "token_type": "Bearer",
@@ -148,7 +156,17 @@ class AuthController extends Controller
      *         "is_email_verified": false,
      *         "is_mobile_number_verified": false,
      *         "default_distance_unit": "kilo",
-     *          "image":"image.png"
+     *         "image":"image.png",
+     *         "country": {
+     *              "id": 64,
+     *              "name_ar": "مصر",
+     *              "name_en": "Egypt",
+     *              "iso_code": "EG",
+     *              "country_code": "20",
+     *              "deleted_at": null,
+     *              "created_at": null,
+     *              "updated_at": null
+     *          }
      *     }
      * }
      *
@@ -160,38 +178,50 @@ class AuthController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'mobile_number' => $request->mobile_number,
+//            'mobile_country_id' => $request->mobile_country_id,
+            'mobile_number' => ltrim((string) $request->mobile_number, 0),
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
-            'posts_limitation' => env('POST_LIMITATION', 50),
+            'posts_number' => 0,
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
 
         request()->merge(['user' => request('email')]);
 
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+        auth('api')->user()->setLanguage($langHeader);
+
         return $this->login();
     }
 
     /**
      * Logout
-     * [Destroy The Token]
-     *
+     * @bodyParam token Barier-token required
+     * @response
+     * {
+     *  "success": true,
+     *  "message": "User logged out successfully.",
+     *  "status_code": 200
+     *}
      * @return void
      */
     public function logout()
     {
         auth('api')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        $this->addResponse(trans('messages.logged_out', ['model' => trans('messages.attributes.user')]))->addStatusCode(200);
+
+        return $this->response();
     }
 
     /**
      * Refresh Token
      * [Refresh the current API Beaerer Token]
-     *
-     * @queryParam Old Bearer Token
-     *
+     * @bodyParam token Barier-token required
      * @response {
      *     "token_type": "Bearer",
      *     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU3NTM2OTk2NCwiZXhwIjoxNTc1NTg1OTY0LCJuYmYiOjE1NzUzNjk5NjQsImp0aSI6IjU0dEQ5WDU5NHROd212QngiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.tja6CsTMHh2NIOYpCfAFVbshcX4DWRc2HQ4zYwid6zQ",
@@ -213,16 +243,35 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth('api')->refresh());
+        try {
+            return $this->respondWithToken(auth('api')->refresh(), false);
+        } catch (\Throwable $th) {
+            throw new ApiException($th->getMessage(), 400);
+        }
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $include_user = true)
     {
-        return response()->json([
+        $response = [
             'token_type' => 'Bearer',
             'access_token' => $token,
-            'expires_in' => config('jwt.ttl') * 60,
-            'user' => new UserResource(auth('api')->user())
-        ]);
+            'expires_in' => config('jwt.ttl') * 60
+        ];
+
+        if ($include_user) {
+            $response['user'] = new UserResource(auth('api')->user()) ?? null;
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Countries
+     */
+
+    public function getCountries()
+    {
+        $countries = Country::all();
+        return $this->jsonResponse($countries);
     }
 }

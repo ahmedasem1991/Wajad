@@ -19,7 +19,8 @@ class CreateFilesTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('original_name')->nullable();
             $table->string('size')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

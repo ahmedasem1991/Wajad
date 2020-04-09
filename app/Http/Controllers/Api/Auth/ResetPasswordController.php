@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Validator;
 class ResetPasswordController extends Controller
 {
     /**
-     *Reset Password
+     *Forget Password
      * @bodyParam user email,min:9,max:14 required email or phone. Example:mail@gmail.com
-     * @response 
+     * @response
      * {
      *"success": true,
      *"message": "New password sent successfully to your mail.",
@@ -36,6 +36,7 @@ class ResetPasswordController extends Controller
         }
 
         if (is_numeric(request('user'))) {
+//            request()->merge(['user'=>ltrim(request('user'), 0)]);
             $user_validation = ['user' => ['required', 'min:9', 'max:14', 'exists:users,mobile_number']];
 
             $user_identifier = 'mobile_number';
@@ -55,6 +56,10 @@ class ResetPasswordController extends Controller
             ->where('type', '=', User::Types['user'])
             ->first();
 
+        if (!$user) {
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.user')]), 400);
+        }
+
         $new_password = env('STATIC_NEW_PASSWORD', \Str::upper(\Str::random(6)));
 
         if (filter_var(request('user'), FILTER_VALIDATE_EMAIL)) {
@@ -70,7 +75,7 @@ class ResetPasswordController extends Controller
         if (is_numeric(request('user'))) {
             $message = trans('auth.new_password') . $new_password;
 
-            (new SmsProvider)->sendMessage($message, request('user'));
+//            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
             Mail::to($user->email)->send(new ResetPasswordRequestMail());
 

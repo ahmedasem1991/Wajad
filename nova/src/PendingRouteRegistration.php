@@ -40,6 +40,7 @@ class PendingRouteRegistration
             ->prefix(Nova::path())
             ->group(function () {
                 Route::get('/logout', 'LoginController@logout')->name('logout');
+                Route::get('/updatePassword', 'LoginController@showUpdatePasswordForm')->name('update_password');
             });
 
         return $this;

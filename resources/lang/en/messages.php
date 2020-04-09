@@ -10,6 +10,14 @@ return [
 	'verified' => ':model verified successfully.',
 	'accepted' => ':model accepted successfully.',
 	'rejected' => ':model rejected successfully.',
+	'expired' => ':model is expired.',
+	'registered' => ':model registered successfully.',
+	'logged_out' => ':model logged out successfully.',
+	'cannot_buy' => 'Sorry..try again after some minutes.',
+	'app_name' =>  'Wajad',
+	'scan_qrcode' =>  'There Some One Scanned Your QR Code.',
+	'scan_qrcode2' =>  'Open his location on the map',
+
 
 	'attributes' => [
 		'post' => 'Post',
@@ -22,5 +30,6 @@ return [
 		'email' => 'email',
 		'post_request' => 'post request',
 		'answer' => 'Answers',
+		'days' => 'days',
 	],
 ];

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\NovaCorporate;
+
 use App\User;
 use App\Brand;
+use App\People;
 use App\Corporate;
 use App\PostImage;
 use App\Nova\Resource;
@@ -23,7 +25,9 @@ use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
+use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\ApprovalPosts;
 use KossShtukert\LaravelNovaSelect2\Select2;
@@ -35,8 +39,8 @@ use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 class Post extends Resource
 {
 
-   
- 
+
+
     /**
      * The model the resource corresponds to.
      *
@@ -44,7 +48,7 @@ class Post extends Resource
      */
     public static $model = 'App\Post';
 
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -65,7 +69,43 @@ class Post extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title', 'description', 'owner_id', 'founder_id', 'publisher_id', 
+        'id',
+        'title',
+        'description',
+        'item_id',
+        'status',
+        'appearance_status',
+        'open_status',
+        'approval_status',
+        'reports_number',
+        'reward',
+        'owner_id',
+        'founder_id',
+        'publisher_id',
+        'publisher_type',
+        'corporate_id',
+        'losted_at',
+        'founded_at',
+        'latitude',
+        'longitude',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'brand_id',
+        'city_id',
+        'founder_name',
+        'founder_email',
+        'founder_mobile_number',
+        'founder_address',
+        'owner_name',
+        'owner_email',
+        'owner_mobile_number',
+        'owner_address',
+        'owner_releated_to_system',
+        'founder_releated_to_system',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
     public static $searchRelations = [
         'color' => ['name_en'],
@@ -76,7 +116,7 @@ class Post extends Resource
     //Can not find the Field "model" in the Model "App\NovaCorporate\ClosedPost"
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view posts')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('view posts')) ? true : false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -87,71 +127,86 @@ class Post extends Resource
     public function fields(Request $request)
     {
 
-       
+
 
         return [
             ID::make()->sortable(),
-            Text::make('Title'),
-            Textarea::make('description'),
+            Text::make('Title')->rules('required'),
+            Textarea::make('Description')->rules('required'),
             RadioButton::make('Status')
-            ->options([
-               // 0 => 'Lost',
-                1 => 'Found',
-            ])->default(1)
-            ->hideFromIndex()
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-           
-             Toggle::make('Appearance Status','appearance_status')
-             ->hideWhenCreating()
-             ->hideWhenUpdating()
-             ->hideFromIndex(),
-           //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
-             //DateTime::make('Losted At')->hideFromIndex()
-             //->Rules('required_if:status,0'),
+                ->options([
+                    // 0 => 'Lost',
+                    1 => 'Found',
+                ])->default(1)
+                ->hideFromIndex(),
+                // ->hideWhenCreating()
+                // ->hideWhenUpdating(),
+
+ 
+
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get()),
+               // ->rules('required'),
+
+
+            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+              //  ->rules('required')
+                ->dependsOn('Subcategory'),
+
+
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+              //  ->rules('required')
+                ->dependsOn('Brand'),
+           BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
+
+
+            Toggle::make('Open Status', 'open_status')
+            // ->hideWhenCreating()
+            // ->hideWhenUpdating()
+            ->hideFromIndex(),
+            Toggle::make('Appearance Status', 'appearance_status')
+                // ->hideWhenCreating()
+                // ->hideWhenUpdating()
+                ->hideFromIndex(),
+                DateTime::make('Post Closing Date','end_date')->updateRules('required')
+            ->hideWhenCreating(),
+            //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
+            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
+            //DateTime::make('Losted At')->hideFromIndex()
+            //->Rules('required_if:status,0'),
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
-             DateTime::make('Founded At')->hideFromIndex()
-             ->Rules('required_if:status,1'),
+            DateTime::make('Founded At')->hideFromIndex()
+                ->rules('required_if:status,1'),
 
-             NovaBelongsToDepend::make('Brand','brand','App\NovaCorporate\Brand')
-            ->placeholder('Optional Placeholder')  
-            ->options(Brand::all())
+ 
+
+
+            Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
+            NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
+            ->placeholder('Select Person')
+            ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
             ->rules('required'),
-          
 
-            NovaBelongsToDepend::make('Model', 'model','App\NovaCorporate\Model') 
-            ->placeholder('Optional Placeholder')    
-            ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['id','name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-            BelongsTo::make('Color','color','App\Nova\Color'),
-
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
-            //  NovaBelongsToDepend::make('User', 'publisher')
-            //  ->placeholder('Publisher')
-            //  ->options(Auth()->User()->corporate->users),
-            //  NovaBelongsToDepend::make('Item')
-            //  ->placeholder('Item')
-            //  ->optionsResolve(function ($user) {
-            //      $user_items_with_qrcode = $user->items()
-            //          ->Has('qrcode')
-            //          ->get();
-            //      return $user_items_with_qrcode;
-            //  })->dependsOn('publisher')->nullable(),
-             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.</p>')->asHtml(),
-            //  BelongsTo::make('Founder', 'founder', 'App\NovaCorporate\User')
-            //  ->creationRules('required_if:status,1','same:publisher')
-            //  ->updateRules('required_if:status,1')
-            //  ->nullable(),
+                        Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                // ->hideWhenUpdating(),
+                ->hideWhenCreating(),
             
+                 NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+               ->placeholder('Select Person')
+               ->options(User::Normalusers()->get())
+              // ->rules('required')
+               ->hideWhenCreating(),
 
-               Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-                Text::make('Founder Name','founder_name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+
 
                 Text::make('Founder Email','founder_email')
                 ->sortable()
@@ -160,28 +215,34 @@ class Post extends Resource
                 PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-                Text::make('Founder Address','founder_address',)
+                Text::make('Founder Address','founder_address')
                 ->sortable()
-                ->rules('required', 'max:254')
-               ,
-            // Password::make('Password')
-            //     ->onlyOnForms()
-            //     ->creationRules('required', 'string', 'min:8')
-            //     ->updateRules('nullable', 'string', 'min:8'),
-                
+                ->rules('required', 'max:254'),
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+                BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+                ->readonly()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
                
+
+
             Button::make('PDF')
-            ->link(URL::to('receipt?p='.base64_encode($this->id)),'_blank')
-            ->style('danger'),
-            //  Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
-            //  BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\User')
-            //  ->creationRules('required_if:status,0','same:publisher')
-            //  ->updateRules('required_if:status,0')
-            //  ->nullable(),
-             HasMany::make('Images','images',\App\Nova\PostImage::class)
- 
-         ];
- 
+                ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
+                ->style('danger'),
+           MediaField::make('Item Image', 'images')->listing(),
+
+           MapMarker::make("Location")
+            ->defaultZoom(5)
+            ->defaultLatitude(21.4498898)
+            ->defaultLongitude(39.4913431)
+            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+            //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+            HasMany::make('Questions'),
+            HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
+
+        ];
     }
 
     /**
@@ -196,7 +257,7 @@ class Post extends Resource
             new PostsPeriod,
             new ShowVsHiddenPosts,
             new OpenVsClosedPosts,
-           // new ApprovalPosts
+            // new ApprovalPosts
         ];
     }
 
@@ -236,7 +297,7 @@ class Post extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         //return $query->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
-        return $query->where('corporate_id',Auth()->user()->corporate->id);
+        return $query->where('corporate_id', Auth()->user()->corporate->id);
     }
 
     public static function icon()

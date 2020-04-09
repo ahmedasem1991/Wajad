@@ -15,11 +15,12 @@ class MapResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()} ?? $this->title,
             'details' => $this->{'details_' . app()->getLocale()} ?? $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'image' =>(string) env("APP_URL") . "/" . $this->image ?? (string) $this->images()->first('image')['image'] ?? '',
+            'image' => (string) env("APP_URL") . "/" . $this->image ?? (string) $this->images()->first('image')['image'] ?? '',
             'address' => $this->address ?? ''
         ];
     }

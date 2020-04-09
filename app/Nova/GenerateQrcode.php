@@ -41,7 +41,7 @@ class GenerateQrcode extends Resource
      *
      * @var string
      */
-    public static $title = 'reference_number';
+    public static $title = 'generate_reference_number';
 
     /**
      * The columns that should be searched.
@@ -49,7 +49,16 @@ class GenerateQrcode extends Resource
      * @var array
      */
     public static $search = [
-        'id','reference_number'
+        'id',
+        'generate_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'created_by',
+        'created_from',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -62,7 +71,7 @@ class GenerateQrcode extends Resource
     {
         return [
            ID::make()->sortable(),
-           Text::make('Reference Number','reference_number')
+           Text::make('Reference Number','generate_reference_number')
            ->hideWhenCreating()
            ->hideWhenUpdating(),
             RadioButton::make('Type')
@@ -70,17 +79,17 @@ class GenerateQrcode extends Resource
                 1 => 'Single Assign',
                 2 => 'Multi Assign',
             ])->default(1), // optional
-            Number::make('Number Of QR Codes','quantity')
+            Number::make('Quantity Of QR Codes','quantity')
             ->min(1)->max(10000)->step(1)
             ->rules('required'),
-            Status::make('Status')
-            ->loadingWhen(['waiting'])
-            ->failedWhen(['finished']),
+            // Status::make('Status')
+            // ->loadingWhen(['waiting'])
+            // ->failedWhen(['finished']),
 
             RadioButton::make('Created From')
             ->options([
                 'web' => 'web',
-               
+
             ])->default('web'), // optional,
            // ->hideWhenCreating()
            // ->hideWhenUpdating(),
@@ -89,11 +98,11 @@ class GenerateQrcode extends Resource
             //  ])
            // ->displayUsingLabels(),
            // ->readonly(),
-            HasMany::make('Qrcodes'),
+            HasMany::make('Qrcodes','qrcodes',\App\Nova\Stock::class),
 
            // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
 
-             
+
 
         ];
     }
@@ -151,7 +160,7 @@ class GenerateQrcode extends Resource
     public static function label() {
         return 'Generate';
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }

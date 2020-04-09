@@ -13,11 +13,17 @@ $factory->define(Item::class, function (Faker $faker) {
         'model_id' => function () {
             return factory(App\Model::class)->create()->id;
         },
-        'color_id' => function(){
+        'color_id' => function () {
             return factory(App\Color::class)->create()->id;
         },
         'owner_id' => function () {
             return factory(App\User::class)->create()->id;
+        },
+        'sub_category_id' => function () {
+            return factory(App\SubCategory::class)->create()->id;
+        },
+        'brand_id' => function () {
+            return factory(App\Brand::class)->create()->id;
         },
     ];
 });

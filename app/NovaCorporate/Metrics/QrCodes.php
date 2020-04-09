@@ -31,6 +31,8 @@ class QrCodes extends Partition
                 return 'Registered';
                 case 5:
                 return 'Re-Registered';
+                case 6:
+                    return 'Expired';
                 
                 default:
                     return ucfirst($value);

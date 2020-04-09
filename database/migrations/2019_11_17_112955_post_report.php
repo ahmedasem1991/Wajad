@@ -15,11 +15,12 @@ class PostReport extends Migration
     {
         Schema::create('posts_reports', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('post_id');
-            $table->integer('user_id');
+            $table->integer('post_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->text('details')->nullable();
             $table->string('image', 500)->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

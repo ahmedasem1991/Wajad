@@ -11,7 +11,7 @@ class AuthServiceProvider extends ServiceProvider
     use ValidatesPermissions;
 
     protected $policies = [
-        'App\Activity' => 'App\Policies\ActivityPolicy',
+       // 'App\Activity' => 'App\Policies\ActivityPolicy',
         'App\Post' => 'App\Policies\PostPolicy',
         'App\Brand' => 'App\Policies\BrandPolicy',
         'App\Qrcode' => 'App\Policies\QrcodePolicy',
@@ -21,8 +21,13 @@ class AuthServiceProvider extends ServiceProvider
         'App\Item' => 'App\Policies\ItemPolicy',
         'App\Package' => 'App\Policies\PackagePolicy',
         'App\Subscription' => 'App\Policies\SubscriptionPolicy',
-      //  'App\Post' => 'App\Policies\UserPostPolicy',
+        'App\Subcategory' => 'App\Policies\SubcategoryPolicy',
        // 'App\Item' => 'App\Policies\UserItemPolicy',
+       'App\Answer' => 'App\Policies\AnswerPolicy',
+       'App\PostRequest' => 'App\Policies\PostRequestPolicy',
+       'App\Role' => 'App\Policies\RolePolicy',
+       'App\Keyword' => 'App\Policies\KeywordPolicy',
+       'App\Setting' => 'App\Policies\SettingsPolicy',
     ];
 
     /**
@@ -35,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
-        foreach (config('novapermissions.permissions') as $key => $permissions) {
+        foreach (config('novapermissionsAdmin.permissions') as $key => $permissions) {
             Gate::define($key, function (User $user) use ($key) {
                 if ($this->nobodyHasAccess($key)) {
                     return true;

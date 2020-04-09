@@ -39,6 +39,13 @@ class Support extends Resource
      */
     public static $search = [
         'id',
+        'name',
+        'email',
+        'phone',
+        'message',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -108,7 +115,7 @@ class Support extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/contact-us.png" style="height:22px;width:22px;margin=10px" />';
     }

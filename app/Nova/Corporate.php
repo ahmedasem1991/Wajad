@@ -2,15 +2,19 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Heading;
+use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Naif\MapAddress\MapAddress;
 use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
@@ -37,7 +41,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $group = 'Classes';
+    public static $group = 'Resources';
 
     /**
      * The columns that should be searched.
@@ -46,6 +50,22 @@ class Corporate extends Resource
      */
     public static $search = [
         'id',
+        'unique_id',
+        'name_en',
+        'name_ar',
+        'details_en',
+        'details_ar',
+        'address_en',
+        'address_ar',
+        'location',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+        'end_date',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -58,6 +78,13 @@ class Corporate extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Unique ID', 'unique_id')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            )
+            ->creationRules('unique:corporates'),
             Text::make('Corporate English Name', 'name_en')->rules(
                 'required',
                 'string',
@@ -96,6 +123,8 @@ class Corporate extends Resource
                 'max:255',
                 'min:6'
             ),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Corporate Image', 'image')->creationRules(
                 'required',
                 'image',
@@ -107,8 +136,9 @@ class Corporate extends Resource
                 'max:5012'
             )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
+            DateTime::make('Availabe End Date','end_date'),
             HasMany::make('Users', 'users'),
-            Boolean::make('Active','status'),
+            Toggle::make('Active','status'),
             MapMarker::make("Location")
             ->defaultZoom(5)
             ->defaultLatitude(21.4498898)
@@ -162,7 +192,7 @@ class Corporate extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
     }

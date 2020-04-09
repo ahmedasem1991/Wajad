@@ -2,24 +2,23 @@
 
 namespace App\Nova;
 
-use App\Nova\Metrics\ApprovalPosts;
+use App\Nova\Resource;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\PostsCount;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use App\Nova\Metrics\PostsPeriod;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
-use App\Nova\Metrics\OpenVsClosedPosts;
-use App\Nova\Metrics\ShowVsHiddenPosts;
+
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\NovaCorporate\Metrics\ApprovalPosts;
+
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class PostRequest extends Resource
@@ -29,8 +28,8 @@ class PostRequest extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
-
+    public static $model = 'App\PostRequest';
+    public static $displayInNavigation = false;
     /**
      * The logical group associated with the resource.
      *
@@ -51,7 +50,14 @@ class PostRequest extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id',
+        'user_id',
+        'post_id',
+        'is_request_valid',
+        'rejected_at',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -62,52 +68,26 @@ class PostRequest extends Resource
      */
     public function fields(Request $request)
     {
-
+        session()->put('user_id',$this->user_id);
         return [
            ID::make()->sortable(),
-           Text::make('Title'),
-           Textarea::make('description'),
-           RadioButton::make('Status')
+           RadioButton::make('Valid Status','is_request_valid')
            ->options([
-               0 => 'Lost',
-               1 => 'Found',
+               0 => 'Not Valid',
+               1 => 'Valid',
            ])->default(0), // optional
-           RadioButton::make('Approval Status','approval_status')
-           ->options([
-               0 => 'Pending',
-               1 => 'Approval',
-               2 => 'Rejected',
-           ])->default(0), // optional
-            Toggle::make('Appearance Status','appearance_status'),
-           // Toggle::make('Open Status','open_status'),
-            
-           // BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
-            DateTime::make('Losted At')->hideFromIndex(),
-            DateTime::make('Founded At')->hideFromIndex(),
-        //     NovaBelongsToDepend::make('Publisher', 'publisher', 'App\Nova\User')
-        //     ->placeholder('Publisher') // Add this just if you want to customize the placeholder
-        //     ->options(\App\User::all())
-        //      ->withMeta(['extraAttributes' => [
-        //         'readonly' => true,
-        //         'disabled'=> true
-        //   ]])->setAttribute( 'disabled', true),
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly(),
-            BelongsTo::make('Founder', 'founder', 'App\Nova\User')->readonly(),
-            BelongsTo::make('Owner', 'owner', 'App\Nova\User')->readonly(),
-            BelongsTo::make('Item')->readonly(),
-            // NovaBelongsToDepend::make('Item')
-            // ->placeholder('Item')
-            // ->optionsResolve(function ($user) {
-            //     $user_items = [];
-            //     $user_items_with_qrcode = $user->items()
-            //         ->Has('qrcode')
-            //         ->get();
-            //     foreach ($user_items_with_qrcode as $user_item_with_qrcode) {
-            //         array_push($user_items, $user_item_with_qrcode);
-            //     }
-            //     return $user_items;
-            // })->dependsOn('publisher')->nullable()->readonly(),
-            HasMany::make('Images','images',\App\Nova\PostImage::class)
+           BelongsTo::make('Post')
+           ->readonly()
+           ,
+           HasMany::make('Answers'),
+           BelongsTo::make('Claim user','postrequestuser',\App\Nova\NormalUser::class)
+           ->readonly()
+           ,
+           DateTime::make('Rejected At')
+           ->hideFromIndex()
+           ->exceptOnForms()
+           ->nullable(),
+
 
         ];
     }
@@ -160,14 +140,15 @@ class PostRequest extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->IsPending();
+
+
     }
 
 

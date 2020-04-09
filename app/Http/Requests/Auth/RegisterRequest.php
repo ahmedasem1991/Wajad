@@ -18,8 +18,9 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'max:255'],
-            'mobile_number' => ['required', 'numeric', 'unique:users,mobile_number', 'digits_between:9,14'],
-            'device_type' => ['required', 'string', 'in:android,ios']
+            'mobile_number' => ['required', 'unique:users,mobile_number'],
+            'device_type' => ['required', 'string', 'in:android,ios'],
+//            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ];
     }
 
@@ -29,18 +30,6 @@ class RegisterRequest extends FormRequest
             if ($validator->errors()->any()) {
                 throw new ApiException($validator->errors()->first(), 400);
             }
-
-            if (app()->environment('production')) {
-                if (!preg_match('/(00966)[0-9]{9}/', $this->mobile_number)) {
-                    $mobile_number = '00966' . $this->mobile_number;
-                }
-            }
-
-            if (app()->environment('local')) {
-                $mobile_number = $this->mobile_number;
-            }
-
-            $this->merge(['mobile_number' => $mobile_number]);
         });
     }
 }

@@ -26,6 +26,7 @@ class CreateWajadOfficesTable extends Migration
             $table->double('longitude');
             $table->integer('status')->default(0);
             $table->text('image')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

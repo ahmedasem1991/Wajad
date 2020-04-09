@@ -46,7 +46,7 @@ class SeedBrands extends Command
                 'name_ar' => 'Lorem ipsum dolor sit amet.',
                 'description_en' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?',
                 'description_ar' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?',
-                'image' => '/images/subcategories/default-subcategory.png',
+                'image' => 'images/profile/default-profile.png',
             ]);
         }
 

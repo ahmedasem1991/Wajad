@@ -5,6 +5,7 @@ namespace App;
 
 use App\Answer;
 use App\Question;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -14,7 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, LogsActivity,  HasRoles;
+    use Notifiable, LogsActivity,  HasRoles, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -31,7 +32,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'receive_push_notifications',
         'remember_token',
         'corporate_id',
-        'posts_limitation',
+        'posts_number',
         'image',
     ];
 
@@ -45,13 +46,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     const Types = [
         1 => 'user',
-        2 => 'corporate',// corporate admin
+        2 => 'corporate', // corporate admin
         3 => 'admin',
-        4 => 'corporate user',
         'user' => 1,
         'corporate' => 2,
-        'admin' => 3,
-        'corporate user' => 4
+        'admin' => 3
     ];
 
     const Status = [
@@ -65,6 +64,22 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     // {
     //     return $this->type === self::Types[$status];
     // }
+
+    public function firstTimeLogin()
+    {
+        return $this->first_time_login === 1;
+    }
+
+
+    public function isActive()
+    {
+        return $this->status === self::Status['Active'];
+    }
+
+    public function isNotActive()
+    {
+        return $this->status === self::Status['Not Active'];
+    }
 
     public function isAdmin()
     {
@@ -81,10 +96,20 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->type === self::Types['user'];
     }
-    public function isCorporateUser()
+
+    public function adminFirstLogin()
     {
-        return $this->type === self::Types['corporate user'];
+        return $this->isAdmin() && $this->firstTimeLogin();
     }
+
+    public function corporateAdminFirstLogin()
+    {
+        return $this->isCorporateAdmin() && $this->firstTimeLogin();
+    }
+    // public function isCorporateUser()
+    // {
+    //     return $this->type === self::Types['corporate user'];
+    // }
 
     public function scopeCorporates($query)
     {
@@ -195,14 +220,19 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function receivesBroadcastNotificationsOn()
     {
-        //  return 'users.' . $this->id;
-        return 'nova-notifications';
+        return 'users.' . $this->id;
+        //  return 'nova-notifications';
     }
 
     public function exceededPostLimitation()
     {
-        // return $this->posts()->count() > $this->postLimitation->posts_limitation;
-        return $this->posts()->count() > $this->posts_limitation;
+        logger($this->posts_number);
+        logger('max number');
+        logger(defaultGroup());
+        logger('defaultGroup ');
+        logger( Auth('api')->User()->roles);
+        logger('roles ');
+            return $this->posts_number > defaultGroup()->limitation_of_posts;
     }
 
     public function routeNotificationForNexmo($notification)
@@ -223,5 +253,29 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function userDevices()
     {
         return $this->hasMany(DeviceType::class, 'user_id');
+    }
+
+    public function activeLogin()
+    {
+        return $this->hasMany(ActiveLogin::class, 'user_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'mobile_country_id');
+    }
+    public function devices()
+    {
+        return $this->hasMany(\App\FcmUser::class);
+    }
+    public function setLanguage($language)
+    {
+       $this->language=$language;
+       $this->save();
+    }
+    public function getLanguage()
+    {
+      return  $this->language;
+        
     }
 }

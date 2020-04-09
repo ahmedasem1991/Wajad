@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 use App\Post;
+use App\Role;
+use App\User;
 use App\Qrcode;
 use App\Permission;
+use App\PostRequest;
 use App\AssignQrcode;
 use App\Subscription;
 use App\QrcodeRequest;
@@ -12,8 +15,12 @@ use App\GenerateQrcode;
 use App\CorporateAssignQrcode;
 use App\Jobs\GenerateQrcodeJob;
 use App\Observers\PostObserver;
+use App\Observers\RoleObserver;
+use App\Observers\UserObserver;
+use App\Observers\PeopleObserver;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
+use App\Observers\PostRequestObserver;
 use Illuminate\Support\Facades\Schema;
 use App\Observers\QrcodeAssignObserver;
 use App\Observers\SubscriptionObserver;
@@ -47,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::enableForeignKeyConstraints();
+       // Schema::defaultStringLength(191);
         $pusher = $this->app->make('pusher');
         $pusher->set_logger( new LaravelLoggerProxy() );
 
@@ -56,6 +64,9 @@ class AppServiceProvider extends ServiceProvider
         AssignQrcode::observe(QrcodeAssignObserver::class);
         CorporateAssignQrcode::observe(CorporateQrcodeAssignObserver::class);
         Post::observe(PostObserver::class);
+        User::observe(UserObserver::class);
+        PostRequest::observe(PostRequestObserver::class);
+        \App\Role::observe(RoleObserver::class);
         
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');

@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Category;
 use App\Nova\Metrics\SubCategories;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -13,6 +14,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class SubCategory extends Resource
 {
@@ -23,6 +25,11 @@ class SubCategory extends Resource
      */
     public static $model = 'App\SubCategory';
     public static $group = 'Categories';
+
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('sub categories')) ? true : false;
+    }
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -39,7 +46,14 @@ class SubCategory extends Resource
     public static $search = [
         'id',
         'name_en',
-        'name_ar'
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+        'category_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -60,13 +74,18 @@ class SubCategory extends Resource
             ]),
             Textarea::make('Sub-Category English Body', 'description_en'),
             Textarea::make('Sub-Category Arabic Body', 'description_ar'),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
             Image::make('Sub-Category Image', 'image')
                 ->disk('public')
                 ->path('images/subcategories')
                 ->prunable()
-                ->deletable(),
-             BelongsTo::make('Category')->rules('required'),
-             HasMany::make('Brands'),
+                ->deletable()
+                ->rules('required','dimensions:max_width=100,max_height=100'),
+            NovaBelongsToDepend::make('Category')->rules('required')
+                ->placeholder('Category')
+                ->options(\App\Category::all()),
+            HasMany::make('Brands'),
         ];
     }
 
@@ -115,8 +134,8 @@ class SubCategory extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

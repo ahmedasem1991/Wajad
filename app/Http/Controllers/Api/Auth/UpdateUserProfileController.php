@@ -9,8 +9,10 @@ use App\Services\UserService;
 use Illuminate\Validation\Rule;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use App\Rules\BooleanAttribute;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @group User Profile
@@ -19,11 +21,12 @@ class UpdateUserProfileController extends Controller
 {
     /**
      *Update User Profile
-     * @bodyParam name string required min:6,max:255 1 or 0. Example:1234
-     * @bodyParam receive_emails boolean required 1 or 0. Example:1
-     * @bodyParam receive_push_notifications boolean required 1 or 0. Example:1
+     * @bodyParam name string required min:6,max:255 
+     * @bodyParam receive_emails boolean required in:true,false,0,1. Example:1
+     * @bodyParam receive_push_notifications boolean required in:true,false,0,1. Example:1
      * @bodyParam default_distance_unit string,in:kilo,mile required kilo or mile. Example:mile
      * @bodyParam image file mimes:jpeg,jpg,png,gif, max:5102
+     * @bodyParam token Barier-token required
      * @response
      * {
      *"success": true,
@@ -41,7 +44,7 @@ class UpdateUserProfileController extends Controller
             'receive_emails' => ['required', 'boolean'],
             'receive_push_notifications' => ['required', 'boolean'],
             'default_distance_unit' => ['required', 'string', 'in:kilo,mile'],
-            'image' => ['sometimes', 'image', 'mimes:jpeg,jpg,png,gif', 'max:5102'],
+            'image' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
         ]);
 
         if ($validate_request->fails()) {
@@ -54,16 +57,22 @@ class UpdateUserProfileController extends Controller
 
         $user->update([
             'name' => $request->name,
-            'receive_emails' => $request->receive_emails,
-            'receive_push_notifications' => $request->receive_push_notifications,
+            'receive_emails' => (bool) $request->receive_emails,
+            'receive_push_notifications' => (bool) $request->receive_push_notifications,
             'default_distance_unit' => $request->default_distance_unit,
         ]);
 
-        if ($request->has('image')) {
-            Storage::disk('public')->delete($user->image);
+        if ($request->has('image') && $request->image !== '' && !is_null($request->image)) {
+
+            if ($user->image != 'images/profile/default-profile.png') {
+                Storage::disk('public')->delete($user->image);
+            }
+            $image_name = \Str::random(15) . '.' . 'png';
+            $path = public_path('/images/profile/' . $image_name);
+            Image::make(file_get_contents($request->image))->save($path);
 
             $user->update([
-                'image' => $request->file('image')->store('images/profile')
+                'image' =>   'images/profile/' . $image_name
             ]);
         }
 

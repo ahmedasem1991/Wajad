@@ -17,7 +17,11 @@ class Item extends MasterModel
 {
     use SoftDeletes, LogsActivity,  ResponseTrait;
 
-    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id'];
+    protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images', 'status'];
+
+    protected $casts = [
+        'images' => 'array'
+    ];
 
     /**
      * Define Items Status Const
@@ -67,12 +71,12 @@ class Item extends MasterModel
 
     public function isFound()
     {
-        return $this->status == self::ITEM_STATUS['lost'];
+        return $this->status == self::ITEM_STATUS['found'];
     }
 
     public function subcategory()
     {
-        return $this->belongsTo(subcategory::class);
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
     public function model()
     {
@@ -82,8 +86,6 @@ class Item extends MasterModel
     {
         return $this->belongsTo(Color::class);
     }
-
-
 
     /**
      * Define QrCode Of The Item
@@ -95,9 +97,6 @@ class Item extends MasterModel
         return $this->hasOne(Qrcode::class);
     }
 
-
-
-
     /**
      * Define The Images Of The Item
      *
@@ -108,7 +107,6 @@ class Item extends MasterModel
         return $this->hasMany(ItemImage::class, 'item_id');
     }
 
-
     /**
      * Define Questions For This Item "In Case Of Lost Item"
      *
@@ -117,28 +115,6 @@ class Item extends MasterModel
     public function questions()
     {
         return $this->hasMany(Question::class);
-    }
-
-    /**
-     * Scope Lost Items
-     *
-     * @param object $query
-     * @return void
-     */
-    public function scopeLost($query)
-    {
-        return $query->where('status', self::ITEM_STATUS['lost']);
-    }
-
-    /**
-     * Scope Found Items
-     *
-     * @param object $query
-     * @return void
-     */
-    public function scopeFound($query)
-    {
-        return $query->where('status', self::ITEM_STATUS['found']);
     }
 
     /**
@@ -202,17 +178,5 @@ class Item extends MasterModel
     public function scopePrivateItemsForAuthUser($query, $user_id)
     {
         return $query->where('owner_id', $user_id)->orWhere('founder_id', $user_id);
-    }
-
-    /**
-     * Scope Single Item
-     *
-     * @param object $query
-     * @param int $item_id
-     * @return void
-     */
-    public function scopeItem($query, $item_id)
-    {
-        return $query->where('id', $item_id) ?? null;
     }
 }

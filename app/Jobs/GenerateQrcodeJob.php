@@ -19,7 +19,7 @@ use App\Notifications\BroadcastNotification;
 class GenerateQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $id,$reference_number,$quantity,$type,$generateQrcode,$auth_id;
+    private $id,$generate_reference_number,$quantity,$type,$generateQrcode,$auth_id;
     /**
      * Create a new job instance.
      *
@@ -29,7 +29,7 @@ class GenerateQrcodeJob implements ShouldQueue
     {
        $this->generateQrcode=$generateQrcode;
        $this->id=$generateQrcode->id;
-       $this->reference_number=$generateQrcode->reference_number;
+       $this->generate_reference_number=$generateQrcode->generate_reference_number;
        $this->quantity=$generateQrcode->quantity;
        $this->type=$generateQrcode->type;
        $this->auth_id=$generateQrcode->created_by;
@@ -43,16 +43,21 @@ class GenerateQrcodeJob implements ShouldQueue
     public function handle()
     {
        
-    
+        $now = Carbon::now();
+        $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
+       // $unique_reference_number = 'QR-' . $middle . $now->second  .'-'.str_random(5);
         for ($x = 1; $x <= (int)$this->quantity; $x++) {
            $ImageName= time().str_random(20).'.png';
            $Url=$this->id.time().str_random(20);
             \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
-            ->format('png')->merge(public_path('/images/'.env('QRCODE_LOGO','logo2.png')), 0.3, true)->size(2000)
-            ->generate(env('API_URL').'/scan-qr-code/'.$Url,
+            ->format('png')
+           // ->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.1, true)
+            ->size(2000)
+            ->generate(env('API_URL').'/api/scan-qr-code/'.$Url,
             public_path('images/qrcodes/'.$ImageName));
             Qrcode::create([
-             'reference_number'=>$this->reference_number,
+            'unique_reference_number'=>'QR-' . $middle . Carbon::now()->second  .'-'.str_random(5),
+             'generate_reference_number'=>$this->generate_reference_number,
              'type'=>$this->type,
              'status'=>'1',
              'image'=>'images/qrcodes/'.$ImageName,

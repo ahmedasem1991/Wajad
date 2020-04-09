@@ -17,32 +17,35 @@ class CreatePostsTable extends Migration
             $table->Increments('id');
             $table->string('title');
             $table->text('description');
+            $table->longtext('images')->nullable();
             $table->unsignedInteger('item_id')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('appearance_status')->default(0);
             $table->boolean('open_status')->default(1);
-            $table->integer('approval_status')->default(1);
+            $table->boolean('approval_status')->default(0);
             $table->integer('reports_number')->default(0);
             $table->string('reward')->nullable();
             $table->unsignedInteger('owner_id')->nullable();
             $table->unsignedInteger('founder_id')->nullable();
             $table->unsignedInteger('publisher_id')->nullable();
+            $table->string('publisher_type')->nullable(); //1-user  2-corporate   3-admin
             $table->unsignedInteger('corporate_id')->nullable();
             $table->timestamp('losted_at')->nullable();
             $table->timestamp('founded_at')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->integer('sub_category_id')->nullable();
+            $table->unsignedInteger('sub_category_id')->nullable();
             $table->unsignedInteger('model_id')->nullable();
             $table->unsignedInteger('color_id')->nullable();
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('city_id')->nullable();
-            $table->string('founder_name')->nullable();
-            $table->string('founder_email')->nullable();
-            $table->string('founder_mobile_number')->nullable();
-            $table->string('founder_address')->nullable();
-            $table->timestamps();
+            $table->dateTime('end_date')->nullable();
+            $table->integer('person_id')->nullable();
+            $table->integer('person_type')->default(1);
+            $table->integer('owner_releated_to_system')->default(2);
+            $table->integer('founder_releated_to_system')->default(2);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

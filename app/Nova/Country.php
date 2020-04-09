@@ -25,7 +25,7 @@ class Country extends Resource
      * @var string
      */
     public static $group = 'Locations';
-    
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -40,6 +40,13 @@ class Country extends Resource
      */
     public static $search = [
         'id',
+        'name_ar',
+        'name_en',
+        'iso_code',
+        'country_code',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -52,10 +59,12 @@ class Country extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Country English Name', 'name_en'),
-            Text::make('Country Arabic Name', 'name_ar'),
-            Text::make('Country Iso Code', 'iso_code'),
-            Number::make('Country Code', 'country_code'),
+            Text::make('Country English Name', 'name_en')->rules(['required']),
+            Text::make('Country Arabic Name', 'name_ar')->rules(['required']),
+            Text::make('Country Iso Code', 'iso_code')->rules('required','between:1,2')->creationRules([
+                'unique:countries,iso_code'
+            ]),
+            Number::make('Country Code', 'country_code')->rules(['required']),
             HasMany::make('Area', 'regions'),
         ];
     }
@@ -105,10 +114,8 @@ class Country extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/flag.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/flag.png" style="height:22px;width:22px;margin=10px" />';
     }
-
-
 }

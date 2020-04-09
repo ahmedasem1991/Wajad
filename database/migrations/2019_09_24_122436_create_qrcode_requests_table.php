@@ -16,10 +16,11 @@ class CreateQrcodeRequestsTable extends Migration
         Schema::create('qrcode_requests', function (Blueprint $table) {
             $table->Increments('id');
             $table->Integer('number');
-            $table->Integer('corporate_id')->nullable();
-            $table->Integer('corporate_admin_id')->nullable();
+            $table->Integer('corporate_id')->unsigned()->nullable();
+            $table->Integer('corporate_admin_id')->unsigned()->nullable();
             $table->Integer('status')->default(0);
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

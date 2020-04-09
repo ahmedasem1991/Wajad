@@ -5,23 +5,48 @@ namespace App;
 
 use App\Brand;
 use App\Model;
+use Carbon\Carbon;
 use App\Helpers\Api\ResponseTrait;
-use Illuminate\Database\Eloquent\Model as MasterModel;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model as MasterModel;
 
 
 class Post extends MasterModel
 {
     use LogsActivity, ResponseTrait, SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'publisher_id', 'item_id', 'status', 'losted_at', 'founded_at', 'owner_id', 'founder_id', 'latitude', 'longitude', 'sub_category_id', 'model_id', 'color_id', 'post_type_id', 'appearance_status', 'brand_id', 'city_id', 'reward'];
+    protected $fillable = [
+        'title',
+        'description',
+        'publisher_id',
+        'item_id',
+        'status',
+        'losted_at',
+        'founded_at',
+        'owner_id',
+        'founder_id',
+        'latitude',
+        'longitude',
+        'approval_status',
+        'sub_category_id',
+        'model_id',
+        'color_id',
+        'post_type_id',
+        'appearance_status',
+        'brand_id',
+        'city_id',
+        'images',
+        'reward'
+    ];
 
     protected static $logAttributes = ['title', 'description'];
 
     protected $casts = [
         'losted_at' => 'datetime',
-        'founded_at' => 'datetime'
+        'founded_at' => 'datetime',
+        'end_date' => 'datetime',
+        'images' => 'array'
     ];
 
     const APPROVALSTATUS = [
@@ -31,6 +56,15 @@ class Post extends MasterModel
         'pending' => 0,
         'approved' => 1,
         'rejected' => 2
+    ];
+
+    const PUBLISHER_TYPE = [
+        1 => 'user',
+        2 => 'corporate',
+        3 => 'admin',
+        'user' => 1,
+        'corporate' => 2,
+        'admin' => 3
     ];
 
     const Status = [
@@ -99,6 +133,11 @@ class Post extends MasterModel
         return $this->belongsTo(Corporate::class);
     }
 
+    public function person()
+    {
+        return $this->belongsTo(People::class);
+    }
+
     /**
      * Define The Category Of The Post
      */
@@ -128,15 +167,11 @@ class Post extends MasterModel
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+
     /**
-     * Images Of Post"
-     */
-    public function images()
-    {
-        return $this->hasMany(PostImage::class);
-    }
-    /**
-     * Images Of Report"
+     *
+     * Post Reports
+     *
      */
     public function reports()
     {
@@ -174,7 +209,15 @@ class Post extends MasterModel
         return $query->where('founder_id', $founder_id);
     }
 
+    public function isLost()
+    {
+        return $this->status == self::Status['lost'];
+    }
 
+    public function isFound()
+    {
+        return $this->status == self::Status['found'];
+    }
 
     public function scopeModel($query, $model_id)
     {
@@ -241,6 +284,10 @@ class Post extends MasterModel
     {
         return $query->where('approval_status', 2);
     }
+    public function scopeIsReported($query)
+    {
+        return $query->where('reports_number', '!=', 0);
+    }
 
     public function scopeLost($query)
     {
@@ -268,7 +315,7 @@ class Post extends MasterModel
     {
         return $this->hasMany(Question::class, 'post_id');
     }
-    
+
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
@@ -278,4 +325,37 @@ class Post extends MasterModel
     {
         return $this->hasMany(PostRequest::class, 'post_id');
     }
+
+    public function getPublisherTypeAttribute($value)
+    {
+        if ($value == 1)
+            return 'user';
+        if ($value == 2)
+            return 'corporate';
+        if ($value == 3)
+            return 'admin';
+    }
+
+
+    public function ended()
+    {
+        return ($this->end_date < Carbon::now()) ? true :  false;
+    }
+
+    // public function getOwnerReleatedToSystemAttribute($value)
+    // {
+    //     if($value==1)
+    //     return 'Yes';
+    //     if($value==0)
+    //     return 'No';
+
+    // }
+    // public function getFounderReleatedToSystemAttribute($value)
+    // {
+    //     if($value==1)
+    //     return 'Yes';
+    //     if($value==0)
+    //     return 'No';
+
+    // }
 }

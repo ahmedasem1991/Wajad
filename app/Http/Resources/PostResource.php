@@ -13,6 +13,8 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'approval_status' => $this->approval_status,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'reward' => $this->reward,
             'description' => $this->description,
             'status' => Post::Status[$this->status] ?? '',
@@ -20,11 +22,14 @@ class PostResource extends JsonResource
             'item' => new ItemResource($this->item),
             'sub_category' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
+            'brand' => new BrandResource($this->brand),
             'color' => new ColorResource($this->color),
-            'date' => $this->created_at->toDateTimeString(),
-            'images' =>  PostImagesResource::collection($this->images),
-            'post_requests' =>  PostRequestsResource::collection($this->postRequests),
+            'date' => $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'images' => $this->images ?? [],
+            'questions' =>  QuestionResource::collection($this->questions),
+            'claimers' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
+            'publisher' => new UserResource($this->publisher),
         ];
     }
 }

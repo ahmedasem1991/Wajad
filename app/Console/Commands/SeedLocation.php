@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Settings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-  
+
 
 class SeedLocation extends Command
 {
@@ -40,30 +40,18 @@ class SeedLocation extends Command
      */
     public function handle()
     {
+        $this->line('|------------------------|');
+        $this->line('|---- Seed Countries ----|');
+        $this->line('|------------------------|');
 
-
-        
-         /**---------------------------------------------*\
-        |                 Seed Countries                 |
-        \-----------------------------------------------*/
-        // Seeed Countries
-        $this->info( 'Seed Countries' );
         $path = 'app/developer_docs/countries.sql';
-        DB::unprepared( file_get_contents($path) );
+        DB::unprepared(file_get_contents($path));
 
-        $this->countries = \App\Country::all();
+        $this->line('|---------------------------------------|');
+        $this->line('|---- Seed Regions and Governorates ----|');
+        $this->line('|---------------------------------------|');
 
-        /**---------------------------------------------*\
-        |          Seed Regions, Cities                  |
-        \-----------------------------------------------*/
-
-        // Seeed Regions
-        $this->info( 'Seed Regions and Governorates' );
         $path = 'app/developer_docs/regions.sql';
-        DB::unprepared( file_get_contents($path) );
-
-        $cities_ids = \App\City::pluck('id')->values()->toArray();
-        $countries_ids = \App\Country::pluck('id')->values()->toArray();
-
+        DB::unprepared(file_get_contents($path));
     }
 }

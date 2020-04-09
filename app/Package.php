@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Services\Filters\Constants\QrcodeConstants;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Package extends Model
+class Package extends Model implements QrcodeConstants
 {
+    use SoftDeletes;
     protected $guarded = [];
 
     /**
@@ -36,28 +40,28 @@ class Package extends Model
      * @param integer $value
      * @return void
      */
-    public function getPeriodAttribute($value)
+    public function getPeriod()
     {
-        return $value . ' Day/s';
+        return $this->period . ' Day/s';
     }
 
-    public function getPriceAttribute($value)
+    public function getPrice()
     {
-        return $value . ' - ' . env('CURRENCY', 'USD');
+        return $this->price . ' - ' . env('CURRENCY', 'USD');
     }
 
     public function subscription()
     {
-        return $this->hasMany(Subscription::class,'package_id');
+        return $this->hasMany(Subscription::class, 'package_id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'user_id');
+        return $this->belongsToMany(User::class, 'user_id');
     }
 
     public function corporates()
     {
-        return $this->belongsToMany(Corporate::class,'corporate_id');
+        return $this->belongsToMany(Corporate::class, 'corporate_id');
     }
 }

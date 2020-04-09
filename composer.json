@@ -10,22 +10,29 @@
     "require": {
         "php": "^7.1.3",
         "anaseqal/nova-sidebar-icons": "^0.0.3",
-        "barryvdh/laravel-dompdf": "^0.8.5",
+        "barryvdh/laravel-dompdf": "^0.8.6",
         "beyondcode/laravel-websockets": "^1.3",
         "bissolli/nova-phone-field": "^0.0.4",
         "bolechen/nova-activitylog": "^0.1.4",
+        "brozot/laravel-fcm": "^1.3",
+        "classic-o/nova-media-library": "^0.5.4",
         "comodolab/nova-help": "^0.1.0",
         "coreproc/nova-echo": "^0.2.0",
         "coreproc/nova-notification-feed": "^1.3",
+        "crazybooot/base64-validation": "^1.0",
         "darkaonline/l5-swagger": "5.8.*",
         "depsimon/nova-stripe-checkout-field": "^1.0",
         "dillingham/nova-button": "^1.0",
+        "ebess/advanced-nova-media-library": "^2.9",
         "edujugon/push-notification": "^4.1",
+        "emilianotisato/nova-belongsto-depends": "^0.1.4",
         "epartment/nova-dependency-container": "^1.1",
         "fideloper/proxy": "^4.0",
+        "fourstacks/nova-checkboxes": "^0.1.7",
         "genealabs/nova-map-marker-field": "^0.1.12",
         "guzzlehttp/guzzle": "^6.4",
         "halimtuhu/array-images": "^1.1",
+        "intervention/image": "^2.5",
         "khalin/nova-link-field": "^1.1",
         "koss-shtukert/laravel-nova-select2-auto-complete": "^1.19",
         "kristories/nova-qrcode-field": "^0.0.1",
@@ -33,6 +40,7 @@
         "laravel/nexmo-notification-channel": "^2.2",
         "laravel/nova": "*",
         "laravel/tinker": "^1.0",
+        "liliom/laravel-unifonic": "^1.0",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "manmohanjit/nova-belongs-to-dependency": "^1.1",
         "marianvlad/nova-env-card": "^1.0",
@@ -42,12 +50,15 @@
         "naif/toggle": "^1.2",
         "nexmo/client": "^2.0",
         "nexmo/laravel": "^2.1",
+        "niklasravnsborg/laravel-pdf": "^3.1",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "owenmelbz/nova-radio-field": "^0.0.5",
         "paypal/rest-api-sdk-php": "^1.14",
+        "phpseclib/phpseclib": "~2.0",
         "pktharindu/nova-permissions": "^1.2",
         "predis/predis": "^1.1",
         "pusher/pusher-http-laravel": "^4.2",
+        "silvanite/novafieldcheckboxes": "^1.2",
         "simplesoftwareio/simple-qrcode": "^2.0",
         "smartappco/download-qrcode-image": "*",
         "smartappco/google-maps": "*",
@@ -56,6 +67,8 @@
         "spatie/laravel-query-builder": "^1.17",
         "srmklive/paypal": "^1.6",
         "stephenlake/nova-fixed-bars": "^1.1",
+        "stichoza/google-translate-php": "^4.1",
+        "tightenco/nova-google-analytics": "*",
         "titasgailius/search-relations": "^1.0",
         "tymon/jwt-auth": "1.0.*"
     },
@@ -81,6 +94,12 @@
         "psr-4": {
             "App\\": "app/"
         },
+        "files": [
+            "app/Services/Helpers/helper.php",
+            "app/Services/Helpers/fcm.php",
+            "app/Services/Helpers/sms.php"
+
+        ],
         "classmap": [
             "database/seeds",
             "database/factories"
@@ -129,6 +148,10 @@
         {
             "type": "path",
             "url": "./nova-components/Analytics"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/tightenco/nova-google-analytics"
         }
     ]
 }

@@ -2,14 +2,15 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Item;
+use App\User;
+use App\Exceptions\Api\ApiException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ItemPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any items.
      *
@@ -18,7 +19,11 @@ class ItemPolicy
      */
     public function viewAny(User $user)
     {
-       return true;
+        if ($user->hasPermissionTo('view items')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -30,15 +35,14 @@ class ItemPolicy
      */
     public function view(User $user, Item $item)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('view items'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        // if(Auth()->User()->isCorporateAdmin()){
+        if ($user->hasPermissionTo('view items')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
+        //  }
+        //  return  true;
     }
 
     /**
@@ -49,15 +53,14 @@ class ItemPolicy
      */
     public function create(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('create items'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        //if(Auth()->User()->isCorporateAdmin()){
+        if ($user->hasPermissionTo('create items')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -69,23 +72,21 @@ class ItemPolicy
      */
     public function update(User $user, Item $item)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('edit items'))
-            {
+        if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin()) {
+            if ($user->hasPermissionTo('edit items')) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
 
-        if($user->isUser())
-        {
-        if ($user->id == $item->owner_id) {
-            return true;
+        if ($user->isUser()) {
+            if ($user->id == $item->owner_id) {
+                return true;
+            }
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
-       }
-       
+
         return  true;
     }
 
@@ -98,15 +99,14 @@ class ItemPolicy
      */
     public function delete(User $user, Item $item)
     {
-        if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('delete items'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        //  if(Auth()->User()->isCorporateAdmin()){
+        if ($user->hasPermissionTo('delete items')) {
+            return true;
+        } else {
+            return false;
         }
-        return  true;
+        // }
+        // return  true;
     }
 
     /**
@@ -134,12 +134,11 @@ class ItemPolicy
     }
     public function destroy(User $user, Item $item)
     {
-        if($user->isUser())
-        {
-        if ($user->id == $item->owner_id) {
-            return true;
+        if ($user->isUser()) {
+            if ($user->id == $item->owner_id) {
+                return true;
+            }
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
     }
-}
 }

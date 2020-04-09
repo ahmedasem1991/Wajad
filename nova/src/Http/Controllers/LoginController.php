@@ -31,8 +31,20 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('nova.guest:'.config('nova.guard'))->except('logout');
+        $this->middleware('nova.guest:' . config('nova.guard'))->except('logout');
     }
+
+    // protected function sendLoginResponse(Request $request)
+    // {
+    //     $request->session()->regenerate();
+
+    //     $this->clearLoginAttempts($request);
+
+    //     $redirectPath = 'test500';
+    //     redirect()->setIntendedUrl($redirectPath);
+
+    //     return redirect()->intended($redirectPath);
+    // }
 
     /**
      * Show the application's login form.
@@ -77,5 +89,25 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard(config('nova.guard'));
+    }
+
+    public function authenticated(Request $request, $user)
+    {       
+         if ($user->isNotActive())
+        {
+            auth()->logout();
+            return redirect('/');
+        }
+
+        
+        if ($user->isCorporateAdmin())
+        {
+            if ($user->corporate->isNotActive())
+            {
+                auth()->logout();
+                return redirect('/');
+            }
+        }
+        
     }
 }

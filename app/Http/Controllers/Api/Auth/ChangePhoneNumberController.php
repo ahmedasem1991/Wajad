@@ -15,9 +15,8 @@ class ChangePhoneNumberController extends Controller
 {
     /**
      * Change Phone Number
-     *
      * @bodyParam mobile_number numeric required digits_between:9,14 unique:user ignore:user-id
-     *
+     * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
      *  "message": "Verification code sent.",
@@ -28,6 +27,10 @@ class ChangePhoneNumberController extends Controller
     {
         $user = auth('api')->user();
 
+        request()->merge([
+            'mobile_number' => ltrim((string) request('mobile_number'), 0)
+        ]);
+
         $validate_request = Validator::make(request()->all(), [
             'mobile_number' => ['required', 'numeric', 'digits_between:9,14', Rule::unique('users')->ignore($user->id)],
         ]);
@@ -36,17 +39,13 @@ class ChangePhoneNumberController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        if (!preg_match('/(00966)[0-9]{9}/', request('mobile_number'))) {
-            $mobile_number = '00966' . request('mobile_number');
-        }
-
         $user->update([
-            'mobile_number' => $mobile_number,
+            'mobile_number' => request('mobile_number'),
             'is_mobile_number_verified' => false
         ]);
 
         if ((new UserService)->createAndSendActivationCode($user, 'phone')) {
-            $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(201);
+            $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(200);
 
             return $this->response();
         }

@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class City extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = [
         'id', 'name_en', 'name_ar',
@@ -18,5 +19,10 @@ class City extends Model
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->{'name_' . app()->getLocale()};
     }
 }

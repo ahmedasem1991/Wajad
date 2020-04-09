@@ -10,7 +10,7 @@ class ActivityPolicy
 {
     use HandlesAuthorization;
 
-       /**
+    /**
      * Determine whether the user can view any posts.
      *
      * @param  \App\User  $user
@@ -18,7 +18,9 @@ class ActivityPolicy
      */
     public function viewAny(User $user)
     {
-      return true;
+       // if (Auth()->User()->isAdmin()) {
+           return $user->hasPermissionTo('activities');
+        //}
     }
 
     /**
@@ -87,7 +89,7 @@ class ActivityPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function forceDelete(User $user,Activity $activity)
+    public function forceDelete(User $user, Activity $activity)
     {
         return false;
     }

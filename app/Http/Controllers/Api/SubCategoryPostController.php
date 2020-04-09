@@ -26,7 +26,7 @@ class SubCategoryPostController extends Controller
      * Posts
      * @urlParam status required string lost or found
      * @urlParam subcategory_id int, sub_category_id, exists in sub_categories  Example: 1
-     * @response 
+     * @response
      * {
      *"data": [
      * {
@@ -41,7 +41,7 @@ class SubCategoryPostController extends Controller
      *"subCategoryIcon": "http:\/\/wajad.test\/subcategories\/all.png",
      *"subCategoryPostsCount": 3
      *},
-     
+
      * "posts": [
      *  {
      *   "id": 3,
@@ -86,7 +86,7 @@ class SubCategoryPostController extends Controller
      * "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
      *},
      *"date": "2019-12-13 00:00:00",
-     *"images": []
+     *"images": [ "/images/image.png", "/images/image.png"]
      * },
      * "sub_category": {
      *   "id": 5,
@@ -100,44 +100,78 @@ class SubCategoryPostController extends Controller
      *"description": "Laudantium fugit ut harum magnam magnam deserunt.",
      *"image": "http:\/\/wajad.test\/default-icon.png"
      * },
-     * "color": null,
+     *   "color": {
+     *         "id": 1,
+     *        "name": "Red",
+     *       "icon": "images\/colors\/red.png"
+     *  },
      *"date": "2019-12-08 15:40:37",
-     *"images": [],
-     *"post_requests": [
-     *  {
-     *   "id": 3,
-     *  "is_request_valid": 0,
-     * "cliamers": {
-     *  "questions": [
-     *   {
-     *    "id": 1,
-     *   "question": "kp'[k'[p\r\n",
-     *  "answers": [
-     *   {
-     *    "id": 1,
-     *   "answer": ";lokpok",
-     *  "date": "2019-12-10 00:00:00"
-     *}
-     *]
+     *"images": [ "/images/image.png", "/images/image.png"],
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
      *}
      *],
+     * "claimers": [
+     *   {
+     * "questions": [
+     *{
      *"id": 1,
-     *"name": "Admin",
-     * "email": "admin@nova.com",
-     * "status": 1,
-     * "mobile_number": "01111086890",
-     * "receive_emails": false,
-     * "receive_push_notifications": false,
-     * "is_email_verified": false,
-     * "is_mobile_number_verified": false,
-     * "default_distance_unit": "kilo"
+     *"question": "question1?",
+     *"answer": "answer1"
      *},
-     * "date": "2019-12-10 00:00:00"
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
      *}
+     *],
+     *"id": 4,
+     *"name": "Braden Heathcote",
+     *"email": "matt.koelpin@wunsch.com",
+     *"status": 1,
+     *"mobile_number": "+18155885009",
+     *"receive_emails": true,
+     *"receive_push_notifications": true,
+     *"is_email_verified": true,
+     *"is_mobile_number_verified": false,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
+     *   }
      *],
      *"city": {
      *  "id": 1,
      *  "name": "Al Riyadh"
+     *},
+     *"publisher": {
+     *"id": 105,
+     *"name": "teddy tf high j",
+     *"email": "ss@ss.com",
+     *"status": 1,
+     *"mobile_number": "966512345678",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": true,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/sKtIyY1Kl67j9gp.png"
      *}
      *}
      *]
@@ -149,7 +183,7 @@ class SubCategoryPostController extends Controller
     public function index($status, $subcategory_id = null)
     {
         if (!in_array($status, self::TYPES)) {
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.category')]), 404);
+            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.category')]), 400);
         }
 
         $subCategory = SubCategory::whereHas($status . 'posts', function ($query) {

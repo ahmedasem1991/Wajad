@@ -11,7 +11,7 @@ $factory->define(Model::class, function (Faker $faker) {
         'name_ar' => $faker->sentence(),
         'description_en' => $faker->sentence(),
         'description_ar' => $faker->sentence(),
-        'image' => 'default-icon.png',
+        'image' => 'images/profile/default-profile.png',
         'brand_id' => function(){
             return factory(App\Brand::class)->create()->id;
         }

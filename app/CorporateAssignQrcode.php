@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CorporateAssignQrcode extends Model
 {
+    use SoftDeletes;
    protected $table='corporate_assign_qrcodes';
    protected $fillable =['corporate_assign_reference_number','type','quantity','user_id','corporate_id','created_by'];
    const Types = [
@@ -19,12 +21,12 @@ class CorporateAssignQrcode extends Model
     {
         return $this->type === self::Types[$type];
     }
-    
+
    public function qrcodes()
    {
        return $this->hasMany('App\Qrcode', 'corporate_assign_reference_number', 'corporate_assign_reference_number');
    }
-   
+
    public function user()
    {
        return $this->belongsTo(User::class,'user_id');

@@ -43,7 +43,7 @@ class SeedPages extends Command
         DB::transaction(function () {
             DB::table('pages')->delete();
         });
-        $Pages = [
+        $pages = [
             [
                 'key' => 'about_us',
                 'title_en' => 'about_us',
@@ -74,12 +74,12 @@ class SeedPages extends Command
 
         ];
 
-        foreach ($Pages as $Page) {
-            Page::create($Page);
-        }
+        array_map(function ($page) {
+            Page::create($page);
+        }, $pages);
 
-        $this->info('|------------------------------------|');
-        $this->info('| Seeding Pages Done Successfully |');
-        $this->info('|------------------------------------|');
+        $this->line('|-------------------------------------|');
+        $this->line('|-- Seeding Pages Done Successfully --|');
+        $this->line('|-------------------------------------|');
     }
 }

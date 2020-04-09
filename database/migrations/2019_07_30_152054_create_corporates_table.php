@@ -15,17 +15,20 @@ class CreateCorporatesTable extends Migration
     {
         Schema::create('corporates', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('unique_id')->nullable();
             $table->string('name_en');
             $table->string('name_ar');
-            $table->text('details_en');
-            $table->text('details_ar');
-            $table->text('address_en');
-            $table->text('address_ar');
+            $table->text('details_en')->nullable();
+            $table->text('details_ar')->nullable();
+            $table->text('address_en')->nullable();
+            $table->text('address_ar')->nullable();
             $table->text('location')->nullable();
             $table->double('latitude');
             $table->double('longitude');
             $table->integer('status')->default(0);
             $table->text('image')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 namespace App\Nova;
 
- 
+
 use App\Nova\Metrics\Regions;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Area extends Resource
 {
@@ -45,6 +46,12 @@ class Area extends Resource
      */
     public static $search = [
         'id',
+        'name_ar',
+        'name_en',
+        'country_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -57,9 +64,11 @@ class Area extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name_ar'),
-            Text::make('name_en'),
-            BelongsTo::make('Country'),
+            Text::make('Area Arabic Name', 'name_ar')->rules(['required', 'string', 'max:255']),
+            Text::make('Area English Name', 'name_en')->rules(['required', 'string', 'max:255']),
+            NovaBelongsToDepend::make('Country')
+            ->placeholder('Country')
+            ->options(\App\Country::all()),
             HasMany::make('City', 'cities', 'App\Nova\City'),
         ];
     }
@@ -109,7 +118,7 @@ class Area extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
     }

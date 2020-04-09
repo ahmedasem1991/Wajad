@@ -16,12 +16,20 @@ class CreateGatesTable extends Migration
             $table->Increments('id');
             $table->string('slug');
             $table->string('name')->nullable();
+            $table->integer('corporate_id')->nullable();
+            $table->integer('limitation_of_posts')->default(10);
+            $table->boolean('default_group')->default(0);
+            $table->boolean('auto_approve')->default(0);
+            $table->boolean('mobile_group')->default(0);
+            $table->integer('posts_period')->default(30);
+            $table->softDeletes();
             $table->timestamps();
         });
         Schema::create('role_permission', function (Blueprint $table) {
             $table->Integer('role_id');
             $table->string('permission_slug');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
             // $table->foreign('role_id')
             //       ->references('id')
             //       ->on('roles')
@@ -31,12 +39,13 @@ class CreateGatesTable extends Migration
         Schema::create('role_user', function (Blueprint $table) {
             $table->Integer('role_id');
             $table->Integer('user_id');
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
             // $table->foreign('role_id')
             //       ->references('id')
             //       ->on('roles')
             //       ->onDelete('cascade');
-        
+
             // $table->foreign('user_id')
             //       ->references('id')
             //       ->on('users')

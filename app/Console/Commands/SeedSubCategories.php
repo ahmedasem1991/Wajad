@@ -38,18 +38,65 @@ class SeedSubCategories extends Command
      */
     public function handle()
     {
-        $categories = Category::all();
+        $subCategories = [
+            [
+                'name_en' => 'Blouse',
+                'name_ar' => 'بلوزة',
+                'icon' => 'images/posts/post7.jpg',
+                'category_id' => 1,
+                'brands' => [
+                    [
+                        'name_en' => 'LCWIKIKI',
+                        'name_ar' => 'ال سي واى كي كي',
+                        'image' => 'images/posts/post7.jpg',
 
-        foreach ($categories as $category) {
-            $category->subcategories()->create([
-                'name_en' => 'Lorem ipsum dolor sit amet.',
-                'name_ar' => 'Lorem ipsum dolor sit amet.',
-                'description_en' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?',
-                'description_ar' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem blanditiis ut tenetur velit tempora laborum?',
-                'image' => '/images/subcategories/default-subcategory.png',
-            ]);
-        }
+                    ],
+                    [
+                        'name_en' => 'H&M',
+                        'name_ar' => 'اتش اند ام',
+                        'image' => 'images/posts/post7.jpg',
 
+                    ],
+                    [
+                        'name_en' => 'Others',
+                        'name_ar' => 'اخرى',
+                        'icon' => 'images/posts/post1.jpg',
+                    ],
+                ],
+            ],
+            [
+                'name_en' => 'shoes',
+                'name_ar' => 'حذاء',
+                'icon' => 'images/posts/post1.jpg',
+                'category_id' => 1,
+                'brands' => [
+                    [
+                        'name_en' => 'lacoste',
+                        'name_ar' => 'لاكوست',
+                        'image' => 'images/posts/post7.jpg',
+
+                    ],
+                    [
+                        'name_en' => 'corocs',
+                        'name_ar' => 'كروكس',
+                        'image' => 'images/posts/post7.jpg',
+
+                    ],
+                    [
+                        'name_en' => 'Others',
+                        'name_ar' => 'اخرى',
+                        'icon' => 'images/posts/post1.jpg',
+
+                    ],
+                ],
+            ],
+            [
+                'name_en' => 'Others',
+                'name_ar' => 'اخرى',
+                'icon' => 'images/posts/post1.jpg',
+                'category_id' => 1,
+            ],
+        ];
         $this->info('|------------------------------------------|');
         $this->info('| Seeding Sub Categories Done Successfully |');
         $this->info('|------------------------------------------|');

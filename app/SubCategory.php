@@ -4,12 +4,13 @@ namespace App;
 
 use App\Brand;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class SubCategory extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'category_id'];
     protected $table = "sub_categories";
@@ -28,7 +29,7 @@ class SubCategory extends Model
     }
     public function brands()
     {
-        return $this->hasMany(Brand::class);
+        return $this->belongsToMany(Brand::class, 'brand_sub_category', 'sub_category_id', 'brand_id');
     }
     public function posts()
     {
@@ -46,8 +47,9 @@ class SubCategory extends Model
     }
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
+
     public function brandsData()
     {
         return $this->hasMany(Brand::class)

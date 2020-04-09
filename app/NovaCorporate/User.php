@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -18,10 +20,13 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Bissolli\NovaPhoneField\PhoneNumber;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Laravel\Nova\Http\Requests\NovaRequest;
+
 class User extends Resource
 {
     /**
@@ -36,7 +41,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $group = 'Classes';
+    public static $group = 'Users Management';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,12 +56,32 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
+        'name',
+        'email',
+        'default_distance_unit',
+        'type',
+        'status',
+        'mobile_country_id',
+        'corporate_id',
+        'city_id',
+        'posts_number',
+        'device_token',
+        'mobile_number',
+        'receive_emails',
+        'receive_push_notifications',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'image',
+        'remember_token',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -69,7 +94,14 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+           // Gravatar::make(),
+           Image::make('Profile Image', 'image')
+           ->disk('public')
+           ->path('images/profile')
+           ->prunable()
+           ->deletable()
+           ->rules('dimensions:max_width=1000,max_height=1000'),
+
 
             Text::make('Name')
                 ->sortable()
@@ -85,7 +117,17 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            HasMany::make('Items','items',Item::class),
+            //  HasMany::make('Items','items',Item::class),
+            // PhoneNumber::make('Mobile Number','mobile_number')
+            //     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+            //     ->onlyCustomFormats(),
+
+            NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
+            ->placeholder('Select Country')
+            ->options(\App\Country::all()),
+            Number::make('Mobile Number', 'mobile_number')
+            ->creationRules('required', 'min:9','max:14')
+            ->updateRules('nullable',  'min:9','max:14'),
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -94,15 +136,16 @@ class User extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
-                   '2' => 'Corpoare Admin',
-                   '1' => 'User',
-                ])->displayUsingLabels()->creationRules('required')
+                '2' => 'Corpoare Admin',
+                // '4' => 'Corporate User',
+            ])->displayUsingLabels()
+                ->creationRules('required')
                 ->updateRules('required'),
-         
+
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -161,9 +204,9 @@ class User extends Resource
     {
         return $query->where('corporate_id',Auth()->user()->corporate_id);
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
-    
+
 }

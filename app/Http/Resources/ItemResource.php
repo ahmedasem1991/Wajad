@@ -22,13 +22,16 @@ class ItemResource extends JsonResource
             'title' => $this->title,
             'details' => $this->details ?? '',
             'status' => Post::Status[$this->status] ?? '',
+            'deleted_at' => $this->deleted_at ?? '',
             'owner' => new UserResource($this->owner),
+            'subcategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
             'brand' => new BrandResource($this->brand),
             'qrcode' => new QrcodeResource($this->qrcode),
-            'date' => $this->created_at->toDateTimeString(),
-            'images' =>  ItemImagesResource::collection($this->images),
+            'date' => $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'images' => $this->images ?? [],
+
         ];
     }
 }

@@ -2,6 +2,7 @@
   
 namespace App\Http\Controllers;
 
+use App\Item;
 use App\User;
 use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
@@ -15,20 +16,12 @@ class NotificationController extends Controller
 
     public function sendFCM(Request $request)
     {
-        $data=[
-            'notification' => [
-            'title'=>'This is the title',
-            'body'=>'This is the message',
-            'sound' => 'default'
-            ],
-              'data' => [
-              'extraPayLoad1' => 'value1',
-              'extraPayLoad2' => 'value2'
-              ]];
-        $tokens=User::all()->pluck('device_token')->toArray();
-        event(new SendFCMEvent($tokens,$data));
- 
-  
+            $user= User::find(2);
+            $item=Item::find(1);
+            $badge = $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
+            $data=sendCreateItemFCM($item,$badge);
+            $user=User::find(2); 
+            event(new SendFCMEvent($user,$data));
     }
 
     public function sendSMS(Request $request)

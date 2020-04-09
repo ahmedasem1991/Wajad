@@ -6,14 +6,17 @@ use App\Post;
 use App\Color;
 use App\Region;
 use App\Category;
+use App\Keyword;
 use Carbon\Carbon;
 use App\SubCategory;
 use Illuminate\Http\Request;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\ColorResource;
 use App\Http\Resources\RegionResource;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SubCategoryResource;
 
 /**
@@ -23,8 +26,8 @@ class SearchController extends Controller
 {
     /**
      * Search By KeyWords
-     * @bodyParam keywords string required  
-     * @response 
+     * @urlParam keywords string required
+     * @response
      * {
      * "data": [
      * {
@@ -83,12 +86,20 @@ class SearchController extends Controller
      * }
      * ]
      * }
-     * @response 
+     * @response
      * @return void
      */
     public function searchByKeyWords(Request $request)
     {
         $keywords = $request->keywords ?? "";
+
+        $exp_keywords = explode(' ', $keywords);
+        foreach ($exp_keywords as $key){
+            $keyword = strtolower($key);
+            $found = Keyword::firstOrNew(['keyword'=>$keyword]);
+            $found->increment('searches');
+            $found->save();
+        }
 
         $posts = Post::isApproved()->isShow()->isOpen()
             ->where('title', 'like', "%$keywords%")
@@ -104,12 +115,13 @@ class SearchController extends Controller
     }
     /**
      * Search Filter
-     * @bodyParam model int exist in models. 
-     * @bodyParam color int exist in colors. 
-     * @bodyParam brand int exist in brands. 
-     * @bodyParam subcategory int exist in subcategories. 
-     * @bodyParam date date  
-     * @response 
+     * @bodyParam model int exist in models.
+     * @bodyParam color int exist in colors.
+     * @bodyParam brand int exist in brands.
+     * @bodyParam subcategory int exist in subcategories.
+     * @bodyParam date date
+     * @bodyParam status int in:0,1,0 for lost, 1 for found
+     * @response
      * {
      * "data": [
      * {
@@ -121,7 +133,7 @@ class SearchController extends Controller
      * "status": "lost",
      * "attached_to_item": false,
      * "item": null,
-     * "subCategory": {
+     * "sub_category": {
      *  "id": 6,
      * "name": "Et expedita est explicabo qui sit veritatis.",
      *  "description": "Dolore rerum quo quis explicabo magni occaecati.",
@@ -148,7 +160,7 @@ class SearchController extends Controller
      * "status": "found",
      *  "attached_to_item": false,
      * "item": null,
-     * "subCategory": {
+     * "sub_category": {
      * "id": 8,
      * "name": "Qui maiores aut sapiente aut molestiae in quam ipsam.",
      *  "description": "Aut soluta laborum sequi et similique.",
@@ -172,36 +184,49 @@ class SearchController extends Controller
      */
     public function searchFilter(Request $request)
     {
-        $posts = Post::isShow()->isApproved();
-        if ($request->has('color')) {
+        $validate_request = Validator::make($request->all(), [
+            'status' => ['nullable', 'integer', 'in:0,1'],
+        ]);
+
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
+        $posts = Post::isShow()->isApproved()->isOpen();
+        if ($request->has('color') && $request->color != "") {
             $posts->whereHas('color', function ($query) use ($request) {
                 $query->where('id', '=', $request->color);
             });
         }
-        if ($request->has('model')) {
+        if ($request->has('model') && $request->model != "") {
             $posts->whereHas('model', function ($query) use ($request) {
                 $query->where('id', $request->model);
             });
         }
-        if ($request->has('brand')) {
+        if ($request->has('brand') && $request->brand != "") {
             $posts->whereHas('brand', function ($query) use ($request) {
                 $query->where('id', $request->brand);
             });
         }
-        if ($request->has('date')) {
-            $posts->where('losted_at', Carbon::parse($request->date))
-                ->orWhere('founded_at', Carbon::parse($request->date));
+        if ($request->has('date') && $request->date != "") {
+            $posts->whereDate('losted_at', '=',  $request->date)
+                ->orWhereDate('founded_at', '=',  $request->date);
         }
-        if ($request->has('subcategory')) {
+
+        if ($request->has('subcategory') && $request->subcategory != "") {
             $posts->whereHas('subcategory', function ($query) use ($request) {
                 $query->where('id', $request->subcategory);
             });
         }
+
+        if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
+            $posts->where('status', (int) $request->status);
+        }
         return  PostResource::collection($posts->get());
     }
     /**
-     * Fetch search data
-     * @response 
+     * Get search data in Dropdown lists
+     * @response
      * {
      *   "regions": [
      *      {

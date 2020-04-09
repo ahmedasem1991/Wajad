@@ -20,7 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('description')->nullable();
             $table->integer('word_count')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->timestamps();
+           $table->softDeletes();
+$table->timestamps();
         });
     }
 

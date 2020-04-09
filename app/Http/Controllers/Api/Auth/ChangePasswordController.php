@@ -7,17 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 /**
  * @group User Profile
  */
 class ChangePasswordController extends Controller
 {
     /**
-     * Password Reset
+     * Change Password
      * @bodyParam old_password string required 'min:6' 'max:255'
      * @bodyParam new_password string required 'confirmed' 'min:6', 'max:255'
      * @bodyParam new_password_confirmation string required confirm new password
-     *
+     * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
      *  "message": "Password Updated Successfully",

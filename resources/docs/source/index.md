@@ -20,24 +20,24 @@ Welcome to the generated API reference.
 
 <!-- END_INFO -->
 
-#Answers
+#Auth
 
 
-<!-- START_b8c093319f63f6104bb55df0e5169242 -->
-## Answer question
+<!-- START_a8e9988fc450431ae63401388912b16a -->
+## Countries
 
 > Example request:
 
 ```bash
-curl -X POST \
-    "http://api.wajad.test/api/post/1/answer" \
+curl -X GET \
+    -G "http://api.wajad.test/api/countrycodes" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/post/1/answer"
+    "http://api.wajad.test/api/countrycodes"
 );
 
 let headers = {
@@ -46,7 +46,7 @@ let headers = {
 };
 
 fetch(url, {
-    method: "POST",
+    method: "GET",
     headers: headers,
 })
     .then(response => response.json())
@@ -57,26 +57,2475 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{
-    "success": true,
-    "message": "Answers created successfully.",
-    "status_code": 200
-}
+[
+    {
+        "id": 1,
+        "name_ar": "أفغانستان",
+        "name_en": "Afghanistan",
+        "iso_code": "AF",
+        "country_code": "93",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 2,
+        "name_ar": "ألبانيا",
+        "name_en": "Albania",
+        "iso_code": "AL",
+        "country_code": "355",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 3,
+        "name_ar": "الجزائر",
+        "name_en": "Algeria",
+        "iso_code": "DZ",
+        "country_code": "213",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 4,
+        "name_ar": "ساموا الأمريكية",
+        "name_en": "American Samoa",
+        "iso_code": "AS",
+        "country_code": "684",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 5,
+        "name_ar": "أندورا",
+        "name_en": "Andorra",
+        "iso_code": "AD",
+        "country_code": "376",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 6,
+        "name_ar": "أنجولا",
+        "name_en": "Angola",
+        "iso_code": "AO",
+        "country_code": "244",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 7,
+        "name_ar": "أنجويلا",
+        "name_en": "Anguilla",
+        "iso_code": "AI",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 8,
+        "name_ar": "القطب الجنوبي",
+        "name_en": "Antarctica",
+        "iso_code": "AQ",
+        "country_code": "268",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 9,
+        "name_ar": "أنتيجوا وبربودا",
+        "name_en": "Antigua and Barbuda",
+        "iso_code": "AG",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 10,
+        "name_ar": "الأرجنتين",
+        "name_en": "Argentina",
+        "iso_code": "AR",
+        "country_code": "54",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 11,
+        "name_ar": "أرمينيا",
+        "name_en": "Armenia",
+        "iso_code": "AM",
+        "country_code": "374",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 12,
+        "name_ar": "آروبا",
+        "name_en": "Aruba",
+        "iso_code": "AW",
+        "country_code": "297",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 13,
+        "name_ar": "أستراليا",
+        "name_en": "Australia",
+        "iso_code": "AU",
+        "country_code": "61",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 14,
+        "name_ar": "النمسا",
+        "name_en": "Austria",
+        "iso_code": "AT",
+        "country_code": "43",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 15,
+        "name_ar": "أذربيجان",
+        "name_en": "Azerbaijan",
+        "iso_code": "AZ",
+        "country_code": "994",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 16,
+        "name_ar": "الباهاما",
+        "name_en": "Bahamas",
+        "iso_code": "BS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 17,
+        "name_ar": "البحرين",
+        "name_en": "Bahrain",
+        "iso_code": "BH",
+        "country_code": "973",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 18,
+        "name_ar": "بنجلاديش",
+        "name_en": "Bangladesh",
+        "iso_code": "BD",
+        "country_code": "880",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 19,
+        "name_ar": "بربادوس",
+        "name_en": "Barbados",
+        "iso_code": "BB",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 20,
+        "name_ar": "روسيا البيضاء",
+        "name_en": "Belarus",
+        "iso_code": "BY",
+        "country_code": "375",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 21,
+        "name_ar": "بلجيكا",
+        "name_en": "Belgium",
+        "iso_code": "BE",
+        "country_code": "32",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 22,
+        "name_ar": "بليز",
+        "name_en": "Belize",
+        "iso_code": "BZ",
+        "country_code": "501",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 23,
+        "name_ar": "بنين",
+        "name_en": "Benin",
+        "iso_code": "BJ",
+        "country_code": "229",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 24,
+        "name_ar": "برمودا",
+        "name_en": "Bermuda",
+        "iso_code": "BM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 25,
+        "name_ar": "بوتان",
+        "name_en": "Bhutan",
+        "iso_code": "BT",
+        "country_code": "975",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 26,
+        "name_ar": "بوليفيا",
+        "name_en": "Bolivia",
+        "iso_code": "BO",
+        "country_code": "591",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 27,
+        "name_ar": "البوسنة والهرسك",
+        "name_en": "Bosnia and Herzegovina",
+        "iso_code": "BA",
+        "country_code": "387",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 28,
+        "name_ar": "بتسوانا",
+        "name_en": "Botswana",
+        "iso_code": "BW",
+        "country_code": "267",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 29,
+        "name_ar": "جزيرة بوفيه",
+        "name_en": "Bouvet Island",
+        "iso_code": "BV",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 30,
+        "name_ar": "البرازيل",
+        "name_en": "Brazil",
+        "iso_code": "BR",
+        "country_code": "55",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 31,
+        "name_ar": "المحيط الهندي البريطاني",
+        "name_en": "British Indian Ocean Territory",
+        "iso_code": "IO",
+        "country_code": "246",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 32,
+        "name_ar": "جزر فرجين البريطانية",
+        "name_en": "British Virgin Islands",
+        "iso_code": "VG",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 33,
+        "name_ar": "بروناي",
+        "name_en": "Brunei",
+        "iso_code": "BN",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 34,
+        "name_ar": "بلغاريا",
+        "name_en": "Bulgaria",
+        "iso_code": "BG",
+        "country_code": "359",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 35,
+        "name_ar": "بوركينا فاسو",
+        "name_en": "Burkina Faso",
+        "iso_code": "BF",
+        "country_code": "226",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 36,
+        "name_ar": "بوروندي",
+        "name_en": "Burundi",
+        "iso_code": "BI",
+        "country_code": "257",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 37,
+        "name_ar": "كمبوديا",
+        "name_en": "Cambodia",
+        "iso_code": "KH",
+        "country_code": "855",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 38,
+        "name_ar": "الكاميرون",
+        "name_en": "Cameroon",
+        "iso_code": "CM",
+        "country_code": "237",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 39,
+        "name_ar": "كندا",
+        "name_en": "Canada",
+        "iso_code": "CA",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 40,
+        "name_ar": "الرأس الأخضر",
+        "name_en": "Cape Verde",
+        "iso_code": "CV",
+        "country_code": "238",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 41,
+        "name_ar": "جزر الكايمن",
+        "name_en": "Cayman Islands",
+        "iso_code": "KY",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 42,
+        "name_ar": "جمهورية افريقيا الوسطى",
+        "name_en": "Central African Republic",
+        "iso_code": "CF",
+        "country_code": "236",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 43,
+        "name_ar": "تشاد",
+        "name_en": "Chad",
+        "iso_code": "TD",
+        "country_code": "235",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 44,
+        "name_ar": "شيلي",
+        "name_en": "Chile",
+        "iso_code": "CL",
+        "country_code": "56",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 45,
+        "name_ar": "الصين",
+        "name_en": "China",
+        "iso_code": "CN",
+        "country_code": "86",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 46,
+        "name_ar": "جزيرة الكريسماس",
+        "name_en": "Christmas Island",
+        "iso_code": "CX",
+        "country_code": "16",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 47,
+        "name_ar": "جزر كوكوس",
+        "name_en": "Cocos [Keeling] Islands",
+        "iso_code": "CC",
+        "country_code": "16",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 48,
+        "name_ar": "كولومبيا",
+        "name_en": "Colombia",
+        "iso_code": "CO",
+        "country_code": "57",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 49,
+        "name_ar": "جزر القمر",
+        "name_en": "Comoros",
+        "iso_code": "KM",
+        "country_code": "269",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 50,
+        "name_ar": "الكونغو - برازافيل",
+        "name_en": "Congo - Brazzaville",
+        "iso_code": "CG",
+        "country_code": "242",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 51,
+        "name_ar": "جمهورية الكونغو الديمقراطية",
+        "name_en": "Congo - Kinshasa",
+        "iso_code": "CD",
+        "country_code": "243",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 52,
+        "name_ar": "جزر كوك",
+        "name_en": "Cook Islands",
+        "iso_code": "CK",
+        "country_code": "682",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 53,
+        "name_ar": "كوستاريكا",
+        "name_en": "Costa Rica",
+        "iso_code": "CR",
+        "country_code": "506",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 54,
+        "name_ar": "كرواتيا",
+        "name_en": "Croatia",
+        "iso_code": "HR",
+        "country_code": "385",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 55,
+        "name_ar": "كوبا",
+        "name_en": "Cuba",
+        "iso_code": "CU",
+        "country_code": "53",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 56,
+        "name_ar": "قبرص",
+        "name_en": "Cyprus",
+        "iso_code": "CY",
+        "country_code": "357",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 57,
+        "name_ar": "جمهورية التشيك",
+        "name_en": "Czech Republic",
+        "iso_code": "CZ",
+        "country_code": "420",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 58,
+        "name_ar": "ساحل العاج",
+        "name_en": "Côte d’Ivoire",
+        "iso_code": "CI",
+        "country_code": "225",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 59,
+        "name_ar": "الدانمرك",
+        "name_en": "Denmark",
+        "iso_code": "DK",
+        "country_code": "45",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 60,
+        "name_ar": "جيبوتي",
+        "name_en": "Djibouti",
+        "iso_code": "DJ",
+        "country_code": "253",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 61,
+        "name_ar": "دومينيكا",
+        "name_en": "Dominica",
+        "iso_code": "DM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 62,
+        "name_ar": "جمهورية الدومينيك",
+        "name_en": "Dominican Republic",
+        "iso_code": "DO",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 63,
+        "name_ar": "الاكوادور",
+        "name_en": "Ecuador",
+        "iso_code": "EC",
+        "country_code": "593",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 64,
+        "name_ar": "مصر",
+        "name_en": "Egypt",
+        "iso_code": "EG",
+        "country_code": "20",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 65,
+        "name_ar": "السلفادور",
+        "name_en": "El Salvador",
+        "iso_code": "SV",
+        "country_code": "503",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 66,
+        "name_ar": "غينيا الاستوائية",
+        "name_en": "Equatorial Guinea",
+        "iso_code": "GQ",
+        "country_code": "240",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 67,
+        "name_ar": "اريتريا",
+        "name_en": "Eritrea",
+        "iso_code": "ER",
+        "country_code": "291",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 68,
+        "name_ar": "استونيا",
+        "name_en": "Estonia",
+        "iso_code": "EE",
+        "country_code": "372",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 69,
+        "name_ar": "اثيوبيا",
+        "name_en": "Ethiopia",
+        "iso_code": "ET",
+        "country_code": "251",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 70,
+        "name_ar": "جزر فوكلاند",
+        "name_en": "Falkland Islands",
+        "iso_code": "FK",
+        "country_code": "500",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 71,
+        "name_ar": "جزر فارو",
+        "name_en": "Faroe Islands",
+        "iso_code": "FO",
+        "country_code": "298",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 72,
+        "name_ar": "فيجي",
+        "name_en": "Fiji",
+        "iso_code": "FJ",
+        "country_code": "679",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 73,
+        "name_ar": "فنلندا",
+        "name_en": "Finland",
+        "iso_code": "FI",
+        "country_code": "358",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 74,
+        "name_ar": "فرنسا",
+        "name_en": "France",
+        "iso_code": "FR",
+        "country_code": "33",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 75,
+        "name_ar": "غويانا",
+        "name_en": "French Guiana",
+        "iso_code": "GF",
+        "country_code": "594",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 76,
+        "name_ar": "بولينيزيا الفرنسية",
+        "name_en": "French Polynesia",
+        "iso_code": "PF",
+        "country_code": "689",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 77,
+        "name_ar": "المقاطعات الجنوبية الفرنسية",
+        "name_en": "French Southern Territories",
+        "iso_code": "TF",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 78,
+        "name_ar": "الجابون",
+        "name_en": "Gabon",
+        "iso_code": "GA",
+        "country_code": "241",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 79,
+        "name_ar": "غامبيا",
+        "name_en": "Gambia",
+        "iso_code": "GM",
+        "country_code": "220",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 80,
+        "name_ar": "جورجيا",
+        "name_en": "Georgia",
+        "iso_code": "GE",
+        "country_code": "995",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 81,
+        "name_ar": "ألمانيا",
+        "name_en": "Germany",
+        "iso_code": "DE",
+        "country_code": "49",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 82,
+        "name_ar": "غانا",
+        "name_en": "Ghana",
+        "iso_code": "GH",
+        "country_code": "233",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 83,
+        "name_ar": "جبل طارق",
+        "name_en": "Gibraltar",
+        "iso_code": "GI",
+        "country_code": "350",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 84,
+        "name_ar": "اليونان",
+        "name_en": "Greece",
+        "iso_code": "GR",
+        "country_code": "30",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 85,
+        "name_ar": "جرينلاند",
+        "name_en": "Greenland",
+        "iso_code": "GL",
+        "country_code": "299",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 86,
+        "name_ar": "جرينادا",
+        "name_en": "Grenada",
+        "iso_code": "GD",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 87,
+        "name_ar": "جوادلوب",
+        "name_en": "Guadeloupe",
+        "iso_code": "GP",
+        "country_code": "590",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 88,
+        "name_ar": "جوام",
+        "name_en": "Guam",
+        "iso_code": "GU",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 89,
+        "name_ar": "جواتيمالا",
+        "name_en": "Guatemala",
+        "iso_code": "GT",
+        "country_code": "502",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 90,
+        "name_ar": "غينيا",
+        "name_en": "Guinea",
+        "iso_code": "GN",
+        "country_code": "224",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 91,
+        "name_ar": "غينيا بيساو",
+        "name_en": "Guinea-Bissau",
+        "iso_code": "GW",
+        "country_code": "245",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 92,
+        "name_ar": "غيانا",
+        "name_en": "Guyana",
+        "iso_code": "GY",
+        "country_code": "592",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 93,
+        "name_ar": "هايتي",
+        "name_en": "Haiti",
+        "iso_code": "HT",
+        "country_code": "509",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 94,
+        "name_ar": "جزيرة هيرد وماكدونالد",
+        "name_en": "Heard Island and McDonald Islands",
+        "iso_code": "HM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 95,
+        "name_ar": "هندوراس",
+        "name_en": "Honduras",
+        "iso_code": "HN",
+        "country_code": "504",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 96,
+        "name_ar": "هونج كونج الصينية",
+        "name_en": "Hong Kong SAR China",
+        "iso_code": "HK",
+        "country_code": "852",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 97,
+        "name_ar": "المجر",
+        "name_en": "Hungary",
+        "iso_code": "HU",
+        "country_code": "36",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 98,
+        "name_ar": "أيسلندا",
+        "name_en": "Iceland",
+        "iso_code": "IS",
+        "country_code": "354",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 99,
+        "name_ar": "الهند",
+        "name_en": "India",
+        "iso_code": "IN",
+        "country_code": "91",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 100,
+        "name_ar": "اندونيسيا",
+        "name_en": "Indonesia",
+        "iso_code": "ID",
+        "country_code": "62",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 101,
+        "name_ar": "ايران",
+        "name_en": "Iran",
+        "iso_code": "IR",
+        "country_code": "98",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 102,
+        "name_ar": "العراق",
+        "name_en": "Iraq",
+        "iso_code": "IQ",
+        "country_code": "964",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 103,
+        "name_ar": "أيرلندا",
+        "name_en": "Ireland",
+        "iso_code": "IE",
+        "country_code": "353",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 104,
+        "name_ar": "جزيرة مان",
+        "name_en": "Isle of Man",
+        "iso_code": "IM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 105,
+        "name_ar": "اسرائيل",
+        "name_en": "Israel",
+        "iso_code": "IL",
+        "country_code": "972",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 106,
+        "name_ar": "ايطاليا",
+        "name_en": "Italy",
+        "iso_code": "IT",
+        "country_code": "39",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 107,
+        "name_ar": "جامايكا",
+        "name_en": "Jamaica",
+        "iso_code": "JM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 108,
+        "name_ar": "اليابان",
+        "name_en": "Japan",
+        "iso_code": "JP",
+        "country_code": "81",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 109,
+        "name_ar": "جيرسي",
+        "name_en": "Jersey",
+        "iso_code": "JE",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 110,
+        "name_ar": "الأردن",
+        "name_en": "Jordan",
+        "iso_code": "JO",
+        "country_code": "962",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 111,
+        "name_ar": "كازاخستان",
+        "name_en": "Kazakhstan",
+        "iso_code": "KZ",
+        "country_code": "7",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 112,
+        "name_ar": "كينيا",
+        "name_en": "Kenya",
+        "iso_code": "KE",
+        "country_code": "254",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 113,
+        "name_ar": "كيريباتي",
+        "name_en": "Kiribati",
+        "iso_code": "KI",
+        "country_code": "686",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 114,
+        "name_ar": "الكويت",
+        "name_en": "Kuwait",
+        "iso_code": "KW",
+        "country_code": "59",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 115,
+        "name_ar": "قرغيزستان",
+        "name_en": "Kyrgyzstan",
+        "iso_code": "KG",
+        "country_code": "996",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 116,
+        "name_ar": "لاوس",
+        "name_en": "Laos",
+        "iso_code": "LA",
+        "country_code": "856",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 117,
+        "name_ar": "لاتفيا",
+        "name_en": "Latvia",
+        "iso_code": "LV",
+        "country_code": "371",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 118,
+        "name_ar": "لبنان",
+        "name_en": "Lebanon",
+        "iso_code": "LB",
+        "country_code": "961",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 119,
+        "name_ar": "ليسوتو",
+        "name_en": "Lesotho",
+        "iso_code": "LS",
+        "country_code": "266",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 120,
+        "name_ar": "ليبيريا",
+        "name_en": "Liberia",
+        "iso_code": "LR",
+        "country_code": "231",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 121,
+        "name_ar": "ليبيا",
+        "name_en": "Libya",
+        "iso_code": "LY",
+        "country_code": "218",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 122,
+        "name_ar": "ليختنشتاين",
+        "name_en": "Liechtenstein",
+        "iso_code": "LI",
+        "country_code": "243",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 123,
+        "name_ar": "ليتوانيا",
+        "name_en": "Lithuania",
+        "iso_code": "LT",
+        "country_code": "370",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 124,
+        "name_ar": "لوكسمبورج",
+        "name_en": "Luxembourg",
+        "iso_code": "LU",
+        "country_code": "352",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 125,
+        "name_ar": "ماكاو الصينية",
+        "name_en": "Macau SAR China",
+        "iso_code": "MO",
+        "country_code": "853",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 126,
+        "name_ar": "مقدونيا",
+        "name_en": "Macedonia",
+        "iso_code": "MK",
+        "country_code": "389",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 127,
+        "name_ar": "مدغشقر",
+        "name_en": "Madagascar",
+        "iso_code": "MG",
+        "country_code": "261",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 128,
+        "name_ar": "ملاوي",
+        "name_en": "Malawi",
+        "iso_code": "MW",
+        "country_code": "265",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 129,
+        "name_ar": "ماليزيا",
+        "name_en": "Malaysia",
+        "iso_code": "MY",
+        "country_code": "60",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 130,
+        "name_ar": "جزر الملديف",
+        "name_en": "Maldives",
+        "iso_code": "MV",
+        "country_code": "960",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 131,
+        "name_ar": "مالي",
+        "name_en": "Mali",
+        "iso_code": "ML",
+        "country_code": "223",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 132,
+        "name_ar": "مالطا",
+        "name_en": "Malta",
+        "iso_code": "MT",
+        "country_code": "356",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 133,
+        "name_ar": "جزر المارشال",
+        "name_en": "Marshall Islands",
+        "iso_code": "MH",
+        "country_code": "692",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 134,
+        "name_ar": "مارتينيك",
+        "name_en": "Martinique",
+        "iso_code": "MQ",
+        "country_code": "596",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 135,
+        "name_ar": "موريتانيا",
+        "name_en": "Mauritania",
+        "iso_code": "MR",
+        "country_code": "222",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 136,
+        "name_ar": "موريشيوس",
+        "name_en": "Mauritius",
+        "iso_code": "MU",
+        "country_code": "230",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 137,
+        "name_ar": "مايوت",
+        "name_en": "Mayotte",
+        "iso_code": "YT",
+        "country_code": "262",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 138,
+        "name_ar": "المكسيك",
+        "name_en": "Mexico",
+        "iso_code": "MX",
+        "country_code": "52",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 139,
+        "name_ar": "ميكرونيزيا",
+        "name_en": "Micronesia",
+        "iso_code": "FM",
+        "country_code": "691",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 140,
+        "name_ar": "مولدافيا",
+        "name_en": "Moldova",
+        "iso_code": "MD",
+        "country_code": "373",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 141,
+        "name_ar": "موناكو",
+        "name_en": "Monaco",
+        "iso_code": "MC",
+        "country_code": "377",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 142,
+        "name_ar": "منغوليا",
+        "name_en": "Mongolia",
+        "iso_code": "MN",
+        "country_code": "976",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 143,
+        "name_ar": "الجبل الأسود",
+        "name_en": "Montenegro",
+        "iso_code": "ME",
+        "country_code": "382",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 144,
+        "name_ar": "مونتسرات",
+        "name_en": "Montserrat",
+        "iso_code": "MS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 145,
+        "name_ar": "المغرب",
+        "name_en": "Morocco",
+        "iso_code": "MA",
+        "country_code": "212",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 146,
+        "name_ar": "موزمبيق",
+        "name_en": "Mozambique",
+        "iso_code": "MZ",
+        "country_code": "258",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 147,
+        "name_ar": "ميانمار",
+        "name_en": "Myanmar [Burma]",
+        "iso_code": "MM",
+        "country_code": "95",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 148,
+        "name_ar": "ناميبيا",
+        "name_en": "Namibia",
+        "iso_code": "NA",
+        "country_code": "264",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 149,
+        "name_ar": "نورو",
+        "name_en": "Nauru",
+        "iso_code": "NR",
+        "country_code": "674",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 150,
+        "name_ar": "نيبال",
+        "name_en": "Nepal",
+        "iso_code": "NP",
+        "country_code": "977",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 151,
+        "name_ar": "هولندا",
+        "name_en": "Netherlands",
+        "iso_code": "NL",
+        "country_code": "31",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 152,
+        "name_ar": "جزر الأنتيل الهولندية",
+        "name_en": "Netherlands Antilles",
+        "iso_code": "AN",
+        "country_code": "599",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 153,
+        "name_ar": "كاليدونيا الجديدة",
+        "name_en": "New Caledonia",
+        "iso_code": "NC",
+        "country_code": "687",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 154,
+        "name_ar": "نيوزيلاندا",
+        "name_en": "New Zealand",
+        "iso_code": "NZ",
+        "country_code": "64",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 155,
+        "name_ar": "نيكاراجوا",
+        "name_en": "Nicaragua",
+        "iso_code": "NI",
+        "country_code": "505",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 156,
+        "name_ar": "النيجر",
+        "name_en": "Niger",
+        "iso_code": "NE",
+        "country_code": "227",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 157,
+        "name_ar": "نيجيريا",
+        "name_en": "Nigeria",
+        "iso_code": "NG",
+        "country_code": "234",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 158,
+        "name_ar": "نيوي",
+        "name_en": "Niue",
+        "iso_code": "NU",
+        "country_code": "683",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 159,
+        "name_ar": "جزيرة نورفوك",
+        "name_en": "Norfolk Island",
+        "iso_code": "NF",
+        "country_code": "672",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 160,
+        "name_ar": "كوريا الشمالية",
+        "name_en": "North Korea",
+        "iso_code": "KP",
+        "country_code": "850",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 161,
+        "name_ar": "جزر ماريانا الشمالية",
+        "name_en": "Northern Mariana Islands",
+        "iso_code": "MP",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 162,
+        "name_ar": "النرويج",
+        "name_en": "Norway",
+        "iso_code": "NO",
+        "country_code": "47",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 163,
+        "name_ar": "عمان",
+        "name_en": "Oman",
+        "iso_code": "OM",
+        "country_code": "968",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 164,
+        "name_ar": "باكستان",
+        "name_en": "Pakistan",
+        "iso_code": "PK",
+        "country_code": "92",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 165,
+        "name_ar": "بالاو",
+        "name_en": "Palau",
+        "iso_code": "PW",
+        "country_code": "680",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 166,
+        "name_ar": "فلسطين",
+        "name_en": "Palestinian Territories",
+        "iso_code": "PS",
+        "country_code": "970",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 167,
+        "name_ar": "بنما",
+        "name_en": "Panama",
+        "iso_code": "PA",
+        "country_code": "507",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 168,
+        "name_ar": "بابوا غينيا الجديدة",
+        "name_en": "Papua New Guinea",
+        "iso_code": "PG",
+        "country_code": "675",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 169,
+        "name_ar": "باراجواي",
+        "name_en": "Paraguay",
+        "iso_code": "PY",
+        "country_code": "595",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 170,
+        "name_ar": "بيرو",
+        "name_en": "Peru",
+        "iso_code": "PE",
+        "country_code": "51",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 171,
+        "name_ar": "الفيلبين",
+        "name_en": "Philippines",
+        "iso_code": "PH",
+        "country_code": "63",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 172,
+        "name_ar": "بتكايرن",
+        "name_en": "Pitcairn Islands",
+        "iso_code": "PN",
+        "country_code": "870",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 173,
+        "name_ar": "بولندا",
+        "name_en": "Poland",
+        "iso_code": "PL",
+        "country_code": "48",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 174,
+        "name_ar": "البرتغال",
+        "name_en": "Portugal",
+        "iso_code": "PT",
+        "country_code": "351",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 175,
+        "name_ar": "بورتوريكو",
+        "name_en": "Puerto Rico",
+        "iso_code": "PR",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 176,
+        "name_ar": "قطر",
+        "name_en": "Qatar",
+        "iso_code": "QA",
+        "country_code": "974",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 177,
+        "name_ar": "رومانيا",
+        "name_en": "Romania",
+        "iso_code": "RO",
+        "country_code": "40",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 178,
+        "name_ar": "روسيا",
+        "name_en": "Russia",
+        "iso_code": "RU",
+        "country_code": "7",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 179,
+        "name_ar": "رواندا",
+        "name_en": "Rwanda",
+        "iso_code": "RW",
+        "country_code": "250",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 180,
+        "name_ar": "روينيون",
+        "name_en": "Réunion",
+        "iso_code": "RE",
+        "country_code": "262",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 181,
+        "name_ar": "سانت هيلنا",
+        "name_en": "Saint Helena",
+        "iso_code": "SH",
+        "country_code": "290",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 182,
+        "name_ar": "سانت كيتس ونيفيس",
+        "name_en": "Saint Kitts and Nevis",
+        "iso_code": "KN",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 183,
+        "name_ar": "سانت لوسيا",
+        "name_en": "Saint Lucia",
+        "iso_code": "LC",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 184,
+        "name_ar": "سانت مارتين",
+        "name_en": "Saint Martin",
+        "iso_code": "MF",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 185,
+        "name_ar": "سانت بيير وميكولون",
+        "name_en": "Saint Pierre and Miquelon",
+        "iso_code": "PM",
+        "country_code": "508",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 186,
+        "name_ar": "سانت فنسنت وغرنادين",
+        "name_en": "Saint Vincent and the Grenadines",
+        "iso_code": "VC",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 187,
+        "name_ar": "ساموا",
+        "name_en": "Samoa",
+        "iso_code": "WS",
+        "country_code": "685",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 188,
+        "name_ar": "سان مارينو",
+        "name_en": "San Marino",
+        "iso_code": "SM",
+        "country_code": "378",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 189,
+        "name_ar": "المملكة العربية السعودية",
+        "name_en": "Saudi Arabia",
+        "iso_code": "SA",
+        "country_code": "966",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 190,
+        "name_ar": "السنغال",
+        "name_en": "Senegal",
+        "iso_code": "SN",
+        "country_code": "221",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 191,
+        "name_ar": "صربيا",
+        "name_en": "Serbia",
+        "iso_code": "RS",
+        "country_code": "381",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 192,
+        "name_ar": "صربيا والجبل الأسود",
+        "name_en": "Serbia and Montenegro",
+        "iso_code": "CS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 193,
+        "name_ar": "سيشل",
+        "name_en": "Seychelles",
+        "iso_code": "SC",
+        "country_code": "248",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 194,
+        "name_ar": "سيراليون",
+        "name_en": "Sierra Leone",
+        "iso_code": "SL",
+        "country_code": "232",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 195,
+        "name_ar": "سنغافورة",
+        "name_en": "Singapore",
+        "iso_code": "SG",
+        "country_code": "65",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 196,
+        "name_ar": "سلوفاكيا",
+        "name_en": "Slovakia",
+        "iso_code": "SK",
+        "country_code": "421",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 197,
+        "name_ar": "سلوفينيا",
+        "name_en": "Slovenia",
+        "iso_code": "SI",
+        "country_code": "386",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 198,
+        "name_ar": "جزر سليمان",
+        "name_en": "Solomon Islands",
+        "iso_code": "SB",
+        "country_code": "677",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 199,
+        "name_ar": "الصومال",
+        "name_en": "Somalia",
+        "iso_code": "SO",
+        "country_code": "252",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 200,
+        "name_ar": "جمهورية جنوب افريقيا",
+        "name_en": "South Africa",
+        "iso_code": "ZA",
+        "country_code": "27",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 201,
+        "name_ar": "جورجيا الجنوبية وجزر ساندويتش الجنوبية",
+        "name_en": "South Georgia and the South Sandwich Islands",
+        "iso_code": "GS",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 202,
+        "name_ar": "كوريا الجنوبية",
+        "name_en": "South Korea",
+        "iso_code": "KR",
+        "country_code": "82",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 203,
+        "name_ar": "أسبانيا",
+        "name_en": "Spain",
+        "iso_code": "ES",
+        "country_code": "34",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 204,
+        "name_ar": "سريلانكا",
+        "name_en": "Sri Lanka",
+        "iso_code": "LK",
+        "country_code": "94",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 205,
+        "name_ar": "السودان",
+        "name_en": "Sudan",
+        "iso_code": "SD",
+        "country_code": "249",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 206,
+        "name_ar": "سورينام",
+        "name_en": "Suriname",
+        "iso_code": "SR",
+        "country_code": "597",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 207,
+        "name_ar": "سفالبارد وجان مايان",
+        "name_en": "Svalbard and Jan Mayen",
+        "iso_code": "SJ",
+        "country_code": "47",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 208,
+        "name_ar": "سوازيلاند",
+        "name_en": "Swaziland",
+        "iso_code": "SZ",
+        "country_code": "268",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 209,
+        "name_ar": "السويد",
+        "name_en": "Sweden",
+        "iso_code": "SE",
+        "country_code": "46",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 210,
+        "name_ar": "سويسرا",
+        "name_en": "Switzerland",
+        "iso_code": "CH",
+        "country_code": "41",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 211,
+        "name_ar": "سوريا",
+        "name_en": "Syria",
+        "iso_code": "SY",
+        "country_code": "963",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 212,
+        "name_ar": "ساو تومي وبرينسيبي",
+        "name_en": "São Tomé and Príncipe",
+        "iso_code": "ST",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 213,
+        "name_ar": "تايوان",
+        "name_en": "Taiwan",
+        "iso_code": "TW",
+        "country_code": "886",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 214,
+        "name_ar": "طاجكستان",
+        "name_en": "Tajikistan",
+        "iso_code": "TJ",
+        "country_code": "992",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 215,
+        "name_ar": "تانزانيا",
+        "name_en": "Tanzania",
+        "iso_code": "TZ",
+        "country_code": "255",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 216,
+        "name_ar": "تايلند",
+        "name_en": "Thailand",
+        "iso_code": "TH",
+        "country_code": "66",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 217,
+        "name_ar": "تيمور الشرقية",
+        "name_en": "Timor-Leste",
+        "iso_code": "TL",
+        "country_code": "670",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 218,
+        "name_ar": "توجو",
+        "name_en": "Togo",
+        "iso_code": "TG",
+        "country_code": "228",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 219,
+        "name_ar": "توكيلو",
+        "name_en": "Tokelau",
+        "iso_code": "TK",
+        "country_code": "690",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 220,
+        "name_ar": "تونجا",
+        "name_en": "Tonga",
+        "iso_code": "TO",
+        "country_code": "676",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 221,
+        "name_ar": "ترينيداد وتوباغو",
+        "name_en": "Trinidad and Tobago",
+        "iso_code": "TT",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 222,
+        "name_ar": "تونس",
+        "name_en": "Tunisia",
+        "iso_code": "TN",
+        "country_code": "216",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 223,
+        "name_ar": "تركيا",
+        "name_en": "Turkey",
+        "iso_code": "TR",
+        "country_code": "90",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 224,
+        "name_ar": "تركمانستان",
+        "name_en": "Turkmenistan",
+        "iso_code": "TM",
+        "country_code": "993",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 225,
+        "name_ar": "جزر الترك وجايكوس",
+        "name_en": "Turks and Caicos Islands",
+        "iso_code": "TC",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 226,
+        "name_ar": "توفالو",
+        "name_en": "Tuvalu",
+        "iso_code": "TV",
+        "country_code": "688",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 227,
+        "name_ar": "جزر الولايات المتحدة البعيدة الصغيرة",
+        "name_en": "U.S. Minor Outlying Islands",
+        "iso_code": "UM",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 228,
+        "name_ar": "جزر فرجين الأمريكية",
+        "name_en": "U.S. Virgin Islands",
+        "iso_code": "VI",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 229,
+        "name_ar": "أوغندا",
+        "name_en": "Uganda",
+        "iso_code": "UG",
+        "country_code": "256",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 230,
+        "name_ar": "أوكرانيا",
+        "name_en": "Ukraine",
+        "iso_code": "UA",
+        "country_code": "380",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 231,
+        "name_ar": "الامارات العربية المتحدة",
+        "name_en": "United Arab Emirates",
+        "iso_code": "AE",
+        "country_code": "971",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 232,
+        "name_ar": "المملكة المتحدة",
+        "name_en": "United Kingdom",
+        "iso_code": "GB",
+        "country_code": "44",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 233,
+        "name_ar": "الولايات المتحدة الأمريكية",
+        "name_en": "United States",
+        "iso_code": "US",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 234,
+        "name_ar": "منطقة غير معرفة",
+        "name_en": "Unknown or Invalid Region",
+        "iso_code": "ZZ",
+        "country_code": "1",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 235,
+        "name_ar": "أورجواي",
+        "name_en": "Uruguay",
+        "iso_code": "UY",
+        "country_code": "598",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 236,
+        "name_ar": "أوزبكستان",
+        "name_en": "Uzbekistan",
+        "iso_code": "UZ",
+        "country_code": "998",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 237,
+        "name_ar": "فانواتو",
+        "name_en": "Vanuatu",
+        "iso_code": "VU",
+        "country_code": "678",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 238,
+        "name_ar": "الفاتيكان",
+        "name_en": "Vatican City",
+        "iso_code": "VA",
+        "country_code": "379",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 239,
+        "name_ar": "فنزويلا",
+        "name_en": "Venezuela",
+        "iso_code": "VE",
+        "country_code": "58",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 240,
+        "name_ar": "فيتنام",
+        "name_en": "Vietnam",
+        "iso_code": "VN",
+        "country_code": "84",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 241,
+        "name_ar": "جزر والس وفوتونا",
+        "name_en": "Wallis and Futuna",
+        "iso_code": "WF",
+        "country_code": "681",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 242,
+        "name_ar": "الصحراء الغربية",
+        "name_en": "Western Sahara",
+        "iso_code": "EH",
+        "country_code": "212",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 243,
+        "name_ar": "اليمن",
+        "name_en": "Yemen",
+        "iso_code": "YE",
+        "country_code": "967",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 244,
+        "name_ar": "زامبيا",
+        "name_en": "Zambia",
+        "iso_code": "ZM",
+        "country_code": "260",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 245,
+        "name_ar": "زيمبابوي",
+        "name_en": "Zimbabwe",
+        "iso_code": "ZW",
+        "country_code": "236",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 246,
+        "name_ar": "جزر أولان",
+        "name_en": "Åland Islands",
+        "iso_code": "AX",
+        "country_code": "358",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    }
+]
 ```
 
 ### HTTP Request
-`POST api/post/{post}/answer`
+`GET api/countrycodes`
 
-#### URL Parameters
 
-Parameter | Status | Description
---------- | ------- | ------- | -------
-    `post_id` |  required  | int, exists in posts
-
-<!-- END_b8c093319f63f6104bb55df0e5169242 -->
-
-#Auth
-
+<!-- END_a8e9988fc450431ae63401388912b16a -->
 
 <!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
 ## Login
@@ -88,7 +2537,7 @@ curl -X POST \
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789","device_type":"voluptas"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"voluptates"}'
 
 ```
 
@@ -105,7 +2554,7 @@ let headers = {
 let body = {
     "user": "00966236363256",
     "password": "123456789",
-    "device_type": "voluptas"
+    "device_type": "voluptates"
 }
 
 fetch(url, {
@@ -181,7 +2630,7 @@ curl -X POST \
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"est"}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"ea","mobile_country_id":13}'
 
 ```
 
@@ -200,7 +2649,8 @@ let body = {
     "email": "api@wajad.com",
     "password": "123456789",
     "mobile_number": "123456789",
-    "device_type": "est"
+    "device_type": "ea",
+    "mobile_country_id": 13
 }
 
 fetch(url, {
@@ -231,7 +2681,17 @@ fetch(url, {
         "is_email_verified": false,
         "is_mobile_number_verified": false,
         "default_distance_unit": "kilo",
-        "image": "image.png"
+        "image": "image.png",
+        "country": {
+            "id": 64,
+            "name_ar": "مصر",
+            "name_en": "Egypt",
+            "iso_code": "EG",
+            "country_code": "20",
+            "deleted_at": null,
+            "created_at": null,
+            "updated_at": null
+        }
     }
 }
 ```
@@ -247,6 +2707,7 @@ Parameter | Type | Status | Description
         `password` | string |  required  | min:6 .
         `mobile_number` | numeric |  required  | min:6,unique:users,mobile_number,digits_between:9,14.
         `device_type` | string |  required  | android or ios
+        `mobile_country_id` | integer |  required  | exists:countries,id
     
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
 
@@ -258,9 +2719,11 @@ Parameter | Type | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/refreshToken?Old=vero" \
+    "http://api.wajad.test/api/refreshToken" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"sit"}'
+
 ```
 
 ```javascript
@@ -268,20 +2731,19 @@ const url = new URL(
     "http://api.wajad.test/api/refreshToken"
 );
 
-let params = {
-    "Old": "vero",
-};
-Object.keys(params)
-    .forEach(key => url.searchParams.append(key, params[key]));
-
 let headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "sit"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -313,12 +2775,11 @@ fetch(url, {
 ### HTTP Request
 `POST api/refreshToken`
 
-#### Query Parameters
-
-Parameter | Status | Description
---------- | ------- | ------- | -----------
-    `Old` |  optional  | Bearer Token
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_406e4552819a456070d1f6c93688188d -->
 
 <!-- START_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
@@ -330,7 +2791,9 @@ Parameter | Status | Description
 curl -X POST \
     "http://api.wajad.test/api/sendCode/phone." \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"ipsa"}'
+
 ```
 
 ```javascript
@@ -343,9 +2806,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "ipsa"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -370,12 +2838,15 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `type` |  required  | phone or email.
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
 
 <!-- START_61739f3220a224b34228600649230ad1 -->
 ## Logout
-[Destroy The Token]
 
 > Example request:
 
@@ -383,7 +2854,9 @@ Parameter | Status | Description
 curl -X POST \
     "http://api.wajad.test/api/logout" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"iusto"}'
+
 ```
 
 ```javascript
@@ -396,40 +2869,201 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "iusto"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
 ```
 
 
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "User logged out successfully.",
+    "status_code": 200
+}
+```
 
 ### HTTP Request
 `POST api/logout`
 
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_61739f3220a224b34228600649230ad1 -->
+
+#FCM
+
+
+<!-- START_52d12c3be4526cb65821766c16d35f7e -->
+## Get FCM List
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/fcm" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"nobis"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/fcm"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "nobis"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
+    "data": [
+        {
+            "ar": {
+                "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
+                "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
+            },
+            "en": {
+                "title": "  There Some One Scanned Your QR Code ",
+                "body": "There Some One Scanned Your QR Code    Check the location on the map . "
+            },
+            "url": "https:\/\/www.google.com\/maps\/search\/?api=1&query=30.254445588,40.3644552",
+            "type": "qrcode",
+            "object_type": "scan",
+            "id": 10295,
+            "related_id": -1,
+            "badge": 1
+        }
+    ],
+    "created_at": "2020-04-07T15:07:22.000000Z",
+    "read_at": "2020-04-07T15:07:22.000000Z"
+}
+```
+
+### HTTP Request
+`GET api/fcm`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
+<!-- END_52d12c3be4526cb65821766c16d35f7e -->
+
+<!-- START_6b045e89df94ac5ae4b0be311f58e4bb -->
+## Save Fcm  Device Token
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/fcm/create" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fcm_token":"est","lang":"voluptates","device":"iste","token":"perferendis"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/fcm/create"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "fcm_token": "est",
+    "lang": "voluptates",
+    "device": "iste",
+    "token": "perferendis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "FCM Token created successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`POST api/fcm/create`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `fcm_token` | required |  optional  | 
+        `lang` | required |  optional  | in:ar,en
+        `device` | required |  optional  | in:android,ios
+        `token` | Barier-token |  required  | 
+    
+<!-- END_6b045e89df94ac5ae4b0be311f58e4bb -->
 
 #Home
 
 
-<!-- START_e22799a526b2d5e6c38d0c9ffba872eb -->
+<!-- START_f88a061d9993dcc554330a46cccfb0dc -->
 ## Banners
 
 > Example request:
 
 ```bash
 curl -X GET \
-    -G "http://api.wajad.test/api/home/banners" \
+    -G "http://api.wajad.test/api/home/banners/" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/home/banners"
+    "http://api.wajad.test/api/home/banners/"
 );
 
 let headers = {
@@ -454,17 +3088,33 @@ fetch(url, {
         {
             "type": "url",
             "image": "http:\/\/wajad.test\/ddd",
-            "url": "c dvd"
+            "url": "c dvd",
+            "item_id": null,
+            "item": null
+        },
+        {
+            "type": "item",
+            "image": "http:\/\/wajad.test\/ddd",
+            "url": "c dvddfefe",
+            "item_id": "1",
+            "item": {
+                "latitude": "30.1111111",
+                "longitude": "30.1111111",
+                "name": "khoih",
+                "description": "jgiugiugiu",
+                "city": "Cairo",
+                "date": "2019-12-12 11:12:05"
+            }
         }
     ]
 }
 ```
 
 ### HTTP Request
-`GET api/home/banners`
+`GET api/home/banners/{banner?}`
 
 
-<!-- END_e22799a526b2d5e6c38d0c9ffba872eb -->
+<!-- END_f88a061d9993dcc554330a46cccfb0dc -->
 
 <!-- START_adef4ddd684318346ed10525cf68c6e9 -->
 ## Posts
@@ -473,14 +3123,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/vel/1" \
+    -G "http://api.wajad.test/api/home/posts/quo/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/home/posts/vel/1"
+    "http://api.wajad.test/api/home/posts/quo/1"
 );
 
 let headers = {
@@ -558,7 +3208,10 @@ fetch(url, {
                     "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
                 },
                 "date": "2019-12-13 00:00:00",
-                "images": []
+                "images": [
+                    "\/images\/image.png",
+                    "\/images\/image.png"
+                ]
             },
             "sub_category": {
                 "id": 5,
@@ -572,44 +3225,81 @@ fetch(url, {
                 "description": "Laudantium fugit ut harum magnam magnam deserunt.",
                 "image": "http:\/\/wajad.test\/default-icon.png"
             },
-            "color": null,
+            "color": {
+                "id": 1,
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
             "date": "2019-12-08 15:40:37",
-            "images": [],
-            "post_requests": [
+            "images": [
+                "\/images\/image.png",
+                "\/images\/image.png"
+            ],
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "question1?",
+                    "answer": "answer1"
+                },
+                {
+                    "id": 2,
+                    "question": "question2?",
+                    "answer": "answer2"
+                },
                 {
                     "id": 3,
-                    "is_request_valid": 0,
-                    "cliamers": {
-                        "questions": [
-                            {
-                                "id": 1,
-                                "question": "kp'[k'[p\r\n",
-                                "answers": [
-                                    {
-                                        "id": 1,
-                                        "answer": ";lokpok",
-                                        "date": "2019-12-10 00:00:00"
-                                    }
-                                ]
-                            }
-                        ],
-                        "id": 1,
-                        "name": "Admin",
-                        "email": "admin@nova.com",
-                        "status": 1,
-                        "mobile_number": "01111086890",
-                        "receive_emails": false,
-                        "receive_push_notifications": false,
-                        "is_email_verified": false,
-                        "is_mobile_number_verified": false,
-                        "default_distance_unit": "kilo"
-                    },
-                    "date": "2019-12-10 00:00:00"
+                    "question": "question3?",
+                    "answer": "answer3"
+                }
+            ],
+            "claimers": [
+                {
+                    "questions": [
+                        {
+                            "id": 1,
+                            "question": "question1?",
+                            "answer": "answer1"
+                        },
+                        {
+                            "id": 2,
+                            "question": "question2?",
+                            "answer": "answer2"
+                        },
+                        {
+                            "id": 3,
+                            "question": "question3?",
+                            "answer": "answer3"
+                        }
+                    ],
+                    "id": 4,
+                    "name": "Braden Heathcote",
+                    "email": "matt.koelpin@wunsch.com",
+                    "status": 1,
+                    "mobile_number": "+18155885009",
+                    "receive_emails": true,
+                    "receive_push_notifications": true,
+                    "is_email_verified": true,
+                    "is_mobile_number_verified": false,
+                    "default_distance_unit": "kilo",
+                    "image": "http:\/\/admin-wajad.smartappco.net\/images\/profile\/default-profile.png"
                 }
             ],
             "city": {
                 "id": 1,
                 "name": "Al Riyadh"
+            },
+            "publisher": {
+                "id": 105,
+                "name": "teddy tf high j",
+                "email": "ss@ss.com",
+                "status": 1,
+                "mobile_number": "966512345678",
+                "receive_emails": false,
+                "receive_push_notifications": false,
+                "is_email_verified": false,
+                "is_mobile_number_verified": true,
+                "default_distance_unit": "kilo",
+                "image": "http:\/\/admin-wajad.smartappco.net\/images\/profile\/sKtIyY1Kl67j9gp.png"
             }
         }
     ]
@@ -640,7 +3330,9 @@ Parameter | Status | Description
 curl -X GET \
     -G "http://api.wajad.test/api/userItems" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"voluptatem"}'
+
 ```
 
 ```javascript
@@ -653,9 +3345,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "voluptatem"
+}
+
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -683,6 +3380,12 @@ fetch(url, {
                 "is_email_verified": false,
                 "is_mobile_number_verified": false,
                 "default_distance_unit": "kilo"
+            },
+            "subcategory": {
+                "id": 5,
+                "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+                "description": "Quia impedit hic nesciunt quis eum.",
+                "image": "http:\/\/wajad.test\/default-icon.png"
             },
             "model": {
                 "id": 1,
@@ -730,7 +3433,11 @@ fetch(url, {
 ### HTTP Request
 `GET api/userItems`
 
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_e18d215dd04344daa68de35e381670fd -->
 
 <!-- START_1f8988f8b514fb2127ba9ed8e2499f98 -->
@@ -742,7 +3449,9 @@ fetch(url, {
 curl -X GET \
     -G "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"modi"}'
+
 ```
 
 ```javascript
@@ -755,9 +3464,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "modi"
+}
+
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -784,6 +3498,12 @@ fetch(url, {
             "is_email_verified": false,
             "is_mobile_number_verified": false,
             "default_distance_unit": "kilo"
+        },
+        "subcategory": {
+            "id": 5,
+            "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+            "description": "Quia impedit hic nesciunt quis eum.",
+            "image": "http:\/\/wajad.test\/default-icon.png"
         },
         "model": {
             "id": 1,
@@ -856,7 +3576,11 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `item` |  required  | int Item id.
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_1f8988f8b514fb2127ba9ed8e2499f98 -->
 
 <!-- START_07fb85e5d8610027392f9f49c33a97c1 -->
@@ -869,7 +3593,7 @@ curl -X POST \
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"architecto","details":"odit","color_id":"sunt","brand_id":"sed","model_id":"et","sub_category_id":"repellat"}'
+    -d '{"title":"quae","details":"ut","color_id":"mollitia","brand_id":"quisquam","model_id":"at","sub_category_id":"culpa","qrcode_id":"omnis","images":["voluptatem"],"token":"quae"}'
 
 ```
 
@@ -884,12 +3608,17 @@ let headers = {
 };
 
 let body = {
-    "title": "architecto",
-    "details": "odit",
-    "color_id": "sunt",
-    "brand_id": "sed",
-    "model_id": "et",
-    "sub_category_id": "repellat"
+    "title": "quae",
+    "details": "ut",
+    "color_id": "mollitia",
+    "brand_id": "quisquam",
+    "model_id": "at",
+    "sub_category_id": "culpa",
+    "qrcode_id": "omnis",
+    "images": [
+        "voluptatem"
+    ],
+    "token": "quae"
 }
 
 fetch(url, {
@@ -924,19 +3653,25 @@ Parameter | Type | Status | Description
         `brand_id` | exists:brands,id |  required  | 
         `model_id` | exists:models,id |  required  | 
         `sub_category_id` | exists:sub_category,id |  required  | 
+        `qrcode_id` | exists:qrcodes,id |  optional  | 
+        `images` | array |  required  | between:1,5
+        `images.*` | image |  required  | mimes:jpeg,jpg,png,gif max:5012
+        `token` | Barier-token |  required  | 
     
 <!-- END_07fb85e5d8610027392f9f49c33a97c1 -->
 
-<!-- START_e34601ed139d88ac1613ec4df2056baa -->
+<!-- START_589a987e1c85f683fdb556954a192f2c -->
 ## Edit Item
 
 > Example request:
 
 ```bash
-curl -X PUT \
+curl -X POST \
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"title":"ullam","details":"architecto","color_id":"quam","brand_id":"sapiente","model_id":"dignissimos","sub_category_id":"repellat","qrcode_id":"nisi","images":["ut"],"token":"animi"}'
+
 ```
 
 ```javascript
@@ -949,9 +3684,24 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "title": "ullam",
+    "details": "architecto",
+    "color_id": "quam",
+    "brand_id": "sapiente",
+    "model_id": "dignissimos",
+    "sub_category_id": "repellat",
+    "qrcode_id": "nisi",
+    "images": [
+        "ut"
+    ],
+    "token": "animi"
+}
+
 fetch(url, {
-    method: "PUT",
+    method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -969,15 +3719,28 @@ fetch(url, {
 ```
 
 ### HTTP Request
-`PUT api/items/{item}`
+`POST api/items/{item}`
 
 #### URL Parameters
 
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `item` |  required  | int Item id.
-
-<!-- END_e34601ed139d88ac1613ec4df2056baa -->
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `title` | min:6,max:255 |  required  | 
+        `details` | min:20,max:500 |  required  | 
+        `color_id` | exists:colors,id |  required  | 
+        `brand_id` | exists:brands,id |  required  | 
+        `model_id` | exists:models,id |  required  | 
+        `sub_category_id` | exists:sub_category,id |  required  | 
+        `qrcode_id` | exists:qrcodes,id |  optional  | 
+        `images` | array |  required  | between:1,5
+        `images.*` | image |  required  | mimes:jpeg,jpg,png,gif max:5012
+        `token` | Barier-token |  required  | 
+    
+<!-- END_589a987e1c85f683fdb556954a192f2c -->
 
 <!-- START_4ba7e871e55098b0081507ac0b4e478b -->
 ## Delete Item
@@ -988,7 +3751,9 @@ Parameter | Status | Description
 curl -X DELETE \
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"quia"}'
+
 ```
 
 ```javascript
@@ -1001,9 +3766,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "quia"
+}
+
 fetch(url, {
     method: "DELETE",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1028,14 +3798,169 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `item` |  required  | Item id.
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_4ba7e871e55098b0081507ac0b4e478b -->
+
+#Map
+
+
+<!-- START_bd6ef4ad5e299a34f4c6db1eb27ba327 -->
+## Map
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/maps/molestiae" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"longitude":"dolorem","latitude":"quidem","radius":13,"unit":"non"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/maps/molestiae"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "longitude": "dolorem",
+    "latitude": "quidem",
+    "radius": 13,
+    "unit": "non"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Error cumque sit culpa quibusdam aut sunt nemo.",
+            "details": "Quis voluptate perspiciatis officia omnis veritatis id. Voluptas culpa molestiae beatae corporis saepe quos iusto. Molestiae enim optio maiores dolor sit soluta. Aliquid commodi pariatur aliquid. Fugiat animi eos sapiente dolor possimus. Ut quo voluptatem nobis eos. Vitae nulla illum debitis consequuntur quaerat deserunt. Suscipit cum earum et et consectetur et. Tempore voluptates dolore ratione eveniet molestiae ullam. Est qui sit totam modi voluptas omnis officia. Illum nostrum vel unde iusto. Animi reiciendis odio et repellendus rem id. Qui deserunt rerum explicabo est dolorem dolorem nulla. Ratione dolorem libero doloremque laboriosam temporibus autem veniam corrupti. Accusantium ad autem excepturi quasi minus. Eveniet velit rem numquam ipsum. Voluptatibus eligendi nihil dolor hic perspiciatis. Qui omnis est voluptatem assumenda. Debitis fuga est blanditiis dolorem nihil impedit. Nihil est illum cupiditate unde beatae suscipit labore. Et alias eligendi sed quam blanditiis consequatur.",
+            "latitude": -47.854138,
+            "longitude": -18.526692,
+            "image": "http:\/\/wajad.test\/",
+            "address": ""
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/maps/{type?}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `type` |  required  | in:lost,found,office
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `longitude` | string |  required  | 
+        `latitude` | string |  required  | 
+        `radius` | integer |  required  | 
+        `unit` | string,in:kilo,mile |  required  | 
+    
+<!-- END_bd6ef4ad5e299a34f4c6db1eb27ba327 -->
+
+#Packages
+
+
+<!-- START_c9db6d511dc413ffed938cbd76dd5af7 -->
+## Packages
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/packages" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"beatae"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/packages"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "beatae"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": [
+        {
+            "id": 12,
+            "name": "Platinum Package",
+            "description": "Get 25 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.",
+            "qrcodes_count": 1500,
+            "price": 1500,
+            "currency": "USD",
+            "period": "12 days",
+            "type": "single",
+            "incrementally": true
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/packages`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
+<!-- END_c9db6d511dc413ffed938cbd76dd5af7 -->
 
 #Pages
 
 
 <!-- START_727da77b51e4f96916de138b4b71c037 -->
-## Pages
+## Contact Us
 
 > Example request:
 
@@ -1069,11 +3994,15 @@ fetch(url, {
 
 ```json
 {
-    "data": {
-        "id": 1,
-        "page": "about-us",
-        "title": "okpokmj",
-        "body": "ppojpoj"
+    "data contact-us": {
+        "Facebook-Link": "http:\/\/www.facebook.com",
+        "Twitter-Link": "http:\/\/www.twitter.com",
+        "Phone-Number-1": "+96611111111",
+        "Phone-Number-2": "+96622222222",
+        "Address1": "KSA \/ Jedda",
+        "Address2": "KSA \/ Jedda 2",
+        "Email1": "info@wajad.com",
+        "Email2": "info2@wajad.com"
     }
 }
 ```
@@ -1085,64 +4014,14 @@ fetch(url, {
 
 Parameter | Status | Description
 --------- | ------- | ------- | -------
-    `type` |  required  | about-us or contact-us or privacy-policy
+    `contact-us` |  required  | 
+    `about-us` |  required  | 
+    `privacy-policy` |  required  | 
 
 <!-- END_727da77b51e4f96916de138b4b71c037 -->
 
 #Post Request
 
-
-<!-- START_e4d239ac8a5a2883bb4c41b1264d1930 -->
-## This item is mine
-
-> Example request:
-
-```bash
-curl -X POST \
-    "http://api.wajad.test/api/request/post/1" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/request/post/1"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "success": true,
-    "message": "Post request created successfully.",
-    "status_code": 200
-}
-```
-
-### HTTP Request
-`POST api/request/post/{post}`
-
-#### URL Parameters
-
-Parameter | Status | Description
---------- | ------- | ------- | -------
-    `post_id` |  required  | int, exists in posts
-
-<!-- END_e4d239ac8a5a2883bb4c41b1264d1930 -->
 
 <!-- START_af5dda572adce7d093ba91ef873857b9 -->
 ## This Post Request is his
@@ -1154,7 +4033,7 @@ curl -X POST \
     "http://api.wajad.test/api/request/1/accept" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":"dolore"}'
+    -d '{"user_id":"consequatur","token":"reprehenderit"}'
 
 ```
 
@@ -1169,7 +4048,8 @@ let headers = {
 };
 
 let body = {
-    "user_id": "dolore"
+    "user_id": "consequatur",
+    "token": "reprehenderit"
 }
 
 fetch(url, {
@@ -1204,6 +4084,7 @@ Parameter | Status | Description
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `user_id` | required |  optional  | int exists in users
+        `token` | Barier-token |  required  | 
     
 <!-- END_af5dda572adce7d093ba91ef873857b9 -->
 
@@ -1216,7 +4097,9 @@ Parameter | Type | Status | Description
 curl -X POST \
     "http://api.wajad.test/api/request/1/reject" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"user_id":10,"token":"aut"}'
+
 ```
 
 ```javascript
@@ -1229,9 +4112,15 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "user_id": 10,
+    "token": "aut"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1256,8 +4145,85 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `post_id` |  required  | int exists in posts
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `user_id` | integer |  required  | exists in users
+        `token` | Barier-token |  required  | 
+    
 <!-- END_d6b20bbd04c0424e02089d99a282853f -->
+
+<!-- START_b8c093319f63f6104bb55df0e5169242 -->
+## This item is mine
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/post/1/answer" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"data":[{"answers":"perspiciatis","question_id":18}],"token":"omnis"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/post/1/answer"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "data": [
+        {
+            "answers": "perspiciatis",
+            "question_id": 18
+        }
+    ],
+    "token": "omnis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "Post request created successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`POST api/post/{post}/answer`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `post_id` |  required  | int, exists in posts
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `data` | array |  required  | 
+        `data.*.answers` | string |  required  | min:20, max:500
+        `data.*.question_id` | integer |  required  | exists:questions,id
+        `token` | Barier-token |  required  | 
+    
+<!-- END_b8c093319f63f6104bb55df0e5169242 -->
 
 #Posts
 
@@ -1271,7 +4237,9 @@ Parameter | Status | Description
 curl -X GET \
     -G "http://api.wajad.test/api/userPosts/found." \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"nulla"}'
+
 ```
 
 ```javascript
@@ -1284,9 +4252,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "nulla"
+}
+
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1296,107 +4269,7 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{
-    "data": [
-        {
-            "id": 3,
-            "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
-            "approval_status": 1,
-            "reward": 0,
-            "description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
-            "status": "found",
-            "attached_to_item": true,
-            "item": {
-                "id": 1,
-                "title": "poj",
-                "details": "pokpo",
-                "status": "found",
-                "owner": {
-                    "id": 2,
-                    "name": "User",
-                    "email": "user@nova.com",
-                    "status": 1,
-                    "mobile_number": "01142416124",
-                    "receive_emails": false,
-                    "receive_push_notifications": false,
-                    "is_email_verified": false,
-                    "is_mobile_number_verified": false,
-                    "default_distance_unit": "kilo"
-                },
-                "model": {
-                    "id": 3,
-                    "name": "Explicabo rerum ut et dolores officiis et.",
-                    "description": "Laudantium fugit ut harum magnam magnam deserunt.",
-                    "image": "http:\/\/wajad.test\/default-icon.png"
-                },
-                "color": {
-                    "id": 1,
-                    "name": "Red",
-                    "icon": "images\/colors\/red.png"
-                },
-                "brand": {
-                    "id": 2,
-                    "name": "Et dicta similique adipisci ut autem deleniti qui.",
-                    "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
-                    "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
-                },
-                "date": "2019-12-13 00:00:00",
-                "images": []
-            },
-            "sub_category": {
-                "id": 5,
-                "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
-                "description": "Quia impedit hic nesciunt quis eum.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "model": {
-                "id": 3,
-                "name": "Explicabo rerum ut et dolores officiis et.",
-                "description": "Laudantium fugit ut harum magnam magnam deserunt.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
-            },
-            "color": null,
-            "date": "2019-12-08 15:40:37",
-            "images": [],
-            "post_requests": [
-                {
-                    "id": 3,
-                    "is_request_valid": 0,
-                    "cliamers": {
-                        "questions": [
-                            {
-                                "id": 1,
-                                "question": "kp'[k'[p\r\n",
-                                "answers": [
-                                    {
-                                        "id": 1,
-                                        "answer": ";lokpok",
-                                        "date": "2019-12-10 00:00:00"
-                                    }
-                                ]
-                            }
-                        ],
-                        "id": 1,
-                        "name": "Admin",
-                        "email": "admin@nova.com",
-                        "status": 1,
-                        "mobile_number": "01111086890",
-                        "receive_emails": false,
-                        "receive_push_notifications": false,
-                        "is_email_verified": false,
-                        "is_mobile_number_verified": false,
-                        "default_distance_unit": "kilo"
-                    },
-                    "date": "2019-12-10 00:00:00"
-                }
-            ],
-            "city": {
-                "id": 1,
-                "name": "Al Riyadh"
-            }
-        }
-    ]
-}
+null
 ```
 
 ### HTTP Request
@@ -1407,7 +4280,11 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `type` |  required  | lost or found.
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_93fe34fffcec9f399970d7fffb9bcc14 -->
 
 <!-- START_744b6fe741992bf8fdb4f532ceaa3586 -->
@@ -1420,7 +4297,7 @@ curl -X POST \
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"nostrum","image":"enim"}'
+    -d '{"details":"aperiam","image":"aut","token":"totam"}'
 
 ```
 
@@ -1435,8 +4312,9 @@ let headers = {
 };
 
 let body = {
-    "details": "nostrum",
-    "image": "enim"
+    "details": "aperiam",
+    "image": "aut",
+    "token": "totam"
 }
 
 fetch(url, {
@@ -1472,6 +4350,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `details` | string |  optional  | nullable max:1000
         `image` | image |  optional  | sometimes mimes:jpeg,jpg,png,gif max:5102
+        `token` | Barier-token |  required  | 
     
 <!-- END_744b6fe741992bf8fdb4f532ceaa3586 -->
 
@@ -1484,7 +4363,9 @@ Parameter | Type | Status | Description
 curl -X GET \
     -G "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"quos"}'
+
 ```
 
 ```javascript
@@ -1497,9 +4378,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "quos"
+}
+
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1510,57 +4396,30 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 3,
-            "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
-            "approval_status": 1,
-            "reward": 0,
-            "description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
+    "data": {
+        "id": 3,
+        "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
+        "approval_status": 1,
+        "reward": 0,
+        "description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
+        "status": "found",
+        "attached_to_item": true,
+        "item": {
+            "id": 1,
+            "title": "poj",
+            "details": "pokpo",
             "status": "found",
-            "attached_to_item": true,
-            "item": {
-                "id": 1,
-                "title": "poj",
-                "details": "pokpo",
-                "status": "found",
-                "owner": {
-                    "id": 2,
-                    "name": "User",
-                    "email": "user@nova.com",
-                    "status": 1,
-                    "mobile_number": "01142416124",
-                    "receive_emails": false,
-                    "receive_push_notifications": false,
-                    "is_email_verified": false,
-                    "is_mobile_number_verified": false,
-                    "default_distance_unit": "kilo"
-                },
-                "model": {
-                    "id": 3,
-                    "name": "Explicabo rerum ut et dolores officiis et.",
-                    "description": "Laudantium fugit ut harum magnam magnam deserunt.",
-                    "image": "http:\/\/wajad.test\/default-icon.png"
-                },
-                "color": {
-                    "id": 1,
-                    "name": "Red",
-                    "icon": "images\/colors\/red.png"
-                },
-                "brand": {
-                    "id": 2,
-                    "name": "Et dicta similique adipisci ut autem deleniti qui.",
-                    "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
-                    "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
-                },
-                "date": "2019-12-13 00:00:00",
-                "images": []
-            },
-            "sub_category": {
-                "id": 5,
-                "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
-                "description": "Quia impedit hic nesciunt quis eum.",
-                "image": "http:\/\/wajad.test\/default-icon.png"
+            "owner": {
+                "id": 2,
+                "name": "User",
+                "email": "user@nova.com",
+                "status": 1,
+                "mobile_number": "01142416124",
+                "receive_emails": false,
+                "receive_push_notifications": false,
+                "is_email_verified": false,
+                "is_mobile_number_verified": false,
+                "default_distance_unit": "kilo"
             },
             "model": {
                 "id": 3,
@@ -1568,47 +4427,111 @@ fetch(url, {
                 "description": "Laudantium fugit ut harum magnam magnam deserunt.",
                 "image": "http:\/\/wajad.test\/default-icon.png"
             },
-            "color": null,
-            "date": "2019-12-08 15:40:37",
-            "images": [],
-            "post_requests": [
-                {
-                    "id": 3,
-                    "is_request_valid": 0,
-                    "cliamers": {
-                        "questions": [
-                            {
-                                "id": 1,
-                                "question": "kp'[k'[p\r\n",
-                                "answers": [
-                                    {
-                                        "id": 1,
-                                        "answer": ";lokpok",
-                                        "date": "2019-12-10 00:00:00"
-                                    }
-                                ]
-                            }
-                        ],
-                        "id": 1,
-                        "name": "Admin",
-                        "email": "admin@nova.com",
-                        "status": 1,
-                        "mobile_number": "01111086890",
-                        "receive_emails": false,
-                        "receive_push_notifications": false,
-                        "is_email_verified": false,
-                        "is_mobile_number_verified": false,
-                        "default_distance_unit": "kilo"
-                    },
-                    "date": "2019-12-10 00:00:00"
-                }
-            ],
-            "city": {
+            "color": {
                 "id": 1,
-                "name": "Al Riyadh"
+                "name": "Red",
+                "icon": "images\/colors\/red.png"
+            },
+            "brand": {
+                "id": 2,
+                "name": "Et dicta similique adipisci ut autem deleniti qui.",
+                "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
+                "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
+            },
+            "date": "2019-12-13 00:00:00",
+            "images": []
+        },
+        "sub_category": {
+            "id": 5,
+            "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+            "description": "Quia impedit hic nesciunt quis eum.",
+            "image": "http:\/\/wajad.test\/default-icon.png"
+        },
+        "model": {
+            "id": 3,
+            "name": "Explicabo rerum ut et dolores officiis et.",
+            "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+            "image": "http:\/\/wajad.test\/default-icon.png"
+        },
+        "color": {
+            "id": 1,
+            "name": "Red",
+            "icon": "images\/colors\/red.png"
+        },
+        "date": "2019-12-08 15:40:37",
+        "images": [
+            {
+                "id": 1,
+                "image": "http:\/\/wajad.test\/default-icon.png"
             }
+        ],
+        "questions": [
+            {
+                "id": 1,
+                "question": "question1?",
+                "answer": "answer1"
+            },
+            {
+                "id": 2,
+                "question": "question2?",
+                "answer": "answer2"
+            },
+            {
+                "id": 3,
+                "question": "question3?",
+                "answer": "answer3"
+            }
+        ],
+        "claimers": [
+            {
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "question1?",
+                        "answer": "answer1"
+                    },
+                    {
+                        "id": 2,
+                        "question": "question2?",
+                        "answer": "answer2"
+                    },
+                    {
+                        "id": 3,
+                        "question": "question3?",
+                        "answer": "answer3"
+                    }
+                ],
+                "id": 4,
+                "name": "Braden Heathcote",
+                "email": "matt.koelpin@wunsch.com",
+                "status": 1,
+                "mobile_number": "+18155885009",
+                "receive_emails": true,
+                "receive_push_notifications": true,
+                "is_email_verified": true,
+                "is_mobile_number_verified": false,
+                "default_distance_unit": "kilo",
+                "image": "http:\/\/admin-wajad.smartappco.net\/images\/profile\/default-profile.png"
+            }
+        ],
+        "city": {
+            "id": 1,
+            "name": "Al Riyadh"
+        },
+        "publisher": {
+            "id": 105,
+            "name": "teddy tf high j",
+            "email": "ss@ss.com",
+            "status": 1,
+            "mobile_number": "966512345678",
+            "receive_emails": false,
+            "receive_push_notifications": false,
+            "is_email_verified": false,
+            "is_mobile_number_verified": true,
+            "default_distance_unit": "kilo",
+            "image": "http:\/\/admin-wajad.smartappco.net\/images\/profile\/sKtIyY1Kl67j9gp.png"
         }
-    ]
+    }
 }
 ```
 
@@ -1620,7 +4543,11 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `id` |  required  | int Post Id
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_726b7bf93b3209836a1cbcda5b3b6703 -->
 
 <!-- START_f01269a1d8321c0c8787967b5346c585 -->
@@ -1630,16 +4557,16 @@ Parameter | Status | Description
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/posts/add/1" \
+    "http://api.wajad.test/api/posts/add/laudantium" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"autem","description":"non","reward":"qui","longitude":"in","latitude":"sit","sub_category_id":16,"brand_id":15,"model_id":19,"color_id":19,"item_id":5,"city":"dolor","images":["dolore"],"questions":["aut"]}'
+    -d '{"title":"tenetur","description":"quas","reward":"sit","longitude":"qui","latitude":"impedit","sub_category_id":10,"brand_id":20,"model_id":7,"color_id":14,"item_id":16,"city":"exercitationem","images":["voluptates"],"questions":["enim"],"token":"unde"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/posts/add/1"
+    "http://api.wajad.test/api/posts/add/laudantium"
 );
 
 let headers = {
@@ -1648,23 +4575,24 @@ let headers = {
 };
 
 let body = {
-    "title": "autem",
-    "description": "non",
-    "reward": "qui",
-    "longitude": "in",
-    "latitude": "sit",
-    "sub_category_id": 16,
-    "brand_id": 15,
-    "model_id": 19,
-    "color_id": 19,
-    "item_id": 5,
-    "city": "dolor",
+    "title": "tenetur",
+    "description": "quas",
+    "reward": "sit",
+    "longitude": "qui",
+    "latitude": "impedit",
+    "sub_category_id": 10,
+    "brand_id": 20,
+    "model_id": 7,
+    "color_id": 14,
+    "item_id": 16,
+    "city": "exercitationem",
     "images": [
-        "dolore"
+        "voluptates"
     ],
     "questions": [
-        "aut"
-    ]
+        "enim"
+    ],
+    "token": "unde"
 }
 
 fetch(url, {
@@ -1690,6 +4618,11 @@ fetch(url, {
 ### HTTP Request
 `POST api/posts/add/{type}`
 
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `type` |  required  | string in:lost,found
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
@@ -1704,10 +4637,11 @@ Parameter | Type | Status | Description
         `color_id` | integer |  required  | exists:colors,id
         `item_id` | integer |  optional  | nullable exists:items,id
         `city` | string |  required  | 
-        `images` | array |  optional  | sometimes between:1,5
-        `images.*` | image |  optional  | sometimes mimes:jpeg,jpg,png,gif max:5012
+        `images` | array |  required  | between:1,5
+        `images.*` | image |  required  | mimes:jpeg,jpg,png,gif max:5012
         `questions` | array |  optional  | sometimes size:3
         `questions.*` | required |  optional  | min:9 max:500
+        `token` | Barier-token |  required  | 
     
 <!-- END_f01269a1d8321c0c8787967b5346c585 -->
 
@@ -1721,7 +4655,7 @@ curl -X POST \
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"dolorem","description":"consequatur","status":"rerum","reward":"aut","longitude":"harum","latitude":"voluptatem","sub_category_id":4,"brand_id":16,"model_id":14,"color_id":4,"item_id":4,"city":"officiis","images":["maxime"],"questions":["et"]}'
+    -d '{"title":"cupiditate","description":"temporibus","status":"doloremque","reward":"est","longitude":"nihil","latitude":"illum","sub_category_id":6,"brand_id":19,"model_id":19,"color_id":9,"item_id":17,"city":"vel","images":["est"],"token":"omnis"}'
 
 ```
 
@@ -1736,24 +4670,22 @@ let headers = {
 };
 
 let body = {
-    "title": "dolorem",
-    "description": "consequatur",
-    "status": "rerum",
-    "reward": "aut",
-    "longitude": "harum",
-    "latitude": "voluptatem",
-    "sub_category_id": 4,
-    "brand_id": 16,
-    "model_id": 14,
-    "color_id": 4,
-    "item_id": 4,
-    "city": "officiis",
+    "title": "cupiditate",
+    "description": "temporibus",
+    "status": "doloremque",
+    "reward": "est",
+    "longitude": "nihil",
+    "latitude": "illum",
+    "sub_category_id": 6,
+    "brand_id": 19,
+    "model_id": 19,
+    "color_id": 9,
+    "item_id": 17,
+    "city": "vel",
     "images": [
-        "maxime"
+        "est"
     ],
-    "questions": [
-        "et"
-    ]
+    "token": "omnis"
 }
 
 fetch(url, {
@@ -1801,8 +4733,7 @@ Parameter | Type | Status | Description
         `city` | string |  required  | 
         `images` | array |  optional  | sometimes between:1,5
         `images.*` | image |  optional  | sometimes mimes:jpeg,jpg,png,gif max:5012
-        `questions` | array |  optional  | sometimes size:3
-        `questions.*` | required |  optional  | min:9 max:500
+        `token` | Barier-token |  required  | 
     
 <!-- END_ddec2b5ffb0465b4f2916ca57e164686 -->
 
@@ -1815,7 +4746,9 @@ Parameter | Type | Status | Description
 curl -X DELETE \
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"ut"}'
+
 ```
 
 ```javascript
@@ -1828,9 +4761,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "ut"
+}
+
 fetch(url, {
     method: "DELETE",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1855,8 +4793,386 @@ fetch(url, {
 Parameter | Status | Description
 --------- | ------- | ------- | -------
     `id` |  required  | int Post Id
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_790d23dbb8c799c36c70f7133a51e7a5 -->
+
+#QR Codes
+
+
+<!-- START_31a59373caf0e95a483c98e25d562cd6 -->
+## User QR Codes
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/userQRCodes" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"error"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/userQRCodes"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "error"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "available": {
+        "single": [
+            {
+                "id": 1,
+                "url": "http:\/\/api.wajad.test\/api\/scan-qr-code\/1",
+                "image": "",
+                "type": "Single Assign",
+                "status": "Assigned To User",
+                "unique_reference_number": "QR-2020115-16814-wlB2C",
+                "generate_reference_number": "N-2020115-16812",
+                "assign_reference_number": "C-202023-161247",
+                "user": {
+                    "id": 2,
+                    "name": "User",
+                    "email": "user@nova.com",
+                    "status": 1,
+                    "mobile_number": "0096601120650906",
+                    "receive_emails": false,
+                    "receive_push_notifications": false,
+                    "is_email_verified": false,
+                    "is_mobile_number_verified": false,
+                    "default_distance_unit": "kilo",
+                    "image": "http:\/\/wajad.test\/images\/profile\/default-profile.png"
+                },
+                "item": null,
+                "available_period": 12,
+                "start_at": null,
+                "end_at": null,
+                "created_at": null
+            }
+        ],
+        "available_single_count": 1,
+        "multi": [],
+        "available_multi_count": 1
+    },
+    "active": [],
+    "active_count": 1,
+    "expired": [],
+    "expired_count": 1
+}
+```
+
+### HTTP Request
+`GET api/userQRCodes`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
+<!-- END_31a59373caf0e95a483c98e25d562cd6 -->
+
+<!-- START_98a9f611f7c0880f849db435165db194 -->
+## Generate &amp; Assign QRcodes (after payment)
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/qrcodes/create" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"package_id":7,"count":18,"token":"quia"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/qrcodes/create"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "package_id": 7,
+    "count": 18,
+    "token": "quia"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "qrcode created successfully.",
+    "status_code": 200,
+    "data": [
+        "http:\/\/admin.wajad.test\/images\/qrcodes\/1582038260RUIWysWSgVQdk9wRiw0p.png",
+        "http:\/\/admin.wajad.test\/images\/qrcodes\/15820382600Mew2xPd332r1BoV7sIn.png",
+        "http:\/\/admin.wajad.test\/images\/qrcodes\/1582038260bpxW4CDRAAZ0C1jtJApP.png"
+    ]
+}
+```
+
+### HTTP Request
+`POST api/qrcodes/create`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `package_id` | integer |  required  | exists in packages
+        `count` | integer |  optional  | min:1
+        `token` | Barier-token |  required  | 
+    
+<!-- END_98a9f611f7c0880f849db435165db194 -->
+
+<!-- START_e44911633d1d17258a3523f155a43c3c -->
+## Register QR Code
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/register/qrcode" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"ut"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/register/qrcode"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "ut"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "qrcode registered successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`POST api/register/qrcode`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `qrcode_id` |  required  | int exists in qrcodes
+    `item_id` |  required  | int exists in items
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
+<!-- END_e44911633d1d17258a3523f155a43c3c -->
+
+<!-- START_156b1225d7a2d5d0667f08fa8d62cc13 -->
+## Reregister QR Code
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/reregister/qrcode" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"illo"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/reregister/qrcode"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "illo"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "success": true,
+    "message": "qrcode registered successfully.",
+    "status_code": 200
+}
+```
+
+### HTTP Request
+`POST api/reregister/qrcode`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `qrcode_id` |  required  | int exists in qrcodes
+    `item_id` |  required  | int exists in items
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
+<!-- END_156b1225d7a2d5d0667f08fa8d62cc13 -->
+
+<!-- START_dbc9425b5035a4fc7e1d9d20a4f2fbcb -->
+## Scan QR Code
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://api.wajad.test/api/scan-qr-code/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"harum"}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/scan-qr-code/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "harum"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "data": {
+        "id": 1,
+        "url": "http:\/\/api.wajad.test\/api\/scan-qr-code\/1",
+        "user": {
+            "id": 2,
+            "name": "User",
+            "email": "user@nova.com",
+            "status": 1,
+            "mobile_number": "0096601120650906",
+            "receive_emails": false,
+            "receive_push_notifications": false,
+            "is_email_verified": false,
+            "is_mobile_number_verified": false,
+            "default_distance_unit": "kilo",
+            "image": "http:\/\/wajad.test\/images\/profile\/default-profile.png"
+        },
+        "item": null,
+        "available_period": "1",
+        "start_at": null,
+        "end_at": null,
+        "created_at": null
+    }
+}
+```
+
+### HTTP Request
+`GET api/scan-qr-code/{qr_code}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `qrcode_url` |  required  | string exists in qrcodes
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
+<!-- END_dbc9425b5035a4fc7e1d9d20a4f2fbcb -->
 
 #Search
 
@@ -1871,7 +5187,7 @@ curl -X GET \
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":5,"color":13,"brand":20,"subcategory":11,"date":"inventore"}'
+    -d '{"model":5,"color":11,"brand":13,"subcategory":12,"date":"aut","status":17}'
 
 ```
 
@@ -1887,10 +5203,11 @@ let headers = {
 
 let body = {
     "model": 5,
-    "color": 13,
-    "brand": 20,
-    "subcategory": 11,
-    "date": "inventore"
+    "color": 11,
+    "brand": 13,
+    "subcategory": 12,
+    "date": "aut",
+    "status": 17
 }
 
 fetch(url, {
@@ -1917,7 +5234,7 @@ fetch(url, {
             "status": "lost",
             "attached_to_item": false,
             "item": null,
-            "subCategory": {
+            "sub_category": {
                 "id": 6,
                 "name": "Et expedita est explicabo qui sit veritatis.",
                 "description": "Dolore rerum quo quis explicabo magni occaecati.",
@@ -1944,7 +5261,7 @@ fetch(url, {
             "status": "found",
             "attached_to_item": false,
             "item": null,
-            "subCategory": {
+            "sub_category": {
                 "id": 8,
                 "name": "Qui maiores aut sapiente aut molestiae in quam ipsam.",
                 "description": "Aut soluta laborum sequi et similique.",
@@ -1977,6 +5294,7 @@ Parameter | Type | Status | Description
         `brand` | integer |  optional  | exist in brands.
         `subcategory` | integer |  optional  | exist in subcategories.
         `date` | date |  optional  | 
+        `status` | integer |  optional  | in:0,1,0 for lost, 1 for found
     
 <!-- END_9d08a4da7d839136b63a8291497ec010 -->
 
@@ -1989,9 +5307,7 @@ Parameter | Type | Status | Description
 curl -X GET \
     -G "http://api.wajad.test/api/home/search/keywords" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"keywords":"temporibus"}'
-
+    -H "Accept: application/json"
 ```
 
 ```javascript
@@ -2004,14 +5320,9 @@ let headers = {
     "Accept": "application/json",
 };
 
-let body = {
-    "keywords": "temporibus"
-}
-
 fetch(url, {
     method: "GET",
     headers: headers,
-    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -2089,15 +5400,16 @@ fetch(url, {
 ### HTTP Request
 `GET api/home/search/keywords`
 
-#### Body Parameters
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    `keywords` | string |  required  | 
-    
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `keywords` |  optional  | string required
+
 <!-- END_a381454c94e24449400bd187815c6920 -->
 
 <!-- START_16f48877f83d0a8ab32bef962081ffac -->
-## Fetch search data
+## Get search data in Dropdown lists
 
 > Example request:
 
@@ -2181,7 +5493,7 @@ fetch(url, {
 
 
 <!-- START_b4f4625b609a18310a50b1dddf752a55 -->
-## Reset Password
+## Forget Password
 
 > Example request:
 
@@ -2247,7 +5559,9 @@ Parameter | Type | Status | Description
 curl -X GET \
     -G "http://api.wajad.test/api/userData" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"token":"tenetur"}'
+
 ```
 
 ```javascript
@@ -2260,9 +5574,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "token": "tenetur"
+}
+
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -2292,7 +5611,11 @@ fetch(url, {
 ### HTTP Request
 `GET api/userData`
 
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `token` | Barier-token |  required  | 
+    
 <!-- END_0b828966a9f31e695693fe9650b70eb1 -->
 
 <!-- START_734623b7e60cc9f20fd5b5b67df87d7d -->
@@ -2305,7 +5628,7 @@ curl -X POST \
     "http://api.wajad.test/api/verify/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"code":"1234"}'
+    -d '{"code":"1234","token":"libero"}'
 
 ```
 
@@ -2320,7 +5643,8 @@ let headers = {
 };
 
 let body = {
-    "code": "1234"
+    "code": "1234",
+    "token": "libero"
 }
 
 fetch(url, {
@@ -2355,6 +5679,7 @@ Parameter | Status | Description
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `code` | numeric |  required  | digits:4
+        `token` | Barier-token |  required  | 
     
 <!-- END_734623b7e60cc9f20fd5b5b67df87d7d -->
 
@@ -2368,7 +5693,7 @@ curl -X POST \
     "http://api.wajad.test/api/updateUserProfile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"1234","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"consequatur"}'
+    -d '{"name":"aut","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"saepe","token":"tempore"}'
 
 ```
 
@@ -2383,11 +5708,12 @@ let headers = {
 };
 
 let body = {
-    "name": "1234",
+    "name": "aut",
     "receive_emails": true,
     "receive_push_notifications": true,
     "default_distance_unit": "mile",
-    "image": "consequatur"
+    "image": "saepe",
+    "token": "tempore"
 }
 
 fetch(url, {
@@ -2416,16 +5742,17 @@ fetch(url, {
 #### Body Parameters
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    `name` | string |  required  | min:6,max:255 1 or 0.
-        `receive_emails` | boolean |  required  | 1 or 0.
-        `receive_push_notifications` | boolean |  required  | 1 or 0.
+    `name` | string |  required  | min:6,max:255
+        `receive_emails` | boolean |  required  | in:true,false,0,1.
+        `receive_push_notifications` | boolean |  required  | in:true,false,0,1.
         `default_distance_unit` | string,in:kilo,mile |  required  | kilo or mile.
         `image` | file |  optional  | mimes:jpeg,jpg,png,gif, max:5102
+        `token` | Barier-token |  required  | 
     
 <!-- END_72a884b85bf7bf4198984d6ccecce2b7 -->
 
 <!-- START_dd73fe89d9872ce37d284636141ae526 -->
-## Password Reset
+## Change Password
 
 > Example request:
 
@@ -2434,7 +5761,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"occaecati","new_password":"maiores","new_password_confirmation":"qui"}'
+    -d '{"old_password":"libero","new_password":"ex","new_password_confirmation":"soluta","token":"voluptates"}'
 
 ```
 
@@ -2449,9 +5776,10 @@ let headers = {
 };
 
 let body = {
-    "old_password": "occaecati",
-    "new_password": "maiores",
-    "new_password_confirmation": "qui"
+    "old_password": "libero",
+    "new_password": "ex",
+    "new_password_confirmation": "soluta",
+    "token": "voluptates"
 }
 
 fetch(url, {
@@ -2483,6 +5811,7 @@ Parameter | Type | Status | Description
     `old_password` | string |  required  | 'min:6' 'max:255'
         `new_password` | string |  required  | 'confirmed' 'min:6', 'max:255'
         `new_password_confirmation` | string |  required  | confirm new password
+        `token` | Barier-token |  required  | 
     
 <!-- END_dd73fe89d9872ce37d284636141ae526 -->
 
@@ -2496,7 +5825,7 @@ curl -X POST \
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"nesciunt"}'
+    -d '{"mobile_number":"vel","token":"sint"}'
 
 ```
 
@@ -2511,7 +5840,8 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "nesciunt"
+    "mobile_number": "vel",
+    "token": "sint"
 }
 
 fetch(url, {
@@ -2541,6 +5871,7 @@ fetch(url, {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `mobile_number` | numeric |  required  | digits_between:9,14 unique:user ignore:user-id
+        `token` | Barier-token |  required  | 
     
 <!-- END_cb0e89a15b080a33f4c18135f097480d -->
 
@@ -2554,7 +5885,7 @@ curl -X POST \
     "http://api.wajad.test/api/changeEmail" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email":"example@example.com"}'
+    -d '{"email":"est","token":"dolorum"}'
 
 ```
 
@@ -2569,7 +5900,8 @@ let headers = {
 };
 
 let body = {
-    "email": "example@example.com"
+    "email": "est",
+    "token": "dolorum"
 }
 
 fetch(url, {
@@ -2585,7 +5917,11 @@ fetch(url, {
 > Example response (200):
 
 ```json
-{}
+{
+    "success": true,
+    "message": "Verification code sent.",
+    "status_code": 200
+}
 ```
 
 ### HTTP Request
@@ -2595,71 +5931,27 @@ fetch(url, {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `email` | email |  required  | 
+        `token` | Barier-token |  required  | 
     
 <!-- END_d0ad6077a075427e4ae216d3352ed1ef -->
 
 #general
 
 
-<!-- START_31a59373caf0e95a483c98e25d562cd6 -->
-## api/userQRCodes
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/userQRCodes" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/userQRCodes"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/userQRCodes`
-
-
-<!-- END_31a59373caf0e95a483c98e25d562cd6 -->
-
-<!-- START_98a9f611f7c0880f849db435165db194 -->
-## Store a newly created resource in storage.
-
+<!-- START_e4d239ac8a5a2883bb4c41b1264d1930 -->
+## api/request/post/{post}
 > Example request:
 
 ```bash
 curl -X POST \
-    "http://api.wajad.test/api/qrcodes/create" \
+    "http://api.wajad.test/api/request/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://api.wajad.test/api/qrcodes/create"
+    "http://api.wajad.test/api/request/post/1"
 );
 
 let headers = {
@@ -2678,48 +5970,10 @@ fetch(url, {
 
 
 ### HTTP Request
-`POST api/qrcodes/create`
+`POST api/request/post/{post}`
 
 
-<!-- END_98a9f611f7c0880f849db435165db194 -->
-
-<!-- START_89167602b4f7090b5ae673647a46f9d9 -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X POST \
-    "http://api.wajad.test/api/qrcodes/register" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/qrcodes/register"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-
-### HTTP Request
-`POST api/qrcodes/register`
-
-
-<!-- END_89167602b4f7090b5ae673647a46f9d9 -->
+<!-- END_e4d239ac8a5a2883bb4c41b1264d1930 -->
 
 <!-- START_109013899e0bc43247b0f00b67f889cf -->
 ## api/categories
@@ -2755,7 +6009,183 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "Apparel, Shoes & Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 2,
+            "name": "Art, Crafts & Collectables",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 3,
+            "name": "Baby",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 4,
+            "name": "Beauty",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 5,
+            "name": "Bed & Bath",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 6,
+            "name": "Books",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 7,
+            "name": "Coins, Stamps & Paper money",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 8,
+            "name": "Computers, IT & Networking",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 9,
+            "name": "Eyewear & Optics",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 10,
+            "name": "Garden & Outdoor",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 11,
+            "name": "Furniture",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 12,
+            "name": "Electronics",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 13,
+            "name": "Home Appliances",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 14,
+            "name": "Grocery, Food & Beverages",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 15,
+            "name": "Kitchen Appliances",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 16,
+            "name": "Gaming",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 17,
+            "name": "Health & Personal Care",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 18,
+            "name": "Music & Movies",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 19,
+            "name": "Jewelry & Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 20,
+            "name": "Toys",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 21,
+            "name": "Mobile Phones, Tablets & Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 22,
+            "name": "Sports & Fitness",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 23,
+            "name": "Perfumes & Fragrances",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 24,
+            "name": "Vehicle Parts & Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 25,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        }
+    ]
 }
 ```
 
@@ -2795,11 +6225,17 @@ fetch(url, {
 ```
 
 
-> Example response (404):
+> Example response (200):
 
 ```json
 {
-    "message": "No query results for model [App\\Category] 1"
+    "data": {
+        "id": 1,
+        "name": "Apparel, Shoes & Accessories",
+        "description": "",
+        "image": "http:\/\/wajad.test\/images\/default.png",
+        "item_coount": 0
+    }
 }
 ```
 
@@ -2843,7 +6279,86 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "Blouse",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 2,
+            "name": "shoes",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 3,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 4,
+            "name": "artifact",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 5,
+            "name": "candlestick",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 6,
+            "name": "wall clock",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 7,
+            "name": "Antiquities",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 8,
+            "name": "Estatua",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 9,
+            "name": "Art object",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 10,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 11,
+            "name": "kids shampo",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 12,
+            "name": "Lap top",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 13,
+            "name": "Cameras",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        }
+    ]
 }
 ```
 
@@ -2887,7 +6402,86 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "Blouse",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 2,
+            "name": "shoes",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 3,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 4,
+            "name": "artifact",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 5,
+            "name": "candlestick",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 6,
+            "name": "wall clock",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 7,
+            "name": "Antiquities",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 8,
+            "name": "Estatua",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 9,
+            "name": "Art object",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 10,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 11,
+            "name": "kids shampo",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 12,
+            "name": "Lap top",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 13,
+            "name": "Cameras",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        }
+    ]
 }
 ```
 
@@ -2931,7 +6525,98 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "LCWIKIKI",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 2,
+            "name": "H&M",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 4,
+            "name": "lacoste",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 5,
+            "name": "corocs",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 7,
+            "name": "gohnson",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 8,
+            "name": "panten",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post1.jpg"
+        },
+        {
+            "id": 9,
+            "name": "sherosa",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post1.jpg"
+        },
+        {
+            "id": 10,
+            "name": "Toshiba",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post2.jpg"
+        },
+        {
+            "id": 11,
+            "name": "Hp",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post2.jpg"
+        },
+        {
+            "id": 12,
+            "name": "Dell",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post3.jpg"
+        },
+        {
+            "id": 13,
+            "name": "Nicon",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post5.jpg"
+        },
+        {
+            "id": 14,
+            "name": "Canon",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post5.jpg"
+        },
+        {
+            "id": 15,
+            "name": "Sony",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        }
+    ]
 }
 ```
 
@@ -2975,7 +6660,38 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "Dell XPS 13",
+            "description": "CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch FHD (1,920 x 1,080) – 4k (3840 x 2160) | Storage: 256GB – 1TB SSD",
+            "image": "http:\/\/wajad.test\/images\/posts\/post3.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Huawei MateBook 13",
+            "description": "CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 , Nvidia GeForce MX150 2GB GDDR5 | RAM: 8GB | Screen: 13-inch 1440p (2,160 x 1,440) | Storage: 256GB - 512GB SSD",
+            "image": "http:\/\/wajad.test\/images\/posts\/post4.jpg"
+        },
+        {
+            "id": 3,
+            "name": "HP Spectre x360 (2019)",
+            "description": "CPU: Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch full HD (1,920 x 1,080) – UHD (3,840 x 2,160) touchscreen | Storage: 256GB – 2TB PCIe SSD",
+            "image": "http:\/\/wajad.test\/images\/posts\/post4.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Apple MacBook Pro (15-inch, 2019)",
+            "description": "CPU: Intel Core i7 – i9 | Graphics: AMD Radeon Pro 555X - Radeon Pro Vega 20, Intel UHD Graphics 630 | RAM: 16GB | Screen: 15.4-inch, (2,880 x 1,800) IPS | Storage: 256GB – 4TB SSD",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 5,
+            "name": "Sony SA1",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        }
+    ]
 }
 ```
 
@@ -3063,7 +6779,73 @@ fetch(url, {
 
 ```json
 {
-    "data": []
+    "data": [
+        {
+            "id": 1,
+            "name": "Red",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 2,
+            "name": "Black",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 3,
+            "name": "Blue",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 4,
+            "name": "Brown",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 5,
+            "name": "Gold",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 6,
+            "name": "Green",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 7,
+            "name": "Orange",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 8,
+            "name": "Pink",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 9,
+            "name": "Silver",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 10,
+            "name": "White",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 11,
+            "name": "Yellow",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 12,
+            "name": "Crimson",
+            "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 13,
+            "name": "Others",
+            "icon": "images\/profile\/default-profile.png"
+        }
+    ]
 }
 ```
 
@@ -3103,11 +6885,15 @@ fetch(url, {
 ```
 
 
-> Example response (404):
+> Example response (200):
 
 ```json
 {
-    "message": "No query results for model [App\\Color] 1"
+    "data": {
+        "id": 1,
+        "name": "Red",
+        "icon": "images\/profile\/default-profile.png"
+    }
 }
 ```
 
@@ -3151,58 +6937,7 @@ fetch(url, {
 
 ```json
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "Temporibus magnam laborum et libero.",
-            "details": "Eum quia earum atque quos fugit cum tempora. Et vitae enim vel eos ipsa pariatur asperiores. Libero quia eveniet soluta et consequatur id et. Quas excepturi itaque fuga maiores non. Iusto debitis est incidunt itaque numquam velit. Nisi quasi occaecati sunt tenetur expedita. Et adipisci voluptas odio. Nam ullam corporis maiores rerum in ab sit. Voluptatem molestias non ullam consequuntur accusamus inventore. Nihil repellendus nulla officiis explicabo sed nobis. Aut beatae eum ratione necessitatibus minus qui asperiores. Blanditiis voluptatibus sunt iste molestiae. Cupiditate et quos ut voluptas nisi sint. Expedita rerum aut amet in porro tempora et. Reiciendis optio aut eos quia. Nam molestiae accusamus totam atque amet enim. Minima inventore inventore assumenda qui et. Architecto praesentium expedita dolor commodi aut ut. Ut quisquam neque est sint velit expedita exercitationem. Et necessitatibus explicabo ut ad deserunt. Explicabo et molestias quasi qui ut minus.",
-            "address": "Non vel aut non non tempore et commodi. Ipsum labore saepe suscipit vero. Voluptatum atque enim sunt voluptates.",
-            "image": "default.png",
-            "latitude": -50.999831,
-            "longitude": -113.803691,
-            "status": 1
-        },
-        {
-            "id": 2,
-            "name": "Animi occaecati eum est nisi perspiciatis.",
-            "details": "Reiciendis sint id eaque incidunt adipisci. Ipsum et non ipsa minus a. Beatae sequi aliquam velit. Asperiores dignissimos excepturi ipsa at. Tempora assumenda incidunt sed deserunt est vel temporibus. Vel harum nam dolorem deserunt labore aut rerum. Aut officia doloribus at et aperiam. Consequatur voluptates voluptate itaque unde aut voluptatum ut. Ea labore voluptatibus harum ut ea voluptate. Dicta iste consequatur repellendus eum est. Laboriosam eum qui quos ut earum ipsum id. Blanditiis accusamus necessitatibus quo totam laborum quos ut. Incidunt iste dolore fugiat aut perferendis facilis. Sed error vel ex non.",
-            "address": "Aut dolor et repellat vel est architecto voluptas. Explicabo voluptatum voluptatem quia expedita. Quis aut sed voluptas quisquam.",
-            "image": "default.png",
-            "latitude": -89.793139,
-            "longitude": -144.777105,
-            "status": 1
-        },
-        {
-            "id": 3,
-            "name": "Non ut nihil aut dolorem quaerat.",
-            "details": "Rerum at ab illo voluptatum sed sequi minus. Vel ut debitis excepturi quia. Est necessitatibus numquam ratione sit. Voluptatem sunt totam harum neque animi voluptatem. Est temporibus veritatis velit ullam illo aut earum. Tenetur repellat dolorum aut aut est. Pariatur laudantium nihil natus numquam. Quidem adipisci consequuntur vel ipsum ipsum ex eius. Sint qui animi numquam natus. Est doloremque dolorum possimus et. Dolore repudiandae totam voluptatum reprehenderit distinctio distinctio. Vel expedita est excepturi. Odio molestias ea adipisci occaecati itaque possimus porro. Voluptas consequatur qui impedit blanditiis provident quia veniam aliquam. Consequatur culpa blanditiis minima rem rerum vitae voluptas.",
-            "address": "Eum ullam sequi cum cum accusantium consequuntur iure. Delectus aut et illo sit ut deserunt. Suscipit ut porro minus necessitatibus unde non hic aliquam. Quo sunt pariatur sit illum natus.",
-            "image": "default.png",
-            "latitude": 8.483114,
-            "longitude": 134.820144,
-            "status": 1
-        },
-        {
-            "id": 4,
-            "name": "Qui cupiditate eveniet quia aut deleniti sit blanditiis explicabo.",
-            "details": "Eos corporis quis dolores facilis deserunt. Asperiores enim consequatur ut fugiat enim. Quaerat aut velit accusantium voluptatem modi non id aliquid. Eius voluptas nesciunt id ea neque quidem rerum. Aut reprehenderit quia tempore cumque dolorem dolore delectus. Dolorum laboriosam minima ratione vel incidunt sunt aliquid. Blanditiis nemo quis reprehenderit qui suscipit est sunt. Eligendi eius voluptatem eum blanditiis et vitae placeat. Corporis nisi suscipit aut quos. In consequatur earum sit praesentium inventore reiciendis. Omnis dolores ex qui magni eos molestiae sapiente. Perferendis aspernatur nisi eos veniam.",
-            "address": "Earum ab quia incidunt beatae. Et totam dolor dolores tempora architecto qui assumenda. Explicabo provident natus voluptatem officiis debitis non dolor aut.",
-            "image": "default.png",
-            "latitude": -73.92393,
-            "longitude": -170.959793,
-            "status": 1
-        },
-        {
-            "id": 5,
-            "name": "Omnis vel alias molestiae suscipit.",
-            "details": "Dolorum aut voluptatem deleniti est ipsam. Quo et inventore pariatur alias dolore ut. Sapiente est aperiam rerum saepe esse sed commodi. Deserunt optio cum est voluptas. Ea aspernatur corporis est in ratione blanditiis exercitationem. Rerum voluptas fugiat dignissimos assumenda aut quo adipisci. Provident impedit dolores commodi officia. Quos corrupti sunt ullam unde omnis quae necessitatibus. Quis ut et quis dicta eos omnis optio. Omnis qui ut voluptatem accusamus. Corrupti aspernatur possimus officiis quas esse. Delectus voluptas maiores provident consequatur veritatis. Neque culpa quia quia eum modi dicta aliquid.",
-            "address": "Magni voluptas tempore aut repellendus consequatur. Et alias nihil et. Et harum et nesciunt architecto et labore provident. Voluptates debitis ipsum quo ab quibusdam ea.",
-            "image": "default.png",
-            "latitude": 8.734983,
-            "longitude": -144.635202,
-            "status": 1
-        }
-    ]
+    "data": []
 }
 ```
 
@@ -3211,50 +6946,6 @@ fetch(url, {
 
 
 <!-- END_f23167370c8a1250be599e87d07e6451 -->
-
-<!-- START_bd6ef4ad5e299a34f4c6db1eb27ba327 -->
-## api/maps/{type?}
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/maps/" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/maps/"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (500):
-
-```json
-{
-    "message": "Server Error"
-}
-```
-
-### HTTP Request
-`GET api/maps/{type?}`
-
-
-<!-- END_bd6ef4ad5e299a34f4c6db1eb27ba327 -->
 
 <!-- START_316a4c3b4f6a4c4ff34e5893943cdebd -->
 ## api/countries
@@ -4912,156 +8603,6 @@ fetch(url, {
 
 <!-- END_e0cc7781f77aa50d54a15c7851b36d0b -->
 
-<!-- START_2bcf7e87aec832345867dfd3f2da84e7 -->
-## Handle the incoming request.
-
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/scan-qr-code/" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/scan-qr-code/"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "data": {
-        "id": null,
-        "url": "http:\/\/api.wajad.test\/api\/scan-qr-code",
-        "user": null,
-        "item": null
-    }
-}
-```
-
-### HTTP Request
-`GET api/scan-qr-code/{qr_code?}`
-
-
-<!-- END_2bcf7e87aec832345867dfd3f2da84e7 -->
-
-<!-- START_c9db6d511dc413ffed938cbd76dd5af7 -->
-## api/packages
-> Example request:
-
-```bash
-curl -X GET \
-    -G "http://api.wajad.test/api/packages" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://api.wajad.test/api/packages"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "data": [
-        {
-            "name": "Platinum Package",
-            "description": "Get 25 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.",
-            "qr_codes": null,
-            "price": 1500,
-            "currency": "USD",
-            "images": []
-        },
-        {
-            "name": "Gold Package",
-            "description": "Get 20 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.",
-            "qr_codes": null,
-            "price": 1300,
-            "currency": "USD",
-            "images": []
-        },
-        {
-            "name": "Silver Package",
-            "description": "Get 15 QrCodes As Sticker To Sticker it on any item to protect it Activated for one year.",
-            "qr_codes": null,
-            "price": 1150,
-            "currency": "USD",
-            "images": []
-        },
-        {
-            "name": "WJ25TS",
-            "description": "Get 5 Sticker From Wajad Available for one Month",
-            "qr_codes": null,
-            "price": 250,
-            "currency": "USD",
-            "images": []
-        },
-        {
-            "name": "WJ25KN",
-            "description": "Get Necklace From Wajad Available For 6 Month",
-            "qr_codes": null,
-            "price": 450,
-            "currency": "USD",
-            "images": []
-        }
-    ],
-    "links": {
-        "first": "http:\/\/api.wajad.test\/api\/packages?per_page=1",
-        "last": "http:\/\/api.wajad.test\/api\/packages?per_page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "path": "http:\/\/api.wajad.test\/api\/packages",
-        "per_page": 15,
-        "to": 5,
-        "total": 5
-    }
-}
-```
-
-### HTTP Request
-`GET api/packages`
-
-
-<!-- END_c9db6d511dc413ffed938cbd76dd5af7 -->
-
 <!-- START_0ee5bf7a76203366c8ac325bd8ada596 -->
 ## Invoke the controller method.
 
@@ -5104,5 +8645,42 @@ null
 
 
 <!-- END_0ee5bf7a76203366c8ac325bd8ada596 -->
+
+<!-- START_50c0a334d57bffdf48ce568bad023ce0 -->
+## api/test
+> Example request:
+
+```bash
+curl -X POST \
+    "http://api.wajad.test/api/test" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://api.wajad.test/api/test"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/test`
+
+
+<!-- END_50c0a334d57bffdf48ce568bad023ce0 -->
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -12,6 +13,7 @@ use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
+use Naif\Toggle\Toggle;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 
@@ -23,6 +25,7 @@ class WajadOffice extends Resource
      * @var string
      */
     public static $model = 'App\WajadOffice';
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -37,9 +40,23 @@ class WajadOffice extends Resource
      * @var array
      */
     public static $search = [
-        'id','name_en','name_en'
+        'id',
+        'name_en',
+        'name_ar',
+        'details_en',
+        'details_ar',
+        'address_en',
+        'address_ar',
+        'location',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
-        /**
+    /**
      * The logical group associated with the resource.
      *
      * @var string
@@ -52,70 +69,73 @@ class WajadOffice extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-   
-        public function fields(Request $request)
-        {
-            return [
-                ID::make()->sortable(),
-                Text::make('Office English Name', 'name_en')->rules(
+    public static $globallySearchable = false;
+
+    public function fields(Request $request)
+    {
+        return [
+            ID::make()->sortable(),
+            Text::make('Office English Name', 'name_en')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Text::make('Office Arabic Name', 'name_ar')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Trix::make('Office English Details', 'details_en')
+                ->rules(
                     'required',
                     'string',
                     'max:255',
                     'min:6'
                 ),
-                Text::make('Office Arabic Name', 'name_ar')->rules(
+            Trix::make('Office Arabic Details', 'details_ar')
+                ->rules(
                     'required',
                     'string',
                     'max:255',
                     'min:6'
                 ),
-                Trix::make('Office English Details', 'details_en')
-                    ->rules(
-                        'required',
-                        'string',
-                        'max:255',
-                        'min:6'
-                    ),
-                Trix::make('Office Arabic Details', 'details_ar')
-                    ->rules(
-                        'required',
-                        'string',
-                        'max:255',
-                        'min:6'
-                    ),
-                Text::make('Office English Address', 'address_en')->rules(
-                    'required',
-                    'string',
-                    'max:255',
-                    'min:6'
-                ),
-                Text::make('Office Arabic Address', 'address_ar')->rules(
-                    'required',
-                    'string',
-                    'max:255',
-                    'min:6'
-                ),
-                Image::make('Office Image', 'image')->creationRules(
-                    'required',
-                    'image',
-                    'mimes:jpeg,bmp,png',
-                    'max:5012'
-                )->updateRules(
-                    'image',
-                    'mimes:jpeg,bmp,png',
-                    'max:5012'
-                )->disk('public')->path('images/offices')->deletable(false),
-    
-               
-                Boolean::make('Active','status'),
-                MapMarker::make("Location")
+            Text::make('Office English Address', 'address_en')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Text::make('Office Arabic Address', 'address_ar')->rules(
+                'required',
+                'string',
+                'max:255',
+                'min:6'
+            ),
+            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
+                ->asHtml()->hideFromDetail(),
+            Image::make('Office Image', 'image')->creationRules(
+                'required',
+                'image',
+                'mimes:jpeg,bmp,png',
+                'max:5012'
+            )->updateRules(
+                'image',
+                'mimes:jpeg,bmp,png',
+                'max:5012'
+            )->disk('public')->path('images/offices')->deletable(false),
+
+
+            Toggle::make('Active','status'),
+            MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)
                 ->defaultLongitude(39.4913431)
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3),
-            ];
-        }
-  
+        ];
+    }
+
 
     /**
      * Get the cards available for the request.
@@ -160,8 +180,8 @@ class WajadOffice extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/office.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/office.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

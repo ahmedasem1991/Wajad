@@ -15,7 +15,7 @@ class BannerResource extends JsonResource
         }
 
         if ($item->type == 'item') {
-            return (string) $this->item->images()->first('image')['image'] ?: null;
+             return (string) $images_main_path . $this->item->images()->first('image')['image'] ?? null;
         }
     }
 
@@ -25,8 +25,10 @@ class BannerResource extends JsonResource
             [
                 'latitude' => $item->post->latitude ?? 0,
                 'longitude' => $item->post->longitude ?? 0,
-                'name' => $item->title ?? "",
-                'description' => $item->description ?? "",
+                'name' => $item->post->title ?? "",
+                'description' => $item->post->description ?? "",
+                'city' => $item->post ? $item->post->city->{'name_' . app()->getLocale()} : '',
+                'date' => $item->post ? $item->post->created_at->toDateTimeString() : '',
                 // 'status' => $item->getStatus()
             ] : null;
     }
@@ -38,7 +40,10 @@ class BannerResource extends JsonResource
             'image' => $this->getImage($this) ?? "",
             'url' => $this->url ?? "",
             'item_id' => $this->item_id ?? null,
-            'item' => $this->getItem($this) ?? null
+            'item' => $this->getItem($this) ?? null,
+            'clicks' => $this->clicks ?? null,
+            'start_date' => $this->start_date ?? null,
+            'end_date' => $this->end_date ?? null,
         ];
     }
 }

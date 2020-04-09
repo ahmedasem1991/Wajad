@@ -4,13 +4,31 @@
 
 use App\Category;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 
-$factory->define(Category::class, function (Faker $faker) {
-    return [
-        'name_en' => $faker->sentence(),
-        'name_ar' => $faker->sentence(),
-        'description_en' => $faker->sentence(),
-        'description_ar' => $faker->sentence(),
-        'image' => 'default-icon.png',
-    ];
+$categories = [
+    'Electronics' => 'اليكترونيات',
+    'Clothes'  =>  'ملابس',
+    'Cars' =>    'سيارات',
+    'Books' =>     'كتب',
+    'Home' => 'منزل',
+    'Fashon' =>  'موضة',
+    'Food' =>  'طعام',
+];
+
+DB::transaction(function () {
+    DB::table('categories')->delete();
 });
+
+foreach ($categories as $key => $value) {
+    $factory->define(Category::class, function (Faker $faker) use ($key, $value) {
+        return [
+            'name_en' => $key,
+            'name_ar' =>  $value,
+            'description_en' =>  $faker->paragraph(),
+            'description_ar' => $faker->paragraph(),
+            'image' => 'images/profile/default-profile.png',
+
+        ];
+    });
+}

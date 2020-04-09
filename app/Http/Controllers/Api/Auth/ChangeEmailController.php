@@ -17,13 +17,15 @@ class ChangeEmailController extends Controller
 {
     /**
      * Change Email
-     *
-     * @bodyParam email email required Example:example@example.com
-     *
-     * @response {
-     *
-     * }
-     * */
+     * @bodyParam email email required
+     * @bodyParam token Barier-token required
+     * @response
+     *{
+     * "success": true,
+     *"message": "Verification code sent.",
+     *"status_code": 200
+     *}
+     */
     public function __invoke()
     {
         $user = auth('api')->user();
@@ -38,7 +40,8 @@ class ChangeEmailController extends Controller
 
         $user->update([
             'email' => request('email'),
-            'email_verified_at' => null
+            'email_verified_at' => null,
+            'receive_emails' => false
         ]);
 
         if ((new UserService())->createAndSendActivationCode($user, 'email')) {

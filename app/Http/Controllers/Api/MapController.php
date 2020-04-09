@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
-use App\WajadOffice;
+use App\Corporate;
 use Location\Coordinate;
 use Illuminate\Http\Request;
 use Location\Distance\Vincenty;
 use App\Helpers\Api\ResponseTrait;
 use App\Http\Resources\MapResource;
+use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group Map
+ */
 class MapController extends Controller
 {
     use ResponseTrait;
@@ -21,29 +25,46 @@ class MapController extends Controller
         'found',
         'office'
     ];
-
+    /**
+     * Map
+     * @urlParam type required in:lost,found,office
+     * @bodyParam longitude string required
+     * @bodyParam latitude string required
+     * @bodyParam radius int required
+     * @bodyParam unit string,in:kilo,mile required
+     *
+     * @response
+     * {
+     *"data": [
+     *   {
+     *      "id": 1,
+     *     "name": "Error cumque sit culpa quibusdam aut sunt nemo.",
+     *    "details": "Quis voluptate perspiciatis officia omnis veritatis id. Voluptas culpa molestiae beatae corporis saepe quos iusto. Molestiae enim optio maiores dolor sit soluta. Aliquid commodi pariatur aliquid. Fugiat animi eos sapiente dolor possimus. Ut quo voluptatem nobis eos. Vitae nulla illum debitis consequuntur quaerat deserunt. Suscipit cum earum et et consectetur et. Tempore voluptates dolore ratione eveniet molestiae ullam. Est qui sit totam modi voluptas omnis officia. Illum nostrum vel unde iusto. Animi reiciendis odio et repellendus rem id. Qui deserunt rerum explicabo est dolorem dolorem nulla. Ratione dolorem libero doloremque laboriosam temporibus autem veniam corrupti. Accusantium ad autem excepturi quasi minus. Eveniet velit rem numquam ipsum. Voluptatibus eligendi nihil dolor hic perspiciatis. Qui omnis est voluptatem assumenda. Debitis fuga est blanditiis dolorem nihil impedit. Nihil est illum cupiditate unde beatae suscipit labore. Et alias eligendi sed quam blanditiis consequatur.",
+     *   "latitude": -47.854138,
+     *  "longitude": -18.526692,
+     * "image": "http://wajad.test/",
+     *"address": ""
+     *}
+     *]
+     *}
+     */
     public function __invoke(Request $request, $type = null)
     {
         $validate_request = Validator::make($request->all(), [
-            'longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'radius' => ['required', 'integer'],
             'unit' => ['required', 'in:kilo,mile']
         ]);
 
         if ($validate_request->fails()) {
-            $this->addMultibleResponse($validate_request->errors())->addStatusCode(400);
-
-            return $this->response();
+            throw new ApiException($validate_request->errors()->first(), 400);
         }
 
         if (in_array($type, self::TYPES)) {
             return $this->$type($request);
         }
-
-        $this->addStatusCode(404);
-
-        return $this->response();
+        throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
     }
 
     private function lost(Request $request)
@@ -66,7 +87,7 @@ class MapController extends Controller
 
     private function office($request)
     {
-        $office = WajadOffice::active()->get();
+        $office = Corporate::active()->get();
 
         $office = $this->getItemsBasedOnLocation($request, $office);
 
@@ -82,7 +103,7 @@ class MapController extends Controller
             $coordinate2 = new Coordinate($request->latitude, $request->longitude);
             $calculator  = new Vincenty();
             $item->distance = ($calculator->getDistance($coordinate1, $coordinate2)) / 1000;
-            return $item->distance < $request->radius;
+            return $item->distance < (int) $request->radius;
         });
     }
 }

@@ -8,6 +8,8 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
@@ -17,7 +19,9 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
+use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -52,7 +56,27 @@ class SuperAdmin extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id',
+        'name',
+        'email',
+        'default_distance_unit',
+        'type',
+        'status',
+        'mobile_country_id',
+        'corporate_id',
+        'city_id',
+        'posts_number',
+        'device_token',
+        'mobile_number',
+        'receive_emails',
+        'receive_push_notifications',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'image',
+        'remember_token',
+        'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -66,7 +90,13 @@ class SuperAdmin extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+            //Gravatar::make(),
+            Image::make('Profile Image', 'image')
+            ->disk('public')
+            ->path('images/profile')
+            ->prunable()
+            ->deletable()
+            ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
@@ -76,13 +106,23 @@ class SuperAdmin extends Resource
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{ resourceId }}'),
+                ->updateRules('unique:users,email,{{resourceId}}'),
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            
+
+            NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
+            ->placeholder('Select Country')
+            ->options(\App\Country::all()),
+            Number::make('Mobile Number', 'mobile_number')
+            ->creationRules('required', 'min:9','max:14')
+            ->updateRules('nullable',  'min:9','max:14'),
+        //   PhoneNumber::make('Mobile Number','mobile_number')
+        //         ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+        //         ->onlyCustomFormats(),
+
             Toggle::make('Active', 'status'),
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -90,7 +130,7 @@ class SuperAdmin extends Resource
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
- 
+
 
         ];
     }
@@ -145,8 +185,8 @@ class SuperAdmin extends Resource
         ];
     }
 
- 
-    
+
+
     /**
      * Build an "index" query for the given resource.
      *
@@ -158,7 +198,7 @@ class SuperAdmin extends Resource
     {
         return $query->SuperAdmin();
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }

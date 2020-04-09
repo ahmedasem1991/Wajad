@@ -41,9 +41,6 @@ class SeedPackagesProducts extends Command
      */
     public function handle()
     {
-        DB::table('packages')->truncate();
-        DB::table('products')->truncate();
-        DB::table('package_product_table')->truncate();
 
         $packages = [
             [
@@ -92,13 +89,13 @@ class SeedPackagesProducts extends Command
                 'period' => '6'
             ],
         ];
-        $this->info('Seeding Packages Starts');
         foreach ($packages as $package) {
             $packages = Package::create($package);
         }
-        $this->info('Seeding Packages Done');
+        $this->line('|------------------------------------|');
+        $this->line('| Seed Packages |');
+        $this->line('|------------------------------------|');
 
-        $this->info('Seeding Products Starts');
         $products = [
             [
                 'name_en' => 'Sticker',
@@ -123,7 +120,9 @@ class SeedPackagesProducts extends Command
         foreach ($products as $product) {
             $products = Product::create($product);
         }
-        $this->info('Seeding Products Done');
+        $this->line('|------------------------------------|');
+        $this->line('| Seed Products |');
+        $this->line('|------------------------------------|');
 
         foreach (Package::all() as $package) {
             foreach (Product::all() as $product) {

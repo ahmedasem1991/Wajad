@@ -1,6 +1,13 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::post('csrf-token', function(){
+    return 'we are done';
+})->middleware('csrf_api_token');
 # Auth
 Route::group(['namespace' => 'Auth'], function () {
+    Route::get('/countrycodes', 'AuthController@getCountries');
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
     Route::post('/resetPassword', 'ResetPasswordController');
@@ -8,7 +15,6 @@ Route::group(['namespace' => 'Auth'], function () {
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');
-        Route::post('/refreshToken', 'AuthController@refresh');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
         Route::post('/sendCode/{type}', 'SendCodeController');
         Route::post('/updateUserProfile', 'UpdateUserProfileController');
@@ -25,23 +31,37 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::prefix('items')->group(function () {
         Route::get('/{item}', 'ItemsController@show');
-        Route::post('/', 'ItemsController@store');
-        Route::put('/{item}', 'ItemsController@update');
-        Route::delete('/{item}', 'ItemsController@destroy');
+        Route::middleware('phone_verified')->group(function () {
+            Route::post('/', 'ItemsController@store');
+            Route::post('/{item}', 'ItemsController@update');
+            Route::delete('/{item}', 'ItemsController@destroy');
+        });
+    });
+            Route::prefix('fcm')->group(function () {
+            Route::get('/', 'FcmController@index');
+            Route::post('/create', 'FcmController@store');
+            Route::delete('/delete', 'FcmController@destroy');
+            });
+ 
+    Route::middleware('phone_verified')->group(function () {
+        Route::prefix('request')->group(function () {
+            Route::post('/post/{post}', 'PostRequestController');
+            Route::post('/{post}/accept', 'AcceptPostRequestController');
+            Route::post('/{post}/reject', 'RejectPostRequestController');
+        });
+
+        Route::post('/report/post/{post}', 'PostsController@report');
+        Route::post('/post/{post}/answer', 'AnswerController');
     });
 
-    Route::post('/report/post/{post}', 'PostsController@report');
-    Route::post('/request/post/{post}', 'PostRequestController');
-    Route::post('/request/{post}/accept', 'AcceptPostRequestController');
-    Route::post('/request/{post}/reject', 'RejectPostRequestController');
-    Route::post('/post/{post}/answer', 'AnswerController');
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
-    Route::post('/qrcodes/register/', 'QrcodeController@registerQrcodes');
-    // Route::get('/user/{user_id}/qrcodes', 'QrcodeController@userQrcodes');
+    // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
+    Route::post('/register/qrcode', 'RegisterQRCodeController');
+    Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
 });
 
 Route::prefix('home')->group(function () {
-    Route::get('/banners', 'BannerController');
+    Route::get('/banners/{banner?}', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
 
     Route::group(['prefix' => 'search'], function () {
@@ -52,24 +72,34 @@ Route::prefix('home')->group(function () {
 });
 
 # Categories
-Route::get('/categories', 'CategoryController@index');
-Route::get('/categories/{category}', 'CategoryController@show');
+Route::prefix('categories')->group(function () {
+    Route::get('/', 'CategoryController@index');
+    Route::get('/{category}', 'CategoryController@show');
+});
 
 # Sub Categories
-Route::get('/subCategories/{type?}', 'SubCategoryController@index');
-Route::get('/subCategories/{subCategory}', 'SubCategoryController@show');
+Route::prefix('subCategories')->group(function () {
+    Route::get('/{type?}', 'SubCategoryController@index');
+    Route::get('/{subCategory}', 'SubCategoryController@show');
+});
 
 # Brands
-Route::get('/brands/{subcategory_id?}', 'BrandController@index');
-Route::get('/brands/{brand}', 'BrandController@show');
+Route::prefix('brands')->group(function () {
+    Route::get('/{subcategory_id?}', 'BrandController@index');
+    Route::get('/{brand}', 'BrandController@show');
+});
 
 # Models
-Route::get('/models/{brand_id?}', 'ModelController@index');
-Route::get('/models/{model}', 'ModelController@show');
+Route::prefix('models')->group(function () {
+    Route::get('/{brand_id?}', 'ModelController@index');
+    Route::get('/{model}', 'ModelController@show');
+});
 
 # Colors
-Route::get('/colors', 'ColorController@index');
-Route::get('/colors/{color}', 'ColorController@show');
+Route::prefix('colors')->group(function () {
+    Route::get('/', 'ColorController@index');
+    Route::get('/{color}', 'ColorController@show');
+});
 
 # Wajad Offices
 Route::get('/offices', 'OfficeController@index');
@@ -87,7 +117,7 @@ Route::get('/regions', 'RegionController@index');
 Route::post('/contact-us', 'SupportController@store');
 
 # Qr Code
-Route::get('/scan-qr-code/{qr_code?}', 'QrcodeController')->name('scan-qrcode-api');
+Route::get('/scan-qr-code/{qr_code}', 'ScanQrcodeController')->name('scan-qrcode-api');
 
 # Packages
 Route::get('/packages', 'PackageController');
@@ -98,11 +128,20 @@ Route::get('/pages/{page?}', 'PageController');
 # Posts
 Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
-    Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::middleware(['auth:api', 'phone_verified'])->group(function () {
         Route::post('/add/{type}', 'PostsController@store');
         Route::post('/{post}', 'PostsController@update');
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
 
+
 Route::view('mario', 'mario');
+
+Route::post('/test', 'TestController');
+
+/**
+ * Fcm APIS
+ */
+

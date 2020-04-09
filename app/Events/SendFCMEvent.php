@@ -17,15 +17,15 @@ class SendFCMEvent implements ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $tokens,$data;
+    public $user,$data;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($tokens,$data)
+    public function __construct($user,$data)
     {
-        $this->tokens = $tokens;
+        $this->user = $user;
         $this->data = $data;
     }
 

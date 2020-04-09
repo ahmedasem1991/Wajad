@@ -2,11 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class PackageProductManagement extends Model
 {
+    use SoftDeletes;
     /**
      * The table associated with the model.
      *
