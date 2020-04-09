@@ -296,9 +296,10 @@ Route::get('/test400', function () {
     $user = User::find(11);
     
     
-    dd($user);
+    
     Mail::to($user)->send(new ScanQRCode('30.5458554','40.32455455', ''));
-     if($user)
+    return 'ok';
+    if($user)
     { 
          
       
