@@ -293,19 +293,19 @@ dd ($downstreamResponse);
 
 Route::get('/test400', function () {
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
-    $user = User::find(2);
-    dd($user->notifications);
+    $user = User::find(11);
+    
    // dd($user->getLanguage());
     $qr_code=Qrcode::find(10295);
      
-     if($qr_code->user)
+     if($user)
     { 
          
-       // Mail::to($qr_code->user)->send(new ScanQRCode('30.5458554','40.32455455',$qr_code->item ?? ''));
+       Mail::to($user)->send(new ScanQRCode('30.5458554','40.32455455', ''));
    
-       $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
-       $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,'30.541555','40.548755',$qr_code->id);
-      $qr_code->user->notify(new ScanQRCodeNotification($data,$qr_code,'30.5458554','40.32455455'));
+    //    $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
+    //    $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,'30.541555','40.548755',$qr_code->id);
+    //   $qr_code->user->notify(new ScanQRCodeNotification($data,$qr_code,'30.5458554','40.32455455'));
     }
     // $user->notify(new ScanQRCodeNotification('30.5458554','20.2545544'));
 })->name('test400');
