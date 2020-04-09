@@ -64,7 +64,7 @@ class ScanQrcodeController extends Controller
         }
         if($qr_code->user)
         { //send mail
-           Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
+          dd(Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''))) ;
            //send FCM
            $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
            $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat,$request->lng,$qr_code->id);
