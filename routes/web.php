@@ -295,13 +295,13 @@ Route::get('/test400', function () {
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
     $user = User::find(11);
     
-   // dd($user->getLanguage());
-    $qr_code=Qrcode::find(10295);
-     
+    
+    dd($user);
+    Mail::to($user)->send(new ScanQRCode('30.5458554','40.32455455', ''));
      if($user)
     { 
          
-       Mail::to($user)->send(new ScanQRCode('30.5458554','40.32455455', ''));
+      
 
        
 

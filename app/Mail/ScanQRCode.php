@@ -29,7 +29,7 @@ class ScanQRCode extends Mailable  implements ShouldQueue
 
     public function build()
     {
-        dd('test email');
+         
         return $this->from(env('MAIL_FROM_ADDRESS'))->view('emails.scan_qrcode');
     }
 }
