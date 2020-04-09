@@ -7,6 +7,7 @@ use App\Qrcode;
 use Carbon\Carbon;
 use App\Mail\ScanQRCode;
 use App\Events\SendFCMEvent;
+use http\Exception\BadUrlException;
 use Illuminate\Http\Request;
 use App\Services\SmsProvider;
 use Spatie\QueryBuilder\Filter;
@@ -77,7 +78,7 @@ class ScanQrcodeController extends Controller
         if ($request->expectsJson())
             return new QrcodeResource($qr_code);
 
-        return view('webview.index', compact('qr_code'));
+        return $qr_code->item()->exists() ? view('webview.index', compact('qr_code')) : view('errors.404');
     }
 
     public function registerQrcodes(Request $request)
