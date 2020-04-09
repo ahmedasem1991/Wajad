@@ -302,6 +302,9 @@ Route::get('/test400', function () {
     { 
          
        Mail::to($user)->send(new ScanQRCode('30.5458554','40.32455455', ''));
+
+       
+
    
     //    $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
     //    $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,'30.541555','40.548755',$qr_code->id);
