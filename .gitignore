@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/images/qrcodes
 /storage/*.key
 /vendor
 .env
@@ -17,3 +18,4 @@ composer.lock
 # /public/images
 resources/views/apidoc/*
 resources/docs/*
+/ttfontdata
