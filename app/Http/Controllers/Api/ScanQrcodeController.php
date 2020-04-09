@@ -64,11 +64,11 @@ class ScanQrcodeController extends Controller
         }
         if($qr_code->user)
         { //send mail
-          dd(Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''))) ;
+           Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
            //send FCM
            $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
            $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat,$request->lng,$qr_code->id);
-           $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
+          dd($qr_code->user->notify(new SendFCMNotification($qr_code->user,$data))) ;
            //send SMS
          // $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
           //\Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
