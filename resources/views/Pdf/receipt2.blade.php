@@ -58,7 +58,7 @@ body {
   }
 }
 .border { 
-            border: 5px solid #000;
+            border: 2px solid #000;
             width: 100%;
             height: 100%;
             margin: 10px;
@@ -72,32 +72,43 @@ body {
   max-width: 20%;
   max-height: 20%;
 }
+ 
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 100;
+  width: 100%;
+  text-align: left;
+  padding-left: 50px;
+
+}
+ 
+
+
 </style>
 </head>
-<body>
+<body class="border">
 
  
-  <img src="images/smart_appco_logo2.png">
+<img src="images/header.png" style="width:100%;height:150px">
+  <!-- <img src="images/smart_appco_logo2.png">
 
  
   <div class="header-right">
   <img src="images/ksa2.png" style="height: 100px;width:200px">
-  </div>
-
-
+  </div> -->
   <br>
+<p class="groove"></p>
+<br>
 
-  
-  
-  <p class="groove"></p>
-  <br>
+ 
   
 <div style="padding-left:20px">
-<br><br>
-  <h1>Receipt</h1> 
-   I declare that I /
-        <b> {{GoogleTranslate::trans($post->owner->name ?? "..................",'en') }} </b>  
-        on the day ................. corresponding ................. <br> <br>
+<br> 
+  <center><h2><u>Receipt</u></h2> </center>
+   I declare that /
+        <b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'en') }} </b>  
+        on the day ............................ corresponding .............................. .<br> <br>
         That I received my missing item
         <b> {{GoogleTranslate::trans($post->title ,'en')}}</b>  <br> <br>
         With the following specifications : 
@@ -114,5 +125,10 @@ body {
  
 </div>
 
+<div class="footer">
+  <p><h1>Signature</h1></p>
+  .......................................
+
+</div>
 </body>
 </html>

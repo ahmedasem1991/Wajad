@@ -14,7 +14,9 @@ return [
 	'registered' => ':model registered successfully.',
 	'logged_out' => ':model logged out successfully.',
 	'cannot_buy' => 'Sorry..try again after some minutes.',
-
+	'app_name' =>  'Wajad',
+	'scan_qrcode' =>  'There Some One Scanned Your QR Code.',
+	'scan_qrcode2' =>  'Open his location on the map',
 
 
 	'attributes' => [

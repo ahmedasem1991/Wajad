@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SendFCMEvent' => [
             'App\Listeners\SendFCMListener',
             ],
+        'App\Events\SendSMSEvent' => [
+                'App\Listeners\SendSMSListener',
+                ],
     ];
 
     /**

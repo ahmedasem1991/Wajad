@@ -122,6 +122,13 @@ class AuthController extends Controller
         auth('api')->user()->activeLogin()->Create([
             'user_id' => auth('api')->user()->id
         ]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+        auth('api')->user()->setLanguage($langHeader);
+
         return $this->respondWithToken($token);
     }
 
@@ -181,6 +188,12 @@ class AuthController extends Controller
         (new UserService)->createAndSendActivationCode($user, 'phone');
 
         request()->merge(['user' => request('email')]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+        auth('api')->user()->setLanguage($langHeader);
 
         return $this->login();
     }

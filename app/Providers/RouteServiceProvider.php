@@ -79,7 +79,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->as('api.')
             ->middleware('api')
-            ->domain(env('API_URL', 'api-wajad.smartappco.net'))
+            ->domain(env('API_URL', 'api-wajad.smartappco.dev'))
             ->namespace($this->api_namespace)
             ->group(base_path('routes/api.php'));
     }

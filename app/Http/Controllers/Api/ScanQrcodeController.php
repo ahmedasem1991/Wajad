@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Qrcode;
 
 use Carbon\Carbon;
+use App\Mail\ScanQRCode;
+use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
+use App\Services\SmsProvider;
 use Spatie\QueryBuilder\Filter;
 use Illuminate\Support\Facades\Log;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\QrcodeResource;
 use App\Jobs\ScanQRCodeNotificationJob;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 use App\Notifications\ScanQRCodeNotification;
 
 /**
@@ -57,8 +62,18 @@ class ScanQrcodeController extends Controller
         if (Carbon::now()->toDateTimeString() < $qr_code->end_at) {
             throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
-        ScanQRCodeNotificationJob::dispatch($request, $qr_code);
-       // logger('qrcode scaned successfully .... ' . $qr_code->user->email);
+        if($qr_code->user)
+        { //send mail
+           Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
+           //send FCM
+           $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
+           $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat,$request->lng,$qr_code->id);
+           $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
+           //send SMS
+          $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
+          \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
+        
+        }
         return new QrcodeResource($qr_code);
     }
 

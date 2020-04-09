@@ -49,6 +49,11 @@ return [
         'sms_from' => 'WAJAD',
     ],
 
+    'unifonic' => [
+        'app_id' => env('UNIFONIC_APP_ID'),
+        'sender_id' => env('UNIFONIC_SENDER_ID') //optional
+    ]
+
     
 
     

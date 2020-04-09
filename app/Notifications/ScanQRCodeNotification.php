@@ -3,25 +3,30 @@
 namespace App\Notifications;
 
 use App\Qrcode;
+use LaravelFCM\Facades\FCM;
+use App\Events\SendFCMEvent;
+use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class ScanQRCodeNotification extends Notification
+class ScanQRCodeNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-    private $lat,$lng;
+    private $lat,$lng,$qr_code,$data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($lat, $lng)
+    public function __construct($data,$qr_code,$lat, $lng)
     {
        $this->lat=$lat;
        $this->lng=$lng;
+       $this->qr_code=$qr_code;
+       $this->data=$data;
     }
 
     /**
@@ -32,7 +37,13 @@ class ScanQRCodeNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        
+        return [
+            'mail',
+            'database',
+            'broadcast'
+           
+        ];
     }
 
     /**
@@ -67,5 +78,17 @@ class ScanQRCodeNotification extends Notification
         return [
             //
         ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        event(new SendFCMEvent($this->qr_code->user,$this->data));
+        return new BroadcastMessage($this->toArray($this->data));
+    }
+ 
+
+    public function toDatabase($notifiable)
+    {
+        return [ $this->data ];
     }
 }

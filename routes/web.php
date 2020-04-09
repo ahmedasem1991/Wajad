@@ -10,9 +10,11 @@ use Carbon\Carbon;
 use App\PostRequest;
 use App\SubCategory;
 use Laravel\Nova\Nova;
+use App\Mail\ScanQRCode;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
+use LaravelFCM\Facades\FCM;
 use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerificationCode;
@@ -20,12 +22,15 @@ use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use LaravelFCM\Message\OptionsBuilder;
+//use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
+use LaravelFCM\Message\PayloadDataBuilder;
 use App\Notifications\BroadcastNotification;
-//use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Notifications\ScanQRCodeNotification;
 use App\Services\Filters\QRCodeFilters\Expired;
+use LaravelFCM\Message\PayloadNotificationBuilder;
 use App\Services\Filters\QRCodeFilters\MultiAssign;
 use App\Services\Filters\QRCodeFilters\SingleAssign;
 use App\Exceptions\Api\VerifyActivationCodeException;
@@ -64,6 +69,14 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
+    $array=[];
+    
+    foreach(User::find(2)->devices as $device)
+    {
+      //  dd($device);
+ array_push($array,$device->token);
+    }
+    return $array;
     $im = new Imagick("https://pngimg.com/uploads/qr_code/qr_code_PNG6.png");
     $height = $im->getImageHeight();
     $width = $im->getImageWidth();
@@ -200,14 +213,66 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/test500', function () {
+    return view('emails/scan_qrcode');
+    //     $data=[
+    //     'notification' => [
+    //     'title'=>'Item updated successfully',
+    //     'body'=>'Item updated successfully',
+    //     'sound' => 'default'
+    //     ]];
+    // event(new SendFCMEvent('cd83KWVdS0ykS4teOY-TVP:APA91bGq0qDp-TGrI5iqIeuzERwtGLTY4fndVVqp6fsIaENvm_iwUlJ3YyTGeAvM5tF7HGZsEKTooSzsl2vHjWVhAbHJD56k1r7fxYW-2C6CB5NrM7oYPEP6Aa-mhzOWnfI-ooeC6rtk',$data));
     $data=[
         'notification' => [
         'title'=>'Item updated successfully',
         'body'=>'Item updated successfully',
         'sound' => 'default'
-        ]];
-    $token=User::find(2)->device_token;
-    event(new SendFCMEvent($token,$data));
+        ]
+    ];
+
+$optionBuilder = new OptionsBuilder();
+$optionBuilder->setTimeToLive(60*20);
+
+$notificationBuilder = new PayloadNotificationBuilder('Test title');
+$notificationBuilder->setBody('Item Added Successfully')
+				    ->setSound('default');
+
+$dataBuilder = new PayloadDataBuilder();
+$dataBuilder->addData(['data' => $data]);
+
+$option = $optionBuilder->build();
+$notification = $notificationBuilder->build();
+$data = $dataBuilder->build();
+
+
+
+$token = "eyoyh4ESTFW5qlOAgxqRzm:APA91bHJgPv7DdDZ8o4gmu0gNXeokm3nZf__EzAbPwApu83e5j38UquLjkJ4hzkhsFthdnRjBq5L_p_0GCG1nv8N3_n9Eazl8cb7dOxi4UxJoKjysk7OSJEe02O6i15ThMFr0JuvHeBw";
+
+$downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+$downstreamResponse->numberSuccess();
+$downstreamResponse->numberFailure();
+$downstreamResponse->numberModification();
+
+// return Array - you must remove all this tokens in your database
+$downstreamResponse->tokensToDelete();
+
+// return Array (key : oldToken, value : new token - you must change the token in your database)
+$downstreamResponse->tokensToModify();
+
+// return Array - you should try to resend the message to the tokens in the array
+$downstreamResponse->tokensToRetry();
+
+// return Array (key:token, value:error) - in production you should remove from your database the tokens
+$downstreamResponse->tokensWithError();
+dd ($downstreamResponse);
+    // $data=[
+    //     'notification' => [
+    //     'title'=>'Item updated successfully',
+    //     'body'=>'Item updated successfully',
+    //     'sound' => 'default'
+    //     ]];
+    // //$token=User::find(2)->device_token;
+    // event(new SendFCMEvent('cd83KWVdS0ykS4teOY-TVP:APA91bGq0qDp-TGrI5iqIeuzERwtGLTY4fndVVqp6fsIaENvm_iwUlJ3YyTGeAvM5tF7HGZsEKTooSzsl2vHjWVhAbHJD56k1r7fxYW-2C6CB5NrM7oYPEP6Aa-mhzOWnfI-ooeC6rtk',$data));
   //  return  defaultGroup()->posts_period;
 // $tr = new GoogleTranslate(); // Translates to 'en' from auto-detected language by default
 // $tr->setSource('ar'); // Translate from English
@@ -233,8 +298,20 @@ Route::get('/test500', function () {
 
 
 Route::get('/test400', function () {
-    $user = User::find(3);
-    Mail::to($user)->send(new EmailVerificationCode('1234'));
-
+  //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
+    $user = User::find(2);
+    dd($user->notifications);
+   // dd($user->getLanguage());
+    $qr_code=Qrcode::find(10295);
+     
+     if($qr_code->user)
+    { 
+         
+       // Mail::to($qr_code->user)->send(new ScanQRCode('30.5458554','40.32455455',$qr_code->item ?? ''));
+   
+       $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
+       $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,'30.541555','40.548755',$qr_code->id);
+      $qr_code->user->notify(new ScanQRCodeNotification($data,$qr_code,'30.5458554','40.32455455'));
+    }
     // $user->notify(new ScanQRCodeNotification('30.5458554','20.2545544'));
 })->name('test400');

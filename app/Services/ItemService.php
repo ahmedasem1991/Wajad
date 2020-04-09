@@ -75,14 +75,7 @@ class ItemService
 
         $item->save();
 
-        $data=[
-            'notification' => [
-            'title'=>'Item added successfully',
-            'body'=>'Item added successfully',
-            'sound' => 'default'
-            ]];
-        $token=auth('api')->user()->device_token;
-        event(new SendFCMEvent($token,$data));
+       
 
 
     }

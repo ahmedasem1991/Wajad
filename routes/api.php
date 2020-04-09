@@ -37,7 +37,12 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('/{item}', 'ItemsController@destroy');
         });
     });
-
+            Route::prefix('fcm')->group(function () {
+            Route::get('/', 'FcmController@index');
+            Route::post('/create', 'FcmController@store');
+            Route::delete('/delete', 'FcmController@destroy');
+            });
+ 
     Route::middleware('phone_verified')->group(function () {
         Route::prefix('request')->group(function () {
             Route::post('/post/{post}', 'PostRequestController');
@@ -135,3 +140,8 @@ Route::prefix('posts')->group(function () {
 Route::view('mario', 'mario');
 
 Route::post('/test', 'TestController');
+
+/**
+ * Fcm APIS
+ */
+

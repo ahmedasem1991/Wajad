@@ -264,4 +264,18 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->belongsTo(Country::class, 'mobile_country_id');
     }
+    public function devices()
+    {
+        return $this->hasMany(\App\FcmUser::class);
+    }
+    public function setLanguage($language)
+    {
+       $this->language=$language;
+       $this->save();
+    }
+    public function getLanguage()
+    {
+      return  $this->language;
+        
+    }
 }

@@ -1,6 +1,9 @@
 <?php
 
 use Barryvdh\DomPDF\Facade;
+use LaravelFCM\Facades\FCM;
+use LaravelFCM\Facades\FCMGroup;
+use LaravelFCM\FCMServiceProvider;
 use Barryvdh\DomPDF\ServiceProvider;
 
 return [
@@ -188,6 +191,7 @@ return [
         // Barryvdh\DomPDF\ServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        LaravelFCM\FCMServiceProvider::class,
 ],
 
 
@@ -247,7 +251,8 @@ return [
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
-
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
 
 
     ],

@@ -39,7 +39,7 @@ class ScanQRCodeNotificationJob implements ShouldQueue
     public function handle()
     {  
         if($this->qr_code->user)
-       { 
+        { 
            $this->qr_code->user->notify(new ScanQRCodeNotification($this->lat,$this->lng));
         }
     }

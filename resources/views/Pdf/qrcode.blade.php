@@ -4,6 +4,7 @@
         <meta charset="UTF-8"> 
         <title>Wajad</title>
         <style>
+             p.groove {border-style: groove;}
             table {
                 border-collapse: collapse;
                 text-align: center;
@@ -11,14 +12,34 @@
             table, th, td {
                 border: 1px solid black;
             }
+            .footer {
+  position: fixed;
+  left: 0;
+  bottom: 100;
+  width: 100%;
+  text-align: left;
+  padding-left: 50px;
+
+}
+ 
         </style>
     </head>
-    <body> 
-        <div class="container border">
-            <header class="row">
-            @include('partials.header')
-            </header><br><br>
-            <div id="main"  class="row">
+    <body class="border">
+
+ 
+<img src="images/header.png" style="width:100%;height:150px">
+  <!-- <img src="images/smart_appco_logo2.png">
+
+ 
+  <div class="header-right">
+  <img src="images/ksa2.png" style="height: 100px;width:200px">
+  </div> -->
+  <br>
+<p class="groove"></p>
+<br>
+       
+<div style="padding-left:20px">
+<br> 
                 <div style="text-align: left">
                     <p>
                         Date: <strong>{{ date("l jS \of F Y h:i:s A") }}</strong>
@@ -33,9 +54,9 @@
                         <td>
                             <img style="width: 300px" src="{{ env('APP_URL') . '/'. $model->image  }}">
                         </td>
-                        <td>
+                        <!-- <td>
                             Status<br><strong>{{ $model::STATUS[$model->status] }}</strong>
-                        </td>
+                        </td> -->
                         <td>
                             Qrcode Generate Reference Number<br><strong>{{ $model->generate_reference_number }}</strong>
                         </td>
@@ -43,10 +64,13 @@
                     @endforeach
                 </table>
                 <br> <br> <br>
-                <footer class="row">
-                    @include('partials.footer')  
-                </footer>
+            
             </div>
-        </div>
+     
+<div class="footer">
+  <p><h1>Signature</h1></p>
+  .......................................
+
+</div>
     </body>
 </html>
