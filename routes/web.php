@@ -213,14 +213,8 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/test500', function () {
-    return view('emails/scan_qrcode');
-    //     $data=[
-    //     'notification' => [
-    //     'title'=>'Item updated successfully',
-    //     'body'=>'Item updated successfully',
-    //     'sound' => 'default'
-    //     ]];
-    // event(new SendFCMEvent('cd83KWVdS0ykS4teOY-TVP:APA91bGq0qDp-TGrI5iqIeuzERwtGLTY4fndVVqp6fsIaENvm_iwUlJ3YyTGeAvM5tF7HGZsEKTooSzsl2vHjWVhAbHJD56k1r7fxYW-2C6CB5NrM7oYPEP6Aa-mhzOWnfI-ooeC6rtk',$data));
+  
+    
     $data=[
         'notification' => [
         'title'=>'Item updated successfully',
