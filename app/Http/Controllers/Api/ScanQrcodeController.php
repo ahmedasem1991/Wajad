@@ -30,7 +30,7 @@ class ScanQrcodeController extends Controller
      * Scan QR Code
      * @urlParam qrcode_url required string exists in qrcodes
      * @bodyParam token Barier-token required
-     * @response 
+     * @response
      *{
      * "data": {
      *  "id": 1,
@@ -54,7 +54,7 @@ class ScanQrcodeController extends Controller
      * "end_at": null,
      * "created_at": null
      *}
-     *} 
+     *}
      * @return void
      */
     public function __invoke(Request $request, Qrcode $qr_code)
@@ -72,9 +72,12 @@ class ScanQrcodeController extends Controller
            //send SMS
          // $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
           //\Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
-        
+
         }
-        return new QrcodeResource($qr_code);
+        if ($request->expectsJson())
+            return new QrcodeResource($qr_code);
+
+        return view('webview.index', compact('qr_code'));
     }
 
     public function registerQrcodes(Request $request)
