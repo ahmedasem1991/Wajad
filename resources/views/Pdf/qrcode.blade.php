@@ -5,6 +5,14 @@
         <title>Wajad</title>
         <style>
              p.groove {border-style: groove;}
+             .border { 
+            border: 2px solid #000;
+            width: 100%;
+            height: 100%;
+            margin: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            }
             table {
                 border-collapse: collapse;
                 text-align: center;
