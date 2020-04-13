@@ -56,3 +56,30 @@ function sendCreateItemFCM($item,$badge)
     ];
     return $data;
 }
+
+
+function sendUpdateItemFCM($item,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  الجهاز الخاص لديك '.$item->title,
+            'body' => 'تم تعديل الجهاز الخاص لديك  '
+            .$item->title . ' '
+            . $item->details
+            . ' بنجاح . ' 
+        ],
+        'en' => [
+            'title' => '  The Item '.$item->title,
+            'body' => 'Your Item  '
+            .$item->title . ' '
+            . $item->details
+            . ' updated successfully . ' 
+        ],
+        'type' => 'item',
+        'object_type' => 'new',
+        'id' => $item->id,
+        'related_id' =>-1,
+        'badge' => $badge   
+    ];
+    return $data;
+}

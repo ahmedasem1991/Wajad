@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Events\SendFCMEvent;
 use App\Exceptions\Api\ApiException;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 use App\Services\Filters\QRCodeFilters\FindWhere;
 use App\Services\Checkers\QrCodeCheckers\IsExpired;
 use App\Services\Filters\QRCodeFilters\FindWhereId;
@@ -74,8 +75,10 @@ class ItemService
         }
 
         $item->save();
-
-       
+        // Send FCM
+        $badge = $item->owner->notifications()->whereNull('read_at')->count() == 0 ? 1 : $item->owner->notifications()->whereNull('read_at')->count();
+        $data=sendCreateItemFCM($item,$badge);
+        $item->owner->notify(new SendFCMNotification($item->owner,$data));
 
 
     }
@@ -115,15 +118,11 @@ class ItemService
             ]);
 
             $item->save();
-
-            $data=[
-                'notification' => [
-                'title'=>'Item updated successfully',
-                'body'=>'Item updated successfully',
-                'sound' => 'default'
-                ]];
-            $token=auth('api')->user()->device_token;
-            event(new SendFCMEvent($token,$data));
+            // Send FCM
+            $badge = $item->owner->notifications()->whereNull('read_at')->count() == 0 ? 1 : $item->owner->notifications()->whereNull('read_at')->count();
+            $data=sendUpdateItemFCM($item,$badge);
+            $item->owner->notify(new SendFCMNotification($item->owner,$data));
+            
         }
     }
 
