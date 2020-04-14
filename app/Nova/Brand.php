@@ -77,7 +77,13 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100'),
+                ->rules('required','dimensions:max_width=100,max_height=100')
+                ->showOnIndex(function () {
+                    if(file_exists(public_path().'images/brands/'. $this->image .'png'))
+                    return true;
+                    else return false;
+                }),
+
                 BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class),
             // NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
             //     ->placeholder('Sub Categories')

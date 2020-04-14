@@ -69,7 +69,8 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
-    $array=[];
+  return (trim('"["1","2","3"]"', '"'))  ;
+   dd(User::find(["1","2","3"]));
     
     foreach(User::find(2)->devices as $device)
     {

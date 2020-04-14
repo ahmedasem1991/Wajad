@@ -83,3 +83,26 @@ function sendUpdateItemFCM($item,$badge)
     ];
     return $data;
 }
+
+
+function sendCustomUsersFCM($body,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  وجد ',
+            'body' => $body,
+           
+        ],
+        'en' => [
+            'title' => '  WAJAD ',
+            'body' => $body
+          
+        ],
+        'type' => '',
+        'object_type' => '',
+        'id' => '',
+        'related_id' =>'',
+        'badge' => $badge   
+    ];
+    return $data;
+}

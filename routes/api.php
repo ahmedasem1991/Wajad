@@ -45,17 +45,28 @@ Route::group(['middleware' => 'auth:api'], function () {
  
     Route::middleware('phone_verified')->group(function () {
         Route::prefix('request')->group(function () {
+           
             Route::post('/post/{post}', 'PostRequestController');
+
+            //accept this request send fcm
             Route::post('/{post}/accept', 'AcceptPostRequestController');
+
+             //reject this request send fcm
             Route::post('/{post}/reject', 'RejectPostRequestController');
         });
 
+         //report  this post send fcm
         Route::post('/report/post/{post}', 'PostsController@report');
+
+         // this my item send fcm
         Route::post('/post/{post}/answer', 'AnswerController');
     });
 
+     // Send FCM and SMS
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
+    
+    //Send FCM
     Route::post('/register/qrcode', 'RegisterQRCodeController');
     Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
 });
@@ -129,6 +140,8 @@ Route::get('/pages/{page?}', 'PageController');
 Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
 
+
+    // Send FCM
     Route::middleware(['auth:api', 'phone_verified'])->group(function () {
         Route::post('/add/{type}', 'PostsController@store');
         Route::post('/{post}', 'PostsController@update');

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\AdminNotification;
 use App\Post;
 use App\Role;
 use App\User;
@@ -16,6 +17,7 @@ use App\CorporateAssignQrcode;
 use App\Jobs\GenerateQrcodeJob;
 use App\Observers\PostObserver;
 use App\Observers\RoleObserver;
+use App\Observers\NotificationObserver;
 use App\Observers\UserObserver;
 use App\Observers\PeopleObserver;
 use Illuminate\Support\Facades\Log;
@@ -66,7 +68,9 @@ class AppServiceProvider extends ServiceProvider
         Post::observe(PostObserver::class);
         User::observe(UserObserver::class);
         PostRequest::observe(PostRequestObserver::class);
+        AdminNotification::observe(NotificationObserver::class);
         \App\Role::observe(RoleObserver::class);
+
         
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');

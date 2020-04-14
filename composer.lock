@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6db830a08b4638424b1b62594b31d80",
+    "content-hash": "abdaa5c25298981f677e2cdbce733a61",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4008,8 +4008,8 @@
             "authors": [
                 {
                     "name": "Marian Gabriel",
-                    "email": "vladmariang@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "vladmariang@gmail.com"
                 }
             ],
             "description": "A Laravel Nova card for editing .env file .",
@@ -4183,6 +4183,47 @@
                 "vector"
             ],
             "time": "2019-10-06T11:29:25+00:00"
+        },
+        {
+            "name": "mattsplat/readmore",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mattsplat/readmore.git",
+                "reference": "061d3672dad2eac7bb8ac536d93e2c0f26dbc7ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mattsplat/readmore/zipball/061d3672dad2eac7bb8ac536d93e2c0f26dbc7ca",
+                "reference": "061d3672dad2eac7bb8ac536d93e2c0f26dbc7ca",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mattsplat\\Readmore\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mattsplat\\Readmore\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field to hide long text and show when clicked.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-08-28T23:06:05+00:00"
         },
         {
             "name": "mjaschen/phpgeo",
@@ -5462,6 +5503,62 @@
                 "serialize"
             ],
             "time": "2019-11-29T22:36:02+00:00"
+        },
+        {
+            "name": "optimistdigital/nova-multiselect-field",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/optimistdigital/nova-multiselect-field.git",
+                "reference": "f15e47fcad02fec6a74a218d3c411eabae8cb0dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/optimistdigital/nova-multiselect-field/zipball/f15e47fcad02fec6a74a218d3c411eabae8cb0dc",
+                "reference": "f15e47fcad02fec6a74a218d3c411eabae8cb0dc",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^2.0.11 || ^3.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OptimistDigital\\MultiselectField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OptimistDigital\\MultiselectField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tarvo Reinpalu",
+                    "email": "tarvoreinpalu@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Optimist Digital",
+                    "email": "info@optimistdigital.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A multiple select field for Laravel Nova.",
+            "keywords": [
+                "laravel",
+                "multiselect",
+                "nova",
+                "select"
+            ],
+            "time": "2020-03-05T07:19:16+00:00"
         },
         {
             "name": "orlyapps/nova-belongsto-depend",
@@ -7875,7 +7972,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/DownloadQrcodeImage",
-                "reference": "22ba7327794830debf6b67792161edab15352f53"
+                "reference": "a76004939dfbb34eef36fbc040fd9a5866b35b16"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -7908,7 +8005,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/GoogleMaps",
-                "reference": "c3bffa2d4434d343373642a442a9226fc5791fad"
+                "reference": "bbeb3f6fbdd96c3520326442579e50b5e5864958"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -7941,7 +8038,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/QrcodeGenerator",
-                "reference": "844cf167bc786ad84ed3f74590b97606070792ca"
+                "reference": "8a9733ae837c0404e876c27ad764c6d942650da5"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -8416,9 +8513,9 @@
             "authors": [
                 {
                     "name": "Alex Vanderbist",
+                    "role": "Developer",
                     "email": "alex@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Easily build Eloquent queries from API requests",
@@ -8466,9 +8563,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "A magic memoization function",
@@ -11163,9 +11260,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
+                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondco.de",
-                    "role": "Developer"
+                    "homepage": "https://beyondco.de"
                 }
             ],
             "description": "Symfony Var-Dump Server for Laravel",
@@ -11711,8 +11808,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
