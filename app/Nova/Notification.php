@@ -162,6 +162,6 @@ class Notification extends Resource
     }
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/colors.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/notification.png" style="height:22px;width:22px;margin=10px" />';
     }
 }
