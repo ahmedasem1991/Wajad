@@ -1,11 +1,12 @@
 <?php
 
+use App\Item;
 use App\Post;
 use App\User;
 use App\Qrcode;
 use App\ApiToken;
-use App\Corporate;
 
+use App\Corporate;
 use Carbon\Carbon;
 use App\PostRequest;
 use App\SubCategory;
@@ -22,10 +23,11 @@ use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use LaravelFCM\Message\OptionsBuilder;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
+use LaravelFCM\Message\OptionsBuilder;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\SendFCMNotification;
 use LaravelFCM\Message\PayloadDataBuilder;
 use App\Notifications\BroadcastNotification;
 use App\Notifications\ScanQRCodeNotification;
@@ -294,23 +296,12 @@ dd ($downstreamResponse);
 
 Route::get('/test400', function () {
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
-    $user = User::find(11);
-    
-    
-    
-    Mail::to($user)->send(new ScanQRCode('30.5458554','40.32455455', ''));
-    return 'ok';
-    if($user)
-    { 
-         
-      
+    $user = User::find(2);
+    $item = Item::find(1);
 
-       
-
-   
-    //    $badge = $qr_code->user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $qr_code->user->notifications()->whereNull('read_at')->count();
-    //    $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,'30.541555','40.548755',$qr_code->id);
-    //   $qr_code->user->notify(new ScanQRCodeNotification($data,$qr_code,'30.5458554','40.32455455'));
-    }
-    // $user->notify(new ScanQRCodeNotification('30.5458554','20.2545544'));
-})->name('test400');
+    
+    $badge = $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
+    $data=sendCreateItemFCM($item,$badge);
+    $item->owner->notify(new SendFCMNotification($item->owner,$data));
+    
+    })->name('test400');

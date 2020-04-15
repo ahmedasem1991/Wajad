@@ -21,11 +21,11 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
              
             . ' Check the location on the map . ' 
         ],
-        'url' => 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng,
         'type' => 'qrcode',
-        'object_type' => 'scan',
+        'deeplink' => 'qrcode',
+        'image' => null ,
+        'url' => 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng,
         'id' => $id,
-        'related_id' =>$item ?$item->title : -1,
         'badge' => $badge   
     ];
     return $data;
@@ -49,9 +49,10 @@ function sendCreateItemFCM($item,$badge)
             . ' added successfully . ' 
         ],
         'type' => 'item',
-        'object_type' => 'new',
+        'deeplink' => 'item',
+        'image' =>null ,
+        'url' => null ,
         'id' => $item->id,
-        'related_id' =>-1,
         'badge' => $badge   
     ];
     return $data;
@@ -76,9 +77,10 @@ function sendUpdateItemFCM($item,$badge)
             . ' updated successfully . ' 
         ],
         'type' => 'item',
-        'object_type' => 'new',
         'id' => $item->id,
-        'related_id' =>-1,
+        'deeplink' => 'item',
+        'image' =>null ,
+        'url' => null ,
         'badge' => $badge   
     ];
     return $data;
@@ -99,9 +101,10 @@ function sendCustomUsersFCM($body,$badge)
           
         ],
         'type' => '',
-        'object_type' => '',
         'id' => '',
-        'related_id' =>'',
+        'deeplink' => 'topic',
+        'image' =>null ,
+        'url' => null ,
         'badge' => $badge   
     ];
     return $data;

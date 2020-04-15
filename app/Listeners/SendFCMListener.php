@@ -72,8 +72,10 @@ class SendFCMListener
         'body' => $data['ar']['body'],
         'id' => $data['id'],
         'type' => $data['type'],
-        'object_type' => (isset($data['object_type'])) ? $data['object_type'] : -1 ,
-        'related_id' => $data['related_id'],
+        'deeplink' => $data['deeplink'],
+        'image' => (isset($data['image'])) ? $data['image'] : null ,
+        'url' => (isset($data['url'])) ? $data['url'] : null ,
+
          
     ];
     $info['en'] = [
@@ -81,16 +83,24 @@ class SendFCMListener
         'body' => $data['en']['body'],
         'id' => $data['id'],
         'type' => $data['type'],
-        'object_type' => (isset($data['object_type'])) ? $data['object_type'] : -1 ,
-        'related_id' => $data['related_id'],
+        'deeplink' => $data['deeplink'],
+        'image' => (isset($data['image'])) ? $data['image'] : null ,
+        'url' => (isset($data['url'])) ? $data['url'] : null ,
         
     
     ];
 
+    $data_ar=[
+        'payload' =>$info['ar']
+    ];
+    $data_en=[
+        'payload' =>$info['en']
+    ];
 
 
-    $dataBuilder_ar->addData( $info['ar'] );
-    $dataBuilder_en->addData( $info['en'] );
+
+    $dataBuilder_ar->addData( $data_ar );
+    $dataBuilder_en->addData( $data_en );
 
     $notification_ar = $notificationBuilder_ar->build();
     $notification_en = $notificationBuilder_en->build();
@@ -152,6 +162,8 @@ class SendFCMListener
     }
 
     
+
+    
     $notification = [
         'action' => __CLASS__ . '@send',
         'options' => $data,
@@ -172,7 +184,7 @@ class SendFCMListener
             ],
         ],
     ];
-     
+     dd($notification);
    // \Log::info($notification);
      
 
