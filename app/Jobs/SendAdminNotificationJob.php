@@ -64,10 +64,11 @@ class SendAdminNotificationJob implements ShouldQueue
 
             //Special Users
             if ($this->send_to == 1) {
-               // $array = Arr::collapse([$this->users]);
-              //  dd($array);
-                $Users = User::find((array) $this->users);
-              //  echo $this->users;
+               
+                $Users = User::find($this->users);
+               
+               
+               
              //   dd( $Users);
                 foreach ($Users as $user) {
                     $badge = $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();

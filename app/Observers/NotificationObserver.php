@@ -14,7 +14,14 @@ class NotificationObserver
 
     public function saving(AdminNotification $Notification)
     {
-        SendAdminNotificationJob::dispatch($Notification->body,$Notification->send_to,$Notification->send_by,$Notification->users);
+        
+      $users= str_replace("[","",$Notification->users); 
+      $users= str_replace("]","",$users); 
+      $users= str_replace('"',"",$users); 
+      $users = explode(',', $users);
+ 
+         
+        SendAdminNotificationJob::dispatch($Notification->body,$Notification->send_to,$Notification->send_by,$users);
     }
     /**
      * Handle the admin notification "created" event.
