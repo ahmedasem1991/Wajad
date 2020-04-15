@@ -60,6 +60,7 @@ class PDFController extends Controller
         $models =  session()->get('models');
       //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
         $data=['models' => $models];
+        set_time_limit(3000);
         $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
         return $pdf->download(now() . '_QR_CODE.pdf');
     }
