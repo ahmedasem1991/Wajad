@@ -6,11 +6,12 @@ namespace App\Http\Controllers\Api;
 use App\Post;
 use App\User;
 use App\PostRequest;
-use App\Exceptions\Api\ApiException;
-use App\Http\Controllers\Controller;
 use Illuminate\http\Request;
 use Illuminate\Support\Carbon;
+use App\Exceptions\Api\ApiException;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 
 /**
  * @group Post Request
@@ -54,6 +55,12 @@ class RejectPostRequestController extends Controller
         ) {
             //TO DO: take some actions
         }
+
+        $request_user=User::find($request->user_id);
+        //send FCM
+        $badge =getBadge($request_user);
+        $data=sendRejectPostRequestFCM($post->founder,$post,$badge,$postRequest->id);
+        $request_user->notify(new SendFCMNotification($request_user,$data));
 
         $this->addResponse(trans('messages.rejected', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 

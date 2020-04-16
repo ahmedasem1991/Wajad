@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::middleware('phone_verified')->group(function () {
         Route::prefix('request')->group(function () {
            
+             //accept this request send fcm
             Route::post('/post/{post}', 'PostRequestController');
 
             //accept this request send fcm

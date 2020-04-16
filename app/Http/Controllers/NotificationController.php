@@ -18,7 +18,7 @@ class NotificationController extends Controller
     {
             $user= User::find(2);
             $item=Item::find(1);
-            $badge = $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
+            $badge =getBadge($user);
             $data=sendCreateItemFCM($item,$badge);
             $user=User::find(2); 
             event(new SendFCMEvent($user,$data));

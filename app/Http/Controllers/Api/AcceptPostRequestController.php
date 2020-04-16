@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use App\User;
 use App\PostRequest;
+use Illuminate\http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use Illuminate\http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 
 /**
  * @group Post Request
@@ -43,6 +45,12 @@ class AcceptPostRequestController extends Controller
         $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
         $postRequest->update(['is_request_valid' => true]);
         $post->update(['owner_id' => $request->user_id]);
+         
+        $request_user=User::find($request->user_id);
+        //send FCM
+        $badge =getBadge($request_user);
+        $data=sendAcceptPostRequestFCM($post->founder,$post,$badge,$postRequest->id);
+        $request_user->notify(new SendFCMNotification($request_user,$data));
 
         $this->addResponse(trans('messages.accepted', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 

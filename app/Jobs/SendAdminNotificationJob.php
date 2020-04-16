@@ -71,7 +71,7 @@ class SendAdminNotificationJob implements ShouldQueue
                
              //   dd( $Users);
                 foreach ($Users as $user) {
-                    $badge = $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
+                    $badge =getBadge($user);
                     $data = sendCustomUsersFCM($this->body, $badge);
                     $user->notify(new SendFCMNotification($user, $data));
                 }

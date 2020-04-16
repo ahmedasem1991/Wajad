@@ -334,8 +334,8 @@ Route::get('/test400', function () {
     $item = Item::find(1);
 
     
-    $badge = $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
-    $data=sendCreateItemFCM($item,$badge);
+    $badge =getBadge($user);
+        $data=sendCreateItemFCM($item,$badge);
     $item->owner->notify(new SendFCMNotification($item->owner,$data));
     
     })->name('test400');

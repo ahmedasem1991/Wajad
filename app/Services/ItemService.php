@@ -76,7 +76,7 @@ class ItemService
 
         $item->save();
         // Send FCM
-        $badge = $item->owner->notifications()->whereNull('read_at')->count() == 0 ? 1 : $item->owner->notifications()->whereNull('read_at')->count();
+        $badge =getBadge($item->owner);
         $data=sendCreateItemFCM($item,$badge);
         $item->owner->notify(new SendFCMNotification($item->owner,$data));
 
@@ -119,7 +119,7 @@ class ItemService
 
             $item->save();
             // Send FCM
-            $badge = $item->owner->notifications()->whereNull('read_at')->count() == 0 ? 1 : $item->owner->notifications()->whereNull('read_at')->count();
+            $badge =getBadge($item->owner);
             $data=sendUpdateItemFCM($item,$badge);
             $item->owner->notify(new SendFCMNotification($item->owner,$data));
             
