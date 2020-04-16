@@ -23,28 +23,25 @@ class FcmController extends Controller
         /**
          * Get FCM List
          * @bodyParam token Barier-token required
-         * @response {
-        *    "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
-        *    "data": [
-        *        {
-        *            "ar": {
-        *                "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
-        *               "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
-        *           },
-        *           "en": {
-        *               "title": "  There Some One Scanned Your QR Code ",
-        *              "body": "There Some One Scanned Your QR Code    Check the location on the map . "
-        *          },
-        *           "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
-        *           "type": "qrcode",
-        *          "object_type": "scan",
-        *           "id": 10295,
-        *           "related_id": -1,
-        *          "badge": 1
-        *      }
-        *    ],
-        *     "created_at": "2020-04-07T15:07:22.000000Z",
-        *    "read_at": "2020-04-07T15:07:22.000000Z"
+         * @response 
+         * {
+         *  "data": [
+       * {
+         *   "id": "35b355cb-0c30-46ed-b56c-e1217f71af0a",
+         *   "payload": {
+           *     "title": "  The Item Shawmii",
+            *    "body": "Your Item  Shawmii Shawmiii x + jemii added successfully . ",
+            *    "type": "item",
+            *    "deeplink": "item",
+            *    "image": null,
+             *   "url": null,
+              *  "id": 1,
+             *   "badge": 31
+           * },
+          *  "created_at": "2020-04-15T17:33:22.000000Z",
+          *  "read_at": "2020-04-15T17:33:22.000000Z"
+       * }
+      *  ]
         * }
     
      * @return void

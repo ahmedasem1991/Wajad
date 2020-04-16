@@ -216,7 +216,41 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/test500', function () {
+
+
+    $data='{
+            "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
+            "data": [
+                {
+                    "ar": {
+                        "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
+                       "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
+                   },
+                   "en": {
+                       "title": "  There Some One Scanned Your QR Code ",
+                      "body": "There Some One Scanned Your QR Code    Check the location on the map . "
+                  },
+                   "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
+                   "type": "qrcode",
+                  "object_type": "scan",
+                   "id": 10295,
+                   "related_id": -1,
+                  "badge": 1
+              }
+            ],
+            "created_at": "2020-04-07T15:07:22.000000Z",
+            "read_at": "2020-04-07T15:07:22.000000Z"
+         }';
+         $data=json_decode($data);
+
+         $info='';
+         $lang='ar';
+         if($lang=='ar')
+         $info=$data->data[0]->ar;
+         else
+         $info=$data->data[0]->en;
   
+         dd($data->data[0]->en);
     
     $data=[
         'notification' => [
