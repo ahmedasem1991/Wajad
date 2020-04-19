@@ -204,3 +204,147 @@ function sendCustomUsersFCM($body,$badge)
     ];
     return $data;
 }
+
+
+function sendReportPostFCM($postReport,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  قام '. 
+            $postReport->user->name .
+             ' بالإبلاغ عن منشورك ',
+            'body' => '  قام '. 
+            $postReport->user->name .
+             ' بالإبلاغ عن منشورك ' .  $postReport->post->title  
+        ],
+        'en' => [
+            'title' =>$postReport->user->name .
+             ' has reported your post ',
+            'body' => $postReport->user->name .
+            ' has reported your post ' .  $postReport->post->title  
+        ],
+        'type' => 'post_report',
+        'deeplink' => 'post_report',
+        'image' =>$postReport->image ,
+        'url' => null ,
+        'id' => $postReport->id,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
+
+function sendBuyPackageFCM($package,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  لقد قمت بشراء  '. 
+            $package->name_ar .
+             ' بنجاح. ',
+            'body' => '  لقد قمت بشراء '. 
+            $package->name_ar .
+             ' وتحتوي علي  ' .  $package->quantity . ' QRCodes. '  
+        ],
+        'en' => [
+            'title' => '  You have purchased '. 
+            $package->name_en .
+             ' successfully. ',
+            'body' => '  You have purchased '. 
+            $package->name_ar .
+             ' and contain  ' .  $package->quantity . ' QRCodes. '  
+        ],
+        'type' => 'package',
+        'deeplink' => 'qrcode',
+        'image' =>null ,
+        'url' => null ,
+        'id' => $package->id,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
+
+
+function sendCreatePostFCM($post,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  المنشور الخاص لديك '.$post->title,
+            'body' => 'تم إضافة المنشور الخاص لديك  '
+          //  .$item->title . ' '
+            . $post->description . ' '
+            . ' بنجاح . ' 
+        ],
+        'en' => [
+            'title' => '  The Post '.$post->title,
+            'body' => 'Your Post  '
+           // .$post->title . ' '
+            . $post->description. ' '
+            . ' added successfully . ' 
+        ],
+        'type' => 'post',
+        'deeplink' => 'post',
+        'image' =>null ,
+        'url' => null ,
+        'id' => $post->id,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
+
+function sendUpdatePostFCM($post,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  المنشور الخاص لديك '.$post->title,
+            'body' => 'تم تعديل المنشور الخاص لديك  '
+          //  .$item->title . ' '
+            . $post->description . ' '
+            . ' بنجاح . ' 
+        ],
+        'en' => [
+            'title' => '  The Post '.$post->title,
+            'body' => 'Your Post  '
+           // .$post->title . ' '
+            . $post->description. ' '
+            . ' updated successfully . ' 
+        ],
+        'type' => 'post',
+        'deeplink' => 'post',
+        'image' =>null ,
+        'url' => null ,
+        'id' => $post->id,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
+
+
+function sendAssignQRCodeFCM($item,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => ' تم إضافة رمز التعريف الخاص لديك ',
+            'body' => 'تم إضافة رمز التعريف الخاص لديك     '
+            .' إلي ' 
+            . $item->title . ' ' 
+            . ' بنجاح . ' 
+        ],
+        'en' => [
+            'title' => '  Your QRCode has been assigned ',
+            'body' => ' Your QRCode has been assigned  '
+             . '  to '
+            . $item->title. ' '
+            . '  successfully . ' 
+        ],
+        'type' => 'assign_qrcode',
+        'deeplink' => 'item',
+        'image' =>null ,
+        'url' => null ,
+        'id' => $item->id,
+        'badge' => $badge   
+    ];
+    return $data;
+}

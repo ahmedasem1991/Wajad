@@ -13,3 +13,18 @@ function sendScanQRCodeSMS($user,$item)
     
     return $message;
 }
+
+
+function sendBuyPackageSMS($package,$user)
+{
+    
+    if($user->getLanguage()=='ar')
+    $message='  لقد قمت بشراء '. $package->name_ar . 'بنجاح.' 
+   . ' وتحتوي علي  ' .  $package->quantity . ' QRCodes. '  ;
+    else
+    $message='  You have purchased '. 
+    $package->name_en .
+     ' and contain  ' .  $package->quantity . ' QRCodes. '  ;
+    
+    return $message;
+}

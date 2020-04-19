@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 
 /**
  * @group Post Request
@@ -64,6 +65,11 @@ class AnswerController extends Controller
             ]);
         }, $request->data);
 
+           //send FCM
+           $badge =getBadge($post->founder);
+           $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
+           $post->founder->notify(new SendFCMNotification($post->founder,$data));
+ 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
         return $this->response();
     }

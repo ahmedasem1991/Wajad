@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\City;
 use App\Item;
 use App\Post;
+use App\User;
 use Carbon\Carbon;
 use App\PostReport;
 use Illuminate\Support\Str;
@@ -13,6 +14,7 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 use Intervention\Image\ImageManagerStatic as Image;
 
 /**
@@ -194,7 +196,13 @@ class PostsController extends Controller
             $post->save();
         }
 
+      
+
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
+   // Send FCM
+   $badge =getBadge($post->publisher);
+   $data=sendCreatePostFCM($post,$badge);
+   $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
 
         return $this->response();
     }
@@ -256,6 +264,12 @@ class PostsController extends Controller
         }
 
         $post->increment('reports_number');
+
+       // $request_user=User::find($request->user_id);
+        //send FCM
+        $badge =getBadge($post->publisher);
+        $data=sendReportPostFCM($postReport,$badge);
+        $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
 
         $this->addResponse(trans('messages.reported', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
@@ -511,7 +525,16 @@ class PostsController extends Controller
                     ]);
                 }, $request->images);
             }
+
+            
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
+
+
+                // Send FCM
+         $badge =getBadge($post->publisher);
+         $data=sendUpdatePostFCM($post,$badge);
+         $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
+     
 
             return $this->response();
         }

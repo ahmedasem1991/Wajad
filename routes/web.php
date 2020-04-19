@@ -329,6 +329,7 @@ dd ($downstreamResponse);
 
 
 Route::get('/test400', function () {
+ return   checklocate(auth('api')->user);
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
     $user = User::find(2);
     $item = Item::find(1);

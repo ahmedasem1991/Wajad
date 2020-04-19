@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Jobs\GenerateAndAssigneQrcodeJob;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 use App\Notifications\BroadcastNotification;
 
 /**
@@ -53,6 +54,13 @@ class GenerateAndAssignQRCodeController extends Controller
         }
 
         $package = Package::find($request->package_id);
+        $package->subscription([
+            'corporate_id' => Null,
+            'user_id' => auth('api')->user()->id,
+            'subscriber' => 1,
+            'created_from'=>'mobile'
+        ]);
+ 
         $now = Carbon::now();
 
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
@@ -120,6 +128,20 @@ class GenerateAndAssignQRCodeController extends Controller
         // ];
 
         // GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
+        
+        // Send FCM
+        $badge =getBadge(auth('api')->user());
+        $data=sendBuyPackageFCM($package,$badge);
+        auth('api')->user()->notify(new SendFCMNotification( auth('api')->user(),$data));
+    
+
+            //Send SMS
+
+            //   $message=sendBuyPackageSMS($package, auth('api')->user());
+            //   \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
+
+
+
 
         $url = Nova::path() . '/resources/stocks';
         $Admins = User::superAdmin()->get();
@@ -130,15 +152,7 @@ class GenerateAndAssignQRCodeController extends Controller
             $user->notify(new BroadcastNotification('info', $message, $url));
         }
 
-        $data = [
-            'notification' => [
-                'title' => 'Payment completed successfully',
-                'body' => 'Payment completed successfully and your QRcodes create successfully.',
-                'sound' => 'default'
-            ],
-        ];
-        // $token= auth('api')->user()->device_token;
-        // event(new SendFCMEvent($token,$data));
+        
 
         return ([
             'success' => true,

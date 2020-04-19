@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendFCMNotification;
 
 /**
  * @group QR Codes
@@ -61,6 +62,12 @@ class RegisterQRCodeController extends Controller
 
         $this->addResponse(trans('messages.registered', ['model' => trans('messages.attributes.qrcode')]))->addStatusCode(201);
 
+        // Send FCM
+        $badge =getBadge(auth('api')->user());
+        $data=sendAssignQRCodeFCM($item,$badge);
+        auth('api')->user()->notify(new SendFCMNotification( auth('api')->user(),$data));
+
+                   
         return $this->response();
     }
 }
