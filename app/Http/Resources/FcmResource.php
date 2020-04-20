@@ -29,8 +29,8 @@ class FcmResource extends JsonResource
         return [
             'id' => $this->id,
             'payload' => $info ,
-            'created_at' => $this->created_at ?? '',
-            'read_at' => $this->created_at ?? '',
+            'created_at' =>  $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'read_at' =>  $this->read_at ? $this->created_at->toDateTimeString() : null,
        ];
     }
 }

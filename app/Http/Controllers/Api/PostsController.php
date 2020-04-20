@@ -201,7 +201,7 @@ class PostsController extends Controller
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
    // Send FCM
    $badge =getBadge($post->publisher);
-   $data=sendCreatePostFCM($post,$badge);
+   $data=sendCreatePostFCM($post,$badge,$type);
    $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
 
         return $this->response();
@@ -481,7 +481,9 @@ class PostsController extends Controller
                 throw new ApiException($validate_request->errors()->first(), 400);
             }
 
+            $type='lost';
             if ($post->status == self::TYPES['found']) {
+                $type='found';
                 $validate_found_post = Validator::make($request->all(), [
                     'questions' => ['required',  'array', 'between:1,3'],
                     'questions.0' => ['required', 'min:9', 'max:500'],
@@ -532,7 +534,7 @@ class PostsController extends Controller
 
                 // Send FCM
          $badge =getBadge($post->publisher);
-         $data=sendUpdatePostFCM($post,$badge);
+         $data=sendUpdatePostFCM($post,$badge,$type);
          $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
      
 
