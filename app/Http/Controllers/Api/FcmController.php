@@ -34,7 +34,7 @@ class FcmController extends Controller
             *    "type": "item",
             *    "deeplink": "item",
             *    "image": null,
-            *    "object": {
+            *    "item": {
           * "owner":{
           *  "image":"http:\/\/wajad.test\/images\/profile\/default-profile.png",
           *  "country":{
@@ -66,6 +66,7 @@ class FcmController extends Controller
          *   "icon":"images\/profile\/default-profile.png",
          *   "id":9
         * },
+        * "post" :null,
         * "qrcode":null,
         * "title":"Shawmii",
         * "deleted_at":"",

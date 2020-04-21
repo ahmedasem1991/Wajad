@@ -73,7 +73,8 @@ class SendFCMListener
         'id' => $data['id'],
         'type' => $data['type'],
         'deeplink' => $data['deeplink'],
-        'object' => $data['object'],
+        'post' => $data['post'],
+        'item' => $data['item'],
         'image' => (isset($data['image'])) ? $data['image'] : null ,
         'url' => (isset($data['url'])) ? $data['url'] : null ,
 
@@ -85,7 +86,8 @@ class SendFCMListener
         'id' => $data['id'],
         'type' => $data['type'],
         'deeplink' => $data['deeplink'],
-        'object' => $data['object'],
+        'post' => $data['post'],
+        'item' => $data['item'],
         'image' => (isset($data['image'])) ? $data['image'] : null ,
         'url' => (isset($data['url'])) ? $data['url'] : null ,
         
