@@ -34,6 +34,63 @@ class FcmController extends Controller
             *    "type": "item",
             *    "deeplink": "item",
             *    "image": null,
+            *    "object": {
+          * "owner":{
+          *  "image":"http:\/\/wajad.test\/images\/profile\/default-profile.png",
+          *  "country":{
+           *    "country_code":"93",
+           *    "updated_at":null,
+           *    "name_ar":"أفغانستان",
+           *    "created_at":null,
+           *    "id":1,
+           *    "iso_code":"AF",
+           *    "deleted_at":null,
+           *    "name_en":"Afghanistan"
+           * },
+          *  "is_email_verified":false,
+           * "name":"User",
+           * "receive_emails":false,
+           * "id":2,
+           * "default_distance_unit":"kilo",
+           * "mobile_number":"1142416124",
+           * "receive_push_notifications":false,
+           * "email":"ibrahim.saber512@outlook.com",
+           * "status":1,
+           * "is_mobile_number_verified":false
+        * },
+        * "date":"2020-01-13 14:50:51",
+        * "images":[
+        * ],
+        * "color":{
+        *    "name":"Silver",
+         *   "icon":"images\/profile\/default-profile.png",
+         *   "id":9
+        * },
+        * "qrcode":null,
+        * "title":"Shawmii",
+        * "deleted_at":"",
+        * "details":"Shawmiii x + jemii",
+        * "model":{
+          *  "image":"http:\/\/wajad.test\/images\/posts\/post3.jpg",
+          *  "name":"Dell XPS 13",
+          *  "description":"CPU: 8th generation Intel Core i5 \u2013 i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB \u2013 16GB | Screen: 13.3-inch FHD (1,920 x 1,080) \u2013 4k (3840 x 2160) | Storage: 256GB \u2013 1TB SSD",
+         *   "id":1
+        * },
+        * "id":1,
+        * "subcategory":{
+         *   "image":"http:\/\/wajad.test\/images\/default.png",
+          *  "name":"Lap top",
+          *  "description":null,
+         *   "id":12
+     *    },
+      *   "brand":{
+      *      "image":"http:\/\/wajad.test\/images\/posts\/post7.jpg",
+      *      "name":"LCWIKIKI",
+      *      "description":"",
+      *      "id":1
+     *    },
+     *    "status":"found"
+     * },
              *   "url": null,
               *  "id": 1,
              *   "badge": 31

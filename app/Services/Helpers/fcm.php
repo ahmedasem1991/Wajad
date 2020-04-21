@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Resources\ItemResource;
+use App\Http\Resources\PostResource;
+
 function getBadge($user)
 {
 
@@ -29,7 +32,7 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
         'type' => 'post_request',
         'deeplink' => 'post_request',
         'image' =>null ,
-        'object' =>$post ,
+        'object' => new PostResource($post),
         'url' => null ,
         'id' => $id,
         'badge' => $badge   
@@ -59,7 +62,7 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
         'type' => 'post_request',
         'deeplink' => 'post_request',
         'image' =>null ,
-        'object' =>$post ,
+        'object' =>new PostResource($post),
         'url' => null ,
         'id' => $id,
         'badge' => $badge   
@@ -90,7 +93,7 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
         'type' => 'post_request',
         'deeplink' => 'post_request',
         'image' =>null ,
-        'object' =>$post ,
+        'object' =>new PostResource($post),
         'url' => null ,
         'id' => $id,
         'badge' => $badge   
@@ -122,7 +125,7 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
         'type' => 'scan_qrcode',
         'deeplink' => 'item',
         'image' => null ,
-        'object' =>$item ,
+        'object' =>new ItemResource($item),
         'url' => 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng,
         'id' => $id,
         'badge' => $badge   
@@ -132,6 +135,8 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
 
 function sendCreateItemFCM($item,$badge)
 {
+
+   // logger($item);
     $data = [
         'ar' => [
             'title' => '  الجهاز الخاص لديك '.$item->title,
@@ -150,7 +155,7 @@ function sendCreateItemFCM($item,$badge)
         'type' => 'create',
         'deeplink' => 'item',
         'image' =>null ,
-        'object' =>$item ,
+        'object' => new ItemResource($item),
         'url' => null ,
         'id' => $item->id,
         'badge' => $badge   
@@ -180,7 +185,7 @@ function sendUpdateItemFCM($item,$badge)
         'id' => $item->id,
         'deeplink' => 'item',
         'image' =>null ,
-        'object' =>$item ,
+        'object' =>new ItemResource($item),
         'url' => null ,
         'badge' => $badge   
     ];
@@ -233,7 +238,7 @@ function sendReportPostFCM($postReport,$badge)
         'type' => 'report',
         'deeplink' => 'post',
         'image' =>$postReport->image ,
-        'object' =>$postReport->report ,
+        'object' =>new PostResource($postReport->post), 
         'url' => null ,
         'id' => $postReport->id,
         'badge' => $badge   
@@ -294,7 +299,7 @@ function sendCreatePostFCM($post,$badge,$type)
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
         'image' =>null ,
-        'object' =>$post ,
+        'object' =>new PostResource($post) ,
         'url' => null ,
         'id' => $post->id,
         'badge' => $badge   
@@ -323,7 +328,7 @@ function sendUpdatePostFCM($post,$badge,$type)
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
         'image' =>null ,
-        'object' =>$post ,
+        'object' =>new PostResource($post), 
         'url' => null ,
         'id' => $post->id,
         'badge' => $badge   
@@ -353,7 +358,7 @@ function sendAssignQRCodeFCM($item,$badge)
         'type' => 'assign_qrcode',
         'deeplink' => 'item',
         'image' =>null ,
-        'object' =>$item ,
+        'object' =>new ItemResource($item),
         'url' => null ,
         'id' => $item->id,
         'badge' => $badge   

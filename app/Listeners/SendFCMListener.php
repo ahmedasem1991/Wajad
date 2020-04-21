@@ -186,7 +186,7 @@ class SendFCMListener
             ],
         ],
     ];
-     //dd($notification);
+     logger($data_en);
    // \Log::info($notification);
      
 
