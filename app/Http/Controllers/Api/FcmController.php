@@ -66,7 +66,6 @@ class FcmController extends Controller
          *   "icon":"images\/profile\/default-profile.png",
          *   "id":9
         * },
-        * "post" :null,
         * "qrcode":null,
         * "title":"Shawmii",
         * "deleted_at":"",
@@ -92,6 +91,7 @@ class FcmController extends Controller
      *    },
      *    "status":"found"
      * },
+      * "post" :null,
              *   "url": null,
               *  "id": 1,
              *   "badge": 31
