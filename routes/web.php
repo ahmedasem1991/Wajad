@@ -233,6 +233,9 @@ Route::get('/test500', function () {
                    "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
                    "type": "qrcode",
                   "object_type": "scan",
+                  "post": "scan",
+                  "item": "scan",
+                  
                    "id": 10295,
                    "related_id": -1,
                   "badge": 1
@@ -340,3 +343,7 @@ Route::get('/test400', function () {
     $item->owner->notify(new SendFCMNotification($item->owner,$data));
     
     })->name('test400');
+
+    Route::get('/wajad', function(){
+        return view('scan-qr-code');
+    });

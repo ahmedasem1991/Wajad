@@ -19,6 +19,8 @@ class FcmResource extends JsonResource
        $info['body']=    $this->data[0][app()->getLocale()]['body'];
        $info['type']=  $this->data[0]['type'];
        $info['deeplink']=  $this->data[0]['deeplink'] ?? null;
+       $info['post']=  $this->data[0]['post'];
+       $info['item']=  $this->data[0]['item'];
        $info['image']=  $this->data[0]['image'] ?? null;
        $info['url']=  $this->data[0]['url'] ?? null;
        $info['id']=  $this->data[0]['id'];

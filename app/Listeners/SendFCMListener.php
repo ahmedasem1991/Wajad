@@ -36,15 +36,6 @@ class SendFCMListener
     {
         $user = $event->user;
         $data = $event->data;
-    //     $push = new PushNotification('fcm');
-    //     $response = $push->setMessage($data)
-    //     ->setApiKey(env('FCM_SERVER_KEY'))
-    //     ->setDevicesToken($tokens)
-    //    // ->sendByTopic('WAJAD')->getFeedback();
-    //    ->send()
-    //    ->getFeedback();
-
-    //     dd($response);
 
     $optionBuiler = new OptionsBuilder();
     $optionBuiler->setTimeToLive(60 * 20);
