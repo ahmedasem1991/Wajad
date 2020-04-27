@@ -193,7 +193,7 @@ class AuthController extends Controller
         if ($langHeader != 'ar') {
             $langHeader = 'en';
         }
-        auth('api')->user()->setLanguage($langHeader);
+        $user->setLanguage($langHeader);
 
         return $this->login();
     }
