@@ -344,6 +344,6 @@ Route::get('/test400', function () {
     
     })->name('test400');
 
-    Route::get('/wajad', function(){
-        return view('scan-qr-code');
-    });
+    // Route::get('/wajad', function(){
+    //     return view('scan-qr-code');
+    // });
