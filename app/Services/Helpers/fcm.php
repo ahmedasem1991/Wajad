@@ -12,6 +12,9 @@ function getBadge($user)
 
 function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
 {
+    $type='post_lost';
+    if ($post->isFound()) 
+        $type='post_found';
     $data = [
         'ar' => [
             'title' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك  '.$post->title,
@@ -30,7 +33,7 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
              $request_user->name 
         ],
         'type' => 'post_request',
-        'deeplink' => 'post_request',
+        'deeplink' => $type,
         'image' =>null ,
         'post' => new PostResource($post),
         'item' => null,
@@ -43,6 +46,9 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
 
 function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
 {
+    $type='post_lost';
+    if ($post->isFound()) 
+        $type='post_found';
     $data = [
         'ar' => [
             'title' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور  '.$post->title,
@@ -61,7 +67,7 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
              $founder->name 
         ],
         'type' => 'post_request',
-        'deeplink' => 'post_request',
+        'deeplink' => $type,
         'image' =>null ,
         'post' => new PostResource($post),
         'item' => null,
@@ -75,6 +81,9 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
 
 function sendRejectPostRequestFCM($founder,$post,$badge,$id)
 {
+    $type='post_lost';
+    if ($post->isFound()) 
+        $type='post_found';
     $data = [
         'ar' => [
             'title' => ' لقد تم رفض  طلب حق ملكية للمنشور  '.$post->title,
@@ -93,7 +102,7 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
              $founder->name 
         ],
         'type' => 'post_request',
-        'deeplink' => 'post_request',
+        'deeplink' => $type,
         'image' =>null ,
         'post' => new PostResource($post),
         'item' => null,
@@ -227,6 +236,9 @@ function sendCustomUsersFCM($body,$badge)
 
 function sendReportPostFCM($postReport,$badge)
 {
+    $type='post_lost';
+    if ($postReport->post->isFound()) 
+        $type='post_found';
     $data = [
         'ar' => [
             'title' => '  قام '. 
@@ -243,7 +255,7 @@ function sendReportPostFCM($postReport,$badge)
             ' has reported your post ' .  $postReport->post->title  
         ],
         'type' => 'report',
-        'deeplink' => 'post',
+        'deeplink' => $type,
         'image' =>$postReport->image ,
         'post' => new PostResource($postReport->post),
         'item' => null,
