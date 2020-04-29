@@ -269,8 +269,12 @@ class Post extends Resource
 
 
 
-            Button::make('PDF')
+            Button::make('EN PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
+                ->style('danger'),
+
+                Button::make('AR PDF')
+                ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
 
 
