@@ -336,8 +336,9 @@ dd ($downstreamResponse);
 
 Route::get('/test400', function () {
     $post=Post::find(70);
+
 //     $item = Item::find(1);
-//    return  new ItemResource($item);
+    return  new ItemResource($post->item);
    //return  new PostResource($post);
     
     // if ($post->isFound()) 
