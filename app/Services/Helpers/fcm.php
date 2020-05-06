@@ -2,6 +2,7 @@
 
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\FCMPostResource;
 
 function getBadge($user)
 {
@@ -35,7 +36,7 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
         'type' => 'post_request',
         'deeplink' => $type,
         'image' =>null ,
-        'post' => new PostResource($post),
+        'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
         'id' => $id,
@@ -69,7 +70,7 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
         'type' => 'post_request',
         'deeplink' => $type,
         'image' =>null ,
-        'post' => new PostResource($post),
+        'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
         'id' => $id,
@@ -104,7 +105,7 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
         'type' => 'post_request',
         'deeplink' => $type,
         'image' =>null ,
-        'post' => new PostResource($post),
+        'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
         'id' => $id,
@@ -257,7 +258,7 @@ function sendReportPostFCM($postReport,$badge)
         'type' => 'report',
         'deeplink' => $type,
         'image' =>$postReport->image ,
-        'post' => new PostResource($postReport->post),
+        'post' => new FCMPostResource($postReport->post),
         'item' => null,
         'url' => null ,
         'id' => $postReport->id,
@@ -320,7 +321,7 @@ function sendCreatePostFCM($post,$badge,$type)
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
         'image' =>null ,
-        'post' => new PostResource($post),
+        'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
         'id' => $post->id,
@@ -350,7 +351,7 @@ function sendUpdatePostFCM($post,$badge,$type)
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
         'image' =>null ,
-        'post' => new PostResource($post),
+        'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
         'id' => $post->id,
