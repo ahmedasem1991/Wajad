@@ -196,13 +196,13 @@ class PostsController extends Controller
             $post->save();
         }
 
-      
+            // Send FCM
+        $badge =getBadge($user);
+        $data=sendCreatePostFCM($post,$badge,$type);
+        $user->notify(new SendFCMNotification($user,$data));
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
-   // Send FCM
-   $badge =getBadge($user);
-   $data=sendCreatePostFCM($post,$badge,$type);
-   $user->notify(new SendFCMNotification($user,$data));
+   
 
         return $this->response();
     }
