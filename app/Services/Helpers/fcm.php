@@ -320,7 +320,7 @@ function sendCreatePostFCM($post,$badge,$type)
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
         'image' =>null ,
-        'post' => new PostResource($post),
+        'post' => null,
         'item' => null,
         'url' => null ,
         'id' => $post->id,
