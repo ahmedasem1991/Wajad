@@ -334,8 +334,8 @@ dd ($downstreamResponse);
 
 
 Route::get('/test400', function () {
-  
-   //return  new PostResource($post);
+    $post=Post::find(70);
+   return  new PostResource($post);
     
     // if ($post->isFound()) 
     //   return  $type='post_found';
@@ -343,7 +343,8 @@ Route::get('/test400', function () {
     //   return  $type='post_lost';
 // return   checklocate(auth('api')->user);
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
-    $user = User::find(9);
+    
+   $user = User::find(9);
     $item = Item::find(1);
     $post=Post::find(70);
 
