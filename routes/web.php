@@ -337,10 +337,10 @@ Route::get('/test400', function () {
     $post=Post::find(70);
    //return  new PostResource($post);
     
-    if ($post->isFound()) 
-      return  $type='post_found';
-      else
-      return  $type='post_lost';
+    // if ($post->isFound()) 
+    //   return  $type='post_found';
+    //   else
+    //   return  $type='post_lost';
 // return   checklocate(auth('api')->user);
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
     $user = User::find(9);
