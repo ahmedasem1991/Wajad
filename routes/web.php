@@ -334,7 +334,7 @@ dd ($downstreamResponse);
 
 
 Route::get('/test400', function () {
-    $post=Post::find(70);
+  
    //return  new PostResource($post);
     
     // if ($post->isFound()) 
@@ -345,10 +345,11 @@ Route::get('/test400', function () {
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
     $user = User::find(9);
     $item = Item::find(1);
+    $post=Post::find(70);
 
     
     $badge =getBadge($user);
-    $data=sendCreatePostFCM($post,$badge,$type);
+    $data=sendCreatePostFCM($post,$badge,'found');
     $$user->notify(new SendFCMNotification($user,$data));
  
     
