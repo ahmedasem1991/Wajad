@@ -58,7 +58,7 @@ class PostsController extends Controller
     public function store(Request $request, $type = null)
     {
         abort_unless(in_array($type, self::TYPES), 404);
-        $user =auth('api')->user();
+
         $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:128'],
             'description' => ['required', 'min:9', 'max:500'],
@@ -196,13 +196,13 @@ class PostsController extends Controller
             $post->save();
         }
 
-            // Send FCM
-        $badge =getBadge($user);
-        $data=sendCreatePostFCM($post,$badge,$type);
-        $user->notify(new SendFCMNotification($user,$data));
+      
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
-   
+   // Send FCM
+   $badge =getBadge($post->publisher);
+   $data=sendCreatePostFCM($post,$badge,$type);
+   $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
 
         return $this->response();
     }
@@ -510,7 +510,7 @@ class PostsController extends Controller
             $post->update($request->all());
 
             if ($request->has('questions')) {
-                $post->questions()->create([
+                $post->questions()->sync([
                     $request->questions
                 ]);
             }

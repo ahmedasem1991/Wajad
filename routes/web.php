@@ -348,8 +348,9 @@ Route::get('/test400', function () {
 
     
     $badge =getBadge($user);
-        $data=sendCreateItemFCM($item,$badge);
-    $item->owner->notify(new SendFCMNotification($item->owner,$data));
+    $data=sendCreatePostFCM($post,$badge,$type);
+    $$user->notify(new SendFCMNotification($user,$data));
+ 
     
     })->name('test400');
 
