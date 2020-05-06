@@ -19,7 +19,7 @@ class PostResource extends JsonResource
             'description' => $this->description,
             'status' => Post::Status[$this->status] ?? '',
             'attached_to_item' => (bool) $this->item,
-            //'item' => new ItemResource($this->item),
+            'item' => new ItemResource($this->item)??'',
             'sub_category' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'brand' => new BrandResource($this->brand),
