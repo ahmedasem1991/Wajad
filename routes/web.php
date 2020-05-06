@@ -21,9 +21,10 @@ use Illuminate\Http\Request;
 use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
+use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
+use Illuminate\Support\Facades\Route;
 use LaravelFCM\Message\OptionsBuilder;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
@@ -333,7 +334,8 @@ dd ($downstreamResponse);
 
 
 Route::get('/test400', function () {
-    $post=Post::find(11);
+    $post=Post::find(70);
+   return  new PostResource($post);
     
     if ($post->isFound()) 
       return  $type='post_found';
