@@ -335,7 +335,7 @@ dd ($downstreamResponse);
 
 Route::get('/test400', function () {
     $post=Post::find(70);
-   return  new PostResource($post);
+   //return  new PostResource($post);
     
     if ($post->isFound()) 
       return  $type='post_found';
