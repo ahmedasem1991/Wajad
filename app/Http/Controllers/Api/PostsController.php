@@ -524,19 +524,39 @@ class PostsController extends Controller
             }, $request->questions);
             }
 
-            if ($request->has('images')) {
-                $post->images()->delete();
-                array_map(function ($image) use ($post, $request) {
-                    $image_name = \Str::random(15) . '.' . 'png';
-                    $path = public_path('/images/posts/' . $image_name);
-                    Image::make(file_get_contents($image))->save($path);
+            // if ($request->has('images')) {
+            //     $post->images()->delete();
+            //     array_map(function ($image) use ($post, $request) {
+            //         $image_name = \Str::random(15) . '.' . 'png';
+            //         $path = public_path('/images/posts/' . $image_name);
+            //         Image::make(file_get_contents($image))->save($path);
 
-                    $post->images()->create([
-                        'image' =>   'images/posts/' . $image_name
-                    ]);
-                }, $request->images);
+            //         $post->images()->create([
+            //             'image' =>   'images/posts/' . $image_name
+            //         ]);
+            //     }, $request->images);
+            // }
+
+            if ($request->has('images') && count($request->images) > 0) {
+                $post_images = [];
+                foreach ($request->images as $image) {
+                    if (preg_match("/^data:image/", $image)) {
+                        $image_name = Str::random(15) . '.' . 'png';
+                        $path = public_path('/images//' . $image_name);
+                        Image::make(file_get_contents($image))->encode('data-url')->save($path);
+                        $post_images[] = '/images//' . $image_name;
+                    }
+    
+                    if (!preg_match("/^data:image/", $image)) {
+                        $post_images[] = $image;
+                    }
+                }
+                $post->fill([
+                    'images' => $post_images
+                ]);
+    
+                $post->save();
             }
-
             
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
