@@ -335,7 +335,9 @@ dd ($downstreamResponse);
 
 
 Route::get('/test400', function () {
-    $post=Post::find(70);
+    $post=Post::find(11);
+    $post->questions()->delete();
+    dd($post->questions);
 //     $item = Item::find(1);
 //    return  new ItemResource($item);
    //return  new PostResource($post);

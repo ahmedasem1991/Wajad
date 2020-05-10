@@ -510,9 +510,18 @@ class PostsController extends Controller
             $post->update($request->all());
 
             if ($request->has('questions')) {
-                $post->questions()->sync([
-                    $request->questions
-                ]);
+            //     $post->questions()->sync([
+            //         $request->questions
+            //     ]);
+            $post->deleteQuestions();
+            array_map(function ($question) use ($post) {
+                if ($question) {
+                    $post->questions()->create([
+                        'founder_id' => auth('api')->user()->id,
+                        'question' => $question,
+                    ]);
+                }
+            }, $request->questions);
             }
 
             if ($request->has('images')) {

@@ -358,4 +358,10 @@ class Post extends MasterModel
     //     return 'No';
 
     // }
+
+    public function deleteQuestions()
+    {
+        $this->questions()->delete();
+        return parent::delete();
+    }
 }
