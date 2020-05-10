@@ -361,7 +361,7 @@ class Post extends MasterModel
 
     public function deleteQuestions()
     {
-        $this->questions()->delete();
-        return parent::delete();
+        return   $this->questions()->delete();
+       // return parent::delete();
     }
 }
