@@ -112,7 +112,6 @@ Route::domain(config('nova.domain', null))
         Route::post('/updatePassword', 'UpdatePasswordController@updatePassword')->name('update_password');
     });
 route::get('/', function () {
-
     return redirect(Nova::path());
 });
 
@@ -221,123 +220,123 @@ Route::get('/broadcast', function () {
 Route::get('/test500', function () {
 
 
-    $data='{
-            "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
-            "data": [
-                {
-                    "ar": {
-                        "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
-                       "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
-                   },
-                   "en": {
-                       "title": "  There Some One Scanned Your QR Code ",
-                      "body": "There Some One Scanned Your QR Code    Check the location on the map . "
-                  },
-                   "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
-                   "type": "qrcode",
-                  "object_type": "scan",
-                  "post": "scan",
-                  "item": "scan",
+//     $data='{
+//             "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
+//             "data": [
+//                 {
+//                     "ar": {
+//                         "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
+//                        "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
+//                    },
+//                    "en": {
+//                        "title": "  There Some One Scanned Your QR Code ",
+//                       "body": "There Some One Scanned Your QR Code    Check the location on the map . "
+//                   },
+//                    "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
+//                    "type": "qrcode",
+//                   "object_type": "scan",
+//                   "post": "scan",
+//                   "item": "scan",
                   
-                   "id": 10295,
-                   "related_id": -1,
-                  "badge": 1
-              }
-            ],
-            "created_at": "2020-04-07T15:07:22.000000Z",
-            "read_at": "2020-04-07T15:07:22.000000Z"
-         }';
-         $data=json_decode($data);
+//                    "id": 10295,
+//                    "related_id": -1,
+//                   "badge": 1
+//               }
+//             ],
+//             "created_at": "2020-04-07T15:07:22.000000Z",
+//             "read_at": "2020-04-07T15:07:22.000000Z"
+//          }';
+//          $data=json_decode($data);
 
-         $info='';
-         $lang='ar';
-         if($lang=='ar')
-         $info=$data->data[0]->ar;
-         else
-         $info=$data->data[0]->en;
+//          $info='';
+//          $lang='ar';
+//          if($lang=='ar')
+//          $info=$data->data[0]->ar;
+//          else
+//          $info=$data->data[0]->en;
   
-         dd($data->data[0]->en);
+//          dd($data->data[0]->en);
     
-    $data=[
-        'notification' => [
-        'title'=>'Item updated successfully',
-        'body'=>'Item updated successfully',
-        'sound' => 'default'
-        ]
-    ];
+//     $data=[
+//         'notification' => [
+//         'title'=>'Item updated successfully',
+//         'body'=>'Item updated successfully',
+//         'sound' => 'default'
+//         ]
+//     ];
 
-$optionBuilder = new OptionsBuilder();
-$optionBuilder->setTimeToLive(60*20);
+// $optionBuilder = new OptionsBuilder();
+// $optionBuilder->setTimeToLive(60*20);
 
-$notificationBuilder = new PayloadNotificationBuilder('Test title');
-$notificationBuilder->setBody('Item Added Successfully')
-				    ->setSound('default');
+// $notificationBuilder = new PayloadNotificationBuilder('Test title');
+// $notificationBuilder->setBody('Item Added Successfully')
+// 				    ->setSound('default');
 
-$dataBuilder = new PayloadDataBuilder();
-$dataBuilder->addData(['data' => $data]);
+// $dataBuilder = new PayloadDataBuilder();
+// $dataBuilder->addData(['data' => $data]);
 
-$option = $optionBuilder->build();
-$notification = $notificationBuilder->build();
-$data = $dataBuilder->build();
-
-
-
-$token = "eyoyh4ESTFW5qlOAgxqRzm:APA91bHJgPv7DdDZ8o4gmu0gNXeokm3nZf__EzAbPwApu83e5j38UquLjkJ4hzkhsFthdnRjBq5L_p_0GCG1nv8N3_n9Eazl8cb7dOxi4UxJoKjysk7OSJEe02O6i15ThMFr0JuvHeBw";
-
-$downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
-
-$downstreamResponse->numberSuccess();
-$downstreamResponse->numberFailure();
-$downstreamResponse->numberModification();
-
-// return Array - you must remove all this tokens in your database
-$downstreamResponse->tokensToDelete();
-
-// return Array (key : oldToken, value : new token - you must change the token in your database)
-$downstreamResponse->tokensToModify();
-
-// return Array - you should try to resend the message to the tokens in the array
-$downstreamResponse->tokensToRetry();
-
-// return Array (key:token, value:error) - in production you should remove from your database the tokens
-$downstreamResponse->tokensWithError();
-dd ($downstreamResponse);
-    // $data=[
-    //     'notification' => [
-    //     'title'=>'Item updated successfully',
-    //     'body'=>'Item updated successfully',
-    //     'sound' => 'default'
-    //     ]];
-    // //$token=User::find(2)->device_token;
-    // event(new SendFCMEvent('cd83KWVdS0ykS4teOY-TVP:APA91bGq0qDp-TGrI5iqIeuzERwtGLTY4fndVVqp6fsIaENvm_iwUlJ3YyTGeAvM5tF7HGZsEKTooSzsl2vHjWVhAbHJD56k1r7fxYW-2C6CB5NrM7oYPEP6Aa-mhzOWnfI-ooeC6rtk',$data));
-  //  return  defaultGroup()->posts_period;
-// $tr = new GoogleTranslate(); // Translates to 'en' from auto-detected language by default
-// $tr->setSource('ar'); // Translate from English
-// $tr->setSource(); // Detect language automatically
-// $tr->setTarget('en'); // Translate to Georgian
-// echo $tr->translate('ابراهيم علي أية عبدالحميد تركي  محمد!');
-//echo GoogleTranslate::trans('ahmed ali alii','en');
-    //  dd( $user->roles());
-    //  foreach()
-
-    //  if($user->permissions()) {
-    //   return 'true';
-    // }
-    // else{
-    //  return 'false';
-    // }
+// $option = $optionBuilder->build();
+// $notification = $notificationBuilder->build();
+// $data = $dataBuilder->build();
 
 
-    //   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
-    //  return $pdf->stream('receipt.pdf');
+
+// $token = "eyoyh4ESTFW5qlOAgxqRzm:APA91bHJgPv7DdDZ8o4gmu0gNXeokm3nZf__EzAbPwApu83e5j38UquLjkJ4hzkhsFthdnRjBq5L_p_0GCG1nv8N3_n9Eazl8cb7dOxi4UxJoKjysk7OSJEe02O6i15ThMFr0JuvHeBw";
+
+// $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+// $downstreamResponse->numberSuccess();
+// $downstreamResponse->numberFailure();
+// $downstreamResponse->numberModification();
+
+// // return Array - you must remove all this tokens in your database
+// $downstreamResponse->tokensToDelete();
+
+// // return Array (key : oldToken, value : new token - you must change the token in your database)
+// $downstreamResponse->tokensToModify();
+
+// // return Array - you should try to resend the message to the tokens in the array
+// $downstreamResponse->tokensToRetry();
+
+// // return Array (key:token, value:error) - in production you should remove from your database the tokens
+// $downstreamResponse->tokensWithError();
+// dd ($downstreamResponse);
+//     // $data=[
+//     //     'notification' => [
+//     //     'title'=>'Item updated successfully',
+//     //     'body'=>'Item updated successfully',
+//     //     'sound' => 'default'
+//     //     ]];
+//     // //$token=User::find(2)->device_token;
+//     // event(new SendFCMEvent('cd83KWVdS0ykS4teOY-TVP:APA91bGq0qDp-TGrI5iqIeuzERwtGLTY4fndVVqp6fsIaENvm_iwUlJ3YyTGeAvM5tF7HGZsEKTooSzsl2vHjWVhAbHJD56k1r7fxYW-2C6CB5NrM7oYPEP6Aa-mhzOWnfI-ooeC6rtk',$data));
+//   //  return  defaultGroup()->posts_period;
+// // $tr = new GoogleTranslate(); // Translates to 'en' from auto-detected language by default
+// // $tr->setSource('ar'); // Translate from English
+// // $tr->setSource(); // Detect language automatically
+// // $tr->setTarget('en'); // Translate to Georgian
+// // echo $tr->translate('ابراهيم علي أية عبدالحميد تركي  محمد!');
+// //echo GoogleTranslate::trans('ahmed ali alii','en');
+//     //  dd( $user->roles());
+//     //  foreach()
+
+//     //  if($user->permissions()) {
+//     //   return 'true';
+//     // }
+//     // else{
+//     //  return 'false';
+//     // }
+
+
+//     //   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
+//     //  return $pdf->stream('receipt.pdf');
 
 })->name('test500');
 
 
 Route::get('/test400', function () {
-    $post=Post::find(11);
-    $post->questions()->delete();
-    dd($post->questions);
+    // $post=Post::find(11);
+    // $post->questions()->delete();
+    // dd($post->questions);
 //     $item = Item::find(1);
 //    return  new ItemResource($item);
    //return  new PostResource($post);
@@ -349,11 +348,9 @@ Route::get('/test400', function () {
 // return   checklocate(auth('api')->user);
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
     
-   $user = User::find(9);
+    $user = User::find(9);
     $item = Item::find(1);
     $post=Post::find(70);
-
-    
     $badge =getBadge($user);
     $data=sendCreatePostFCM($post,$badge,'found');
     $user->notify(new SendFCMNotification($user,$data));
