@@ -91,13 +91,7 @@ class ExpiredQRcode extends Resource
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
-            // QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-            //     ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-            //     ->length(15)
-            //     ->showUrl(true)
-            //     ->qrCodeRouteName(route('api.scan-qrcode-api'))
-            //     ->hideWhenUpdating()
-            //     ->hideFromIndex(),
+
             Text::make('QR CODE URL', 'qrcode_url', function () {
 
                 return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
@@ -133,10 +127,7 @@ class ExpiredQRcode extends Resource
 
 
 
-            // QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
-
-            // DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
-
+           
             // NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
 
             // NovaBelongsToDepend::make('Item')
