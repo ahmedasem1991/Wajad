@@ -93,13 +93,13 @@ class SeedSettings extends Command
 //                'created_at' => null,
 //                'updated_at' => null
 //            ],
-//            [
-//                'key' => 'max_post_reports_number',
-//                //'title' => 'Limited Posts',
-//                'value' => 50,
-//                'created_at' => null,
-//                'updated_at' => null
-//            ],
+            [
+               'key' => 'max_post_reports_number',
+               //'title' => 'Limited Posts',
+               'value' => 50,
+               'created_at' => null,
+               'updated_at' => null
+           ],
                     [
                         'key' => 'Phone-Number-1',
                         //'title' => 'Limited Posts',

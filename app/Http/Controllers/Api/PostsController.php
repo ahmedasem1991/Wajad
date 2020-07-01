@@ -259,7 +259,8 @@ class PostsController extends Controller
             $postReport->save();
         }
 
-        if ($post->reports()->count() >= env('REPORTS_NUMBER')) {
+        //if ($post->reports()->count() >= env('REPORTS_NUMBER')) {
+        if ($post->reports()->count() >= maxReportsNumber()) {
             $post->update(['appearance_status' => 0]);
         }
 

@@ -111,7 +111,7 @@ class User extends Resource
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{ resourceId }}'),
+                ->updateRules('unique:users,email,{{resourceId}}'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -122,9 +122,10 @@ class User extends Resource
             //     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
             //     ->onlyCustomFormats(),
 
-            NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
+            NovaBelongsToDepend::make('Country Code', 'country', \App\NovaCorporate\Country::class)
             ->placeholder('Select Country')
             ->options(\App\Country::all()),
+
             Number::make('Mobile Number', 'mobile_number')
             ->creationRules('required', 'min:9','max:14')
             ->updateRules('nullable',  'min:9','max:14'),

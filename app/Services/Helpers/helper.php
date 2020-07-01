@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use App\Setting;
 
 function defaultGroup()
 {
@@ -13,4 +14,8 @@ function defaultGroup()
     return Role::where('default_group', 1)->first();
 }
 
+function maxReportsNumber()
+{
+    return Setting::where('key', 'max_post_reports_number')->first()['value'];
+}
 

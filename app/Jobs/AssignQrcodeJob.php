@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\User;
 use App\Qrcode;
+use App\Corporate;
 use Carbon\Carbon;
 use App\AssignQrcode;
 use Laravel\Nova\Nova;
@@ -64,6 +65,16 @@ class AssignQrcodeJob implements ShouldQueue
        $message='"' .$this->quantity .'" QR Code Was Assigned Successfully.';
        $url=Nova::path().'/resources/assign-qrcodes';
        User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
+       if ($this->corporate_id != NULL) {
+        $level='info';
+        // $corporate_message = '"' . $this->quantity . '" QR Code Assigned Successfully To You.';
+        $Corporate = Corporate::find($this->corporate_id);
+        $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . '.';
+        $CorporateAdmins = $Corporate->users->where('type', 2);
+        foreach ($CorporateAdmins as $user) {
+            $user->notify(new BroadcastNotification($level, $message, $url));
+        }
+    }
     //  $AssignQrcode=  AssignQrcode::find($this->id);
     //  $AssignQrcode->status='finished';
     //  $AssignQrcode->created_from='web/updated';

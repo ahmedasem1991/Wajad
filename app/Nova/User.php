@@ -209,10 +209,10 @@ class User extends Resource
         ];
     }
 
-    // public static function indexQuery(NovaRequest $request, $query)
-    // {
-    //     //return $query->NotSuperAdmin();
-    // }
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->NotSuperAdmin();
+    }
     public static function icon()
     {
         return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';

@@ -40,7 +40,10 @@ class Corporate extends Model
     {
         return $this->hasMany(User::class);
     }
-
+    public function admins()
+    {
+        return $this->hasMany(User::class);
+    }
     public function isActive()
     {
         return ($this->status == 1) ? true : false;

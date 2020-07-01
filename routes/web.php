@@ -2,10 +2,12 @@
 
 use App\Item;
 use App\Post;
+use App\Role;
 use App\User;
 use App\Qrcode;
-use App\ApiToken;
 
+use App\Setting;
+use App\ApiToken;
 use App\Corporate;
 use Carbon\Carbon;
 use App\PostRequest;
@@ -21,9 +23,9 @@ use Illuminate\Http\Request;
 use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
+//use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
-//use Stichoza\GoogleTranslate\GoogleTranslate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use LaravelFCM\Message\OptionsBuilder;
@@ -74,6 +76,10 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
+   $C= Corporate::find(1);
+
+    dd( $C->users->CorporateAdmin());
+   // return Setting::where('key', 'max_post_reports_number')->first()['value'];
   return (trim('"["1","2","3"]"', '"'))  ;
    dd(User::find(["1","2","3"]));
     

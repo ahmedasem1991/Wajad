@@ -360,7 +360,7 @@ class ReportedPost extends Resource
     }
     public  function authorizedToUpdate(Request $request)
     {
-        return false;
+        return true;
     }
     public  function authorizedToDelete(Request $request)
     {
