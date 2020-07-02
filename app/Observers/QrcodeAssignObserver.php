@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Log;
 class QrcodeAssignObserver
 {
     /**
-     * Handle the GenerateQrcode "created" event.
+     * Handle the AssignQrcode "created" event.
      *
-     * @param  \App\GenerateQrcode $GenerateQrcode
+     * @param  \App\AssignQrcode $AssignQrcode
      * @return void
      */
     public function saving(AssignQrcode $assignQrcode)
     {
-        if($assignQrcode->created_from=='web')
+        if($assignQrcode->created_from=='web' ||$assignQrcode->created_from=='new_register' )
         {
         $now = Carbon::now();
         $pre='';

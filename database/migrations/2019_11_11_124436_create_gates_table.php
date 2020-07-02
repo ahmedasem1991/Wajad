@@ -22,6 +22,8 @@ class CreateGatesTable extends Migration
             $table->boolean('auto_approve')->default(0);
             $table->boolean('mobile_group')->default(0);
             $table->integer('posts_period')->default(30);
+            $table->integer('free_qrcodes')->default(10);
+            $table->integer('available_period_qrcodes')->default(30);
             $table->softDeletes();
             $table->timestamps();
         });

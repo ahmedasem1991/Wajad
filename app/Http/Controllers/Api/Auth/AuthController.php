@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\AssignQrcode;
 use App\Country;
 use App\DeviceType;
 use App\User;
@@ -129,6 +130,8 @@ class AuthController extends Controller
         }
         auth('api')->user()->setLanguage($langHeader);
 
+
+
         return $this->respondWithToken($token);
     }
 
@@ -194,6 +197,15 @@ class AuthController extends Controller
             $langHeader = 'en';
         }
         $user->setLanguage($langHeader);
+
+        AssignQrcode::create([
+            'assign_to'=>1,
+            'type'=>1,
+            'user_id'=>$user->id,
+            'quantity'=>defaultGroup()->free_qrcodes ,
+            'available_period'=>defaultGroup()->available_period_qrcodes ,
+            'created_from'=>'new_register' ,
+           ]);
 
         return $this->login();
     }

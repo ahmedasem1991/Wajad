@@ -25,6 +25,8 @@ class Role extends Model
         'auto_approve',
         'mobile_group',
         'posts_period',
+        'free_qrcodes',
+        'available_period_qrcodes'
     ];
 
     /**
