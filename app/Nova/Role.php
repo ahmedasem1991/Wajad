@@ -138,7 +138,7 @@ class Role extends Resource
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
-            Toggle::make('Mobile Users Group','mobile_group'),
+            Toggle::make('Mobile Users Group', 'mobile_group'),
             NovaDependencyContainer::make([
                 Toggle::make('Default Group'),
                 Toggle::make('Auto Approve'),
@@ -150,8 +150,7 @@ class Role extends Resource
 
             ])->dependsOn('mobile_group', 1),
 
-            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User'))
-                ,
+            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User')),
 
             // BelongsTo::make('Corporate')
             //     ->nullable(),
@@ -201,4 +200,8 @@ class Role extends Resource
     // {
     //    // return $query->whe();
     // }
+    public  function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
 }
