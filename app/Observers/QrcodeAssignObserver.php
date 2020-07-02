@@ -21,7 +21,7 @@ class QrcodeAssignObserver
      */
     public function saving(AssignQrcode $assignQrcode)
     {
-        if($assignQrcode->created_from=='web' ||$assignQrcode->created_from=='new_register' )
+        if($assignQrcode->created_from=='web')
         {
         $now = Carbon::now();
         $pre='';
@@ -34,6 +34,15 @@ class QrcodeAssignObserver
         if(!$assignQrcode->corporate_id)
         $assignQrcode->corporate_id=null;
         $assignQrcode->created_by=auth()->user()->id;
+     
+        }     
+        
+        if($assignQrcode->created_from=='new_register' )
+        {
+        $now = Carbon::now();
+         $pre='U-';
+         $assignQrcode->assign_reference_number=$pre.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
+         $assignQrcode->created_by=$assignQrcode->user_id;
      
         }      
        
