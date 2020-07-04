@@ -12,6 +12,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Notifications\SendFCMNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Notifications\BroadcastNotification;
@@ -67,7 +68,6 @@ class AssignQrcodeJob implements ShouldQueue
        User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
        if ($this->corporate_id != NULL) {
         $level='info';
-        // $corporate_message = '"' . $this->quantity . '" QR Code Assigned Successfully To You.';
         $Corporate = Corporate::find($this->corporate_id);
         $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . '.';
         $CorporateAdmins = $Corporate->users->where('type', 2);
@@ -75,9 +75,12 @@ class AssignQrcodeJob implements ShouldQueue
             $user->notify(new BroadcastNotification($level, $message, $url));
         }
     }
-    //  $AssignQrcode=  AssignQrcode::find($this->id);
-    //  $AssignQrcode->status='finished';
-    //  $AssignQrcode->created_from='web/updated';
-    //  $AssignQrcode->save();
+    if ($this->user_id != NULL) {
+
+        $badge =getBadge(User::find($this->user_id));
+        $data=sendFreeQRCodeFCM($badge);
+        User::find($this->user_id)->notify(new SendFCMNotification(User::find($this->user_id),$data));
+    }
+
     }
 }

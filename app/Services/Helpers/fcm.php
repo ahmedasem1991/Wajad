@@ -300,6 +300,33 @@ function sendBuyPackageFCM($package,$badge)
 }
 
 
+function sendFreeQRCodeFCM($badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '  تهانينا ! ',
+            'body' => '  لقد تم إضافة  '. 
+            defaultGroup()->free_qrcodes .
+             ' QRCodes لك مجانا لكونك مستخد جديد .  ' 
+        ],
+        'en' => [
+            'title' => '  Congratulations ! ',
+            'body' =>  '' .  defaultGroup()->free_qrcodes . 'QR Code have been added to you because you are a new user'
+           
+        ],
+        'type' => 'free_qrcodes',
+        'deeplink' => 'qrcode',
+        'image' =>null ,
+        'post' => null,
+        'item' => null,
+        'url' => null ,
+        'id' => null,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
+
 
 function sendCreatePostFCM($post,$badge,$type)
 {
