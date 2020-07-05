@@ -83,20 +83,19 @@ class ClosedPost extends Resource
         'color_id',
         'brand_id',
         'city_id',
-        'founder_name',
-        'founder_email',
-        'founder_mobile_number',
-        'founder_address',
-        'owner_name',
-        'owner_email',
-        'owner_mobile_number',
-        'owner_address',
+
         'owner_releated_to_system',
         'founder_releated_to_system',
         'deleted_at',
         'created_at',
         'updated_at',
     ];
+
+    public static $searchRelations = [
+        'founder' => [ 'name', 'email', 'mobile_number'],
+        'owner' => ['name', 'email', 'mobile_number'],
+    ];
+
     public static function availableForNavigation(Request $request)
     {
         return (Auth()->User()->hasPermissionTo('closed posts')) ? true : false;
@@ -123,7 +122,7 @@ class ClosedPost extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                
+
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get()),
@@ -157,12 +156,12 @@ class ClosedPost extends Resource
             //->Rules('required_if:status,0'),
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
 
-            
+
             DateTime::make('Founded At')->hideFromIndex()
                 ->Rules('required_if:status,1'),
 
 
- 
+
 
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')

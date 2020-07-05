@@ -93,14 +93,7 @@ class Post extends Resource
         'color_id',
         'brand_id',
         'city_id',
-        'founder_name',
-        'founder_email',
-        'founder_mobile_number',
-        'founder_address',
-        'owner_name',
-        'owner_email',
-        'owner_mobile_number',
-        'owner_address',
+
         'owner_releated_to_system',
         'founder_releated_to_system',
         'deleted_at',
@@ -111,6 +104,8 @@ class Post extends Resource
         'color' => ['name_en'],
         'brand' => ['name_en'],
         'model' => ['name_en'],
+        'founder' => [ 'name', 'email', 'mobile_number'],
+        'owner' => ['name', 'email', 'mobile_number'],
     ];
 
     //Can not find the Field "model" in the Model "App\NovaCorporate\ClosedPost"
@@ -142,7 +137,7 @@ class Post extends Resource
                 // ->hideWhenCreating()
                 // ->hideWhenUpdating(),
 
- 
+
 
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->placeholder('Select Sub category')
@@ -187,7 +182,7 @@ class Post extends Resource
             DateTime::make('Founded At')->hideFromIndex()
                 ->rules('required_if:status,1'),
 
- 
+
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
@@ -199,7 +194,7 @@ class Post extends Resource
                         Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 // ->hideWhenUpdating(),
                 ->hideWhenCreating(),
-            
+
                  NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                ->placeholder('Select Person')
                ->options(User::Normalusers()->get())
@@ -211,7 +206,7 @@ class Post extends Resource
                 Text::make('Founder Email','founder_email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254'),
- 
+
                 PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
@@ -225,7 +220,7 @@ class Post extends Resource
                 ->readonly()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
-               
+
 
 
             Button::make('PDF')

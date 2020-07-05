@@ -82,20 +82,18 @@ class HiddenPost extends Resource
         'color_id',
         'brand_id',
         'city_id',
-        'founder_name',
-        'founder_email',
-        'founder_mobile_number',
-        'founder_address',
-        'owner_name',
-        'owner_email',
-        'owner_mobile_number',
-        'owner_address',
+
         'owner_releated_to_system',
         'founder_releated_to_system',
         'deleted_at',
         'created_at',
         'updated_at',
     ];
+    public static $searchRelations = [
+        'founder' => [ 'name', 'email', 'mobile_number'],
+        'owner' => ['name', 'email', 'mobile_number'],
+    ];
+
 
     public static function availableForNavigation(Request $request)
     {
@@ -123,8 +121,8 @@ class HiddenPost extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                
-                
+
+
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get()),
@@ -162,7 +160,7 @@ class HiddenPost extends Resource
 
 
 
-          
+
 
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is The Publisher Of The Post.</p>')->asHtml(),
             //  NovaBelongsToDepend::make('User', 'publisher')
@@ -209,7 +207,7 @@ class HiddenPost extends Resource
             //  ->creationRules('required_if:status,0','same:publisher')
             //  ->updateRules('required_if:status,0')
             //  ->nullable(),
-           
+
             MediaField::make('Item Image', 'images')->listing(),
             MapMarker::make("Location")
             ->defaultZoom(5)
