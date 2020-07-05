@@ -92,14 +92,8 @@ class Post extends Resource
         'color_id',
         'brand_id',
         'city_id',
-        'founder_name',
-        'founder_email',
-        'founder_mobile_number',
-        'founder_address',
-        'owner_name',
-        'owner_email',
-        'owner_mobile_number',
-        'owner_address',
+
+
         'owner_releated_to_system',
         'founder_releated_to_system',
         'deleted_at',
@@ -110,6 +104,8 @@ class Post extends Resource
         'color' => ['name_en'],
         'brand' => ['name_en'],
         'model' => ['name_en'],
+        'founder' => [ 'name', 'email', 'mobile_number'],
+        'owner' => ['name', 'email', 'mobile_number'],
     ];
 
     /**
@@ -147,10 +143,10 @@ class Post extends Resource
                 ->rules('required'), // optional
 
 
-                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get()),
-               // ->rules('required'),
+            // ->rules('required'),
 
 
             NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
@@ -158,7 +154,7 @@ class Post extends Resource
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
                 })
-              //  ->rules('required')
+                //  ->rules('required')
                 ->dependsOn('Subcategory'),
 
 
@@ -167,7 +163,7 @@ class Post extends Resource
                 ->optionsResolve(function ($brand) {
                     return $brand->models()->get(['id', 'name_en']);
                 })
-              //  ->rules('required')
+                //  ->rules('required')
                 ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
@@ -259,10 +255,10 @@ class Post extends Resource
             MediaField::make('Item Image', 'images')->listing(),
 
             MapMarker::make("Location")
-            ->defaultZoom(5)
-            ->defaultLatitude(21.4498898)
-            ->defaultLongitude(39.4913431)
-            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+                ->defaultZoom(5)
+                ->defaultLatitude(21.4498898)
+                ->defaultLongitude(39.4913431)
+                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
 
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
@@ -273,7 +269,7 @@ class Post extends Resource
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
 
-                Button::make('AR PDF')
+            Button::make('AR PDF')
                 ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
 

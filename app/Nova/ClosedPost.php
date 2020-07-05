@@ -82,19 +82,16 @@ class ClosedPost extends Resource
         'color_id',
         'brand_id',
         'city_id',
-        'founder_name',
-        'founder_email',
-        'founder_mobile_number',
-        'founder_address',
-        'owner_name',
-        'owner_email',
-        'owner_mobile_number',
-        'owner_address',
+
         'owner_releated_to_system',
         'founder_releated_to_system',
         'deleted_at',
         'created_at',
         'updated_at',
+    ];
+    public static $searchRelations = [
+        'founder' => [ 'name', 'email', 'mobile_number'],
+        'owner' => ['name', 'email', 'mobile_number'],
     ];
 
     public static function availableForNavigation(Request $request)
