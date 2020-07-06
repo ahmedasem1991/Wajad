@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Corporate;
 use App\User;
 use App\Qrcode;
 use Laravel\Nova\Nova;
@@ -10,6 +11,7 @@ use App\CorporateAssignQrcode;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Notifications\SendFCMNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Notifications\BroadcastNotification;
@@ -44,6 +46,7 @@ class CorporateAssignQrcodeJob implements ShouldQueue
      */
     public function handle()
     { 
+       $Corporate_Name=Corporate::find($this->corporate_id)['name_en'];
         
        $Qrcodes= Qrcode::where('type',$this->type)
        ->where('status','3')
@@ -58,8 +61,13 @@ class CorporateAssignQrcodeJob implements ShouldQueue
         $Qrcode->save();
        }
        $level='success';
-       $message='"' .$this->quantity .'" QR Code Was Assigned Successfully.';
+       $message='"' .$this->quantity .'" QR Code Was Assigned Successfully to '. User::find($this->user_id)['name'] ;
        $url=Nova::path().'/resources/corporate-assign-qrcodes';
        User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
+
+       $badge =getBadge(User::find($this->user_id));
+       $data=sendCorporateAssignQRCodeFCM($this->quantity,$Corporate_Name,$badge);
+       User::find($this->user_id)->notify(new SendFCMNotification(User::find($this->user_id),$data));
+
     }
 }
