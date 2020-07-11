@@ -6,6 +6,7 @@ use App\AdminNotification;
 use App\Post;
 use App\Role;
 use App\User;
+use App\People;
 use App\Qrcode;
 use App\Permission;
 use App\PostRequest;
@@ -66,12 +67,13 @@ class AppServiceProvider extends ServiceProvider
         AssignQrcode::observe(QrcodeAssignObserver::class);
         CorporateAssignQrcode::observe(CorporateQrcodeAssignObserver::class);
         Post::observe(PostObserver::class);
+        People::observe(PeopleObserver::class);
         User::observe(UserObserver::class);
         PostRequest::observe(PostRequestObserver::class);
         AdminNotification::observe(NotificationObserver::class);
         \App\Role::observe(RoleObserver::class);
 
-        
+
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');
         // foreach($Permissions as $Permission){
