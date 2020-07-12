@@ -326,6 +326,32 @@ function sendFreeQRCodeFCM($badge)
     return $data;
 }
 
+function sendCorporateAssignQRCodeFCM($quantity,$name,$badge)
+{
+    $data = [
+        'ar' => [
+            'title' => '   لقد تم إضافة رموز التعريف الخاصة لديك ',
+            'body' => '  لقد تم إضافة  '. 
+            $quantity .
+             ' QRCodes ' .' من مؤسسة ' . $name
+        ],
+        'en' => [
+            'title' => ' Your QRCode has been assigned ',
+            'body' =>  '' .  $quantity . 'QR Code have been assigned to you from '  . $name . ' Corporate.'
+           
+        ],
+        'type' => 'assign_qrcode',
+        'deeplink' => 'qrcode',
+        'image' =>null ,
+        'post' => null,
+        'item' => null,
+        'url' => null ,
+        'id' => null,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
 
 
 function sendCreatePostFCM($post,$badge,$type)
