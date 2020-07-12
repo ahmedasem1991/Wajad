@@ -134,15 +134,15 @@ class Post extends Resource
                     1 => 'Found',
                 ])->default(1)
                 ->hideFromIndex(),
-                // ->hideWhenCreating()
-                // ->hideWhenUpdating(),
+            // ->hideWhenCreating()
+            // ->hideWhenUpdating(),
 
 
 
-                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get()),
-               // ->rules('required'),
+            // ->rules('required'),
 
 
             NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
@@ -150,7 +150,7 @@ class Post extends Resource
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
                 })
-              //  ->rules('required')
+                //  ->rules('required')
                 ->dependsOn('Subcategory'),
 
 
@@ -159,21 +159,21 @@ class Post extends Resource
                 ->optionsResolve(function ($brand) {
                     return $brand->models()->get(['id', 'name_en']);
                 })
-              //  ->rules('required')
+                //  ->rules('required')
                 ->dependsOn('Brand'),
-           BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
+            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
 
 
             Toggle::make('Open Status', 'open_status')
-            // ->hideWhenCreating()
-            // ->hideWhenUpdating()
-            ->hideFromIndex(),
+                // ->hideWhenCreating()
+                // ->hideWhenUpdating()
+                ->hideFromIndex(),
             Toggle::make('Appearance Status', 'appearance_status')
                 // ->hideWhenCreating()
                 // ->hideWhenUpdating()
                 ->hideFromIndex(),
-                DateTime::make('Post Closing Date','end_date')->updateRules('required')
-            ->hideWhenCreating(),
+            DateTime::make('Post Closing Date','end_date')->updateRules('required')
+                ->hideWhenCreating(),
             //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
             //DateTime::make('Losted At')->hideFromIndex()
@@ -187,36 +187,36 @@ class Post extends Resource
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
             NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
-            ->placeholder('Select Person')
-            ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
-            ->rules('required'),
+                ->placeholder('Select Person')
+                ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
+                ->rules('required'),
 
-                        Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+            Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 // ->hideWhenUpdating(),
                 ->hideWhenCreating(),
 
-                 NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-               ->placeholder('Select Person')
-               ->options(User::Normalusers()->get())
-              // ->rules('required')
-               ->hideWhenCreating(),
+            NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+                ->placeholder('Select Person')
+                ->options(User::Normalusers()->get())
+                // ->rules('required')
+                ->hideWhenCreating(),
 
 
 
-                Text::make('Founder Email','founder_email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254'),
-
-                PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                ->onlyCustomFormats(),
-                Text::make('Founder Address','founder_address')
-                ->sortable()
-                ->rules('required', 'max:254'),
-                Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
+//            Text::make('Founder Email','founder_email')
+//                ->sortable()
+//                ->rules('required', 'email', 'max:254'),
+//
+//            PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
+//                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+//                ->onlyCustomFormats(),
+//            Text::make('Founder Address','founder_address')
+//                ->sortable()
+//                ->rules('required', 'max:254'),
+            Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
-                BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
+            BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                 ->readonly()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
@@ -226,13 +226,13 @@ class Post extends Resource
             Button::make('PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
-           MediaField::make('Item Image', 'images')->listing(),
+            MediaField::make('Item Image', 'images')->listing(),
 
-           MapMarker::make("Location")
-            ->defaultZoom(5)
-            ->defaultLatitude(21.4498898)
-            ->defaultLongitude(39.4913431)
-            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+            MapMarker::make("Location")
+                ->defaultZoom(5)
+                ->defaultLatitude(21.4498898)
+                ->defaultLongitude(39.4913431)
+                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
