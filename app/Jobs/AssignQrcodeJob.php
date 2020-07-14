@@ -65,7 +65,7 @@ class AssignQrcodeJob implements ShouldQueue
        $level='success';
        $message='"' .$this->quantity .'" QR Code Was Assigned Successfully.';
        $url=Nova::path().'/resources/assign-qrcodes';
-       User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
+       //User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
        if ($this->corporate_id != NULL) {
         $level='info';
         $Corporate = Corporate::find($this->corporate_id);

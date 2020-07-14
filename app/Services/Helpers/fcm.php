@@ -223,7 +223,7 @@ function sendCustomUsersFCM($body,$badge)
           
         ],
         'type' => '',
-        'id' => '',
+        'id' => null,
         'deeplink' => 'topic',
         'image' =>null ,
         'post' => null,
