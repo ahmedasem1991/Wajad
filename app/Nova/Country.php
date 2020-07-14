@@ -31,7 +31,7 @@ class Country extends Resource
      *
      * @var string
      */
-    public static $title = 'name_ar';
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
