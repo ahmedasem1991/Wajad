@@ -100,10 +100,10 @@ class AssignQrcode extends Resource
             NovaDependencyContainer::make([
                 Select2::make('User','user_id')
                 ->sortable()
-                ->options(User::normalusers()->get()->pluck('name', 'id'))
+                ->options(User::normalusers()->get()->pluck('email', 'id'))
                 ->displayUsingLabels()
                 ->rules('required_if:assign_to,1')
-               // ->showAsLink()
+                ->showAsLink(User::class)
               // ->default(0)
                 ->configuration([
                     'placeholder'             => __('Choose an option'),

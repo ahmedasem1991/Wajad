@@ -99,7 +99,7 @@ class CorporateAssignQrcode extends Resource
 
             Select2::make('User','user_id')
                 ->sortable()
-                ->options(User::normalusers()->get()->pluck('name', 'id'))
+                ->options(User::normalusers()->get()->pluck('email', 'id'))
                 ->displayUsingLabels()
                 ->rules('required')
                 ->showAsLink(User::class)
