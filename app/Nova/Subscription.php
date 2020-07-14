@@ -79,7 +79,7 @@ class Subscription extends Resource
                 ->displayUsingLabels(),
 
             NovaDependencyContainer::make([
-                Select2::make('User Name','user_id')
+                Select2::make('User Email','user_id')
                     ->sortable()
                     ->hideFromDetail()
                     ->options(User::normalusers()->get()->pluck('email', 'id'))
