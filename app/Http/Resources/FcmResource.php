@@ -17,13 +17,13 @@ class FcmResource extends JsonResource
     {
        $info['title']=    $this->data[0][app()->getLocale()]['title'];
        $info['body']=    $this->data[0][app()->getLocale()]['body'];
-       $info['type']=  $this->data[0]['type'];
+       $info['type']=  $this->data[0]['type'] ?? null;
        $info['deeplink']=  $this->data[0]['deeplink'] ?? null;
-       $info['post']=  $this->data[0]['post'];
-       $info['item']=  $this->data[0]['item'];
+       $info['post']=  $this->data[0]['post'] ?? null;
+       $info['item']=  $this->data[0]['item'] ?? null;
        $info['image']=  $this->data[0]['image'] ?? null;
        $info['url']=  $this->data[0]['url'] ?? null;
-       $info['id']=  $this->data[0]['id'];
+       $info['id']=  $this->data[0]['id'] ?? null;
        $info['badge']=  $this->data[0]['badge'];
  
      
