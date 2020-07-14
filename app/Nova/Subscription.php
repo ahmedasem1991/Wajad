@@ -82,7 +82,7 @@ class Subscription extends Resource
                 Select2::make('User Name','user_id')
                     ->sortable()
                     ->hideFromDetail()
-                    ->options(User::normalusers()->get()->pluck('name', 'id'))
+                    ->options(User::normalusers()->get()->pluck('email', 'id'))
                     // ->displayUsingLabels()
                     ->rules('required_if:subscriber,1')
                     // ->showAsLink()
