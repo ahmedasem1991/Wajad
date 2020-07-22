@@ -53,13 +53,7 @@ class SeedApp extends Command
         // $this->info('| Corporate Seeder Completed |');
         // $this->info('|----------------------------|');
 
-        $this->info('Seed Roles');
-        $path = 'app/developer_docs/roles.sql';
-        DB::unprepared(file_get_contents($path));
-        $path = 'app/developer_docs/permissions.sql';
-        DB::unprepared(file_get_contents($path));
-        $path = 'app/developer_docs/role_user.sql';
-        DB::unprepared(file_get_contents($path));
+        $this->call('seed:roles');
 
         $this->call('seed:items');
 
