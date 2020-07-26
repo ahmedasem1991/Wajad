@@ -63,8 +63,10 @@ class PostsController extends Controller
             'title' => ['required', 'min:6', 'max:128'],
             'description' => ['required', 'min:9', 'max:500'],
             'reward' => ['nullable', 'string'],
-            'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required'],
+            //'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
+            'latitude' => ['required'],
+            //regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'model_id' => ['required', 'exists:models,id'],
