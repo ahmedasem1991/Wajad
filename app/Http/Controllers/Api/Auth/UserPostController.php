@@ -150,6 +150,6 @@ class UserPostController extends Controller
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 400);
         }
 
-        return PostResource::collection(auth('api')->user()->posts()->$type()->orderBy('id','asc')->get());
+        return PostResource::collection(auth('api')->user()->posts()->$type()->orderBy('id','desc')->get());
     }
 }
