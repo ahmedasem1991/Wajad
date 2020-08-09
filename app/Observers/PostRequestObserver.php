@@ -23,14 +23,14 @@ class PostRequestObserver
 
 
             $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('post_id','!=',$postRequest->post_id)->get();
-            if($postRequest->is_request_valid==1){
+       
                 foreach($PostRequests as $PostRequest)
                 {
                     $PostRequests->is_request_valid=0;
                     $postRequest->rejected_at=now()->toDatetimeString();
-                    $PostRequests->save();
+                   // $PostRequests->save();
                 }
-            }
+           
              
             }
            
@@ -62,7 +62,7 @@ class PostRequestObserver
             {
                 $PostRequests->is_request_valid=0;
                 $postRequest->rejected_at=now()->toDatetimeString();
-                $PostRequests->save();
+                //$PostRequests->save();
             }
         }
     }
