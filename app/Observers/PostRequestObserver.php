@@ -109,7 +109,7 @@ class PostRequestObserver
             {
                 $PostRequests->is_request_valid=0;
                 $postRequest->rejected_at=now()->toDatetimeString();
-                $postRequest->save();
+                //$postRequest->save();
             }
        
         }
