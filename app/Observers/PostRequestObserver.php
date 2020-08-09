@@ -20,34 +20,17 @@ class PostRequestObserver
             $Post= Post::find($postRequest->post_id);
             $Post->owner_id=$postRequest->user_id;
             $Post->save();
-
-
-            $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
-       
-                foreach($PostRequests as $PostRequest)
-                {
-                    $PostRequests->is_request_valid=0;
-                    $postRequest->rejected_at=now()->toDatetimeString();
-                }
-           
-             
-            }
+      }
            
             
         }
     }
     public function saved(PostRequest $postRequest)
     {
-        if(Auth()->check())
-        {
-         
-            if($postRequest->is_request_valid==0){
-                $postRequest->rejected_at=now()->toDatetimeString();
-            }else{
+ 
+            if($postRequest->is_request_valid==1){
             $postRequest->rejected_at=NULL;
-            $Post= Post::find($postRequest->post_id);
-            $Post->owner_id=$postRequest->user_id;
-            $Post->save();
+ 
 
 
             $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
@@ -56,13 +39,11 @@ class PostRequestObserver
                 {
                     $PostRequests->is_request_valid=0;
                     $postRequest->rejected_at=now()->toDatetimeString();
+                    
                 }
            
-             
             }
-           
             
-        }
     }
     /**
      * Handle the post request "created" event.
@@ -117,31 +98,20 @@ class PostRequestObserver
      * @return void
      */
     public function updated(PostRequest $postRequest)
-    {
-        if(Auth()->check())
-        {
-         
-            if($postRequest->is_request_valid==0){
+    {     if($postRequest->is_request_valid==1){
+        $postRequest->rejected_at=NULL;
+
+
+
+        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
+   
+            foreach($PostRequests as $PostRequest)
+            {
+                $PostRequests->is_request_valid=0;
                 $postRequest->rejected_at=now()->toDatetimeString();
-            }else{
-            $postRequest->rejected_at=NULL;
-            $Post= Post::find($postRequest->post_id);
-            $Post->owner_id=$postRequest->user_id;
-            $Post->save();
-
-
-            $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
-       
-                foreach($PostRequests as $PostRequest)
-                {
-                    $PostRequests->is_request_valid=0;
-                    $postRequest->rejected_at=now()->toDatetimeString();
-                }
-           
-             
+                
             }
-           
-            
+       
         }
     }
 
