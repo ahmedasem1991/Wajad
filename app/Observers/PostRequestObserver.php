@@ -37,8 +37,8 @@ class PostRequestObserver
        
                 foreach($PostRequests as $PostRequest)
                 {
-                    $PostRequests->is_request_valid=0;
-                    $postRequest->rejected_at=now()->toDatetimeString();
+                    $PostRequest->is_request_valid=0;
+                    $PostRequest->rejected_at=now()->toDatetimeString();
                     
                 }
            
@@ -107,8 +107,8 @@ class PostRequestObserver
    
             foreach($PostRequests as $PostRequest)
             {
-                $PostRequests->is_request_valid=0;
-                $postRequest->rejected_at=now()->toDatetimeString();
+                $PostRequest->is_request_valid=0;
+                $PostRequest->rejected_at=now()->toDatetimeString();
                 //$postRequest->save();
             }
        
