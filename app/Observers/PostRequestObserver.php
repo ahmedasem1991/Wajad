@@ -22,7 +22,7 @@ class PostRequestObserver
             $Post->save();
 
 
-            $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('post_id','!=',$postRequest->post_id)->get();
+            $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
        
                 foreach($PostRequests as $PostRequest)
                 {
@@ -56,7 +56,7 @@ class PostRequestObserver
      */
     public function updating(PostRequest $postRequest)
     {
-        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('post_id','!=',$postRequest->post_id)->get();
+        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
         if($postRequest->is_request_valid==1){
             foreach($PostRequests as $PostRequest)
             {
@@ -75,13 +75,13 @@ class PostRequestObserver
      */
     public function updated(PostRequest $postRequest)
     {
-        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('post_id','!=',$postRequest->post_id)->get();
+        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
         if($postRequest->is_request_valid==1){
             foreach($PostRequests as $PostRequest)
             {
                 $PostRequests->is_request_valid=0;
                 $postRequest->rejected_at=now()->toDatetimeString();
-                $PostRequests->save();
+                //$PostRequests->save();
             }
         }
     }
