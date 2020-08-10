@@ -44,15 +44,6 @@
                                 </h5>
                                 <!--customer Details end-->
                             </div>
-                            <div class="col-12 col-md-6">
-                                <!--customer Details start-->
-                                <span
-                                    class="badge badge-primary rounded-pill px-3 py-2 font-weight-light">Owner</span>
-                                <h5 class="my-3 ">
-                                    <span class="font-weight-bold">{{$qr_code->user->name ?? 'Not Available'}}</span>
-                                </h5>
-                                <!--customer Details end-->
-                            </div>
                         </div>
 
 
@@ -60,13 +51,47 @@
                         <h5 class="my-3 ">
                             <span class="font-weight-bold">{{$qr_code->user ? $qr_code->user->country->country_code . $qr_code->user->mobile_number : 'Not Available'}}</span>
                         </h5>
-
-
+                        <hr>
+                        <h3 class="my-3 text-uppercase">
+                            <span class="font-weight-bold">
+                            Item Details
+                            </span>
+                        </h3>
                         <p class="my-4">
                         @if($qr_code->item)
                             {{$qr_code->item->details}}
                         @endif
                         </p>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <!--customer Details start-->
+                                <span
+                                    class="badge badge-primary rounded-pill px-3 py-2 font-weight-light">Brand</span>
+                                <h5 class="my-3 ">
+                                    <span class="font-weight-bold">{{$qr_code->item->brand->name_en ?? 'Not Available'}}</span>
+                                </h5>
+                                <!--customer Details end-->
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <!--customer Details start-->
+                                <span
+                                    class="badge badge-primary rounded-pill px-3 py-2 font-weight-light">Model</span>
+                                <h5 class="my-3 ">
+                                    <span class="font-weight-bold">{{$qr_code->item->model->name_en ?? 'Not Available'}}</span>
+                                </h5>
+                                <!--customer Details end-->
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <!--customer Details start-->
+                                <span
+                                    class="badge badge-primary rounded-pill px-3 py-2 font-weight-light">Color</span>
+                                <h5 class="my-3 ">
+                                    <span class="font-weight-bold">{{$qr_code->item->color->name_en ?? 'Not Available'}}</span>
+                                </h5>
+                                <!--customer Details end-->
+                            </div>
+                        </div>
+
                         <h5 class="my-3 mb-4">
                             <span class="font-weight-bold">Download Now</span>
                         </h5>
