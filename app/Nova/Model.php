@@ -89,7 +89,7 @@ class Model extends Resource
             NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
-                    return $subcategory->brands;
+                    return $subcategory->brands->get();
                 })
                 ->rules('required')
                 ->dependsOn('Subcategory'),
