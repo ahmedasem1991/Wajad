@@ -66,8 +66,8 @@ class AnswerController extends Controller
         }, $request->data);
 
            //send FCM
-           $badge =getBadge($post->founder);
-           $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
+          // $badge =getBadge($post->founder);
+          // $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
          //  $post->founder->notify(new SendFCMNotification($post->founder,$data));
  
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
