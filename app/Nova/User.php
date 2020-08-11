@@ -211,7 +211,7 @@ class User extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->NotSuperAdmin();
+       // return $query->NotSuperAdmin();
     }
     public static function icon()
     {
