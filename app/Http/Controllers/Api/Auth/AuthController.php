@@ -284,6 +284,9 @@ class AuthController extends Controller
     public function getCountries()
     {
         $countries = Country::all();
+        foreach($countries as $country){
+            $country->flag=url().'/images/flags'.strtolower($country->iso_code).'.png';
+        }
         return $this->jsonResponse($countries);
     }
 }
