@@ -25,6 +25,7 @@ class AuthController extends Controller
      * @bodyParam user numeric,email,min:9,max:14 required phone number or email for the user. Example:00966236363256
      * @bodyParam password string required min:6 password. Example: 123456789
      * @bodyParam device_type string required android or ios
+     * @bodyParam mobile_country_id numeric required
      *
      * @response {
      *      "token_type": "Bearer",
@@ -78,13 +79,17 @@ class AuthController extends Controller
             $validate_mobile_number = Validator::make(
                 request()->all(),
                 ['user' => ['required', 'digits_between:9,14', 'exists:users,mobile_number']],
+                ['mobile_country_id' => ['required','exists:countries,id']],
                 ['user.exists' => trans('auth.failed')]
             );
 
             if ($validate_mobile_number->fails()) {
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
-
+            $User=User::where('mobile_number',request('user'))->where('mobile_country_id',request('mobile_country_id'))-Normalusers()->first();
+            if(!$User){
+                throw new ApiException($validate_mobile_number->errors()->first(), 400);
+            }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
 
@@ -181,7 +186,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-//            'mobile_country_id' => $request->mobile_country_id,
+            'mobile_country_id' => $request->mobile_country_id,
             'mobile_number' => ltrim((string) $request->mobile_number, 0),
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
