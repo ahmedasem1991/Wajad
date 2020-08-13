@@ -86,7 +86,7 @@ class AuthController extends Controller
             if ($validate_mobile_number->fails()) {
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
-            $User=User::where('mobile_number',request('user'))->where('mobile_country_id',request('mobile_country_id'))-normalusers()->first();
+            $User=User::where('mobile_number',request('user'))->where('mobile_country_id',request('mobile_country_id'))->normalusers()->first();
             if(!$User){
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
