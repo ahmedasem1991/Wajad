@@ -88,7 +88,7 @@ class AuthController extends Controller
             }
             $User=User::where('mobile_number',request('user'))->where('mobile_country_id',request('mobile_country_id'))->normalusers()->first();
             if(!$User){
-                throw new ApiException($validate_mobile_number->errors()->first(), 400);
+                throw new ApiException('the mobile country code do not match with  the mobile numer', 400);
             }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
