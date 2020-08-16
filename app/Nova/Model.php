@@ -63,10 +63,10 @@ class Model extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Model English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Model Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
@@ -77,7 +77,11 @@ class Model extends Resource
                 ->path('images/models')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_width=100'),
+                //->rules('required','dimensions:max_width=100,max_width=100'),
+                ->creationRules('required','dimensions:max_width=100,max_height=100')
+                ->updateRules(
+                    'dimensions:max_width=100,max_height=100'
+                ),
           
           
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)

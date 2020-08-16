@@ -152,7 +152,7 @@ class Role extends Resource
 
             ])->dependsOn('mobile_group', 1),
 
-            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\User')),
+            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\AllUser')),
 
             // BelongsTo::make('Corporate')
             //     ->nullable(),

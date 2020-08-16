@@ -19,6 +19,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -86,7 +87,9 @@ class People extends Resource
                 ->rules('required', 'max:255'),
                
   
-
+                NovaBelongsToDepend::make('Corporate')->rules('required')
+                ->placeholder('Corporate')
+                ->options(\App\Corporate::all()),
         ];
     }
 

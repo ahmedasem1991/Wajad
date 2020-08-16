@@ -61,8 +61,8 @@ class City extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('City English Name', 'name_en')->rules(['required', 'min:6']),
-            Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:6']),
+            Text::make('City English Name', 'name_en')->rules(['required', 'min:2']),
+            Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:2']),
             NovaBelongsToDepend::make('Area', 'region')
             ->placeholder('Area')
             ->options(\App\City::all()),

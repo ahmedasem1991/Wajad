@@ -35,7 +35,7 @@ class AnswerController extends Controller
     {
         $validate_request = Validator::make($request->all(), [
             'data' => ['required', 'array', 'between:1,3'],
-            'data.*.answers' => ['required', 'min:20', 'max:500'],
+            'data.*.answers' => ['required', 'min:6', 'max:500'],
             'data.*.question_id' => ['required', 'exists:questions,id'],
         ]);
 

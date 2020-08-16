@@ -28,7 +28,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class User extends Resource
+class AllUser extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -43,6 +43,7 @@ class User extends Resource
      * @var string
      */
     public static $group = 'Users Management';
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -141,6 +142,7 @@ class User extends Resource
                 '2' => 'Corpoare Admin',
                 //  '4' => 'Corporate User',
                 '1' => 'Normal User',
+                '3' => 'Super Admin',
 
             ])->displayUsingLabels(),
 
@@ -211,7 +213,7 @@ class User extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->NotSuperAdmin();
+        //return $query->NotSuperAdmin();
     }
     public static function icon()
     {

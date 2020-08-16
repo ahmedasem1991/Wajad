@@ -130,6 +130,7 @@ class SuperAdmin extends Resource
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
+                BelongsToMany::make('Roles', 'roles', Role::class),
 
 
         ];

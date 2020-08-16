@@ -63,10 +63,10 @@ class Brand extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Brand English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Brand Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Brand English Body', 'description_en'),
             Textarea::make('Brand Arabic Body', 'description_ar'),
@@ -77,7 +77,10 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100')
+                ->creationRules('required','dimensions:max_width=100,max_height=100')
+                ->updateRules(
+                    'dimensions:max_width=100,max_height=100'
+                )
 //                ->showOnIndex(function () {
 //                    if(file_exists(public_path().'images/brands/'. $this->image .'png'))
 //                    return true;

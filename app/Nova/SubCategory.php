@@ -67,10 +67,10 @@ class SubCategory extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Sub-Category English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Sub-Category Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Sub-Category English Body', 'description_en'),
             Textarea::make('Sub-Category Arabic Body', 'description_ar'),
@@ -81,7 +81,11 @@ class SubCategory extends Resource
                 ->path('images/subcategories')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100'),
+              //  ->rules('required','dimensions:max_width=100,max_height=100'),
+              ->creationRules('required','dimensions:max_width=100,max_height=100')
+              ->updateRules(
+                  'dimensions:max_width=100,max_height=100'
+              ),
             NovaBelongsToDepend::make('Category')->rules('required')
                 ->placeholder('Category')
                 ->options(\App\Category::all()),
