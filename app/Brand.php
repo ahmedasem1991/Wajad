@@ -3,13 +3,14 @@
 namespace App;
 
 use App\Model;
+use App\Services\Helpers\Traits\ModelObserveImage;
 use Illuminate\Database\Eloquent\Model as ModelMaster;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Brand extends ModelMaster
 {
-  use LogsActivity, SoftDeletes;
+  use LogsActivity, SoftDeletes, ModelObserveImage;
   protected  $fillable=['name_en','name_ar','description_en','description_ar','image','sub_category_id'];
 
 //   public function getNameEnAttribute($value)

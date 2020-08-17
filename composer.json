@@ -145,14 +145,6 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/Analytics"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/Analytics"
-        },
-        {
-            "type": "path",
             "url": "./nova-components/tightenco/nova-google-analytics"
         }
     ]
