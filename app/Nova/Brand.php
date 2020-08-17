@@ -77,10 +77,10 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable()
-                ->creationRules('required','dimensions:max_width=100,max_height=100')
-                ->updateRules(
-                    'dimensions:max_width=100,max_height=100'
-                )
+                ->creationRules('required')
+//                ->updateRules(
+//                    'dimensions:max_width=100,max_height=100'
+//                )
 //                ->showOnIndex(function () {
 //                    if(file_exists(public_path().'images/brands/'. $this->image .'png'))
 //                    return true;

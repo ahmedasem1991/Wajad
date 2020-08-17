@@ -82,10 +82,10 @@ class SubCategory extends Resource
                 ->prunable()
                 ->deletable()
               //  ->rules('required','dimensions:max_width=100,max_height=100'),
-              ->creationRules('required','dimensions:max_width=100,max_height=100')
-              ->updateRules(
-                  'dimensions:max_width=100,max_height=100'
-              ),
+              ->creationRules('required'),
+//              ->updateRules(
+//                  'dimensions:max_width=100,max_height=100'
+//              ),
             NovaBelongsToDepend::make('Category')->rules('required')
                 ->placeholder('Category')
                 ->options(\App\Category::all()),

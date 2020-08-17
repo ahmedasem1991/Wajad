@@ -78,12 +78,12 @@ class Model extends Resource
                 ->prunable()
                 ->deletable()
                 //->rules('required','dimensions:max_width=100,max_width=100'),
-                ->creationRules('required','dimensions:max_width=100,max_height=100')
-                ->updateRules(
-                    'dimensions:max_width=100,max_height=100'
-                ),
-          
-          
+                ->creationRules('required'),
+//                ->updateRules(
+//                    'dimensions:max_width=100,max_height=100'
+//                ),
+
+
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())
@@ -94,11 +94,11 @@ class Model extends Resource
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
-                    
+
                 })
                 ->rules('required')
                 ->dependsOn('Subcategory'),
-           
+
           //  HasMany::make('Colors'),
         ];
     }
