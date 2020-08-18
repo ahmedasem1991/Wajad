@@ -83,6 +83,7 @@ class PageController extends Controller
         if($page=='about-us')
         {
             $page='about_us';
+            return new PageResource(Page::whereKey($page)->first());
         }
 
         return new PageResource(Page::whereKey($page)->first());
