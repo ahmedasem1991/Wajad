@@ -81,6 +81,17 @@ class PageController extends Controller
             return response()->json($data);
         }
 
+        if ($page == 'about-us') {
+
+            $data = [];
+
+            $About = Page::where('key', $page)->firts();
+
+ 
+
+            
+        }
+
         return new PageResource(Page::whereKey($page)->first());
     }
 }
