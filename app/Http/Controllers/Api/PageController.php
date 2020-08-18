@@ -82,9 +82,8 @@ class PageController extends Controller
         }
         if($page=='about-us')
         {
-            dd('test');
-            $page='about_us';
-            return new PageResource(Page::whereKey($page)->first());
+           
+            return new PageResource(Page::where('key','about_us')->first());
         }
 
         return new PageResource(Page::whereKey($page)->first());
