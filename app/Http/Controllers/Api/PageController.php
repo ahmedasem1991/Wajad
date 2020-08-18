@@ -85,7 +85,7 @@ class PageController extends Controller
 
             $data = [];
 
-            $About = Page::where('key', $page)->firts();
+            $About = Page::where('key', $page)->first();
 
  
 
