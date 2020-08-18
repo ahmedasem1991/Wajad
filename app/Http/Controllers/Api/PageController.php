@@ -83,12 +83,12 @@ class PageController extends Controller
 
         if ($page == 'about-us') {
 
-            $data = [];
+            
 
             $About = Page::where('key', $page)->first();
 
  
-
+            return new PageResource($About);
             
         }
 
