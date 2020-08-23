@@ -41,6 +41,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('image', 500)->default("images/profile/default-profile.png");
             $table->string('language', 5)->default('en');
+            $table->integer('quick_user_id')->nullable();
+            $table->string('quick_user_password')->default('QuickBlox1!');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

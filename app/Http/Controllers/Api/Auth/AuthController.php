@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\AssignQrcode;
+use App\User;
 use App\Country;
 use App\DeviceType;
-use App\User;
+use App\AssignQrcode;
 use App\PostLimitation;
+use App\Jobs\PrepereNewUser;
 use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
@@ -203,6 +204,7 @@ class AuthController extends Controller
         }
         $user->setLanguage($langHeader);
 
+       
         AssignQrcode::create([
             'assign_to'=>1,
             'type'=>1,
@@ -211,6 +213,7 @@ class AuthController extends Controller
             'available_period'=>defaultGroup()->available_period_qrcodes ,
             'created_from'=>'new_register' ,
            ]);
+        PrepereNewUser::dispatch($user);
 
         return $this->login();
     }

@@ -25,6 +25,9 @@ class UserResource extends JsonResource
             "is_email_verified" =>  (bool) $this->email_verified_at,
             "is_mobile_number_verified" =>  (bool) $this->is_mobile_number_verified,
             "default_distance_unit" =>  $this->default_distance_unit,
+            "quick_user_id" =>  $this->quick_user_id,
+            "quick_user_email" =>  $this->email,
+            "quick_user_password" =>  $this->quick_user_password,
             'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
             'country' => $this->country,
         ];

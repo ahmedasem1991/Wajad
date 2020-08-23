@@ -367,3 +367,133 @@ Route::get('/test400', function () {
     Route::get('/chat', function(){
         return view('scan-qr-code');
     });
+
+
+    
+    Route::get('/quicksession', function () {
+ 
+ 
+    $url = "https://api.quickblox.com/session.json";
+    $Now=\Carbon\Carbon::now()->timestamp;
+    $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
+    $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+ 
+       $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
+       $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
+       $form_params['timestamp'] = $Now;
+       $form_params['nonce'] = "";
+       $form_params['signature'] = $Hash;
+  
+       $data = json_encode($form_params);
+  
+  $client = new \GuzzleHttp\Client([
+      'headers' => ['Content-Type' => 'application/json']
+  ]);
+  $response = $client->post($url, 
+          ['body' => $data]
+  );
+  $response = json_decode($response->getBody(), true);
+  
+  $token=$response['session']['token'];
+  session(['token' => $token]);
+   return( $token);
+    
+  });
+
+
+  Route::get('/quickgetusers', function () {
+    //dd(session('token'));
+    
+      $url = "https://api.quickblox.com/users.json";
+      $client = new \GuzzleHttp\Client([
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'QB-Token' => session('token'),
+            
+            ]
+    ]);
+$response = $client->get($url
+);
+$response = json_decode($response->getBody(), true);
+ 
+ return( $response);
+  });     
+
+  Route::get('/quickcreateuser', function () {
+//dd(session('token'));
+
+  $url = "https://api.quickblox.com/users.json";
+   
+     $form_params['login'] = 'ibrahim2.saber@outlook.com';
+     $form_params['password'] ='MSaber123456';
+     $form_params['email'] = 'ibrahim2.saber@outlook.com';
+     $form_params['external_user_id'] = "1121233";
+     $form_params['facebook_id'] = "";
+     $form_params['full_name'] = "Mohammed Saber";
+     $form_params['phone'] = '201142416124';
+     $form_params['website'] = '';
+     $form_params['tag_list'] = '';
+     $form_params['custom_data'] = '';
+
+     $user['user']=$form_params;
+
+     $data = json_encode($user);
+
+     $client = new \GuzzleHttp\Client([
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'QB-Token' => session('token'),
+            
+            ]
+    ]);
+$response = $client->post($url, 
+        ['body' => $data]
+);
+$response = json_decode($response->getBody(), true);
+ 
+ return( $response);
+  
+});
+
+
+
+
+
+  Route::get('/quicklogin', function () {
+ 
+ 
+    $url = "https://api.quickblox.com/login.json";
+    $Now=\Carbon\Carbon::now()->timestamp;
+    $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
+    $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+ 
+       $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
+       $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
+       $form_params['timestamp'] = $Now;
+       $form_params['nonce'] = "";
+       $form_params['signature'] = $Hash;
+  
+       $data = json_encode($form_params);
+  
+  $client = new \GuzzleHttp\Client([
+      'headers' => [
+          'Content-Type' => 'application/json',
+          'QB-Token' => session('token'),
+          
+          ]
+  ]);
+  $response = $client->post($url, 
+          ['body' => $data]
+  );
+  $response = json_decode($response->getBody(), true);
+  
+    
+   return( $response);
+    
+  });
+
+
+  Route::get('/test800', function(){
+   $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.\Carbon\Carbon::now()->timestamp;
+    echo hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+});
