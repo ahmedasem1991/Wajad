@@ -13,7 +13,7 @@ class UserPostAnswersResource extends JsonResource
         $questions = collect([
             'questions' => //QuestionResource::collection(
                 $this->post->questions()->with([
-                        'answers["answers"]' => function ($query) use ($user) {
+                        'Uanswers' => function ($query) use ($user) {
                             return $query->where('user_id', $user->id);
                         }
                     ])->select('id','question')->get()

@@ -23,6 +23,12 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    
+    public function Uanswers()
+    {
+        return $this->hasMany(Answer::class)['answers'];
+    }
+
     public function Post()
     {
         return $this->belongsTo(Post::class, 'post_id');
