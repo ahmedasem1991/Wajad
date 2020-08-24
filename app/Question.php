@@ -26,7 +26,7 @@ class Question extends Model
     
     public function Uanswers()
     {
-        return $this->hasMany(Answer::class)['answers'];
+        return $this->hasMany(Answer::class)->select('answers');
     }
 
     public function Post()
