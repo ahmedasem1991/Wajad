@@ -10,39 +10,39 @@ class PostRequestObserver
 
     public function saving(PostRequest $postRequest)
     {
-        if(Auth()->check())
-        {
+    //     if(Auth()->check())
+    //     {
          
-            if($postRequest->is_request_valid==0){
-                $postRequest->rejected_at=now()->toDatetimeString();
-            }else{
-            $postRequest->rejected_at=NULL;
-            $Post= Post::find($postRequest->post_id);
-            $Post->owner_id=$postRequest->user_id;
-            $Post->save();
-      }
+    //         if($postRequest->is_request_valid==0){
+    //             $postRequest->rejected_at=now()->toDatetimeString();
+    //         }else{
+    //         $postRequest->rejected_at=NULL;
+    //         $Post= Post::find($postRequest->post_id);
+    //         $Post->owner_id=$postRequest->user_id;
+    //         $Post->save();
+    //   }
            
             
-        }
+    //     }
     }
     public function saved(PostRequest $postRequest)
     {
  
-            if($postRequest->is_request_valid==1){
-            $postRequest->rejected_at=NULL;
+            // if($postRequest->is_request_valid==1){
+            // $postRequest->rejected_at=NULL;
  
 
 
-            $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
+            // $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
        
-                foreach($PostRequests as $PostRequest)
-                {
-                    $PostRequest->is_request_valid=0;
-                    $PostRequest->rejected_at=now()->toDatetimeString();
-                   // $PostRequest->save();
-                }
+            //     foreach($PostRequests as $PostRequest)
+            //     {
+            //         $PostRequest->is_request_valid=0;
+            //         $PostRequest->rejected_at=now()->toDatetimeString();
+            //        // $PostRequest->save();
+            //     }
            
-            }
+            // }
             
     }
     /**
@@ -98,21 +98,22 @@ class PostRequestObserver
      * @return void
      */
     public function updated(PostRequest $postRequest)
-    {     if($postRequest->is_request_valid==1){
-        $postRequest->rejected_at=NULL;
+     {     
+         //if($postRequest->is_request_valid==1){
+    //        $postRequest->rejected_at=NULL;
 
 
 
-        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
+    //     $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
    
-            foreach($PostRequests as $PostRequest)
-            {
-                $PostRequest->is_request_valid=0;
-                $PostRequest->rejected_at=now()->toDatetimeString();
-                //$postRequest->save();
-            }
+    //         foreach($PostRequests as $PostRequest)
+    //         {
+    //             $PostRequest->is_request_valid=0;
+    //             $PostRequest->rejected_at=now()->toDatetimeString();
+    //             //$postRequest->save();
+    //         }
        
-        }
+    //     }
     }
 
     /**

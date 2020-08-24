@@ -17,10 +17,11 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
+            //'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'unique:users,mobile_number'],
             'device_type' => ['required', 'string', 'in:android,ios'],
-//            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
+            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ];
     }
 

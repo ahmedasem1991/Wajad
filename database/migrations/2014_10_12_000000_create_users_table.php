@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->string('default_distance_unit')->default('kilo');
             $table->boolean('first_time_login')->default(true);
@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
 
             $table->text('device_token')->nullable();
 
-            $table->char('mobile_number')->unique()->nullable();
+            $table->char('mobile_number')->nullable();
 
             $table->boolean('receive_emails')->default(false);
             $table->boolean('receive_push_notifications')->default(false);
