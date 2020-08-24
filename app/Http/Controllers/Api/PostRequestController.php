@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use App\User;
 use App\PostRequest;
+use Laravel\Nova\Nova;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\SendFCMNotification;
+use App\Notifications\BroadcastNotification;
 
 class PostRequestController extends Controller
 {
@@ -17,10 +20,31 @@ class PostRequestController extends Controller
             'user_id' => auth('api')->user()->id,
         ]);
 
+
+
+        
+        if($post->corporate_id !=NULL)
+        {
+          //send Broadcast Notification
+            $level='info';
+            $message='You had a new post request for your post "'.$post->title .' "';
+            $url=Nova::path().'/resources/posts/'.$post->id;
+            User::find($post->publisher_id)->notify(new BroadcastNotification($level,$message,$url));
+     
+        }
+        else{
+            //send FCM
+            $badge =getBadge($post->founder);
+            $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
+            $post->founder->notify(new SendFCMNotification($post->founder,$data));
+
+        }
+        
+
           //send FCM
-          $badge =getBadge($post->founder);
-          $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
-          $post->founder->notify(new SendFCMNotification($post->founder,$data));
+          // $badge =getBadge($post->founder);
+          // $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
+          // $post->founder->notify(new SendFCMNotification($post->founder,$data));
 
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);

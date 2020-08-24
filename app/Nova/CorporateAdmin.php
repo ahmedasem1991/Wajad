@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use App\Nova\Metrics\NewUsers;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
@@ -26,7 +28,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class SuperAdmin extends Resource
+class CorporateAdmin extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -48,7 +50,6 @@ class SuperAdmin extends Resource
      * @var string
      */
     public static $title = 'name';
-
 
     /**
      * The columns that should be searched.
@@ -89,7 +90,7 @@ class SuperAdmin extends Resource
     {
         return [
             ID::make()->sortable(),
-
+            //  Avatar::make('Avatar'),
             //Gravatar::make(),
             Image::make('Profile Image', 'image')
             ->disk('public')
@@ -104,14 +105,11 @@ class SuperAdmin extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->creationRules('required','email','unique:users,email,NULL,id,type,3,deleted_at,NULL')
-                ->updateRules('required','unique:users,email,{{resourceId}},id,type,3,deleted_at,NULL'),
-                //->rules('required', 'email', 'max:254')
-               // ->creationRules('unique:users,email')
-
-              
-               
-
+                // ->rules('required', 'email', 'max:254')
+                // ->creationRules('unique:users,email')
+                // ->updateRules('unique:users,email,{{resourceId}}'),
+                ->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
+                ->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
@@ -120,27 +118,48 @@ class SuperAdmin extends Resource
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
             ->placeholder('Select Country')
             ->options(\App\Country::all()),
-
- 
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
-            ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
-            //->updateRules('required','unique:users,email,{{resourceId}}'),
+            ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
+            ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
             // ->creationRules('required', 'min:9','max:14')
             // ->updateRules('nullable',  'min:9','max:14'),
-        //   PhoneNumber::make('Mobile Number','mobile_number')
-        //         ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-        //         ->onlyCustomFormats(),
-
+            //->rules('required' 'max:14'),
+               // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+               // ->onlyCustomFormats(),
+            //HasMany::make('Items'),
             Toggle::make('Active', 'status'),
+            //  Boolean::make('Show My Data','show_my_data'),
+
 
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-                BelongsToMany::make('Roles', 'roles', Role::class),
 
+            HasMany::make('Subscription')
+                ->hideWhenUpdating(),
+            Select::make('Type', 'type')->options([
+
+                '2' => 'Corpoare Admin',
+                //  '4' => 'Corporate User',
+               // '1' => 'Normal User',
+
+            ])
+            ->rules('required')
+            ->displayUsingLabels(),
+
+            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
+
+            NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
+                ->placeholder('Corporate')
+                ->options(Corporate::all())
+                ->creationRules('required_if:type,2')
+                ->updateRules('required_if:type,2')
+                ->nullable(),
+
+                BelongsToMany::make('Roles', 'roles', Role::class),
+                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -195,21 +214,12 @@ class SuperAdmin extends Resource
         ];
     }
 
-
-
-    /**
-     * Build an "index" query for the given resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->SuperAdmin();
+        return $query->CorporateAdmin();
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

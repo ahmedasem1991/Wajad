@@ -372,7 +372,7 @@ Route::get('/test400', function () {
     
     Route::get('/quicksession', function () {
  
- 
+        
     $url = "https://api.quickblox.com/session.json";
     $Now=\Carbon\Carbon::now()->timestamp;
     $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
@@ -419,39 +419,54 @@ $response = json_decode($response->getBody(), true);
  return( $response);
   });     
 
-  Route::get('/quickcreateuser', function () {
-//dd(session('token'));
+  Route::get('/quickcreateuser', function () {  
 
-  $url = "https://api.quickblox.com/users.json";
-   
-     $form_params['login'] = 'ibrahim2.saber@outlook.com';
-     $form_params['password'] ='MSaber123456';
-     $form_params['email'] = 'ibrahim2.saber@outlook.com';
-     $form_params['external_user_id'] = "1121233";
-     $form_params['facebook_id'] = "";
-     $form_params['full_name'] = "Mohammed Saber";
-     $form_params['phone'] = '201142416124';
-     $form_params['website'] = '';
-     $form_params['tag_list'] = '';
-     $form_params['custom_data'] = '';
-
-     $user['user']=$form_params;
-
-     $data = json_encode($user);
-
-     $client = new \GuzzleHttp\Client([
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'QB-Token' => session('token'),
-            
+    $Users=User::Normalusers()->whereNull('quick_user_id')->get();
+    foreach($Users as $User)
+    {
+       
+        $token='831ccf48d9341dff2ffeba0d5249971021014e1a';
+        $url = "https://api.quickblox.com/users.json";
+    
+        $form_params['login'] = $User->email;
+        $form_params['password'] = $User->quick_user_password;
+        $form_params['email'] = $User->email;
+        $form_params['external_user_id'] =$User->id;
+        $form_params['facebook_id'] = "";
+        $form_params['full_name'] =  $User->name;
+        $form_params['phone'] =$User->country ? $User->country->country_code .$User->mobile_number: '' .$User->mobile_number;
+        $form_params['website'] = '';
+        $form_params['tag_list'] = '';
+        $form_params['custom_data'] = '';
+    
+        $user['user'] = $form_params;
+    
+        $data = json_encode($user);
+    
+        $client = new \GuzzleHttp\Client([
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'QB-Token' => $token,
+    
             ]
-    ]);
-$response = $client->post($url, 
-        ['body' => $data]
-);
-$response = json_decode($response->getBody(), true);
+        ]);
+        $response = $client->post(
+            $url,
+            ['body' => $data]
+        );
+        $response = json_decode($response->getBody(), true);
+    
+         if($response['user']['id']);
+      {  
+          $User->quick_user_id= $response['user']['id'];
+          $User->save();
+          logger($User->quick_user_id);
+      }
+    }
  
- return( $response);
+ 
+ 
+  
   
 });
 
