@@ -16,10 +16,8 @@ class UserPostAnswersResource extends JsonResource
         //                     }])->get();
 
          $answers = collect([
-             'answers' => \App\Answer::where('post_request_id',$this->id)->where('user_id', $user->id)->with([
-            'question' => function ($query) {
-                $query->select('question');
-           }])->get()
+             'answers' => \App\Answer::where('post_request_id',$this->id)->where('user_id', $user->id)
+             ->with('question')->get()
                 ]);
         return $answers->merge($user);
     }
