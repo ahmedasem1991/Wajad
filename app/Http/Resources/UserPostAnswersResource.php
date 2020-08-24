@@ -11,13 +11,13 @@ class UserPostAnswersResource extends JsonResource
         $user = new UserResource($this->postRequestUser);
 
         $questions = collect([
-            'questions' => //QuestionResource::collection(
+            'questions' => QuestionResource::collection(
                 $this->post->questions()->with([
                         'answers' => function ($query) use ($user) {
                              $query->where('user_id', $user->id);
                         }
-                ])->select('id','question')->first()
-           // )
+                ])->select('id','question')->get()
+            )
                 ]);
         return $questions->merge($user);
     }
