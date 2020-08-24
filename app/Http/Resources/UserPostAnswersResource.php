@@ -16,7 +16,7 @@ class UserPostAnswersResource extends JsonResource
                         'answers' => function ($query) use ($user) {
                             return $query->where('user_id', $user->id);
                         }
-                    ])->get()
+                    ])->get('id','question')
            // )
         ]);
         return $questions->merge($user);
