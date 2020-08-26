@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
+use Laravel\Socialite\Facades\Socialite;
 
 /**
  * @group Auth
@@ -204,7 +205,7 @@ class AuthController extends Controller
         }
         $user->setLanguage($langHeader);
 
-       
+
         AssignQrcode::create([
             'assign_to'=>1,
             'type'=>1,
@@ -296,5 +297,59 @@ class AuthController extends Controller
             $country->flag=env('APP_URL').'/images/flags/'.strtolower($country->iso_code).'.png';
         }
         return $this->jsonResponse($countries);
+    }
+
+    public function socialLogin($driver)
+    {
+        $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
+        $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
+        if (is_null($user)){
+            $user = User::create([
+                'name' => $login_user->name,
+                'email' => $login_user->email,
+                'image' => $login_user->avatar_original,
+                'type' => User::Types['user'],
+                'is_mobile_number_verified' => false,
+                'posts_number' => 0,
+            ]);
+
+            $langHeader=request()->header('Content-Language');
+            if ($langHeader != 'ar') {
+                $langHeader = 'en';
+            }
+
+            AssignQrcode::create([
+                'assign_to'=>1,
+                'type'=>1,
+                'user_id'=>$user->id,
+                'quantity'=> 10, //defaultGroup()->free_qrcodes ,
+                'available_period'=> 10, //defaultGroup()->available_period_qrcodes ,
+                'created_from'=>'new_register' ,
+            ]);
+            PrepereNewUser::dispatch($user);
+        }
+
+        if (!$token = auth('api')->login($user)) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        if (!auth('api')->user()->isUser()) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => request('device_type')
+        ]);
+
+        auth('api')->user()->activeLogin()->Create([
+            'user_id' => auth('api')->user()->id
+        ]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+
+        return $this->respondWithToken($token);
     }
 }

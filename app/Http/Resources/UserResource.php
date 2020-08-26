@@ -28,7 +28,11 @@ class UserResource extends JsonResource
             "quick_user_id" =>  $this->quick_user_id,
             "quick_user_email" =>  $this->email,
             "quick_user_password" =>  $this->quick_user_password,
-            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'image' =>  $this->image ?
+                (substr($this->image, 0, 4) === "http"
+                    ? $this->image
+                    : env('APP_URL') . "/" . $this->image)
+                : '',
             'country' => $this->country,
         ];
     }

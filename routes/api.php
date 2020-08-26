@@ -12,6 +12,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/register', 'AuthController@register');
     Route::post('/resetPassword', 'ResetPasswordController');
     Route::post('/refreshToken', 'AuthController@refresh');
+    Route::post('/socialLogin/{driver}', 'AuthController@socialLogin');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');
@@ -42,10 +43,10 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/create', 'FcmController@store');
             Route::delete('/delete', 'FcmController@destroy');
             });
- 
+
     Route::middleware('phone_verified')->group(function () {
         Route::prefix('request')->group(function () {
-           
+
              //accept this request send fcm
             Route::post('/post/{post}', 'PostRequestController');
 
@@ -66,7 +67,7 @@ Route::group(['middleware' => 'auth:api'], function () {
      // Send FCM and SMS
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
-    
+
     //Send FCM
     Route::post('/register/qrcode', 'RegisterQRCodeController');
     Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
