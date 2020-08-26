@@ -307,7 +307,7 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $login_user->name,
                 'email' => $login_user->email,
-                'image' => $login_user->avatar_original,
+                'image' => $login_user->avatar,
                 'type' => User::Types['user'],
                 'is_mobile_number_verified' => false,
                 'posts_number' => 0,
@@ -322,8 +322,8 @@ class AuthController extends Controller
                 'assign_to'=>1,
                 'type'=>1,
                 'user_id'=>$user->id,
-                'quantity'=> 10, //defaultGroup()->free_qrcodes ,
-                'available_period'=> 10, //defaultGroup()->available_period_qrcodes ,
+                'quantity'=>  defaultGroup()->free_qrcodes ,
+                'available_period'=>  defaultGroup()->available_period_qrcodes ,
                 'created_from'=>'new_register' ,
             ]);
             PrepereNewUser::dispatch($user);
