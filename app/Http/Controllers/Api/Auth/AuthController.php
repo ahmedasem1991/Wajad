@@ -305,7 +305,6 @@ class AuthController extends Controller
      * @bodyParam token string required
      * @bodyParam device_type string required
      * @response {
-     * {
      *  "token_type": "Bearer",
      *  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
      *  "expires_in": 216000,
@@ -325,7 +324,6 @@ class AuthController extends Controller
      *      "quick_user_password": null,
      *      "image": "https://graph.facebook.com/v3.3/100385468456652/picture?type=normal",
      *      "country": null
-     *      }
      *    }
      * }
      *
