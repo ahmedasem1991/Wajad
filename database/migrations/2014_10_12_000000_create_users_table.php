@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('default_distance_unit')->default('kilo');
             $table->boolean('first_time_login')->default(true);
@@ -29,6 +29,8 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->nullable();
             //$table->integer('posts_number')->default(env('POST_LIMITATION',50));
             $table->integer('posts_number')->default(0);
+            $table->string('social_name')->nullable();
+            $table->boolean('is_social_user')->default(0);
 
             $table->text('device_token')->nullable();
 
