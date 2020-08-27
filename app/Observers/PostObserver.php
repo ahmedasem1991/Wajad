@@ -9,6 +9,7 @@ use App\GenerateQrcode;
 use Illuminate\Support\Str;
 use App\Jobs\AssignQrcodeJob;
 use App\Jobs\GenerateQrcodeJob;
+use App\Question;
 use Illuminate\Support\Facades\Log;
 
 class PostObserver
@@ -40,6 +41,13 @@ class PostObserver
 
     public function saved(Post $Post)
     {
+        if (Auth()->User()->isCorporateAdmin()) {
+            Question::create([
+                'corporate_id' =>  Auth()->User()->corporate_id,
+                'post_id' => $Post->id,
+                'question' => $Post->question,
+            ]);
+        }
     }
 
     /**

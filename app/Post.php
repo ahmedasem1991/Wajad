@@ -37,7 +37,8 @@ class Post extends MasterModel
         'brand_id',
         'city_id',
         'images',
-        'reward'
+        'reward',
+        'question'
     ];
 
     protected static $logAttributes = ['title', 'description'];

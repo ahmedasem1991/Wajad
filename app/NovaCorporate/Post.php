@@ -233,6 +233,11 @@ class Post extends Resource
                 ->defaultLatitude(21.4498898)
                 ->defaultLongitude(39.4913431)
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+
+                Text::make('Question')->creationRules('required')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
