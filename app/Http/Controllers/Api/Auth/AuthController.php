@@ -299,6 +299,37 @@ class AuthController extends Controller
         return $this->jsonResponse($countries);
     }
 
+    /**
+     * Social Login
+     * @urlParam driver string required
+     * @bodyParam token string required
+     * @bodyParam device_type string required
+     * @response {
+     * {
+     *  "token_type": "Bearer",
+     *  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
+     *  "expires_in": 216000,
+     *  "user": {
+     *      "id": 24,
+     *      "name": "Smart AppCo",
+     *      "email": "a.shafik@smartappco.com",
+     *      "status": null,
+     *      "mobile_number": "",
+     *      "receive_emails": false,
+     *      "receive_push_notifications": false,
+     *      "is_email_verified": false,
+     *      "is_mobile_number_verified": false,
+     *      "default_distance_unit": null,
+     *      "quick_user_id": null,
+     *      "quick_user_email": "a.shafik@smartappco.com",
+     *      "quick_user_password": null,
+     *      "image": "https://graph.facebook.com/v3.3/100385468456652/picture?type=normal",
+     *      "country": null
+     *      }
+     *    }
+     * }
+     *
+     */
     public function socialLogin($driver)
     {
         $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
@@ -308,6 +339,8 @@ class AuthController extends Controller
                 'name' => $login_user->name,
                 'email' => $login_user->email,
                 'image' => $login_user->avatar,
+                'is_social_user' => true,
+                'social_name' => $driver,
                 'type' => User::Types['user'],
                 'is_mobile_number_verified' => false,
                 'posts_number' => 0,
