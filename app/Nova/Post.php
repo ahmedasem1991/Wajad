@@ -253,6 +253,11 @@ class Post extends Resource
                 ->rules('required_if:founder_releated_to_system,1'),
 
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+            Text::make('Question')
+            ->creationRules('required_if:status,1')
+            ->hideWhenUpdating()
+            ->hideFromDetail()
+            ->hideFromIndex(),
             MediaField::make('Item Image', 'images')->listing(),
 
             MapMarker::make("Location")
@@ -260,6 +265,8 @@ class Post extends Resource
                 ->defaultLatitude(21.4498898)
                 ->defaultLongitude(39.4913431)
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+
+               
 
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
