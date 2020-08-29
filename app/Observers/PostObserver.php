@@ -41,11 +41,13 @@ class PostObserver
 
     public function saved(Post $Post)
     {
-        if (Auth()->User()->isCorporateAdmin()) {
+        if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin() ) {
+         $question= $Post->question;
+         if($question=='') $question=null;
             Question::create([
                 'corporate_id' =>  Auth()->User()->corporate_id,
                 'post_id' => $Post->id,
-                'question' => $Post->question,
+                'question' => $question,
             ]);
         }
     }

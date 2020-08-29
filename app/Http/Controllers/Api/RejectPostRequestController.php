@@ -23,6 +23,7 @@ class RejectPostRequestController extends Controller
      * Reject Post Request
      * @urlParam post_id required int exists in posts
      * @bodyParam user_id integer required exists in users
+     * @bodyParam comment text required 
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,

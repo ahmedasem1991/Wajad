@@ -20,6 +20,7 @@ class AcceptPostRequestController extends Controller
      * This Post Request is his
      * @urlParam post_id required int exists in posts
      * @bodyParam user_id required int exists in users
+     * @bodyParam comment  text 
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
