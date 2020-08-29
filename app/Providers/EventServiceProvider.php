@@ -27,6 +27,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SendSMSEvent' => [
                 'App\Listeners\SendSMSListener',
                 ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            'SocialiteProviders\\Apple\\AppleExtendSocialite@handle',
+            'SocialiteProviders\\Instagram\\InstagramExtendSocialite@handle',
+            'SocialiteProviders\\Microsoft\\MicrosoftExtendSocialite@handle',
+            'SocialiteProviders\\Twitter\\TwitterExtendSocialite@handle',
+        ],
     ];
 
     /**
