@@ -101,7 +101,7 @@ class PrepereNewUser implements ShouldQueue
         );
         $response = json_decode($response->getBody(), true);
 
-         if($response['user']['id']);
+         if($response['user']['id'] &&  $new_user->quick_user_id ==NULL)
       {  
           $new_user->quick_user_id= $response['user']['id'];
           $new_user->save();
