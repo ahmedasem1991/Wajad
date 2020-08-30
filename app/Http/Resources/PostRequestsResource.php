@@ -10,7 +10,7 @@ class PostRequestsResource extends JsonResource
     {
         $this_request = $this;
         $user = new UserResource($this->user_id);
-        $array['questions'] = $this->post->questions()->with([
+        $array['questions2'] = $this->post->questions()->with([
             'answers' => function ($query) use ($this_request) {
                 $query->where('user_id', $this->user_id);
             }
