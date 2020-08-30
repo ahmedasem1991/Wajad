@@ -15,7 +15,7 @@ class PostRequestsResource extends JsonResource
              $query->where('user_id', $this->user_id);
         }
 ])->select('id','question')->get();
-dd($array['questions']);
+return ($array['questions']);
         return new UserPostAnswersResource($this);
 
         return [
