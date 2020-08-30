@@ -8,6 +8,9 @@ class PostRequestsResource extends JsonResource
 {
     public function toArray($request)
     {
+
+        dd($request);
+       //$array['questions'] =
         return new UserPostAnswersResource($this);
 
         return [
