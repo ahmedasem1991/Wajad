@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class PostRequestsResource extends JsonResource
 {
     public function toArray($request)
-    {
+    {$array=[];
         $this_request = $this;
         $user = new UserResource($this->user_id);
         $array['questions2'] = $this->post->questions()->with([
@@ -15,7 +15,7 @@ class PostRequestsResource extends JsonResource
                 $query->where('user_id', $this->user_id);
             }
         ])->select('id', 'question')->get();
-        return  $array['questions2']->merge($user);
+        return  $array;
         return new UserPostAnswersResource($this);
 
         return [
