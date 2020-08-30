@@ -12,7 +12,7 @@ class PostRequestsResource extends JsonResource
 
         $array['questions'] = $this->post->questions()->with([
             'answers' => function ($query) use ($this_request) {
-                $query->where('user_id', $this->user_id)->select('id', 'answers');
+                $query->where('user_id', $this->user_id);
             }
         ])->select('id', 'question')->get();
         dd($array['questions']);
