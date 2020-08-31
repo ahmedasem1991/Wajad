@@ -153,6 +153,7 @@ class Corporate extends Resource
             ->centerCircle(10000, 'DarkCyan', 1, 0.3),
 
             HasMany::make('Posts'),
+            HasMany::make('Subscriptions'),
         ];
     }
 
