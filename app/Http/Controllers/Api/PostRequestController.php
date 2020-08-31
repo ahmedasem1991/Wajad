@@ -16,9 +16,9 @@ class PostRequestController extends Controller
 {
     public function  __invoke(Request $request, Post $post)
     {
-        $p = PostRequest::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->get();
+        $p = PostRequest::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->count();
 
-        if (!$p->isEmpty()){
+        if ($p>0){
             throw new ApiException('You Already Made A Request', 401);
         }
 
