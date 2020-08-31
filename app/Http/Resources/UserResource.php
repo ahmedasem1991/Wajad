@@ -21,6 +21,7 @@ class UserResource extends JsonResource
         else{
             $mob=$this->country ? $this->country->country_code .$this->mobile_number: '' .$this->mobile_number;
         }
+        session()->forget('corporate_publisher');
         return [
             'id' => $this->id,
             "name" =>  $this->name,
