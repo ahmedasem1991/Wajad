@@ -79,7 +79,7 @@ class PrepereNewUser implements ShouldQueue
         $form_params['external_user_id'] =$new_user->id;
         $form_params['facebook_id'] = "";
         $form_params['full_name'] =  $new_user->name;
-        $form_params['phone'] =$new_user->country->country_code. $new_user->mobile_number;
+        $form_params['phone'] =($new_user->country)?$new_user->country->country_code. $new_user->mobile_number: NULL;
         $form_params['website'] = '';
         $form_params['tag_list'] = '';
         $form_params['custom_data'] = '';
