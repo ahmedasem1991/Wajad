@@ -19,7 +19,7 @@ class PostRequestController extends Controller
         $p = PostRequest::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->count();
 
         //if ($p>1){
-            throw new ApiException('You Already Made A Request', 401);
+            return new ApiException('You Already Made A Request', 401);
         //}
 
         $post_request=     PostRequest::create([
