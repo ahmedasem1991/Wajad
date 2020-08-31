@@ -41,6 +41,10 @@ class Corporate extends Model
     {
         return $this->hasMany(User::class);
     }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
     public function admins()
     {
         return $this->hasMany(User::class);

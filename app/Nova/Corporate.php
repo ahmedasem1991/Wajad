@@ -151,6 +151,8 @@ class Corporate extends Resource
             ->defaultLatitude(21.4498898)
             ->defaultLongitude(39.4913431)
             ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+
+            HasMany::make('Posts'),
         ];
     }
 
