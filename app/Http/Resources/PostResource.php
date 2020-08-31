@@ -30,6 +30,7 @@ class PostResource extends JsonResource
             'claimers' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
             'publisher' => new UserResource($this->publisher),
+            'corporate' => new CorporateResource($this->corporate),
         ];
     }
 }

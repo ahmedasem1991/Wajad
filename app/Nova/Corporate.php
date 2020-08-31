@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\Heading;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -14,10 +13,12 @@ use Naif\MapAddress\MapAddress;
 use App\Nova\Metrics\Corporates;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Corporate extends Resource
 {
@@ -97,6 +98,12 @@ class Corporate extends Resource
                 'max:255',
                 'min:6'
             ),
+            NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
+            ->placeholder('Select Country')
+            ->options(\App\Country::all()),
+            Number::make('Mobile Number', 'mobile_number')
+            ->creationRules('required','unique:corporates,mobile_number')
+            ->updateRules('required','unique:corporates,mobile_number,{{resourceId}}'),
             Trix::make('Corporate English Details', 'details_en')
                 ->rules(
                     'required',
@@ -128,11 +135,11 @@ class Corporate extends Resource
             Image::make('Corporate Image', 'image')->creationRules(
                 'required',
                 'image',
-                'mimes:jpeg,bmp,png',
+                'mimes:jpeg,bmp,png,jpg',
                 'max:5012'
             )->updateRules(
                 'image',
-                'mimes:jpeg,bmp,png',
+                'mimes:jpeg,bmp,png,jpg',
                 'max:5012'
             )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 

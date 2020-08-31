@@ -15,6 +15,7 @@ class Corporate extends Model
     protected $fillable = [
         'name_en',
         'name_ar',
+        'mobile_number',
         'details_en',
         'details_ar',
         'address_en',
@@ -62,5 +63,9 @@ class Corporate extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 1);
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'mobile_country_id');
     }
 }
