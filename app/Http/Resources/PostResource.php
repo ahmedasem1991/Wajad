@@ -9,6 +9,13 @@ class PostResource extends JsonResource
 {
     public function toArray($request)
     {
+        if($this->corporate)
+        {
+            $this->publisher->name=$this->corporate->{'address_' . app()->getLocale()};
+            $this->publisher->mobile_number=$this->corporate->country ? $this->corporate->country->country_code .$this->corporate->mobile_number: '' .$this->corporate->mobile_number;
+
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
