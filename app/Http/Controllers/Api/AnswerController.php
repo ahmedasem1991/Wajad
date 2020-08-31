@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use App\User;
 use App\Answer;
 use App\Question;
 use App\PostRequest;
+use Laravel\Nova\Nova;
 use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendFCMNotification;
+use App\Notifications\BroadcastNotification;
 
 /**
  * @group Post Request
@@ -43,6 +46,12 @@ class AnswerController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+        $p = PostRequest::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->get();
+
+        if (!$p->isEmpty()){
+            throw new ApiException('You Already Made A Request', 401);
+        }
+
         $post_request = PostRequest::create([
             'post_id' => $post->id,
             'user_id' => auth('api')->user()->id,
@@ -65,10 +74,23 @@ class AnswerController extends Controller
             ]);
         }, $request->data);
 
-           //send FCM
-          // $badge =getBadge($post->founder);
-          // $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
-         //  $post->founder->notify(new SendFCMNotification($post->founder,$data));
+        
+        if($post->corporate_id !=NULL)
+        {
+            //send Broadcast Notification
+            $level='info';
+            $message='You had a new post request for your post "'.$post->title .' "';
+            $url=Nova::path().'/resources/posts/'.$post->id;
+            User::find($post->publisher_id)->notify(new BroadcastNotification($level,$message,$url));
+
+        }
+        else{
+            //send FCM
+            $badge =getBadge($post->founder);
+            $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
+            $post->founder->notify(new SendFCMNotification($post->founder,$data));
+
+        }
  
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
         return $this->response();
