@@ -89,7 +89,7 @@ class PostRequest extends Resource
            ->hideFromIndex()
            ->exceptOnForms()
            ->nullable(),
-           Text::make('Comment')->readonly(),
+           Text::make('Comment'),
 
 
         ];
