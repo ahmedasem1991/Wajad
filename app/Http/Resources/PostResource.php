@@ -9,6 +9,14 @@ class PostResource extends JsonResource
 {
     public function toArray($request)
     {
+        if($this->corporate)
+        {
+            $this->publisher->name=$this->corporate->{'name_' . app()->getLocale()};
+            $this->publisher->mobile_number=$this->corporate->country ? $this->corporate->country->country_code .$this->corporate->mobile_number: '' .$this->corporate->mobile_number;
+            session()->put('corporate_publisher','true');
+
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -30,6 +38,7 @@ class PostResource extends JsonResource
             'claimers' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
             'publisher' => new UserResource($this->publisher),
+            'corporate' => new CorporateResource($this->corporate),
         ];
     }
 }

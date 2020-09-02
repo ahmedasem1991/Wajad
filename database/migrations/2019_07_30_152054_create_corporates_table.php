@@ -18,6 +18,8 @@ class CreateCorporatesTable extends Migration
             $table->string('unique_id')->nullable();
             $table->string('name_en');
             $table->string('name_ar');
+            $table->string('mobile_number')->nullable();
+            $table->integer('mobile_country_id')->nullable();
             $table->text('details_en')->nullable();
             $table->text('details_ar')->nullable();
             $table->text('address_en')->nullable();

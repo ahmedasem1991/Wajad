@@ -79,6 +79,7 @@ class PostRequest extends Resource
            BelongsTo::make('Post')
            ->readonly()
            ,
+         
            HasMany::make('Answers'),
            BelongsTo::make('Claim user','postrequestuser',\App\Nova\NormalUser::class)
            ->readonly()
@@ -87,6 +88,7 @@ class PostRequest extends Resource
            ->hideFromIndex()
            ->exceptOnForms()
            ->nullable(),
+           Text::make('Comment'),
 
 
         ];

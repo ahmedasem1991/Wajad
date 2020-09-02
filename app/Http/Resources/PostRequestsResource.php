@@ -8,6 +8,15 @@ class PostRequestsResource extends JsonResource
 {
     public function toArray($request)
     {
+        // $array=[];
+        // $this_request = $this;
+        // $user = new UserResource($this->user_id);
+        // $array['questions'] = $this->post->questions()->with([
+        //     'answers' => function ($query) use ($this_request) {
+        //         $query->where('user_id', $this->user_id)->where('user_id', $this->user_id);
+        //     }
+        // ])->select('id', 'question')->get();
+        // return  $array;
         return new UserPostAnswersResource($this);
 
         return [

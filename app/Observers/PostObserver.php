@@ -34,7 +34,7 @@ class PostObserver
         }
         if (Auth()->check() && Auth()->User()->isAdmin()) {
             $Post->publisher_type = 3;
-            $Post->publisher_id = Auth()->User()->id;
+            $Post->publisher_id = ($Post->owner_id) ? $Post->owner_id: $Post->founder_id;
             $Post->end_date = $Post->end_date;
         }
     }

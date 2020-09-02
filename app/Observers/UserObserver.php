@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\User;
+use App\AssignQrcode;
+use App\Jobs\PrepereNewUser;
 use Illuminate\Support\Facades\Auth;
 
 class UserObserver
@@ -17,6 +19,31 @@ class UserObserver
 
             $User->corporate_id = Auth()->User()->corporate_id;
         }
+         
+ 
+    }
+
+
+    public function saved(User $User)
+    {
+ 
+
+        if( ! Auth::guard('api')->check()  && $User->type==1) {
+
+           
+            AssignQrcode::create([
+                'assign_to'=>1,
+                'type'=>1,
+                'user_id'=>$User->id,
+                'quantity'=>defaultGroup()->free_qrcodes ,
+                'available_period'=>defaultGroup()->available_period_qrcodes ,
+                'created_from'=>'new_register' ,
+               ]);
+               if( $User->quick_user_id ==NULL)
+               PrepereNewUser::dispatch($User);
+         
+        }
+
         
     }
     public function updating(User $User)

@@ -32,6 +32,7 @@
         "genealabs/nova-map-marker-field": "^0.1.12",
         "guzzlehttp/guzzle": "^6.",
         "halimtuhu/array-images": "^1.1",
+        "idf/laravel-real-email-validation": "^1.0",
         "intervention/image": "^2.5",
         "khalin/nova-link-field": "^1.1",
         "koss-shtukert/laravel-nova-select2-auto-complete": "^1.19",
