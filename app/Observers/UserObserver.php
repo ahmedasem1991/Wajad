@@ -32,6 +32,8 @@ class UserObserver
 
         if( ! Auth::guard('api')->check()  && $User->type==1) {
 
+            if(count($User->qrcodes) == 0 ){
+
 
             AssignQrcode::create([
                 'assign_to'=>1,
@@ -41,6 +43,7 @@ class UserObserver
                 'available_period'=>defaultGroup()->available_period_qrcodes ,
                 'created_from'=>'new_register' ,
                ]);
+            }
                if( $User->quick_user_id ==NULL)
                PrepereNewUser::dispatch($User);
 

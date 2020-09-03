@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\User;
+use App\PostRequest;
 use App\AssignQrcode;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -104,7 +106,10 @@ class PrepereNewUser implements ShouldQueue
          if($response['user']['id'] &&  $new_user->quick_user_id ==NULL)
       {  
           $new_user->quick_user_id= $response['user']['id'];
+          $dispatcher = User::getEventDispatcher();
+          User::unsetEventDispatcher();
           $new_user->save();
+          User::setEventDispatcher($dispatcher);
           logger('test id');
       }
         logger($response);

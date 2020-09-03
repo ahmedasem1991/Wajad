@@ -142,6 +142,20 @@ class SeedSettings extends Command
                         'created_at' => null,
                         'updated_at' => null
                     ],
+                    [
+                        'key' => 'latitude',
+                        //'title' => 'Limited Posts',
+                        'value' => 21.4498898,
+                        'created_at' => null,
+                        'updated_at' => null
+                    ],
+                    [
+                        'key' => 'longitude',
+                        //'title' => 'Limited Posts',
+                        'value' => 39.4913431,
+                        'created_at' => null,
+                        'updated_at' => null
+                    ],
 
                 ];
 
