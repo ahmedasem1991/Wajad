@@ -34,6 +34,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'corporate_id',
         'posts_number',
         'image',
+        'social_name',
+        'is_social_user',
     ];
 
     protected $hidden = [
@@ -270,6 +272,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getLanguage()
     {
       return  $this->language;
-        
+
     }
 }
