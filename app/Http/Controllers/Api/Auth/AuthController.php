@@ -338,6 +338,7 @@ class AuthController extends Controller
                 'email' => $login_user->email,
                 'image' => $login_user->avatar,
                 'is_social_user' => true,
+                'mobile_number' => null,
                 'social_name' => $driver,
                 'type' => User::Types['user'],
                 'is_mobile_number_verified' => false,

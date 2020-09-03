@@ -13,24 +13,26 @@ class UserObserver
 
     public function saving(User $User)
     {
-        $User->mobile_number=   ltrim($User->mobile_number,0);
+        if ($User->mobile_number != '' || $User->mobile_number != null){
+            $User->mobile_number =   ltrim($User->mobile_number,0);
+        }
        // $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
         if (Auth::check() && Auth()->User()->isCorporateAdmin()) {
 
             $User->corporate_id = Auth()->User()->corporate_id;
         }
-         
- 
+
+
     }
 
 
     public function saved(User $User)
     {
- 
+
 
         if( ! Auth::guard('api')->check()  && $User->type==1) {
 
-           
+
             AssignQrcode::create([
                 'assign_to'=>1,
                 'type'=>1,
@@ -41,10 +43,10 @@ class UserObserver
                ]);
                if( $User->quick_user_id ==NULL)
                PrepereNewUser::dispatch($User);
-         
+
         }
 
-        
+
     }
     public function updating(User $User)
     {
