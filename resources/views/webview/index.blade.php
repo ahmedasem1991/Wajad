@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wajad WebView</title>
+    <link rel="alternate" href="wajad://api-wajad.smartappco.dev/api/scan-qr-code/{{$qr_code->qrcode_url}}"/>
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
