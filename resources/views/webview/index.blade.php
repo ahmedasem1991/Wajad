@@ -25,7 +25,10 @@
 </script>
 <script>
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
- alert('test');
+ alert('mobile');
+}
+else{
+    alert('desktop');
 }
 </script>
     <script >
