@@ -16,6 +16,7 @@ class ChangePhoneNumberController extends Controller
     /**
      * Change Phone Number
      * @bodyParam mobile_number numeric required digits_between:9,14 unique:user ignore:user-id
+     * @bodyParam mobile_country_id numeric exists:countries,id
      * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
@@ -33,6 +34,7 @@ class ChangePhoneNumberController extends Controller
 
         $validate_request = Validator::make(request()->all(), [
             'mobile_number' => ['required', 'numeric', 'digits_between:9,14', Rule::unique('users')->ignore($user->id)],
+            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ]);
 
         if ($validate_request->fails()) {
@@ -41,6 +43,7 @@ class ChangePhoneNumberController extends Controller
 
         $user->update([
             'mobile_number' => request('mobile_number'),
+            'mobile_country_id' => request('mobile_country_id'),
             'is_mobile_number_verified' => false
         ]);
 

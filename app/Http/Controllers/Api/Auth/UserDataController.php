@@ -21,6 +21,8 @@ class UserDataController extends Controller
      *   "email": "user@nova.com",
      *  "status": 1,
      * "mobile_number": "01142416124",
+     * "mobile_country_id": 64
+     * "mobile_country_code": 20
      *"receive_emails": false,
      *"receive_push_notifications": false,
      *"is_email_verified": false,
