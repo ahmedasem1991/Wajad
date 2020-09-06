@@ -28,7 +28,7 @@ class UserResource extends JsonResource
             "email" =>  $this->email,
             "status" => $this->status,
             "mobile_number" => $this->mobile_number,
-            "mobile_country_id" => $this->country->id,
+            "mobile_country_id" => $this->country?$this->country->id: NULL,
             "mobile_country_code" => $this->country->country_code,
             "receive_emails" => (bool) $this->receive_emails,
             "receive_push_notifications" => (bool) $this->receive_push_notifications,
