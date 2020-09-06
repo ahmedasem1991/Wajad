@@ -29,7 +29,7 @@ class UserResource extends JsonResource
             "status" => $this->status,
             "mobile_number" => $this->mobile_number,
             "mobile_country_id" => $this->country?$this->country->id: NULL,
-            "mobile_country_code" => $this->country->country_code,
+            "mobile_country_code" => $this->country? $this->country->country_code : null,
             "receive_emails" => (bool) $this->receive_emails,
             "receive_push_notifications" => (bool) $this->receive_push_notifications,
             "is_email_verified" =>  (bool) $this->email_verified_at,
