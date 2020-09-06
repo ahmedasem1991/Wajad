@@ -144,7 +144,7 @@ class Corporate extends Resource
             )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
             DateTime::make('Availabe End Date','end_date'),
-            HasMany::make('Users', 'users'),
+            HasMany::make('Corporate Users', 'users','\App\Nova\CorporateUser'),
             Toggle::make('Active','status'),
             MapMarker::make("Location")
             ->defaultZoom(5)
