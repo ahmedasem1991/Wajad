@@ -70,7 +70,7 @@ class Qrcode extends Model implements QrcodeConstants
         return $this->belongsTo(PackageProductManagement::class, 'package_product_pivot_id');
     }
 
-    public function getQrcodeUrlAttribute($value)
+    public function getUrlAttribute($value)
     {
         return route('api.scan-qrcode-api', $value);
     }
