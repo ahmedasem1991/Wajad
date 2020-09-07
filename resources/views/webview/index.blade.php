@@ -27,7 +27,7 @@
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  alert('mobile');
  //window.href('android-app://com.smartappco.wajad,"_self"');
- window.open="intent://wajad?id=" + token + "#Intent;scheme=myappscheme;package=myapppackage;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
+ window.open="intent://wajad?id=" + token + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
 }
 else{
     alert('desktop');
