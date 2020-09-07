@@ -29,57 +29,12 @@
  //window.open('android-app://com.smartappco.wajad,"_self"');
  //window.open("intent://facebook?id=" + '' + "#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
  //setTimeout(function () { window.location = "https://itunes.apple.com/appdir"; }, 25);
- //window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
- var scheme;
-
-// Don't forget to add the org.apache.cordova.device plugin!
-if(device.platform === 'iOS') {
-    scheme = 'twitter://';
-}
-else if(device.platform === 'Android') {
-    scheme = 'com.twitter.android';
-}
-
-appAvailability.check(
-    scheme, // URI Scheme
-    function() {  // Success callback
-        alert('Twitter is available');
-        window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
-       
-    },
-    function() {  // Error callback
-        alert('Twitter is not available');
-        window.open('https://twitter.com/gajotres', '_system', 'location=no');
-       
-    }
-);
+ window.open = "fb://";
 }
 else{
     alert('desktop');
     //window.location="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
-    var scheme;
-
-// Don't forget to add the org.apache.cordova.device plugin!
-if(device.platform === 'iOS') {
-    scheme = 'twitter://';
-}
-else if(device.platform === 'Android') {
-    scheme = 'com.twitter.android';
-}
-
-appAvailability.check(
-    scheme, // URI Scheme
-    function() {  // Success callback
-        alert('Twitter is available');
-        window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
-       
-    },
-    function() {  // Error callback
-        alert('Twitter is not available');
-        window.open('https://twitter.com/gajotres', '_system', 'location=no');
-       
-    }
-);
+    window.location = "fb://ibrahem.saber.165";
 }
 </script>
     <script >
