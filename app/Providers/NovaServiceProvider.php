@@ -66,55 +66,55 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     }
 
     protected function cards()
-    {
-        $Corporates = Corporate::all();
-        $Offices = WajadOffice::all();
-        if (Auth()->user()->isAdmin()) {
-            $array = [];
+     {
+    //     $Corporates = Corporate::all();
+    //     $Offices = WajadOffice::all();
+    //     if (Auth()->user()->isAdmin()) {
+    //         $array = [];
 
-            if (Auth()->user()->hasPermissionTo('view posts')) {
+    //         if (Auth()->user()->hasPermissionTo('view posts')) {
                  
-                array_push($array, new PostsPeriod);
-                array_push($array, new ShowVsHiddenPosts);
-                array_push($array, new OpenVsClosedPosts);
-                array_push($array, new ApprovalPosts);
-                array_push($array, new ReportPosts);
-            }
-            if (Auth()->user()->hasPermissionTo('view stock')) {
-                array_push($array,new QrCodes);
-            }
-            if (Auth()->user()->hasPermissionTo('view users')) {
-                array_push($array,new UsersActivity);
-                array_push($array,new UsersTypes);
-                array_push($array,new UsersStatus);
-                }
+    //             array_push($array, new PostsPeriod);
+    //             array_push($array, new ShowVsHiddenPosts);
+    //             array_push($array, new OpenVsClosedPosts);
+    //             array_push($array, new ApprovalPosts);
+    //             array_push($array, new ReportPosts);
+    //         }
+    //         if (Auth()->user()->hasPermissionTo('view stock')) {
+    //             array_push($array,new QrCodes);
+    //         }
+    //         if (Auth()->user()->hasPermissionTo('view users')) {
+    //             array_push($array,new UsersActivity);
+    //             array_push($array,new UsersTypes);
+    //             array_push($array,new UsersStatus);
+    //             }
 
-                if (Auth()->user()->hasPermissionTo('settings')) {
-                    array_push($array,new \Tightenco\NovaGoogleAnalytics\PageViewsMetric);
-                    array_push($array,new \Tightenco\NovaGoogleAnalytics\VisitorsMetric);
-                    array_push($array,new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard);
-                    array_push($array,new ActivationDevices);
-                    array_push($array, (new GoogleMaps)->markers($Corporates)->offices($Offices));
-                     //new QRCodeCount,
-                // new \Marianvlad\NovaEnvCard\NovaEnvCard,
-                    }
-            return $array;
+    //             if (Auth()->user()->hasPermissionTo('settings')) {
+    //                 array_push($array,new \Tightenco\NovaGoogleAnalytics\PageViewsMetric);
+    //                 array_push($array,new \Tightenco\NovaGoogleAnalytics\VisitorsMetric);
+    //                 array_push($array,new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard);
+    //                 array_push($array,new ActivationDevices);
+    //                 array_push($array, (new GoogleMaps)->markers($Corporates)->offices($Offices));
+    //                  //new QRCodeCount,
+    //             // new \Marianvlad\NovaEnvCard\NovaEnvCard,
+    //                 }
+    //         return $array;
  
-        }
+    //     }
 
-        if (Auth()->user()->isCorporateAdmin()) {
-            $array = [];
-            if (Auth()->user()->hasPermissionTo('view posts')) {
-                array_push($array, new \App\NovaCorporate\Metrics\PostsPeriod);
-                array_push($array, new \App\NovaCorporate\Metrics\ShowVsHiddenPosts);
-                array_push($array, new \App\NovaCorporate\Metrics\OpenVsClosedPosts);
-            }
-            if (Auth()->user()->hasPermissionTo('view stock')) {
-                array_push($array, new \App\NovaCorporate\Metrics\QRCodeCount);
-            }
-            return $array;
-        }
-        return [];
+    //     if (Auth()->user()->isCorporateAdmin()) {
+    //         $array = [];
+    //         if (Auth()->user()->hasPermissionTo('view posts')) {
+    //             array_push($array, new \App\NovaCorporate\Metrics\PostsPeriod);
+    //             array_push($array, new \App\NovaCorporate\Metrics\ShowVsHiddenPosts);
+    //             array_push($array, new \App\NovaCorporate\Metrics\OpenVsClosedPosts);
+    //         }
+    //         if (Auth()->user()->hasPermissionTo('view stock')) {
+    //             array_push($array, new \App\NovaCorporate\Metrics\QRCodeCount);
+    //         }
+    //         return $array;
+    //     }
+    //     return [];
     }
 
     public function tools()
