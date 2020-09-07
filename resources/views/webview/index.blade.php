@@ -60,7 +60,7 @@ else{
             <div class="col-lg-6">
                 <div class="card border-0 mb-4">
                     <div class="card-body">
-                        
+                    <input type=button onClick="parent.location='https://api-wajad.smartappco.dev'" value='Open App'>
                             <span class="badge badge-danger rounded-pill px-3 py-1 font-weight-bold">Date
                                 <span class="font-weight-light">
                                 @if($qr_code->item)
