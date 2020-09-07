@@ -24,19 +24,15 @@
 // });
 </script>
 <script>
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
- alert('mobile');
- //window.open('wajad://com.smartappco.wajad');
- //window.open("intent://facebook?id=" + '' + "#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
- //setTimeout(function () { window.location = "https://itunes.apple.com/appdir"; }, 25);
- //window.location('wajad://', '_blank');
- //window.open("intent://wajad#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
-}
-else{
-    alert('desktop');
-    window.location.href="intent://wajad#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
-    //window.location('wajad://', '_blank');
-}
+//     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+//  alert('mobile');
+//  window.open('android-app://com.smartappco.wajad,"_self"');
+//  window.open("intent://wajad?id=" + '' + "#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
+// }
+// else{
+//     alert('desktop');
+//     window.location="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
+// }
 </script>
     <script >
 //         console.log('test');
@@ -60,7 +56,7 @@ else{
             <div class="col-lg-6">
                 <div class="card border-0 mb-4">
                     <div class="card-body">
-                    <input type=button onClick="parent.location='https://api-wajad.smartappco.dev'" value='Open App'>
+                        
                             <span class="badge badge-danger rounded-pill px-3 py-1 font-weight-bold">Date
                                 <span class="font-weight-light">
                                 @if($qr_code->item)
