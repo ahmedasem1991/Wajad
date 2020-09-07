@@ -49,13 +49,9 @@ else{
 </head>
 
 <body>
-<intent-filter>
-    <data android:scheme="wajad" />
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" /> <--Not positive if this one is needed
-    ...
-</intent-filter>
+<a class="intent"   
+    href="http://facebook.com/someProfile"   
+    data-scheme="fb://profile/10000">facebook</a>
 <div class="service-40 wrap-feature40-box">
     <div class="container" style="background-color: #ffffff;">
         <div class="row">
