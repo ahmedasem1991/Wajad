@@ -49,15 +49,16 @@ else{
 </head>
 
 <body>
-<a class="intent"   
-    href="http://facebook.com/someProfile"   
-    data-scheme="fb://profile/10000">facebook</a>
+
 <div class="service-40 wrap-feature40-box">
     <div class="container" style="background-color: #ffffff;">
         <div class="row">
             <div class="col-lg-6">
                 <div class="card border-0 mb-4">
                     <div class="card-body">
+                    <a class="intent"   
+    href="http://facebook.com/someProfile"   
+    data-scheme="fb://profile/10000">facebook</a>
                             <span class="badge badge-danger rounded-pill px-3 py-1 font-weight-bold">Date
                                 <span class="font-weight-light">
                                 @if($qr_code->item)
