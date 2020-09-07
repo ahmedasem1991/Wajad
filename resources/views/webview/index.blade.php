@@ -26,7 +26,7 @@
 <script>
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  alert('mobile');
- window.open('android-app://com.smartappco.wajad,"_self"');
+ window.href('android-app://com.smartappco.wajad,"_self"');
 
 }
 else{
