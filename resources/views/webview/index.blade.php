@@ -43,11 +43,11 @@ else if(device.platform === 'Android') {
 appAvailability.check(
     scheme, // URI Scheme
     function() {  // Success callback
-        window.location('twitter://user?screen_name=gajotres', '_system', 'location=no');
+        window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
         alert('Twitter is available');
     },
     function() {  // Error callback
-        window.location('https://twitter.com/gajotres', '_system', 'location=no');
+        window.open('https://twitter.com/gajotres', '_system', 'location=no');
         alert('Twitter is not available');
     }
 );
@@ -55,7 +55,8 @@ appAvailability.check(
 else{
     alert('desktop');
     //window.location="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
-    window.location = "fb://";
+    window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
+        alert('Twitter is available');
 }
 </script>
     <script >
