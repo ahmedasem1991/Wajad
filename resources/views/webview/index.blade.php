@@ -26,7 +26,7 @@
 <script>
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  alert('mobile');
- //window.open('android-app://com.smartappco.wajad,"_self"');
+ window.open('wajad://com.smartappco.wajad,"_self"');
  //window.open("intent://facebook?id=" + '' + "#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
  //setTimeout(function () { window.location = "https://itunes.apple.com/appdir"; }, 25);
  //window.location('wajad://', '_blank');
