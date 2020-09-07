@@ -26,6 +26,8 @@
 <script>
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  alert('mobile');
+ 
+
 }
 else{
     alert('desktop');
@@ -47,6 +49,13 @@ else{
 </head>
 
 <body>
+<intent-filter>
+    <data android:scheme="wajad" />
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" /> <--Not positive if this one is needed
+    ...
+</intent-filter>
 <div class="service-40 wrap-feature40-box">
     <div class="container" style="background-color: #ffffff;">
         <div class="row">
