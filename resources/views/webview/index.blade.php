@@ -24,56 +24,17 @@
 // });
 </script>
 <script>
-
-if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i) ||
-    navigator.userAgent.match(/android/i)) {
-  var store_loc = "itms://itunes.com/apps/raditaz";
-  var href = "/iphone/";
-  var is_android = false;
-  if (navigator.userAgent.match(/android/i)) {
-    store_loc = "https://play.google.com/store/apps/details?id=com.raditaz";
-    href = "/android/";
-    is_android = true;
-  }
-  if (location.hash) {
-    var app_loc = "raditaz://" + location.hash.substring(2);
-    if (is_android) {
-      var w = null;
-      try {
-        w = window.open(app_loc, '_blank');
-      } catch (e) {
-        // no exception
-      }
-      if (w) { window.close(); }
-      else { window.location = store_loc; }
-    } else {
-      var loadDateTime = new Date();
-      window.setTimeout(function() {
-        var timeOutDateTime = new Date();
-        if (timeOutDateTime - loadDateTime < 5000) {
-          window.location = store_loc;
-        } else { window.close(); }
-      },
-      25);
-      window.location = app_loc;
-    }
-  } else {
-    location.href = href;
-  }
-}
-
-
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  alert('mobile');
  //window.open('android-app://com.smartappco.wajad,"_self"');
  //window.open("intent://facebook?id=" + '' + "#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
  //setTimeout(function () { window.location = "https://itunes.apple.com/appdir"; }, 25);
- //window.open('wajad://', '_blank');
+ window.location('wajad://', '_blank');
 }
 else{
     alert('desktop');
     //window.location="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
-   // window.open('wajad://', '_blank');
+    window.location('wajad://', '_blank');
 }
 </script>
     <script >
