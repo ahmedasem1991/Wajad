@@ -29,11 +29,12 @@
  //window.open('android-app://com.smartappco.wajad,"_self"');
  //window.open("intent://facebook?id=" + '' + "#Intent;scheme=https;package=com.smartappco.wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end");
  //setTimeout(function () { window.location = "https://itunes.apple.com/appdir"; }, 25);
-window.location = "fb://friendsnearby";
+window.location = "fb://";
 }
 else{
     alert('desktop');
-    window.location="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
+    //window.location="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
+    window.location = "fb://";
 }
 </script>
     <script >
