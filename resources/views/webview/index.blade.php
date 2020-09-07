@@ -31,6 +31,7 @@
 }
 else{
     alert('desktop');
+    window.open="intent://wajad?id=" + 'token' + "#Intent;scheme=wajad;package=wajad;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2;end";
 }
 </script>
     <script >
