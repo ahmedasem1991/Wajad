@@ -44,11 +44,11 @@ appAvailability.check(
     scheme, // URI Scheme
     function() {  // Success callback
         window.location('twitter://user?screen_name=gajotres', '_system', 'location=no');
-        console.log('Twitter is available');
+        alert('Twitter is available');
     },
     function() {  // Error callback
         window.location('https://twitter.com/gajotres', '_system', 'location=no');
-        console.log('Twitter is not available');
+        alert('Twitter is not available');
     }
 );
 }
