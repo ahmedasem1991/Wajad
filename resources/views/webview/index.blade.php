@@ -55,8 +55,9 @@ else{
             <div class="col-lg-6">
                 <div class="card border-0 mb-4">
                     <div class="card-body">
-                    <input type="button" value="Open App" id="btnOpenapp" visible="true" onClick="location.href ='intent://?ret=ReturnURLPath?QueryStringParameter=#Intent;scheme=schemename;package=PackageName;S.browser_fallback_url=https%3A%2F%2Fwww.google.co.in;end'"  />"
-                            <span class="badge badge-danger rounded-pill px-3 py-1 font-weight-bold">Date
+                    <input type="button" value="Open App" id="btnOpenapp" visible="true" onClick="location.href ='intent://?ret=ReturnURLPath?QueryStringParameter=#Intent;scheme=wajad;package=PackageName;S.browser_fallback_url=https%3A%2F%2Fhttp://atcorp.sa;end'"  />"
+                          
+                    <span class="badge badge-danger rounded-pill px-3 py-1 font-weight-bold">Date
                                 <span class="font-weight-light">
                                 @if($qr_code->item)
                                 {{$qr_code->item->created_at}}
