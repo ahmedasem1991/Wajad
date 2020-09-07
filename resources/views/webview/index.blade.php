@@ -43,12 +43,14 @@ else if(device.platform === 'Android') {
 appAvailability.check(
     scheme, // URI Scheme
     function() {  // Success callback
-        window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
         alert('Twitter is available');
+        window.open('twitter://user?screen_name=gajotres', '_system', 'location=no');
+       
     },
     function() {  // Error callback
-        window.open('https://twitter.com/gajotres', '_system', 'location=no');
         alert('Twitter is not available');
+        window.open('https://twitter.com/gajotres', '_system', 'location=no');
+       
     }
 );
 }
