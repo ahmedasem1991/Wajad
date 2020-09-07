@@ -114,7 +114,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     //         }
     //         return $array;
     //     }
-    //     return [];
+         return [];
     }
 
     public function tools()
