@@ -15,6 +15,7 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
 use Laravel\Socialite\Facades\Socialite;
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @group Auth
@@ -331,12 +332,20 @@ class AuthController extends Controller
     public function socialLogin($driver)
     {
         $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
+        
         $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
         if (is_null($user)){
+        $avatar=$login_user->avatar;
+        $imagepath='images/profile/default-profile.png';
+        if($avatar != null || $avatar !='')
+        {
+            $imagepath ='images/profile/' . basename($avatar);
+            Image::make($avatar)->save(public_path($imagepath));
+        }
             $user = User::create([
                 'name' => $login_user->name,
                 'email' => $login_user->email,
-                'image' => $login_user->avatar,
+                'image' => $imagepath,
                 'is_social_user' => true,
                 'mobile_number' => null,
                 'social_name' => $driver,
