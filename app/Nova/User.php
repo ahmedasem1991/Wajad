@@ -94,11 +94,14 @@ class User extends Resource
             //  Avatar::make('Avatar'),
             //Gravatar::make(),
             Image::make('Profile Image', 'image')
-            ->disk('public')
-            ->path('images/profile')
-            ->prunable()
-            ->deletable()
-            ->rules('dimensions:max_width=1000,max_height=1000'),
+                ->thumbnail(function () {
+                    return $this->getAvatar();
+                })
+                ->disk('public')
+                ->path('images/profile')
+                ->prunable()
+                ->deletable()
+                ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
@@ -118,16 +121,16 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required','unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
-            ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
+                ->creationRules('required','unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
+                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
             // ->creationRules('required', 'min:9','max:14')
             // ->updateRules('nullable',  'min:9','max:14'),
             //->rules('required' 'max:14'),
-               // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-               // ->onlyCustomFormats(),
+            // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+            // ->onlyCustomFormats(),
             HasMany::make('Items'),
             Toggle::make('Active', 'status'),
             //  Boolean::make('Show My Data','show_my_data'),
@@ -148,10 +151,10 @@ class User extends Resource
                 '1' => 'Normal User',
 
             ])
-            ->rules('required')
-            ->displayUsingLabels(),
+                ->rules('required')
+                ->displayUsingLabels(),
 
-           // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
+            // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
 
             // NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
             //     ->placeholder('Corporate')
@@ -160,8 +163,8 @@ class User extends Resource
             //     ->updateRules('required_if:type,2')
             //     ->nullable(),
 
-                BelongsToMany::make('Roles', 'roles', Role::class),
-                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            BelongsToMany::make('Roles', 'roles', Role::class),
+            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -223,5 +226,13 @@ class User extends Resource
     public static function icon()
     {
         return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+    }
+
+    public function getAvatar() :string
+    {
+        if (substr($this->image, 0, 4) === "http") {
+            return $this->image;
+        }
+        return env('APP_URL') . "/" . $this->image;
     }
 }
