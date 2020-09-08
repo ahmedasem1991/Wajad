@@ -342,16 +342,16 @@ class AuthController extends Controller
         $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
         if (is_null($user)){
         $avatar=$login_user->avatar;
-        $imagepath='images/profile/default-profile.png';
-        if($avatar != null || $avatar !='')
-        {
-            $imagepath ='images/profile/' . basename($avatar);
-            Image::make($avatar)->save(public_path($imagepath));
-        }
+        // $imagepath='images/profile/default-profile.png';
+        // if($avatar != null || $avatar !='')
+        // {
+        //     $imagepath ='images/profile/' . basename($avatar);
+        //     Image::make($avatar)->save(public_path($imagepath));
+        // }
             $user = User::create([
                 'name' => $login_user->name,
                 'email' => $login_user->email,
-                'image' => $imagepath,
+                'image' => $avatar,
                 'is_social_user' => true,
                 'mobile_number' => null,
                 'social_name' => $driver,
