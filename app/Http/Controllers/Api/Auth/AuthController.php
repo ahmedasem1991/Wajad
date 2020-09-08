@@ -185,6 +185,12 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+        $result=true;
+        $result = filter_var( $request->email, FILTER_VALIDATE_EMAIL );
+        if(!$result)
+        {
+            throw new ApiException('Not Valid Email', 400);
+        }
         $user = User::create([
             'name' => $request->name,
             'password' => bcrypt($request->password),
