@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\User;
 use App\AssignQrcode;
+use App\Jobs\DeleteUserChat;
 use App\Jobs\PrepereNewUser;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,7 +86,9 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //
+        logger('user deletd');
+        if($user->isUser())
+        DeleteUserChat::dispatch($user);
     }
 
     /**
@@ -107,6 +110,7 @@ class UserObserver
      */
     public function forceDeleted(User $user)
     {
-        //
+        logger('user soft deletd');
+       
     }
 }
