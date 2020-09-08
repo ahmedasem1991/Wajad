@@ -8,6 +8,7 @@ class UserPostAnswersResource extends JsonResource
 {
     public function toArray($request)
     {
+        if($this->postRequestUser){
         $user = new UserResource($this->postRequestUser);
 
         $questions = collect([
@@ -25,5 +26,6 @@ class UserPostAnswersResource extends JsonResource
         //      ->with('question')->get()
         //         ]);
         return $questions;
+                        }
     }
 }
