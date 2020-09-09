@@ -12,6 +12,20 @@ class UserObserver
 {
 
 
+    public function creating(User $User) {
+        if($User->type==1)
+    {
+      $check=  User::withTrashed()->where('email',$User->email)->where('type',User::Types['user'])->first();
+      if( $check)
+      throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
+    }
+ 
+      $check=  User::withTrashed()->where('email',$User->email)->where('type',$User->type)->first();
+      if($check)
+      throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
+    
+         
+    }
     public function saving(User $User)
     {
         if ($User->mobile_number != '' || $User->mobile_number != null){
@@ -87,8 +101,8 @@ class UserObserver
     public function deleted(User $user)
     {
         logger('user deletd');
-        if($user->isUser())
-        DeleteUserChat::dispatch($user);
+        //if($user->isUser())
+        //DeleteUserChat::dispatch($user);
     }
 
     /**
@@ -111,9 +125,9 @@ class UserObserver
     public function forceDeleted(User $user)
     {
 
-        logger('user soft deletd');
-        if($user->isUser())
-        DeleteUserChat::dispatch($user);
+        // logger('user soft deletd');
+        // if($user->isUser())
+        // DeleteUserChat::dispatch($user);
        
     }
 }
