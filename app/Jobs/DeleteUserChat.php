@@ -82,6 +82,10 @@ class DeleteUserChat implements ShouldQueue
 
             ]
         ]);
+
+       
+        $response = $client->delete($url);
+       
        
   
     }
