@@ -100,9 +100,9 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        logger('user deletd');
-        //if($user->isUser())
-        //DeleteUserChat::dispatch($user);
+        // logger('user deletd');
+        // if($user->isUser())
+        // DeleteUserChat::dispatch($user);
     }
 
     /**

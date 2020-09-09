@@ -77,14 +77,14 @@ class DeleteUserChat implements ShouldQueue
  
         $client = new \GuzzleHttp\Client([
             'headers' => [
-                'Content-Type' => 'application/json',
+                //'Content-Type' => 'application/json',
                 'QB-Token' => $token,
 
             ]
         ]);
 
        
-       // $response = $client->delete($url);
+        $response = $client->delete($url);
        
        
   
