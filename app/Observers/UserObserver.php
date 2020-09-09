@@ -110,7 +110,10 @@ class UserObserver
      */
     public function forceDeleted(User $user)
     {
+
         logger('user soft deletd');
+        if($user->isUser())
+        DeleteUserChat::dispatch($user);
        
     }
 }

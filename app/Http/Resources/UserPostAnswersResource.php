@@ -26,6 +26,6 @@ class UserPostAnswersResource extends JsonResource
         //      ->with('question')->get()
         //         ]);
         return $questions->merge($user);
-        }else return null;
+        }
     }
 }
