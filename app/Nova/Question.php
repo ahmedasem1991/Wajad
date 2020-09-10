@@ -60,7 +60,7 @@ class Question extends Resource
             ID::make()->sortable(),
 
             Text::make('Question')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             HasMany::make('Answers')
 

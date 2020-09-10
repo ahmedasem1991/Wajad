@@ -62,10 +62,10 @@ class SubCategory extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Sub-Category English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Sub-Category Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Sub-Category English Body', 'description_en'),
             Textarea::make('Sub-Category Arabic Body', 'description_ar'),

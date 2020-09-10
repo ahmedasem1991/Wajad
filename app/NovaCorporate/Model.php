@@ -64,10 +64,10 @@ class Model extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Model English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Model Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),

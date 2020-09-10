@@ -72,10 +72,10 @@ class Item extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Title')->rules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Details')->rules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
 
 

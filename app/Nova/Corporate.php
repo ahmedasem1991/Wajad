@@ -90,13 +90,13 @@ class Corporate extends Resource
                 'required',
                 'string',
                 'max:255',
-                'min:6'
+                'min:2'
             ),
             Text::make('Corporate Arabic Name', 'name_ar')->rules(
                 'required',
                 'string',
                 'max:255',
-                'min:6'
+                'min:2'
             ),
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
             ->placeholder('Select Country')
@@ -109,26 +109,26 @@ class Corporate extends Resource
                     'required',
                     'string',
                     'max:255',
-                    'min:6'
+                    'min:2'
                 ),
             Trix::make('Corporate Arabic Details', 'details_ar')
                 ->rules(
                     'required',
                     'string',
                     'max:255',
-                    'min:6'
+                    'min:2'
                 ),
             Text::make('Corporate English Address', 'address_en')->rules(
                 'required',
                 'string',
                 'max:255',
-                'min:6'
+                'min:2'
             ),
             Text::make('Corporate Arabic Address', 'address_ar')->rules(
                 'required',
                 'string',
                 'max:255',
-                'min:6'
+                'min:2'
             ),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
