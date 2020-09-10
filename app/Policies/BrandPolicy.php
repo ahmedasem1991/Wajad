@@ -100,8 +100,8 @@ class BrandPolicy
         return  Auth()->User()->isAdmin() ? true :  false;
     }
 
-    public function addModel()
-{
-    return false;
-}
+//     public function addModel()
+// {
+//     return false;
+// }
 }
