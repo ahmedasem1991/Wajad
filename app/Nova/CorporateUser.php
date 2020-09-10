@@ -146,7 +146,7 @@ class CorporateUser extends Resource
 
                 '2' => 'Corpoare Admin',
                 //  '4' => 'Corporate User',
-                '1' => 'Normal User',
+               // '1' => 'Normal User',
 
             ])
             ->rules('required')
