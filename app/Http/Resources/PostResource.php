@@ -16,6 +16,12 @@ class PostResource extends JsonResource
             session()->put('corporate_publisher','true');
 
         }
+        $value=0;
+        foreach($this->postRequests as $postrequest)
+        {
+            if($postrequest->is_request_valid==1)
+            $value=1;
+        }
 
         return [
             'id' => $this->id,
@@ -35,10 +41,12 @@ class PostResource extends JsonResource
             'date' => $this->created_at ? $this->created_at->toDateTimeString() : null,
             'images' => $this->images ?? [],
             'questions' =>  QuestionResource::collection($this->questions),
+            'allow_post_requests' => $value,
             'claimers' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
             'publisher' => new UserResource($this->publisher),
             'corporate' => new CorporateResource($this->corporate),
+
         ];
     }
 }
