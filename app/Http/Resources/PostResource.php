@@ -16,11 +16,11 @@ class PostResource extends JsonResource
             session()->put('corporate_publisher','true');
 
         }
-        $value=0;
+        $value=false;
         foreach($this->postRequests as $postrequest)
         {
             if($postrequest->is_request_valid==1)
-            $value=1;
+            $value=true;
         }
 
         return [
