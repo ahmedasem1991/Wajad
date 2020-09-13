@@ -197,7 +197,7 @@ class Post extends Resource
                 ->hideWhenCreating(),
 
             NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->placeholder('Select Person')
+                ->placeholder('Select Owner')
                 ->options(User::Normalusers()->get())
                 // ->rules('required')
                 ->hideWhenCreating(),
@@ -217,6 +217,7 @@ class Post extends Resource
             Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
+
             BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
                 ->readonly()
                 ->hideWhenUpdating()

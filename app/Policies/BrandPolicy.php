@@ -4,12 +4,14 @@ namespace App\Policies;
 
 use App\User;
 use App\Brand;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BrandPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any brands.
      *
@@ -18,15 +20,14 @@ class BrandPolicy
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isAdmin()){
-            if($user->hasPermissionTo('brands'))
-            {
+        if (Auth()->User()->isAdmin()) {
+            if ($user->hasPermissionTo('brands')) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-   }
-   return true;
+        }
+        return true;
     }
 
     /**
@@ -38,7 +39,7 @@ class BrandPolicy
      */
     public function view(User $user, Brand $brand)
     {
-       return true;
+        return true;
     }
 
     /**
@@ -100,8 +101,16 @@ class BrandPolicy
         return  Auth()->User()->isAdmin() ? true :  false;
     }
 
-//     public function addModel()
-// {
-//     return false;
-// }
+    public function addModel()
+    {
+        $URL = URL::current();
+logger($URL);
+        if (strstr($URL, 'relate-authorization')) {
+            logger('No model');
+            return false;
+        } else {
+            logger('yes model');
+            return true;
+        }
+    }
 }
