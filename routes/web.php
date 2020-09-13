@@ -82,7 +82,7 @@ Route::get('/test600', function () {
    // return Setting::where('key', 'max_post_reports_number')->first()['value'];
   return (trim('"["1","2","3"]"', '"'))  ;
    dd(User::find(["1","2","3"]));
-    
+
     foreach(User::find(2)->devices as $device)
     {
       //  dd($device);
@@ -243,7 +243,7 @@ Route::get('/test500', function () {
                   "object_type": "scan",
                   "post": "scan",
                   "item": "scan",
-                  
+
                    "id": 10295,
                    "related_id": -1,
                   "badge": 1
@@ -260,9 +260,9 @@ Route::get('/test500', function () {
          $info=$data->data[0]->ar;
          else
          $info=$data->data[0]->en;
-  
+
         // dd($data->data[0]->en);
-    
+
     $data=[
         'notification' => [
         'title'=>'Item updated successfully',
@@ -346,22 +346,22 @@ Route::get('/test400', function () {
 //     $item = Item::find(1);
 //    return  new ItemResource($item);
    //return  new PostResource($post);
-    
-    // if ($post->isFound()) 
+
+    // if ($post->isFound())
     //   return  $type='post_found';
     //   else
     //   return  $type='post_lost';
 // return   checklocate(auth('api')->user);
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
-    
+
     $user = User::find(9);
     $item = Item::find(1);
     $post=Post::find(70);
     $badge =getBadge($user);
     $data=sendCreatePostFCM($post,$badge,'found');
     $user->notify(new SendFCMNotification($user,$data));
- 
-    
+
+
     })->name('test400');
 
     Route::get('/chat', function(){
@@ -369,65 +369,65 @@ Route::get('/test400', function () {
     });
 
 
-    
+
     Route::get('/quicksession', function () {
- 
-        
+
+
     $url = "https://api.quickblox.com/session.json";
     $Now=\Carbon\Carbon::now()->timestamp;
     $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
     $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
- 
+
        $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
        $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
        $form_params['timestamp'] = $Now;
        $form_params['nonce'] = "";
        $form_params['signature'] = $Hash;
-  
+
        $data = json_encode($form_params);
-  
+
   $client = new \GuzzleHttp\Client([
       'headers' => ['Content-Type' => 'application/json']
   ]);
-  $response = $client->post($url, 
+  $response = $client->post($url,
           ['body' => $data]
   );
   $response = json_decode($response->getBody(), true);
-  
+
   $token=$response['session']['token'];
   session(['token' => $token]);
    return( $token);
-    
+
   });
 
 
   Route::get('/quickgetusers', function () {
     //dd(session('token'));
-    
+
       $url = "https://api.quickblox.com/users.json";
       $client = new \GuzzleHttp\Client([
         'headers' => [
             'Content-Type' => 'application/json',
             'QB-Token' => session('token'),
-            
+
             ]
     ]);
 $response = $client->get($url
 );
 $response = json_decode($response->getBody(), true);
- 
- return( $response);
-  });     
 
-  Route::get('/quickcreateuser', function () {  
+ return( $response);
+  });
+
+  Route::get('/quickcreateuser', function () {
 
     $Users=User::Normalusers()->whereNull('quick_user_id')->get();
     foreach($Users as $User)
     {
-       
+
         $token='831ccf48d9341dff2ffeba0d5249971021014e1a';
         $url = "https://api.quickblox.com/users.json";
-    
+
         $form_params['login'] = $User->email;
         $form_params['password'] = $User->quick_user_password;
         $form_params['email'] = $User->email;
@@ -438,16 +438,16 @@ $response = json_decode($response->getBody(), true);
         $form_params['website'] = '';
         $form_params['tag_list'] = '';
         $form_params['custom_data'] = '';
-    
+
         $user['user'] = $form_params;
-    
+
         $data = json_encode($user);
-    
+
         $client = new \GuzzleHttp\Client([
             'headers' => [
                 'Content-Type' => 'application/json',
                 'QB-Token' => $token,
-    
+
             ]
         ]);
         $response = $client->post(
@@ -455,19 +455,19 @@ $response = json_decode($response->getBody(), true);
             ['body' => $data]
         );
         $response = json_decode($response->getBody(), true);
-    
+
          if($response['user']['id']);
-      {  
+      {
           $User->quick_user_id= $response['user']['id'];
           $User->save();
           logger($User->quick_user_id);
       }
     }
- 
- 
- 
-  
-  
+
+
+
+
+
 });
 
 
@@ -475,40 +475,45 @@ $response = json_decode($response->getBody(), true);
 
 
   Route::get('/quicklogin', function () {
- 
- 
+
+
     $url = "https://api.quickblox.com/login.json";
     $Now=\Carbon\Carbon::now()->timestamp;
     $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
     $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
- 
+
        $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
        $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
        $form_params['timestamp'] = $Now;
        $form_params['nonce'] = "";
        $form_params['signature'] = $Hash;
-  
+
        $data = json_encode($form_params);
-  
+
   $client = new \GuzzleHttp\Client([
       'headers' => [
           'Content-Type' => 'application/json',
           'QB-Token' => session('token'),
-          
+
           ]
   ]);
-  $response = $client->post($url, 
+  $response = $client->post($url,
           ['body' => $data]
   );
   $response = json_decode($response->getBody(), true);
-  
-    
+
+
    return( $response);
-    
+
   });
 
 
   Route::get('/test800', function(){
    $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.\Carbon\Carbon::now()->timestamp;
     echo hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+});
+Route::get('/apple-app-site-association', function () {
+    $json = file_get_contents(base_path('apple-app-site-association'));
+    return response($json, 200)
+        ->header('Content-Type', 'application/json');
 });
