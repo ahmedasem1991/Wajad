@@ -64,20 +64,20 @@ class Page extends Resource
         return [
             ID::make()->sortable(),
             Text::make('key')->creationRules([
-                'required', 'min:3', 'max:255', 'unique:pages,key'
+                'required', 'min:3', 'unique:pages,key'
             ])->readonly(),
 
             Text::make('Title En')->rules([
-                'required', 'min:3', 'max:255'
+                'required', 'min:3'
             ]),
             Text::make('Title Ar')->rules([
-                'required', 'min:3', 'max:255'
+                'required', 'min:3'
             ]),
             TextArea::make('Body En')->rules([
-                'required', 'min:3', 'max:255'
+                'required', 'min:3'
             ]),
             TextArea::make('Body Ar')->rules([
-                'required', 'min:3', 'max:255'
+                'required', 'min:3'
             ]),
              
  
@@ -135,6 +135,10 @@ class Page extends Resource
     }
 
     public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToDelete(Request $request)
     {
         return false;
     }

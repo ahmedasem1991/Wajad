@@ -35,6 +35,7 @@ use App\NovaCorporate\Metrics\OpenVsClosedPosts;
 use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Sloveniangooner\SearchableSelect\SearchableSelect;
 
 class Post extends Resource
 {
@@ -196,32 +197,17 @@ class Post extends Resource
                 // ->hideWhenUpdating(),
                 ->hideWhenCreating(),
 
-            NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->placeholder('Select Owner')
-                ->options(User::Normalusers()->get())
-                // ->rules('required')
-                ->hideWhenCreating(),
+            // Select2::make('Owner', 'owner_id')
+                
+            //     ->options(User::Normalusers()->get()->pluck('name','id'))
+            //     //->displayUsingLabels()
+            //     // ->rules('required')
+            //     ->hideWhenCreating(),
 
-
-
-//            Text::make('Founder Email','founder_email')
-//                ->sortable()
-//                ->rules('required', 'email', 'max:254'),
-//
-//            PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-//                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-//                ->onlyCustomFormats(),
-//            Text::make('Founder Address','founder_address')
-//                ->sortable()
-//                ->rules('required', 'max:254'),
-            Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
-                ->hideWhenUpdating()
-                ->hideWhenCreating(),
-
-            BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->readonly()
-                ->hideWhenUpdating()
-                ->hideWhenCreating(),
+            SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
+            ->displayUsingLabels()
+            ->nullable(),
+ 
 
 
 

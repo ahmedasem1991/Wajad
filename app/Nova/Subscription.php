@@ -116,10 +116,12 @@ class Subscription extends Resource
 
             BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
-            NovaBelongsToDepend::make('Package')
+            BelongsTo::make('Package')
                 ->rules('required')
-                ->placeholder('Package')
-                ->options(\App\Package::all()),
+                // >display(function ($name_en ,$price,$quantity) {
+                //     return $name_en .' - '.$quantity.' QR Code - '.$price .' $';
+                // })
+                ,
             DateTime::make('Created At')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),

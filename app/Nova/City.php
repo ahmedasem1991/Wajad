@@ -65,7 +65,7 @@ class City extends Resource
             Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:2']),
             NovaBelongsToDepend::make('Area', 'region')
             ->placeholder('Area')
-            ->options(\App\City::all()),
+            ->options(\App\Region::all()),
         ];
     }
 

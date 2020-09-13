@@ -29,6 +29,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use App\NovaCorporate\Metrics\OpenVsClosedPosts;
 use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Sloveniangooner\SearchableSelect\SearchableSelect;
 
 class ClosedPost extends Resource
 {
@@ -201,8 +202,10 @@ class ClosedPost extends Resource
             // ->sortable()
             // ->rules('required', 'max:254'),
             Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
-            BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->readonly(),
+            SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
+            ->displayUsingLabels()
+            ->readonly()
+            ->nullable(),
 
 
 

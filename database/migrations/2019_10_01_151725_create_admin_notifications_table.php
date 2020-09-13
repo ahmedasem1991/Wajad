@@ -17,7 +17,7 @@ class CreateAdminNotificationsTable extends Migration
             $table->Increments('id');
             $table->text('body');
             $table->string('send_to');
-            $table->text('users');
+            $table->text('users')->nullable();
             $table->string('send_by');
             $table->softDeletes();
             $table->timestamps();

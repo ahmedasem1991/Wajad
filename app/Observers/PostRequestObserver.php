@@ -3,7 +3,9 @@
 namespace App\Observers;
 
 use App\Post;
+use App\User;
 use App\PostRequest;
+use App\Notifications\SendFCMNotification;
 
 class PostRequestObserver
 {
@@ -37,6 +39,23 @@ class PostRequestObserver
                     $PostRequest->save();
                 }
                 PostRequest::setEventDispatcher($dispatcher);
+
+
+                $request_user=User::find($postRequest->user_id);
+                $post=Post::find($postRequest->post_id);
+                //send FCM
+                $badge =getBadge($request_user);
+                $data=sendAcceptPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
+                $request_user->notify(new SendFCMNotification($request_user,$data));
+            }else{
+                
+                $request_user=User::find($postRequest->user_id);
+                $post=Post::find($postRequest->post_id);
+                //send FCM
+                $badge =getBadge($request_user);
+                $data=sendRejectPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
+                $request_user->notify(new SendFCMNotification($request_user,$data));
+        
             }
          
             
@@ -82,21 +101,21 @@ class PostRequestObserver
      */
     public function updated(PostRequest $postRequest)
      {     
-        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
+        // $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
             
-        $dispatcher = PostRequest::getEventDispatcher();
-        if($postRequest->is_request_valid==1){
-        PostRequest::unsetEventDispatcher();
-            foreach($PostRequests as $PostRequest)
-            {
-                $PostRequest->is_request_valid=0;
-                $PostRequest->rejected_at=now()->toDatetimeString();
-                $PostRequest->comment='Rejected by system';
-                $PostRequest->save();
-            }
-            PostRequest::setEventDispatcher($dispatcher);
+        // $dispatcher = PostRequest::getEventDispatcher();
+        // if($postRequest->is_request_valid==1){
+        // PostRequest::unsetEventDispatcher();
+        //     foreach($PostRequests as $PostRequest)
+        //     {
+        //         $PostRequest->is_request_valid=0;
+        //         $PostRequest->rejected_at=now()->toDatetimeString();
+        //         $PostRequest->comment='Rejected by system';
+        //         $PostRequest->save();
+        //     }
+        //     PostRequest::setEventDispatcher($dispatcher);
        
-        }
+        // }
    
     }
 
