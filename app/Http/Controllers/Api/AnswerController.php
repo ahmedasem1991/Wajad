@@ -49,7 +49,7 @@ class AnswerController extends Controller
         $p = PostRequest::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->get();
 
         if (!$p->isEmpty()){
-            throw new ApiException('You Already Made A Request', 403);
+            throw new ApiException('You Already Made A Request', 200);
         }
 
         $post_request = PostRequest::create([
