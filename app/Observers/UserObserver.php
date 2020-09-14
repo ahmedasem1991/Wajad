@@ -19,12 +19,12 @@ class UserObserver
       if( $check)
       throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
     }
- 
+
       $check=  User::withTrashed()->where('email',$User->email)->where('type',$User->type)->first();
       if($check)
       throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
-    
-         
+
+
     }
     public function saving(User $User)
     {
@@ -57,7 +57,7 @@ class UserObserver
                 'created_from'=>'new_register' ,
                ]);
             }
-               if( $User->quick_user_id ==NULL)
+//               if( $User->quick_user_id ==NULL)
                //PrepereNewUser::dispatch($User);
 
         }
@@ -126,6 +126,6 @@ class UserObserver
         // logger('user soft deletd');
         // if($user->isUser())
         // DeleteUserChat::dispatch($user);
-       
+
     }
 }

@@ -18,6 +18,11 @@ class Banner extends Model
         'end_date'   => 'datetime'
     ];
 
+    public function visits()
+    {
+        return $this->morphOne(Visit::class, 'visitable');
+    }
+
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id');

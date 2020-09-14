@@ -198,7 +198,7 @@ class Post extends Resource
                 ->hideWhenCreating(),
 
             // Select2::make('Owner', 'owner_id')
-                
+
             //     ->options(User::Normalusers()->get()->pluck('name','id'))
             //     //->displayUsingLabels()
             //     // ->rules('required')
@@ -207,7 +207,7 @@ class Post extends Resource
             SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
             ->displayUsingLabels()
             ->nullable(),
- 
+
 
 
 

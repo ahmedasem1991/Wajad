@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Banner;
+use App\Services\Helpers\Traits\Visitable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BannerResource;
@@ -12,6 +13,7 @@ use App\Http\Resources\BannerResource;
  */
 class BannerController extends Controller
 {
+    use Visitable;
     /**
      * Banners
      * @response
@@ -45,6 +47,7 @@ class BannerController extends Controller
     public function __invoke(Request $request,Banner $banner = null)
     {
         if ($banner){
+            $this->bootVisitable($banner);
             $banner->increment('clicks');
             return new BannerResource($banner);
         }
