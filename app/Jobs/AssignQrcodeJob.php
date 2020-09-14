@@ -21,7 +21,7 @@ use App\Notifications\BroadcastNotification;
 class AssignQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $id,$assign_reference_number,$quantity,$type,$user_id,$corporate_id,$available_period,$assign_to,$auth_id;
+    private $id,$assign_reference_number,$quantity,$type,$user_id,$corporate_id,$available_period,$assign_to,$auth_id,$created_from;
     /**
      * Create a new job instance.
      *
@@ -38,6 +38,8 @@ class AssignQrcodeJob implements ShouldQueue
        $this->available_period=$assignQrcode->available_period;
        $this->assign_to=$assignQrcode->assign_to;
        $this->auth_id=$assignQrcode->created_by;
+       $this->created_from=$assignQrcode->created_from;
+       
     }
 
     /**
@@ -78,7 +80,14 @@ class AssignQrcodeJob implements ShouldQueue
     if ($this->user_id != NULL) {
 
         $badge =getBadge(User::find($this->user_id));
-        $data=sendFreeQRCodeFCM($badge);
+        if($this->created_from=='new_register')
+        {
+            $data=sendFreeQRCodeFCM($badge);
+        }
+        else{
+            $data=sendAssignQRCodesToUserFCM($badge,$this->quantity);
+        }
+       
         User::find($this->user_id)->notify(new SendFCMNotification(User::find($this->user_id),$data));
     }
 
