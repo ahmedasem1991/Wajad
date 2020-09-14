@@ -112,7 +112,7 @@ class PrepereNewUser implements ShouldQueue
           User::setEventDispatcher($dispatcher);
           logger('test id');
       }
-        logger($response);
+        //logger($response);
        
     }
 }
