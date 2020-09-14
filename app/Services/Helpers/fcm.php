@@ -311,7 +311,7 @@ function sendFreeQRCodeFCM($badge)
         ],
         'en' => [
             'title' => '  Congratulations ! ',
-            'body' =>  '' .  defaultGroup()->free_qrcodes . 'QR Code have been added to you because you are a new user'
+            'body' =>  '' .  defaultGroup()->free_qrcodes . ' QR Code have been added to you because you are a new user'
            
         ],
         'type' => 'free_qrcodes',
@@ -339,7 +339,7 @@ function sendAssignQRCodesToUserFCM($badge,$quantity)
         ],
         'en' => [
             'title' => '  Congratulations ! ',
-            'body' =>  '' .  $quantity . 'QR Code have been added to you .'
+            'body' =>  '' .  $quantity . ' QR Code have been added to you .'
            
         ],
         'type' => 'assign_qrcodes',
