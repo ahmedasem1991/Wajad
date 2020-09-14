@@ -38,8 +38,14 @@ class Package extends Resource
      */
     public function title()
     {
-        return $this->name_en . ' - ' . $this->name_ar;
+        return $this->name_en . ' - ' . $this->quantity. ' QR Code' ;
+
     }
+
+    public function subtitle()
+{
+   return  $this->price . ' $';
+}
 
     /**
      * The columns that should be searched.

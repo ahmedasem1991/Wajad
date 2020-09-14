@@ -60,6 +60,7 @@ class AssignQrcode extends Resource
         'assign_reference_number',
         'assign_to',
         'user_id',
+        'qrcodes.unique_reference_number',
         'corporate_id',
         'type',
         'available_period',

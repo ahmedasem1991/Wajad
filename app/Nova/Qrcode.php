@@ -80,6 +80,10 @@ class Qrcode extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Unique Reference Number', 'unique_reference_number')
+            ->hideWhenCreating()
+            ->hideWhenUpdating()
+            ->readonly(),
             BelongsTo::make('Generate Reference Number', 'qrcodegenerate', 'App\Nova\GenerateQrcode')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),

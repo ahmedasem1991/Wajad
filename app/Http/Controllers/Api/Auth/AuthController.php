@@ -212,7 +212,7 @@ class AuthController extends Controller
         }
         $user->setLanguage($langHeader);
 
-
+        if(count($user->qrcodes) == 0 ){
         AssignQrcode::create([
             'assign_to'=>1,
             'type'=>1,
@@ -221,6 +221,7 @@ class AuthController extends Controller
             'available_period'=>defaultGroup()->available_period_qrcodes ,
             'created_from'=>'new_register' ,
            ]);
+        }
         PrepereNewUser::dispatch($user);
 
         return $this->login();
@@ -364,7 +365,7 @@ class AuthController extends Controller
             if ($langHeader != 'ar') {
                 $langHeader = 'en';
             }
-
+            if(count($user->qrcodes) == 0 ){
             AssignQrcode::create([
                 'assign_to'=>1,
                 'type'=>1,
@@ -373,6 +374,7 @@ class AuthController extends Controller
                 'available_period'=>  defaultGroup()->available_period_qrcodes ,
                 'created_from'=>'new_register' ,
             ]);
+            }
             PrepereNewUser::dispatch($user);
         }
 
