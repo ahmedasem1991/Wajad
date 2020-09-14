@@ -48,9 +48,7 @@ class UserObserver
         if( ! Auth::guard('api')->check()  && $User->type==1) {
 
             if(count($User->qrcodes) == 0 ){
-
-
-            AssignQrcode::create([
+             AssignQrcode::create([
                 'assign_to'=>1,
                 'type'=>1,
                 'user_id'=>$User->id,
@@ -60,7 +58,7 @@ class UserObserver
                ]);
             }
                if( $User->quick_user_id ==NULL)
-               PrepereNewUser::dispatch($User);
+               //PrepereNewUser::dispatch($User);
 
         }
 
