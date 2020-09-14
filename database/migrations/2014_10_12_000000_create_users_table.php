@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->integer('posts_number')->default(0);
             $table->string('social_name')->nullable();
             $table->boolean('is_social_user')->default(0);
+            $table->string('created_from')->nullable();
 
             $table->text('device_token')->nullable();
 

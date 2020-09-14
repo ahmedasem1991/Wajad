@@ -19,12 +19,12 @@ class UserObserver
       if( $check)
       throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
     }
-
+ 
       $check=  User::withTrashed()->where('email',$User->email)->where('type',$User->type)->first();
       if($check)
       throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
-
-
+    
+         
     }
     public function saving(User $User)
     {
@@ -37,6 +37,10 @@ class UserObserver
             $User->corporate_id = Auth()->User()->corporate_id;
         }
 
+        if (Auth::check() && Auth()->User()->isAdmin()) {
+           $User->created_from = 'web';
+        }
+
 
     }
 
@@ -45,10 +49,11 @@ class UserObserver
     {
 
 
-        if( ! Auth::guard('api')->check()  && $User->type==1) {
-
+        if( $User->created_from=='web' && $User->type==1) {
+ 
+            //for new user
             if(count($User->qrcodes) == 0 ){
-             AssignQrcode::create([
+              AssignQrcode::create([
                 'assign_to'=>1,
                 'type'=>1,
                 'user_id'=>$User->id,
@@ -57,8 +62,8 @@ class UserObserver
                 'created_from'=>'new_register' ,
                ]);
             }
-//               if( $User->quick_user_id ==NULL)
-               //PrepereNewUser::dispatch($User);
+                if( $User->quick_user_id ==NULL)
+                PrepereNewUser::dispatch($User);
 
         }
 
@@ -126,6 +131,6 @@ class UserObserver
         // logger('user soft deletd');
         // if($user->isUser())
         // DeleteUserChat::dispatch($user);
-
+       
     }
 }
