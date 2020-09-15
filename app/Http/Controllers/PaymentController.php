@@ -178,57 +178,57 @@ class PaymentController extends Controller
                     'corporate_id' => auth()->user()->corporate->id,
                     'user_id' => Null,
                     'subscriber' => 2,
-                    'created_from'=>'package'
+                    'created_from'=>'Package'
                 ]);
 
-                $now = Carbon::now();
+                // $now = Carbon::now();
 
-                $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
-                $generate_reference_number = NULL;
-                $assign_reference_number = 'C-' . $middle . $now->second;
-                $generate_id = NULL;
+                // $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
+                // $generate_reference_number = NULL;
+                // $assign_reference_number = 'C-' . $middle . $now->second;
+                // $generate_id = NULL;
 
-                if (count(Qrcode::status('In Stock')->type($Package->type)->get()) < $Package->quantity) {
+                // if (count(Qrcode::status('In Stock')->type($Package->type)->get()) < $Package->quantity) {
 
-                    $generate_reference_number = 'N-' . $middle . $now->second;
-                    $GenerateQRCode = GenerateQrcode::create([
-                        'generate_reference_number' => $generate_reference_number,
-                        'type' => $Package->type,
-                        'quantity' => $Package->quantity,
-                        'created_by' => auth()->user()->id,
-                        'created_from' => 'package',
-                    ]);
+                //     $generate_reference_number = 'N-' . $middle . $now->second;
+                //     $GenerateQRCode = GenerateQrcode::create([
+                //         'generate_reference_number' => $generate_reference_number,
+                //         'type' => $Package->type,
+                //         'quantity' => $Package->quantity,
+                //         'created_by' => auth()->user()->id,
+                //         'created_from' => 'package',
+                //     ]);
 
-                    $generate_id = $GenerateQRCode->id;
-                }
-
-
-                AssignQrcode::create([
-                    'assign_reference_number' => $assign_reference_number,
-                    'assign_to' => 2,
-                    'user_id' => NULL,
-                    'corporate_id' => \Session::get('corporate_id'),
-                    'type' => $Package->type,
-                    'available_period' => str_replace(" Day/s", "", $Package->period),
-                    'quantity' => $Package->quantity,
-                    'created_from' => 'package'
-                ]);
+                //     $generate_id = $GenerateQRCode->id;
+                // }
 
 
-                $QRcodesData = [
-                    'generate_id' => $generate_id,
-                    'generate_reference_number' => $generate_reference_number,
-                    'assign_reference_number' => $assign_reference_number,
-                    'quantity' => $Package->quantity,
-                    'status' => 3,
-                    'type' => $Package->type,
-                    'user_id' => NULL,
-                    'auth_id' => Auth()->User()->id,
-                    'corporate_id' => \Session::get('corporate_id'),
-                    'available_period' => str_replace(" Day/s", "", $Package->period),
-                ];
+                // AssignQrcode::create([
+                //     'assign_reference_number' => $assign_reference_number,
+                //     'assign_to' => 2,
+                //     'user_id' => NULL,
+                //     'corporate_id' => \Session::get('corporate_id'),
+                //     'type' => $Package->type,
+                //     'available_period' => str_replace(" Day/s", "", $Package->period),
+                //     'quantity' => $Package->quantity,
+                //     'created_from' => 'package'
+                // ]);
 
-                GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
+
+                // $QRcodesData = [
+                //     'generate_id' => $generate_id,
+                //     'generate_reference_number' => $generate_reference_number,
+                //     'assign_reference_number' => $assign_reference_number,
+                //     'quantity' => $Package->quantity,
+                //     'status' => 3,
+                //     'type' => $Package->type,
+                //     'user_id' => NULL,
+                //     'auth_id' => Auth()->User()->id,
+                //     'corporate_id' => \Session::get('corporate_id'),
+                //     'available_period' => str_replace(" Day/s", "", $Package->period),
+                // ];
+
+                // GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
 
                 $level = 'success';
                 $message = 'Package "' . $Package->name_en . '"Was Paid Successfully By ' . auth()->user()->name;

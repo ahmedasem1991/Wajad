@@ -22,6 +22,7 @@ use App\Nova\Metrics\ApprovalPosts;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
+use App\Post;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
 use App\Services\Filters\ItemFilters\Lost;
@@ -328,7 +329,13 @@ class PendingPost extends Resource
     }
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
+        $count=Post::IsPending()->count();
+        $span='';
+        if($count!=0)
+        {
+            $span= '<span style="background-color:red;padding: 1px 2px;border-radius: 50%;">'.$count.'</span>';
+        }
+        return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />'.$span ;
     }
 
     public static function indexQuery(NovaRequest $request, $query)

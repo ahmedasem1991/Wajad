@@ -71,10 +71,20 @@ class AssignQrcodeJob implements ShouldQueue
        if ($this->corporate_id != NULL) {
         $level='info';
         $Corporate = Corporate::find($this->corporate_id);
-        $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . '.';
+        $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . ' from '. $this->created_from;
         $CorporateAdmins = $Corporate->users->where('type', 2);
         foreach ($CorporateAdmins as $user) {
             $user->notify(new BroadcastNotification($level, $message, $url));
+        }
+
+
+        //send notification to admins level
+        $admin_message =  '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . ' from '. $this->created_from;;
+        $admin_url = Nova::path() . '/resources/assign-qrcodes/' . $this->id;
+
+        $admins = User::superAdmin()->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new BroadcastNotification('info', $admin_message, $admin_url));
         }
     }
     if ($this->user_id != NULL) {
@@ -89,6 +99,15 @@ class AssignQrcodeJob implements ShouldQueue
         }
        
         User::find($this->user_id)->notify(new SendFCMNotification(User::find($this->user_id),$data));
+
+        //send notification to admins level
+        $admin_message =  '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->user_id)['name']  . ' from '. $this->created_from;
+        $admin_url = Nova::path() . '/resources/assign-qrcodes/' . $this->id;
+
+        $admins = User::superAdmin()->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new BroadcastNotification('info', $admin_message, $admin_url));
+        }
     }
 
     }
