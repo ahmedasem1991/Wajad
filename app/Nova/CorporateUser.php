@@ -140,8 +140,8 @@ class CorporateUser extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            HasMany::make('Subscription')
-                ->hideWhenUpdating(),
+            // HasMany::make('Subscription')
+            //     ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
 
                 '2' => 'Corpoare Admin',
@@ -162,7 +162,7 @@ class CorporateUser extends Resource
             //     ->nullable(),
 
                 BelongsToMany::make('Roles', 'roles', Role::class),
-                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+              //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
