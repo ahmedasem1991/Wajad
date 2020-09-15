@@ -76,10 +76,10 @@ class PostRequest extends Resource
                0 => 'Not Valid',
                1 => 'Valid',
            ])->default(0), // optional
-           BelongsTo::make('Post')
+           BelongsTo::make('Post', 'post', AllPost::class)
            ->readonly()
            ,
-         
+
            HasMany::make('Answers'),
            BelongsTo::make('Claim user','postrequestuser',\App\Nova\NormalUser::class)
            ->readonly()

@@ -35,7 +35,7 @@ use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use EmilianoTisato\NovaBelongsToDepends\NovaBelongsToDepends;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class Post extends Resource
+class AllPost extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -266,7 +266,7 @@ class Post extends Resource
                 ->defaultLongitude(39.4913431)
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3),
 
-               
+
 
             HasMany::make('Questions'),
             HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),

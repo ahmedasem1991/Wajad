@@ -89,6 +89,11 @@ class Post extends MasterModel
         'open' => 1
     ];
 
+    public function visits()
+    {
+        return $this->morphOne(Visit::class, 'visitable');
+    }
+
     /**
      * Define The Relation Of The Item with Post
      */

@@ -44,7 +44,7 @@ class Banner extends Resource
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'type';
 
     /**
      * The columns that should be searched.

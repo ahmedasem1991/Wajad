@@ -88,8 +88,8 @@ class ReportedPost extends Resource
             ->hideFromIndex()
             ->hideWhenCreating()
             ->hideWhenUpdating(),
-           
-            
+
+
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
             ->placeholder('Select Sub category')
             ->options(\App\SubCategory::with('brands')->get()),
@@ -114,7 +114,7 @@ class ReportedPost extends Resource
             ->dependsOn('Brand'),
         BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
 
-            
+
             Toggle::make('Appearance Status','appearance_status'),
             //Toggle::make('Open Status','open_status'),
            //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
@@ -124,31 +124,31 @@ class ReportedPost extends Resource
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
              DateTime::make('Founded At')->hideFromIndex()
              ->Rules('required_if:status,1'),
-             
-       
+
+
 
                Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-               
+
                NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
                ->placeholder('Select Person')
                ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
                ->rules('required'),
-               
+
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml(),
-               
+
                 SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
                 ->displayUsingLabels()
                 ->readonly()
                 ->nullable(),
-               
+
 
 
             // Password::make('Password')
             //     ->onlyOnForms()
             //     ->creationRules('required', 'string', 'min:8')
             //     ->updateRules('nullable', 'string', 'min:8'),
-                
-               
+
+
             // Button::make('PDF')
             // ->link(URL::to('receipt?p='.base64_encode($this->id)),'_blank')
             // ->style('danger'),
@@ -218,7 +218,7 @@ class ReportedPost extends Resource
     {
         return [];
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />';
     }
@@ -229,7 +229,7 @@ class ReportedPost extends Resource
         ->where('corporate_id',Auth()->user()->corporate->id);
     }
 
- 
+
 
 
     public static function authorizedToCreate(Request $request)

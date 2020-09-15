@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\City;
 use App\Item;
 use App\Post;
+use App\Services\Helpers\Traits\Visitable;
 use App\User;
 use Carbon\Carbon;
 use App\PostReport;
@@ -22,6 +23,7 @@ use Intervention\Image\ImageManagerStatic as Image;
  */
 class PostsController extends Controller
 {
+    use Visitable;
     const TYPES = [
         'lost' => 0,
         'found' => 1
@@ -198,7 +200,7 @@ class PostsController extends Controller
             $post->save();
         }
 
-      
+
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
    // Send FCM
@@ -427,6 +429,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        $this->bootVisitable($post);
         return new PostResource($post);
     }
 
@@ -549,7 +552,7 @@ class PostsController extends Controller
                         Image::make(file_get_contents($image))->encode('data-url')->save($path);
                         $post_images[] = '/images//' . $image_name;
                     }
-    
+
                     if (!preg_match("/^data:image/", $image)) {
                         $post_images[] = $image;
                     }
@@ -557,10 +560,10 @@ class PostsController extends Controller
                 $post->fill([
                     'images' => $post_images
                 ]);
-    
+
                 $post->save();
             }
-            
+
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
 
@@ -568,7 +571,7 @@ class PostsController extends Controller
          $badge =getBadge($post->publisher);
          $data=sendUpdatePostFCM($post,$badge,$type);
          $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
-     
+
 
             return $this->response();
         }
