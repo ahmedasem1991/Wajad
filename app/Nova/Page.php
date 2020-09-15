@@ -41,7 +41,8 @@ class Page extends Resource
     public static $search = [
         'id',
          
-        'title',
+        'title_en',
+        'title_ar',
         'body',
          
         'deleted_at',
