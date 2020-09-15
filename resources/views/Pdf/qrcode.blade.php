@@ -66,7 +66,7 @@
                             Status<br><strong>{{ $model::STATUS[$model->status] }}</strong>
                         </td> -->
                         <td>
-                            Qrcode Generate Reference Number<br><strong>{{ $model->generate_reference_number }}</strong>
+                            Qrcode Unique Reference Number<br><strong>{{ $model->unique_reference_number }}</strong>
                         </td>
                     </tr>
                     @endforeach
