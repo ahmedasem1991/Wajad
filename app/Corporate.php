@@ -50,6 +50,11 @@ class Corporate extends Model
         return $this->hasMany(Subscription::class);
     }
 
+    public function qrcodes()
+    {
+        return $this->hasMany(Qrcode::class);
+    }
+
     public function admins()
     {
         return $this->hasMany(User::class);

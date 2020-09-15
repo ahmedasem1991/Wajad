@@ -154,6 +154,7 @@ class Corporate extends Resource
 
             HasMany::make('Posts','posts','App\Nova\AllPost'),
             HasMany::make('Subscriptions'),
+            HasMany::make('Qrcodes'),
         ];
     }
 
