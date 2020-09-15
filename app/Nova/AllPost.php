@@ -209,7 +209,7 @@ class AllPost extends Resource
                     ->placeholder('Select Item')
 
                     ->optionsResolve(function ($owner) {
-                        return $owner->items()->withFilters(new Lost)->get();
+                        return $owner->items()->get();
                     })
                     ->rules('required_if:owner_releated_to_system,1')
                     ->dependsOn('Owner'),
