@@ -43,7 +43,8 @@ class Page extends Resource
          
         'title_en',
         'title_ar',
-        'body',
+        'body_en',
+        'body_ar',
          
         'deleted_at',
         'created_at',
