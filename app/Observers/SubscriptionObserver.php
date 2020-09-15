@@ -68,7 +68,7 @@ class SubscriptionObserver
         $created_from='Package (' . $Package->name_en.')';
         AssignQrcode::create([
             'assign_reference_number' => $assign_reference_number,
-            'assign_to' => $subscription->assign_to,
+            'assign_to' => $subscription->subscriber,
             'user_id' => $subscription->user_id,
             'corporate_id' => $subscription->corporate_id,
             'type' => $Package->type,
