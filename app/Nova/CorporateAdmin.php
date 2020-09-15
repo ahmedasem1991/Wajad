@@ -137,8 +137,8 @@ class CorporateAdmin extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            HasMany::make('Subscription')
-                ->hideWhenUpdating(),
+            // HasMany::make('Subscription')
+            //     ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
 
                 '2' => 'Corpoare Admin',
@@ -158,7 +158,7 @@ class CorporateAdmin extends Resource
                 ->updateRules('required_if:type,2')
                 ->nullable(),
 
-                BelongsToMany::make('Roles', 'roles', Role::class),
+             //   BelongsToMany::make('Roles', 'roles', Role::class),
                 HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
