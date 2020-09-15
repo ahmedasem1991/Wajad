@@ -109,7 +109,7 @@ class LoginController extends Controller
             }
         }
 
-        if (!$user->isCorporateAdmin() || !$user->isAdmin){
+        if ($user->isUser()){
             auth()->logout();
             return redirect('/');
         }
