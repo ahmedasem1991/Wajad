@@ -118,10 +118,12 @@ class PostsController extends Controller
 
         $auto_approve = 0;
         $appearance_status = 0;
+        $approval_status=0;
 
         if (defaultGroup()->auto_approve == 1) {
             $auto_approve = 1;
             $appearance_status = 1;
+            $approval_status=1;
         }
         $post = Post::create([
             'title' => $request->title,
@@ -139,6 +141,7 @@ class PostsController extends Controller
             'publisher_type' => 1,
             'auto_approve' => $auto_approve,
             'appearance_status' => $appearance_status,
+            'approval_status' => $approval_status,
             'auto_approve' => 1,
             'appearance_status' => 1,
             'approval_status' => 1,
