@@ -111,6 +111,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             }
             if (Auth()->user()->hasPermissionTo('view stock')) {
                 array_push($array, new \App\NovaCorporate\Metrics\QRCodeCount);
+                array_push($array, new \App\NovaCorporate\Metrics\QrCodes);
             }
             return $array;
         }
