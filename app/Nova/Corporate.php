@@ -152,7 +152,7 @@ class Corporate extends Resource
             ->defaultLongitude(39.4913431)
             ->centerCircle(10000, 'DarkCyan', 1, 0.3),
 
-            HasMany::make('Posts'),
+            HasMany::make('Posts','posts','App\Nova\AllPost'),
             HasMany::make('Subscriptions'),
         ];
     }
