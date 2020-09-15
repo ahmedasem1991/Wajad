@@ -111,18 +111,18 @@ class Package extends Resource
                     2 => 'Multi Assign',
                 ])->default(1), // optional
 
-            BelongsToMany::make('Product', 'products', Product::class)
-                ->fields(function () {
-                    return [
-                        Number::make('Quantity Of Products In Package', 'product_count')
-                            ->rules(['required', 'integer'])
-                    ];
-                })->hideWhenUpdating(),
+            // BelongsToMany::make('Product', 'products', Product::class)
+            //     ->fields(function () {
+            //         return [
+            //             Number::make('Quantity Of Products In Package', 'product_count')
+            //                 ->rules(['required', 'integer'])
+            //         ];
+            //     })->hideWhenUpdating(),
 
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
 
-            MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
+            // MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];
     }
 
