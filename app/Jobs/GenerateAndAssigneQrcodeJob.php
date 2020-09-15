@@ -89,27 +89,28 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
          }
        }
     
-       $level='success';
-       $url=Nova::path().'/resources/stocks';
-       $Admins=User::superAdmin()->get();
-       $corporate_message='"' .$this->quantity .'" QR Code Assigned Successfully To You.';
-       if($this->auth_id !=NULL)
-       {
-        $message='"' .$this->quantity .'" QR Code Assigned Successfully To '. User::find($this->auth_id)->corporate->name_en .'.';
-        User::find($this->auth_id)->notify(new BroadcastNotification($level,$corporate_message,$url));
-       }
+      //  $level='success';
+      //  $url=Nova::path().'/resources/stocks';
+      //  $Admins=User::superAdmin()->get();
+      //  $corporate_message='"' .$this->quantity .'" QR Code Assigned Successfully To You.';
+      //  if($this->auth_id !=NULL)
+      //  {
+      //   $message='"' .$this->quantity .'" QR Code Assigned Successfully To '. User::find($this->auth_id)->corporate->name_en .'.';
+      //   User::find($this->auth_id)->notify(new BroadcastNotification($level,$corporate_message,$url));
+      //  }
 
   
   
-       foreach($Admins as $user)
-       {
-         $user->notify(new BroadcastNotification('info',$message,$url));
-       }
+      //  foreach($Admins as $user)
+      //  {
+      //    $user->notify(new BroadcastNotification('info',$message,$url));
+      //  }
 
         $level = 'success';
         $url = Nova::path() . '/resources/stocks';
         $Admins = User::superAdmin()->get();
         $corporate_message = '"' . $this->quantity . '" QR Code Assigned Successfully To You.';
+        $message='';
         if ($this->auth_id != NULL) {
             $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->auth_id)->corporate->name_en . '.';
             User::find($this->auth_id)->notify(new BroadcastNotification($level, $corporate_message, $url));

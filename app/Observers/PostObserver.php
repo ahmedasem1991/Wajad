@@ -46,7 +46,7 @@ class PostObserver
             if($question=='' || $question == null) {
                 $question = null;
             }else {
-                Question::create([
+                Question::firstOrCreate([
                     'corporate_id' => Auth()->User()->corporate_id,
                     'post_id' => $Post->id,
                     'question' => $question,

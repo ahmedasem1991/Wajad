@@ -37,8 +37,8 @@ class SubscriptionObserver
     }
     public function saved(Subscription $subscription)
     {
-        if($subscription->created_from=='web')
-        {
+        // if($subscription->created_from=='web')
+        // {
         $now = Carbon::now();
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
         $generate_reference_number = NULL;
@@ -46,21 +46,26 @@ class SubscriptionObserver
         $generate_id = NULL;
 
         $Package=Package::find($subscription->package_id);
-        if (count(Qrcode::status('In Stock')->type($Package->type)->get()) < $Package->quantity) {
+        // if (count(Qrcode::status('In Stock')->type($Package->type)->get()) < $Package->quantity) {
 
-            $generate_reference_number = 'N-' . $middle . $now->second;
-            $GenerateQRCode = GenerateQrcode::create([
-                'generate_reference_number' => $generate_reference_number,
-                'type' => $Package->type,
-                'quantity' => $Package->quantity,
-                'created_by' => auth()->user()->id,
-                'created_from' => 'subscription by admin',
-            ]);
+        //     $generate_reference_number = 'N-' . $middle . $now->second;
+        //     $GenerateQRCode = GenerateQrcode::create([
+        //         'generate_reference_number' => $generate_reference_number,
+        //         'type' => $Package->type,
+        //         'quantity' => $Package->quantity,
+        //         'created_by' => auth()->user()->id,
+        //         'created_from' => 'subscription by admin',
+        //     ]);
 
-            $generate_id = $GenerateQRCode->id;
-        }
+        //     $generate_id = $GenerateQRCode->id;
+        // }
 
-
+        // $dispatcher = AssignQrcode::getEventDispatcher();
+        // AssignQrcode::unsetEventDispatcher();
+       
+        $created_from='subscription by admin   (' . $Package->name_en.')';
+        if($subscription->created_from=='Package')
+        $created_from='Package (' . $Package->name_en.')';
         AssignQrcode::create([
             'assign_reference_number' => $assign_reference_number,
             'assign_to' => 2,
@@ -69,24 +74,24 @@ class SubscriptionObserver
             'type' => $Package->type,
             'available_period' => str_replace(" Day/s", "", $Package->period),
             'quantity' => $Package->quantity,
-            'created_from' => 'subscription by admin'
+            'created_from' =>  $created_from,
         ]);
+       // AssignQrcode::setEventDispatcher($dispatcher);
 
-
-        $QRcodesData = [
-            'generate_id' => $generate_id,
-            'generate_reference_number' => $generate_reference_number,
-            'assign_reference_number' => $assign_reference_number,
-            'quantity' => $Package->quantity,
-            'status' => 3,
-            'type' => $Package->type,
-            'user_id' => $subscription->user_id,
-            'auth_id' => NULL,
-            'corporate_id' => $subscription->corporate_id,
-            'available_period' => str_replace(" Day/s", "", $Package->period),
-        ];
-             GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
-      }
+        // $QRcodesData = [
+        //     'generate_id' => $generate_id,
+        //     'generate_reference_number' => $generate_reference_number,
+        //     'assign_reference_number' => $assign_reference_number,
+        //     'quantity' => $Package->quantity,
+        //     'status' => 3,
+        //     'type' => $Package->type,
+        //     'user_id' => $subscription->user_id,
+        //     'auth_id' => NULL,
+        //     'corporate_id' => $subscription->corporate_id,
+        //     'available_period' => str_replace(" Day/s", "", $Package->period),
+        // ];
+        //      GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
+     // }
     }
 
     /**

@@ -342,7 +342,14 @@ class ReportedPost extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />';
+        $count=\App\Post::IsReported()->count();
+        $span='';
+        if($count!=0)
+        {
+            $span= '<span style="background-color:orange;padding:  1px 2px;border-radius: 50%;">'.$count.'</span>';
+        }
+        return '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />'.$span ;
+ 
     }
 
     public static function indexQuery(NovaRequest $request, $query)
