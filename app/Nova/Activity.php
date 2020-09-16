@@ -56,6 +56,9 @@ class Activity extends Resource
         'created_at',
         'updated_at',
     ];
+    public static $searchRelations = [
+        'user' => ['name', 'email', 'mobile_number'],
+    ];
 
     /**
      * Get the fields displayed by the resource.

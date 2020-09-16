@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b465bc27e0d4612c5ec87737b7eba1e",
+    "content-hash": "0f0f58fab901625d81518a4c392aed5e",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1339,16 +1339,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "2.10.3",
+            "version": "2.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "03ca23afc2ee062f5d3e32426ad37c34a4770dcf"
+                "reference": "47433196b6390d14409a33885ee42b6208160643"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/03ca23afc2ee062f5d3e32426ad37c34a4770dcf",
-                "reference": "03ca23afc2ee062f5d3e32426ad37c34a4770dcf",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/47433196b6390d14409a33885ee42b6208160643",
+                "reference": "47433196b6390d14409a33885ee42b6208160643",
                 "shasum": ""
             },
             "require": {
@@ -1444,7 +1444,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-02T01:35:42+00:00"
+            "time": "2020-09-12T21:20:41+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -1872,22 +1872,22 @@
         },
         {
             "name": "edujugon/push-notification",
-            "version": "v4.3.0",
+            "version": "v4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Edujugon/PushNotification.git",
-                "reference": "582afc20a6385852419fc6cbfda7e2c0021af64e"
+                "reference": "137c8ec708c99dcccfa156c9327cc5befc755ef7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Edujugon/PushNotification/zipball/582afc20a6385852419fc6cbfda7e2c0021af64e",
-                "reference": "582afc20a6385852419fc6cbfda7e2c0021af64e",
+                "url": "https://api.github.com/repos/Edujugon/PushNotification/zipball/137c8ec708c99dcccfa156c9327cc5befc755ef7",
+                "reference": "137c8ec708c99dcccfa156c9327cc5befc755ef7",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.3",
-                "illuminate/notifications": "~5.8 || ^6.0 || ^7.0",
-                "illuminate/support": "~5.8 || ^6.0 || ^7.0",
+                "guzzlehttp/guzzle": "^6.3 || ^7.0.1",
+                "illuminate/notifications": "~5.8 || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/support": "~5.8 || ^6.0 || ^7.0 || ^8.0",
                 "php": "^7.1.3"
             },
             "require-dev": {
@@ -1930,7 +1930,7 @@
                 "priority",
                 "push"
             ],
-            "time": "2020-03-07T07:24:28+00:00"
+            "time": "2020-09-16T06:23:41+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -2523,16 +2523,16 @@
         },
         {
             "name": "google/apiclient",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client.git",
-                "reference": "48ec94577b51bde415270116118b07a294e07c43"
+                "reference": "e748d1d5a51166754f13809d35f1fa162cbec530"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client/zipball/48ec94577b51bde415270116118b07a294e07c43",
-                "reference": "48ec94577b51bde415270116118b07a294e07c43",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client/zipball/e748d1d5a51166754f13809d35f1fa162cbec530",
+                "reference": "e748d1d5a51166754f13809d35f1fa162cbec530",
                 "shasum": ""
             },
             "require": {
@@ -2581,20 +2581,20 @@
             "keywords": [
                 "google"
             ],
-            "time": "2020-07-23T21:37:43+00:00"
+            "time": "2020-09-08T16:38:08+00:00"
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.145",
+            "version": "v0.146",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "96de5dabadb693f161a31a1a1e018882fa05816e"
+                "reference": "029e20e81508cee6dc652529514eeeb1cf56ce54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/96de5dabadb693f161a31a1a1e018882fa05816e",
-                "reference": "96de5dabadb693f161a31a1a1e018882fa05816e",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/029e20e81508cee6dc652529514eeeb1cf56ce54",
+                "reference": "029e20e81508cee6dc652529514eeeb1cf56ce54",
                 "shasum": ""
             },
             "require": {
@@ -2618,20 +2618,20 @@
             "keywords": [
                 "google"
             ],
-            "time": "2020-09-05T00:24:41+00:00"
+            "time": "2020-09-12T00:24:59+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.11.1",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-auth-library-php.git",
-                "reference": "bb959e91bd8ffbd352ab76cbf11d656ce6435088"
+                "reference": "74cad289014f7ef747618480f6b59f6303357f34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/bb959e91bd8ffbd352ab76cbf11d656ce6435088",
-                "reference": "bb959e91bd8ffbd352ab76cbf11d656ce6435088",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/74cad289014f7ef747618480f6b59f6303357f34",
+                "reference": "74cad289014f7ef747618480f6b59f6303357f34",
                 "shasum": ""
             },
             "require": {
@@ -2670,7 +2670,7 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2020-07-27T18:33:35+00:00"
+            "time": "2020-09-08T16:33:56+00:00"
         },
         {
             "name": "graham-campbell/manager",
@@ -3447,16 +3447,16 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "4939c81f63a8a4968c108c440275c94955753b19"
+                "reference": "6ede70583e101030bcace4dcddd648f760ddf642"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/4939c81f63a8a4968c108c440275c94955753b19",
-                "reference": "4939c81f63a8a4968c108c440275c94955753b19",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6ede70583e101030bcace4dcddd648f760ddf642",
+                "reference": "6ede70583e101030bcace4dcddd648f760ddf642",
                 "shasum": ""
             },
             "require": {
@@ -3468,10 +3468,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev",
-                    "dev-develop": "1.1.x-dev"
-                },
                 "laminas": {
                     "module": "Laminas\\ZendFrameworkBridge"
                 }
@@ -3501,7 +3497,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-08-18T16:34:51+00:00"
+            "time": "2020-09-14T14:23:00+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3653,27 +3649,27 @@
         },
         {
             "name": "laravel/nexmo-notification-channel",
-            "version": "v2.3.1",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/nexmo-notification-channel.git",
-                "reference": "ec4f64a97b6bed93680e2a05c9ef34b6d9c9cc44"
+                "reference": "7ebc8cec1a62d61af7ed5ccc6602beb68965d1a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/nexmo-notification-channel/zipball/ec4f64a97b6bed93680e2a05c9ef34b6d9c9cc44",
-                "reference": "ec4f64a97b6bed93680e2a05c9ef34b6d9c9cc44",
+                "url": "https://api.github.com/repos/laravel/nexmo-notification-channel/zipball/7ebc8cec1a62d61af7ed5ccc6602beb68965d1a8",
+                "reference": "7ebc8cec1a62d61af7ed5ccc6602beb68965d1a8",
                 "shasum": ""
             },
             "require": {
                 "composer/package-versions-deprecated": "^1.8",
-                "illuminate/notifications": "~5.8.0|^6.0|^7.0",
+                "illuminate/notifications": "~5.8.0|^6.0|^7.0|^8.0",
                 "nexmo/laravel": "^2.0",
                 "php": "^7.1.3"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^7.0|^8.0"
+                "phpunit/phpunit": "^7.0|^8.0|^9.3"
             },
             "type": "library",
             "extra": {
@@ -3707,7 +3703,7 @@
                 "nexmo",
                 "notifications"
             ],
-            "time": "2020-08-11T19:22:19+00:00"
+            "time": "2020-09-08T16:21:55+00:00"
         },
         {
             "name": "laravel/nova",
@@ -5124,12 +5120,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "479e6c6c4b4850f5515b8330bc49302fb392e602"
+                "reference": "5dc65d646fe1fd59ba664da3fae070711639be01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/479e6c6c4b4850f5515b8330bc49302fb392e602",
-                "reference": "479e6c6c4b4850f5515b8330bc49302fb392e602",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/5dc65d646fe1fd59ba664da3fae070711639be01",
+                "reference": "5dc65d646fe1fd59ba664da3fae070711639be01",
                 "shasum": ""
             },
             "require": {
@@ -5191,7 +5187,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-08-22T17:32:55+00:00"
+            "time": "2020-09-14T18:07:16+00:00"
         },
         {
             "name": "mpociot/documentarian",
@@ -5612,16 +5608,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.39.1",
+            "version": "2.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7af467873250583cc967a59ee9df29fabab193c1"
+                "reference": "6c7646154181013ecd55e80c201b9fd873c6ee5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7af467873250583cc967a59ee9df29fabab193c1",
-                "reference": "7af467873250583cc967a59ee9df29fabab193c1",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/6c7646154181013ecd55e80c201b9fd873c6ee5d",
+                "reference": "6c7646154181013ecd55e80c201b9fd873c6ee5d",
                 "shasum": ""
             },
             "require": {
@@ -5697,7 +5693,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-04T13:11:37+00:00"
+            "time": "2020-09-11T19:00:58+00:00"
         },
         {
             "name": "nexmo/client",
@@ -5746,29 +5742,30 @@
         },
         {
             "name": "nexmo/client-core",
-            "version": "2.2.3",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nexmo/nexmo-php.git",
-                "reference": "4b85f8612fc9409d40f36c9647e1932d7640af45"
+                "reference": "9c6147dc97290373d203a7ca45c1299a68278895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nexmo/nexmo-php/zipball/4b85f8612fc9409d40f36c9647e1932d7640af45",
-                "reference": "4b85f8612fc9409d40f36c9647e1932d7640af45",
+                "url": "https://api.github.com/repos/Nexmo/nexmo-php/zipball/9c6147dc97290373d203a7ca45c1299a68278895",
+                "reference": "9c6147dc97290373d203a7ca45c1299a68278895",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-diactoros": "^1.8.4 || ^2.0",
                 "lcobucci/jwt": "^3.2",
                 "ocramius/package-versions": "^1.4",
-                "php": ">=7.1",
+                "php": ">=7.2",
                 "psr/container": "^1.0",
-                "psr/http-client-implementation": "^1.0"
+                "psr/http-client-implementation": "^1.0",
+                "vonage/nexmo-bridge": "^0.1.0"
             },
             "require-dev": {
                 "estahn/phpunit-json-assertions": "^3.0.0",
-                "php-http/guzzle6-adapter": "^2.0",
+                "guzzlehttp/guzzle": "^7.0",
                 "php-http/mock-client": "^1.4",
                 "phpstan/phpstan": "^0.12.11",
                 "phpunit/phpunit": "^7.4",
@@ -5777,7 +5774,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Nexmo\\": "src/"
+                    "Vonage\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5807,8 +5804,8 @@
                     "role": "Developer"
                 }
             ],
-            "description": "PHP Client for using Nexmo's API.",
-            "time": "2020-08-20T16:12:16+00:00"
+            "description": "Deprecated PHP Client for using Vonage's API - please use vonage/client-core",
+            "time": "2020-09-10T18:23:01+00:00"
         },
         {
             "name": "nexmo/laravel",
@@ -6105,16 +6102,16 @@
         },
         {
             "name": "optimistdigital/nova-multiselect-field",
-            "version": "1.9.8",
+            "version": "1.9.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/optimistdigital/nova-multiselect-field.git",
-                "reference": "c37fa03d865c8424f636208dadc9b70073b77426"
+                "reference": "931ec51d4bf71fe63e584202251d57e15e0c5d65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/optimistdigital/nova-multiselect-field/zipball/c37fa03d865c8424f636208dadc9b70073b77426",
-                "reference": "c37fa03d865c8424f636208dadc9b70073b77426",
+                "url": "https://api.github.com/repos/optimistdigital/nova-multiselect-field/zipball/931ec51d4bf71fe63e584202251d57e15e0c5d65",
+                "reference": "931ec51d4bf71fe63e584202251d57e15e0c5d65",
                 "shasum": ""
             },
             "require": {
@@ -6157,7 +6154,7 @@
                 "nova",
                 "select"
             ],
-            "time": "2020-09-04T09:50:37+00:00"
+            "time": "2020-09-14T08:47:57+00:00"
         },
         {
             "name": "optimistdigital/nova-sortable",
@@ -6244,16 +6241,16 @@
         },
         {
             "name": "orlyapps/nova-belongsto-depend",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orlyapps/nova-belongsto-depend.git",
-                "reference": "9e6e8a4769813c593d50115968321e0d1f220ebb"
+                "reference": "2406aaefa40acf43cb057ebe09101abeee8cd044"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orlyapps/nova-belongsto-depend/zipball/9e6e8a4769813c593d50115968321e0d1f220ebb",
-                "reference": "9e6e8a4769813c593d50115968321e0d1f220ebb",
+                "url": "https://api.github.com/repos/orlyapps/nova-belongsto-depend/zipball/2406aaefa40acf43cb057ebe09101abeee8cd044",
+                "reference": "2406aaefa40acf43cb057ebe09101abeee8cd044",
                 "shasum": ""
             },
             "require": {
@@ -6281,7 +6278,7 @@
                 "laravel",
                 "nova"
             ],
-            "time": "2020-02-10T12:18:31+00:00"
+            "time": "2020-09-09T04:19:34+00:00"
         },
         {
             "name": "owenmelbz/nova-radio-field",
@@ -7237,16 +7234,16 @@
         },
         {
             "name": "predis/predis",
-            "version": "v1.1.4",
+            "version": "v1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/predis/predis.git",
-                "reference": "8be2418f0116572f1937083daf5cceb1bddc9f0d"
+                "reference": "9930e933c67446962997b05201c69c2319bf26de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/predis/predis/zipball/8be2418f0116572f1937083daf5cceb1bddc9f0d",
-                "reference": "8be2418f0116572f1937083daf5cceb1bddc9f0d",
+                "url": "https://api.github.com/repos/predis/predis/zipball/9930e933c67446962997b05201c69c2319bf26de",
+                "reference": "9930e933c67446962997b05201c69c2319bf26de",
                 "shasum": ""
             },
             "require": {
@@ -7308,7 +7305,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-29T22:15:08+00:00"
+            "time": "2020-09-11T19:18:05+00:00"
         },
         {
             "name": "psr/cache",
@@ -9967,22 +9964,22 @@
         },
         {
             "name": "stichoza/google-translate-php",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Stichoza/google-translate-php.git",
-                "reference": "f5b8be4f573d53a52190651de27f16c679d84990"
+                "reference": "2fc76c49b5f032c4210a98ced00e344d7d9022f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Stichoza/google-translate-php/zipball/f5b8be4f573d53a52190651de27f16c679d84990",
-                "reference": "f5b8be4f573d53a52190651de27f16c679d84990",
+                "url": "https://api.github.com/repos/Stichoza/google-translate-php/zipball/2fc76c49b5f032c4210a98ced00e344d7d9022f2",
+                "reference": "2fc76c49b5f032c4210a98ced00e344d7d9022f2",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "guzzlehttp/guzzle": "~6.0",
+                "guzzlehttp/guzzle": "~6.0|~7.0",
                 "php": "^7.1"
             },
             "require-dev": {
@@ -10012,20 +10009,20 @@
                 "translate",
                 "translator"
             ],
-            "time": "2020-02-11T01:34:51+00:00"
+            "time": "2020-09-10T13:53:57+00:00"
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v3.32.5",
+            "version": "v3.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "57f39bd5724956d96af43a86439e2808b981fb18"
+                "reference": "829d87530030bb5bfa24a5093d098c672adfbb9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/57f39bd5724956d96af43a86439e2808b981fb18",
-                "reference": "57f39bd5724956d96af43a86439e2808b981fb18",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/829d87530030bb5bfa24a5093d098c672adfbb9b",
+                "reference": "829d87530030bb5bfa24a5093d098c672adfbb9b",
                 "shasum": ""
             },
             "type": "library",
@@ -10069,7 +10066,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2020-08-27T20:11:06+00:00"
+            "time": "2020-09-10T23:20:14+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -11986,16 +11983,16 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v2.1.3",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "58c7475e5457c5492c26cc740cc0ad7464be9442"
+                "reference": "d15da7ba4957ffb8f1747218be9e1a121fd298a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/58c7475e5457c5492c26cc740cc0ad7464be9442",
-                "reference": "58c7475e5457c5492c26cc740cc0ad7464be9442",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/d15da7ba4957ffb8f1747218be9e1a121fd298a1",
+                "reference": "d15da7ba4957ffb8f1747218be9e1a121fd298a1",
                 "shasum": ""
             },
             "require": {
@@ -12008,7 +12005,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -12058,7 +12055,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-06T13:23:11+00:00"
+            "time": "2020-09-07T11:33:47+00:00"
         },
         {
             "name": "symfony/thanks",
@@ -12209,16 +12206,16 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v2.1.3",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "616a9773c853097607cf9dd6577d5b143ffdcd63"
+                "reference": "77ce1c3627c9f39643acd9af086631f842c50c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/616a9773c853097607cf9dd6577d5b143ffdcd63",
-                "reference": "616a9773c853097607cf9dd6577d5b143ffdcd63",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/77ce1c3627c9f39643acd9af086631f842c50c4d",
+                "reference": "77ce1c3627c9f39643acd9af086631f842c50c4d",
                 "shasum": ""
             },
             "require": {
@@ -12230,7 +12227,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -12280,7 +12277,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-06T13:23:11+00:00"
+            "time": "2020-09-07T11:33:47+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -12522,6 +12519,62 @@
             "time": "2020-08-26T08:30:46+00:00"
         },
         {
+            "name": "techouse/intl-date-time",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/techouse/intl-date-time.git",
+                "reference": "0753c15307d9b045d8d6643f8b9c14952c3dcfdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/techouse/intl-date-time/zipball/0753c15307d9b045d8d6643f8b9c14952c3dcfdb",
+                "reference": "0753c15307d9b045d8d6643f8b9c14952c3dcfdb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.6 || ^6.0 || ^7.0 || ^8.0",
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Techouse\\IntlDateTime\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Techouse\\IntlDateTime\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Klemen Tušar",
+                    "email": "techouse@gmail.com"
+                }
+            ],
+            "description": "International datepicker field for Laravel Nova.",
+            "keywords": [
+                "date",
+                "datepicker",
+                "field",
+                "international",
+                "laravel",
+                "laravel-nova",
+                "localisation",
+                "nova",
+                "picker"
+            ],
+            "time": "2020-09-12T09:31:07+00:00"
+        },
+        {
             "name": "tightenco/nova-google-analytics",
             "version": "dev-new_development",
             "dist": {
@@ -12660,32 +12713,32 @@
         },
         {
             "name": "tymon/jwt-auth",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tymondesigns/jwt-auth.git",
-                "reference": "d4cf9fd2b98790712d3e6cd1094e5ff018431f19"
+                "reference": "b927137cd5bd4d2f5d48a1ca71bc85006b99dbae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/d4cf9fd2b98790712d3e6cd1094e5ff018431f19",
-                "reference": "d4cf9fd2b98790712d3e6cd1094e5ff018431f19",
+                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/b927137cd5bd4d2f5d48a1ca71bc85006b99dbae",
+                "reference": "b927137cd5bd4d2f5d48a1ca71bc85006b99dbae",
                 "shasum": ""
             },
             "require": {
-                "illuminate/auth": "^5.2|^6|^7",
-                "illuminate/contracts": "^5.2|^6|^7",
-                "illuminate/http": "^5.2|^6|^7",
-                "illuminate/support": "^5.2|^6|^7",
+                "illuminate/auth": "^5.2|^6|^7|^8",
+                "illuminate/contracts": "^5.2|^6|^7|^8",
+                "illuminate/http": "^5.2|^6|^7|^8",
+                "illuminate/support": "^5.2|^6|^7|^8",
                 "lcobucci/jwt": "^3.2",
                 "namshi/jose": "^7.0",
                 "nesbot/carbon": "^1.0|^2.0",
                 "php": "^5.5.9|^7.0"
             },
             "require-dev": {
-                "illuminate/console": "^5.2|^6|^7",
-                "illuminate/database": "^5.2|^6|^7",
-                "illuminate/routing": "^5.2|^6|^7",
+                "illuminate/console": "^5.2|^6|^7|^8",
+                "illuminate/database": "^5.2|^6|^7|^8",
+                "illuminate/routing": "^5.2|^6|^7|^8",
                 "mockery/mockery": ">=0.9.9",
                 "phpunit/phpunit": "~4.8|~6.0"
             },
@@ -12730,7 +12783,13 @@
                 "jwt",
                 "laravel"
             ],
-            "time": "2020-03-04T11:21:28+00:00"
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/seantymon",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-09-08T12:29:20+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -12804,6 +12863,50 @@
                 }
             ],
             "time": "2020-07-14T19:04:52+00:00"
+        },
+        {
+            "name": "vonage/nexmo-bridge",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Nexmo/vonage-php-nexmo-bridge.git",
+                "reference": "62653b1165f4401580ca8d2b859f59c968de3711"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Nexmo/vonage-php-nexmo-bridge/zipball/62653b1165f4401580ca8d2b859f59c968de3711",
+                "reference": "62653b1165f4401580ca8d2b859f59c968de3711",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.39",
+                "phpunit/phpunit": "^7.4",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/autoload.php"
+                ],
+                "psr-4": {
+                    "Vonage\\NexmoBridge\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Tankersley",
+                    "email": "chris.tankersley@vonage.com"
+                }
+            ],
+            "description": "Provides a bridge for using the Vonage PHP SDK with the older Nexmo namespace",
+            "time": "2020-08-25T02:50:42+00:00"
         },
         {
             "name": "windwalker/renderer",

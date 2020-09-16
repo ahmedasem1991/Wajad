@@ -52,6 +52,11 @@ class Model extends Resource
         'updated_at',
     ];
 
+    public static $searchRelations = [
+        'subcategory' => [ 'name_en', 'name_ar'],
+        'brand' => [ 'name_en', 'name_ar'],
+    ];
+
     /**
      * Get the fields displayed by the resource.
      *
