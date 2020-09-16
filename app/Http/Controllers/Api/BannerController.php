@@ -51,6 +51,6 @@ class BannerController extends Controller
             $banner->increment('clicks');
             return new BannerResource($banner);
         }
-        return BannerResource::collection(Banner::available()->get());
+        return BannerResource::collection(Banner::available()->orderBy('order', 'asc')->get());
     }
 }
