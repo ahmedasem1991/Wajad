@@ -134,13 +134,18 @@ class APost extends Resource
                 ->maxDate(Carbon::today())
                 ->withTime()
                 ->hideFromIndex()
-                ->hideWhenCreating(),
+                ->hideWhenCreating()
+                ->Rules('required_if:open_status,0'),
+                
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
                     1 => 'Approval',
                     2 => 'Rejected',
-                ])->default(0) // optional
+                ])
+                ->stack()
+                
+                ->default(0) // optional
                 ->hideWhenCreating(),
 
 
@@ -189,6 +194,7 @@ class APost extends Resource
                     0 => 'Lost',
                     1 => 'Found',
                 ])
+                ->stack()
                 //->default(0)
                 ->rules('required'), // optional
 
@@ -213,6 +219,7 @@ class APost extends Resource
                         0 => 'No',
                         1 => 'Yes',
                     ])
+                    ->stack()
                     ->default(2)
                     ->hideFromIndex(),
 
@@ -272,6 +279,7 @@ class APost extends Resource
                         1 => 'yes',
 
                     ])
+                    ->stack()
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
@@ -326,6 +334,7 @@ class APost extends Resource
                         0 => 'No',
                         1 => 'Yes',
                     ])
+                    ->stack()
                     ->default(2)
                     ->hideFromIndex(),
 
@@ -381,6 +390,7 @@ class APost extends Resource
                         1 => 'yes',
 
                     ])
+                    ->stack()
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([

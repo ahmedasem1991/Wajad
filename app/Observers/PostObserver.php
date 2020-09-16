@@ -36,9 +36,13 @@ class PostObserver
             $Post->publisher_type = 3;
             $Post->publisher_id = ($Post->owner_id) ? $Post->owner_id: $Post->founder_id;
             $Post->end_date = $Post->end_date;
+            if( ! $Post->isDirty('appearance_status'))
             $Post->appearance_status = 1;
+            if( ! $Post->isDirty('open_status'))
             $Post->open_status = 1;
+            if( ! $Post->isDirty('approval_status'))
             $Post->approval_status = 1;
+            
 
         }
     }
