@@ -240,6 +240,12 @@ class PostsController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+        $p = PostReport::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->get();
+
+        if (!$p->isEmpty()){
+            throw new ApiException('You Already Made A Request', 400);
+        }
+
         $postReport = PostReport::create([
             'post_id' => $post->id,
             'user_id' => auth('api')->user()->id,
