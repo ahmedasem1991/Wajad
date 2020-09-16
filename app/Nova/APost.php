@@ -28,12 +28,14 @@ use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
 use App\Services\Filters\ItemFilters\Lost;
+use Carbon\Carbon;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use EmilianoTisato\NovaBelongsToDepends\NovaBelongsToDepends;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
 
 class APost extends Resource
 {
@@ -124,29 +126,28 @@ class APost extends Resource
             Textarea::make('description')
                 ->rules('required'),
 
-            Toggle::make('Appearance Status', 'appearance_status'),
-            Toggle::make('Open Status', 'open_status'),
-            DateTime::make('Post Closing Date', 'end_date')
-                //->updateRules('required')
-                ->hideWhenCreating(),
+            Toggle::make('Appearance Status', 'appearance_status')->hideWhenCreating(),
+            Toggle::make('Open Status', 'open_status')
+            ->hideWhenCreating(),
+            DateTimeField::make('Post Closing Date', 'end_date')
+            //->dateFormat('YYYY-MM-DD')
+            ->maxDate(Carbon::today())
+            ->withTime()
+            ->hideFromIndex()
+            ->hideWhenCreating(),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
                     1 => 'Approval',
                     2 => 'Rejected',
-                ])->default(0), // optional
-            RadioButton::make('Status')
-                ->options([
-                    0 => 'Lost',
-                    1 => 'Found',
-                ])
-                ->default(0)
-                ->rules('required'), // optional
+                ])->default(0) // optional
+                ->hideWhenCreating(),
 
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
-                ->options(\App\SubCategory::with('brands')->get()),
+                ->options(\App\SubCategory::with('brands')->get())
+                ->hideFromIndex(),
             // ->rules('required'),
 
 
@@ -156,7 +157,8 @@ class APost extends Resource
                     return $subcategory->brands;
                 })
                 //  ->rules('required')
-                ->dependsOn('Subcategory'),
+                ->dependsOn('Subcategory')
+                ->hideFromIndex(),
 
 
             NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
@@ -165,8 +167,20 @@ class APost extends Resource
                     return $brand->models()->get(['id', 'name_en']);
                 })
                 //  ->rules('required')
-                ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+                ->dependsOn('Brand')
+                ->hideFromIndex(),
+            BelongsTo::make('Color', 'color', \App\Nova\Color::class) ->hideFromIndex(),
+
+            RadioButton::make('Status','status')
+                ->options([
+                    0 => 'Lost',
+                    1 => 'Found',
+                ])
+                ->default(0)
+                ->rules('required'), // optional
+
+
+                
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
@@ -176,9 +190,16 @@ class APost extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
+
+
+                NovaDependencyContainer::make([
+
             Heading::make('<p class="text-info" style="margin-left:20%">Owner data if post type is lost</p>')->asHtml(),
-            DateTime::make('Losted At')->hideFromIndex()
-                ->Rules('required_if:status,0'),
+            DateTimeField::make('Losted At')->hideFromIndex()
+            //->dateFormat('YYYY-MM-DD')
+            ->maxDate(Carbon::today())
+            ->withTime()
+            ->Rules('required_if:status,0'),
 
             RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
                 ->options([
@@ -217,9 +238,27 @@ class APost extends Resource
             ])->dependsOn('owner_releated_to_system', 1),
 
 
+            ])->dependsOn('status', 0),
+
+
+
+
+
+
+
+
+
+
+
+
+            NovaDependencyContainer::make([
             Heading::make('<p class="text-info" style="margin-left:20%">Founder data if post type is found</p>')->asHtml(),
-            DateTime::make('Founded At')->hideFromIndex()
-                ->Rules('required_if:status,1'),
+            DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
+                ->Rules('required_if:status,1')
+                //->dateFormat('YYYY-MM-DD')
+                ->maxDate(Carbon::today())
+                ->withTime()
+                ,
 
             RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
                 ->options([
@@ -259,6 +298,10 @@ class APost extends Resource
             ->hideFromDetail()
             ->hideFromIndex(),
             MediaField::make('Item Image', 'images')->listing(),
+
+            ])->dependsOn('status', 1),
+
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
 
             MapMarker::make("Location")
                 ->defaultZoom(5)

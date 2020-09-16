@@ -36,6 +36,10 @@ class PostObserver
             $Post->publisher_type = 3;
             $Post->publisher_id = ($Post->owner_id) ? $Post->owner_id: $Post->founder_id;
             $Post->end_date = $Post->end_date;
+            $Post->appearance_status = 1;
+            $Post->open_status = 1;
+            $Post->approval_status = 1;
+
         }
     }
 
