@@ -9,7 +9,7 @@
             @else
                 <center> <img
                         src="{{Auth::check() && Auth::user()->isCorporateAdmin() ? Auth::user()->corporate->image : URL::asset('/images/wajad_logo.png')}}"
-                        style="height:50px;width:70px;margin-left:50px;display:block;float:snap"
+                         style="height:45px;margin-left:20px;"
                         alt="Avatar"></center>
             @endif
         </div>
