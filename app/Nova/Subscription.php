@@ -57,6 +57,12 @@ class Subscription extends Resource
         'updated_at',
     ];
 
+    public static $searchRelations = [
+        'corporate' => [ 'name_en'],
+        'user' => ['name', 'email', 'mobile_number'],
+        'package' => ['name_en'],
+    ];
+
     /**
      * Get the fields displayed by the resource.
      *

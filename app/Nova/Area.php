@@ -54,6 +54,9 @@ class Area extends Resource
         'updated_at',
     ];
 
+    public static $searchRelations = [
+        'country' => [ 'name_en', 'name_ar'],
+    ];
     /**
      * Get the fields displayed by the resource.
      *

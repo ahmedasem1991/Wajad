@@ -55,7 +55,9 @@ class SubCategory extends Resource
         'created_at',
         'updated_at',
     ];
-
+    public static $searchRelations = [
+        'category' => [ 'name_en', 'name_ar'],
+    ];
     /**
      * Get the fields displayed by the resource.
      *
