@@ -35,7 +35,7 @@ use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use EmilianoTisato\NovaBelongsToDepends\NovaBelongsToDepends;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
-class AllPost extends Resource
+class APost extends Resource
 {
     /**
      * The model the resource corresponds to.

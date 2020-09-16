@@ -21,12 +21,12 @@ class QrCodes extends Partition
         return $this->count($request, AppQrcodes::where('corporate_id',auth()->user()->corporate_id), 'status')
         ->label(function ($value) {
             switch ($value) {
-                case 1:
-                    return 'In Stock';
+                // case 1:
+                //     return 'In Stock';
                 case 2:
-                    return 'Assigned To User';
+                return 'Assigned To User';
                 case 3:
-                return 'Assigned To Corporate';
+                return 'In Stock';
                 case 4:
                 return 'Registered';
                 case 5:

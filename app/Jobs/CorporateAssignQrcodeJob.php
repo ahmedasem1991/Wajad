@@ -58,6 +58,7 @@ class CorporateAssignQrcodeJob implements ShouldQueue
        {
         $Qrcode->corporate_assign_reference_number=$this->corporate_assign_reference_number;
         $Qrcode->user_id=$this->user_id;
+        $Qrcode->status=2;
         $Qrcode->save();
        }
        $level='success';
