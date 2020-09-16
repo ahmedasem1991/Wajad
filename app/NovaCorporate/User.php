@@ -132,8 +132,11 @@ class User extends Resource
             Number::make('Mobile Number', 'mobile_number')
                 ->creationRules('required', 'min:9','max:14')
                 ->updateRules('nullable',  'min:9','max:14'),
-            Toggle::make('Active', 'status'),
-
+//            Toggle::make('Active', 'status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities',Activity::class)
