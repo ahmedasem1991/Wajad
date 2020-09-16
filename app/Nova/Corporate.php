@@ -145,7 +145,11 @@ class Corporate extends Resource
 
             DateTime::make('Availabe End Date','end_date'),
             HasMany::make('Corporate Users', 'users','\App\Nova\CorporateUser'),
-            Toggle::make('Active','status'),
+//            Toggle::make('Active','status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             MapMarker::make("Location")
             ->defaultZoom(5)
             ->defaultLatitude(21.4498898)

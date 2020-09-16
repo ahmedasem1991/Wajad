@@ -109,8 +109,8 @@ class SuperAdmin extends Resource
                 //->rules('required', 'email', 'max:254')
                // ->creationRules('unique:users,email')
 
-              
-               
+
+
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -121,7 +121,7 @@ class SuperAdmin extends Resource
             ->placeholder('Select Country')
             ->options(\App\Country::all()),
 
- 
+
             Number::make('Mobile Number', 'mobile_number')
             ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
             ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
@@ -132,8 +132,11 @@ class SuperAdmin extends Resource
         //         ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
         //         ->onlyCustomFormats(),
 
-            Toggle::make('Active', 'status'),
-
+//            Toggle::make('Active', 'status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')

@@ -127,7 +127,11 @@ class WajadOffice extends Resource
             )->disk('public')->path('images/offices')->deletable(false),
 
 
-            Toggle::make('Active','status'),
+//            Toggle::make('Active','status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)

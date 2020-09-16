@@ -112,8 +112,11 @@ class NormalUser extends Resource
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
           //  HasMany::make('Items','items',Item::class),
-            Toggle::make('Active', 'status'),
-
+//            Toggle::make('Active', 'status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities',Activity::class)

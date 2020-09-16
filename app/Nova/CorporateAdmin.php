@@ -127,7 +127,11 @@ class CorporateAdmin extends Resource
                // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                // ->onlyCustomFormats(),
             //HasMany::make('Items'),
-            Toggle::make('Active', 'status'),
+//            Toggle::make('Active', 'status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             //  Boolean::make('Show My Data','show_my_data'),
 
 
