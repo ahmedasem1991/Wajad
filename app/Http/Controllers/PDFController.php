@@ -62,7 +62,7 @@ class PDFController extends Controller
     public function arReceipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        
+
         $dispatcher = Post::getEventDispatcher();
         Post::unsetEventDispatcher();
         $post->open_status = 0;

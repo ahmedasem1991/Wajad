@@ -8,16 +8,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class Banner extends Model
+class Banner extends Model implements Sortable
 {
-    use LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes, SortableTrait;
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date'   => 'datetime'
     ];
 
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
     public function visits()
     {
         return $this->morphOne(Visit::class, 'visitable');
