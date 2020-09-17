@@ -104,7 +104,7 @@ class BrandPolicy
     public function addModel()
     {
         $URL = URL::current();
-logger($URL);
+
         if (strstr($URL, 'relate-authorization')) {
             logger('No model');
             return false;

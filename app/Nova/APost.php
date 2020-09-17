@@ -118,14 +118,21 @@ class APost extends Resource
      */
     public function fields(Request $request)
     {
-
+        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+         if($this->status==1)
+        {
+        $Questions=HasMany::make('Questions');
+         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+        }
+       
         return [
-            ID::make()->sortable(),
+            ID::make()->sortable()->hideFromDetail()->hideFromIndex(),
             Text::make('Title')
                 ->rules('required'),
             Textarea::make('description')
                 ->rules('required'),
-
+              
             Toggle::make('Appearance Status', 'appearance_status')->hideWhenCreating(),
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
@@ -189,14 +196,21 @@ class APost extends Resource
 
 
 
-            RadioButton::make('Status', 'status')
-                ->options([
+            // RadioButton::make('Status', 'status')
+            //     ->options([
+            //         0 => 'Lost',
+            //         1 => 'Found',
+            //     ])
+            //     ->stack()
+            //     //->default(0)
+            //     ->rules('required'), // optional
+
+                Select::make('Status')->options([
                     0 => 'Lost',
-                    1 => 'Found',
+                    1 => 'Found'
                 ])
-                ->stack()
-                //->default(0)
-                ->rules('required'), // optional
+                ->displayUsingLabels()
+                ->rules('required'),
 
 
 
@@ -443,8 +457,8 @@ class APost extends Resource
 
 
 
-            HasMany::make('Questions'),
-            HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
+            // HasMany::make('Questions'),
+            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
 
 
 
@@ -455,6 +469,11 @@ class APost extends Resource
             Button::make('AR PDF')
                 ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
+                HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
+                $Questions,
+                $PostRequests
+
+                 
 
 
 

@@ -141,7 +141,7 @@ class Post extends MasterModel
 
     public function person()
     {
-        return $this->belongsTo(People::class);
+        return $this->belongsTo(People::class,'person_id');
     }
 
     /**

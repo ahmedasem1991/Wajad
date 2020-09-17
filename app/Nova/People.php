@@ -31,7 +31,7 @@ class People extends Resource
      *
      * @var string
      */
-    public static $model = 'App\\People';
+    public static $model = 'App\People';
 
     /**
      * The logical group associated with the resource.

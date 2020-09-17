@@ -110,20 +110,34 @@ class ClosedPost extends Resource
     public function fields(Request $request)
     {
 
+        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+         if($this->status==1)
+        {
+        $Questions=HasMany::make('Questions');
+         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+        }
         return [
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('description')->readonly(),
-            RadioButton::make('Status')
-                ->options([
-                    0 => 'Lost',
-                    1 => 'Found',
-                ])
-                 ->readonly(function() {
-                    return false;
-                })
-                ->stack()
-                ->default(0), // optional
+            // RadioButton::make('Status')
+            //     ->options([
+            //         0 => 'Lost',
+            //         1 => 'Found',
+            //     ])
+            //      ->readonly(function() {
+            //         return false;
+            //     })
+            //     ->stack()
+            //     ->default(0), // optional
+
+            Select::make('Status')->options([
+                0 => 'Lost',
+                1 => 'Found'
+            ])
+            ->displayUsingLabels()
+            ->readonly(),
             Toggle::make('Appearance Status', 'appearance_status'),
             Toggle::make('Open Status', 'open_status'),
             DateTimeField::make('Post Closing Date', 'end_date')
@@ -169,7 +183,7 @@ class ClosedPost extends Resource
             Text::make('Publisher type', 'publisher_type')
                 ->sortable()
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+                ->hideWhenUpdating()->hideFromIndex()
                 ->readonly(),
 
 
@@ -177,21 +191,29 @@ class ClosedPost extends Resource
 
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">Owner data if post type is lost</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
             DateTime::make('Losted At')->hideFromIndex()
                 ->readonly()
                 ->Rules('required_if:status,0'),
 
-            RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
-                ->options([
+            // RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
+            //     ->options([
+            //         2 => 'default',
+            //         0 => 'No',
+            //         1 => 'Yes',
+            //     ])
+            //     ->stack()
+            //     ->default(2)
+            //     ->hideFromIndex()
+            //     ->readonly(),
+            Select::make('Owner Releated To System', 'owner_releated_to_system')->options([
                     2 => 'default',
                     0 => 'No',
                     1 => 'Yes',
-                ])
-                ->stack()
-                ->default(2)
-                ->hideFromIndex()
-                ->readonly(),
+            ])
+            ->displayUsingLabels()
+            ->hideFromIndex()
+            ->readonly(),
 
             // optional
             NovaDependencyContainer::make([
@@ -225,22 +247,32 @@ class ClosedPost extends Resource
            ,
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">Founder data if post type is found</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
             DateTime::make('Founded At')->hideFromIndex()
                 ->Rules('required_if:status,1')
                 ->readonly(),
 
-            RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
-                ->options([
-                    2 => 'default',
-                    0 => 'No',
-                    1 => 'yes',
+            // RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
+            //     ->options([
+            //         2 => 'default',
+            //         0 => 'No',
+            //         1 => 'yes',
 
-                ])
-                ->stack()
-                ->hideFromIndex()
-                ->default(2)
-                ->readonly(),
+            //     ])
+            //     ->stack()
+            //     ->hideFromIndex()
+            //     ->default(2)
+            //     ->readonly(),
+
+            Select::make('Founder Releated To System', 'founder_releated_to_system')->options([
+                2 => 'default',
+                0 => 'No',
+                1 => 'Yes',
+        ])
+        ->displayUsingLabels()
+        ->hideFromIndex()
+        ->readonly(),
+
             NovaDependencyContainer::make([
                 NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                     ->placeholder('Select Person')
@@ -262,14 +294,21 @@ class ClosedPost extends Resource
                 ->readonly(),
 
             MediaField::make('Item Image', 'images')->listing(),
+
+
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
             MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)
                 ->defaultLongitude(39.4913431)
+                ->hideFromIndex()
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-            HasMany::make('Questions'),
-            HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
+            // HasMany::make('Questions'),
+            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
+            HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
+            $Questions,
+            $PostRequests
         ];
     }
 
