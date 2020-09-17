@@ -108,4 +108,8 @@ class Visit extends Resource
     {
         return false;
     }
+    public static function icon()
+    {
+        return  '<img class="sidebar-icon" src="/images/icons/analytics.png" style="height:22px;width:22px;margin=10px" />';
+    }
 }
