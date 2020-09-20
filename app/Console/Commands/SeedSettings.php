@@ -100,6 +100,13 @@ class SeedSettings extends Command
                'created_at' => null,
                'updated_at' => null
            ],
+           [
+            'key' => 'min_qrcodes_number',
+            //'title' => 'Limited Posts',
+            'value' => 1000,
+            'created_at' => null,
+            'updated_at' => null
+        ],
                     [
                         'key' => 'Phone-Number-1',
                         //'title' => 'Limited Posts',

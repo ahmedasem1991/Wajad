@@ -19,3 +19,8 @@ function maxReportsNumber()
     return Setting::where('key', 'max_post_reports_number')->first()['value'];
 }
 
+
+function MinQRCodesNumber()
+{
+    return Setting::where('key', 'min_qrcodes_number')->first()['value'];
+}

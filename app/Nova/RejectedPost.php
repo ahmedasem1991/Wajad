@@ -181,7 +181,7 @@ class RejectedPost extends Resource
 
             //  ->rules('required'),
 
-            Select::make('Status')->options([
+            Select::make('Post Type','status')->options([
                 0 => 'Lost',
                 1 => 'Found'
             ])

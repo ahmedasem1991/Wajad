@@ -51,6 +51,11 @@ class Notification extends Resource
         'updated_at',
     ];
 
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('notifications')) ? true : false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *

@@ -207,7 +207,7 @@ class APost extends Resource
             //     //->default(0)
             //     ->rules('required'), // optional
 
-                Select::make('Status')->options([
+            Select::make('Post Type','status')->options([
                     0 => 'Lost',
                     1 => 'Found'
                 ])

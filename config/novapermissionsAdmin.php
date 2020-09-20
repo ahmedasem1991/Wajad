@@ -333,6 +333,24 @@ return [
             'group'        => 'Resources',
         ],
 
+        'notifications' => [
+            'display_name' => 'Notifications',
+            'description'  => 'notifications',
+            'group'        => 'Notifications',
+        ],
+
+        // 'view settings' => [
+        //     'display_name' => 'View settings',
+        //     'description'  => 'Can view settings',
+        //     'group'        => 'Settings',
+        // ],
+
+        'visits' => [
+            'display_name' => 'Visits',
+            'description'  => 'visits',
+            'group'        => 'Resources',
+        ],
+
         // 'create banners' => [
         //     'display_name' => 'Create banners',
         //     'description'  => 'Can create banners',

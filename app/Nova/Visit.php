@@ -34,6 +34,11 @@ class Visit extends Resource
 
     public static $group = 'Resources';
 
+
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('visits')) ? true : false;
+    }
     /**
      * Get the fields displayed by the resource.
      *

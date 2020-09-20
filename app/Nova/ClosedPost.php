@@ -138,7 +138,7 @@ class ClosedPost extends Resource
             //     ->stack()
             //     ->default(0), // optional
 
-            Select::make('Status')->options([
+            Select::make('Post Type','status')->options([
                 0 => 'Lost',
                 1 => 'Found'
             ])
@@ -171,7 +171,7 @@ class ClosedPost extends Resource
                 ->readonly(),
 
 
-                BelongsTo::make('Model', 'model', \App\NovaCorporate\Model::class)
+                BelongsTo::make('Model', 'model', \App\Nova\Model::class)
                 //->placeholder('Optional Placeholder')
                 // ->optionsResolve(function ($brand) {
                 //     return $brand->models()->get(['id', 'name_en']);

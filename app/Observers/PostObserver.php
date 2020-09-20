@@ -26,11 +26,17 @@ class PostObserver
         if (Auth()->User()->isCorporateAdmin()) {
             //$Post->appearance_status = 1;
             //$Post->open_status = 1;
-            $Post->approval_status = 1;
+            //$Post->approval_status = 1;
             $Post->corporate_id = Auth()->User()->corporate_id;
             $Post->publisher_id = Auth()->User()->id;
             $Post->publisher_type = 2;
             $Post->end_date = $Post->end_date;
+            if( ! $Post->isDirty('appearance_status'))
+            $Post->appearance_status = 1;
+            if( ! $Post->isDirty('open_status'))
+            $Post->open_status = 1;
+            if( ! $Post->isDirty('approval_status'))
+            $Post->approval_status = 1;
         }
         if (Auth()->check() && Auth()->User()->isAdmin()) {
             $Post->publisher_type = 3;

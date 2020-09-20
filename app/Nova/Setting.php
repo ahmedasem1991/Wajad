@@ -128,4 +128,17 @@ class Setting extends Resource
     {
         return  '<img class="sidebar-icon" src="/images/icons/settings.png" style="height:22px;width:22px;margin=10px" />';
     }
+
+    public static function availableForNavigation(Request $request)
+    {
+        
+        if (auth()->user()->hasPermissionTo('settings')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
+ 
 }
