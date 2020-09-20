@@ -94,8 +94,13 @@ class ReportedPost extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'founder' => [ 'name', 'email', 'mobile_number'],
+        'color' => ['name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
+        'model' => ['name_en', 'name_ar'],
+        'founder' => ['name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
+        'publisher' => ['name', 'email', 'mobile_number'],
     ];
 
     public static function availableForNavigation(Request $request)
@@ -183,7 +188,7 @@ class ReportedPost extends Resource
                 ])
                 ->displayUsingLabels()
                 ->rules('required'),
-    
+
 
                   NovaDependencyContainer::make([
 
@@ -193,7 +198,7 @@ class ReportedPost extends Resource
                         ->maxDate(Carbon::today())
                         ->withTime()
                         ->Rules('required_if:status,0'),
-    
+
                     RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
                         ->options([
                             2 => 'default',
@@ -203,48 +208,48 @@ class ReportedPost extends Resource
                         ->stack()
                         ->default(2)
                         ->hideFromIndex(),
-    
-    
+
+
                     NovaDependencyContainer::make([
                         NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                             ->placeholder('Select Person')
                             ->options(\App\People::all())
                             ->rules('required_if:owner_releated_to_system,0'),
-    
+
                     ])->dependsOn('owner_releated_to_system', 0),
-    
+
                     NovaDependencyContainer::make([
                         NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
                             ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                             ->placeholder('Select Owner')
                             ->options(\App\User::NormalUsers()->get())
                             ->rules('required_if:owner_releated_to_system,1'),
-    
+
                         NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                             ->placeholder('Select Item')
-    
+
                             ->optionsResolve(function ($owner) {
                                 return $owner->items()->get();
                             })
                             ->rules('required_if:owner_releated_to_system,1')
                             ->dependsOn('Owner'),
-    
+
                     ])->dependsOn('owner_releated_to_system', 1),
-    
-    
+
+
                 ])->dependsOn('status', 0),
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
                 NovaDependencyContainer::make([
                     Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                     DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
@@ -252,31 +257,31 @@ class ReportedPost extends Resource
                         //->dateFormat('YYYY-MM-DD')
                         ->maxDate(Carbon::today())
                         ->withTime(),
-    
+
                     RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
                         ->options([
                             2 => 'default',
                             0 => 'No',
                             1 => 'yes',
-    
+
                         ])
                         ->stack()
                         ->hideFromIndex()
                         ->default(2),
                     NovaDependencyContainer::make([
-    
+
                         NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                             ->placeholder('Select Person')
                             ->options(\App\People::all())
                             ->rules('required_if:founder_releated_to_system,0'),
-    
-    
+
+
                     ])->dependsOn('founder_releated_to_system', 0),
-    
-    
-    
+
+
+
                     NovaDependencyContainer::make([
-    
+
                         NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
                             ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                             ->placeholder('Select Owner')
@@ -284,7 +289,7 @@ class ReportedPost extends Resource
                     ])
                         ->dependsOn('founder_releated_to_system', 1)
                         ->rules('required_if:founder_releated_to_system,1'),
-    
+
                     //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                     Text::make('Question')
                         ->creationRules('required_if:status,1')
@@ -292,23 +297,23 @@ class ReportedPost extends Resource
                         ->hideFromDetail()
                         ->hideFromIndex(),
                     MediaField::make('Item Image', 'images')->listing(),
-    
+
                 ])->dependsOn('status', 1),
-    
-    
-    
-    
-    
-            
+
+
+
+
+
+
                 NovaDependencyContainer::make([
-    
+
                     Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                     DateTimeField::make('Losted At')->hideFromIndex()
                         //->dateFormat('YYYY-MM-DD')
                         ->maxDate(Carbon::today())
                         ->withTime()
                         ->Rules('required_if:status,0'),
-    
+
                     RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
                         ->options([
                             2 => 'default',
@@ -318,44 +323,44 @@ class ReportedPost extends Resource
                         ->stack()
                         ->default(2)
                         ->hideFromIndex(),
-    
-    
+
+
                     NovaDependencyContainer::make([
                         NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                             ->placeholder('Select Person')
                             ->options(\App\People::all())
                             ->rules('required_if:owner_releated_to_system,0'),
-    
+
                     ])->dependsOn('owner_releated_to_system', 0),
-    
+
                     NovaDependencyContainer::make([
                         NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
                             ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                             ->placeholder('Select Owner')
                             ->options(\App\User::NormalUsers()->get())
                             ->rules('required_if:owner_releated_to_system,1'),
-    
+
                         NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                             ->placeholder('Select Item')
-    
+
                             ->optionsResolve(function ($owner) {
                                 return $owner->items()->get();
                             })
                             ->rules('required_if:owner_releated_to_system,1')
                             ->dependsOn('Owner'),
-    
+
                     ])->dependsOn('owner_releated_to_system', 1),
-    
-    
+
+
                 ])->dependsOn('status', 1)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
-    
-    
-    
-    
-   
-                
+
+
+
+
+
+
                 NovaDependencyContainer::make([
                     Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                     DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
@@ -363,31 +368,31 @@ class ReportedPost extends Resource
                         //->dateFormat('YYYY-MM-DD')
                         ->maxDate(Carbon::today())
                         ->withTime(),
-    
+
                     RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
                         ->options([
                             2 => 'default',
                             0 => 'No',
                             1 => 'yes',
-    
+
                         ])
                         ->stack()
                         ->hideFromIndex()
                         ->default(2),
                     NovaDependencyContainer::make([
-    
+
                         NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                             ->placeholder('Select Person')
                             ->options(\App\People::all())
                             ->rules('required_if:founder_releated_to_system,0'),
-    
-    
+
+
                     ])->dependsOn('founder_releated_to_system', 0),
-    
-    
-    
+
+
+
                     NovaDependencyContainer::make([
-    
+
                         NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
                             ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                             ->placeholder('Select Owner')
@@ -395,7 +400,7 @@ class ReportedPost extends Resource
                     ])
                         ->dependsOn('founder_releated_to_system', 1)
                         ->rules('required_if:founder_releated_to_system,1'),
-    
+
                     //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                     Text::make('Question')
                         ->creationRules('required_if:status,1')
@@ -403,14 +408,14 @@ class ReportedPost extends Resource
                         ->hideFromDetail()
                         ->hideFromIndex(),
                     MediaField::make('Item Image', 'images')->listing(),
-    
+
                 ])->dependsOn('status', 0)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
-    
-    
+
+
                 Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
-    
+
 
                             MapMarker::make("Location")
                             ->defaultZoom(5)
@@ -424,7 +429,7 @@ class ReportedPost extends Resource
                             $Questions,
                             $PostRequests
 
-                          
+
 
         ];
     }
@@ -500,7 +505,7 @@ class ReportedPost extends Resource
             $span= '<span style="background-color:orange;padding:  1px 2px;border-radius: 50%;">'.$count.'</span>';
         }
         return '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />'.$span ;
- 
+
     }
 
     public static function indexQuery(NovaRequest $request, $query)

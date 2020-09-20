@@ -91,8 +91,13 @@ class OpeningPost extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'founder' => [ 'name', 'email', 'mobile_number'],
+        'color' => ['name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
+        'model' => ['name_en', 'name_ar'],
+        'founder' => ['name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
+        'publisher' => ['name', 'email', 'mobile_number'],
     ];
 
     public static function availableForNavigation(Request $request)
@@ -287,7 +292,7 @@ class OpeningPost extends Resource
 
 
 
-        
+
             NovaDependencyContainer::make([
 
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
@@ -343,7 +348,7 @@ class OpeningPost extends Resource
 
 
 
-            
+
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
@@ -405,7 +410,7 @@ class OpeningPost extends Resource
                 ->defaultLongitude(39.4913431)
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3)
                 ->hideFromIndex(),
-            
+
             // HasMany::make('Questions'),
             // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),

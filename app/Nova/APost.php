@@ -103,11 +103,13 @@ class APost extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'color' => ['name_en'],
-        'brand' => ['name_en'],
-        'model' => ['name_en'],
+        'color' => ['name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
+        'model' => ['name_en', 'name_ar'],
         'founder' => ['name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
+        'publisher' => ['name', 'email', 'mobile_number'],
     ];
 
     /**
@@ -125,14 +127,14 @@ class APost extends Resource
         $Questions=HasMany::make('Questions');
          $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
-       
+
         return [
             ID::make()->sortable()->hideFromDetail()->hideFromIndex(),
             Text::make('Title')
                 ->rules('required'),
             Textarea::make('description')
                 ->rules('required'),
-              
+
             Toggle::make('Appearance Status', 'appearance_status')->hideWhenCreating(),
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
@@ -143,7 +145,7 @@ class APost extends Resource
                 ->hideFromIndex()
                 ->hideWhenCreating()
                 ->Rules('required_if:open_status,0'),
-                
+
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
@@ -151,7 +153,7 @@ class APost extends Resource
                     2 => 'Rejected',
                 ])
                 ->stack()
-                
+
                 ->default(0) // optional
                 ->hideWhenCreating(),
 
@@ -332,7 +334,7 @@ class APost extends Resource
 
 
 
-        
+
             NovaDependencyContainer::make([
 
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
@@ -388,7 +390,7 @@ class APost extends Resource
 
 
 
-            
+
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
@@ -473,7 +475,7 @@ class APost extends Resource
                 $Questions,
                 $PostRequests
 
-                 
+
 
 
 

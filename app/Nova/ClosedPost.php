@@ -93,8 +93,14 @@ class ClosedPost extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'founder' => [ 'name', 'email', 'mobile_number'],
+        'color' => ['name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
+        'model' => ['name_en', 'name_ar'],
+        'founder' => ['name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
+        'publisher' => ['name', 'email', 'mobile_number'],
+        'item' => ['title'],
     ];
 
     public static function availableForNavigation(Request $request)

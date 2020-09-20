@@ -94,10 +94,14 @@ class PendingPost extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'founder' => [ 'name', 'email', 'mobile_number'],
+        'color' => ['name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
+        'model' => ['name_en', 'name_ar'],
+        'founder' => ['name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
+        'publisher' => ['name', 'email', 'mobile_number'],
     ];
-
 
     public static function availableForNavigation(Request $request)
     {
@@ -304,7 +308,7 @@ class PendingPost extends Resource
 
 
 
-        
+
             NovaDependencyContainer::make([
 
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
@@ -360,7 +364,7 @@ class PendingPost extends Resource
 
 
 
-            
+
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
@@ -414,7 +418,7 @@ class PendingPost extends Resource
             ->hideWhenCreating(),
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),     
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
                MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)
