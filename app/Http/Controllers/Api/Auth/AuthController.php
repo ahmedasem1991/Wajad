@@ -441,7 +441,7 @@ class AuthController extends Controller
     {
         $login_user = Socialite::driver('apple')->userFromToken($request->input('token'));
 
-        $user = User::where('social_id', '=', $login_user->user['sub'])->first();
+        $user = User::where('social_id', '=', $login_user->id)->first();
         if (is_null($user)){
             $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
 
@@ -455,6 +455,7 @@ class AuthController extends Controller
                 'type' => User::Types['user'],
                 'is_mobile_number_verified' => false,
                 'posts_number' => 0,
+                'social_id' => $login_user->id,
             ]);
 
             $langHeader=request()->header('Content-Language');
