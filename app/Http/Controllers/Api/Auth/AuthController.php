@@ -345,7 +345,7 @@ class AuthController extends Controller
 
         $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
         if (is_null($user)){
-        $avatar=$login_user->avatar;
+            $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
         // $imagepath='images/profile/default-profile.png';
         // if($avatar != null || $avatar !='')
         // {
