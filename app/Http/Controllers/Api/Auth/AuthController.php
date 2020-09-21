@@ -12,6 +12,7 @@ use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
 use Laravel\Socialite\Facades\Socialite;
@@ -224,7 +225,7 @@ class AuthController extends Controller
                 'created_from'=>'new_register' ,
                ]);
             }
-          
+
 
         return $this->login();
     }
@@ -341,7 +342,7 @@ class AuthController extends Controller
     public function socialLogin($driver)
     {
         $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
-        
+
         $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
         if (is_null($user)){
         $avatar=$login_user->avatar;
@@ -378,7 +379,7 @@ class AuthController extends Controller
                 'created_from'=>'new_register' ,
             ]);
             }
-           
+
         }
 
         if (!$token = auth('api')->login($user)) {
@@ -391,6 +392,99 @@ class AuthController extends Controller
 
         auth('api')->user()->userDevices()->firstOrCreate([
             'device_type' => request('device_type')
+        ]);
+
+        auth('api')->user()->activeLogin()->Create([
+            'user_id' => auth('api')->user()->id
+        ]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    /**
+     * Apple Login
+     * @bodyParam token string required
+     * @bodyParam device_type string required
+     * @bodyParam name string
+     * @bodyParam email string
+     * @response {
+     *  "token_type": "Bearer",
+     *  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
+     *  "expires_in": 216000,
+     *  "user": {
+     *      "id": 24,
+     *      "name": "Smart AppCo",
+     *      "email": "a.shafik@smartappco.com",
+     *      "status": null,
+     *      "mobile_number": "",
+     *      "receive_emails": false,
+     *      "receive_push_notifications": false,
+     *      "is_email_verified": false,
+     *      "is_mobile_number_verified": false,
+     *      "default_distance_unit": null,
+     *      "quick_user_id": null,
+     *      "quick_user_email": "a.shafik@smartappco.com",
+     *      "quick_user_password": null,
+     *      "image": null,
+     *      "country": null
+     *    }
+     * }
+     *
+     */
+
+    public function appleLogin(Request $request)
+    {
+        $login_user = Socialite::driver('apple')->userFromToken($request->input('token'));
+
+        $user = User::where('social_id', '=', $login_user->user['sub'])->first();
+        if (is_null($user)){
+            $avatar=$login_user->avatar ?? null;
+
+            $user = User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'image' => $avatar,
+                'is_social_user' => true,
+                'mobile_number' => null,
+                'social_name' => 'apple',
+                'type' => User::Types['user'],
+                'is_mobile_number_verified' => false,
+                'posts_number' => 0,
+            ]);
+
+            $langHeader=request()->header('Content-Language');
+            if ($langHeader != 'ar') {
+                $langHeader = 'en';
+            }
+            PrepereNewUser::dispatch($user);
+            if(count($user->qrcodes) == 0 ){
+                AssignQrcode::create([
+                    'assign_to'=>1,
+                    'type'=>1,
+                    'user_id'=>$user->id,
+                    'quantity'=>  defaultGroup()->free_qrcodes ,
+                    'available_period'=>  defaultGroup()->available_period_qrcodes ,
+                    'created_from'=>'new_register' ,
+                ]);
+            }
+
+        }
+
+        if (!$token = auth('api')->login($user)) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        if (!auth('api')->user()->isUser()) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => $request->input('device_type')
         ]);
 
         auth('api')->user()->activeLogin()->Create([

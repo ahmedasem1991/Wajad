@@ -13,6 +13,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/resetPassword', 'ResetPasswordController');
     Route::post('/refreshToken', 'AuthController@refresh');
     Route::post('/socialLogin/{driver}', 'AuthController@socialLogin');
+    Route::post('/appleLogin', 'AuthController@appleLogin');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');
