@@ -444,17 +444,10 @@ class AuthController extends Controller
         $user = User::where('social_id', '=', $login_user->user['sub'])->first();
         if (is_null($user)){
             $avatar=$login_user->avatar ?? null;
-
-            $validatedData = $request->validate([
-                'name' => ['required'],
-                'email' => ['required','email']
-            ]);
-            if ($validatedData->fails()){
-                throw new ApiException($validatedData->errors()->first(), 400);
-            }
+            
             $user = User::create([
                 'name' => $request->input('name'),
-                'email' => $request->input('email'),
+                'email' => $request->input('email') ?? $login_user->email,
                 'image' => $avatar,
                 'is_social_user' => true,
                 'mobile_number' => null,
