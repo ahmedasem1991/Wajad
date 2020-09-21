@@ -445,6 +445,13 @@ class AuthController extends Controller
         if (is_null($user)){
             $avatar=$login_user->avatar ?? null;
 
+            $validatedData = $request->validate([
+                'name' => ['required'],
+                'email' => ['required','email']
+            ]);
+            if ($validatedData->fails()){
+                throw new ApiException($validatedData->errors()->first(), 400);
+            }
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
