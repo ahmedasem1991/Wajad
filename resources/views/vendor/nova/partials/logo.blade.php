@@ -7,13 +7,13 @@
                         style="height:50px;width:70px;;margin-left:auto;margin-right: auto;display:block;float:snap"
                         alt="Avatar"></center>
             @else
-           <?php 
+           <?php
            if(Auth::check() && Auth::user()->isCorporateAdmin())
            $style="height:50px;width:70px;margin-left:50px;display:block;float:snap";
            else $style="height:45px;margin-left:20px;";
            ?>
                 <center> <img
-                        src="{{Auth::check() && Auth::user()->isCorporateAdmin() ? Auth::user()->corporate->image : URL::asset('/images/wajad_logo.png')}}"
+                        src="{{Auth::check() && Auth::user()->isCorporateAdmin() ? URL::asset(Auth::user()->corporate->image) : URL::asset('/images/wajad_logo.png')}}"
                          style="{{ $style}} "
                         alt="Avatar"></center>
             @endif
