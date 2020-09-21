@@ -46,7 +46,7 @@ class CreateUsersTable extends Migration
             $table->string('language', 5)->default('en');
             $table->integer('quick_user_id')->nullable();
             $table->string('quick_user_password')->default('QuickBlox1!');
-            $table->text('social_id')->nullable();
+            $table->string('social_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
