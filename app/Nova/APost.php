@@ -120,12 +120,11 @@ class APost extends Resource
      */
     public function fields(Request $request)
     {
-        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-         if($this->status==1)
-        {
-        $Questions=HasMany::make('Questions');
-         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+        $Questions = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if ($this->status == 1) {
+            $Questions = HasMany::make('Questions');
+            $PostRequests = HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
 
         return [
@@ -207,10 +206,10 @@ class APost extends Resource
             //     //->default(0)
             //     ->rules('required'), // optional
 
-            Select::make('Post Type','status')->options([
-                    0 => 'Lost',
-                    1 => 'Found'
-                ])
+            Select::make('Post Type', 'status')->options([
+                0 => 'Lost',
+                1 => 'Found'
+            ])
                 ->displayUsingLabels()
                 ->rules('required'),
 
@@ -321,8 +320,21 @@ class APost extends Resource
                     ->rules('required_if:founder_releated_to_system,1'),
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                Text::make('Question')
+
+                Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
@@ -383,8 +395,8 @@ class APost extends Resource
 
 
             ])->dependsOn('status', 1)
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->hideFromIndex()
+                ->hideWhenCreating(),
 
 
 
@@ -431,17 +443,29 @@ class APost extends Resource
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                Text::make('Question')
+                Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
+
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
                 MediaField::make('Item Image', 'images')->listing(),
 
             ])->dependsOn('status', 0)
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->hideFromIndex()
+                ->hideWhenCreating(),
 
 
 
@@ -471,9 +495,9 @@ class APost extends Resource
             Button::make('AR PDF')
                 ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
-                HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
-                $Questions,
-                $PostRequests
+            HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
+            $Questions,
+            $PostRequests
 
 
 

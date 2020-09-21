@@ -56,7 +56,7 @@ class PostObserver
     public function saved(Post $Post)
     {
         if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin() ) {
-            $question= $Post->question;
+            $question= $Post->question_1;
             if($question=='' || $question == null) {
                 $question = null;
             }else {
@@ -66,6 +66,30 @@ class PostObserver
                     'question' => $question,
                 ]);
             }
+
+            $question= $Post->question_2;
+            if($question=='' || $question == null) {
+                $question = null;
+            }else {
+                Question::firstOrCreate([
+                    'corporate_id' => Auth()->User()->corporate_id,
+                    'post_id' => $Post->id,
+                    'question' => $question,
+                ]);
+            }
+
+            $question= $Post->question_3;
+            if($question=='' || $question == null) {
+                $question = null;
+            }else {
+                Question::firstOrCreate([
+                    'corporate_id' => Auth()->User()->corporate_id,
+                    'post_id' => $Post->id,
+                    'question' => $question,
+                ]);
+            }
+
+
         }
     }
 

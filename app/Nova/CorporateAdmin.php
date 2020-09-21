@@ -163,7 +163,7 @@ class CorporateAdmin extends Resource
                 ->nullable(),
 
              //   BelongsToMany::make('Roles', 'roles', Role::class),
-                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+               // HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }

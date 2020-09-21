@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\User;
 use App\People;
 use Carbon\Carbon;
+use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -303,6 +304,13 @@ class ClosedPost extends Resource
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+           
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            
+            Button::make('Open')
+            ->style('success')
+            ->event('App\Events\OpenPostEvent'),
+            
             MapMarker::make("Location")
                 ->defaultZoom(5)
                 ->defaultLatitude(21.4498898)

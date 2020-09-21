@@ -213,10 +213,25 @@ class ReportedPost extends Resource
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3)
                 ->hideFromIndex(),
 
-                Text::make('Question')->creationRules('required')
+
+                Text::make('Question 1', 'question_1')
+                ->creationRules('required')
                 ->hideWhenUpdating()
                 ->hideFromDetail()
                 ->hideFromIndex(),
+
+            Text::make('Question 2', 'question_2')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 3', 'question_3')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
 
                 HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),

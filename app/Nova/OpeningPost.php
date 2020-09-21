@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\People;
+use Carbon\Carbon;
+use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -26,9 +28,8 @@ use App\Services\Filters\ItemFilters\Lost;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
-use Carbon\Carbon;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class OpeningPost extends Resource
 {
@@ -279,11 +280,24 @@ class OpeningPost extends Resource
                     ->rules('required_if:founder_releated_to_system,1'),
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                Text::make('Question')
-                    ->creationRules('required_if:status,1')
-                    ->hideWhenUpdating()
-                    ->hideFromDetail()
-                    ->hideFromIndex(),
+                Text::make('Question 1', 'question_1')
+                ->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 2', 'question_2')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 3', 'question_3')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
                 MediaField::make('Item Image', 'images')->listing(),
 
             ])->dependsOn('status', 1),
@@ -390,11 +404,24 @@ class OpeningPost extends Resource
                     ->rules('required_if:founder_releated_to_system,1'),
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                Text::make('Question')
-                    ->creationRules('required_if:status,1')
-                    ->hideWhenUpdating()
-                    ->hideFromDetail()
-                    ->hideFromIndex(),
+                Text::make('Question 1', 'question_1')
+                ->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 2', 'question_2')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 3', 'question_3')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
                 MediaField::make('Item Image', 'images')->listing(),
 
             ])->dependsOn('status', 0)
@@ -403,6 +430,14 @@ class OpeningPost extends Resource
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Button::make('Close')
+            ->style('danger')
+            ->event('App\Events\ClosePostEvent'),
+
+
+            Button::make('Hidden')
+            ->style('grey')
+            ->event('App\Events\HiddenPostEvent'),
 
             MapMarker::make("Location")
                 ->defaultZoom(5)

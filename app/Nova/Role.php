@@ -10,7 +10,9 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
+use OwenMelbz\RadioField\RadioButton;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Laravel\Nova\Fields\BelongsToMany;
 use Pktharindu\NovaPermissions\Checkboxes;
@@ -123,6 +125,24 @@ class Role extends Resource
                 ->updateRules('unique:roles,slug,{{resourceId}}')
                 ->sortable(),
 
+
+                            //Toggle::make('Mobile Users Group', 'mobile_group'),
+
+            RadioButton::make('Group Control', 'mobile_group')
+            ->options([
+                0 => 'Web Group',
+                1 => 'Mobile Group',
+                2 => 'default',
+            ])
+            ->stack()
+
+            ->default(2) // optional
+            ->rules('required'),
+
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+              
+
+                NovaDependencyContainer::make([
             Checkboxes::make(__('Permissions'), 'permissions')
                 ->withGroups()
                 ->options(collect(config('novapermissionsAdmin.permissions'))
@@ -135,10 +155,13 @@ class Role extends Resource
                         ];
                     })->groupBy('group')->toArray()),
 
+                    ])->dependsOn('mobile_group', 0),
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
-            Toggle::make('Mobile Users Group', 'mobile_group'),
+
+
+
             NovaDependencyContainer::make([
                 Toggle::make('Default Group'),
                 Toggle::make('Auto Approve'),

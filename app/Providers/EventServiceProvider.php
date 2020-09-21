@@ -23,10 +23,33 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\SendFCMEvent' => [
             'App\Listeners\SendFCMListener',
-            ],
+        ],
         'App\Events\SendSMSEvent' => [
-                'App\Listeners\SendSMSListener',
-                ],
+            'App\Listeners\SendSMSListener',
+        ],
+        'App\Events\ClosePostEvent' => [
+            'App\Listeners\ClosePostListener',
+        ],
+        'App\Events\OpenPostEvent' => [
+            'App\Listeners\OpenPostListener',
+        ],
+
+        'App\Events\ShowPostEvent' => [
+            'App\Listeners\ShowPostListener',
+        ],
+
+
+        'App\Events\HiddenPostEvent' => [
+            'App\Listeners\HiddenPostListener',
+        ],
+
+        'App\Events\ApprovePostEvent' => [
+            'App\Listeners\ApprovePostListener',
+        ],
+
+        'App\Events\RejectPostEvent' => [
+            'App\Listeners\RejectPostListener',
+        ],
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\\Apple\\AppleExtendSocialite@handle',
             'SocialiteProviders\\Instagram\\InstagramExtendSocialite@handle',

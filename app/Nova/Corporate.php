@@ -144,7 +144,7 @@ class Corporate extends Resource
             )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
 
             DateTime::make('Availabe End Date','end_date'),
-            HasMany::make('Corporate Users', 'users','\App\Nova\CorporateUser'),
+            HasMany::make('Corporate Admins', 'users','\App\Nova\CorporateAdmin'),
 //            Toggle::make('Active','status'),
             Boolean::make('Active','status')
                 ->trueValue(1)

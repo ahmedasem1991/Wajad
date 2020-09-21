@@ -291,11 +291,24 @@ class ReportedPost extends Resource
                         ->rules('required_if:founder_releated_to_system,1'),
 
                     //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                    Text::make('Question')
-                        ->creationRules('required_if:status,1')
-                        ->hideWhenUpdating()
-                        ->hideFromDetail()
-                        ->hideFromIndex(),
+                    Text::make('Question 1', 'question_1')
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
                     MediaField::make('Item Image', 'images')->listing(),
 
                 ])->dependsOn('status', 1),
@@ -402,11 +415,24 @@ class ReportedPost extends Resource
                         ->rules('required_if:founder_releated_to_system,1'),
 
                     //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                    Text::make('Question')
-                        ->creationRules('required_if:status,1')
-                        ->hideWhenUpdating()
-                        ->hideFromDetail()
-                        ->hideFromIndex(),
+                    Text::make('Question 1', 'question_1')
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
                     MediaField::make('Item Image', 'images')->listing(),
 
                 ])->dependsOn('status', 0)

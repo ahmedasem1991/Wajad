@@ -143,33 +143,28 @@ class ClosedPost extends Resource
            //->hideFromIndex()
            ,
 
-
-           BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
-           // ->placeholder('Select Sub category')
-            //->options(\App\SubCategory::with('brands')->get())
-            ->rules('required')
-            ->readonly(),
+           NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+           ->placeholder('Select Sub category')
+           ->options(\App\SubCategory::with('brands')->get()),
+       // ->rules('required'),
 
 
-            BelongsTo::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
-           // ->placeholder('Select Brand')
-            // ->optionsResolve(function ($subcategory) {
-            //     return $subcategory->brands;
-            // })
-            ->rules('required')
-            //->dependsOn('Subcategory')
-            ->readonly(),
+       NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+           ->placeholder('Select Brand')
+           ->optionsResolve(function ($subcategory) {
+               return $subcategory->brands;
+           })
+           //  ->rules('required')
+           ->dependsOn('Subcategory'),
 
 
-            BelongsTo::make('Model', 'model', \App\NovaCorporate\Model::class)
-            //->placeholder('Optional Placeholder')
-            // ->optionsResolve(function ($brand) {
-            //     return $brand->models()->get(['id', 'name_en']);
-            // })
-            ->rules('required')
-            //->dependsOn('Brand')
-            ->readonly(),
-
+       NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+           ->placeholder('Optional Placeholder')
+           ->optionsResolve(function ($brand) {
+               return $brand->models()->get(['id', 'name_en']);
+           })
+           //  ->rules('required')
+           ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class)
             ->readonly(),
 
@@ -244,10 +239,25 @@ class ClosedPost extends Resource
                 ->centerCircle(10000, 'DarkCyan', 1, 0.3)
                 ->hideFromIndex(),
 
-                Text::make('Question')->creationRules('required')
+
+                Text::make('Question 1', 'question_1')
+                ->creationRules('required')
                 ->hideWhenUpdating()
                 ->hideFromDetail()
                 ->hideFromIndex(),
+
+            Text::make('Question 2', 'question_2')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 3', 'question_3')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
 
                 HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
