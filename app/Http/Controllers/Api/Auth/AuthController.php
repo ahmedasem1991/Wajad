@@ -443,8 +443,8 @@ class AuthController extends Controller
 
         $user = User::where('social_id', '=', $login_user->user['sub'])->first();
         if (is_null($user)){
-            $avatar=$login_user->avatar ?? null;
-            
+            $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
+
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email') ?? $login_user->email,
