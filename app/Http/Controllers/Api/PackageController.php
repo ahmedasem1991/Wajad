@@ -30,7 +30,8 @@ class PackageController extends Controller
      *  "currency": "USD",
      *     "period": "12 days",
      *    "type": "single",
-     *   "incrementally": true
+     *   "incrementally": true,
+     *   "max_increments": 1
      * }
      * ]
      *}

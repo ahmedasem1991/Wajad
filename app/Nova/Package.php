@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Naif\Paypal\Paypal;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -105,6 +106,11 @@ class Package extends Resource
 
             Toggle::make('Show Package', 'is_active')->color('#4099de'),
             Toggle::make('Incrementally Available', 'incrementally')->color('#4099de'),
+
+            NovaDependencyContainer::make([
+                Number::make('Max Number of Increments', 'max_increments')->min(1)->rules('required'),
+            ])->dependsOn('incrementally', 1),
+
             RadioButton::make('Type')
                 ->options([
                     1 => 'Single Assign',
