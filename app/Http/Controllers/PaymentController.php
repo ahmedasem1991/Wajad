@@ -45,6 +45,7 @@ class PaymentController extends Controller
                 $paypalConfig['secret']
             )
         );
+        
         $this->apiContext->setConfig($paypalConfig['settings']);
     }
 
@@ -52,7 +53,7 @@ class PaymentController extends Controller
 
     public function payWithpaypal(Request $request)
     {
-
+ 
         $Package = Package::find(base64_decode($request->get('p')));
 
         \Session::forget('Package');
@@ -114,17 +115,26 @@ class PaymentController extends Controller
             ->setPayer($payer)
             ->setRedirectUrls($redirectURLs)
             ->setTransactions(array($transaction));
-        $payment->setExperienceProfileId($createProfile->getId());
-        $payment->create($this->apiContext);
+         $payment->setExperienceProfileId($createProfile->getId());
 
-
-
+         try {
+         $payment->create($this->apiContext);
+        } catch (\Exception $ex) {
+            \Log::info($ex);
+           // \Session::put('error_payment', $ex['message']);
+         //  dd($ex);
+        }
+         //$payment->create($this->apiContext);
+        //dd($payment);
+ 
+       
         foreach ($payment->getLinks() as $link) {
             if ($link->getRel() == 'approval_url') {
                 $redirectURL = $link->getHref();
                 break;
             }
         }
+      
         # We store the payment ID into the session
 
         \Session::put('paypalPaymentId', $payment->getId());
@@ -140,6 +150,7 @@ class PaymentController extends Controller
     public function getPaymentStatus(Request $request)
     {
 
+        //dd('test test status');
         /** Get the payment ID before session clear **/
         $payment_id = \Session::get('paypalPaymentId');
         $package_id = \Session::get('package_id');
@@ -163,16 +174,27 @@ class PaymentController extends Controller
 
             return redirect(Nova::path() . '/resources/packages/' . $package_id);
         }
-
+       
         $payment = Payment::get($payment_id, $this->apiContext);
+       
         $execution = new PaymentExecution();
-        $execution->setPayerId(Input::get('PayerID'));
+       
 
         try {
+            $execution->setPayerId(Input::get('PayerID'));
+           } catch (\Exception $ex) {
+               \Log::info($ex);
+               //\Session::put('error_payment', $ex['message']);
+           }
+      
 
+           $url = Nova::path() . '/resources/packages/' . $package_id;
+        try {
+            
             $result = $payment->execute($execution, $this->apiContext);
             if ($result->getState() == 'approved') {
 
+               
                 $Subscription =   Subscription::create([
                     'package_id' => $Package->id,
                     'corporate_id' => auth()->user()->corporate->id,
@@ -247,13 +269,14 @@ class PaymentController extends Controller
 
             \Session::put('error_payment', 'Payment failed!');
             return redirect($url);
-        } catch (\PayPal\Exception\PPConnectionException $ex) {
+        } catch (\Exception $ex) {
             if (\Config::get('app.debug')) {
-                \Session::put('error_payment', 'Connection timeout');
-                return Redirect::route('paywithpaypal');
+                \Log::info($ex);
+                //\Session::put('error_payment', $ex['message']);
+                return  redirect($url);
             } else {
                 \Session::put('error_payment', 'Some error occur, sorry for inconvenient');
-                return Redirect::route('paywithpaypal');
+                return  redirect($url);
             }
         }
     }

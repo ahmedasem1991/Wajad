@@ -161,3 +161,9 @@ Route::post('/test', 'TestController');
  * Fcm APIS
  */
 
+
+
+Route::get('paywithpaypal', function () {
+    return  redirect(Nova::path());
+ });
+
