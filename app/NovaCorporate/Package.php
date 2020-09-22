@@ -98,8 +98,8 @@ class Package extends Resource
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
-        // $request->session()->forget('error_payment');
-        // $request->session()->forget('success_payment');
+        $request->session()->forget('error_payment');
+        $request->session()->forget('success_payment');
 
         return [
             $feild,
