@@ -272,7 +272,7 @@ class PaymentController extends Controller
         } catch (\Exception $ex) {
             if (\Config::get('app.debug')) {
                 \Log::info($ex);
-                //\Session::put('error_payment', $ex['message']);
+                \Session::put('error_payment', 'Connection Timeout');
                 return  redirect($url);
             } else {
                 \Session::put('error_payment', 'Some error occur, sorry for inconvenient');
