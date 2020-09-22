@@ -26,7 +26,7 @@ class PackageResource extends JsonResource
             'period' => $this->period,
             'type' => Package::TYPES[$this->type] ?? '',
             'incrementally' => (bool) $this->incrementally,
-            'max_increments' => (bool) $this->max_increments,
+            'max_increments' => $this->max_increments,
         ];
     }
 }
