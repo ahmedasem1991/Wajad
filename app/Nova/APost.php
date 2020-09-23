@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Item;
 use App\User;
 use App\People;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -474,21 +475,26 @@ class APost extends Resource
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
 
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex(),
 
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+//                ->hideFromIndex(),
 
 
-            // HasMany::make('Questions'),
-            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
+
+                // HasMany::make('Questions'),
+                // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
 
 
 
-            Button::make('EN PDF')
+                Button::make('EN PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
 
