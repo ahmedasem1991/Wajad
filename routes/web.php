@@ -68,6 +68,9 @@ Route::get('/sendfcm', 'NotificationController@sendFCM');
 Route::get('/sendsms', 'NotificationController@sendSMS');
 //Paypal
 Route::get('paypal', 'PaymentController@payWithpaypal');
+Route::get('paywithpaypal', function () {
+   return  redirect(Nova::path());
+});
 //PDF
 Route::get('receipt', 'PDFController@receipt');
 Route::get('ar_receipt', 'PDFController@arReceipt');

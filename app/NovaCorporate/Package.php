@@ -82,21 +82,24 @@ class Package extends Resource
     {
 
         $feild=Help::make('Package Information');
+        $success=$request->session()->get('success_payment');
+        $error=$request->session()->get('error_payment');
         if ($request->session()->has('success_payment')) {
-            $message=  $request->session()->get('success_payment');
+            $message=  $success;
             $feild= Help::info($message,'Your QR Codes Will generated now.');
 
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
         if ($request->session()->has('error_payment')) {
-            $message=  $request->session()->get('error_payment');
+            $message=  $error;
             $feild= Help::danger($message,'Try again later.');
 
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
-
+        $request->session()->forget('error_payment');
+        $request->session()->forget('success_payment');
 
         return [
             $feild,
