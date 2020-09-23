@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\User;
 use App\People;
 use Carbon\Carbon;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -119,10 +120,10 @@ class ClosedPost extends Resource
 
         $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
         $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-         if($this->status==1)
+        if($this->status==1)
         {
-        $Questions=HasMany::make('Questions');
-         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+            $Questions=HasMany::make('Questions');
+            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
         return [
             ID::make()->sortable(),
@@ -143,27 +144,27 @@ class ClosedPost extends Resource
                 0 => 'Lost',
                 1 => 'Found'
             ])
-            ->displayUsingLabels()
-            ->readonly(),
+                ->displayUsingLabels()
+                ->readonly(),
             Toggle::make('Appearance Status', 'appearance_status'),
             Toggle::make('Open Status', 'open_status'),
             DateTimeField::make('Post Closing Date', 'end_date')
-            //->dateFormat('YYYY-MM-DD')
-            ->maxDate(Carbon::today())
-            ->withTime()
-            ->hideFromIndex()
-            ->hideWhenCreating()
-            ->Rules('required_if:open_status,0'),
+                //->dateFormat('YYYY-MM-DD')
+                ->maxDate(Carbon::today())
+                ->withTime()
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->Rules('required_if:open_status,0'),
 
             BelongsTo::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-               // ->placeholder('Select Sub category')
+                // ->placeholder('Select Sub category')
                 //->options(\App\SubCategory::with('brands')->get())
                 ->rules('required')
                 ->readonly(),
 
 
-                BelongsTo::make('Brand', 'brand', \App\Nova\Brand::class)
-               // ->placeholder('Select Brand')
+            BelongsTo::make('Brand', 'brand', \App\Nova\Brand::class)
+                // ->placeholder('Select Brand')
                 // ->optionsResolve(function ($subcategory) {
                 //     return $subcategory->brands;
                 // })
@@ -172,7 +173,7 @@ class ClosedPost extends Resource
                 ->readonly(),
 
 
-                BelongsTo::make('Model', 'model', \App\Nova\Model::class)
+            BelongsTo::make('Model', 'model', \App\Nova\Model::class)
                 //->placeholder('Optional Placeholder')
                 // ->optionsResolve(function ($brand) {
                 //     return $brand->models()->get(['id', 'name_en']);
@@ -181,7 +182,7 @@ class ClosedPost extends Resource
                 //->dependsOn('Brand')
                 ->readonly(),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class)
-            ->readonly(),
+                ->readonly(),
 
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
@@ -214,13 +215,13 @@ class ClosedPost extends Resource
             //     ->hideFromIndex()
             //     ->readonly(),
             Select::make('Owner Releated To System', 'owner_releated_to_system')->options([
-                    2 => 'default',
-                    0 => 'No',
-                    1 => 'Yes',
+                2 => 'default',
+                0 => 'No',
+                1 => 'Yes',
             ])
-            ->displayUsingLabels()
-            ->hideFromIndex()
-            ->readonly(),
+                ->displayUsingLabels()
+                ->hideFromIndex()
+                ->readonly(),
 
             // optional
             NovaDependencyContainer::make([
@@ -233,25 +234,25 @@ class ClosedPost extends Resource
             ])->dependsOn('owner_releated_to_system', 0),
 
             //NovaDependencyContainer::make([
-                BelongsTo::make('Owner', 'owner', 'App\Nova\NormalUser')
-                   // ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                   // ->placeholder('Select Owner')
-                   // ->options(User::NormalUsers()->get())
-                    ->rules('required_if:owner_releated_to_system,1')
-                    ->readonly(),
+            BelongsTo::make('Owner', 'owner', 'App\Nova\NormalUser')
+                // ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                // ->placeholder('Select Owner')
+                // ->options(User::NormalUsers()->get())
+                ->rules('required_if:owner_releated_to_system,1')
+                ->readonly(),
 
-                    BelongsTo::make('Item', 'item', \App\Nova\Item::class)
-                   // ->placeholder('Select Item')
+            BelongsTo::make('Item', 'item', \App\Nova\Item::class)
+                // ->placeholder('Select Item')
 
-                    // ->optionsResolve(function ($owner) {
-                    //     return $owner->items()->withFilters(new Lost)->get();
-                    // })
-                    // ->rules('required_if:owner_releated_to_system,1')
-                    ->readonly()
-                   // ->dependsOn('Owner'),
+                // ->optionsResolve(function ($owner) {
+                //     return $owner->items()->withFilters(new Lost)->get();
+                // })
+                // ->rules('required_if:owner_releated_to_system,1')
+                ->readonly()
+            // ->dependsOn('Owner'),
 
-           // ])->dependsOn('owner_releated_to_system', 1)
-           ,
+            // ])->dependsOn('owner_releated_to_system', 1)
+            ,
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
@@ -275,10 +276,10 @@ class ClosedPost extends Resource
                 2 => 'default',
                 0 => 'No',
                 1 => 'Yes',
-        ])
-        ->displayUsingLabels()
-        ->hideFromIndex()
-        ->readonly(),
+            ])
+                ->displayUsingLabels()
+                ->hideFromIndex()
+                ->readonly(),
 
             NovaDependencyContainer::make([
                 NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
@@ -289,34 +290,40 @@ class ClosedPost extends Resource
 
             ])->dependsOn('founder_releated_to_system', 0),
 
-           // NovaDependencyContainer::make([
+            // NovaDependencyContainer::make([
 
-                BelongsTo::make('Founder', 'founder', 'App\Nova\NormalUser')
-                    // ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                    // ->placeholder('Select Owner')
-                   // ->options(User::NormalUsers()->get()),
-            //])
-               // ->dependsOn('founder_releated_to_system', 1)
-            //    ->rules('required_if:founder_releated_to_system,1')
+            BelongsTo::make('Founder', 'founder', 'App\Nova\NormalUser')
+                // ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                // ->placeholder('Select Owner')
+                // ->options(User::NormalUsers()->get()),
+                //])
+                // ->dependsOn('founder_releated_to_system', 1)
+                //    ->rules('required_if:founder_releated_to_system,1')
                 ->readonly(),
 
             MediaField::make('Item Image', 'images')->listing(),
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
-           
+
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
-            
+
             Button::make('Open')
-            ->style('success')
-            ->event('App\Events\OpenPostEvent'),
-            
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->hideFromIndex()
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+                ->style('success')
+                ->event('App\Events\OpenPostEvent'),
+
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->hideFromIndex()
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
+                ->hideFromIndex(),
+
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             // HasMany::make('Questions'),
             // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),

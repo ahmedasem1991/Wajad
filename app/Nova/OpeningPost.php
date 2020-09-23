@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\People;
 use Carbon\Carbon;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -117,10 +118,10 @@ class OpeningPost extends Resource
 
         $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
         $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-         if($this->status==1)
+        if($this->status==1)
         {
-        $Questions=HasMany::make('Questions');
-         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+            $Questions=HasMany::make('Questions');
+            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
         return [
             ID::make()->sortable(),
@@ -173,8 +174,8 @@ class OpeningPost extends Resource
                 0 => 'Lost',
                 1 => 'Found'
             ])
-            ->displayUsingLabels()
-            ->rules('required'),
+                ->displayUsingLabels()
+                ->rules('required'),
 
 
 
@@ -281,22 +282,22 @@ class OpeningPost extends Resource
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
-                ->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 2', 'question_2')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 3', 'question_3')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
                 MediaField::make('Item Image', 'images')->listing(),
 
@@ -355,8 +356,8 @@ class OpeningPost extends Resource
 
 
             ])->dependsOn('status', 1)
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->hideFromIndex()
+                ->hideWhenCreating(),
 
 
 
@@ -405,46 +406,50 @@ class OpeningPost extends Resource
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
-                ->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 2', 'question_2')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 3', 'question_3')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
                 MediaField::make('Item Image', 'images')->listing(),
 
             ])->dependsOn('status', 0)
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->hideFromIndex()
+                ->hideWhenCreating(),
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
             Button::make('Close')
-            ->style('danger')
-            ->event('App\Events\ClosePostEvent'),
+                ->style('danger')
+                ->event('App\Events\ClosePostEvent'),
 
 
             Button::make('Hidden')
-            ->style('grey')
-            ->event('App\Events\HiddenPostEvent'),
+                ->style('grey')
+                ->event('App\Events\HiddenPostEvent'),
 
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex(),
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+//                ->hideFromIndex(),
 
             // HasMany::make('Questions'),
             // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),

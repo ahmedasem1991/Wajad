@@ -6,6 +6,7 @@ use App\Post;
 use App\User;
 use App\People;
 use Carbon\Carbon;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -119,10 +120,10 @@ class PendingPost extends Resource
 
         $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
         $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-         if($this->status==1)
+        if($this->status==1)
         {
-        $Questions=HasMany::make('Questions');
-         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+            $Questions=HasMany::make('Questions');
+            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
         return [
             ID::make()->sortable(),
@@ -149,28 +150,28 @@ class PendingPost extends Resource
             Toggle::make('Appearance Status', 'appearance_status'),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-            ->placeholder('Select Sub category')
-            ->options(\App\SubCategory::with('brands')->get())
-            ->rules('required'),
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get())
+                ->rules('required'),
 
 
-        NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-            ->placeholder('Select Brand')
-            ->optionsResolve(function ($subcategory) {
-                return $subcategory->brands;
-            })
-            ->rules('required')
-            ->dependsOn('Subcategory'),
+            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+                ->rules('required')
+                ->dependsOn('Subcategory'),
 
 
-        NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
-            ->placeholder('Optional Placeholder')
-            ->optionsResolve(function ($brand) {
-                return $brand->models()->get(['id', 'name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-        BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
+            BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
@@ -189,8 +190,8 @@ class PendingPost extends Resource
                 0 => 'Lost',
                 1 => 'Found'
             ])
-            ->displayUsingLabels()
-            ->rules('required'),
+                ->displayUsingLabels()
+                ->rules('required'),
 
 
 
@@ -297,22 +298,22 @@ class PendingPost extends Resource
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
-                ->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 2', 'question_2')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 3', 'question_3')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
                 MediaField::make('Item Image', 'images')->listing(),
 
@@ -371,8 +372,8 @@ class PendingPost extends Resource
 
 
             ])->dependsOn('status', 1)
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->hideFromIndex()
+                ->hideWhenCreating(),
 
 
 
@@ -421,49 +422,55 @@ class PendingPost extends Resource
 
                 //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
-                ->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 2', 'question_2')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
-            Text::make('Question 3', 'question_3')
-                //->creationRules('required_if:status,1')
-                ->hideWhenUpdating()
-                ->hideFromDetail()
-                ->hideFromIndex(),
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
                 MediaField::make('Item Image', 'images')->listing(),
 
             ])->dependsOn('status', 0)
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->hideFromIndex()
+                ->hideWhenCreating(),
 
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
-              
+
 
             Button::make('Approve')
-            ->style('success')
-            ->event('App\Events\ApprovePostEvent'),
+                ->style('success')
+                ->event('App\Events\ApprovePostEvent'),
 
             Button::make('Reject')
-            ->style('danger')
-            ->event('App\Events\RejectPostEvent'),
-            
-            
-            
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3)->hideFromIndex(),
-           // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+                ->style('danger')
+                ->event('App\Events\RejectPostEvent'),
+
+
+
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)->hideFromIndex(),
+
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
+                ->hideFromIndex(),
+
+            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             // HasMany::make('Questions'),
             // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -132,11 +133,15 @@ class WajadOffice extends Resource
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
+                ->hideFromIndex(),
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
         ];
     }
 
