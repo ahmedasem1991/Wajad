@@ -31,7 +31,7 @@ class QrCodes extends Partition
                 return 'Re-Registered';
                 case 6:
                     return 'Expired';
-                
+
                 default:
                     return ucfirst($value);
             }
@@ -56,5 +56,10 @@ class QrCodes extends Partition
     public function uriKey()
     {
         return 'qr-codes';
+    }
+
+    public function name()
+    {
+        return 'QR Codes';
     }
 }
