@@ -178,7 +178,7 @@ class AssignQrcode extends Resource
           ])->default('web'), // optional,
 
 
-            HasMany::make('Qrcodes'),
+            HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
 
         ];
     }
