@@ -480,8 +480,7 @@ class APost extends Resource
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
-                ->hideFromIndex()
-                ->hideFromDetail(),
+                ->hideFromIndex(),
 
 //            MapMarker::make("Location")
 //                ->defaultZoom(5)
@@ -492,12 +491,12 @@ class APost extends Resource
 
 
 
-            // HasMany::make('Questions'),
-            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
+                // HasMany::make('Questions'),
+                // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
 
 
 
-            Button::make('EN PDF')
+                Button::make('EN PDF')
                 ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
                 ->style('danger'),
 

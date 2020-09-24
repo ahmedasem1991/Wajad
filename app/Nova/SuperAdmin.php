@@ -108,11 +108,6 @@ class SuperAdmin extends Resource
                 ->sortable()
                 ->creationRules('required','email','unique:users,email,NULL,id,type,3,deleted_at,NULL')
                 ->updateRules('required','unique:users,email,{{resourceId}},id,type,3,deleted_at,NULL'),
-                //->rules('required', 'email', 'max:254')
-               // ->creationRules('unique:users,email')
-
-
-
 
             Password::make('Password')
                 ->onlyOnForms()

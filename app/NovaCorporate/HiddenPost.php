@@ -4,9 +4,11 @@ namespace App\NovaCorporate;
 
 use App\Brand;
 use App\People;
+use Carbon\Carbon;
 use App\Nova\Resource;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use NovaButton\Button;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -19,9 +21,9 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
-use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use App\NovaCorporate\Metrics\PostsCount;
 use ClassicO\NovaMediaLibrary\MediaField;
 use App\NovaCorporate\Metrics\PostsPeriod;
@@ -32,7 +34,6 @@ use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Sloveniangooner\SearchableSelect\SearchableSelect;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
-use Carbon\Carbon;
 
 class HiddenPost extends Resource
 {
@@ -95,7 +96,7 @@ class HiddenPost extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'founder' => [ 'name', 'email', 'mobile_number'],
+        'founder' => ['name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
     ];
 
@@ -113,19 +114,18 @@ class HiddenPost extends Resource
     public function fields(Request $request)
     {
 
-        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        if($this->status==1)
-        {
-            $Questions=HasMany::make('Questions');
-            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
+        $Questions = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if ($this->status == 1) {
+            $Questions = HasMany::make('Questions');
+            $PostRequests = HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
         }
         return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),
-            RadioButton::make('Post Type','status')
+            RadioButton::make('Post Type', 'status')
                 ->options([
                     // 0 => 'Lost',
                     1 => 'Found',
@@ -201,7 +201,7 @@ class HiddenPost extends Resource
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
             NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
                 ->placeholder('Select Person')
-                ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
+                ->options(People::where('corporate_id', auth()->user()->corporate->id)->get())
                 ->rules('required')
                 ->hideFromIndex(),
 
@@ -239,12 +239,22 @@ class HiddenPost extends Resource
             //         ->style('danger'),
 
 
-//            MapMarker::make("Location")
-//                ->defaultZoom(5)
-//                ->defaultLatitude(21.4498898)
-//                ->defaultLongitude(39.4913431)
-//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
-//                ->hideFromIndex(),
+            //            MapMarker::make("Location")
+            //                ->defaultZoom(5)
+            //                ->defaultLatitude(21.4498898)
+            //                ->defaultLongitude(39.4913431)
+            //                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+            //                ->hideFromIndex(),
+
+
+            Button::make('Close')
+                ->style('danger')
+                ->event('App\Events\ClosePostEvent'),
+
+
+            Button::make('Show')
+                ->style('success')
+                ->event('App\Events\ShowPostEvent'),
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')

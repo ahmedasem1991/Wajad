@@ -145,31 +145,60 @@ class ClosedPost extends Resource
             // ->hideWhenUpdating()
             //->hideFromIndex()
             ,
-
-            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
-                ->placeholder('Select Sub category')
-                ->options(\App\SubCategory::with('brands')->get()),
-            // ->rules('required'),
-
-
-            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
-                ->placeholder('Select Brand')
-                ->optionsResolve(function ($subcategory) {
-                    return $subcategory->brands;
-                })
-                //  ->rules('required')
-                ->dependsOn('Subcategory'),
+            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
+            ->placeholder('Select Sub category')
+            ->options(\App\SubCategory::with('brands')->get())
+            ->hideFromIndex()
+            ->hideWhenUpdating(),
 
 
-            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
-                ->placeholder('Optional Placeholder')
-                ->optionsResolve(function ($brand) {
-                    return $brand->models()->get(['id', 'name_en']);
-                })
-                //  ->rules('required')
-                ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class)
-                ->readonly(),
+
+        NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
+            ->placeholder('Select Brand')
+            ->optionsResolve(function ($subcategory) {
+                return $subcategory->brands;
+            })
+            ->dependsOn('Subcategory')
+            ->hideWhenUpdating()
+            ->hideFromIndex(),
+
+
+        NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
+            ->placeholder('Optional Placeholder')
+            ->optionsResolve(function ($brand) {
+                return $brand->models()->get(['id', 'name_en']);
+            })
+            ->dependsOn('Brand')
+            ->hideWhenUpdating()
+            ->hideFromIndex(),
+
+
+
+            
+        BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+        ->rules('required')
+        ->hideWhenCreating()
+        ->hideFromDetail()
+        ->hideFromIndex()
+        ->readonly(),
+
+
+    BelongsTo::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
+        ->hideWhenCreating()
+        ->hideFromDetail()
+        ->hideFromIndex()
+        ->rules('required')
+        ->readonly(),
+
+
+    BelongsTo::make('Model', 'model', \App\NovaCorporate\Model::class)
+        ->rules('required')
+        ->hideWhenCreating()
+        ->hideFromDetail()
+        ->hideFromIndex()
+        ->readonly(),
+        BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class)->hideFromIndex()
+        ->readonly(),
 
 
 
@@ -241,6 +270,10 @@ class ClosedPost extends Resource
 //                ->defaultLongitude(39.4913431)
 //                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
 //                ->hideFromIndex(),
+
+Button::make('Open')
+->style('info')
+->event('App\Events\OpenPostEvent'),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)

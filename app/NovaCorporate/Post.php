@@ -153,36 +153,78 @@ class Post extends Resource
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating()
                 // ->hideWhenUpdating()
-                ->hideFromIndex(),
+               // ->hideFromIndex(),
+               ,
             Toggle::make('Appearance Status', 'appearance_status')
                 ->hideWhenCreating()
                 // ->hideWhenUpdating()
-                ->hideFromIndex(),
+               // ->hideFromIndex()
+                ,
 
 
-            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+            
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
-                ->options(\App\SubCategory::with('brands')->get()),
-            // ->rules('required'),
+                ->options(\App\SubCategory::with('brands')->get())
+                ->hideFromIndex()
+                ->hideWhenUpdating(),
 
 
-            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+
+            NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
                 })
-                //  ->rules('required')
-                ->dependsOn('Subcategory'),
+                ->dependsOn('Subcategory')
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
 
 
-            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
                 ->placeholder('Optional Placeholder')
                 ->optionsResolve(function ($brand) {
                     return $brand->models()->get(['id', 'name_en']);
                 })
-                //  ->rules('required')
-                ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
+                ->dependsOn('Brand')
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
+
+
+
+                
+            BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+            ->rules('required')
+            ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->readonly(),
+
+
+        BelongsTo::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
+            ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->rules('required')
+            ->readonly(),
+
+
+        BelongsTo::make('Model', 'model', \App\NovaCorporate\Model::class)
+            ->rules('required')
+            ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->readonly(),
+            
+            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class) ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->readonly(),
+
+            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class) ->hideWhenUpdating()
+            ->rules('required'),
+            
+
 
 
 
@@ -241,9 +283,23 @@ class Post extends Resource
             // ->hideWhenUpdating(),
             ,
 
-            Button::make('PDF')
-                ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
-                ->style('danger'),
+            Button::make('Close')
+            ->style('danger')
+            ->event('App\Events\ClosePostEvent'),
+
+
+        Button::make('Hidden')
+            ->style('grey')
+            ->event('App\Events\HiddenPostEvent'),
+
+
+            Button::make('EN PDF')
+            ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
+            ->style('info'),
+
+        Button::make('AR PDF')
+            ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
+            ->style('info'),
 
 
 //            MapMarker::make("Location")
@@ -339,7 +395,8 @@ class Post extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         //return $query->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
-        return $query->where('corporate_id', Auth()->user()->corporate->id);
+        return $query->where('corporate_id', Auth()->user()->corporate->id)
+        ->IsOpen()->isApproved()->IsShow();
     }
 
     public static function icon()

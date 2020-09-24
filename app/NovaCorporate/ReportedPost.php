@@ -204,6 +204,14 @@ class ReportedPost extends Resource
             // ->hideWhenUpdating(),
             ,
 
+            Button::make('Close')
+            ->style('danger')
+            ->event('App\Events\ClosePostEvent'),
+
+
+        Button::make('Hidden')
+            ->style('grey')
+            ->event('App\Events\HiddenPostEvent'),
             //    // Button::make('PDF')
             //         ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
             //         ->style('danger'),
