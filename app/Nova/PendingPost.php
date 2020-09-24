@@ -470,7 +470,8 @@ class PendingPost extends Resource
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->hideFromDetail(),
 
             // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
             // HasMany::make('Questions'),

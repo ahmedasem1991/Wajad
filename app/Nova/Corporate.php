@@ -161,7 +161,8 @@ class Corporate extends Resource
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->hideFromDetail(),
 
             HasMany::make('Posts','posts','App\Nova\APost'),
             HasMany::make('Subscriptions'),

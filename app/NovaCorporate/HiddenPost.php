@@ -248,7 +248,8 @@ class HiddenPost extends Resource
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->hideFromDetail(),
 
 
             Text::make('Question 1', 'question_1')

@@ -138,7 +138,8 @@ class WajadOffice extends Resource
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->hideFromDetail(),
 //            MapMarker::make("Location")
 //                ->defaultZoom(5)
 //                ->defaultLatitude(21.4498898)
