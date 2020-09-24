@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsToMany;
 
@@ -79,6 +80,7 @@ class Package extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Package English Name', 'name_en')
                 ->rules(['required', 'string', 'max:255']),

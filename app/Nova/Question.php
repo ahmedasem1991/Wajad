@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 
 class Question extends Resource
 {
@@ -57,6 +58,7 @@ class Question extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
             Text::make('Question')->creationRules([

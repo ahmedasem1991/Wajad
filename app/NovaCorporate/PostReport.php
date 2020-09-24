@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -72,6 +73,7 @@ class PostReport extends Resource
     {
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Trix::make('Details', 'details')
                 ->rules(

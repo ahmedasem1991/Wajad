@@ -23,6 +23,7 @@
         "darkaonline/l5-swagger": "5.8.*",
         "depsimon/nova-stripe-checkout-field": "^1.0",
         "dillingham/nova-button": "^1.0",
+        "dillingham/nova-errors": "^1.0",
         "ebess/advanced-nova-media-library": "^2.9",
         "edujugon/push-notification": "^4.1",
         "emilianotisato/nova-belongsto-depends": "^0.1.4",

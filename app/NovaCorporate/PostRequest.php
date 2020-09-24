@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\NovaCorporate\Metrics\PostsCount;
 use App\NovaCorporate\Metrics\PostsPeriod;
@@ -72,6 +73,7 @@ class PostRequest extends Resource
     {
         session()->put('user_id',$this->user_id);
         return [
+            Errors::make(),
            ID::make()->sortable(),
            RadioButton::make('Valid Status','is_request_valid')
            ->options([

@@ -10,6 +10,7 @@ use App\Nova\Metrics\Categories;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
+use NovaErrorField\Errors;
 
 class Category extends Resource
 {
@@ -65,6 +66,7 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Category English Name', 'name_en')->creationRules([
                 'required', 'min:2'

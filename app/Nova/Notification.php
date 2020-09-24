@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use OptimistDigital\MultiselectField\Multiselect;
@@ -65,6 +66,7 @@ class Notification extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Textarea::make('Body', 'body')->creationRules([
                 'required', 'min:2'

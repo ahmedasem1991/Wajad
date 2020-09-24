@@ -11,6 +11,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\HasMany;
 use App\Nova\Resource;
+use NovaErrorField\Errors;
+
 class Category extends Resource
 {
     /**
@@ -65,6 +67,7 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
             Text::make('Category English Name', 'name_en')

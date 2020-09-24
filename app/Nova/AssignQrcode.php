@@ -19,6 +19,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
@@ -85,6 +86,7 @@ class AssignQrcode extends Resource
       $MultiCount=  count(Qrcode::type('Multi Assign')->where('status','1')->get());
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Reference Number','assign_reference_number')
             ->hideWhenCreating()

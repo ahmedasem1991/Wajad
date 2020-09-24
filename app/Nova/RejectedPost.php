@@ -20,6 +20,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\ApprovalPosts;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosePosts;
 use App\Nova\Metrics\OpenVsClosedPosts;
@@ -127,6 +128,7 @@ class RejectedPost extends Resource
         }
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('Description')->readonly(),

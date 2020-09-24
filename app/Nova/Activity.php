@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Image;
 use Kristories\Qrcode\Qrcode;
 use Laravel\Nova\Fields\HasMany;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Activity extends Resource
@@ -69,6 +70,7 @@ class Activity extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('DESCRIPTION'),
             Text::make('SUBJECT ID'),

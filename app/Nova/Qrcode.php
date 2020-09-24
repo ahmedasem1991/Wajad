@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -79,6 +80,7 @@ class Qrcode extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Unique Reference Number', 'unique_reference_number')
             ->hideWhenCreating()

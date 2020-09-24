@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -112,6 +113,7 @@ class Role extends Resource
         // logger(collect(config('novapermissions.permissions')) );
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
             TextWithSlug::make(__('Name'), 'name')
@@ -140,7 +142,7 @@ class Role extends Resource
             ->rules('required'),
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
-              
+
 
                 NovaDependencyContainer::make([
             Checkboxes::make(__('Permissions'), 'permissions')
@@ -168,10 +170,10 @@ class Role extends Resource
                 Number::make('Limitation Of Posts Number', 'limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
 
                 Number::make('Posts Active Period In Days', 'posts_period')->min(1)->max(10000)->step(1)->rules('required'),
-              
+
                 Number::make('Number Of Free QRCodes', 'free_qrcodes')->min(1)->max(100)->step(1)->rules('required'),
                 Number::make('Available Period OF Free QRCodes', 'available_period_qrcodes')->min(1)->max(100)->step(1)->rules('required'),
-                
+
 
             ])->dependsOn('mobile_group', 1),
 

@@ -23,6 +23,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaErrorField\Errors;
 
 class People extends Resource
 {
@@ -66,9 +67,10 @@ class People extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
-           
+
 
             Text::make('Name')
                 ->sortable()
@@ -85,8 +87,8 @@ class People extends Resource
             Text::make('Address')
                 ->sortable()
                 ->rules('required', 'max:255'),
-               
-  
+
+
 
         ];
     }
@@ -141,8 +143,8 @@ class People extends Resource
         ];
     }
 
- 
-    
+
+
     /**
      * Build an "index" query for the given resource.
      *
@@ -154,7 +156,7 @@ class People extends Resource
     {
         return $query->where('corporate_id',auth()->user()->corporate->id);
     }
-    public static function icon() 
+    public static function icon()
     {
     return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }

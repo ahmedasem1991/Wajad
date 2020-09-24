@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15fed571ac099b432d4a2fd2fd42418a",
+    "content-hash": "2291c4094ca678f0f2c863a90fc6017f",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1137,6 +1137,47 @@
             ],
             "description": "Nova button package",
             "time": "2020-09-16T21:46:40+00:00"
+        },
+        {
+            "name": "dillingham/nova-errors",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dillingham/nova-errors.git",
+                "reference": "c1fcf88a172c9fc47a34452450b36c4355832f7a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dillingham/nova-errors/zipball/c1fcf88a172c9fc47a34452450b36c4355832f7a",
+                "reference": "c1fcf88a172c9fc47a34452450b36c4355832f7a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NovaErrorField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NovaErrorField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Display errors at the top of your forms",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-07-06T10:05:10+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

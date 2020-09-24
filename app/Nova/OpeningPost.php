@@ -20,6 +20,7 @@ use App\Nova\Metrics\PostsPeriod;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
@@ -124,6 +125,7 @@ class OpeningPost extends Resource
             $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('description')->rules('required'),

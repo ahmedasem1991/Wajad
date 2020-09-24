@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
+use NovaErrorField\Errors;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -79,6 +80,7 @@ class Corporate extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Unique ID', 'unique_id')->rules(
                 'required',

@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
@@ -61,6 +62,7 @@ class Permissions extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Name', 'name')->creationRules([
                 'required', 'min:6'

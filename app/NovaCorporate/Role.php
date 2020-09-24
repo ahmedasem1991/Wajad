@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 //use Pktharindu\NovaPermissions\Checkboxes;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use NovaErrorField\Errors;
 use Pktharindu\NovaPermissions\Role as RoleModel;
 use Silvanite\NovaFieldCheckboxes\Checkboxes;
 //use Fourstacks\NovaCheckboxes\Checkboxes;
@@ -112,9 +113,10 @@ class Role extends Resource
         $array[$permission]= $permission;
         }
        }
-        
+
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
             TextWithSlug::make(__('Name'), 'name')

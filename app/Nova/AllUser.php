@@ -23,6 +23,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -90,6 +91,7 @@ class AllUser extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             //  Avatar::make('Avatar'),
             //Gravatar::make(),

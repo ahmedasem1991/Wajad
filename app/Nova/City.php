@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class City extends Resource
@@ -63,6 +64,7 @@ class City extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('City English Name', 'name_en')->rules(['required', 'min:2']),
             Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:2']),

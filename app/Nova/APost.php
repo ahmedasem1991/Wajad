@@ -23,6 +23,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\ApprovalPosts;
 use Illuminate\Support\Facades\URL;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
@@ -129,6 +130,7 @@ class APost extends Resource
         }
 
         return [
+            Errors::make(),
             ID::make()->sortable()->hideFromDetail()->hideFromIndex(),
             Text::make('Title')
                 ->rules('required'),

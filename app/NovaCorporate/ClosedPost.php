@@ -20,6 +20,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use App\NovaCorporate\Metrics\PostsCount;
@@ -121,6 +122,7 @@ class ClosedPost extends Resource
         }
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),

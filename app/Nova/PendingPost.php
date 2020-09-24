@@ -23,6 +23,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\ApprovalPosts;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
@@ -126,6 +127,7 @@ class PendingPost extends Resource
             $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),

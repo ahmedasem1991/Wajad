@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 
@@ -75,6 +76,7 @@ class WajadOffice extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Office English Name', 'name_en')->rules(
                 'required',
