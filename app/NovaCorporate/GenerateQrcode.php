@@ -89,7 +89,7 @@ class GenerateQrcode extends Resource
             // Status::make('Status')
             // ->loadingWhen(['waiting'])
             // ->failedWhen(['finished']),
-            HasMany::make('Qrcodes','qrcodes',\App\Nova\Stock::class),
+            HasMany::make('QR Codes','qrcodes',\App\Nova\Stock::class),
 
            // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
 
