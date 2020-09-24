@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Support\Facades\URL;
@@ -83,24 +84,24 @@ class Package extends Resource
     {
 
         $feild=Help::make('Package Information');
-        $success=$request->session()->get('success_payment');
-        $error=$request->session()->get('error_payment');
+        // $success=$request->session()->get('success_payment');
+        // $error=$request->session()->get('error_payment');
         if ($request->session()->has('success_payment')) {
-            $message=  $success;
+            $message=  $request->session()->get('success_payment');
             $feild= Help::info($message,'Your QR Codes Will generated now.');
 
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
         if ($request->session()->has('error_payment')) {
-            $message=  $error;
+            $message=  $request->session()->get('error_payment');
             $feild= Help::danger($message,'Try again later.');
 
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
-        $request->session()->forget('error_payment');
-        $request->session()->forget('success_payment');
+        // $request->session()->forget('error_payment');
+        // $request->session()->forget('success_payment');
 
         return [
             Errors::make(),
@@ -123,7 +124,8 @@ class Package extends Resource
                 ->rules(
                     ['required', 'string']
                 )->hideFromIndex(),
-
+            Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>SAR</big> Unit </p>')
+                ->asHtml(),
             Number::make('Package Price', 'price')
                 ->rules(['required', 'integer'])
                 ->hideWhenUpdating(),
@@ -140,6 +142,10 @@ class Package extends Resource
             Button::make('PayPal')
                 ->link(URL::to('paypal?p='.base64_encode($this->id)),'_self')
                 ->style('primary'),
+
+                Button::make('Paytabs')
+                ->link(URL::to('paytabs?p='.base64_encode($this->id)),'_self')
+                ->style('info'),
 
         ];
     }

@@ -97,7 +97,7 @@ class Package extends Resource
                 ->rules(
                     ['required', 'string']
                 )->hideFromIndex(),
-                Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>USD</big> Unit </p>')
+                Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>SAR</big> Unit </p>')
                 ->asHtml(),
             Number::make('Package Price', 'price')
                 ->rules(['required', 'integer']),
