@@ -17,13 +17,14 @@ use App\Mail\ScanQRCode;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
+use Damas\Paytabs\Paytabs;
 use LaravelFCM\Facades\FCM;
 use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
-use App\Exceptions\Api\ApiException;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Exceptions\Api\ApiException;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Mail;
@@ -71,6 +72,9 @@ Route::get('paypal', 'PaymentController@payWithpaypal');
 Route::get('paywithpaypal', function () {
    return  redirect(Nova::path());
 });
+//paytabs
+Route::get('paytabs', 'PaymentController@payWithpaytabs');
+Route::post('paytabschecker', 'PaymentController@checkPayWithPaytabs')->name('paytabschecker');
 //PDF
 Route::get('receipt', 'PDFController@receipt');
 Route::get('ar_receipt', 'PDFController@arReceipt');
@@ -519,4 +523,67 @@ Route::get('/apple-app-site-association', function () {
     $json = file_get_contents(base_path('apple-app-site-association'));
     return response($json, 200)
         ->header('Content-Type', 'application/json');
+});
+
+
+
+Route::get('/paytabs_payment', function () {
+    $email='i.saber@smartappco.com';
+    $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
+    $pt = Paytabs::getInstance( $email, $secret);
+	$result = $pt->create_pay_page(array(
+        "merchant_email" => $email,
+        'secret_key' => $secret,
+        'title' => "John Doe",
+        'cc_first_name' => "John",
+        'cc_last_name' => "Doe",
+        'email' => "customer@email.com",
+        'cc_phone_number' => "973",
+        'phone_number' => "33333333",
+        'billing_address' => "Juffair, Manama, Bahrain",
+        'city' => "Manama",
+        'state' => "Capital",
+        'postal_code' => "97300",
+        'country' => "BHR",
+        'address_shipping' => "Juffair, Manama, Bahrain",
+        'city_shipping' => "Manama",
+        'state_shipping' => "Capital",
+        'postal_code_shipping' => "97300",
+        'country_shipping' => "BHR",
+        "products_per_title"=> "Mobile Phone",
+        'currency' => "BHD",
+        "unit_price"=> "1",
+        'quantity' => "1",
+        'other_charges' => "0",
+        'amount' => "1.00",
+        'discount'=>"0",
+        "msg_lang" => "english",
+        "reference_no" => "1231231",
+        "site_url" => "https://www.smartappco.com/",
+        'return_url' => "https://www.etabeb.com",
+        "cms_with_version" => "API USING PHP"
+	));
+    
+    	if($result->response_code == 4012){
+           // dd($result);
+	    return redirect($result->payment_url);
+        }
+        dd($result);
+        //return $result->result;
+});
+
+
+Route::get('/paytabs_response', function(){
+
+   // dd('ok');
+    $email='i.saber@smartappco.com';
+    $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
+
+    $pt = Paytabs::getInstance($email, $secret);
+    $result = $pt->verify_payment('496284');
+    if($result->response_code == 100){
+        dd('No');
+    }
+    dd( $result);
+    return $result->result;
 });
