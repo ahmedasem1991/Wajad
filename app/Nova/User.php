@@ -238,6 +238,15 @@ class User extends Resource
         if (substr($this->image, 0, 4) === "http") {
             return $this->image;
         }
-        return env('APP_URL') . "/" . $this->image;
+        else{
+            if (file_exists($this->image) === false) {
+                return '/images/not2_bg_image.jpg';
+            }
+            else{
+                return env('APP_URL') . "/" . $this->image;
+            }
+           
+        }
+        
     }
 }
