@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use ClassicO\NovaMediaLibrary\MediaField;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Item extends Resource
@@ -77,6 +78,7 @@ class Item extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules([
                 'required', 'min:2'

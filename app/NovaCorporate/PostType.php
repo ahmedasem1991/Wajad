@@ -10,6 +10,7 @@ use App\Nova\Metrics\PostTypes;
 use App\Nova\Metrics\PostImages;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 
 class PostType extends Resource
 {
@@ -57,6 +58,7 @@ class PostType extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('Description'),

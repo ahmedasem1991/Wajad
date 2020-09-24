@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Mpdf\Tag\TextArea as TagTextArea;
+use NovaErrorField\Errors;
 
 class Page extends Resource
 {
@@ -40,12 +41,12 @@ class Page extends Resource
      */
     public static $search = [
         'id',
-         
+
         'title_en',
         'title_ar',
         'body_en',
         'body_ar',
-         
+
         'deleted_at',
         'created_at',
         'updated_at',
@@ -64,6 +65,7 @@ class Page extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('key')->creationRules([
                 'required', 'min:3', 'unique:pages,key'
@@ -81,10 +83,10 @@ class Page extends Resource
             TextArea::make('Body Ar')->rules([
                 'required', 'min:3'
             ]),
-             
- 
 
- 
+
+
+
         ];
     }
 

@@ -15,6 +15,7 @@ use App\Nova\Actions\DownloadQRCode;
 use App\NovaCorporate\Metrics\QrCodes;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -85,6 +86,7 @@ class Stock extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             // BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
             // ->hideWhenCreating()

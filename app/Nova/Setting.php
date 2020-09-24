@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
+use NovaErrorField\Errors;
 
 class Setting extends Resource
 {
@@ -57,6 +58,7 @@ class Setting extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Key', 'key')->creationRules([
                 'required', 'min:3', 'max:255', 'unique:settings,key'
@@ -131,14 +133,14 @@ class Setting extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        
+
         if (auth()->user()->hasPermissionTo('settings')) {
             return true;
         } else {
             return false;
         }
     }
-    
 
- 
+
+
 }

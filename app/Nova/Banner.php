@@ -18,6 +18,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use NovaErrorField\Errors;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -77,6 +78,7 @@ class Banner extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             Number::make('Order', 'order')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),

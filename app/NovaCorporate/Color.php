@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 
 class Color extends Resource
 {
@@ -57,6 +58,7 @@ class Color extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Color English Name', 'name_en')->creationRules([
                 'required', 'min:2'

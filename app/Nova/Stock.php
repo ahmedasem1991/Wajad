@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\DownloadQRCode;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -80,6 +81,7 @@ class Stock extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Unique Reference Number', 'unique_reference_number')
                 ->hideWhenCreating()

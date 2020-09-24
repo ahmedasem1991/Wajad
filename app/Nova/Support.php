@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 
 class Support extends Resource
 {
@@ -57,6 +58,7 @@ class Support extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Name')
                 ->rules('required', 'max:255'),

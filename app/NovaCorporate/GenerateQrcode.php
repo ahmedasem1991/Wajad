@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Faker\Provider\fr_CH\Text as FakerText;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -72,6 +73,7 @@ class GenerateQrcode extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
            ID::make()->sortable(),
            Text::make('Reference Number','generate_reference_number')
            ->hideWhenCreating()

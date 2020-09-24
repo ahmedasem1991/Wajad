@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Subscription extends Resource
@@ -69,6 +70,7 @@ class Subscription extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
           //  Date::make('Start Date', 'start_date')->rules('required'),

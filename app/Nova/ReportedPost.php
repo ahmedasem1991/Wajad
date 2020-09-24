@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\User;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\ApprovalPosts;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosePosts;
 use App\Nova\Metrics\OpenVsClosedPosts;
@@ -105,7 +107,7 @@ class ReportedPost extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('reported posts')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('reported posts')) ? true :false;
     }
     public static function redirectAfterCreate(NovaRequest $request, $resource)
     {
@@ -123,123 +125,122 @@ class ReportedPost extends Resource
 
         $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
         $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-         if($this->status==1)
+        if($this->status==1)
         {
-        $Questions=HasMany::make('Questions');
-         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+            $Questions=HasMany::make('Questions');
+            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
         return [
-           ID::make()->sortable(),
-           Text::make('Title')->readonly(),
-           Textarea::make('Description')->readonly(),
-          // Textarea::make('Reject Reasone','reject_reason'),
-        //    RadioButton::make('Status')
-        //    ->options([
-        //        0 => 'Lost',
-        //        1 => 'Found',
-        //    ])->default(0), // optional
-           RadioButton::make('Approval Status','approval_status')
-           ->options([
-               0 => 'Pending',
-               1 => 'Approval',
-               2 => 'Rejected',
-           ])->default(0), // optional
+            Errors::make(),
+            ID::make()->sortable(),
+            Text::make('Title')->readonly(),
+            Textarea::make('Description')->readonly(),
+            // Textarea::make('Reject Reasone','reject_reason'),
+            //    RadioButton::make('Status')
+            //    ->options([
+            //        0 => 'Lost',
+            //        1 => 'Found',
+            //    ])->default(0), // optional
+            RadioButton::make('Approval Status','approval_status')
+                ->options([
+                    0 => 'Pending',
+                    1 => 'Approval',
+                    2 => 'Rejected',
+                ])->default(0), // optional
             Toggle::make('Appearance Status','appearance_status'),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-            ->placeholder('Select Sub category')
-            ->options(\App\SubCategory::with('brands')->get())
-            ->rules('required'),
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get())
+                ->rules('required'),
 
 
-        NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-            ->placeholder('Select Brand')
-            ->optionsResolve(function ($subcategory) {
-                return $subcategory->brands;
-            })
-            ->rules('required')
-            ->dependsOn('Subcategory'),
+            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+                ->rules('required')
+                ->dependsOn('Subcategory'),
 
 
-        NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
-            ->placeholder('Optional Placeholder')
-            ->optionsResolve(function ($brand) {
-                return $brand->models()->get(['id', 'name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-        BelongsTo::make('Color', 'color', \App\Nova\Color::class),
+            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
+            BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             Text::make('Publisher type','publisher_type')
-            ->sortable()
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
 
-                  //  ->rules('required'),
+            //  ->rules('required'),
 
-                  Select::make('Post Type','status')->options([
-                    0 => 'Lost',
-                    1 => 'Found'
-                ])
+            Select::make('Post Type','status')->options([
+                0 => 'Lost',
+                1 => 'Found'
+            ])
                 ->displayUsingLabels()
                 ->rules('required'),
 
 
-                  NovaDependencyContainer::make([
+            NovaDependencyContainer::make([
 
-                    Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
-                    DateTimeField::make('Losted At')->hideFromIndex()
-                        //->dateFormat('YYYY-MM-DD')
-                        ->maxDate(Carbon::today())
-                        ->withTime()
-                        ->Rules('required_if:status,0'),
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
+                DateTimeField::make('Losted At')->hideFromIndex()
+                    //->dateFormat('YYYY-MM-DD')
+                    ->maxDate(Carbon::today())
+                    ->withTime()
+                    ->Rules('required_if:status,0'),
 
-                    RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
-                        ->options([
-                            2 => 'default',
-                            0 => 'No',
-                            1 => 'Yes',
-                        ])
-                        ->stack()
-                        ->default(2)
-                        ->hideFromIndex(),
-
-
-                    NovaDependencyContainer::make([
-                        NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                            ->placeholder('Select Person')
-                            ->options(\App\People::all())
-                            ->rules('required_if:owner_releated_to_system,0'),
-
-                    ])->dependsOn('owner_releated_to_system', 0),
-
-                    NovaDependencyContainer::make([
-                        NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                            ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                            ->placeholder('Select Owner')
-                            ->options(\App\User::NormalUsers()->get())
-                            ->rules('required_if:owner_releated_to_system,1'),
-
-                        NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                            ->placeholder('Select Item')
-
-                            ->optionsResolve(function ($owner) {
-                                return $owner->items()->get();
-                            })
-                            ->rules('required_if:owner_releated_to_system,1')
-                            ->dependsOn('Owner'),
-
-                    ])->dependsOn('owner_releated_to_system', 1),
+                RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
+                    ->options([
+                        2 => 'default',
+                        0 => 'No',
+                        1 => 'Yes',
+                    ])
+                    ->stack()
+                    ->default(2)
+                    ->hideFromIndex(),
 
 
-                ])->dependsOn('status', 0),
+                NovaDependencyContainer::make([
+                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                        ->placeholder('Select Person')
+                        ->options(\App\People::all())
+                        ->rules('required_if:owner_releated_to_system,0'),
+
+                ])->dependsOn('owner_releated_to_system', 0),
+
+                NovaDependencyContainer::make([
+                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
+                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                        ->placeholder('Select Owner')
+                        ->options(\App\User::NormalUsers()->get())
+                        ->rules('required_if:owner_releated_to_system,1'),
+
+                    NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
+                        ->placeholder('Select Item')
+
+                        ->optionsResolve(function ($owner) {
+                            return $owner->items()->get();
+                        })
+                        ->rules('required_if:owner_releated_to_system,1')
+                        ->dependsOn('Owner'),
+
+                ])->dependsOn('owner_releated_to_system', 1),
 
 
+            ])->dependsOn('status', 0),
 
 
 
@@ -247,51 +248,53 @@ class ReportedPost extends Resource
 
 
 
+
+
+
+
+
+            NovaDependencyContainer::make([
+                Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
+                DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
+                    ->Rules('required_if:status,1')
+                    //->dateFormat('YYYY-MM-DD')
+                    ->maxDate(Carbon::today())
+                    ->withTime(),
+
+                RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
+                    ->options([
+                        2 => 'default',
+                        0 => 'No',
+                        1 => 'yes',
+
+                    ])
+                    ->stack()
+                    ->hideFromIndex()
+                    ->default(2),
+                NovaDependencyContainer::make([
+
+                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                        ->placeholder('Select Person')
+                        ->options(\App\People::all())
+                        ->rules('required_if:founder_releated_to_system,0'),
+
+
+                ])->dependsOn('founder_releated_to_system', 0),
 
 
 
                 NovaDependencyContainer::make([
-                    Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
-                    DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
-                        ->Rules('required_if:status,1')
-                        //->dateFormat('YYYY-MM-DD')
-                        ->maxDate(Carbon::today())
-                        ->withTime(),
 
-                    RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
-                        ->options([
-                            2 => 'default',
-                            0 => 'No',
-                            1 => 'yes',
+                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
+                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                        ->placeholder('Select Owner')
+                        ->options(\App\User::NormalUsers()->get()),
+                ])
+                    ->dependsOn('founder_releated_to_system', 1)
+                    ->rules('required_if:founder_releated_to_system,1'),
 
-                        ])
-                        ->stack()
-                        ->hideFromIndex()
-                        ->default(2),
-                    NovaDependencyContainer::make([
-
-                        NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                            ->placeholder('Select Person')
-                            ->options(\App\People::all())
-                            ->rules('required_if:founder_releated_to_system,0'),
-
-
-                    ])->dependsOn('founder_releated_to_system', 0),
-
-
-
-                    NovaDependencyContainer::make([
-
-                        NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                            ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                            ->placeholder('Select Owner')
-                            ->options(\App\User::NormalUsers()->get()),
-                    ])
-                        ->dependsOn('founder_releated_to_system', 1)
-                        ->rules('required_if:founder_releated_to_system,1'),
-
-                    //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                    Text::make('Question 1', 'question_1')
+                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+                Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
@@ -309,63 +312,63 @@ class ReportedPost extends Resource
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
-                    MediaField::make('Item Image', 'images')->listing(),
+                MediaField::make('Item Image', 'images')->listing(),
 
-                ])->dependsOn('status', 1),
-
-
+            ])->dependsOn('status', 1),
 
 
+
+
+
+
+            NovaDependencyContainer::make([
+
+                Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
+                DateTimeField::make('Losted At')->hideFromIndex()
+                    //->dateFormat('YYYY-MM-DD')
+                    ->maxDate(Carbon::today())
+                    ->withTime()
+                    ->Rules('required_if:status,0'),
+
+                RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
+                    ->options([
+                        2 => 'default',
+                        0 => 'No',
+                        1 => 'Yes',
+                    ])
+                    ->stack()
+                    ->default(2)
+                    ->hideFromIndex(),
 
 
                 NovaDependencyContainer::make([
+                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                        ->placeholder('Select Person')
+                        ->options(\App\People::all())
+                        ->rules('required_if:owner_releated_to_system,0'),
 
-                    Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
-                    DateTimeField::make('Losted At')->hideFromIndex()
-                        //->dateFormat('YYYY-MM-DD')
-                        ->maxDate(Carbon::today())
-                        ->withTime()
-                        ->Rules('required_if:status,0'),
+                ])->dependsOn('owner_releated_to_system', 0),
 
-                    RadioButton::make('Owner Releated To System', 'owner_releated_to_system')
-                        ->options([
-                            2 => 'default',
-                            0 => 'No',
-                            1 => 'Yes',
-                        ])
-                        ->stack()
-                        ->default(2)
-                        ->hideFromIndex(),
+                NovaDependencyContainer::make([
+                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
+                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                        ->placeholder('Select Owner')
+                        ->options(\App\User::NormalUsers()->get())
+                        ->rules('required_if:owner_releated_to_system,1'),
 
+                    NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
+                        ->placeholder('Select Item')
 
-                    NovaDependencyContainer::make([
-                        NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                            ->placeholder('Select Person')
-                            ->options(\App\People::all())
-                            ->rules('required_if:owner_releated_to_system,0'),
+                        ->optionsResolve(function ($owner) {
+                            return $owner->items()->get();
+                        })
+                        ->rules('required_if:owner_releated_to_system,1')
+                        ->dependsOn('Owner'),
 
-                    ])->dependsOn('owner_releated_to_system', 0),
-
-                    NovaDependencyContainer::make([
-                        NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                            ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                            ->placeholder('Select Owner')
-                            ->options(\App\User::NormalUsers()->get())
-                            ->rules('required_if:owner_releated_to_system,1'),
-
-                        NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                            ->placeholder('Select Item')
-
-                            ->optionsResolve(function ($owner) {
-                                return $owner->items()->get();
-                            })
-                            ->rules('required_if:owner_releated_to_system,1')
-                            ->dependsOn('Owner'),
-
-                    ])->dependsOn('owner_releated_to_system', 1),
+                ])->dependsOn('owner_releated_to_system', 1),
 
 
-                ])->dependsOn('status', 1)
+            ])->dependsOn('status', 1)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
 
@@ -374,48 +377,48 @@ class ReportedPost extends Resource
 
 
 
-                NovaDependencyContainer::make([
-                    Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
-                    DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
-                        ->Rules('required_if:status,1')
-                        //->dateFormat('YYYY-MM-DD')
-                        ->maxDate(Carbon::today())
-                        ->withTime(),
+            NovaDependencyContainer::make([
+                Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
+                DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
+                    ->Rules('required_if:status,1')
+                    //->dateFormat('YYYY-MM-DD')
+                    ->maxDate(Carbon::today())
+                    ->withTime(),
 
-                    RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
-                        ->options([
-                            2 => 'default',
-                            0 => 'No',
-                            1 => 'yes',
+                RadioButton::make('Founder Releated To System', 'founder_releated_to_system')
+                    ->options([
+                        2 => 'default',
+                        0 => 'No',
+                        1 => 'yes',
 
-                        ])
-                        ->stack()
-                        ->hideFromIndex()
-                        ->default(2),
-                    NovaDependencyContainer::make([
-
-                        NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                            ->placeholder('Select Person')
-                            ->options(\App\People::all())
-                            ->rules('required_if:founder_releated_to_system,0'),
-
-
-                    ])->dependsOn('founder_releated_to_system', 0),
-
-
-
-                    NovaDependencyContainer::make([
-
-                        NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                            ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                            ->placeholder('Select Owner')
-                            ->options(\App\User::NormalUsers()->get()),
                     ])
-                        ->dependsOn('founder_releated_to_system', 1)
-                        ->rules('required_if:founder_releated_to_system,1'),
+                    ->stack()
+                    ->hideFromIndex()
+                    ->default(2),
+                NovaDependencyContainer::make([
 
-                    //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                    Text::make('Question 1', 'question_1')
+                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                        ->placeholder('Select Person')
+                        ->options(\App\People::all())
+                        ->rules('required_if:founder_releated_to_system,0'),
+
+
+                ])->dependsOn('founder_releated_to_system', 0),
+
+
+
+                NovaDependencyContainer::make([
+
+                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
+                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                        ->placeholder('Select Owner')
+                        ->options(\App\User::NormalUsers()->get()),
+                ])
+                    ->dependsOn('founder_releated_to_system', 1)
+                    ->rules('required_if:founder_releated_to_system,1'),
+
+                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+                Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
@@ -433,27 +436,33 @@ class ReportedPost extends Resource
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
-                    MediaField::make('Item Image', 'images')->listing(),
+                MediaField::make('Item Image', 'images')->listing(),
 
-                ])->dependsOn('status', 0)
+            ])->dependsOn('status', 0)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
 
 
-                Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
 
 
-                            MapMarker::make("Location")
-                            ->defaultZoom(5)
-                            ->defaultLatitude(21.4498898)
-                            ->defaultLongitude(39.4913431)
-                            ->centerCircle(10000, 'DarkCyan', 1, 0.3)->hideFromIndex(),
-                           // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-                           HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
-                            // HasMany::make('Questions'),
-                            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
-                            $Questions,
-                            $PostRequests
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)->hideFromIndex(),
+
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
+                ->hideFromIndex(),
+
+            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
+            HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
+            // HasMany::make('Questions'),
+            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class)
+            $Questions,
+            $PostRequests
 
 
 

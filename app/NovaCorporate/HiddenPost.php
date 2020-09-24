@@ -5,6 +5,7 @@ namespace App\NovaCorporate;
 use App\Brand;
 use App\People;
 use App\Nova\Resource;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use App\NovaCorporate\Metrics\PostsCount;
@@ -113,14 +115,13 @@ class HiddenPost extends Resource
 
         $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
         $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-         if($this->status==1)
+        if($this->status==1)
         {
-        $Questions=HasMany::make('Questions');
-         $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
+            $Questions=HasMany::make('Questions');
+            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
         }
         return [
-
-            
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),
@@ -134,49 +135,49 @@ class HiddenPost extends Resource
             // ->hideWhenUpdating(),
 
             Toggle::make('Open Status', 'open_status')
-            ->hideWhenCreating()
-           // ->hideWhenUpdating()
-           //->hideFromIndex()
-           ,
-           Toggle::make('Appearance Status', 'appearance_status')
-            ->hideWhenCreating()
-           // ->hideWhenUpdating()
-           //->hideFromIndex()
-           ,
+                ->hideWhenCreating()
+            // ->hideWhenUpdating()
+            //->hideFromIndex()
+            ,
+            Toggle::make('Appearance Status', 'appearance_status')
+                ->hideWhenCreating()
+            // ->hideWhenUpdating()
+            //->hideFromIndex()
+            ,
 
 
-           BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
-           // ->placeholder('Select Sub category')
-            //->options(\App\SubCategory::with('brands')->get())
-            ->rules('required')
-            ->readonly(),
+            BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+                // ->placeholder('Select Sub category')
+                //->options(\App\SubCategory::with('brands')->get())
+                ->rules('required')
+                ->readonly(),
 
 
             BelongsTo::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
-           // ->placeholder('Select Brand')
-            // ->optionsResolve(function ($subcategory) {
-            //     return $subcategory->brands;
-            // })
-            ->rules('required')
-            //->dependsOn('Subcategory')
-            ->readonly(),
+                // ->placeholder('Select Brand')
+                // ->optionsResolve(function ($subcategory) {
+                //     return $subcategory->brands;
+                // })
+                ->rules('required')
+                //->dependsOn('Subcategory')
+                ->readonly(),
 
 
             BelongsTo::make('Model', 'model', \App\NovaCorporate\Model::class)
-            //->placeholder('Optional Placeholder')
-            // ->optionsResolve(function ($brand) {
-            //     return $brand->models()->get(['id', 'name_en']);
-            // })
-            ->rules('required')
-            //->dependsOn('Brand')
-            ->readonly(),
+                //->placeholder('Optional Placeholder')
+                // ->optionsResolve(function ($brand) {
+                //     return $brand->models()->get(['id', 'name_en']);
+                // })
+                ->rules('required')
+                //->dependsOn('Brand')
+                ->readonly(),
 
             BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class)
-            ->readonly(),
+                ->readonly(),
 
 
 
-                DateTimeField::make('Post Closing Date', 'end_date')
+            DateTimeField::make('Post Closing Date', 'end_date')
                 //->dateFormat('YYYY-MM-DD')
                 ->maxDate(Carbon::today())
                 ->withTime()
@@ -185,15 +186,15 @@ class HiddenPost extends Resource
                 ->Rules('required_if:open_status,0')
                 ->hideWhenCreating(),
             //->updateRules('required')
-              
+
             //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
             //DateTime::make('Losted At')->hideFromIndex()
             //->Rules('required_if:status,0'),
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
-          
 
-               
+
+
 
 
 
@@ -204,8 +205,8 @@ class HiddenPost extends Resource
                 ->rules('required')
                 ->hideFromIndex(),
 
-                DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
-               // ->Rules('required_if:status,1')
+            DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
+                // ->Rules('required_if:status,1')
                 //->dateFormat('YYYY-MM-DD')
                 ->maxDate(Carbon::today())
                 ->withTime(),
@@ -223,30 +224,34 @@ class HiddenPost extends Resource
             //     ->hideWhenCreating(),
 
             SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
-            ->displayUsingLabels()
-            ->nullable()
-            ->hideFromIndex()
-            ->hideWhenCreating(),
+                ->displayUsingLabels()
+                ->nullable()
+                ->hideFromIndex()
+                ->hideWhenCreating(),
             MediaField::make('Item Image', 'images')->listing(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml()
-                // ->hideWhenUpdating(),
-              ,
+            // ->hideWhenUpdating(),
+            ,
 
-        //    // Button::make('PDF')
-        //         ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
-        //         ->style('danger'),
-           
+            //    // Button::make('PDF')
+            //         ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
+            //         ->style('danger'),
 
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+//                ->hideFromIndex(),
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex(),
 
 
-                Text::make('Question 1', 'question_1')
+            Text::make('Question 1', 'question_1')
                 ->creationRules('required')
                 ->hideWhenUpdating()
                 ->hideFromDetail()
@@ -265,9 +270,9 @@ class HiddenPost extends Resource
                 ->hideFromIndex(),
 
 
-                HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
+            HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-           // HasMany::make('Questions'),
+            // HasMany::make('Questions'),
             //HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class),
             $Questions,
             $PostRequests

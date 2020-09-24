@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Support\Facades\URL;
 use Comodolab\Nova\Fields\Help\Help;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -103,6 +104,7 @@ class Package extends Resource
         // $request->session()->forget('success_payment');
 
         return [
+            Errors::make(),
             $feild,
 
            // $request->session()->forget('success_payment'),

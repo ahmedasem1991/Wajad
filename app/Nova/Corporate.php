@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
+use NovaErrorField\Errors;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -78,6 +80,7 @@ class Corporate extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Unique ID', 'unique_id')->rules(
                 'required',
@@ -150,15 +153,19 @@ class Corporate extends Resource
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-            MapMarker::make("Location")
-            ->defaultZoom(5)
-            ->defaultLatitude(21.4498898)
-            ->defaultLongitude(39.4913431)
-            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+//            MapMarker::make("Location")
+//            ->defaultZoom(5)
+//            ->defaultLatitude(21.4498898)
+//            ->defaultLongitude(39.4913431)
+//            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
+                ->hideFromIndex(),
 
             HasMany::make('Posts','posts','App\Nova\APost'),
             HasMany::make('Subscriptions'),
-            HasMany::make('Qrcodes'),
+            HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
         ];
     }
 
