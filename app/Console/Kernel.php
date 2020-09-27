@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(GenerateQRCodes::class)->dailyAt('01:00');
-        $schedule->command(TestSchedule::class)->everyMinute();
+        //$schedule->command(TestSchedule::class)->everyMinute();
         $schedule->command('schedule:daily')
             ->daily();
 
