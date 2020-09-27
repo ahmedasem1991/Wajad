@@ -15,7 +15,7 @@ class BannerResource extends JsonResource
         }
 
         if ($item->type == 'item') {
-             return (string) $images_main_path . $this->item->images()->first('image')['image'] ?? null;
+             return (string) $images_main_path . $this->item->images[0] ?? null;
         }
     }
 
@@ -36,6 +36,7 @@ class BannerResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'order' => $this->order,
             'type' => $this->type,
             'image' => $this->getImage($this) ?? "",
             'url' => $this->url ?? "",

@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use ClassicO\NovaMediaLibrary\MediaField;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Item extends Resource
@@ -60,6 +61,13 @@ class Item extends Resource
         'created_at',
         'updated_at',
     ];
+    public static $searchRelations = [
+        'owner' => ['name', 'email', 'mobile_number'],
+        'brand' => [ 'name_en', 'name_ar'],
+        'subcategory' => [ 'name_en', 'name_ar'],
+        'model' => [ 'name_en', 'name_ar'],
+        'color' => [ 'name_en', 'name_ar'],
+    ];
 
     /**
      * Get the fields displayed by the resource.
@@ -70,15 +78,16 @@ class Item extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Details')->rules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
 
-            
+
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
             ->placeholder('Select Sub category')
             ->options(\App\SubCategory::with('brands')->get())

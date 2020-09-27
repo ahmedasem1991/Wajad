@@ -223,7 +223,7 @@ function sendCustomUsersFCM($body,$badge)
           
         ],
         'type' => '',
-        'id' => '',
+        'id' => null,
         'deeplink' => 'topic',
         'image' =>null ,
         'post' => null,
@@ -311,7 +311,7 @@ function sendFreeQRCodeFCM($badge)
         ],
         'en' => [
             'title' => '  Congratulations ! ',
-            'body' =>  '' .  defaultGroup()->free_qrcodes . 'QR Code have been added to you because you are a new user'
+            'body' =>  '' .  defaultGroup()->free_qrcodes . ' QR Code have been added to you because you are a new user'
            
         ],
         'type' => 'free_qrcodes',
@@ -325,6 +325,36 @@ function sendFreeQRCodeFCM($badge)
     ];
     return $data;
 }
+
+
+
+function sendAssignQRCodesToUserFCM($badge,$quantity)
+{
+    $data = [
+        'ar' => [
+            'title' => '  تهانينا ! ',
+            'body' => '  لقد تم إضافة  '. 
+            $quantity .
+             ' QRCodes لك  .  ' 
+        ],
+        'en' => [
+            'title' => '  Congratulations ! ',
+            'body' =>  '' .  $quantity . ' QR Code have been added to you .'
+           
+        ],
+        'type' => 'assign_qrcodes',
+        'deeplink' => 'qrcode',
+        'image' =>null ,
+        'post' => null,
+        'item' => null,
+        'url' => null ,
+        'id' => null,
+        'badge' => $badge   
+    ];
+    return $data;
+}
+
+
 
 function sendCorporateAssignQRCodeFCM($quantity,$name,$badge)
 {

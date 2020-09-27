@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -79,6 +80,7 @@ class Qrcode extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
                 ->hideWhenCreating()
@@ -101,7 +103,7 @@ class Qrcode extends Resource
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
-                
+
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
             Image::make('QRCode Images', 'image')

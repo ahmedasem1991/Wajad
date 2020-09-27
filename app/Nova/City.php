@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class City extends Resource
@@ -50,6 +51,9 @@ class City extends Resource
         'created_at',
         'updated_at',
     ];
+    public static $searchRelations = [
+        'area' => [ 'name_en', 'name_ar'],
+    ];
 
     /**
      * Get the fields displayed by the resource.
@@ -60,12 +64,13 @@ class City extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
-            Text::make('City English Name', 'name_en')->rules(['required', 'min:6']),
-            Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:6']),
+            Text::make('City English Name', 'name_en')->rules(['required', 'min:2']),
+            Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:2']),
             NovaBelongsToDepend::make('Area', 'region')
             ->placeholder('Area')
-            ->options(\App\City::all()),
+            ->options(\App\Region::all()),
         ];
     }
 

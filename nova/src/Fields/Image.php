@@ -34,9 +34,17 @@ class Image extends File
         parent::__construct($name, $attribute, $disk, $storageCallback);
 
         $this->thumbnail(function () {
-            return $this->value ? Storage::disk($this->disk)->url($this->value) : null;
+            if (file_exists($this->value) === false) {
+                return '/images/not2_bg_image.jpg';
+            }
+
+            return Storage::disk($this->disk)->url($this->value);
         })->preview(function () {
-            return $this->value ? Storage::disk($this->disk)->url($this->value) : null;
+            if (file_exists($this->value) === false) {
+                return '/images/not2_bg_image.jpg';
+            }
+
+            return Storage::disk($this->disk)->url($this->value) ;
         });
     }
 

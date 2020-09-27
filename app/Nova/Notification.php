@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use OptimistDigital\MultiselectField\Multiselect;
@@ -51,6 +52,11 @@ class Notification extends Resource
         'updated_at',
     ];
 
+    public static function availableForNavigation(Request $request)
+    {
+        return (Auth()->User()->hasPermissionTo('notifications')) ? true : false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -60,12 +66,13 @@ class Notification extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Textarea::make('Body', 'body')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]) ->showOnIndex()
             ->readMore(),
-           
+
 
             RadioButton::make('Send To', 'send_to')
                 ->options([

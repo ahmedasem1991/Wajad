@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\City;
 use App\Item;
 use App\Post;
+use App\Services\Helpers\Traits\Visitable;
 use App\User;
 use Carbon\Carbon;
 use App\PostReport;
@@ -22,6 +23,7 @@ use Intervention\Image\ImageManagerStatic as Image;
  */
 class PostsController extends Controller
 {
+    use Visitable;
     const TYPES = [
         'lost' => 0,
         'found' => 1
@@ -63,8 +65,10 @@ class PostsController extends Controller
             'title' => ['required', 'min:6', 'max:128'],
             'description' => ['required', 'min:9', 'max:500'],
             'reward' => ['nullable', 'string'],
-            'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required'],
+            //'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
+            'latitude' => ['required'],
+            //regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'model_id' => ['required', 'exists:models,id'],
@@ -114,10 +118,12 @@ class PostsController extends Controller
 
         $auto_approve = 0;
         $appearance_status = 0;
+        $approval_status=0;
 
         if (defaultGroup()->auto_approve == 1) {
             $auto_approve = 1;
             $appearance_status = 1;
+            $approval_status=1;
         }
         $post = Post::create([
             'title' => $request->title,
@@ -133,8 +139,9 @@ class PostsController extends Controller
             'city_id' => $city_id->id,
             'publisher_id' => auth('api')->user()->id,
             'publisher_type' => 1,
-            // 'auto_approve' => $auto_approve,
-            //'appearance_status' => $appearance_status,
+            'auto_approve' => $auto_approve,
+            'appearance_status' => $appearance_status,
+            'approval_status' => $approval_status,
             'auto_approve' => 1,
             'appearance_status' => 1,
             'approval_status' => 1,
@@ -196,7 +203,7 @@ class PostsController extends Controller
             $post->save();
         }
 
-      
+
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
    // Send FCM
@@ -231,6 +238,12 @@ class PostsController extends Controller
 
         if ($validate_request->fails()) {
             throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
+        $p = PostReport::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->get();
+
+        if (!$p->isEmpty()){
+            throw new ApiException('You Already Made A Request', 400);
         }
 
         $postReport = PostReport::create([
@@ -425,6 +438,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        $this->bootVisitable($post);
         return new PostResource($post);
     }
 
@@ -547,7 +561,7 @@ class PostsController extends Controller
                         Image::make(file_get_contents($image))->encode('data-url')->save($path);
                         $post_images[] = '/images//' . $image_name;
                     }
-    
+
                     if (!preg_match("/^data:image/", $image)) {
                         $post_images[] = $image;
                     }
@@ -555,10 +569,10 @@ class PostsController extends Controller
                 $post->fill([
                     'images' => $post_images
                 ]);
-    
+
                 $post->save();
             }
-            
+
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
 
@@ -566,7 +580,7 @@ class PostsController extends Controller
          $badge =getBadge($post->publisher);
          $data=sendUpdatePostFCM($post,$badge,$type);
          $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
-     
+
 
             return $this->response();
         }

@@ -19,9 +19,9 @@ class Corporates extends Partition
         return $this->count($request, Corporate::class, 'status')
         ->label(function ($value) {
             switch ($value) {
-                case 0:
-                    return 'Active';
                 case 1:
+                    return 'Active';
+                case 0:
                     return 'Not Active';
                 
                 default:

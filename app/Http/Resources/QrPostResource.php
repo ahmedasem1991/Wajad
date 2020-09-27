@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Resources;
+
+use App\Post;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class QrPostResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        if($this->corporate)
+        {
+            $this->publisher->name=$this->corporate->{'name_' . app()->getLocale()};
+            $this->publisher->mobile_number=$this->corporate->country ? $this->corporate->country->country_code .$this->corporate->mobile_number: '' .$this->corporate->mobile_number;
+            session()->put('corporate_publisher','true');
+
+        }
+
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'approval_status' => $this->approval_status,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
+            'reward' => $this->reward,
+            'description' => $this->description,
+            'status' => Post::Status[$this->status] ?? '',
+            'attached_to_item' => (bool) $this->item,
+            'sub_category' => new SubCategoryResource($this->subcategory),
+            'model' => new ModelResource($this->model),
+            'brand' => new BrandResource($this->brand),
+            'color' => new ColorResource($this->color),
+            'date' => $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'images' => $this->images ?? [],
+            'questions' =>  QuestionResource::collection($this->questions),
+            'claimers' =>  PostRequestsResource::collection($this->postRequests),
+            'city' => new CityResource($this->city),
+            'publisher' => new UserResource($this->publisher),
+            'corporate' => new CorporateResource($this->corporate),
+        ];
+    }
+}

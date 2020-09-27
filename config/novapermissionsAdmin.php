@@ -15,7 +15,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'userResource' => 'App\Nova\User',
+    'userResource' => 'App\Nova\AllUser',
 
     /*
     |--------------------------------------------------------------------------
@@ -330,6 +330,24 @@ return [
         'corporates' => [
             'display_name' => 'Corporates',
             'description'  => 'Corporates',
+            'group'        => 'Resources',
+        ],
+
+        'notifications' => [
+            'display_name' => 'Notifications',
+            'description'  => 'notifications',
+            'group'        => 'Notifications',
+        ],
+
+        // 'view settings' => [
+        //     'display_name' => 'View settings',
+        //     'description'  => 'Can view settings',
+        //     'group'        => 'Settings',
+        // ],
+
+        'visits' => [
+            'display_name' => 'Visits',
+            'description'  => 'visits',
             'group'        => 'Resources',
         ],
 

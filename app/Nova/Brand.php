@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Brand extends Resource
@@ -61,12 +62,13 @@ class Brand extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Brand English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Brand Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Brand English Body', 'description_en'),
             Textarea::make('Brand Arabic Body', 'description_ar'),
@@ -77,7 +79,10 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100')
+                ->creationRules('required')
+//                ->updateRules(
+//                    'dimensions:max_width=100,max_height=100'
+//                )
 //                ->showOnIndex(function () {
 //                    if(file_exists(public_path().'images/brands/'. $this->image .'png'))
 //                    return true;

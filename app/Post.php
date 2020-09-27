@@ -37,7 +37,10 @@ class Post extends MasterModel
         'brand_id',
         'city_id',
         'images',
-        'reward'
+        'reward',
+        'question_1',
+        'question_2',
+        'question_3'
     ];
 
     protected static $logAttributes = ['title', 'description'];
@@ -88,6 +91,11 @@ class Post extends MasterModel
         'open' => 1
     ];
 
+    public function visits()
+    {
+        return $this->morphOne(Visit::class, 'visitable');
+    }
+
     /**
      * Define The Relation Of The Item with Post
      */
@@ -135,7 +143,7 @@ class Post extends MasterModel
 
     public function person()
     {
-        return $this->belongsTo(People::class);
+        return $this->belongsTo(People::class,'person_id');
     }
 
     /**

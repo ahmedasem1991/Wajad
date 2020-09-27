@@ -60,15 +60,15 @@ class ScanQrcodeController extends Controller
      */
     public function __invoke(Request $request, Qrcode $qr_code)
     {
-        if (Carbon::now()->toDateTimeString() < $qr_code->end_at) {
-            throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
-        }
+        // if (Carbon::now()->toDateTimeString() < $qr_code->end_at) {
+        //     throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
+        // }
         if($qr_code->user)
         { //send mail
            Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
            //send FCM
            $badge =getBadge($qr_code->user);
-           $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat,$request->lng,$qr_code->id);
+           $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '30.1545585',$request->lng ?? '30.15245525',$qr_code->id);
            $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
            //send SMS
          // $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');

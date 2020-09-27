@@ -48,23 +48,34 @@ class PDFController extends Controller
     {
         $post = Post::find(base64_decode($request->get('p')));
         $data=['post'=>$post];
-       // $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
+        // $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
         $pdf = \DomPDF::loadView('Pdf.en_receipt', $data);
-  
-        
+
+        $dispatcher = Post::getEventDispatcher();
+        Post::unsetEventDispatcher();
+        $post->open_status = 0;
+        $post->save();
+        Post::setEventDispatcher($dispatcher);
+
         return $pdf->stream('document.pdf');
-     }
-     public function arReceipt(Request $request)
-     {
-          $post = Post::find(base64_decode($request->get('p')));
-       
+    }
+    public function arReceipt(Request $request)
+    {
+        $post = Post::find(base64_decode($request->get('p')));
+
+        $dispatcher = Post::getEventDispatcher();
+        Post::unsetEventDispatcher();
+        $post->open_status = 0;
+        $post->save();
+        Post::setEventDispatcher($dispatcher);
+
         return view('Pdf.ar_receipt')->with('post',$post);
-      }
+    }
 
     public function qrcodepdf(Request $request)
     {
         $models =  session()->get('models');
-      //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
+        //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
         $data=['models' => $models];
         set_time_limit(3000);
         $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
@@ -78,6 +89,6 @@ class PDFController extends Controller
         //$pdf = (new PdfWrapper)->loadView('Pdf.assignqrcode', ['assignqrcode' => $assignqrcode]);
         $data=['assignqrcode' => $assignqrcode];
         $pdf = \DomPDF::loadView('Pdf.assignqrcode', $data);
-        return $pdf->stream('document.pdf');      
+        return $pdf->stream('document.pdf');
     }
 }

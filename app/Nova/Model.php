@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Model extends Resource
@@ -52,6 +53,11 @@ class Model extends Resource
         'updated_at',
     ];
 
+    public static $searchRelations = [
+        'subcategory' => [ 'name_en', 'name_ar'],
+        'brand' => [ 'name_en', 'name_ar'],
+    ];
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -61,12 +67,13 @@ class Model extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Model English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Model Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
@@ -77,9 +84,13 @@ class Model extends Resource
                 ->path('images/models')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_width=100'),
-          
-          
+                //->rules('required','dimensions:max_width=100,max_width=100'),
+                ->creationRules('required'),
+//                ->updateRules(
+//                    'dimensions:max_width=100,max_height=100'
+//                ),
+
+
                 NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())
@@ -90,10 +101,11 @@ class Model extends Resource
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
+
                 })
                 ->rules('required')
                 ->dependsOn('Subcategory'),
-           
+
           //  HasMany::make('Colors'),
         ];
     }

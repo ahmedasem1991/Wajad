@@ -2,35 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use URL;
 use App\User;
 use App\Qrcode;
 use App\Package;
+use App\Setting;
 use Carbon\Carbon;
+use PayPal\Api\Item;
 use App\AssignQrcode;
 use App\Subscription;
-use Laravel\Nova\Nova;
-use App\GenerateQrcode;
-use PayPal\Api\WebProfile;
-use PayPal\Api\InputFields;
-use League\Flysystem\Config;
-use PayPal\Api\PaymentExecution;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use App\Jobs\GenerateAndAssigneQrcodeJob;
-use App\Notifications\BroadcastNotification;
-
-use PayPal\Api\Item;
 use PayPal\Api\Payer;
+use Laravel\Nova\Nova;
 use PayPal\Api\Amount;
+use App\GenerateQrcode;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
+use Damas\Paytabs\Paytabs;
+
+use PayPal\Api\WebProfile;
+use PayPal\Api\InputFields;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
 use Illuminate\Http\Request;
+use League\Flysystem\Config;
 use PayPal\Api\RedirectUrls;
-use URL;
-
+use PayPal\Api\PaymentExecution;
+use Illuminate\Support\Facades\Input;
 use PayPal\Auth\OAuthTokenCredential;
+
+use Illuminate\Support\Facades\Redirect;
+use App\Jobs\GenerateAndAssigneQrcodeJob;
+use App\Notifications\BroadcastNotification;
 
 class PaymentController extends Controller
 {
@@ -45,14 +47,176 @@ class PaymentController extends Controller
                 $paypalConfig['secret']
             )
         );
+        
         $this->apiContext->setConfig($paypalConfig['settings']);
     }
 
 
 
+    
+    public function payWithpaytabs(Request $request)
+    {
+     //dd(route('paytabschecker'));
+        $Package = Package::find(base64_decode($request->get('p')));
+
+        \Session::forget('Package');
+        \Session::forget('corporate_id');
+        \Session::put('Package', $Package);
+        $package_id= base64_decode($request->get('p'));
+        //dd(env('ADMIN_URL').'/'.  Nova::path() . '/resources/packages/'.$package_id);
+        \Session::put('package_id', base64_decode($request->get('p')));
+        \Session::put('corporate_id', auth()->user()->corporate_id);
+
+        $user_id = Auth()->user()->id;
+        $Price = (int) ltrim($Package->price, ' - ' . env('CURRENCY'));
+
+        $email=env('PAYTABS_EMAIL');
+        $secret=env('PAYTABS_SECRET');
+        $pt = Paytabs::getInstance( $email, $secret);
+        $result = $pt->create_pay_page(array(
+            "merchant_email" => $email,
+            'secret_key' => $secret,
+            'title' => auth()->user()->corporate->name_en,
+            'cc_first_name' => auth()->user()->corporate->name_en,
+            'cc_last_name' => "Corporate",
+            'email' => auth()->user()->email,
+            'cc_phone_number' =>auth()->user()->corporate->country->country_code,
+            'phone_number' => auth()->user()->corporate->mobile_number,
+            'billing_address' => Setting::where('key', 'address-1')->first()['value'],
+           
+            'city' => "Jadda",
+            'state' => "Capital",
+            'postal_code' => "21589",
+            'country' => "SAU",
+            'address_shipping' =>  auth()->user()->corporate->address_en,
+            'city_shipping' => "Jeddah",
+            'state_shipping' => "Capital",
+            'postal_code_shipping' => "21589",
+            'country_shipping' => "SAU",
+            "products_per_title"=>   $Package->name_en,
+            'currency' => "SAR",
+            "unit_price"=> $Package->price,
+            'quantity' => "1",
+            'other_charges' => "0",
+            'amount' => $Package->price,
+            'discount'=>"0",
+            "msg_lang" => "english",
+            "reference_no" => "123456",
+            "site_url" => "https://www.smartappco.com/",
+            'return_url' =>route('paytabschecker'),
+            //env('ADMIN_URL').'/'.  Nova::path() . '/resources/packages/'.$package_id,
+            "cms_with_version" => "API USING PHP"
+        ));
+        
+            if($result->response_code == 4012){
+                ///dd($result);
+          \Session::put('check_id',$result->p_id);
+    
+              //  dd($result);
+            return redirect($result->payment_url);
+            }
+            //dd($result);
+            return $result->result;
+    }
+
+
+    
+    public function checkPayWithPaytabs(Request $request)
+    {
+       $package=\Session::get('Package');
+        $email=env('PAYTABS_EMAIL');
+        $secret=env('PAYTABS_SECRET');
+
+       $check_id= \Session::get('check_id');
+
+        $pt = Paytabs::getInstance($email, $secret);
+        $result = $pt->verify_payment($check_id);
+        
+        if($result->response_code==4001)
+        {
+            session(['error_payment' => 'Missing payment reference number.']);
+            return redirect(Nova::path() . '/resources/packages/' . $package->id);
+        }
+         // Payment Success
+         if($result->response_code == 100){
+           
+           \App\Payment::create([
+              'payment_gateway'=> 'paytabs',
+              'corporate_id'=>auth()->user()->corporate_id ,
+              'user_id'=>null ,
+              'result'=> json_encode($result),
+
+           ]);
+
+           
+           $Subscription =   Subscription::create([
+            'package_id' => $package->id,
+            'corporate_id' => auth()->user()->corporate->id,
+            'user_id' => Null,
+            'subscriber' => 2,
+            'created_from'=>'Package'
+        ]);
+
+
+        $level = 'success';
+        $message = 'Package "' . $package->name_en . '"Was Paid Successfully By ' . auth()->user()->name.' ('.auth()->user()->corporate->name_en.')';
+        $corporate_message = 'Package "' . $package->name_en . '"Was Paid Successfully.';
+        $url = Nova::path() . '/resources/packages/' . $package->id;
+        Auth()->User()->notify(new BroadcastNotification($level, $corporate_message, $url));
+
+        $Users = User::superAdmin()->get();
+        foreach ($Users as $user) {
+            $user->notify(new BroadcastNotification('info', $message, $url));
+        }
+
+        $request->session()->put('success_payment', 'Payment successful.');
+        return  redirect($url);
+
+
+
+
+
+
+
+
+        }else{ //if failed
+           // dd($result);
+
+            \App\Payment::create([
+                'payment_gateway'=> 'paytabs',
+                'corporate_id'=>auth()->user()->corporate_id ,
+                'user_id'=>null ,
+                'result'=>   json_encode($result)
+    
+             ]);
+
+             session(['error_payment' => 'Invoice is not paid! Reference# is '.$result->pt_invoice_id]);
+
+             $level = 'error';
+             $message = 'Package "' . $package->name_en . '"Was Paid Faild By ' . auth()->user()->name .' ('.auth()->user()->corporate->name_en.')';
+             $corporate_message = 'Package "' . $package->name_en . '"Was Paid Failed.';
+             $url = Nova::path() . '/resources/packages/' . $package->id;
+             Auth()->User()->notify(new BroadcastNotification($level, $corporate_message, $url));
+             Auth()->User()->notify(new BroadcastNotification($level,  'Invoice is not paid! Reference# is '.$result->pt_invoice_id, $url));
+
+
+             $Users = User::superAdmin()->get();
+             foreach ($Users as $user) {
+                 $user->notify(new BroadcastNotification($level, $message, $url));
+                 $user->notify(new BroadcastNotification($level, 'Invoice is not paid! Reference# is '.$result->pt_invoice_id .' By '.auth()->user()->corporate->name_en, $url));
+             }
+ 
+             return redirect(Nova::path() . '/resources/packages/' . $package->id);
+        }
+
+        
+        return $result->result;
+    }
+
+
     public function payWithpaypal(Request $request)
     {
-
+ 
         $Package = Package::find(base64_decode($request->get('p')));
 
         \Session::forget('Package');
@@ -114,17 +278,26 @@ class PaymentController extends Controller
             ->setPayer($payer)
             ->setRedirectUrls($redirectURLs)
             ->setTransactions(array($transaction));
-        $payment->setExperienceProfileId($createProfile->getId());
-        $payment->create($this->apiContext);
+         $payment->setExperienceProfileId($createProfile->getId());
 
-
-
+         try {
+         $payment->create($this->apiContext);
+        } catch (\Exception $ex) {
+            \Log::info($ex);
+           // \Session::put('error_payment', $ex['message']);
+         //  dd($ex);
+        }
+         //$payment->create($this->apiContext);
+        //dd($payment);
+ 
+       
         foreach ($payment->getLinks() as $link) {
             if ($link->getRel() == 'approval_url') {
                 $redirectURL = $link->getHref();
                 break;
             }
         }
+      
         # We store the payment ID into the session
 
         \Session::put('paypalPaymentId', $payment->getId());
@@ -140,6 +313,7 @@ class PaymentController extends Controller
     public function getPaymentStatus(Request $request)
     {
 
+        //dd('test test status');
         /** Get the payment ID before session clear **/
         $payment_id = \Session::get('paypalPaymentId');
         $package_id = \Session::get('package_id');
@@ -163,72 +337,35 @@ class PaymentController extends Controller
 
             return redirect(Nova::path() . '/resources/packages/' . $package_id);
         }
-
+       
         $payment = Payment::get($payment_id, $this->apiContext);
+       
         $execution = new PaymentExecution();
-        $execution->setPayerId(Input::get('PayerID'));
+       
 
         try {
+            $execution->setPayerId(Input::get('PayerID'));
+           } catch (\Exception $ex) {
+               \Log::info($ex);
+               //\Session::put('error_payment', $ex['message']);
+           }
+      
 
+           $url = Nova::path() . '/resources/packages/' . $package_id;
+        try {
+            
             $result = $payment->execute($execution, $this->apiContext);
             if ($result->getState() == 'approved') {
 
+               
                 $Subscription =   Subscription::create([
                     'package_id' => $Package->id,
                     'corporate_id' => auth()->user()->corporate->id,
                     'user_id' => Null,
                     'subscriber' => 2,
-                    'created_from'=>'package'
+                    'created_from'=>'Package'
                 ]);
 
-                $now = Carbon::now();
-
-                $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
-                $generate_reference_number = NULL;
-                $assign_reference_number = 'C-' . $middle . $now->second;
-                $generate_id = NULL;
-
-                if (count(Qrcode::status('In Stock')->type($Package->type)->get()) < $Package->quantity) {
-
-                    $generate_reference_number = 'N-' . $middle . $now->second;
-                    $GenerateQRCode = GenerateQrcode::create([
-                        'generate_reference_number' => $generate_reference_number,
-                        'type' => $Package->type,
-                        'quantity' => $Package->quantity,
-                        'created_by' => auth()->user()->id,
-                        'created_from' => 'package',
-                    ]);
-
-                    $generate_id = $GenerateQRCode->id;
-                }
-
-
-                AssignQrcode::create([
-                    'assign_reference_number' => $assign_reference_number,
-                    'assign_to' => 2,
-                    'user_id' => NULL,
-                    'corporate_id' => \Session::get('corporate_id'),
-                    'type' => $Package->type,
-                    'available_period' => str_replace(" Day/s", "", $Package->period),
-                    'quantity' => $Package->quantity,
-                    'created_from' => 'package'
-                ]);
-
-
-                $QRcodesData = [
-                    'generate_id' => $generate_id,
-                    'generate_reference_number' => $generate_reference_number,
-                    'assign_reference_number' => $assign_reference_number,
-                    'quantity' => $Package->quantity,
-                    'status' => 3,
-                    'type' => $Package->type,
-                    'user_id' => NULL,
-                    'auth_id' => Auth()->User()->id,
-                    'corporate_id' => \Session::get('corporate_id'),
-                    'available_period' => str_replace(" Day/s", "", $Package->period),
-                ];
-
-                GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
 
                 $level = 'success';
                 $message = 'Package "' . $Package->name_en . '"Was Paid Successfully By ' . auth()->user()->name;
@@ -247,13 +384,14 @@ class PaymentController extends Controller
 
             \Session::put('error_payment', 'Payment failed!');
             return redirect($url);
-        } catch (\PayPal\Exception\PPConnectionException $ex) {
+        } catch (\Exception $ex) {
             if (\Config::get('app.debug')) {
-                \Session::put('error_payment', 'Connection timeout');
-                return Redirect::route('paywithpaypal');
+                \Log::info($ex);
+                \Session::put('error_payment', 'Transaction is declined due to compliance violation !');
+                return  redirect($url);
             } else {
                 \Session::put('error_payment', 'Some error occur, sorry for inconvenient');
-                return Redirect::route('paywithpaypal');
+                return  redirect($url);
             }
         }
     }

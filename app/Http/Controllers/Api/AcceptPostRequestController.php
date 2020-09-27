@@ -20,6 +20,7 @@ class AcceptPostRequestController extends Controller
      * This Post Request is his
      * @urlParam post_id required int exists in posts
      * @bodyParam user_id required int exists in users
+     * @bodyParam comment  text 
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
@@ -43,9 +44,9 @@ class AcceptPostRequestController extends Controller
         }
 
         $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
-        $postRequest->update(['is_request_valid' => true]);
+        $postRequest->update(['is_request_valid' => true, 'comment' => $request->input('comment')]);
         $post->update(['owner_id' => $request->user_id]);
-         
+
         $request_user=User::find($request->user_id);
         //send FCM
         $badge =getBadge($request_user);

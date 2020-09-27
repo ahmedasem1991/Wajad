@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('email');
+            $table->string('password')->nullable();
             $table->string('default_distance_unit')->default('kilo');
             $table->boolean('first_time_login')->default(true);
 
@@ -29,10 +29,13 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->nullable();
             //$table->integer('posts_number')->default(env('POST_LIMITATION',50));
             $table->integer('posts_number')->default(0);
+            $table->string('social_name')->nullable();
+            $table->boolean('is_social_user')->default(0);
+            $table->string('created_from')->nullable();
 
             $table->text('device_token')->nullable();
 
-            $table->char('mobile_number')->unique()->nullable();
+            $table->char('mobile_number')->nullable();
 
             $table->boolean('receive_emails')->default(false);
             $table->boolean('receive_push_notifications')->default(false);
@@ -41,6 +44,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('image', 500)->default("images/profile/default-profile.png");
             $table->string('language', 5)->default('en');
+            $table->integer('quick_user_id')->nullable();
+            $table->string('quick_user_password')->default('QuickBlox1!');
+            $table->string('social_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

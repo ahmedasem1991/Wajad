@@ -18,6 +18,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
@@ -88,6 +89,7 @@ class CorporateAssignQrcode extends Resource
             ->whereNull('user_id')->get());
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Reference Number','corporate_assign_reference_number')
                 ->hideWhenCreating()
@@ -150,7 +152,7 @@ class CorporateAssignQrcode extends Resource
                 ->options([
                     'web' => 'web',
                 ])->default('web'), // optional,
-            HasMany::make('Qrcodes'),
+            HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
 
         ];
     }

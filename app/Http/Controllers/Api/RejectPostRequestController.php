@@ -20,9 +20,10 @@ class RejectPostRequestController extends Controller
 {
 
     /**
-     * Reject Post Request  
+     * Reject Post Request
      * @urlParam post_id required int exists in posts
      * @bodyParam user_id integer required exists in users
+     * @bodyParam comment text required 
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
@@ -35,6 +36,7 @@ class RejectPostRequestController extends Controller
     {
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required', 'int', 'exists:users,id'],
+            'comment' => ['required'],
         ]);
 
         if ($validate_request->fails()) {
@@ -46,7 +48,7 @@ class RejectPostRequestController extends Controller
         }
 
         $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
-        $postRequest->update(['rejected_at' => Carbon::now()->toDateTimeString()]);
+        $postRequest->update(['rejected_at' => Carbon::now()->toDateTimeString(), 'comment' => $request->input('comment')]);
 
         if (
             PostRequest::where('user_id', $request->user_id)

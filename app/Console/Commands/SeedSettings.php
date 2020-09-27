@@ -100,6 +100,13 @@ class SeedSettings extends Command
                'created_at' => null,
                'updated_at' => null
            ],
+           [
+            'key' => 'min_qrcodes_number',
+            //'title' => 'Limited Posts',
+            'value' => 1000,
+            'created_at' => null,
+            'updated_at' => null
+        ],
                     [
                         'key' => 'Phone-Number-1',
                         //'title' => 'Limited Posts',
@@ -139,6 +146,20 @@ class SeedSettings extends Command
                         'key' => 'Email-2',
                         //'title' => 'Limited Posts',
                         'value' => 'info@wajad.com',
+                        'created_at' => null,
+                        'updated_at' => null
+                    ],
+                    [
+                        'key' => 'latitude',
+                        //'title' => 'Limited Posts',
+                        'value' => 21.4498898,
+                        'created_at' => null,
+                        'updated_at' => null
+                    ],
+                    [
+                        'key' => 'longitude',
+                        //'title' => 'Limited Posts',
+                        'value' => 39.4913431,
                         'created_at' => null,
                         'updated_at' => null
                     ],

@@ -26,6 +26,7 @@ class CreatePackagesTable extends Migration
             $table->integer('period')->nullable()->unsigned();
             $table->boolean('is_active')->default(true);
             $table->boolean('incrementally')->default(false);
+            $table->integer('max_increments')->default(0);
            $table->softDeletes();
 $table->timestamps();
         });

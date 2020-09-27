@@ -8,6 +8,7 @@ use App\People;
 use App\Corporate;
 use App\PostImage;
 use App\Nova\Resource;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use NovaButton\Button;
 use Naif\Toggle\Toggle;
 use App\Nova\Metrics\Posts;
@@ -23,6 +24,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use ClassicO\NovaMediaLibrary\MediaField;
@@ -35,6 +37,10 @@ use App\NovaCorporate\Metrics\OpenVsClosedPosts;
 use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Sloveniangooner\SearchableSelect\SearchableSelect;
+use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
+use Carbon\Carbon;
+
 
 class Post extends Resource
 {
@@ -122,13 +128,20 @@ class Post extends Resource
     public function fields(Request $request)
     {
 
-
+        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if($this->status==1)
+        {
+            $Questions=HasMany::make('Questions');
+            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
+        }
 
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),
-            RadioButton::make('Status')
+            RadioButton::make('Post Type','status')
                 ->options([
                     // 0 => 'Lost',
                     1 => 'Found',
@@ -137,50 +150,101 @@ class Post extends Resource
             // ->hideWhenCreating()
             // ->hideWhenUpdating(),
 
+            Toggle::make('Open Status', 'open_status')
+                ->hideWhenCreating()
+                // ->hideWhenUpdating()
+               // ->hideFromIndex(),
+               ,
+            Toggle::make('Appearance Status', 'appearance_status')
+                ->hideWhenCreating()
+                // ->hideWhenUpdating()
+               // ->hideFromIndex()
+                ,
 
 
-            NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+            
+                NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
-                ->options(\App\SubCategory::with('brands')->get()),
-            // ->rules('required'),
+                ->options(\App\SubCategory::with('brands')->get())
+                ->hideFromIndex()
+                ->hideWhenUpdating(),
 
 
-            NovaBelongsToDepend::make('Brand','brand',\App\NovaCorporate\Brand::class)
+
+            NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
                 })
-                //  ->rules('required')
-                ->dependsOn('Subcategory'),
+                ->dependsOn('Subcategory')
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
 
 
-            NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
+            NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
                 ->placeholder('Optional Placeholder')
                 ->optionsResolve(function ($brand) {
                     return $brand->models()->get(['id', 'name_en']);
                 })
-                //  ->rules('required')
-                ->dependsOn('Brand'),
-            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class),
+                ->dependsOn('Brand')
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
 
 
-            Toggle::make('Open Status', 'open_status')
-                // ->hideWhenCreating()
-                // ->hideWhenUpdating()
-                ->hideFromIndex(),
-            Toggle::make('Appearance Status', 'appearance_status')
-                // ->hideWhenCreating()
-                // ->hideWhenUpdating()
-                ->hideFromIndex(),
-            DateTime::make('Post Closing Date','end_date')->updateRules('required')
+
+                
+            BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
+            ->rules('required')
+            ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->readonly(),
+
+
+        BelongsTo::make('Brand', 'brand', \App\NovaCorporate\Brand::class)
+            ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->rules('required')
+            ->readonly(),
+
+
+        BelongsTo::make('Model', 'model', \App\NovaCorporate\Model::class)
+            ->rules('required')
+            ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->readonly(),
+            
+            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class) ->hideWhenCreating()
+            ->hideFromDetail()
+            ->hideFromIndex()
+            ->readonly(),
+
+            BelongsTo::make('Color', 'color', \App\NovaCorporate\Color::class) ->hideWhenUpdating()
+            ->rules('required'),
+            
+
+
+
+
+            DateTimeField::make('Post Closing Date', 'end_date')
+                //->dateFormat('YYYY-MM-DD')
+                ->maxDate(Carbon::today())
+                ->withTime()
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->Rules('required_if:open_status,0')
                 ->hideWhenCreating(),
+            //->updateRules('required')
+
             //  BelongsTo::make('Post Type', 'postType', 'App\Nova\PostType'),
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Lost.</p>')->asHtml(),
             //DateTime::make('Losted At')->hideFromIndex()
             //->Rules('required_if:status,0'),
             // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Post Is Found.')->asHtml(),
-            DateTime::make('Founded At')->hideFromIndex()
-                ->rules('required_if:status,1'),
+
+
 
 
 
@@ -191,51 +255,90 @@ class Post extends Resource
                 ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
                 ->rules('required'),
 
+            DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
+                ->Rules('required_if:status,1')
+                //->dateFormat('YYYY-MM-DD')
+                ->maxDate(Carbon::today())
+                ->withTime(),
+
+
             Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 // ->hideWhenUpdating(),
                 ->hideWhenCreating(),
 
-            NovaBelongsToDepend::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->placeholder('Select Person')
-                ->options(User::Normalusers()->get())
-                // ->rules('required')
+            // Select2::make('Owner', 'owner_id')
+
+            //     ->options(User::Normalusers()->get()->pluck('name','id'))
+            //     //->displayUsingLabels()
+            //     // ->rules('required')
+            //     ->hideWhenCreating(),
+
+            SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
+                ->displayUsingLabels()
+                ->nullable()
                 ->hideWhenCreating(),
-
-
-
-//            Text::make('Founder Email','founder_email')
-//                ->sortable()
-//                ->rules('required', 'email', 'max:254'),
-//
-//            PhoneNumber::make('Founder Mobile Number','founder_mobile_number')
-//                ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-//                ->onlyCustomFormats(),
-//            Text::make('Founder Address','founder_address')
-//                ->sortable()
-//                ->rules('required', 'max:254'),
-            Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
-                ->hideWhenUpdating()
-                ->hideWhenCreating(),
-            BelongsTo::make('Owner', 'owner', 'App\NovaCorporate\NormalUser')
-                ->readonly()
-                ->hideWhenUpdating()
-                ->hideWhenCreating(),
-
-
-
-            Button::make('PDF')
-                ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
-                ->style('danger'),
             MediaField::make('Item Image', 'images')->listing(),
 
-            MapMarker::make("Location")
-                ->defaultZoom(5)
-                ->defaultLatitude(21.4498898)
-                ->defaultLongitude(39.4913431)
-                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
+            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml()
+            // ->hideWhenUpdating(),
+            ,
+
+            Button::make('Close')
+            ->style('danger')
+            ->event('App\Events\ClosePostEvent'),
+
+
+        Button::make('Hidden')
+            ->style('grey')
+            ->event('App\Events\HiddenPostEvent'),
+
+
+            Button::make('EN PDF')
+            ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
+            ->style('info'),
+
+        Button::make('AR PDF')
+            ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
+            ->style('info'),
+
+
+//            MapMarker::make("Location")
+//                ->defaultZoom(5)
+//                ->defaultLatitude(21.4498898)
+//                ->defaultLongitude(39.4913431)
+//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
+//                ->hideFromIndex(),
+            NovaGoogleMaps::make('Location')
+                ->setValue($this->latitude, $this->longitude)
+                ->setAttributes('latitude', 'longitude')
+                ->hideFromIndex()
+                ->hideFromDetail(),
+
+            Text::make('Question 1', 'question_1')
+                ->creationRules('required')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 2', 'question_2')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+            Text::make('Question 3', 'question_3')
+                //->creationRules('required_if:status,1')
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+
+            HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-            HasMany::make('Questions'),
-            HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class)
+            // HasMany::make('Questions'),
+            //HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class),
+            $Questions,
+            $PostRequests
 
         ];
     }
@@ -292,7 +395,8 @@ class Post extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         //return $query->whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id'));
-        return $query->where('corporate_id', Auth()->user()->corporate->id);
+        return $query->where('corporate_id', Auth()->user()->corporate->id)
+        ->IsOpen()->isApproved()->IsShow();
     }
 
     public static function icon()

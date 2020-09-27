@@ -23,6 +23,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaErrorField\Errors;
 
 class NormalUser extends Resource
 {
@@ -90,6 +91,7 @@ class NormalUser extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
             Gravatar::make(),
@@ -112,8 +114,11 @@ class NormalUser extends Resource
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
           //  HasMany::make('Items','items',Item::class),
-            Toggle::make('Active', 'status'),
-
+//            Toggle::make('Active', 'status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities',Activity::class)

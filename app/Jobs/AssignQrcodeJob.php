@@ -21,7 +21,7 @@ use App\Notifications\BroadcastNotification;
 class AssignQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $id,$assign_reference_number,$quantity,$type,$user_id,$corporate_id,$available_period,$assign_to,$auth_id;
+    private $id,$assign_reference_number,$quantity,$type,$user_id,$corporate_id,$available_period,$assign_to,$auth_id,$created_from;
     /**
      * Create a new job instance.
      *
@@ -38,6 +38,8 @@ class AssignQrcodeJob implements ShouldQueue
        $this->available_period=$assignQrcode->available_period;
        $this->assign_to=$assignQrcode->assign_to;
        $this->auth_id=$assignQrcode->created_by;
+       $this->created_from=$assignQrcode->created_from;
+       
     }
 
     /**
@@ -64,22 +66,48 @@ class AssignQrcodeJob implements ShouldQueue
        }
        $level='success';
        $message='"' .$this->quantity .'" QR Code Was Assigned Successfully.';
-       $url=Nova::path().'/resources/assign-qrcodes';
-       User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
+       $url=Nova::path().'/resources/stocks';
+       //User::find($this->auth_id)->notify(new BroadcastNotification($level,$message,$url));
        if ($this->corporate_id != NULL) {
         $level='info';
         $Corporate = Corporate::find($this->corporate_id);
-        $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . '.';
+        $message = '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . ' from '. $this->created_from;
         $CorporateAdmins = $Corporate->users->where('type', 2);
         foreach ($CorporateAdmins as $user) {
             $user->notify(new BroadcastNotification($level, $message, $url));
+        }
+
+
+        //send notification to admins level
+        $admin_message =  '"' . $this->quantity . '" QR Code Assigned Successfully To ' . $Corporate->name_en . ' from '. $this->created_from;;
+        $admin_url = Nova::path() . '/resources/assign-qrcodes/' . $this->id;
+
+        $admins = User::superAdmin()->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new BroadcastNotification('info', $admin_message, $admin_url));
         }
     }
     if ($this->user_id != NULL) {
 
         $badge =getBadge(User::find($this->user_id));
-        $data=sendFreeQRCodeFCM($badge);
+        if($this->created_from=='new_register')
+        {
+            $data=sendFreeQRCodeFCM($badge);
+        }
+        else{
+            $data=sendAssignQRCodesToUserFCM($badge,$this->quantity);
+        }
+       
         User::find($this->user_id)->notify(new SendFCMNotification(User::find($this->user_id),$data));
+
+        //send notification to admins level
+        $admin_message =  '"' . $this->quantity . '" QR Code Assigned Successfully To ' . User::find($this->user_id)['name']  . ' from '. $this->created_from;
+        $admin_url = Nova::path() . '/resources/assign-qrcodes/' . $this->id;
+
+        $admins = User::superAdmin()->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new BroadcastNotification('info', $admin_message, $admin_url));
+        }
     }
 
     }

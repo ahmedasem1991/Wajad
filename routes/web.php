@@ -17,13 +17,14 @@ use App\Mail\ScanQRCode;
 use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
+use Damas\Paytabs\Paytabs;
 use LaravelFCM\Facades\FCM;
 use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
-use App\Exceptions\Api\ApiException;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Exceptions\Api\ApiException;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Mail;
@@ -68,6 +69,12 @@ Route::get('/sendfcm', 'NotificationController@sendFCM');
 Route::get('/sendsms', 'NotificationController@sendSMS');
 //Paypal
 Route::get('paypal', 'PaymentController@payWithpaypal');
+Route::get('paywithpaypal', function () {
+   return  redirect(Nova::path());
+});
+//paytabs
+Route::get('paytabs', 'PaymentController@payWithpaytabs');
+Route::post('paytabschecker', 'PaymentController@checkPayWithPaytabs')->name('paytabschecker');
 //PDF
 Route::get('receipt', 'PDFController@receipt');
 Route::get('ar_receipt', 'PDFController@arReceipt');
@@ -82,7 +89,7 @@ Route::get('/test600', function () {
    // return Setting::where('key', 'max_post_reports_number')->first()['value'];
   return (trim('"["1","2","3"]"', '"'))  ;
    dd(User::find(["1","2","3"]));
-    
+
     foreach(User::find(2)->devices as $device)
     {
       //  dd($device);
@@ -226,75 +233,75 @@ Route::get('/broadcast', function () {
 Route::get('/test500', function () {
 
 
-//     $data='{
-//             "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
-//             "data": [
-//                 {
-//                     "ar": {
-//                         "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
-//                        "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
-//                    },
-//                    "en": {
-//                        "title": "  There Some One Scanned Your QR Code ",
-//                       "body": "There Some One Scanned Your QR Code    Check the location on the map . "
-//                   },
-//                    "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
-//                    "type": "qrcode",
-//                   "object_type": "scan",
-//                   "post": "scan",
-//                   "item": "scan",
-                  
-//                    "id": 10295,
-//                    "related_id": -1,
-//                   "badge": 1
-//               }
-//             ],
-//             "created_at": "2020-04-07T15:07:22.000000Z",
-//             "read_at": "2020-04-07T15:07:22.000000Z"
-//          }';
-//          $data=json_decode($data);
+    $data='{
+            "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
+            "data": [
+                {
+                    "ar": {
+                        "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
+                       "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
+                   },
+                   "en": {
+                       "title": "  There Some One Scanned Your QR Code ",
+                      "body": "There Some One Scanned Your QR Code    Check the location on the map . "
+                  },
+                   "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
+                   "type": "qrcode",
+                  "object_type": "scan",
+                  "post": "scan",
+                  "item": "scan",
 
-//          $info='';
-//          $lang='ar';
-//          if($lang=='ar')
-//          $info=$data->data[0]->ar;
-//          else
-//          $info=$data->data[0]->en;
-  
-//          dd($data->data[0]->en);
-    
-//     $data=[
-//         'notification' => [
-//         'title'=>'Item updated successfully',
-//         'body'=>'Item updated successfully',
-//         'sound' => 'default'
-//         ]
-//     ];
+                   "id": 10295,
+                   "related_id": -1,
+                  "badge": 1
+              }
+            ],
+            "created_at": "2020-04-07T15:07:22.000000Z",
+            "read_at": "2020-04-07T15:07:22.000000Z"
+         }';
+        $data=json_decode($data);
 
-// $optionBuilder = new OptionsBuilder();
-// $optionBuilder->setTimeToLive(60*20);
+         $info='';
+         $lang='ar';
+         if($lang=='ar')
+         $info=$data->data[0]->ar;
+         else
+         $info=$data->data[0]->en;
 
-// $notificationBuilder = new PayloadNotificationBuilder('Test title');
-// $notificationBuilder->setBody('Item Added Successfully')
-// 				    ->setSound('default');
+        // dd($data->data[0]->en);
 
-// $dataBuilder = new PayloadDataBuilder();
-// $dataBuilder->addData(['data' => $data]);
+    $data=[
+        'notification' => [
+        'title'=>'Item updated successfully',
+        'body'=>'Item updated successfully',
+        'sound' => 'default'
+        ]
+    ];
 
-// $option = $optionBuilder->build();
-// $notification = $notificationBuilder->build();
-// $data = $dataBuilder->build();
+$optionBuilder = new OptionsBuilder();
+$optionBuilder->setTimeToLive(60*20);
+
+$notificationBuilder = new PayloadNotificationBuilder('Test title');
+$notificationBuilder->setBody('Item Added Successfully')
+				    ->setSound('default');
+
+$dataBuilder = new PayloadDataBuilder();
+$dataBuilder->addData(['data' => $data]);
+
+$option = $optionBuilder->build();
+$notification = $notificationBuilder->build();
+$data = $dataBuilder->build();
 
 
 
-// $token = "eyoyh4ESTFW5qlOAgxqRzm:APA91bHJgPv7DdDZ8o4gmu0gNXeokm3nZf__EzAbPwApu83e5j38UquLjkJ4hzkhsFthdnRjBq5L_p_0GCG1nv8N3_n9Eazl8cb7dOxi4UxJoKjysk7OSJEe02O6i15ThMFr0JuvHeBw";
 
-// $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+$tokens=['czgeKTSNd74:APA91bG8Tz7SXv234psaHYD6JHrEO_Edb7QGn8nuXp2gB3kzsND_nI8n3RxowFBDDV0WqVNUelfZh8DoUSNwG0gnm_k6shiO7Z2OsQNldFtBmiFuKPRvBM9e1PQeU1alYoVQeCzyq65P','ff85vPGFJjY:APA91bHgolcEsr5tfhnX5vZuXIgRUBOfTrQtlukQHdqH9PiRcK8G31Ajdp3tufvhp1hEA47kHoKwPUCBtRqpX1jmS20cdjzO30Lueog7osD0qhpworB2ega9SWXjE5u6gPsT5__k_-L3','fgdn3qimz6w:APA91bGbOgHFs7nrNy9rkSRbG9xqstQ3l2dmKwjkVazd4DMsPtXvyu-Q_CgslCA_e2vpt9ytKOfpvSduw2E2Y1a4XaagT_Zspo_b5vqkSh7c1raKs0QF9fXtTS6v8YNTgWBTkPGvYCEy','cXlljBlySyo:APA91bFGSSYloVx-basj6rnrsP3ftdrZY31TEum0Zox1E3HjQTfgVRnFpVog5eykTZNrIk_0K9bnz7h36vG4whRqxHCkbGnkr6jcpLJvdXajtwjQlersFznol8yI9hO0qG0h19YC1Ljy','eymAGmV3Z6c:APA91bHlTyIhmKuWn5MJqBSosEL0NuqoCOK7yLEySGHpWWP5SAAhbAqapqRNl10-Wuo_Ah60GTmprhZ5oIkaCzbVf54TJDAuudkrgskDCHRVNlgwJEKQTZ-MG3s1C__z74YtlNOLjqjM','exeZR7So7k0:APA91bEaGnDoaPqkyZaMwEr3b_iEBZROYwOTF8iLG-CDIzVC17wXlDZNRPmFHX3gHlDHM5AeYYLf3ErDoGkCrpQudkgvFC8C3KSiMPRQ-OIpW3QtCGeK2G5q4ep46me5rllJiQnn7UwR','dkvoIVDtk5w:APA91bEhMGtlTkIQgDbtBr8QGT1uHow9prZpaw83Oag2v0TBbGbvgaX1NRzwijufXoBG__iCI97IuSb6_2-ZlmWVhCFmtwpRyEAUnNHcMxbVv-GjZbzskzWpyN8bsTR4GwVLMLWbjw6C'];
+$downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
-// $downstreamResponse->numberSuccess();
-// $downstreamResponse->numberFailure();
-// $downstreamResponse->numberModification();
-
+$downstreamResponse->numberSuccess();
+$downstreamResponse->numberFailure();
+$downstreamResponse->numberModification();
+dd($downstreamResponse);
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
 
@@ -346,24 +353,237 @@ Route::get('/test400', function () {
 //     $item = Item::find(1);
 //    return  new ItemResource($item);
    //return  new PostResource($post);
-    
-    // if ($post->isFound()) 
+
+    // if ($post->isFound())
     //   return  $type='post_found';
     //   else
     //   return  $type='post_lost';
 // return   checklocate(auth('api')->user);
   //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
-    
+
     $user = User::find(9);
     $item = Item::find(1);
     $post=Post::find(70);
     $badge =getBadge($user);
     $data=sendCreatePostFCM($post,$badge,'found');
     $user->notify(new SendFCMNotification($user,$data));
- 
-    
+
+
     })->name('test400');
 
     Route::get('/chat', function(){
         return view('scan-qr-code');
     });
+
+
+
+    Route::get('/quicksession', function () {
+
+
+    $url = "https://api.quickblox.com/session.json";
+    $Now=\Carbon\Carbon::now()->timestamp;
+    $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
+    $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+
+       $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
+       $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
+       $form_params['timestamp'] = $Now;
+       $form_params['nonce'] = "";
+       $form_params['signature'] = $Hash;
+
+       $data = json_encode($form_params);
+
+  $client = new \GuzzleHttp\Client([
+      'headers' => ['Content-Type' => 'application/json']
+  ]);
+  $response = $client->post($url,
+          ['body' => $data]
+  );
+  $response = json_decode($response->getBody(), true);
+
+  $token=$response['session']['token'];
+  session(['token' => $token]);
+   return( $token);
+
+  });
+
+
+  Route::get('/quickgetusers', function () {
+    //dd(session('token'));
+
+      $url = "https://api.quickblox.com/users.json";
+      $client = new \GuzzleHttp\Client([
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'QB-Token' => session('token'),
+
+            ]
+    ]);
+$response = $client->get($url
+);
+$response = json_decode($response->getBody(), true);
+
+ return( $response);
+  });
+
+  Route::get('/quickcreateuser', function () {
+
+    $Users=User::Normalusers()->whereNull('quick_user_id')->get();
+    foreach($Users as $User)
+    {
+
+        $token='831ccf48d9341dff2ffeba0d5249971021014e1a';
+        $url = "https://api.quickblox.com/users.json";
+
+        $form_params['login'] = $User->email;
+        $form_params['password'] = $User->quick_user_password;
+        $form_params['email'] = $User->email;
+        $form_params['external_user_id'] =$User->id;
+        $form_params['facebook_id'] = "";
+        $form_params['full_name'] =  $User->name;
+        $form_params['phone'] =$User->country ? $User->country->country_code .$User->mobile_number: '' .$User->mobile_number;
+        $form_params['website'] = '';
+        $form_params['tag_list'] = '';
+        $form_params['custom_data'] = '';
+
+        $user['user'] = $form_params;
+
+        $data = json_encode($user);
+
+        $client = new \GuzzleHttp\Client([
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'QB-Token' => $token,
+
+            ]
+        ]);
+        $response = $client->post(
+            $url,
+            ['body' => $data]
+        );
+        $response = json_decode($response->getBody(), true);
+
+         if($response['user']['id']);
+      {
+          $User->quick_user_id= $response['user']['id'];
+          $User->save();
+          logger($User->quick_user_id);
+      }
+    }
+
+
+
+
+
+});
+
+
+
+
+
+  Route::get('/quicklogin', function () {
+
+
+    $url = "https://api.quickblox.com/login.json";
+    $Now=\Carbon\Carbon::now()->timestamp;
+    $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
+    $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+
+       $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
+       $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
+       $form_params['timestamp'] = $Now;
+       $form_params['nonce'] = "";
+       $form_params['signature'] = $Hash;
+
+       $data = json_encode($form_params);
+
+  $client = new \GuzzleHttp\Client([
+      'headers' => [
+          'Content-Type' => 'application/json',
+          'QB-Token' => session('token'),
+
+          ]
+  ]);
+  $response = $client->post($url,
+          ['body' => $data]
+  );
+  $response = json_decode($response->getBody(), true);
+
+
+   return( $response);
+
+  });
+
+
+  Route::get('/test800', function(){
+   $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.\Carbon\Carbon::now()->timestamp;
+    echo hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+});
+Route::get('/apple-app-site-association', function () {
+    $json = file_get_contents(base_path('apple-app-site-association'));
+    return response($json, 200)
+        ->header('Content-Type', 'application/json');
+});
+
+
+
+Route::get('/paytabs_payment', function () {
+    $email='i.saber@smartappco.com';
+    $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
+    $pt = Paytabs::getInstance( $email, $secret);
+	$result = $pt->create_pay_page(array(
+        "merchant_email" => $email,
+        'secret_key' => $secret,
+        'title' => "John Doe",
+        'cc_first_name' => "John",
+        'cc_last_name' => "Doe",
+        'email' => "customer@email.com",
+        'cc_phone_number' => "973",
+        'phone_number' => "33333333",
+        'billing_address' => "Juffair, Manama, Bahrain",
+        'city' => "Manama",
+        'state' => "Capital",
+        'postal_code' => "97300",
+        'country' => "BHR",
+        'address_shipping' => "Juffair, Manama, Bahrain",
+        'city_shipping' => "Manama",
+        'state_shipping' => "Capital",
+        'postal_code_shipping' => "97300",
+        'country_shipping' => "BHR",
+        "products_per_title"=> "Mobile Phone",
+        'currency' => "BHD",
+        "unit_price"=> "1",
+        'quantity' => "1",
+        'other_charges' => "0",
+        'amount' => "1.00",
+        'discount'=>"0",
+        "msg_lang" => "english",
+        "reference_no" => "1231231",
+        "site_url" => "https://www.smartappco.com/",
+        'return_url' => "https://www.etabeb.com",
+        "cms_with_version" => "API USING PHP"
+	));
+    
+    	if($result->response_code == 4012){
+           // dd($result);
+	    return redirect($result->payment_url);
+        }
+        dd($result);
+        //return $result->result;
+});
+
+
+Route::get('/paytabs_response', function(){
+
+   // dd('ok');
+    $email='i.saber@smartappco.com';
+    $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
+
+    $pt = Paytabs::getInstance($email, $secret);
+    $result = $pt->verify_payment('496284');
+    if($result->response_code == 100){
+        dd('No');
+    }
+    dd( $result);
+    return $result->result;
+});

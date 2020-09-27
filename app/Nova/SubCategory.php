@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class SubCategory extends Resource
@@ -55,7 +56,9 @@ class SubCategory extends Resource
         'created_at',
         'updated_at',
     ];
-
+    public static $searchRelations = [
+        'category' => [ 'name_en', 'name_ar'],
+    ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -65,12 +68,13 @@ class SubCategory extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Sub-Category English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Sub-Category Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Sub-Category English Body', 'description_en'),
             Textarea::make('Sub-Category Arabic Body', 'description_ar'),
@@ -81,7 +85,11 @@ class SubCategory extends Resource
                 ->path('images/subcategories')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100'),
+              //  ->rules('required','dimensions:max_width=100,max_height=100'),
+              ->creationRules('required'),
+//              ->updateRules(
+//                  'dimensions:max_width=100,max_height=100'
+//              ),
             NovaBelongsToDepend::make('Category')->rules('required')
                 ->placeholder('Category')
                 ->options(\App\Category::all()),

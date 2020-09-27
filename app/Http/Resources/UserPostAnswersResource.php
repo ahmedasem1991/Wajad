@@ -8,19 +8,20 @@ class UserPostAnswersResource extends JsonResource
 {
     public function toArray($request)
     {
-        $user = new UserResource($this->postRequestUser);
+        if ($this->postRequestUser) {
+            $user = new UserResource($this->postRequestUser);
 
-        $questions = collect([
-            'questions' => QuestionResource::collection(
-                $this->post
-                    ->questions()
-                    ->with([
+            $questions = collect([
+                'questions' => QuestionResource::collection(
+                    $this->post->questions()->with([
                         'answers' => function ($query) use ($user) {
-                            return $query->where('user_id', $user->id);
+                            $query->where('user_id', $user->id)->withTrashed();
                         }
-                    ])->get()
-            )
-        ]);
-        return $questions->merge($user);
+                    ])->select('id', 'question')->get()
+                )
+            ]);
+
+            return $questions->merge($user);
+        }
     }
 }

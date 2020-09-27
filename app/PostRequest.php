@@ -14,16 +14,16 @@ class PostRequest extends Model
 
     ];
 
-    protected $fillable = ['user_id', 'post_id', 'is_request_valid', 'rejected_at'];
+    protected $fillable = ['user_id', 'post_id', 'is_request_valid', 'rejected_at', 'comment'];
 
     public function post()
     {
-        return $this->belongsTo(Post::class, 'post_id');
+        return $this->belongsTo(Post::class, 'post_id')->withTrashed();
     }
 
     public function postRequestUser()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function postRequestUserAnswers()

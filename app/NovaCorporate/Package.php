@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Support\Facades\URL;
 use Comodolab\Nova\Fields\Help\Help;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -82,6 +84,8 @@ class Package extends Resource
     {
 
         $feild=Help::make('Package Information');
+        // $success=$request->session()->get('success_payment');
+        // $error=$request->session()->get('error_payment');
         if ($request->session()->has('success_payment')) {
             $message=  $request->session()->get('success_payment');
             $feild= Help::info($message,'Your QR Codes Will generated now.');
@@ -96,9 +100,11 @@ class Package extends Resource
            /// $request->session()->forget('success_payment');
           // $request->session()->flush();
         }
-
+        // $request->session()->forget('error_payment');
+        // $request->session()->forget('success_payment');
 
         return [
+            Errors::make(),
             $feild,
 
            // $request->session()->forget('success_payment'),
@@ -118,7 +124,8 @@ class Package extends Resource
                 ->rules(
                     ['required', 'string']
                 )->hideFromIndex(),
-
+            Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>SAR</big> Unit </p>')
+                ->asHtml(),
             Number::make('Package Price', 'price')
                 ->rules(['required', 'integer'])
                 ->hideWhenUpdating(),
@@ -135,6 +142,10 @@ class Package extends Resource
             Button::make('PayPal')
                 ->link(URL::to('paypal?p='.base64_encode($this->id)),'_self')
                 ->style('primary'),
+
+                Button::make('Paytabs')
+                ->link(URL::to('paytabs?p='.base64_encode($this->id)),'_self')
+                ->style('info'),
 
         ];
     }

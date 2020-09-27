@@ -9,6 +9,7 @@ use App\GenerateQrcode;
 use Illuminate\Support\Str;
 use App\Jobs\AssignQrcodeJob;
 use App\Jobs\GenerateQrcodeJob;
+use App\Question;
 use Illuminate\Support\Facades\Log;
 
 class PostObserver
@@ -23,23 +24,73 @@ class PostObserver
     {
 
         if (Auth()->User()->isCorporateAdmin()) {
-            $Post->appearance_status = 1;
-            $Post->open_status = 1;
-            $Post->approval_status = 1;
+            //$Post->appearance_status = 1;
+            //$Post->open_status = 1;
+            //$Post->approval_status = 1;
             $Post->corporate_id = Auth()->User()->corporate_id;
             $Post->publisher_id = Auth()->User()->id;
             $Post->publisher_type = 2;
             $Post->end_date = $Post->end_date;
+            if( ! $Post->isDirty('appearance_status'))
+            $Post->appearance_status = 1;
+            if( ! $Post->isDirty('open_status'))
+            $Post->open_status = 1;
+            if( ! $Post->isDirty('approval_status'))
+            $Post->approval_status = 1;
         }
         if (Auth()->check() && Auth()->User()->isAdmin()) {
             $Post->publisher_type = 3;
-            $Post->publisher_id = Auth()->User()->id;
+            $Post->publisher_id = ($Post->owner_id) ? $Post->owner_id: $Post->founder_id;
             $Post->end_date = $Post->end_date;
+            if( ! $Post->isDirty('appearance_status'))
+            $Post->appearance_status = 1;
+            if( ! $Post->isDirty('open_status'))
+            $Post->open_status = 1;
+            if( ! $Post->isDirty('approval_status'))
+            $Post->approval_status = 1;
+            
+
         }
     }
 
     public function saved(Post $Post)
     {
+        if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin() ) {
+            $question= $Post->question_1;
+            if($question=='' || $question == null) {
+                $question = null;
+            }else {
+                Question::firstOrCreate([
+                    'corporate_id' => Auth()->User()->corporate_id,
+                    'post_id' => $Post->id,
+                    'question' => $question,
+                ]);
+            }
+
+            $question= $Post->question_2;
+            if($question=='' || $question == null) {
+                $question = null;
+            }else {
+                Question::firstOrCreate([
+                    'corporate_id' => Auth()->User()->corporate_id,
+                    'post_id' => $Post->id,
+                    'question' => $question,
+                ]);
+            }
+
+            $question= $Post->question_3;
+            if($question=='' || $question == null) {
+                $question = null;
+            }else {
+                Question::firstOrCreate([
+                    'corporate_id' => Auth()->User()->corporate_id,
+                    'post_id' => $Post->id,
+                    'question' => $question,
+                ]);
+            }
+
+
+        }
     }
 
     /**

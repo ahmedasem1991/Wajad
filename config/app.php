@@ -192,6 +192,7 @@ return [
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class,
 ],
 
 

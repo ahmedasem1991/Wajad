@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Laravel\Nova\Http\Requests\NovaRequest;
 class Item extends Resource
@@ -70,12 +71,13 @@ class Item extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Details')->rules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
 
 

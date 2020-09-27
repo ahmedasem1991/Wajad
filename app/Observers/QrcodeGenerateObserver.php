@@ -32,7 +32,7 @@ class QrcodeGenerateObserver
     }
     public function saved(GenerateQrcode $generateQrcode)
     {
-        if($generateQrcode->created_from=='web')
+        if($generateQrcode->created_from=='web' || $generateQrcode->created_from=='system')
         {
         GenerateQrcodeJob::dispatch($generateQrcode);
         }

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
-    <link rel="stylesheet" href="/docs/css/style.css" />
-    <script src="/docs/js/all.js"></script>
+    <link rel="stylesheet" href="{{ asset('/docs/css/style.css') }}" />
+    <script src="{{ asset('/docs/js/all.js') }}"></script>
 
 
           <script>
@@ -85,7 +85,8 @@ fetch(url, {
         "country_code": "93",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/af.png"
     },
     {
         "id": 2,
@@ -95,7 +96,8 @@ fetch(url, {
         "country_code": "355",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/al.png"
     },
     {
         "id": 3,
@@ -105,7 +107,8 @@ fetch(url, {
         "country_code": "213",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/dz.png"
     },
     {
         "id": 4,
@@ -115,7 +118,8 @@ fetch(url, {
         "country_code": "684",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/as.png"
     },
     {
         "id": 5,
@@ -125,7 +129,8 @@ fetch(url, {
         "country_code": "376",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ad.png"
     },
     {
         "id": 6,
@@ -135,7 +140,8 @@ fetch(url, {
         "country_code": "244",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ao.png"
     },
     {
         "id": 7,
@@ -145,7 +151,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ai.png"
     },
     {
         "id": 8,
@@ -155,7 +162,8 @@ fetch(url, {
         "country_code": "268",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/aq.png"
     },
     {
         "id": 9,
@@ -165,7 +173,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ag.png"
     },
     {
         "id": 10,
@@ -175,7 +184,8 @@ fetch(url, {
         "country_code": "54",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ar.png"
     },
     {
         "id": 11,
@@ -185,7 +195,8 @@ fetch(url, {
         "country_code": "374",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/am.png"
     },
     {
         "id": 12,
@@ -195,7 +206,8 @@ fetch(url, {
         "country_code": "297",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/aw.png"
     },
     {
         "id": 13,
@@ -205,7 +217,8 @@ fetch(url, {
         "country_code": "61",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/au.png"
     },
     {
         "id": 14,
@@ -215,7 +228,8 @@ fetch(url, {
         "country_code": "43",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/at.png"
     },
     {
         "id": 15,
@@ -225,7 +239,8 @@ fetch(url, {
         "country_code": "994",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/az.png"
     },
     {
         "id": 16,
@@ -235,7 +250,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bs.png"
     },
     {
         "id": 17,
@@ -245,7 +261,8 @@ fetch(url, {
         "country_code": "973",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bh.png"
     },
     {
         "id": 18,
@@ -255,7 +272,8 @@ fetch(url, {
         "country_code": "880",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bd.png"
     },
     {
         "id": 19,
@@ -265,7 +283,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bb.png"
     },
     {
         "id": 20,
@@ -275,7 +294,8 @@ fetch(url, {
         "country_code": "375",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/by.png"
     },
     {
         "id": 21,
@@ -285,7 +305,8 @@ fetch(url, {
         "country_code": "32",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/be.png"
     },
     {
         "id": 22,
@@ -295,7 +316,8 @@ fetch(url, {
         "country_code": "501",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bz.png"
     },
     {
         "id": 23,
@@ -305,7 +327,8 @@ fetch(url, {
         "country_code": "229",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bj.png"
     },
     {
         "id": 24,
@@ -315,7 +338,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bm.png"
     },
     {
         "id": 25,
@@ -325,7 +349,8 @@ fetch(url, {
         "country_code": "975",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bt.png"
     },
     {
         "id": 26,
@@ -335,7 +360,8 @@ fetch(url, {
         "country_code": "591",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bo.png"
     },
     {
         "id": 27,
@@ -345,7 +371,8 @@ fetch(url, {
         "country_code": "387",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ba.png"
     },
     {
         "id": 28,
@@ -355,7 +382,8 @@ fetch(url, {
         "country_code": "267",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bw.png"
     },
     {
         "id": 29,
@@ -365,7 +393,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bv.png"
     },
     {
         "id": 30,
@@ -375,7 +404,8 @@ fetch(url, {
         "country_code": "55",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/br.png"
     },
     {
         "id": 31,
@@ -385,7 +415,8 @@ fetch(url, {
         "country_code": "246",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/io.png"
     },
     {
         "id": 32,
@@ -395,7 +426,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/vg.png"
     },
     {
         "id": 33,
@@ -405,7 +437,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bn.png"
     },
     {
         "id": 34,
@@ -415,7 +448,8 @@ fetch(url, {
         "country_code": "359",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bg.png"
     },
     {
         "id": 35,
@@ -425,7 +459,8 @@ fetch(url, {
         "country_code": "226",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bf.png"
     },
     {
         "id": 36,
@@ -435,7 +470,8 @@ fetch(url, {
         "country_code": "257",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/bi.png"
     },
     {
         "id": 37,
@@ -445,7 +481,8 @@ fetch(url, {
         "country_code": "855",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kh.png"
     },
     {
         "id": 38,
@@ -455,7 +492,8 @@ fetch(url, {
         "country_code": "237",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cm.png"
     },
     {
         "id": 39,
@@ -465,7 +503,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ca.png"
     },
     {
         "id": 40,
@@ -475,7 +514,8 @@ fetch(url, {
         "country_code": "238",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cv.png"
     },
     {
         "id": 41,
@@ -485,7 +525,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ky.png"
     },
     {
         "id": 42,
@@ -495,7 +536,8 @@ fetch(url, {
         "country_code": "236",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cf.png"
     },
     {
         "id": 43,
@@ -505,7 +547,8 @@ fetch(url, {
         "country_code": "235",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/td.png"
     },
     {
         "id": 44,
@@ -515,7 +558,8 @@ fetch(url, {
         "country_code": "56",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cl.png"
     },
     {
         "id": 45,
@@ -525,7 +569,8 @@ fetch(url, {
         "country_code": "86",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cn.png"
     },
     {
         "id": 46,
@@ -535,7 +580,8 @@ fetch(url, {
         "country_code": "16",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cx.png"
     },
     {
         "id": 47,
@@ -545,7 +591,8 @@ fetch(url, {
         "country_code": "16",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cc.png"
     },
     {
         "id": 48,
@@ -555,7 +602,8 @@ fetch(url, {
         "country_code": "57",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/co.png"
     },
     {
         "id": 49,
@@ -565,7 +613,8 @@ fetch(url, {
         "country_code": "269",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/km.png"
     },
     {
         "id": 50,
@@ -575,7 +624,8 @@ fetch(url, {
         "country_code": "242",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cg.png"
     },
     {
         "id": 51,
@@ -585,7 +635,8 @@ fetch(url, {
         "country_code": "243",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cd.png"
     },
     {
         "id": 52,
@@ -595,7 +646,8 @@ fetch(url, {
         "country_code": "682",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ck.png"
     },
     {
         "id": 53,
@@ -605,7 +657,8 @@ fetch(url, {
         "country_code": "506",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cr.png"
     },
     {
         "id": 54,
@@ -615,7 +668,8 @@ fetch(url, {
         "country_code": "385",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/hr.png"
     },
     {
         "id": 55,
@@ -625,7 +679,8 @@ fetch(url, {
         "country_code": "53",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cu.png"
     },
     {
         "id": 56,
@@ -635,7 +690,8 @@ fetch(url, {
         "country_code": "357",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cy.png"
     },
     {
         "id": 57,
@@ -645,7 +701,8 @@ fetch(url, {
         "country_code": "420",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cz.png"
     },
     {
         "id": 58,
@@ -655,7 +712,8 @@ fetch(url, {
         "country_code": "225",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ci.png"
     },
     {
         "id": 59,
@@ -665,7 +723,8 @@ fetch(url, {
         "country_code": "45",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/dk.png"
     },
     {
         "id": 60,
@@ -675,7 +734,8 @@ fetch(url, {
         "country_code": "253",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/dj.png"
     },
     {
         "id": 61,
@@ -685,7 +745,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/dm.png"
     },
     {
         "id": 62,
@@ -695,7 +756,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/do.png"
     },
     {
         "id": 63,
@@ -705,7 +767,8 @@ fetch(url, {
         "country_code": "593",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ec.png"
     },
     {
         "id": 64,
@@ -715,7 +778,8 @@ fetch(url, {
         "country_code": "20",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/eg.png"
     },
     {
         "id": 65,
@@ -725,7 +789,8 @@ fetch(url, {
         "country_code": "503",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sv.png"
     },
     {
         "id": 66,
@@ -735,7 +800,8 @@ fetch(url, {
         "country_code": "240",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gq.png"
     },
     {
         "id": 67,
@@ -745,7 +811,8 @@ fetch(url, {
         "country_code": "291",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/er.png"
     },
     {
         "id": 68,
@@ -755,7 +822,8 @@ fetch(url, {
         "country_code": "372",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ee.png"
     },
     {
         "id": 69,
@@ -765,7 +833,8 @@ fetch(url, {
         "country_code": "251",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/et.png"
     },
     {
         "id": 70,
@@ -775,7 +844,8 @@ fetch(url, {
         "country_code": "500",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/fk.png"
     },
     {
         "id": 71,
@@ -785,7 +855,8 @@ fetch(url, {
         "country_code": "298",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/fo.png"
     },
     {
         "id": 72,
@@ -795,7 +866,8 @@ fetch(url, {
         "country_code": "679",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/fj.png"
     },
     {
         "id": 73,
@@ -805,7 +877,8 @@ fetch(url, {
         "country_code": "358",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/fi.png"
     },
     {
         "id": 74,
@@ -815,7 +888,8 @@ fetch(url, {
         "country_code": "33",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/fr.png"
     },
     {
         "id": 75,
@@ -825,7 +899,8 @@ fetch(url, {
         "country_code": "594",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gf.png"
     },
     {
         "id": 76,
@@ -835,7 +910,8 @@ fetch(url, {
         "country_code": "689",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pf.png"
     },
     {
         "id": 77,
@@ -845,7 +921,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tf.png"
     },
     {
         "id": 78,
@@ -855,7 +932,8 @@ fetch(url, {
         "country_code": "241",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ga.png"
     },
     {
         "id": 79,
@@ -865,7 +943,8 @@ fetch(url, {
         "country_code": "220",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gm.png"
     },
     {
         "id": 80,
@@ -875,7 +954,8 @@ fetch(url, {
         "country_code": "995",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ge.png"
     },
     {
         "id": 81,
@@ -885,7 +965,8 @@ fetch(url, {
         "country_code": "49",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/de.png"
     },
     {
         "id": 82,
@@ -895,7 +976,8 @@ fetch(url, {
         "country_code": "233",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gh.png"
     },
     {
         "id": 83,
@@ -905,7 +987,8 @@ fetch(url, {
         "country_code": "350",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gi.png"
     },
     {
         "id": 84,
@@ -915,7 +998,8 @@ fetch(url, {
         "country_code": "30",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gr.png"
     },
     {
         "id": 85,
@@ -925,7 +1009,8 @@ fetch(url, {
         "country_code": "299",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gl.png"
     },
     {
         "id": 86,
@@ -935,7 +1020,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gd.png"
     },
     {
         "id": 87,
@@ -945,7 +1031,8 @@ fetch(url, {
         "country_code": "590",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gp.png"
     },
     {
         "id": 88,
@@ -955,7 +1042,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gu.png"
     },
     {
         "id": 89,
@@ -965,7 +1053,8 @@ fetch(url, {
         "country_code": "502",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gt.png"
     },
     {
         "id": 90,
@@ -975,7 +1064,8 @@ fetch(url, {
         "country_code": "224",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gn.png"
     },
     {
         "id": 91,
@@ -985,7 +1075,8 @@ fetch(url, {
         "country_code": "245",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gw.png"
     },
     {
         "id": 92,
@@ -995,7 +1086,8 @@ fetch(url, {
         "country_code": "592",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gy.png"
     },
     {
         "id": 93,
@@ -1005,7 +1097,8 @@ fetch(url, {
         "country_code": "509",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ht.png"
     },
     {
         "id": 94,
@@ -1015,7 +1108,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/hm.png"
     },
     {
         "id": 95,
@@ -1025,7 +1119,8 @@ fetch(url, {
         "country_code": "504",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/hn.png"
     },
     {
         "id": 96,
@@ -1035,7 +1130,8 @@ fetch(url, {
         "country_code": "852",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/hk.png"
     },
     {
         "id": 97,
@@ -1045,7 +1141,8 @@ fetch(url, {
         "country_code": "36",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/hu.png"
     },
     {
         "id": 98,
@@ -1055,7 +1152,8 @@ fetch(url, {
         "country_code": "354",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/is.png"
     },
     {
         "id": 99,
@@ -1065,7 +1163,8 @@ fetch(url, {
         "country_code": "91",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/in.png"
     },
     {
         "id": 100,
@@ -1075,7 +1174,8 @@ fetch(url, {
         "country_code": "62",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/id.png"
     },
     {
         "id": 101,
@@ -1085,7 +1185,8 @@ fetch(url, {
         "country_code": "98",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ir.png"
     },
     {
         "id": 102,
@@ -1095,7 +1196,8 @@ fetch(url, {
         "country_code": "964",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/iq.png"
     },
     {
         "id": 103,
@@ -1105,7 +1207,8 @@ fetch(url, {
         "country_code": "353",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ie.png"
     },
     {
         "id": 104,
@@ -1115,7 +1218,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/im.png"
     },
     {
         "id": 105,
@@ -1125,7 +1229,8 @@ fetch(url, {
         "country_code": "972",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/il.png"
     },
     {
         "id": 106,
@@ -1135,7 +1240,8 @@ fetch(url, {
         "country_code": "39",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/it.png"
     },
     {
         "id": 107,
@@ -1145,7 +1251,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/jm.png"
     },
     {
         "id": 108,
@@ -1155,7 +1262,8 @@ fetch(url, {
         "country_code": "81",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/jp.png"
     },
     {
         "id": 109,
@@ -1165,7 +1273,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/je.png"
     },
     {
         "id": 110,
@@ -1175,7 +1284,8 @@ fetch(url, {
         "country_code": "962",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/jo.png"
     },
     {
         "id": 111,
@@ -1185,7 +1295,8 @@ fetch(url, {
         "country_code": "7",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kz.png"
     },
     {
         "id": 112,
@@ -1195,7 +1306,8 @@ fetch(url, {
         "country_code": "254",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ke.png"
     },
     {
         "id": 113,
@@ -1205,7 +1317,8 @@ fetch(url, {
         "country_code": "686",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ki.png"
     },
     {
         "id": 114,
@@ -1215,7 +1328,8 @@ fetch(url, {
         "country_code": "59",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kw.png"
     },
     {
         "id": 115,
@@ -1225,7 +1339,8 @@ fetch(url, {
         "country_code": "996",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kg.png"
     },
     {
         "id": 116,
@@ -1235,7 +1350,8 @@ fetch(url, {
         "country_code": "856",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/la.png"
     },
     {
         "id": 117,
@@ -1245,7 +1361,8 @@ fetch(url, {
         "country_code": "371",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lv.png"
     },
     {
         "id": 118,
@@ -1255,7 +1372,8 @@ fetch(url, {
         "country_code": "961",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lb.png"
     },
     {
         "id": 119,
@@ -1265,7 +1383,8 @@ fetch(url, {
         "country_code": "266",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ls.png"
     },
     {
         "id": 120,
@@ -1275,7 +1394,8 @@ fetch(url, {
         "country_code": "231",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lr.png"
     },
     {
         "id": 121,
@@ -1285,7 +1405,8 @@ fetch(url, {
         "country_code": "218",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ly.png"
     },
     {
         "id": 122,
@@ -1295,7 +1416,8 @@ fetch(url, {
         "country_code": "243",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/li.png"
     },
     {
         "id": 123,
@@ -1305,7 +1427,8 @@ fetch(url, {
         "country_code": "370",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lt.png"
     },
     {
         "id": 124,
@@ -1315,7 +1438,8 @@ fetch(url, {
         "country_code": "352",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lu.png"
     },
     {
         "id": 125,
@@ -1325,7 +1449,8 @@ fetch(url, {
         "country_code": "853",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mo.png"
     },
     {
         "id": 126,
@@ -1335,7 +1460,8 @@ fetch(url, {
         "country_code": "389",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mk.png"
     },
     {
         "id": 127,
@@ -1345,7 +1471,8 @@ fetch(url, {
         "country_code": "261",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mg.png"
     },
     {
         "id": 128,
@@ -1355,7 +1482,8 @@ fetch(url, {
         "country_code": "265",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mw.png"
     },
     {
         "id": 129,
@@ -1365,7 +1493,8 @@ fetch(url, {
         "country_code": "60",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/my.png"
     },
     {
         "id": 130,
@@ -1375,7 +1504,8 @@ fetch(url, {
         "country_code": "960",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mv.png"
     },
     {
         "id": 131,
@@ -1385,7 +1515,8 @@ fetch(url, {
         "country_code": "223",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ml.png"
     },
     {
         "id": 132,
@@ -1395,7 +1526,8 @@ fetch(url, {
         "country_code": "356",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mt.png"
     },
     {
         "id": 133,
@@ -1405,7 +1537,8 @@ fetch(url, {
         "country_code": "692",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mh.png"
     },
     {
         "id": 134,
@@ -1415,7 +1548,8 @@ fetch(url, {
         "country_code": "596",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mq.png"
     },
     {
         "id": 135,
@@ -1425,7 +1559,8 @@ fetch(url, {
         "country_code": "222",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mr.png"
     },
     {
         "id": 136,
@@ -1435,7 +1570,8 @@ fetch(url, {
         "country_code": "230",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mu.png"
     },
     {
         "id": 137,
@@ -1445,7 +1581,8 @@ fetch(url, {
         "country_code": "262",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/yt.png"
     },
     {
         "id": 138,
@@ -1455,7 +1592,8 @@ fetch(url, {
         "country_code": "52",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mx.png"
     },
     {
         "id": 139,
@@ -1465,7 +1603,8 @@ fetch(url, {
         "country_code": "691",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/fm.png"
     },
     {
         "id": 140,
@@ -1475,7 +1614,8 @@ fetch(url, {
         "country_code": "373",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/md.png"
     },
     {
         "id": 141,
@@ -1485,7 +1625,8 @@ fetch(url, {
         "country_code": "377",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mc.png"
     },
     {
         "id": 142,
@@ -1495,7 +1636,8 @@ fetch(url, {
         "country_code": "976",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mn.png"
     },
     {
         "id": 143,
@@ -1505,7 +1647,8 @@ fetch(url, {
         "country_code": "382",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/me.png"
     },
     {
         "id": 144,
@@ -1515,7 +1658,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ms.png"
     },
     {
         "id": 145,
@@ -1525,7 +1669,8 @@ fetch(url, {
         "country_code": "212",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ma.png"
     },
     {
         "id": 146,
@@ -1535,7 +1680,8 @@ fetch(url, {
         "country_code": "258",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mz.png"
     },
     {
         "id": 147,
@@ -1545,7 +1691,8 @@ fetch(url, {
         "country_code": "95",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mm.png"
     },
     {
         "id": 148,
@@ -1555,7 +1702,8 @@ fetch(url, {
         "country_code": "264",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/na.png"
     },
     {
         "id": 149,
@@ -1565,7 +1713,8 @@ fetch(url, {
         "country_code": "674",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/nr.png"
     },
     {
         "id": 150,
@@ -1575,7 +1724,8 @@ fetch(url, {
         "country_code": "977",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/np.png"
     },
     {
         "id": 151,
@@ -1585,7 +1735,8 @@ fetch(url, {
         "country_code": "31",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/nl.png"
     },
     {
         "id": 152,
@@ -1595,7 +1746,8 @@ fetch(url, {
         "country_code": "599",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/an.png"
     },
     {
         "id": 153,
@@ -1605,7 +1757,8 @@ fetch(url, {
         "country_code": "687",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/nc.png"
     },
     {
         "id": 154,
@@ -1615,7 +1768,8 @@ fetch(url, {
         "country_code": "64",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/nz.png"
     },
     {
         "id": 155,
@@ -1625,7 +1779,8 @@ fetch(url, {
         "country_code": "505",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ni.png"
     },
     {
         "id": 156,
@@ -1635,7 +1790,8 @@ fetch(url, {
         "country_code": "227",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ne.png"
     },
     {
         "id": 157,
@@ -1645,7 +1801,8 @@ fetch(url, {
         "country_code": "234",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ng.png"
     },
     {
         "id": 158,
@@ -1655,7 +1812,8 @@ fetch(url, {
         "country_code": "683",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/nu.png"
     },
     {
         "id": 159,
@@ -1665,7 +1823,8 @@ fetch(url, {
         "country_code": "672",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/nf.png"
     },
     {
         "id": 160,
@@ -1675,7 +1834,8 @@ fetch(url, {
         "country_code": "850",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kp.png"
     },
     {
         "id": 161,
@@ -1685,7 +1845,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mp.png"
     },
     {
         "id": 162,
@@ -1695,7 +1856,8 @@ fetch(url, {
         "country_code": "47",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/no.png"
     },
     {
         "id": 163,
@@ -1705,7 +1867,8 @@ fetch(url, {
         "country_code": "968",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/om.png"
     },
     {
         "id": 164,
@@ -1715,7 +1878,8 @@ fetch(url, {
         "country_code": "92",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pk.png"
     },
     {
         "id": 165,
@@ -1725,7 +1889,8 @@ fetch(url, {
         "country_code": "680",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pw.png"
     },
     {
         "id": 166,
@@ -1735,7 +1900,8 @@ fetch(url, {
         "country_code": "970",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ps.png"
     },
     {
         "id": 167,
@@ -1745,7 +1911,8 @@ fetch(url, {
         "country_code": "507",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pa.png"
     },
     {
         "id": 168,
@@ -1755,7 +1922,8 @@ fetch(url, {
         "country_code": "675",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pg.png"
     },
     {
         "id": 169,
@@ -1765,7 +1933,8 @@ fetch(url, {
         "country_code": "595",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/py.png"
     },
     {
         "id": 170,
@@ -1775,7 +1944,8 @@ fetch(url, {
         "country_code": "51",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pe.png"
     },
     {
         "id": 171,
@@ -1785,7 +1955,8 @@ fetch(url, {
         "country_code": "63",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ph.png"
     },
     {
         "id": 172,
@@ -1795,7 +1966,8 @@ fetch(url, {
         "country_code": "870",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pn.png"
     },
     {
         "id": 173,
@@ -1805,7 +1977,8 @@ fetch(url, {
         "country_code": "48",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pl.png"
     },
     {
         "id": 174,
@@ -1815,7 +1988,8 @@ fetch(url, {
         "country_code": "351",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pt.png"
     },
     {
         "id": 175,
@@ -1825,7 +1999,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pr.png"
     },
     {
         "id": 176,
@@ -1835,7 +2010,8 @@ fetch(url, {
         "country_code": "974",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/qa.png"
     },
     {
         "id": 177,
@@ -1845,7 +2021,8 @@ fetch(url, {
         "country_code": "40",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ro.png"
     },
     {
         "id": 178,
@@ -1855,7 +2032,8 @@ fetch(url, {
         "country_code": "7",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ru.png"
     },
     {
         "id": 179,
@@ -1865,7 +2043,8 @@ fetch(url, {
         "country_code": "250",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/rw.png"
     },
     {
         "id": 180,
@@ -1875,7 +2054,8 @@ fetch(url, {
         "country_code": "262",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/re.png"
     },
     {
         "id": 181,
@@ -1885,7 +2065,8 @@ fetch(url, {
         "country_code": "290",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sh.png"
     },
     {
         "id": 182,
@@ -1895,7 +2076,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kn.png"
     },
     {
         "id": 183,
@@ -1905,7 +2087,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lc.png"
     },
     {
         "id": 184,
@@ -1915,7 +2098,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/mf.png"
     },
     {
         "id": 185,
@@ -1925,7 +2109,8 @@ fetch(url, {
         "country_code": "508",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/pm.png"
     },
     {
         "id": 186,
@@ -1935,7 +2120,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/vc.png"
     },
     {
         "id": 187,
@@ -1945,7 +2131,8 @@ fetch(url, {
         "country_code": "685",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ws.png"
     },
     {
         "id": 188,
@@ -1955,7 +2142,8 @@ fetch(url, {
         "country_code": "378",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sm.png"
     },
     {
         "id": 189,
@@ -1965,7 +2153,8 @@ fetch(url, {
         "country_code": "966",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sa.png"
     },
     {
         "id": 190,
@@ -1975,7 +2164,8 @@ fetch(url, {
         "country_code": "221",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sn.png"
     },
     {
         "id": 191,
@@ -1985,7 +2175,8 @@ fetch(url, {
         "country_code": "381",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/rs.png"
     },
     {
         "id": 192,
@@ -1995,7 +2186,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/cs.png"
     },
     {
         "id": 193,
@@ -2005,7 +2197,8 @@ fetch(url, {
         "country_code": "248",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sc.png"
     },
     {
         "id": 194,
@@ -2015,7 +2208,8 @@ fetch(url, {
         "country_code": "232",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sl.png"
     },
     {
         "id": 195,
@@ -2025,7 +2219,8 @@ fetch(url, {
         "country_code": "65",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sg.png"
     },
     {
         "id": 196,
@@ -2035,7 +2230,8 @@ fetch(url, {
         "country_code": "421",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sk.png"
     },
     {
         "id": 197,
@@ -2045,7 +2241,8 @@ fetch(url, {
         "country_code": "386",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/si.png"
     },
     {
         "id": 198,
@@ -2055,7 +2252,8 @@ fetch(url, {
         "country_code": "677",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sb.png"
     },
     {
         "id": 199,
@@ -2065,7 +2263,8 @@ fetch(url, {
         "country_code": "252",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/so.png"
     },
     {
         "id": 200,
@@ -2075,7 +2274,8 @@ fetch(url, {
         "country_code": "27",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/za.png"
     },
     {
         "id": 201,
@@ -2085,7 +2285,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gs.png"
     },
     {
         "id": 202,
@@ -2095,7 +2296,8 @@ fetch(url, {
         "country_code": "82",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/kr.png"
     },
     {
         "id": 203,
@@ -2105,7 +2307,8 @@ fetch(url, {
         "country_code": "34",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/es.png"
     },
     {
         "id": 204,
@@ -2115,7 +2318,8 @@ fetch(url, {
         "country_code": "94",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/lk.png"
     },
     {
         "id": 205,
@@ -2125,7 +2329,8 @@ fetch(url, {
         "country_code": "249",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sd.png"
     },
     {
         "id": 206,
@@ -2135,7 +2340,8 @@ fetch(url, {
         "country_code": "597",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sr.png"
     },
     {
         "id": 207,
@@ -2145,7 +2351,8 @@ fetch(url, {
         "country_code": "47",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sj.png"
     },
     {
         "id": 208,
@@ -2155,7 +2362,8 @@ fetch(url, {
         "country_code": "268",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sz.png"
     },
     {
         "id": 209,
@@ -2165,7 +2373,8 @@ fetch(url, {
         "country_code": "46",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/se.png"
     },
     {
         "id": 210,
@@ -2175,7 +2384,8 @@ fetch(url, {
         "country_code": "41",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ch.png"
     },
     {
         "id": 211,
@@ -2185,7 +2395,8 @@ fetch(url, {
         "country_code": "963",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/sy.png"
     },
     {
         "id": 212,
@@ -2195,7 +2406,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/st.png"
     },
     {
         "id": 213,
@@ -2205,7 +2417,8 @@ fetch(url, {
         "country_code": "886",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tw.png"
     },
     {
         "id": 214,
@@ -2215,7 +2428,8 @@ fetch(url, {
         "country_code": "992",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tj.png"
     },
     {
         "id": 215,
@@ -2225,7 +2439,8 @@ fetch(url, {
         "country_code": "255",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tz.png"
     },
     {
         "id": 216,
@@ -2235,7 +2450,8 @@ fetch(url, {
         "country_code": "66",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/th.png"
     },
     {
         "id": 217,
@@ -2245,7 +2461,8 @@ fetch(url, {
         "country_code": "670",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tl.png"
     },
     {
         "id": 218,
@@ -2255,7 +2472,8 @@ fetch(url, {
         "country_code": "228",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tg.png"
     },
     {
         "id": 219,
@@ -2265,7 +2483,8 @@ fetch(url, {
         "country_code": "690",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tk.png"
     },
     {
         "id": 220,
@@ -2275,7 +2494,8 @@ fetch(url, {
         "country_code": "676",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/to.png"
     },
     {
         "id": 221,
@@ -2285,7 +2505,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tt.png"
     },
     {
         "id": 222,
@@ -2295,7 +2516,8 @@ fetch(url, {
         "country_code": "216",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tn.png"
     },
     {
         "id": 223,
@@ -2305,7 +2527,8 @@ fetch(url, {
         "country_code": "90",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tr.png"
     },
     {
         "id": 224,
@@ -2315,7 +2538,8 @@ fetch(url, {
         "country_code": "993",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tm.png"
     },
     {
         "id": 225,
@@ -2325,7 +2549,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tc.png"
     },
     {
         "id": 226,
@@ -2335,7 +2560,8 @@ fetch(url, {
         "country_code": "688",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/tv.png"
     },
     {
         "id": 227,
@@ -2345,7 +2571,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/um.png"
     },
     {
         "id": 228,
@@ -2355,7 +2582,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/vi.png"
     },
     {
         "id": 229,
@@ -2365,7 +2593,8 @@ fetch(url, {
         "country_code": "256",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ug.png"
     },
     {
         "id": 230,
@@ -2375,7 +2604,8 @@ fetch(url, {
         "country_code": "380",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ua.png"
     },
     {
         "id": 231,
@@ -2385,7 +2615,8 @@ fetch(url, {
         "country_code": "971",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ae.png"
     },
     {
         "id": 232,
@@ -2395,7 +2626,8 @@ fetch(url, {
         "country_code": "44",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/gb.png"
     },
     {
         "id": 233,
@@ -2405,7 +2637,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/us.png"
     },
     {
         "id": 234,
@@ -2415,7 +2648,8 @@ fetch(url, {
         "country_code": "1",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/zz.png"
     },
     {
         "id": 235,
@@ -2425,7 +2659,8 @@ fetch(url, {
         "country_code": "598",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/uy.png"
     },
     {
         "id": 236,
@@ -2435,7 +2670,8 @@ fetch(url, {
         "country_code": "998",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/uz.png"
     },
     {
         "id": 237,
@@ -2445,7 +2681,8 @@ fetch(url, {
         "country_code": "678",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/vu.png"
     },
     {
         "id": 238,
@@ -2455,7 +2692,8 @@ fetch(url, {
         "country_code": "379",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/va.png"
     },
     {
         "id": 239,
@@ -2465,7 +2703,8 @@ fetch(url, {
         "country_code": "58",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ve.png"
     },
     {
         "id": 240,
@@ -2475,7 +2714,8 @@ fetch(url, {
         "country_code": "84",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/vn.png"
     },
     {
         "id": 241,
@@ -2485,7 +2725,8 @@ fetch(url, {
         "country_code": "681",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/wf.png"
     },
     {
         "id": 242,
@@ -2495,7 +2736,8 @@ fetch(url, {
         "country_code": "212",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/eh.png"
     },
     {
         "id": 243,
@@ -2505,7 +2747,8 @@ fetch(url, {
         "country_code": "967",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ye.png"
     },
     {
         "id": 244,
@@ -2515,7 +2758,8 @@ fetch(url, {
         "country_code": "260",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/zm.png"
     },
     {
         "id": 245,
@@ -2525,7 +2769,8 @@ fetch(url, {
         "country_code": "236",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/zw.png"
     },
     {
         "id": 246,
@@ -2535,7 +2780,8 @@ fetch(url, {
         "country_code": "358",
         "deleted_at": null,
         "created_at": null,
-        "updated_at": null
+        "updated_at": null,
+        "flag": "http:\/\/wajad.test\/images\/flags\/ax.png"
     }
 ]</code></pre>
 <h3>HTTP Request</h3>
@@ -2550,7 +2796,7 @@ fetch(url, {
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789","device_type":"cupiditate"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"beatae","mobile_country_id":"qui"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/login"
@@ -2564,7 +2810,8 @@ let headers = {
 let body = {
     "user": "00966236363256",
     "password": "123456789",
-    "device_type": "cupiditate"
+    "device_type": "beatae",
+    "mobile_country_id": "qui"
 }
 
 fetch(url, {
@@ -2642,6 +2889,11 @@ fetch(url, {
 <td>required</td>
 <td>android or ios</td>
 </tr>
+<tr>
+<td><code>mobile_country_id</code></td>
+<td>numeric</td>
+<td>required</td>
+</tr>
 </tbody>
 </table>
 <!-- END_c3fa189a6c95ca36ad6ac4791a873d23 -->
@@ -2654,7 +2906,7 @@ fetch(url, {
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"numquam","mobile_country_id":4}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"aut","mobile_country_id":3}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register"
@@ -2670,8 +2922,8 @@ let body = {
     "email": "api@wajad.com",
     "password": "123456789",
     "mobile_number": "123456789",
-    "device_type": "numquam",
-    "mobile_country_id": 4
+    "device_type": "aut",
+    "mobile_country_id": 3
 }
 
 fetch(url, {
@@ -2774,7 +3026,7 @@ fetch(url, {
     "http://api.wajad.test/api/refreshToken" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"sed"}'
+    -d '{"token":"assumenda"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/refreshToken"
@@ -2786,7 +3038,7 @@ let headers = {
 };
 
 let body = {
-    "token": "sed"
+    "token": "assumenda"
 }
 
 fetch(url, {
@@ -2837,6 +3089,201 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_406e4552819a456070d1f6c93688188d -->
+<!-- START_c1b4f9c20bd55c55c37030195bfd263b -->
+<h2>Social Login</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://api.wajad.test/api/socialLogin/rerum" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"ut","device_type":"autem"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/socialLogin/rerum"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "ut",
+    "device_type": "autem"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "token_type": "Bearer",
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
+    "expires_in": 216000,
+    "user": {
+        "id": 24,
+        "name": "Smart AppCo",
+        "email": "a.shafik@smartappco.com",
+        "status": null,
+        "mobile_number": "",
+        "receive_emails": false,
+        "receive_push_notifications": false,
+        "is_email_verified": false,
+        "is_mobile_number_verified": false,
+        "default_distance_unit": null,
+        "quick_user_id": null,
+        "quick_user_email": "a.shafik@smartappco.com",
+        "quick_user_password": null,
+        "image": "https:\/\/graph.facebook.com\/v3.3\/100385468456652\/picture?type=normal",
+        "country": null
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/socialLogin/{driver}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>driver</code></td>
+<td>optional</td>
+<td>string required</td>
+</tr>
+</tbody>
+</table>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>token</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>device_type</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<!-- END_c1b4f9c20bd55c55c37030195bfd263b -->
+<!-- START_3b5687173ae5e240cea00ef4a66fe5d0 -->
+<h2>Apple Login</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://api.wajad.test/api/appleLogin" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"tempora","device_type":"totam","name":"facilis","email":"rerum"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/appleLogin"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "tempora",
+    "device_type": "totam",
+    "name": "facilis",
+    "email": "rerum"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "token_type": "Bearer",
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
+    "expires_in": 216000,
+    "user": {
+        "id": 24,
+        "name": "Smart AppCo",
+        "email": "a.shafik@smartappco.com",
+        "status": null,
+        "mobile_number": "",
+        "receive_emails": false,
+        "receive_push_notifications": false,
+        "is_email_verified": false,
+        "is_mobile_number_verified": false,
+        "default_distance_unit": null,
+        "quick_user_id": null,
+        "quick_user_email": "a.shafik@smartappco.com",
+        "quick_user_password": null,
+        "image": null,
+        "country": null
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/appleLogin</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>token</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>device_type</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3b5687173ae5e240cea00ef4a66fe5d0 -->
 <!-- START_ea7e28be0fe9f5f4f03de00c1544e2c3 -->
 <h2>Send Code</h2>
 <blockquote>
@@ -2846,7 +3293,7 @@ fetch(url, {
     "http://api.wajad.test/api/sendCode/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"nisi"}'
+    -d '{"token":"est"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/sendCode/phone."
@@ -2858,7 +3305,7 @@ let headers = {
 };
 
 let body = {
-    "token": "nisi"
+    "token": "est"
 }
 
 fetch(url, {
@@ -2923,7 +3370,7 @@ fetch(url, {
     "http://api.wajad.test/api/logout" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"at"}'
+    -d '{"token":"deleniti"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/logout"
@@ -2935,7 +3382,7 @@ let headers = {
 };
 
 let body = {
-    "token": "at"
+    "token": "deleniti"
 }
 
 fetch(url, {
@@ -2984,7 +3431,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/fcm" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"temporibus"}'
+    -d '{"token":"quis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/fcm"
@@ -2996,7 +3443,7 @@ let headers = {
 };
 
 let body = {
-    "token": "temporibus"
+    "token": "quis"
 }
 
 fetch(url, {
@@ -3115,7 +3562,7 @@ fetch(url, {
     "http://api.wajad.test/api/fcm/create" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"fcm_token":"sunt","lang":"et","device":"recusandae","token":"est"}'
+    -d '{"fcm_token":"tempora","lang":"corrupti","device":"pariatur","token":"velit"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/fcm/create"
@@ -3127,10 +3574,10 @@ let headers = {
 };
 
 let body = {
-    "fcm_token": "sunt",
-    "lang": "et",
-    "device": "recusandae",
-    "token": "est"
+    "fcm_token": "tempora",
+    "lang": "corrupti",
+    "device": "pariatur",
+    "token": "velit"
 }
 
 fetch(url, {
@@ -3248,11 +3695,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/totam/1" \
+    -G "http://api.wajad.test/api/home/posts/accusamus/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/home/posts/totam/1"
+    "http://api.wajad.test/api/home/posts/accusamus/1"
 );
 
 let headers = {
@@ -3458,7 +3905,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userItems" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"culpa"}'
+    -d '{"token":"quo"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userItems"
@@ -3470,7 +3917,7 @@ let headers = {
 };
 
 let body = {
-    "token": "culpa"
+    "token": "quo"
 }
 
 fetch(url, {
@@ -3579,7 +4026,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"sint"}'
+    -d '{"token":"nisi"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -3591,7 +4038,7 @@ let headers = {
 };
 
 let body = {
-    "token": "sint"
+    "token": "nisi"
 }
 
 fetch(url, {
@@ -3736,7 +4183,7 @@ fetch(url, {
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"aut","details":"repellat","color_id":"ullam","brand_id":"ex","model_id":"voluptatem","sub_category_id":"veritatis","qrcode_id":"culpa","images":["culpa"],"token":"vel"}'
+    -d '{"title":"molestias","details":"mollitia","color_id":"aspernatur","brand_id":"enim","model_id":"commodi","sub_category_id":"nostrum","qrcode_id":"eum","images":["fugiat"],"token":"eius"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items"
@@ -3748,17 +4195,17 @@ let headers = {
 };
 
 let body = {
-    "title": "aut",
-    "details": "repellat",
-    "color_id": "ullam",
-    "brand_id": "ex",
-    "model_id": "voluptatem",
-    "sub_category_id": "veritatis",
-    "qrcode_id": "culpa",
+    "title": "molestias",
+    "details": "mollitia",
+    "color_id": "aspernatur",
+    "brand_id": "enim",
+    "model_id": "commodi",
+    "sub_category_id": "nostrum",
+    "qrcode_id": "eum",
     "images": [
-        "culpa"
+        "fugiat"
     ],
-    "token": "vel"
+    "token": "eius"
 }
 
 fetch(url, {
@@ -3853,7 +4300,7 @@ fetch(url, {
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"quo","details":"eum","color_id":"sequi","brand_id":"ut","model_id":"magni","sub_category_id":"ut","qrcode_id":"aut","images":["repudiandae"],"token":"quod"}'
+    -d '{"title":"debitis","details":"repellendus","color_id":"quod","brand_id":"quis","model_id":"veritatis","sub_category_id":"architecto","qrcode_id":"est","images":["delectus"],"token":"id"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -3865,17 +4312,17 @@ let headers = {
 };
 
 let body = {
-    "title": "quo",
-    "details": "eum",
-    "color_id": "sequi",
-    "brand_id": "ut",
-    "model_id": "magni",
-    "sub_category_id": "ut",
-    "qrcode_id": "aut",
+    "title": "debitis",
+    "details": "repellendus",
+    "color_id": "quod",
+    "brand_id": "quis",
+    "model_id": "veritatis",
+    "sub_category_id": "architecto",
+    "qrcode_id": "est",
     "images": [
-        "repudiandae"
+        "delectus"
     ],
-    "token": "quod"
+    "token": "id"
 }
 
 fetch(url, {
@@ -3987,7 +4434,7 @@ fetch(url, {
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"et"}'
+    -d '{"token":"consectetur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -3999,7 +4446,7 @@ let headers = {
 };
 
 let body = {
-    "token": "et"
+    "token": "consectetur"
 }
 
 fetch(url, {
@@ -4062,13 +4509,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/maps/libero" \
+    -G "http://api.wajad.test/api/maps/omnis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"longitude":"rem","latitude":"ea","radius":16,"unit":"sed"}'
+    -d '{"longitude":"vitae","latitude":"voluptates","radius":18,"unit":"voluptates"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/maps/libero"
+    "http://api.wajad.test/api/maps/omnis"
 );
 
 let headers = {
@@ -4077,10 +4524,10 @@ let headers = {
 };
 
 let body = {
-    "longitude": "rem",
-    "latitude": "ea",
-    "radius": 16,
-    "unit": "sed"
+    "longitude": "vitae",
+    "latitude": "voluptates",
+    "radius": 18,
+    "unit": "voluptates"
 }
 
 fetch(url, {
@@ -4169,7 +4616,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/packages" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"dicta"}'
+    -d '{"token":"cupiditate"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/packages"
@@ -4181,7 +4628,7 @@ let headers = {
 };
 
 let body = {
-    "token": "dicta"
+    "token": "cupiditate"
 }
 
 fetch(url, {
@@ -4205,7 +4652,8 @@ fetch(url, {
             "currency": "USD",
             "period": "12 days",
             "type": "single",
-            "incrementally": true
+            "incrementally": true,
+            "max_increments": 1
         }
     ]
 }</code></pre>
@@ -4307,7 +4755,7 @@ fetch(url, {
     "http://api.wajad.test/api/request/1/accept" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":"unde","token":"nisi"}'
+    -d '{"user_id":"quibusdam","comment":"velit","token":"deleniti"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/request/1/accept"
@@ -4319,8 +4767,9 @@ let headers = {
 };
 
 let body = {
-    "user_id": "unde",
-    "token": "nisi"
+    "user_id": "quibusdam",
+    "comment": "velit",
+    "token": "deleniti"
 }
 
 fetch(url, {
@@ -4375,6 +4824,11 @@ fetch(url, {
 <td>int exists in users</td>
 </tr>
 <tr>
+<td><code>comment</code></td>
+<td>text</td>
+<td>optional</td>
+</tr>
+<tr>
 <td><code>token</code></td>
 <td>Barier-token</td>
 <td>required</td>
@@ -4391,7 +4845,7 @@ fetch(url, {
     "http://api.wajad.test/api/request/1/reject" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":3,"token":"et"}'
+    -d '{"user_id":16,"comment":"quo","token":"asperiores"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/request/1/reject"
@@ -4403,8 +4857,9 @@ let headers = {
 };
 
 let body = {
-    "user_id": 3,
-    "token": "et"
+    "user_id": 16,
+    "comment": "quo",
+    "token": "asperiores"
 }
 
 fetch(url, {
@@ -4459,6 +4914,11 @@ fetch(url, {
 <td>exists in users</td>
 </tr>
 <tr>
+<td><code>comment</code></td>
+<td>text</td>
+<td>required</td>
+</tr>
+<tr>
 <td><code>token</code></td>
 <td>Barier-token</td>
 <td>required</td>
@@ -4475,7 +4935,7 @@ fetch(url, {
     "http://api.wajad.test/api/post/1/answer" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"data":[{"answers":"ea","question_id":8}],"token":"doloremque"}'
+    -d '{"data":[{"answers":"aut","question_id":20}],"token":"ut"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/post/1/answer"
@@ -4489,11 +4949,11 @@ let headers = {
 let body = {
     "data": [
         {
-            "answers": "ea",
-            "question_id": 8
+            "answers": "aut",
+            "question_id": 20
         }
     ],
-    "token": "doloremque"
+    "token": "ut"
 }
 
 fetch(url, {
@@ -4576,7 +5036,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userPosts/found." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"sunt"}'
+    -d '{"token":"eum"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userPosts/found."
@@ -4588,7 +5048,7 @@ let headers = {
 };
 
 let body = {
-    "token": "sunt"
+    "token": "eum"
 }
 
 fetch(url, {
@@ -4649,7 +5109,7 @@ fetch(url, {
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"quam","image":"et","token":"commodi"}'
+    -d '{"details":"consectetur","image":"laborum","token":"sunt"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/report/post/1"
@@ -4661,9 +5121,9 @@ let headers = {
 };
 
 let body = {
-    "details": "quam",
-    "image": "et",
-    "token": "commodi"
+    "details": "consectetur",
+    "image": "laborum",
+    "token": "sunt"
 }
 
 fetch(url, {
@@ -4740,7 +5200,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"quae"}'
+    -d '{"token":"ut"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -4752,7 +5212,7 @@ let headers = {
 };
 
 let body = {
-    "token": "quae"
+    "token": "ut"
 }
 
 fetch(url, {
@@ -4947,13 +5407,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/posts/add/praesentium" \
+    "http://api.wajad.test/api/posts/add/qui" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"corporis","description":"numquam","reward":"quia","longitude":"nobis","latitude":"sed","sub_category_id":16,"brand_id":20,"model_id":4,"color_id":5,"item_id":11,"city":"eaque","images":["est"],"questions":["exercitationem"],"token":"quo"}'
+    -d '{"title":"laboriosam","description":"aut","reward":"sed","longitude":"atque","latitude":"quaerat","sub_category_id":14,"brand_id":10,"model_id":11,"color_id":7,"item_id":10,"city":"cumque","images":["similique"],"questions":["sit"],"token":"non"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/posts/add/praesentium"
+    "http://api.wajad.test/api/posts/add/qui"
 );
 
 let headers = {
@@ -4962,24 +5422,24 @@ let headers = {
 };
 
 let body = {
-    "title": "corporis",
-    "description": "numquam",
-    "reward": "quia",
-    "longitude": "nobis",
-    "latitude": "sed",
-    "sub_category_id": 16,
-    "brand_id": 20,
-    "model_id": 4,
-    "color_id": 5,
-    "item_id": 11,
-    "city": "eaque",
+    "title": "laboriosam",
+    "description": "aut",
+    "reward": "sed",
+    "longitude": "atque",
+    "latitude": "quaerat",
+    "sub_category_id": 14,
+    "brand_id": 10,
+    "model_id": 11,
+    "color_id": 7,
+    "item_id": 10,
+    "city": "cumque",
     "images": [
-        "est"
+        "similique"
     ],
     "questions": [
-        "exercitationem"
+        "sit"
     ],
-    "token": "quo"
+    "token": "non"
 }
 
 fetch(url, {
@@ -5132,7 +5592,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"sapiente","description":"et","status":"enim","reward":"ducimus","longitude":"perferendis","latitude":"quo","sub_category_id":3,"brand_id":18,"model_id":1,"color_id":11,"item_id":8,"city":"natus","images":["quas"],"token":"perspiciatis"}'
+    -d '{"title":"et","description":"eius","status":"aut","reward":"aperiam","longitude":"expedita","latitude":"at","sub_category_id":20,"brand_id":2,"model_id":7,"color_id":17,"item_id":4,"city":"et","images":["ut"],"token":"beatae"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -5144,22 +5604,22 @@ let headers = {
 };
 
 let body = {
-    "title": "sapiente",
-    "description": "et",
-    "status": "enim",
-    "reward": "ducimus",
-    "longitude": "perferendis",
-    "latitude": "quo",
-    "sub_category_id": 3,
-    "brand_id": 18,
-    "model_id": 1,
-    "color_id": 11,
-    "item_id": 8,
-    "city": "natus",
+    "title": "et",
+    "description": "eius",
+    "status": "aut",
+    "reward": "aperiam",
+    "longitude": "expedita",
+    "latitude": "at",
+    "sub_category_id": 20,
+    "brand_id": 2,
+    "model_id": 7,
+    "color_id": 17,
+    "item_id": 4,
+    "city": "et",
     "images": [
-        "quas"
+        "ut"
     ],
-    "token": "perspiciatis"
+    "token": "beatae"
 }
 
 fetch(url, {
@@ -5306,7 +5766,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"sed"}'
+    -d '{"token":"debitis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -5318,7 +5778,7 @@ let headers = {
 };
 
 let body = {
-    "token": "sed"
+    "token": "debitis"
 }
 
 fetch(url, {
@@ -5384,7 +5844,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userQRCodes" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"vel"}'
+    -d '{"token":"repellat"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userQRCodes"
@@ -5396,7 +5856,7 @@ let headers = {
 };
 
 let body = {
-    "token": "vel"
+    "token": "repellat"
 }
 
 fetch(url, {
@@ -5480,7 +5940,7 @@ fetch(url, {
     "http://api.wajad.test/api/qrcodes/create" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"package_id":7,"count":15,"token":"et"}'
+    -d '{"package_id":1,"count":3,"token":"adipisci"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/qrcodes/create"
@@ -5492,9 +5952,9 @@ let headers = {
 };
 
 let body = {
-    "package_id": 7,
-    "count": 15,
-    "token": "et"
+    "package_id": 1,
+    "count": 3,
+    "token": "adipisci"
 }
 
 fetch(url, {
@@ -5559,7 +6019,7 @@ fetch(url, {
     "http://api.wajad.test/api/register/qrcode" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"occaecati"}'
+    -d '{"token":"qui"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register/qrcode"
@@ -5571,7 +6031,7 @@ let headers = {
 };
 
 let body = {
-    "token": "occaecati"
+    "token": "qui"
 }
 
 fetch(url, {
@@ -5641,7 +6101,7 @@ fetch(url, {
     "http://api.wajad.test/api/reregister/qrcode" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"similique"}'
+    -d '{"token":"vero"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/reregister/qrcode"
@@ -5653,7 +6113,7 @@ let headers = {
 };
 
 let body = {
-    "token": "similique"
+    "token": "vero"
 }
 
 fetch(url, {
@@ -5723,7 +6183,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/scan-qr-code/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"eveniet"}'
+    -d '{"token":"iure"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/scan-qr-code/1"
@@ -5735,7 +6195,7 @@ let headers = {
 };
 
 let body = {
-    "token": "eveniet"
+    "token": "iure"
 }
 
 fetch(url, {
@@ -5820,7 +6280,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":14,"color":9,"brand":8,"subcategory":20,"date":"aut","status":3}'
+    -d '{"model":16,"color":18,"brand":18,"subcategory":10,"date":"et","status":17}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/home/search"
@@ -5832,12 +6292,12 @@ let headers = {
 };
 
 let body = {
-    "model": 14,
-    "color": 9,
-    "brand": 8,
-    "subcategory": 20,
-    "date": "aut",
-    "status": 3
+    "model": 16,
+    "color": 18,
+    "brand": 18,
+    "subcategory": 10,
+    "date": "et",
+    "status": 17
 }
 
 fetch(url, {
@@ -6208,7 +6668,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userData" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"commodi"}'
+    -d '{"token":"error"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userData"
@@ -6220,7 +6680,7 @@ let headers = {
 };
 
 let body = {
-    "token": "commodi"
+    "token": "error"
 }
 
 fetch(url, {
@@ -6233,21 +6693,7 @@ fetch(url, {
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">{
-    "data": {
-        "id": 2,
-        "name": "User",
-        "email": "user@nova.com",
-        "status": 1,
-        "mobile_number": "01142416124",
-        "receive_emails": false,
-        "receive_push_notifications": false,
-        "is_email_verified": false,
-        "is_mobile_number_verified": false,
-        "default_distance_unit": "kilo",
-        "image": "image.png"
-    }
-}</code></pre>
+<pre><code class="language-json">null</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/userData</code></p>
 <h4>Body Parameters</h4>
@@ -6278,7 +6724,7 @@ fetch(url, {
     "http://api.wajad.test/api/verify/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"code":"1234","token":"vel"}'
+    -d '{"code":"1234","token":"est"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/verify/phone."
@@ -6291,7 +6737,7 @@ let headers = {
 
 let body = {
     "code": "1234",
-    "token": "vel"
+    "token": "est"
 }
 
 fetch(url, {
@@ -6362,7 +6808,7 @@ fetch(url, {
     "http://api.wajad.test/api/updateUserProfile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"neque","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"deleniti","token":"et"}'
+    -d '{"name":"officiis","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"iusto","token":"ipsam"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/updateUserProfile"
@@ -6374,12 +6820,12 @@ let headers = {
 };
 
 let body = {
-    "name": "neque",
+    "name": "officiis",
     "receive_emails": true,
     "receive_push_notifications": true,
     "default_distance_unit": "mile",
-    "image": "deleniti",
-    "token": "et"
+    "image": "iusto",
+    "token": "ipsam"
 }
 
 fetch(url, {
@@ -6457,7 +6903,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"corrupti","new_password":"molestiae","new_password_confirmation":"odio","token":"accusantium"}'
+    -d '{"old_password":"beatae","new_password":"dolores","new_password_confirmation":"dolor","token":"corporis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -6469,10 +6915,10 @@ let headers = {
 };
 
 let body = {
-    "old_password": "corrupti",
-    "new_password": "molestiae",
-    "new_password_confirmation": "odio",
-    "token": "accusantium"
+    "old_password": "beatae",
+    "new_password": "dolores",
+    "new_password_confirmation": "dolor",
+    "token": "corporis"
 }
 
 fetch(url, {
@@ -6538,7 +6984,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"non","token":"iusto"}'
+    -d '{"mobile_number":"nemo","mobile_country_id":"dolor","token":"ducimus"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -6550,8 +6996,9 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "non",
-    "token": "iusto"
+    "mobile_number": "nemo",
+    "mobile_country_id": "dolor",
+    "token": "ducimus"
 }
 
 fetch(url, {
@@ -6589,6 +7036,12 @@ fetch(url, {
 <td>digits_between:9,14 unique:user ignore:user-id</td>
 </tr>
 <tr>
+<td><code>mobile_country_id</code></td>
+<td>numeric</td>
+<td>optional</td>
+<td>exists:countries,id</td>
+</tr>
+<tr>
 <td><code>token</code></td>
 <td>Barier-token</td>
 <td>required</td>
@@ -6605,7 +7058,7 @@ fetch(url, {
     "http://api.wajad.test/api/changeEmail" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email":"quae","token":"rerum"}'
+    -d '{"email":"commodi","token":"labore"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changeEmail"
@@ -6617,8 +7070,8 @@ let headers = {
 };
 
 let body = {
-    "email": "quae",
-    "token": "rerum"
+    "email": "commodi",
+    "token": "labore"
 }
 
 fetch(url, {
@@ -6893,6 +7346,13 @@ fetch(url, {
             "description": "",
             "image": "http:\/\/wajad.test\/images\/default.png",
             "item_coount": 0
+        },
+        {
+            "id": 26,
+            "name": "sefgdfgsdfgsdfgs",
+            "description": "sdbvsdfbvsdbsdgbfdbg",
+            "image": "http:\/\/wajad.test\/images\/categories\/17OB4uSmHMLO6ebiwdobM6DohXPuaRNUVlCtvPVy.jpeg",
+            "item_coount": 0
         }
     ]
 }</code></pre>
@@ -6981,69 +7441,69 @@ fetch(url, {
         },
         {
             "id": 3,
-            "name": "Others",
-            "description": null,
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        {
-            "id": 4,
             "name": "artifact",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 5,
+            "id": 4,
             "name": "candlestick",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 6,
+            "id": 5,
             "name": "wall clock",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 7,
+            "id": 6,
             "name": "Antiquities",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 8,
+            "id": 7,
             "name": "Estatua",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 9,
+            "id": 8,
             "name": "Art object",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 10,
-            "name": "Others",
-            "description": null,
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        {
-            "id": 11,
+            "id": 9,
             "name": "kids shampo",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 12,
+            "id": 10,
             "name": "Lap top",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 13,
+            "id": 11,
             "name": "Cameras",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 12,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 13,
+            "name": "dgbfdgvbsfsbvefbsgbfbgsd",
+            "description": "sdgbsdgbsdgbsg",
+            "image": "http:\/\/wajad.test\/images\/subcategories\/w3YOzMut5Dyk88EpL9TQzn3xTzDoXsxYHoxNPjIW.png"
         }
     ]
 }</code></pre>
@@ -7093,69 +7553,69 @@ fetch(url, {
         },
         {
             "id": 3,
-            "name": "Others",
-            "description": null,
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        {
-            "id": 4,
             "name": "artifact",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 5,
+            "id": 4,
             "name": "candlestick",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 6,
+            "id": 5,
             "name": "wall clock",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 7,
+            "id": 6,
             "name": "Antiquities",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 8,
+            "id": 7,
             "name": "Estatua",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 9,
+            "id": 8,
             "name": "Art object",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 10,
-            "name": "Others",
-            "description": null,
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        {
-            "id": 11,
+            "id": 9,
             "name": "kids shampo",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 12,
+            "id": 10,
             "name": "Lap top",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
         },
         {
-            "id": 13,
+            "id": 11,
             "name": "Cameras",
             "description": null,
             "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 12,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 13,
+            "name": "dgbfdgvbsfsbvefbsgbfbgsd",
+            "description": "sdgbsdgbsdgbsg",
+            "image": "http:\/\/wajad.test\/images\/subcategories\/w3YOzMut5Dyk88EpL9TQzn3xTzDoXsxYHoxNPjIW.png"
         }
     ]
 }</code></pre>
@@ -7205,81 +7665,81 @@ fetch(url, {
         },
         {
             "id": 3,
-            "name": "Others",
-            "description": "",
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        {
-            "id": 4,
             "name": "lacoste",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
         },
         {
-            "id": 5,
+            "id": 4,
             "name": "corocs",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
         },
         {
-            "id": 6,
-            "name": "Others",
-            "description": "",
-            "image": "http:\/\/wajad.test\/images\/default.png"
-        },
-        {
-            "id": 7,
+            "id": 5,
             "name": "gohnson",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
         },
         {
-            "id": 8,
+            "id": 6,
             "name": "panten",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post1.jpg"
         },
         {
-            "id": 9,
+            "id": 7,
             "name": "sherosa",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post1.jpg"
         },
         {
-            "id": 10,
+            "id": 8,
             "name": "Toshiba",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post2.jpg"
         },
         {
-            "id": 11,
+            "id": 9,
             "name": "Hp",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post2.jpg"
         },
         {
-            "id": 12,
+            "id": 10,
             "name": "Dell",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post3.jpg"
         },
         {
-            "id": 13,
+            "id": 11,
             "name": "Nicon",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post5.jpg"
         },
         {
-            "id": 14,
+            "id": 12,
             "name": "Canon",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post5.jpg"
         },
         {
-            "id": 15,
+            "id": 13,
             "name": "Sony",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        },
+        {
+            "id": 14,
+            "name": "Other",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        },
+        {
+            "id": 16,
+            "name": "sfgsdfgs",
+            "description": "dfgsdfgsdfg",
+            "image": "http:\/\/wajad.test\/images\/brands\/hBoeglA6fegeWAl5BrpHkTXdhCO5nkylHehFsNrZ.jpeg"
         }
     ]
 }</code></pre>
@@ -7344,6 +7804,18 @@ fetch(url, {
             "name": "Sony SA1",
             "description": "",
             "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        },
+        {
+            "id": 7,
+            "name": "sgbsdgbsdgbdsvbsd",
+            "description": "gbsdgbsdgbs",
+            "image": "http:\/\/wajad.test\/images\/models\/QIRrCg2DY764YxoKLjwFoRhR9a133u7c6qDTb9Pi.jpeg"
         }
     ]
 }</code></pre>
@@ -7476,6 +7948,11 @@ fetch(url, {
             "id": 13,
             "name": "Others",
             "icon": "images\/profile\/default-profile.png"
+        },
+        {
+            "id": 14,
+            "name": "sdgbsdgb",
+            "icon": ""
         }
     ]
 }</code></pre>

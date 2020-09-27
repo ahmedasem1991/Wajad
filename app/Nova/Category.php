@@ -10,6 +10,7 @@ use App\Nova\Metrics\Categories;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
+use NovaErrorField\Errors;
 
 class Category extends Resource
 {
@@ -65,12 +66,13 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Category English Name', 'name_en')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Text::make('Category Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:6'
+                'required', 'min:2'
             ]),
             Textarea::make('Category English Body', 'description_en'),
             Textarea::make('Category Arabic Body', 'description_ar'),
@@ -81,7 +83,11 @@ class Category extends Resource
                 ->path('images/categories')
                 ->prunable()
                 ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100'),
+                // ->rules('required','dimensions:max_width=100,max_height=100'),
+                ->creationRules('required'),
+//                ->updateRules(
+//                    'dimensions:max_width=100,max_height=100'
+//                ),
              HasMany::make('Subcategories'),
         ];
     }

@@ -2,29 +2,31 @@
 
 namespace App\Providers;
 
-use App\AdminNotification;
 use App\Post;
 use App\Role;
 use App\User;
 use App\People;
 use App\Qrcode;
+use App\Question;
 use App\Permission;
 use App\PostRequest;
 use App\AssignQrcode;
 use App\Subscription;
 use App\QrcodeRequest;
 use App\GenerateQrcode;
+use App\AdminNotification;
 use App\CorporateAssignQrcode;
 use App\Jobs\GenerateQrcodeJob;
 use App\Observers\PostObserver;
 use App\Observers\RoleObserver;
-use App\Observers\NotificationObserver;
 use App\Observers\UserObserver;
 use App\Observers\PeopleObserver;
+use App\Observers\QuestionObserver;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use App\Observers\PostRequestObserver;
 use Illuminate\Support\Facades\Schema;
+use App\Observers\NotificationObserver;
 use App\Observers\QrcodeAssignObserver;
 use App\Observers\SubscriptionObserver;
 use Illuminate\Support\ServiceProvider;
@@ -70,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
         People::observe(PeopleObserver::class);
         User::observe(UserObserver::class);
         PostRequest::observe(PostRequestObserver::class);
+        Question::observe(QuestionObserver::class);
         AdminNotification::observe(NotificationObserver::class);
         \App\Role::observe(RoleObserver::class);
 

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\SendSMSEvent;
 use App\User;
 use App\UserVerifications;
 use App\Services\SmsProvider;
@@ -88,8 +89,13 @@ class UserService
         if ($code_valid_for == 'phone') {
             $message = 'Wajad, Register activation code is ' . $activation_code;
 
-//            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
+            if($user->country->country_code==="966" || $user->country->country_code==="+966"){
+                new SendSMSEvent($message, $user->country->country_code. $user->mobile_number);
+            }
+            else{
+                (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
+            }
             return true;
         }
 

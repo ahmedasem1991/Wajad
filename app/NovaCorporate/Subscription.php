@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Subscription extends Resource
@@ -69,6 +70,7 @@ class Subscription extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
           //  Date::make('Start Date', 'start_date')->rules('required'),
@@ -79,13 +81,18 @@ class Subscription extends Resource
 
 
             //BelongsTo::make('User'),
-            NovaBelongsToDepend::make('Corporate','corporate','App\Nova\Corporate')
-                ->options(\App\Corporate::all())
-                ->placeholder('Corporate'),
+            Select2::make('Corporate', 'corporate_id')
+            ->options(Corporate::find(auth()->user()->corporate_id)->first()->pluck('name_en','id'))
+            ->hideWhenCreating(),
 
-            NovaBelongsToDepend::make('Package')->rules('required')
-                ->options(\App\Package::all())
-                ->placeholder('Package'),
+            Select2::make('Package', 'package_id')
+            ->options(\App\Package::get()->pluck('name_en','id'))
+            ->rules('required')
+            ->hideWhenUpdating(),
+
+            // NovaBelongsToDepend::make('Package')->rules('required')
+            //     ->options(\App\Package::all())
+            //     ->placeholder('Package'),
 
             DateTime::make('Created At')
             ->hideWhenUpdating()

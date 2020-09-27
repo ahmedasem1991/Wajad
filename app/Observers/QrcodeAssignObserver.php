@@ -49,10 +49,10 @@ class QrcodeAssignObserver
     }
     public function saved(AssignQrcode $assignQrcode)
     {
-        if($assignQrcode->created_from=='web')
-        {
+       // if($assignQrcode->created_from=='web')
+        //{
         AssignQrcodeJob::dispatch($assignQrcode);
-        }
+        //}
     }
 
     /**

@@ -34,6 +34,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'corporate_id',
         'posts_number',
         'image',
+        'social_name',
+        'is_social_user',
+        'social_id',
     ];
 
     protected $hidden = [
@@ -60,6 +63,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'Active' => 1,
     ];
 
+    const DEFAULT_PHOTO = 'images/profile/default-profile.png';
     // public function status($status)
     // {
     //     return $this->type === self::Types[$status];
@@ -270,6 +274,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getLanguage()
     {
       return  $this->language;
-        
+
     }
 }

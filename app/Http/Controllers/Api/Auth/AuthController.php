@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\AssignQrcode;
+use App\User;
 use App\Country;
 use App\DeviceType;
-use App\User;
+use App\AssignQrcode;
 use App\PostLimitation;
+use App\Jobs\PrepereNewUser;
 use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
+use Laravel\Socialite\Facades\Socialite;
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @group Auth
@@ -25,6 +29,7 @@ class AuthController extends Controller
      * @bodyParam user numeric,email,min:9,max:14 required phone number or email for the user. Example:00966236363256
      * @bodyParam password string required min:6 password. Example: 123456789
      * @bodyParam device_type string required android or ios
+     * @bodyParam mobile_country_id numeric required
      *
      * @response {
      *      "token_type": "Bearer",
@@ -78,13 +83,17 @@ class AuthController extends Controller
             $validate_mobile_number = Validator::make(
                 request()->all(),
                 ['user' => ['required', 'digits_between:9,14', 'exists:users,mobile_number']],
+                ['mobile_country_id' => ['required','exists:countries,id']],
                 ['user.exists' => trans('auth.failed')]
             );
 
             if ($validate_mobile_number->fails()) {
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
             }
-
+            $User=User::where('mobile_number',request('user'))->where('mobile_country_id',request('mobile_country_id'))->normalusers()->first();
+            if(!$User){
+                throw new ApiException('the mobile country code do not match with  the mobile numer', 400);
+            }
             $request = ['mobile_number' => request('user'), 'password' => request('password')];
         }
 
@@ -177,11 +186,17 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+        $result=true;
+        $result = filter_var( $request->email, FILTER_VALIDATE_EMAIL );
+        if(!$result)
+        {
+            throw new ApiException('Not Valid Email', 400);
+        }
         $user = User::create([
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-//            'mobile_country_id' => $request->mobile_country_id,
+            'mobile_country_id' => $request->mobile_country_id,
             'mobile_number' => ltrim((string) $request->mobile_number, 0),
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
@@ -198,14 +213,19 @@ class AuthController extends Controller
         }
         $user->setLanguage($langHeader);
 
-        AssignQrcode::create([
-            'assign_to'=>1,
-            'type'=>1,
-            'user_id'=>$user->id,
-            'quantity'=>defaultGroup()->free_qrcodes ,
-            'available_period'=>defaultGroup()->available_period_qrcodes ,
-            'created_from'=>'new_register' ,
-           ]);
+
+        PrepereNewUser::dispatch($user);
+        if(count($user->qrcodes) == 0 ){
+            AssignQrcode::create([
+                'assign_to'=>1,
+                'type'=>1,
+                'user_id'=>$user->id,
+                'quantity'=>defaultGroup()->free_qrcodes ,
+                'available_period'=>defaultGroup()->available_period_qrcodes ,
+                'created_from'=>'new_register' ,
+               ]);
+            }
+
 
         return $this->login();
     }
@@ -284,6 +304,199 @@ class AuthController extends Controller
     public function getCountries()
     {
         $countries = Country::all();
+        foreach($countries as $country){
+            $country->flag=env('APP_URL').'/images/flags/'.strtolower($country->iso_code).'.png';
+        }
         return $this->jsonResponse($countries);
+    }
+
+    /**
+     * Social Login
+     * @urlParam driver string required
+     * @bodyParam token string required
+     * @bodyParam device_type string required
+     * @response {
+     *  "token_type": "Bearer",
+     *  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
+     *  "expires_in": 216000,
+     *  "user": {
+     *      "id": 24,
+     *      "name": "Smart AppCo",
+     *      "email": "a.shafik@smartappco.com",
+     *      "status": null,
+     *      "mobile_number": "",
+     *      "receive_emails": false,
+     *      "receive_push_notifications": false,
+     *      "is_email_verified": false,
+     *      "is_mobile_number_verified": false,
+     *      "default_distance_unit": null,
+     *      "quick_user_id": null,
+     *      "quick_user_email": "a.shafik@smartappco.com",
+     *      "quick_user_password": null,
+     *      "image": "https://graph.facebook.com/v3.3/100385468456652/picture?type=normal",
+     *      "country": null
+     *    }
+     * }
+     *
+     */
+    public function socialLogin($driver)
+    {
+        $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
+
+        $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
+        if (is_null($user)){
+            $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
+        // $imagepath='images/profile/default-profile.png';
+        // if($avatar != null || $avatar !='')
+        // {
+        //     $imagepath ='images/profile/' . basename($avatar);
+        //     Image::make($avatar)->save(public_path($imagepath));
+        // }
+            $user = User::create([
+                'name' => $login_user->name,
+                'email' => $login_user->email,
+                'image' => $avatar,
+                'is_social_user' => true,
+                'mobile_number' => null,
+                'social_name' => $driver,
+                'type' => User::Types['user'],
+                'is_mobile_number_verified' => false,
+                'posts_number' => 0,
+            ]);
+
+            $langHeader=request()->header('Content-Language');
+            if ($langHeader != 'ar') {
+                $langHeader = 'en';
+            }
+            PrepereNewUser::dispatch($user);
+            if(count($user->qrcodes) == 0 ){
+            AssignQrcode::create([
+                'assign_to'=>1,
+                'type'=>1,
+                'user_id'=>$user->id,
+                'quantity'=>  defaultGroup()->free_qrcodes ,
+                'available_period'=>  defaultGroup()->available_period_qrcodes ,
+                'created_from'=>'new_register' ,
+            ]);
+            }
+
+        }
+
+        if (!$token = auth('api')->login($user)) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        if (!auth('api')->user()->isUser()) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => request('device_type')
+        ]);
+
+        auth('api')->user()->activeLogin()->Create([
+            'user_id' => auth('api')->user()->id
+        ]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    /**
+     * Apple Login
+     * @bodyParam token string required
+     * @bodyParam device_type string required
+     * @bodyParam name string
+     * @bodyParam email string
+     * @response {
+     *  "token_type": "Bearer",
+     *  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkud2FqYWQudGVzdFwvYXBpXC9zb2NpYWxMb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTg1MjM2MjMsImV4cCI6MTU5ODczOTYyMywibmJmIjoxNTk4NTIzNjIzLCJqdGkiOiJYUURhRGpRVFpoQjNNRWNYIiwic3ViIjoyNCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.dQ-bgytx50E5tF42VxLFNwICdOrOjCguZReTC7AGKt8",
+     *  "expires_in": 216000,
+     *  "user": {
+     *      "id": 24,
+     *      "name": "Smart AppCo",
+     *      "email": "a.shafik@smartappco.com",
+     *      "status": null,
+     *      "mobile_number": "",
+     *      "receive_emails": false,
+     *      "receive_push_notifications": false,
+     *      "is_email_verified": false,
+     *      "is_mobile_number_verified": false,
+     *      "default_distance_unit": null,
+     *      "quick_user_id": null,
+     *      "quick_user_email": "a.shafik@smartappco.com",
+     *      "quick_user_password": null,
+     *      "image": null,
+     *      "country": null
+     *    }
+     * }
+     *
+     */
+
+    public function appleLogin(Request $request)
+    {
+        $login_user = Socialite::driver('apple')->userFromToken($request->input('token'));
+
+        $user = User::where('social_id', '=', $login_user->id)->first();
+        if (is_null($user)){
+            $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
+
+            $user = User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email') ?? $login_user->email,
+                'image' => $avatar,
+                'is_social_user' => true,
+                'mobile_number' => null,
+                'social_name' => 'apple',
+                'type' => User::Types['user'],
+                'is_mobile_number_verified' => false,
+                'posts_number' => 0,
+                'social_id' => $login_user->id,
+            ]);
+
+            $langHeader=request()->header('Content-Language');
+            if ($langHeader != 'ar') {
+                $langHeader = 'en';
+            }
+            PrepereNewUser::dispatch($user);
+            if(count($user->qrcodes) == 0 ){
+                AssignQrcode::create([
+                    'assign_to'=>1,
+                    'type'=>1,
+                    'user_id'=>$user->id,
+                    'quantity'=>  defaultGroup()->free_qrcodes ,
+                    'available_period'=>  defaultGroup()->available_period_qrcodes ,
+                    'created_from'=>'new_register' ,
+                ]);
+            }
+
+        }
+
+        if (!$token = auth('api')->login($user)) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        if (!auth('api')->user()->isUser()) {
+            throw new ApiException(trans('auth.failed'), 400);
+        }
+
+        auth('api')->user()->userDevices()->firstOrCreate([
+            'device_type' => $request->input('device_type')
+        ]);
+
+        auth('api')->user()->activeLogin()->Create([
+            'user_id' => auth('api')->user()->id
+        ]);
+
+        $langHeader=request()->header('Content-Language');
+        if ($langHeader != 'ar') {
+            $langHeader = 'en';
+        }
+
+        return $this->respondWithToken($token);
     }
 }

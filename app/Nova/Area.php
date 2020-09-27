@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Area extends Resource
@@ -54,6 +55,9 @@ class Area extends Resource
         'updated_at',
     ];
 
+    public static $searchRelations = [
+        'country' => [ 'name_en', 'name_ar'],
+    ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -63,6 +67,7 @@ class Area extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Area Arabic Name', 'name_ar')->rules(['required', 'string', 'max:255']),
             Text::make('Area English Name', 'name_en')->rules(['required', 'string', 'max:255']),

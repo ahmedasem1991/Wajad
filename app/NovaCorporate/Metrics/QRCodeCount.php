@@ -37,6 +37,11 @@ class QRCodeCount extends Value
         ];
     }
 
+    public function name()
+    {
+        return 'QR Codes';
+    }
+
     /**
      * Determine for how many minutes the metric should be cached.
      *

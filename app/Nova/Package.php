@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Naif\Paypal\Paypal;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -12,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphMany;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsToMany;
 
@@ -38,8 +40,14 @@ class Package extends Resource
      */
     public function title()
     {
-        return $this->name_en . ' - ' . $this->name_ar;
+        return $this->name_en . ' - ' . $this->quantity. ' QR Code' ;
+
     }
+
+    public function subtitle()
+{
+   return  $this->price . ' $';
+}
 
     /**
      * The columns that should be searched.
@@ -72,6 +80,7 @@ class Package extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Package English Name', 'name_en')
                 ->rules(['required', 'string', 'max:255']),
@@ -88,7 +97,7 @@ class Package extends Resource
                 ->rules(
                     ['required', 'string']
                 )->hideFromIndex(),
-                Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>USD</big> Unit </p>')
+                Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>SAR</big> Unit </p>')
                 ->asHtml(),
             Number::make('Package Price', 'price')
                 ->rules(['required', 'integer']),
@@ -99,24 +108,29 @@ class Package extends Resource
 
             Toggle::make('Show Package', 'is_active')->color('#4099de'),
             Toggle::make('Incrementally Available', 'incrementally')->color('#4099de'),
+
+            NovaDependencyContainer::make([
+                Number::make('Max Number of Increments', 'max_increments')->min(1)->rules('required'),
+            ])->dependsOn('incrementally', 1),
+
             RadioButton::make('Type')
                 ->options([
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
                 ])->default(1), // optional
 
-            BelongsToMany::make('Product', 'products', Product::class)
-                ->fields(function () {
-                    return [
-                        Number::make('Quantity Of Products In Package', 'product_count')
-                            ->rules(['required', 'integer'])
-                    ];
-                })->hideWhenUpdating(),
+            // BelongsToMany::make('Product', 'products', Product::class)
+            //     ->fields(function () {
+            //         return [
+            //             Number::make('Quantity Of Products In Package', 'product_count')
+            //                 ->rules(['required', 'integer'])
+            //         ];
+            //     })->hideWhenUpdating(),
 
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
 
-            MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
+            // MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];
     }
 

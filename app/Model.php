@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Brand;
+use App\Services\Helpers\Traits\ModelObserveImage;
 use Spatie\Translatable\HasTranslations;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,9 +11,9 @@ use Illuminate\Database\Eloquent\Model as MasterModel;
 
 class Model extends MasterModel
 {
-    use LogsActivity, SoftDeletes;
-   
-     
+    use LogsActivity, SoftDeletes, ModelObserveImage;
+
+
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'brand_id'];
 

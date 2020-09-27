@@ -508,30 +508,30 @@ class SeedCategories extends Command
             ]
         ];
 
-        foreach ($Categories as $Category) {
-            $category = Category::create($Category);
-            if (!empty($Category['sub_categories'])) {
-                foreach ($Category['sub_categories'] as $sub_category) {
-                    $SubCategory = SubCategory::create([
-                        'name_en' => $sub_category['name_en'],
-                        'name_ar' => $sub_category['name_ar'],
-                        'icon' => $sub_category['icon'],
-                        'category_id' => $category->id,
-                    ]);
+        // foreach ($Categories as $Category) {
+        //     $category = Category::create($Category);
+        //     if (!empty($Category['sub_categories'])) {
+        //         foreach ($Category['sub_categories'] as $sub_category) {
+        //             $SubCategory = SubCategory::create([
+        //                 'name_en' => $sub_category['name_en'],
+        //                 'name_ar' => $sub_category['name_ar'],
+        //                 'icon' => $sub_category['icon'],
+        //                 'category_id' => $category->id,
+        //             ]);
 
-                    if (!empty($sub_category['brands'])) {
-                        foreach ($sub_category['brands'] as $brand) {
-                            $SubCategory->brands()->create($brand);
-                            if (!empty($brand['models'])) {
-                                foreach ($brand['models'] as $model) {
-                                    Model::create($model);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //             if (!empty($sub_category['brands'])) {
+        //                 foreach ($sub_category['brands'] as $brand) {
+        //                     $SubCategory->brands()->create($brand);
+        //                     if (!empty($brand['models'])) {
+        //                         foreach ($brand['models'] as $model) {
+        //                             Model::create($model);
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         $this->line('|--------------------------------------------------------------------|');
         $this->line('| Seeding Categories, Subcategories, Brand, Models Done Successfully |');
         $this->line('|--------------------------------------------------------------------|');

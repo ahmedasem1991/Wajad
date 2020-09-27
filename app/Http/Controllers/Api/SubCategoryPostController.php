@@ -200,7 +200,7 @@ class SubCategoryPostController extends Controller
             if ($subcategory_id) {
                 return $query->where('sub_category_id', $subcategory_id);
             }
-        })->get();
+        })->orderBy('id', 'desc')->get();
 
         return SubCategoryPostResource::collection($subCategory)->additional([
             'parentCategory' => $parentCategory,

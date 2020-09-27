@@ -18,12 +18,15 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use NovaErrorField\Errors;
+use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use App\Services\Filters\ItemFilters\Lost;
 
 class Banner extends Resource
 {
+    use HasSortableRows;
     /**
      * The model the resource corresponds to.
      *
@@ -44,7 +47,7 @@ class Banner extends Resource
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'type';
 
     /**
      * The columns that should be searched.
@@ -75,6 +78,10 @@ class Banner extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
+            Number::make('Order', 'order')
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
             ID::make()->sortable(),
             DateTime::make('Start Date')->rules(['required']),
             DateTime::make('End Date')->rules(['required', 'after:start_date']),

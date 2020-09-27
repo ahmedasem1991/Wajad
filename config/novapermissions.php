@@ -262,6 +262,25 @@ return [
             'group'        => 'Activities',
         ],
 
+        'view notifications' => [
+            'display_name' => 'View notifications',
+            'description'  => 'Can view notifications',
+            'group'        => 'Notifications',
+        ],
+
+        'view settings' => [
+            'display_name' => 'View settings',
+            'description'  => 'Can view settings',
+            'group'        => 'Settings',
+        ],
+
+        'view visits' => [
+            'display_name' => 'View visits',
+            'description'  => 'Can view visits',
+            'group'        => 'Visits',
+        ],
+
+
         // 'create activities' => [
         //     'display_name' => 'Create activities',
         //     'description'  => 'Can create activities',

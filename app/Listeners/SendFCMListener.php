@@ -126,8 +126,8 @@ class SendFCMListener
         
         $and_tok_del = $andResponse->tokensToDelete();
         FcmUser::deleteTokens($and_tok_del);
-        $and_tok_err = $andResponse->tokensWithError();
-        FcmUser::deleteTokens($and_tok_err);
+        // $and_tok_err = $andResponse->tokensWithError();
+        // FcmUser::deleteTokens($and_tok_err);
     }
 
     if( count($android_tokens_en) > 0 ){
@@ -135,16 +135,16 @@ class SendFCMListener
      
         $and_tok_del = $andResponse->tokensToDelete();
         FcmUser::deleteTokens($and_tok_del);
-        $and_tok_err = $andResponse->tokensWithError();
-        FcmUser::deleteTokens($and_tok_err);
+        // $and_tok_err = $andResponse->tokensWithError();
+        // FcmUser::deleteTokens($and_tok_err);
     }
     if( count($ios_tokens_ar) > 0 ){
         $iosResponse = FCM::sendTo($ios_tokens_ar, $option, $notification_ar, $data_ar);
      
         $ios_tok_del = $iosResponse->tokensToDelete();
         FcmUser::deleteTokens($ios_tok_del);
-        $ios_tok_err = $iosResponse->tokensWithError();
-        FcmUser::deleteTokens($ios_tok_err);
+        // $ios_tok_err = $iosResponse->tokensWithError();
+        // FcmUser::deleteTokens($ios_tok_err);
     }
 
     if( count($ios_tokens_en) > 0 ){
@@ -152,8 +152,8 @@ class SendFCMListener
         
         $ios_tok_del = $iosResponse->tokensToDelete();
         FcmUser::deleteTokens($ios_tok_del);
-        $ios_tok_err = $iosResponse->tokensWithError();
-        FcmUser::deleteTokens($ios_tok_err);
+        // $ios_tok_err = $iosResponse->tokensWithError();
+        // FcmUser::deleteTokens($ios_tok_err);
     }
 
     

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Brand;
+use App\Services\Helpers\Traits\ModelObserveImage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
@@ -10,7 +11,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class SubCategory extends Model
 {
-    use LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes, ModelObserveImage;
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'category_id'];
     protected $table = "sub_categories";

@@ -44,6 +44,10 @@ class CreatePostsTable extends Migration
             $table->integer('person_type')->default(1);
             $table->integer('owner_releated_to_system')->default(2);
             $table->integer('founder_releated_to_system')->default(2);
+            $table->text('question_1')->nullable();
+            $table->text('question_2')->nullable();
+            $table->text('question_3')->nullable();
+            $table->text('reject_reason')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

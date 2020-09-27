@@ -22,6 +22,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -92,15 +93,19 @@ class User extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
 
-           // Gravatar::make(),
-           Image::make('Profile Image', 'image')
-           ->disk('public')
-           ->path('images/profile')
-           ->prunable()
-           ->deletable()
-           ->rules('dimensions:max_width=1000,max_height=1000'),
+            // Gravatar::make(),
+            Image::make('Profile Image', 'image')
+                ->thumbnail(function (){
+                    return $this->getAvatar();
+                })
+                ->disk('public')
+                ->path('images/profile')
+                ->prunable()
+                ->deletable()
+                ->rules('dimensions:max_width=1000,max_height=1000'),
 
 
             Text::make('Name')
@@ -123,14 +128,17 @@ class User extends Resource
             //     ->onlyCustomFormats(),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\NovaCorporate\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
 
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required', 'min:9','max:14')
-            ->updateRules('nullable',  'min:9','max:14'),
-            Toggle::make('Active', 'status'),
-
+                ->creationRules('required', 'min:9','max:14')
+                ->updateRules('nullable',  'min:9','max:14'),
+//            Toggle::make('Active', 'status'),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
             // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities',Activity::class)
@@ -208,6 +216,14 @@ class User extends Resource
     public static function icon()
     {
         return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+    }
+
+    public function getAvatar() :string
+    {
+        if (substr($this->image, 0, 4) === "http") {
+            return $this->image;
+        }
+        return env('APP_URL') . "/" . $this->image;
     }
 
 }

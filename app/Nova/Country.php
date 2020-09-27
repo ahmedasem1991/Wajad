@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Number;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\HasMany;
+use NovaErrorField\Errors;
 
 class Country extends Resource
 {
@@ -58,6 +59,7 @@ class Country extends Resource
     public function fields(Request $request)
     {
         return [
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('Country English Name', 'name_en')->rules(['required']),
             Text::make('Country Arabic Name', 'name_ar')->rules(['required']),
