@@ -5,7 +5,7 @@
 <style>
 * {box-sizing: border-box;}
 
-body { 
+body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -22,7 +22,7 @@ body {
   text-align: center;
   padding: 12px;
   text-decoration: none;
-  font-size: 18px; 
+  font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
 }
@@ -52,13 +52,13 @@ body {
     display: block;
     text-align: left;
   }
-  
+
   .header-right {
     float: none;
   }
 }
-.border { 
-            border: 2px solid #000;
+.border {
+            /*border: 2px solid #000;*/
             width: 98%;
             height: 100%;
             margin: 10px;
@@ -72,7 +72,7 @@ body {
   max-width: 20%;
   max-height: 20%;
 }
- 
+
 .footer {
   position: fixed;
   left: 0;
@@ -82,46 +82,46 @@ body {
   padding-left: 50px;
 
 }
- 
+
 
 
 </style>
 </head>
+<img src="images/wajad_logo.png" style="width:25%">
 <body class="border">
 
- 
-<img src="images/header.png" style="width:100%;height:150px">
+
   <!-- <img src="images/smart_appco_logo2.png">
 
- 
+
   <div class="header-right">
   <img src="images/ksa2.png" style="height: 100px;width:200px">
   </div> -->
-  <br>
-<p class="groove"></p>
-<br>
+{{--  <br>--}}
+{{--<p class="groove"></p>--}}
+{{--<br>--}}
 
- 
-  
+
+
 <div style="padding-right:20px" dir="rtl">
-<br> 
+<br>
   <center><h2><u>إقرار</u></h2> </center>
  أفر أنا /
-        <b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'ar') }} </b>  
+        <b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'ar') }} </b>
         في يوم ............................ الوافق .............................. .<br> <br>
-        بأنى استلمت العنصر المفقود الخاص بي 
+        بأنى استلمت العنصر المفقود الخاص بي
         <b> {{$post->title}}</b>  <br> <br>
-            بالمواصفات التالية : 
+            بالمواصفات التالية :
         <b> {{$post->description ?? ".................."}}</b>  <br> <br>
-            من فئة 
-        <b> {{$post->subcategory->name_ar}} </b>  
+            من فئة
+        <b> {{$post->subcategory->name_ar}} </b>
             ماركة
-        <b> {{$post->brand->name_ar}} </b>  
-            موديل 
-        <b> {{$post->model->name_ar}} </b>  
-            لون      
+        <b> {{$post->brand->name_ar}} </b>
+            موديل
+        <b> {{$post->model->name_ar}} </b>
+            لون
         <b> {{$post->color->name_ar}} </b><br><br>
-          
+
  <br><br><br><br><br><br><br><br>
 </div>
 
@@ -129,9 +129,12 @@ body {
 <br><br><br><br><br><br><br><br>
   <p><h1>التوقيع</h1></p>
   .......................................
-
+    <br>
+    <br>
+    <p><small>{{$settings['Address1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address2']}} | {{$settings['Phone-Number-2']}}
+            <hr>{{$settings['Email1']}} | {{$settings['Email2']}}</small></p>
 </div>
-<script type="text/javascript"> 
+<script type="text/javascript">
 window.print();
 </script>
 </body>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use URL;
 use App\Post;
 use App\User;
@@ -47,7 +48,8 @@ class PDFController extends Controller
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $data=['post'=>$post];
+        $settings = Setting::all()->pluck('value','key')->toArray();
+        $data=['post'=>$post, 'settings'=>$settings];
         // $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
         $pdf = \DomPDF::loadView('Pdf.en_receipt', $data);
 
@@ -62,6 +64,7 @@ class PDFController extends Controller
     public function arReceipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
+        $settings = Setting::all()->pluck('value','key')->toArray();
 
         $dispatcher = Post::getEventDispatcher();
         Post::unsetEventDispatcher();
@@ -69,7 +72,7 @@ class PDFController extends Controller
         $post->save();
         Post::setEventDispatcher($dispatcher);
 
-        return view('Pdf.ar_receipt')->with('post',$post);
+        return view('Pdf.ar_receipt', compact('post', 'settings'));
     }
 
     public function qrcodepdf(Request $request)
