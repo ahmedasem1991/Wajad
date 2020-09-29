@@ -131,8 +131,8 @@ body {
   .......................................
     <br>
     <br>
-<p><small>{{$settings['Address1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address2']}} | {{$settings['Phone-Number-2']}}
-    <hr>{{$settings['Email1']}} | {{$settings['Email2']}}</small></p>
+<p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
+    <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
 </div>
 </body>
 </html>
