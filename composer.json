@@ -138,14 +138,6 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/QrcodeGenerator"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/DownloadQrcodeImage"
-        },
-        {
-            "type": "path",
             "url": "./nova-components/GoogleMaps"
         },
         {
