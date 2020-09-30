@@ -126,6 +126,7 @@ class CorporateUser extends Resource
             Number::make('Mobile Number', 'mobile_number')
             ->creationRules('required','unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
             ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
+            
             // ->creationRules('required', 'min:9','max:14')
             // ->updateRules('nullable',  'min:9','max:14'),
             //->rules('required' 'max:14'),
