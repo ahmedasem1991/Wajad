@@ -195,7 +195,7 @@ class CardCommand extends Command
      * @param  string  $path
      * @return void
      */
-    protected function runCommand($command, $path)
+    protected function runCommand($command, $path,$output)
     {
         $process = (new Process($command, $path))->setTimeout(null);
 

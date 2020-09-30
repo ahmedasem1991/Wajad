@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Corporate;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -23,8 +24,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use IDF\RealEmailValidation\Rules\RealEmail;
-use NovaErrorField\Errors;
+use Tintnaingwin\EmailChecker\Rules\EmailExist;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -112,8 +112,8 @@ class CorporateUser extends Resource
                 // ->rules('required', 'email', 'max:254')
                 // ->creationRules('unique:users,email')
                 // ->updateRules('unique:users,email,{{resourceId}}'),
-                ->creationRules('required','email','unique:users,email,NULL,id,type,1,deleted_at,NULL',new RealEmail())
-                ->updateRules('required','unique:users,email,{{resourceId}},id,type,1,deleted_at,NULL'),
+                ->creationRules('required','email:rfc,dns','unique:users,email,NULL,id,type,1,deleted_at,NULL')
+                ->updateRules('required','email:rfc,dns','unique:users,email,{{resourceId}},id,type,1,deleted_at,NULL'),
 
             Password::make('Password')
                 ->onlyOnForms()

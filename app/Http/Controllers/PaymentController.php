@@ -17,8 +17,8 @@ use PayPal\Api\Amount;
 use App\GenerateQrcode;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
-use Damas\Paytabs\Paytabs;
-
+//use Damas\Paytabs\Paytabs;
+use App\Services\Paytabs;
 use PayPal\Api\WebProfile;
 use PayPal\Api\InputFields;
 use PayPal\Api\Transaction;

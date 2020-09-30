@@ -5,18 +5,19 @@ namespace App\Jobs;
 use App\User;
 use App\AdminNotification;
 use Illuminate\Support\Arr;
-use LaravelFCM\Facades\FCM;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
-use LaravelFCM\Message\Topics;
+use App\Services\FCM\Facades\FCM;
+use App\Services\FCM\Message\Topics;
 use Illuminate\Support\Facades\Mail;
+use App\Services\FCM\Sender\FCMSender;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Notifications\SendFCMNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use LaravelFCM\Message\PayloadNotificationBuilder;
 use App\Mail\AdminNotification as MailAdminNotification;
+use App\Services\FCM\Message\PayloadNotificationBuilder;
 
 class SendAdminNotificationJob implements ShouldQueue
 {

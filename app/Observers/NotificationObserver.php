@@ -3,11 +3,11 @@
 namespace App\Observers;
 
 use App\AdminNotification;
-use LaravelFCM\Facades\FCM;
-use LaravelFCM\Message\Topics;
+use App\Services\FCM\Facades\FCM;
+use App\Services\FCM\Message\Topics;
 use App\Jobs\SendAdminNotificationJob;
  
-use LaravelFCM\Message\PayloadNotificationBuilder;
+use App\Services\FCM\Message\PayloadNotificationBuilder;
 
 class NotificationObserver
 {

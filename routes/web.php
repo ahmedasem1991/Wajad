@@ -18,9 +18,9 @@ use Barryvdh\DomPDF\PDF;
 use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
 use Damas\Paytabs\Paytabs;
-use LaravelFCM\Facades\FCM;
 use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
+use App\Services\FCM\Facades\FCM;
 use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -29,21 +29,22 @@ use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use LaravelFCM\Message\OptionsBuilder;
+use App\Services\FCM\Sender\FCMSender;
 use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\SendFCMNotification;
-use LaravelFCM\Message\PayloadDataBuilder;
 use App\Notifications\BroadcastNotification;
+use App\Services\FCM\Message\OptionsBuilder;
 use App\Notifications\ScanQRCodeNotification;
 use App\Services\Filters\QRCodeFilters\Expired;
-use LaravelFCM\Message\PayloadNotificationBuilder;
+use App\Services\FCM\Message\PayloadDataBuilder;
 use App\Services\Filters\QRCodeFilters\MultiAssign;
 use App\Services\Filters\QRCodeFilters\SingleAssign;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
 use App\Services\Checkers\QrCodeCheckers\IsMultiAssign;
 use App\Services\Checkers\QrCodeCheckers\IsSingleAssign;
+use App\Services\FCM\Message\PayloadNotificationBuilder;
 
 /*
 |--------------------------------------------------------------------------
@@ -296,6 +297,7 @@ $data = $dataBuilder->build();
 
 
 $tokens=['czgeKTSNd74:APA91bG8Tz7SXv234psaHYD6JHrEO_Edb7QGn8nuXp2gB3kzsND_nI8n3RxowFBDDV0WqVNUelfZh8DoUSNwG0gnm_k6shiO7Z2OsQNldFtBmiFuKPRvBM9e1PQeU1alYoVQeCzyq65P','ff85vPGFJjY:APA91bHgolcEsr5tfhnX5vZuXIgRUBOfTrQtlukQHdqH9PiRcK8G31Ajdp3tufvhp1hEA47kHoKwPUCBtRqpX1jmS20cdjzO30Lueog7osD0qhpworB2ega9SWXjE5u6gPsT5__k_-L3','fgdn3qimz6w:APA91bGbOgHFs7nrNy9rkSRbG9xqstQ3l2dmKwjkVazd4DMsPtXvyu-Q_CgslCA_e2vpt9ytKOfpvSduw2E2Y1a4XaagT_Zspo_b5vqkSh7c1raKs0QF9fXtTS6v8YNTgWBTkPGvYCEy','cXlljBlySyo:APA91bFGSSYloVx-basj6rnrsP3ftdrZY31TEum0Zox1E3HjQTfgVRnFpVog5eykTZNrIk_0K9bnz7h36vG4whRqxHCkbGnkr6jcpLJvdXajtwjQlersFznol8yI9hO0qG0h19YC1Ljy','eymAGmV3Z6c:APA91bHlTyIhmKuWn5MJqBSosEL0NuqoCOK7yLEySGHpWWP5SAAhbAqapqRNl10-Wuo_Ah60GTmprhZ5oIkaCzbVf54TJDAuudkrgskDCHRVNlgwJEKQTZ-MG3s1C__z74YtlNOLjqjM','exeZR7So7k0:APA91bEaGnDoaPqkyZaMwEr3b_iEBZROYwOTF8iLG-CDIzVC17wXlDZNRPmFHX3gHlDHM5AeYYLf3ErDoGkCrpQudkgvFC8C3KSiMPRQ-OIpW3QtCGeK2G5q4ep46me5rllJiQnn7UwR','dkvoIVDtk5w:APA91bEhMGtlTkIQgDbtBr8QGT1uHow9prZpaw83Oag2v0TBbGbvgaX1NRzwijufXoBG__iCI97IuSb6_2-ZlmWVhCFmtwpRyEAUnNHcMxbVv-GjZbzskzWpyN8bsTR4GwVLMLWbjw6C'];
+//$sender=new FCMSender();
 $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
 $downstreamResponse->numberSuccess();

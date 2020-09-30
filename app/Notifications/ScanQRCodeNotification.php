@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Qrcode;
-use LaravelFCM\Facades\FCM;
+use App\Services\FCM\Facades\FCM;
 use App\Events\SendFCMEvent;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;

@@ -1,9 +1,9 @@
 <?php
 
 use Barryvdh\DomPDF\Facade;
-use LaravelFCM\Facades\FCM;
-use LaravelFCM\Facades\FCMGroup;
-use LaravelFCM\FCMServiceProvider;
+//use App\Services\FCM\Facades\FCM;
+use App\Services\FCM\Facades\FCMGroup;
+use App\Services\FCM\FCMServiceProvider;
 use Barryvdh\DomPDF\ServiceProvider;
 
 return [
@@ -171,6 +171,10 @@ return [
         L5Swagger\L5SwaggerServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        FCMServiceProvider::class,
+       
+
+        
 
 
         /*
@@ -188,10 +192,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Pusher\Laravel\PusherServiceProvider::class,
-        // Barryvdh\DomPDF\ServiceProvider::class,
+        
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        LaravelFCM\FCMServiceProvider::class,
+    
         \SocialiteProviders\Manager\ServiceProvider::class,
 ],
 
@@ -252,8 +256,9 @@ return [
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
-        'FCM'      => LaravelFCM\Facades\FCM::class,
-        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
+        
+
+        
 
 
     ],

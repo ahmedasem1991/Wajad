@@ -1,0 +1,83 @@
+"nesbot/carbon": "^2.40",
+composer require nesbot/carbon
+
+-------------------------------------
+idf/laravel-real-email-validation
+"idf/laravel-real-email-validation": "^1.0",
+
+--------------------------------
+
+ "nexmo/client": "^2.0", ********************
+        "nexmo/laravel": "^2.1", **********************
+ "laravel/nexmo-notification-channel": "^2.2",
+
+ --------------------------------
+  "darkaonline/l5-swagger": "5.8.*",*********************************
+
+
+  ---------------------------------
+   "spatie/laravel-query-builder": "^1.17",*****************************
+
+   -------------------------
+   "genealabs/nova-map-marker-field": "^0.1.12",**********************
+
+   -----------------------------
+   "laravel/nova": "*",***************************************
+   --------------------------------------
+   "maq89/paytabs-laravel": "^1.0", ****************************
+   
+
+
+
+
+
+larave; 7
+   --------------------------------------------------------
+   "comodolab/nova-help": "^0.1.0",**************************
+
+   -------------------------------------
+
+      "brozot/laravel-fcm": "^1.3",**************************
+      -------------------------------------
+
+       "ebess/advanced-nova-media-library": "^2.9",*****************************
+       -------------------------------------
+
+  "optimistdigital/nova-multiselect-field": "^1.8", **********************************
+  -------------------------------------
+ "optimistdigital/nova-sortable": "^1.4",****************************
+ ------------------------------------
+
+
+
+
+
+*********************************
+SearchableSelect
+  Checkboxes::make
+  ***********************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         "marianvlad/nova-env-card": "^1.0",
+        "mattsplat/readmore": "^1.0",
+download-qrcode-image
+
+ "ebess/advanced-nova-media-library": "^3.3",
+   "fourstacks/nova-checkboxes": "^0.1.7",
+    "halimtuhu/array-images": "^1.1",
+     "kristories/nova-qrcode-field": "^0.0.1",
+      "depsimon/nova-stripe-checkout-field": "^1.0",

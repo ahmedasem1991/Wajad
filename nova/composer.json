@@ -5,6 +5,7 @@
         "laravel",
         "admin"
     ],
+    "version": "3.10",
     "license": "MIT",
     "authors": [
         {
@@ -16,10 +17,10 @@
         "php": ">=7.1.0",
         "cakephp/chronos": "^1.0",
         "doctrine/dbal": "^2.9",
-        "illuminate/support": "^5.7.15 | 5.8.*",
+        "illuminate/support": "^7.0",
         "moontoast/math": "^1.1",
         "spatie/once": "^1.1",
-        "symfony/finder": "^4.0"
+        "symfony/finder": "^5.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
@@ -40,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "3.10-dev"
         },
         "laravel": {
             "providers": [
