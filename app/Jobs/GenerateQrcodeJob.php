@@ -7,6 +7,7 @@ use App\Qrcode;
 use Carbon\Carbon;
 use Laravel\Nova\Nova;
 use App\GenerateQrcode;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -47,8 +48,8 @@ class GenerateQrcodeJob implements ShouldQueue
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
        // $unique_reference_number = 'QR-' . $middle . $now->second  .'-'.str_random(5);
         for ($x = 1; $x <= (int)$this->quantity; $x++) {
-           $ImageName= time().str_random(20).'.png';
-           $Url=$this->id.time().str_random(20);
+           $ImageName= time().Str::random(20).'.png';
+           $Url=$this->id.time().Str::random(20);
             \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
             ->format('png')
             ->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.2, true)
@@ -56,7 +57,7 @@ class GenerateQrcodeJob implements ShouldQueue
             ->generate(env('API_URL').'/api/scan-qr-code/'.$Url,
             public_path('images/qrcodes/'.$ImageName));
             Qrcode::create([
-            'unique_reference_number'=>'QR-' . $middle . Carbon::now()->second  .'-'.str_random(5),
+            'unique_reference_number'=>'QR-' . $middle . Carbon::now()->second  .'-'.Str::random(5),
              'generate_reference_number'=>$this->generate_reference_number,
              'type'=>$this->type,
              'status'=>'1',

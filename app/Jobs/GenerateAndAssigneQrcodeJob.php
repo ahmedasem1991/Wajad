@@ -2,12 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Corporate;
 use App\User;
 use App\Qrcode;
+use App\Corporate;
 use Carbon\Carbon;
 use Laravel\Nova\Nova;
 use App\GenerateQrcode;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -62,10 +63,10 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
        else{
         $now = Carbon::now();
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
-        $unique_reference_number = 'QR-' . $middle . $now->second  .'-'.str_random(5);
+        $unique_reference_number = 'QR-' . $middle . $now->second  .'-'.Str::random(5);
         for ($x = 1; $x <= (int)$this->quantity; $x++) {
-            $ImageName= time().str_random(20).'.png';
-            $Url=$this->generate_id.time().str_random(20);
+            $ImageName= time().Str::random(20).'.png';
+            $Url=$this->generate_id.time().Str::random(20);
              \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
              ->format('png')->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.2, true)
              ->size(2000)
