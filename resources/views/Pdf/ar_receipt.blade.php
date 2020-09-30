@@ -8,6 +8,7 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
 }
 
 .header {
@@ -74,12 +75,14 @@ body {
 }
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 100;
-  width: 100%;
-  text-align: left;
-  padding-left: 50px;
+    position: fixed;
+    left: 0;
+    bottom: -90px;
+    width: 100%;
+    text-align: right;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
 
 }
 
@@ -120,17 +123,14 @@ body {
             موديل
         <b> {{$post->model->name_ar}} </b>
             لون
-        <b> {{$post->color->name_ar}} </b><br><br>
+        <b> {{$post->color->name_ar}} </b>
 
- <br><br><br><br><br><br><br><br>
 </div>
 
 <div class="footer">
-<br><br><br><br><br><br><br><br>
   <p><h1>التوقيع</h1></p>
-  .......................................
-    <br>
-    <br>
+  <p>.......................................</p>
+
     <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
             <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
 </div>

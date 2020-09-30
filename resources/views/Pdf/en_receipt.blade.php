@@ -8,6 +8,7 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
 }
 
 .header {
@@ -76,10 +77,12 @@ body {
 .footer {
   position: fixed;
   left: 0;
-  bottom: 100;
+  bottom: 160px;
   width: 100%;
   text-align: left;
   padding-left: 50px;
+  padding-bottom: 50px;
+    margin-bottom: 20px;
 
 }
 
@@ -120,17 +123,11 @@ body {
             Model
         <b> {{$post->model->name_en}} </b>
             Color
-        <b> {{$post->color->name_en}} </b><br><br>
-
-
+        <b> {{$post->color->name_en}} </b>
 </div>
-
 <div class="footer">
-
-  <p><h1>Signature</h1></p>
-  .......................................
-    <br>
-    <br>
+  <p><h1>Signature</h1>
+  <p>.......................................</p>
 <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
     <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
 </div>
