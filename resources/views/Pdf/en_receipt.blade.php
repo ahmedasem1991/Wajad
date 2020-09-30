@@ -70,36 +70,34 @@
         .image-div{
             float:left;
             margin-right:10px;
-            max-width: 20%;
-            max-height: 20%;
+            max-width: 25%;
+            max-height: 25%;
         }
 
         .footer {
             position: fixed;
             left: 0;
-            bottom: 4%;
+            bottom: 5%;
             width: 100%;
             text-align: left;
-            padding-left: 50px;
             padding-bottom: 50px;
             margin-bottom: 20px;
 
         }
         .body-title{
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 50px;
         }
         .body-content{
-            margin-bottom: 20px;
+            margin-bottom: 90px;
         }
         .signature{
             position: absolute;
-            bottom: 20%;
         }
 
     </style>
 </head>
-<img src="images/wajad_logo.png" style="width:25%">
+<img src="images/wajad_logo.png" style="width: 25%; margin-left: 25px">
 <body class="border">
 
 
@@ -118,22 +116,23 @@
 <div style="padding-left:20px">
     <br>
     <div class="body-title"><h2><u>Receipt</u></h2> </div>
-
-    I declare that /
-    <div class="body-content"><b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'en') }} </b>
-        on the day ............................ corresponding .............................. .<br> <br>
-        That I received my missing item
-        <b> {{GoogleTranslate::trans($post->title ,'en')}}</b> <br> <br>
-        With the following specifications :
-        <b> {{GoogleTranslate::trans($post->description ?? "..................",'en') }}</b> <br> <br>
-        Of subcategory
-        <b> {{$post->subcategory->name_en}} </b>
-        Brand
-        <b> {{$post->brand->name_en}} </b>
-        Model
-        <b> {{$post->model->name_en}} </b>
-        Color
-        <b> {{$post->color->name_en}} </b></div>
+    <div class="body-content">
+        <p>I declare that /<b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'en') }} </b>
+            on the day ............................ corresponding .............................. .<br> <br>
+            That I received my missing item
+            <b> {{GoogleTranslate::trans($post->title ,'en')}}</b> <br> <br>
+            With the following specifications :
+            <b> {{GoogleTranslate::trans($post->description ?? "..................",'en') }}</b> <br> <br>
+            Of subcategory
+            <b> {{$post->subcategory->name_en}} </b>
+            Brand
+            <b> {{$post->brand->name_en}} </b>
+            Model
+            <b> {{$post->model->name_en}} </b>
+            Color
+            <b> {{$post->color->name_en}} </b>
+        </p>
+    </div>
     <div class="signature"><p>
         <h1>Signature</h1>
         <p>.......................................</p></div>

@@ -90,11 +90,10 @@
             margin-bottom: 80px;
         }
         .body-content{
-            margin-bottom: 20px;
+            margin-bottom: 90px;
         }
         .signature{
             position: absolute;
-            bottom: 20%;
         }
 
 
