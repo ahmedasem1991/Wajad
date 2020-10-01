@@ -26,6 +26,10 @@ class CorporatePolicy
                 return false;
             }
    }
+   if(Auth()->User()->isCorporateAdmin()){
+       return true;
+   }
+   
     }
 
     /**
@@ -37,7 +41,15 @@ class CorporatePolicy
      */
     public function view(User $user, Corporate $corporate)
     {
+        if(Auth()->User()->isCorporateAdmin()){
+        if(auth()->user()->corporate_id == $corporate->id)
         return true;
+        else
+        return false;
+        }
+        if(Auth()->User()->isAdmin()){
+            return true;
+        }
     }
 
     /**
@@ -72,7 +84,12 @@ class CorporatePolicy
      */
     public function delete(User $user, Corporate $corporate)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            return false;
+             }
+             else{
+                 return true;
+             }
     }
 
     /**
@@ -84,7 +101,12 @@ class CorporatePolicy
      */
     public function restore(User $user, Corporate $corporate)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            return false;
+             }
+             else{
+                 return true;
+             }
     }
 
     /**
@@ -96,6 +118,11 @@ class CorporatePolicy
      */
     public function forceDelete(User $user, Corporate $corporate)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            return false;
+             }
+             else{
+                 return true;
+             }
     }
 }

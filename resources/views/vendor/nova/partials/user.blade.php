@@ -27,6 +27,14 @@
                     </a>
                 </li>
         @endif
+
+        @if(auth()->user()->isCorporateAdmin())
+                <li>
+                    <a href="/wajad/resources/corporates/{{auth()->user()->corporate_id }}" class="block no-underline text-90 hover:bg-30 p-3">
+                        Corporate Profile
+                    </a>
+                </li>
+        @endif
         <li>
             <a href="{{ route('nova.logout') }}" class="block no-underline text-90 hover:bg-30 p-3">
                 {{ __('Logout') }}
