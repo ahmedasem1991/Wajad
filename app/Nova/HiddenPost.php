@@ -406,6 +406,7 @@ class HiddenPost extends Resource
 
             Button::make('Show')
                 ->style('primary')
+                ->reload()
                 ->event('App\Events\ShowPostEvent'),
 
 //            MapMarker::make("Location")

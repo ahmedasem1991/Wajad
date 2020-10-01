@@ -285,11 +285,13 @@ class Post extends Resource
 
             Button::make('Close')
             ->style('danger')
+            ->reload()
             ->event('App\Events\ClosePostEvent'),
 
 
         Button::make('Hidden')
             ->style('grey')
+            ->reload()
             ->event('App\Events\HiddenPostEvent'),
 
 

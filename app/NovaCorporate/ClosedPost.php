@@ -273,7 +273,9 @@ class ClosedPost extends Resource
 
 Button::make('Open')
 ->style('info')
-->event('App\Events\OpenPostEvent'),
+->reload()
+->event('App\Events\OpenPostEvent')
+->reload(),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)

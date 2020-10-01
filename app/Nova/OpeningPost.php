@@ -435,11 +435,13 @@ class OpeningPost extends Resource
             Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
             Button::make('Close')
                 ->style('danger')
+                ->reload()
                 ->event('App\Events\ClosePostEvent'),
 
 
             Button::make('Hidden')
                 ->style('grey')
+                ->reload()
                 ->event('App\Events\HiddenPostEvent'),
 
             NovaGoogleMaps::make('Location')
