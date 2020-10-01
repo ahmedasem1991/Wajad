@@ -94,14 +94,14 @@ class SeedSettings extends Command
 //                'updated_at' => null
 //            ],
             [
-               'key' => 'max-post-reports-number',
+               'key' => 'max_post_reports_number',
                //'title' => 'Limited Posts',
                'value' => 50,
                'created_at' => null,
                'updated_at' => null
            ],
            [
-            'key' => 'min-qrcodes-number',
+            'key' => 'min_qrcodes_number',
             //'title' => 'Limited Posts',
             'value' => 1000,
             'created_at' => null,

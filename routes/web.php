@@ -87,7 +87,7 @@ Route::get('/test600', function () {
    $C= Corporate::find(1);
 
     dd( $C->users->CorporateAdmin());
-   // return Setting::where('key', 'max-post-reports-number')->first()['value'];
+   // return Setting::where('key', 'max_post_reports_number')->first()['value'];
   return (trim('"["1","2","3"]"', '"'))  ;
    dd(User::find(["1","2","3"]));
 
