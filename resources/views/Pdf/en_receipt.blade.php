@@ -117,8 +117,8 @@
     <br>
     <div class="body-title"><h2><u>Receipt</u></h2> </div>
     <div class="body-content">
-        <p>I declare that /<b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'en') }} </b>
-            on the day ............................ corresponding .............................. .<br> <br>
+        <p>I declare that /<b> {{GoogleTranslate::trans($post->owner->name ?? "..............................................",'en') }} </b>
+            on the day <b>{{\Carbon\Carbon::now()->format('l')}}</b> corresponding <b>{{\Carbon\Carbon::now()->format('d-m-Y')}}</b><br> <br>
             That I received my missing item
             <b> {{GoogleTranslate::trans($post->title ,'en')}}</b> <br> <br>
             With the following specifications :

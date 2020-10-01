@@ -76,11 +76,11 @@
 
         .footer {
             position: fixed;
-            left: 0;
+            right: 1%;
             bottom: -5%;
-            width: 100%;
-            text-align: right;
-            padding-left: 50px;
+            width: 90%;
+            padding-right: 7%;
+            text-align: left;
             padding-bottom: 50px;
             margin-bottom: 20px;
 
@@ -98,8 +98,14 @@
 
 
     </style>
+    <style type="text/css" media="print">
+        @page {
+            size: auto;   /* auto is the initial value */
+            margin: 0;  /* this affects the margin in the printer settings */
+        }
+    </style>
 </head>
-<img src="images/wajad_logo.png" style="width:25%">
+<img src="images/wajad_logo.png" style="width:25%; margin-left: 30px; margin-top: 10px">
 <body class="border">
 
 
@@ -120,11 +126,11 @@
     <div class="body-content">
         أفر أنا /
         <b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'ar') }} </b>
-        في يوم ............................ الوافق .............................. .<br> <br>
+         في يوم <b>{{GoogleTranslate::trans(\Carbon\Carbon::now()->format('l'), 'ar')}}</b> الموافق <b>{{GoogleTranslate::trans(\Carbon\Carbon::now()->format('d-m-Y'),'ar')}}</b><br> <br>
         بأنى استلمت العنصر المفقود الخاص بي
-        <b> {{$post->title}}</b>  <br> <br>
+        <b> {{GoogleTranslate::trans($post->title, 'ar')}}</b>  <br> <br>
         بالمواصفات التالية :
-        <b> {{$post->description ?? ".................."}}</b>  <br> <br>
+        <b> {{GoogleTranslate::trans($post->description, 'ar') ?? ".................."}}</b>  <br> <br>
         من فئة
         <b> {{$post->subcategory->name_ar}} </b>
         ماركة
