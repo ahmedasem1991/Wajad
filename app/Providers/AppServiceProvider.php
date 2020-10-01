@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\MediaLibraryObserver;
 use App\Post;
 use App\Role;
 use App\User;
@@ -22,6 +23,8 @@ use App\Observers\RoleObserver;
 use App\Observers\UserObserver;
 use App\Observers\PeopleObserver;
 use App\Observers\QuestionObserver;
+use ClassicO\NovaMediaLibrary\Core\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use App\Observers\PostRequestObserver;
@@ -75,6 +78,13 @@ class AppServiceProvider extends ServiceProvider
         Question::observe(QuestionObserver::class);
         AdminNotification::observe(NotificationObserver::class);
         \App\Role::observe(RoleObserver::class);
+        Model::addGlobalScope(function (Builder $builder){
+            if (auth()->user()->isCorporateAdmin()){
+            $builder->where('corporate_id',auth()->user()->corporate->id);
+            }
+        });
+        Model::observe(MediaLibraryObserver::class);
+
 
 
         // $Text='';

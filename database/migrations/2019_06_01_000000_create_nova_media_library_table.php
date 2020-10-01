@@ -20,6 +20,7 @@ class CreateNovaMediaLibraryTable extends Migration
 	        $table->string('mime', 50);
 	        $table->string('size', 50);
 	        $table->string('type')->index()->collation('utf8_bin');
+	        $table->unsignedInteger('corporate_id')->nullable();
 	        $table->timestamp('created')->index()->useCurrent();
         });
     }
