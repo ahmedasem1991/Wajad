@@ -70,12 +70,8 @@ class Notification extends Resource
             ID::make()->sortable(),
             Textarea::make('Body', 'body')->creationRules([
                 'required', 'min:2'
-<<<<<<< HEAD
-            ]) ,
-=======
             ]) ->showOnIndex(),
 //            ->readMore(),
->>>>>>> 4037349928c7cbe984a64b871f75a4ffe0d5cb78
 
 
             RadioButton::make('Send To', 'send_to')
