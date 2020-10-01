@@ -15,14 +15,14 @@
     <ul class="list-reset">
         @if(auth()->user()->isAdmin())
             <li>
-                <a href="wajad/resources/super-admins/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3">
+                <a href="/wajad/resources/super-admins/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3">
                     My Profile
                 </a>
             </li>
         @endif
         @if(auth()->user()->isCorporateAdmin())
                 <li>
-                    <a href="wajad/resources/users/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3">
+                    <a href="/wajad/resources/users/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3">
                         My Profile
                     </a>
                 </li>
