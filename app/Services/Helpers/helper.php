@@ -16,11 +16,11 @@ function defaultGroup()
 
 function maxReportsNumber()
 {
-    return Setting::where('key', 'max_post_reports_number')->first()['value'];
+    return Setting::where('key', 'max-post-reports-number')->first()['value'];
 }
 
 
 function MinQRCodesNumber()
 {
-    return Setting::where('key', 'min_qrcodes_number')->first()['value'];
+    return Setting::where('key', 'min-qrcodes-number')->first()['value'];
 }
