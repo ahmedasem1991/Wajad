@@ -83,8 +83,7 @@ class PDFController extends Controller
         $data=['models' => $models, 'settings' => $settings];
         set_time_limit(3000);
         $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
-//        return $pdf->download(now() . '_QR_CODE.pdf');
-        return $pdf->stream('document.pdf');
+        return $pdf->download(now() . '_QR_CODE.pdf');
     }
 
     public function assignqrcodepdf(Request $request)
