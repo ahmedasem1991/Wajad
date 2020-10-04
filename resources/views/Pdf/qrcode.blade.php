@@ -9,16 +9,9 @@
             /*border: 2px solid #000;*/
             width: 100%;
             height: 100%;
-            margin: 10px;
-            padding: 10px;
+            /*margin: 10px;*/
+            /*padding: 10px;*/
             box-sizing: border-box;
-        }
-        table {
-            border-collapse: collapse;
-            text-align: center;
-        }
-        table, th, td {
-            border: 1px solid black;
         }
         .footer {
             position: fixed;
@@ -26,7 +19,7 @@
             bottom: 15%;
             width: 100%;
             text-align: left;
-            padding-left: 50px;
+            /*padding-left: 50px;*/
             color: #767d7c;
         }
         .signature{
@@ -36,49 +29,64 @@
             margin-right: 25px;
             padding-bottom: 10%;
         }
+        .item{
+            position: relative;
+            width:25%;
+            text-align:center;
+            display:block;
+            background-color: transparent;
+            border: 1px solid transparent;
+            /*margin-right: 10px;*/
+            margin-bottom: 1px;
+            float:left;
+        }
+        .item img{
+            max-width: 100%;
+            display: block;
+        }
+
+        .index-gallery{
+            width:400px;
+        }
 
     </style>
 </head>
 <body class="border">
 
-
 <img src="images/wajad_logo.png" style="width: 25%; margin-left: 25px; margin-top: 1%">
-<!-- <img src="images/smart_appco_logo2.png">
-
-
-<div class="header-right">
-<img src="images/ksa2.png" style="height: 100px;width:200px">
-</div> -->
-
 
 <div style="padding-left:20px">
     <br>
     <div style="text-align: left; color: #767d7c;">
         <p>
-            Date: {{ date("l jS \of F Y h:i:s A") }}
-        </p>
-        <p>
-            Count: {{ $models ? $models->count() : 0 }}
+            Date: {{ date("l jS \of F Y h:i:s A") }} | Count: {{ $models ? $models->count() : 0 }}
         </p>
     </div>
-    <table>
-        @foreach ($models as $model)
-            <tr style="margin-bottom:5px">
-                <td>
-                    <img style="width: 300px" src="{{ env('APP_URL') . '/'. $model->image  }}">
-                </td>
-            <!-- <td>
-                            Status<br><strong>{{ $model::STATUS[$model->status] }}</strong>
-                        </td> -->
-                <td>
-                    Qrcode Unique Reference Number<br>{{ $model->unique_reference_number }}
-                </td>
-            </tr>
-        @endforeach
-    </table>
-    <br> <br> <br>
-
-
+</div>
+<div class="index-gallery">
+    @foreach (array_chunk($models->toArray(), 4) as $model)
+        <div class="item">
+            <img src="{{ env('APP_URL') . '/'. $model[0]['image']  }}">
+            <p>{{ $model[0]['unique_reference_number'] }}</p>
+        </div>
+        <br>
+        <div class="item">
+            <img src="{{ env('APP_URL') . '/'. $model[1]['image']  }}">
+            <p>{{ $model[1]['unique_reference_number'] }}</p>
+        </div>
+        <br>
+        <div class="item">
+            <img src="{{ env('APP_URL') . '/'. $model[2]['image']  }}">
+            <p>{{ $model[2]['unique_reference_number'] }}</p>
+        </div>
+        <br>
+        <div class="item">
+            <img src="{{ env('APP_URL') . '/'. $model[3]['image']  }}">
+            <p>{{ $model[3]['unique_reference_number'] }}</p>
+        </div>
+        <br>
+    @endforeach
+</div>
 
 <div class="footer">
     <div class="signature"><p>
@@ -86,7 +94,6 @@
     </div>
     <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
             <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
-</div>
 </div>
 </body>
 </html>

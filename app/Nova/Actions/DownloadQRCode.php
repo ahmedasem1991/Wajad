@@ -29,7 +29,8 @@ class DownloadQRCode extends Action
             $model->save();
         }
        session()->put('models',$models);
-       return Action::download(env('ADMIN_URL').'/qrcodepdf', 'QRCodes.pdf');
+       return Action::openInNewTab(env('ADMIN_URL').'/qrcodepdf');
+//       return Action::download(env('ADMIN_URL').'/qrcodepdf', 'QRCodes.pdf');
     }
 
     /**
