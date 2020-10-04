@@ -51,6 +51,7 @@
         .item-text{
             color: #767d7c;
             font-size: 11px;
+            line-height: .15px;
         }
 
     </style>
@@ -74,12 +75,12 @@
 
       @if($key % 4 === 0 && $key != 0)
 
-      <br><br><br><br><br><br><br><br><br><br><br> <br> <br>
+      <br><br><br><br><br><br><br><br><br><br><br>
 
       @endif
         <div class="item">
             <img src="{{ env('APP_URL') . '/'. $model->image }}">
-            <p class="item-text">{{ $model->unique_reference_number }}</p>
+            <span class="item-text">{{ $model->unique_reference_number }}</span>
         </div>
 
 
