@@ -78,8 +78,9 @@ class PDFController extends Controller
     public function qrcodepdf(Request $request)
     {
         $models =  session()->get('models');
+        $settings = Setting::all()->pluck('value','key')->toArray();
         //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
-        $data=['models' => $models];
+        $data=['models' => $models, 'settings' => $settings];
         set_time_limit(3000);
         $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
         return $pdf->download(now() . '_QR_CODE.pdf');
@@ -88,9 +89,10 @@ class PDFController extends Controller
     public function assignqrcodepdf(Request $request)
     {
         $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
+        $settings = Setting::all()->pluck('value','key')->toArray();
         //logger($assignqrcode);
         //$pdf = (new PdfWrapper)->loadView('Pdf.assignqrcode', ['assignqrcode' => $assignqrcode]);
-        $data=['assignqrcode' => $assignqrcode];
+        $data=['assignqrcode' => $assignqrcode, 'settings' => $settings];
         $pdf = \DomPDF::loadView('Pdf.assignqrcode', $data);
         return $pdf->stream('document.pdf');
     }

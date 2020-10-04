@@ -19,7 +19,7 @@
 
         .header a {
             float: left;
-            color: black;
+            color: grey;
             text-align: center;
             padding: 12px;
             text-decoration: none;
@@ -65,6 +65,7 @@
             margin: 10px;
             padding: 10px;
             box-sizing: border-box;
+            clear: right;
         }
         p.groove {border-style: groove;}
         .image-div{
@@ -83,17 +84,24 @@
             text-align: left;
             padding-bottom: 50px;
             margin-bottom: 20px;
+            color: #767d7c;
 
         }
         .body-title{
             text-align: center;
             margin-bottom: 80px;
+            color: #767d7c;
         }
         .body-content{
             margin-bottom: 90px;
+            color: #767d7c;
+            position: absolute;
+            font-size: 16px
         }
         .signature{
-            position: absolute;
+            margin-bottom: 15%;
+            color: #767d7c;
+            font-size: 16px
         }
 
 
@@ -105,7 +113,8 @@
         }
     </style>
 </head>
-<img src="images/wajad_logo.png" style="width:25%; margin-left: 30px; margin-top: 10px">
+<img src="images/wajad_logo.png"
+     style="width:25%; margin-right: 30px; margin-top: 3%; float: right">
 <body class="border">
 
 
@@ -121,33 +130,34 @@
 
 
 
-<div style="padding-right:20px" dir="rtl">
-    <div class="body-title"><h2><u>إقرار</u></h2> </div>
-    <div class="body-content">
-        أفر أنا /
-        <b> {{GoogleTranslate::trans($post->owner->name ?? "...........................",'ar') }} </b>
-         في يوم <b>{{GoogleTranslate::trans(\Carbon\Carbon::now()->format('l'), 'ar')}}</b> الموافق <b>{{GoogleTranslate::trans(\Carbon\Carbon::now()->format('d-m-Y'),'ar')}}</b><br> <br>
-        بأنى استلمت العنصر المفقود الخاص بي
-        <b> {{GoogleTranslate::trans($post->title, 'ar')}}</b>  <br> <br>
-        بالمواصفات التالية :
-        <b> {{GoogleTranslate::trans($post->description, 'ar') ?? ".................."}}</b>  <br> <br>
-        من فئة
-        <b> {{$post->subcategory->name_ar}} </b>
-        ماركة
-        <b> {{$post->brand->name_ar}} </b>
-        موديل
-        <b> {{$post->model->name_ar}} </b>
-        لون
-        <b> {{$post->color->name_ar}} </b>
-    </div>
-    <div class="signature">
-        <p>
-        <h1>التوقيع</h1></p>
-        <p>.......................................</p>
+<div style="padding-right:20px; padding-top: 50px;clear: both" dir="rtl">
+    <div class="body-title"><h2>إقرار</h2> </div>
+    <div class="body-content"><p>
+            أفر أنا /
+            {{GoogleTranslate::trans($post->owner->name ?? "...........................",'ar') }}
+            في يوم {{GoogleTranslate::trans(\Carbon\Carbon::now()->format('l'), 'ar')}}
+            الموافق {{GoogleTranslate::trans(\Carbon\Carbon::now()->format('d-m-Y'),'ar')}}<br> <br>
+            بأنى استلمت العنصر المفقود الخاص بي
+            {{GoogleTranslate::trans($post->title, 'ar')}} <br> <br>
+            بالمواصفات التالية :
+            {{GoogleTranslate::trans($post->description, 'ar') ?? ".................."}} <br> <br>
+            من فئة
+            {{$post->subcategory->name_ar}}
+            ماركة
+            {{$post->brand->name_ar}}
+            موديل
+            {{$post->model->name_ar}}
+            لون
+            {{$post->color->name_ar}}
+        </p>
+        <img src="{{$post->item->images[0]}}" alt="" style="max-width: 250px">
     </div>
 </div>
 
 <div class="footer">
+    <div class="signature">
+        <p>التوقيع</p>
+    </div>
     <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
             <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
 </div>

@@ -75,29 +75,37 @@
         }
 
         .footer {
-            position: fixed;
+            position: absolute;
             left: 0;
-            bottom: 5%;
+            bottom: -20%;
             width: 100%;
             text-align: left;
             padding-bottom: 50px;
             margin-bottom: 20px;
+            color: #767d7c;
 
         }
         .body-title{
             text-align: center;
             margin-bottom: 50px;
+            color: #767d7c;
         }
         .body-content{
             margin-bottom: 90px;
+            color: #767d7c;
+            font-size: 16px
         }
         .signature{
-            position: absolute;
+            color: #767d7c;
+            font-size: 16px;
+            text-align: right;
+            margin-right: 25px;
+            padding-bottom: 10%;
         }
 
     </style>
 </head>
-<img src="images/wajad_logo.png" style="width: 25%; margin-left: 25px">
+<img src="images/wajad_logo.png" style="width: 25%; margin-left: 25px; margin-top: 1%">
 <body class="border">
 
 
@@ -115,31 +123,32 @@
 
 <div style="padding-left:20px">
     <br>
-    <div class="body-title"><h2><u>Receipt</u></h2> </div>
+    <div class="body-title"><h2>RECEIPT</h2> </div>
     <div class="body-content">
-        <p>I declare that /<b> {{GoogleTranslate::trans($post->owner->name ?? "..............................................",'en') }} </b>
-            on the day <b>{{\Carbon\Carbon::now()->format('l')}}</b> corresponding <b>{{\Carbon\Carbon::now()->format('d-m-Y')}}</b><br> <br>
+        <p>I declare that / {{GoogleTranslate::trans($post->owner->name ?? "..............................................",'en') }}
+            on the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}}<br> <br>
             That I received my missing item
-            <b> {{GoogleTranslate::trans($post->title ,'en')}}</b> <br> <br>
+            {{GoogleTranslate::trans($post->title ,'en')}} <br> <br>
             With the following specifications :
-            <b> {{GoogleTranslate::trans($post->description ?? "..................",'en') }}</b> <br> <br>
+            {{GoogleTranslate::trans($post->description ?? "..................",'en') }} <br> <br>
             Of subcategory
-            <b> {{$post->subcategory->name_en}} </b>
+            {{$post->subcategory->name_en}}
             Brand
-            <b> {{$post->brand->name_en}} </b>
+            {{$post->brand->name_en}}
             Model
-            <b> {{$post->model->name_en}} </b>
+            {{$post->model->name_en}}
             Color
-            <b> {{$post->color->name_en}} </b>
+            {{$post->color->name_en}}
         </p>
+        <img src="{{public_path($post->item->images[0])}}" alt="" style="max-width: 250px">
     </div>
-    <div class="signature"><p>
-        <h1>Signature</h1>
-        <p>.......................................</p></div>
-</div>
-<div class="footer">
-    <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
-            <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
-</div>
+
+    <div class="footer">
+        <div class="signature"><p>
+            <p>Signature</p>
+        </div>
+        <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
+                <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
+    </div>
 </body>
 </html>
