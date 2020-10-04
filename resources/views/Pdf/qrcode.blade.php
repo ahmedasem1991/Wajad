@@ -46,7 +46,7 @@
         }
 
         .index-gallery{
-            width:400px;
+            width:90%;
         }
 
     </style>
@@ -64,27 +64,22 @@
     </div>
 </div>
 <div class="index-gallery">
-    @foreach (array_chunk($models->toArray(), 4) as $model)
+
+    <?php $text='';?>
+    @foreach ($models as  $key => $model)
+     
+      @if($key % 4 === 0 && $key != 0)
+     
+      <br><br><br><br><br><br><br><br><br><br><br> <br> <br> 
+      
+      @endif
         <div class="item">
-            <img src="{{ env('APP_URL') . '/'. $model[0]['image']  }}">
-            <p>{{ $model[0]['unique_reference_number'] }}</p>
+            <img src="{{ env('APP_URL') . '/'. $model->image }}">
+            <p>{{ $model->unique_reference_number }}</p>
         </div>
-        <br>
-        <div class="item">
-            <img src="{{ env('APP_URL') . '/'. $model[1]['image']  }}">
-            <p>{{ $model[1]['unique_reference_number'] }}</p>
-        </div>
-        <br>
-        <div class="item">
-            <img src="{{ env('APP_URL') . '/'. $model[2]['image']  }}">
-            <p>{{ $model[2]['unique_reference_number'] }}</p>
-        </div>
-        <br>
-        <div class="item">
-            <img src="{{ env('APP_URL') . '/'. $model[3]['image']  }}">
-            <p>{{ $model[3]['unique_reference_number'] }}</p>
-        </div>
-        <br>
+
+       
+        
     @endforeach
 </div>
 
