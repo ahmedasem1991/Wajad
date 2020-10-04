@@ -453,10 +453,12 @@ class PendingPost extends Resource
 
             Button::make('Approve')
                 ->style('success')
+                ->reload()
                 ->event('App\Events\ApprovePostEvent'),
 
             Button::make('Reject')
                 ->style('danger')
+                ->reload()
                 ->event('App\Events\RejectPostEvent'),
 
 

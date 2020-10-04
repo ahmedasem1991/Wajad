@@ -249,11 +249,13 @@ class HiddenPost extends Resource
 
             Button::make('Close')
                 ->style('danger')
-                ->event('App\Events\ClosePostEvent'),
+                ->event('App\Events\ClosePostEvent')
+                ->reload(),
 
 
             Button::make('Show')
                 ->style('success')
+                ->reload()
                 ->event('App\Events\ShowPostEvent'),
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)

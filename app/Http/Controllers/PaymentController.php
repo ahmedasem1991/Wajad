@@ -320,7 +320,7 @@ class PaymentController extends Controller
         $Package = \Session::get('Package');
         /** clear the session payment ID **/
         \Session::forget('paypalPaymentId');
-        if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
+        if (empty($request->get('PayerID')) || empty($request->get('token'))) {
 
             // \Session::put('error_payment', 'Payment failed');
             session(['error_payment' => 'Payment Failed.']);
@@ -344,7 +344,7 @@ class PaymentController extends Controller
        
 
         try {
-            $execution->setPayerId(Input::get('PayerID'));
+            $execution->setPayerId($request->get('PayerID'));
            } catch (\Exception $ex) {
                \Log::info($ex);
                //\Session::put('error_payment', $ex['message']);

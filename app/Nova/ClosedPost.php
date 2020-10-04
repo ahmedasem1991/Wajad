@@ -312,6 +312,7 @@ class ClosedPost extends Resource
 
             Button::make('Open')
                 ->style('success')
+                ->reload()
                 ->event('App\Events\OpenPostEvent'),
 
 //            MapMarker::make("Location")
