@@ -75,7 +75,7 @@
 
       @if($key % 4 === 0 && $key != 0)
 
-      <br><br><br><br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br><br><br><br>
 
       @endif
         <div class="item">
