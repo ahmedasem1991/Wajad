@@ -126,7 +126,7 @@
     <div class="body-title"><h2>RECEIPT</h2> </div>
     <div class="body-content">
         <p>I declare that / {{GoogleTranslate::trans($post->owner->name ?? "..............................................",'en') }}
-            on the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}}<br> <br>
+        <br><br>on the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}}<br> <br>
             That I received my missing item
             {{GoogleTranslate::trans($post->title ,'en')}} <br> <br>
             With the following specifications :

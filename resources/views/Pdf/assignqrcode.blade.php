@@ -62,8 +62,8 @@
     <div class="body-title"><h2>RECEIPT</h2> </div>
     <div class="body-content">
         I declare that /
-         {{$assignqrcode->user->name ?? ".................."}}
-        On the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}} <br> <br>
+         {{$assignqrcode->user->name ?? "............................................................................................."}}
+         <br><br>On the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}} <br> <br>
         That I got a number {{$assignqrcode->quantity}} QRcode
         Of a type {{$assignqrcode->type==1? "Single Assign":"Multi Assign"}}<br> <br>
         They have an reference number: {{$assignqrcode->assign_reference_number}}
