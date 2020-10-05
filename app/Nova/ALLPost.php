@@ -39,7 +39,7 @@ use EmilianoTisato\NovaBelongsToDepends\NovaBelongsToDepends;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
 
-class APost extends Resource
+class AllPost extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -475,7 +475,7 @@ class APost extends Resource
 
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)

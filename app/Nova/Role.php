@@ -141,7 +141,7 @@ class Role extends Resource
             ->default(2) // optional
             ->rules('required'),
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
 
                 NovaDependencyContainer::make([

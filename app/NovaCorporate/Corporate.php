@@ -171,7 +171,7 @@ class Corporate extends Resource
                 ->hideFromIndex()
                 ->hideFromDetail(),
 
-          //  HasMany::make('Posts','posts','App\Nova\APost'),
+          //  HasMany::make('Posts','posts','App\Nova\AllPost'),
            // HasMany::make('Subscriptions'),
            // HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
         ];

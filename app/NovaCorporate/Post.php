@@ -279,7 +279,7 @@ class Post extends Resource
                 ->hideWhenCreating(),
             MediaField::make('Item Image', 'images')->listing(),
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml()
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml()
             // ->hideWhenUpdating(),
             ,
 

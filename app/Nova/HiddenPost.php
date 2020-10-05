@@ -402,7 +402,7 @@ class HiddenPost extends Resource
 
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
             Button::make('Show')
                 ->style('primary')

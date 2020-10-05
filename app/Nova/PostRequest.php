@@ -78,7 +78,7 @@ class PostRequest extends Resource
                0 => 'Not Valid',
                1 => 'Valid',
            ])->default(0), // optional
-           BelongsTo::make('Post', 'post', APost::class)
+           BelongsTo::make('Post', 'post', AllPost::class)
            ->readonly()
            ,
 

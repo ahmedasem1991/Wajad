@@ -50,7 +50,7 @@ class Visit extends Resource
         return [
             ID::make()->sortable(),
             MorphTo::make('Visitable')->types([
-                APost::class,
+                AllPost::class,
                 Banner::class,
             ])->readonly(),
             Text::make('Visits')->sortable()->readonly()

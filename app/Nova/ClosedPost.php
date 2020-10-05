@@ -306,9 +306,9 @@ class ClosedPost extends Resource
             MediaField::make('Item Image', 'images')->listing(),
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
             Button::make('Open')
                 ->style('success')
