@@ -101,6 +101,9 @@ class User extends Resource
                 ->thumbnail(function (){
                     return $this->getAvatar();
                 })
+                ->preview(function (){
+                    return $this->getAvatar();
+                })
                 ->disk('public')
                 ->path('images/profile')
                 ->prunable()
