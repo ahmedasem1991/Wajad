@@ -442,7 +442,7 @@ class RejectedPost extends Resource
                 ->hideWhenCreating(),
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
 
 

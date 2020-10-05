@@ -475,7 +475,7 @@ class AllPost extends Resource
 
 
 
-            Heading::make('<p class="text-info" style="margin-left:20%">.</p>')->asHtml(),
+            Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
