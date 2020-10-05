@@ -162,7 +162,7 @@ class GenerateAndAssignQRCodeController extends Controller
         $url = Nova::path() . '/resources/stocks';
         $Admins = User::superAdmin()->get();
         $usr_fcm_message = '"' . $package->quantity . '" QR Code Assigned Successfully To You.';
-        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find(auth('api')->user()->id)->name . '.';
+        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find(auth('api')->user()->id)->name . ' from mobile ( '.$package->name_en. ' )';
         // User::find($this->user_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
         foreach ($Admins as $user) {
             $user->notify(new BroadcastNotification('info', $message, $url));
