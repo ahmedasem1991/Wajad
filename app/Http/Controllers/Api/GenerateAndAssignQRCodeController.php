@@ -17,6 +17,7 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendFCMNotification;
 use App\Notifications\BroadcastNotification;
+use App\Subscription;
 
 /**
  * @group QR Codes
@@ -54,13 +55,21 @@ class GenerateAndAssignQRCodeController extends Controller
         }
 
         $package = Package::find($request->package_id);
+
+        
+        $dispatcher = Subscription::getEventDispatcher();
+        Subscription::unsetEventDispatcher();
         $package->subscription([
             'corporate_id' => Null,
             'user_id' => auth('api')->user()->id,
             'subscriber' => 1,
             'created_from'=>'mobile'
         ]);
- 
+        Subscription::setEventDispatcher($dispatcher);
+
+      
+
+       
         $now = Carbon::now();
 
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
@@ -90,6 +99,8 @@ class GenerateAndAssignQRCodeController extends Controller
         //         'data'=> $qrcode_images
         //      ]);
         // }
+        $dispatcher = AssignQrcode::getEventDispatcher();
+        AssignQrcode::unsetEventDispatcher();
         AssignQrcode::create([
             'assign_reference_number' => $assign_reference_number,
             'assign_to' => 1,
@@ -100,13 +111,18 @@ class GenerateAndAssignQRCodeController extends Controller
             'quantity' => $package->quantity,
             'created_from' => 'mobile',
         ]);
+
+        AssignQrcode::setEventDispatcher($dispatcher);
         $QRCodes = Qrcode::status('In Stock')->where('type', $package->type)->take($package->quantity)->get();
 
-        foreach ($QRCodes as $Qrcode) {
-            array_push($qrcode_images, env('ADMIN_URL') . '/' . $Qrcode->image);
-        }
+        // foreach ($QRCodes as $Qrcode) {
+           
+        // }
 
         foreach ($QRCodes as $QRCode) {
+            array_push($qrcode_images, env('ADMIN_URL') . '/' . $QRCode->image);
+
+            
             $QRCode->assign_reference_number = $assign_reference_number;
             $QRCode->status = 2;
             $QRCode->available_period = str_replace(" Day/s", "", $package->period);
