@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class UserPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,11 +18,11 @@ class UserPolicy
     public function viewAny(User $user)
     {
         if($user->hasPermissionTo('view users'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -34,15 +34,15 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-       // if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('view users'))
-            {
-                return true;
-            }else{
-                return false;
-            }
-       // }
-       // return  true;
+        // if(Auth()->User()->isCorporateAdmin()){
+        if($user->hasPermissionTo('view users'))
+        {
+            return true;
+        }else{
+            return false;
+        }
+        // }
+        // return  true;
     }
 
     /**
@@ -53,13 +53,13 @@ class UserPolicy
      */
     public function create(User $user)
     {
-      //  if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('create users'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        //  if(Auth()->User()->isCorporateAdmin()){
+        if($user->hasPermissionTo('create users'))
+        {
+            return true;
+        }else{
+            return false;
+        }
         // }
         // return  true;
     }
@@ -73,13 +73,13 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-       // if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('edit users'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        // if(Auth()->User()->isCorporateAdmin()){
+        if($user->hasPermissionTo('edit users'))
+        {
+            return true;
+        }else{
+            return false;
+        }
         // }
         // return  true;
     }
@@ -94,12 +94,15 @@ class UserPolicy
     public function delete(User $user, User $model)
     {
         // if(Auth()->User()->isCorporateAdmin()){
-            if($user->hasPermissionTo('delete users'))
-            {
-                return true;
-            }else{
-                return false;
-            }
+        if ($user->id === $model->id){
+            return false;
+        }
+        if($user->hasPermissionTo('delete users'))
+        {
+            return true;
+        }else{
+            return false;
+        }
         // }
         // return  true;
     }
@@ -125,6 +128,9 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
+        if ($user->id === $model->id){
+            return false;
+        }
         return true;
     }
 }
