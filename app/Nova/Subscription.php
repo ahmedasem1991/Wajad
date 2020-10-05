@@ -4,17 +4,18 @@ namespace App\Nova;
 use App\User;
 use App\Corporate;
 use App\Nova\Resource;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
-use NovaErrorField\Errors;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class Subscription extends Resource
@@ -133,10 +134,16 @@ class Subscription extends Resource
             DateTime::make('Created At')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
-            RadioButton::make('Created From')
+                RadioButton::make('Created From')
                 ->options([
                     'web' => 'web',
-                ])->default('web'), // optional,
+              ])->default('web')
+              ->hideFromIndex()
+              ->hideFromDetail(), // optional,
+    
+              Text::make('Created From')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
 
         ];
     }

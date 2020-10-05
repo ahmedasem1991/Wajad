@@ -177,7 +177,13 @@ class AssignQrcode extends Resource
             RadioButton::make('Created From')
             ->options([
                 'web' => 'web',
-          ])->default('web'), // optional,
+          ])->default('web')
+          ->hideFromIndex()
+          ->hideFromDetail(), // optional,
+
+          Text::make('Created From')
+        ->hideWhenCreating()
+        ->hideWhenUpdating(),
 
 
             HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),

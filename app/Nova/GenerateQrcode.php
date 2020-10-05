@@ -89,10 +89,15 @@ class GenerateQrcode extends Resource
             // ->failedWhen(['finished']),
 
             RadioButton::make('Created From')
-                ->options([
-                    'web' => 'web',
+            ->options([
+                'web' => 'web',
+          ])->default('web')
+          ->hideFromIndex()
+          ->hideFromDetail(), // optional,
 
-                ])->default('web'), // optional,
+          Text::make('Created From')
+        ->hideWhenCreating()
+        ->hideWhenUpdating(),
             // ->hideWhenCreating()
             // ->hideWhenUpdating(),
             // Select::make('Created From', 'created_from')->options([
