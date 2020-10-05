@@ -39,7 +39,7 @@ use EmilianoTisato\NovaBelongsToDepends\NovaBelongsToDepends;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
 
-class APost extends Resource
+class AllPost extends Resource
 {
     /**
      * The model the resource corresponds to.

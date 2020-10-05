@@ -99,7 +99,7 @@ class PostReport extends Resource
             BelongsTo::make('User','user',\App\Nova\NormalUser::class)
                 ->readonly()
             ,
-            BelongsTo::make('Post','post',\App\Nova\APost::class)
+            BelongsTo::make('Post','post',\App\Nova\AllPost::class)
                 ->readonly()
             ,
             DateTime::make('Created At')
