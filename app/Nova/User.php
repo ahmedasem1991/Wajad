@@ -24,6 +24,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use Tintnaingwin\EmailChecker\Rules\EmailExist;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
@@ -152,13 +153,13 @@ class User extends Resource
 
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
-            Select::make('Type', 'type')->options([
+            Select2::make('Type', 'type')->options([
 
                 //'2' => 'Corpoare Admin',
                 //  '4' => 'Corporate User',
                 '1' => 'Normal User',
 
-            ])
+            ])->default('1')
                 ->rules('required')
                 ->displayUsingLabels(),
 

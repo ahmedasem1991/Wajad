@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Corporate;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -23,7 +24,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use NovaErrorField\Errors;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -145,13 +146,13 @@ class CorporateAdmin extends Resource
 
             // HasMany::make('Subscription')
             //     ->hideWhenUpdating(),
-            Select::make('Type', 'type')->options([
+            Select2::make('Type', 'type')->options([
 
                 '2' => 'Corpoare Admin',
                 //  '4' => 'Corporate User',
                // '1' => 'Normal User',
 
-            ])
+            ])->default('2')
             ->rules('required')
             ->displayUsingLabels(),
 

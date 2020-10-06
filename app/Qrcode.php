@@ -36,6 +36,11 @@ class Qrcode extends Model implements QrcodeConstants
         'item_id'
     ];
 
+    protected $casts = [
+        'end_at' => 'datetime',
+        'start_at' => 'datetime'
+    ];
+
     public function typeTitle($type)
     {
         return $this->type === self::TYPES[$type];

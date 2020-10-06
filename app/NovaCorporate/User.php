@@ -5,6 +5,7 @@ namespace App\NovaCorporate;
 use App\Corporate;
 use App\Nova\Resource;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -22,7 +23,7 @@ use App\Nova\Metrics\UsersActivity;
 use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use NovaErrorField\Errors;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
@@ -147,10 +148,11 @@ class User extends Resource
             HasMany::make('Activity', 'activities',Activity::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            Select::make('Type', 'type')->options([
+            Select2::make('Type', 'type')->options([
                 '2' => 'Corpoare Admin',
                 // '4' => 'Corporate User',
-            ])->displayUsingLabels()
+            ])->default('2')
+            ->displayUsingLabels()
                 ->creationRules('required')
                 ->updateRules('required'),
 

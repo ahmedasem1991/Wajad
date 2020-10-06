@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\User;
+use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -83,13 +85,16 @@ class ExpiredQRcode extends Resource
             ID::make()->sortable(),
             Text::make('Unique Reference Number','unique_reference_number')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ,
+                //->hideWhenUpdating()
+                BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+               ->readonly()
+                ->hideWhenCreating(),
+               // ->hideWhenUpdating(),
             BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+            ->readonly()
+                ->hideWhenCreating(),
+              //  ->hideWhenUpdating(),
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
@@ -101,31 +106,34 @@ class ExpiredQRcode extends Resource
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
-                ->asHtml()->hideFromDetail(),
+                ->asHtml()
+                ->hideWhenUpdating()
+                ->hideFromDetail(),
             Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()
                 ->deletable()
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideWhenCreating(),
+                //->hideWhenUpdating(),
 
             BelongsTo::make('User')
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+                //->hideWhenUpdating()
                 ->readonly(),
             BelongsTo::make('Item')
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+              //  ->hideWhenUpdating()
                 ->readonly(),
             Text::make('Start Date','start_at')
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+               // ->hideWhenUpdating()
                 ->readonly(),
-            Text::make('End Date','end_at')
-                ->hideWhenCreating()
-                ->hideWhenUpdating()
-                ->readonly(),
+                DateTime::make('End Date','end_at')
+                //->withTime()
+                ->hideWhenCreating(),
+               // ->hideWhenUpdating()
+              //  ->readonly(),
 
 
 
