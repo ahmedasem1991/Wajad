@@ -80,7 +80,7 @@ class NormalUser extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -110,10 +110,10 @@ class NormalUser extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-                PhoneNumber::make('Mobile Number','mobile_number')
+            PhoneNumber::make('Mobile Number','mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
-          //  HasMany::make('Items','items',Item::class),
+            //  HasMany::make('Items','items',Item::class),
 //            Toggle::make('Active', 'status'),
             Boolean::make('Active','status')
                 ->trueValue(1)
@@ -126,14 +126,18 @@ class NormalUser extends Resource
                 ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
 
-                   '1' => 'User',
-                ])->displayUsingLabels()->creationRules('required')
+                '1' => 'User',
+            ])
+                ->withMeta(['value'=>'1'])
+                ->readonly()
+                ->displayUsingLabels()
+                ->creationRules('required')
                 ->updateRules('required'),
 
             // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
             // ->creationRules('required'),
 
-          //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -194,7 +198,7 @@ class NormalUser extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
 
 }

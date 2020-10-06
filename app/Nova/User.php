@@ -138,10 +138,10 @@ class User extends Resource
             // ->onlyCustomFormats(),
             HasMany::make('Items'),
 //            Toggle::make('Active', 'status'),
-              Boolean::make('Active','status')
-                  ->trueValue(1)
-                  ->falseValue(0)
-                  ->withMeta(['value' => $this->status ?? true]),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
 
 
             // CashierResourceTool::make()->onlyOnDetail(),
@@ -159,6 +159,8 @@ class User extends Resource
                 '1' => 'Normal User',
 
             ])
+                ->withMeta(['value'=>'1'])
+                ->readonly()
                 ->rules('required')
                 ->displayUsingLabels(),
 

@@ -150,7 +150,10 @@ class User extends Resource
             Select::make('Type', 'type')->options([
                 '2' => 'Corpoare Admin',
                 // '4' => 'Corporate User',
-            ])->displayUsingLabels()
+            ])
+                ->withMeta(['value'=>'2'])
+                ->readonly()
+                ->displayUsingLabels()
                 ->creationRules('required')
                 ->updateRules('required'),
 

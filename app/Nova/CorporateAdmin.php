@@ -95,11 +95,11 @@ class CorporateAdmin extends Resource
             //  Avatar::make('Avatar'),
             //Gravatar::make(),
             Image::make('Profile Image', 'image')
-            ->disk('public')
-            ->path('images/profile')
-            ->prunable()
-            ->deletable()
-            ->rules('dimensions:max_width=1000,max_height=1000'),
+                ->disk('public')
+                ->path('images/profile')
+                ->prunable()
+                ->deletable()
+                ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
@@ -118,16 +118,16 @@ class CorporateAdmin extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
-            ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
+                ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
+                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
             // ->creationRules('required', 'min:9','max:14')
             // ->updateRules('nullable',  'min:9','max:14'),
             //->rules('required' 'max:14'),
-               // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-               // ->onlyCustomFormats(),
+            // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+            // ->onlyCustomFormats(),
             //HasMany::make('Items'),
 //            Toggle::make('Active', 'status'),
             Boolean::make('Active','status')
@@ -149,11 +149,13 @@ class CorporateAdmin extends Resource
 
                 '2' => 'Corpoare Admin',
                 //  '4' => 'Corporate User',
-               // '1' => 'Normal User',
+                // '1' => 'Normal User',
 
             ])
-            ->rules('required')
-            ->displayUsingLabels(),
+                ->withMeta(['value'=>'2'])
+                ->readonly()
+                ->rules('required')
+                ->displayUsingLabels(),
 
             //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
 
@@ -164,8 +166,8 @@ class CorporateAdmin extends Resource
                 ->updateRules('required_if:type,2')
                 ->nullable(),
 
-             //   BelongsToMany::make('Roles', 'roles', Role::class),
-               // HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            //   BelongsToMany::make('Roles', 'roles', Role::class),
+            // HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
