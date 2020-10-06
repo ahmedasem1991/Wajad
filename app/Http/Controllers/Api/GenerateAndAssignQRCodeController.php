@@ -56,49 +56,28 @@ class GenerateAndAssignQRCodeController extends Controller
 
         $package = Package::find($request->package_id);
 
-        
+
         $dispatcher = Subscription::getEventDispatcher();
         Subscription::unsetEventDispatcher();
         $package->subscription([
             'corporate_id' => Null,
             'user_id' => auth('api')->user()->id,
             'subscriber' => 1,
-            'created_from'=>'mobile'
+            'created_from' => 'mobile'
         ]);
         Subscription::setEventDispatcher($dispatcher);
 
-      
 
-       
+
+
         $now = Carbon::now();
 
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
         // $generate_reference_number = NULL;
         $assign_reference_number = 'C-' . $middle . $now->second;
-        //$generate_id = NULL;
 
-        // if (count(Qrcode::status('In Stock')->type($package->type)->get()) < $package->quantity) {
-        //     $generate_reference_number = 'N-' . $middle . $now->second;
-        //     $generate_qr_code = GenerateQrcode::create([
-        //         'generate_reference_number' => $generate_reference_number,
-        //         'type' => $package->type,
-        //         'quantity' => $package->quantity,
-        //         'created_by' => auth('api')->user()->id,
-        //         'created_from' => 'mobile',
-        //     ]);
-
-        //     $generate_id = $generate_qr_code->id;
-        // }
         $qrcode_images = [];
-        // if (count(Qrcode::status('In Stock')->where('type',$package->type)->get()) < $package->quantity)
-        // {
-        //     return( [
-        //         'success'=> false,
-        //         'message'=> trans('messages.cannot_buy'),
-        //         'status_code'=> 401,
-        //         'data'=> $qrcode_images
-        //      ]);
-        // }
+
         $dispatcher = AssignQrcode::getEventDispatcher();
         AssignQrcode::unsetEventDispatcher();
         AssignQrcode::create([
@@ -115,14 +94,11 @@ class GenerateAndAssignQRCodeController extends Controller
         AssignQrcode::setEventDispatcher($dispatcher);
         $QRCodes = Qrcode::status('In Stock')->where('type', $package->type)->take($package->quantity)->get();
 
-        // foreach ($QRCodes as $Qrcode) {
-           
-        // }
 
         foreach ($QRCodes as $QRCode) {
             array_push($qrcode_images, env('ADMIN_URL') . '/' . $QRCode->image);
 
-            
+
             $QRCode->assign_reference_number = $assign_reference_number;
             $QRCode->status = 2;
             $QRCode->available_period = str_replace(" Day/s", "", $package->period);
@@ -130,31 +106,18 @@ class GenerateAndAssignQRCodeController extends Controller
             $QRCode->corporate_id = NULL;
             $QRCode->save();
         }
-        // $QRcodesData = [
-        //     'generate_id' => $generate_id,
-        //     'generate_reference_number' => $generate_reference_number,
-        //     'assign_reference_number' => $assign_reference_number,
-        //     'quantity' => $package->quantity,
-        //     'status' => 2,
-        //     'type' => $package->type,
-        //     'auth_id' => auth('api')->user()->id,
-        //     'user_id' => auth('api')->user()->id,
-        //     'corporate_id' => NULL,
-        //     'available_period' => str_replace(" Day/s", "", $package->period),
-        // ];
 
-        // GenerateAndAssigneQrcodeJob::dispatch($QRcodesData);
-        
+
         // Send FCM
-        $badge =getBadge(auth('api')->user());
-        $data=sendBuyPackageFCM($package,$badge);
-        auth('api')->user()->notify(new SendFCMNotification( auth('api')->user(),$data));
-    
+        $badge = getBadge(auth('api')->user());
+        $data = sendBuyPackageFCM($package, $badge);
+        auth('api')->user()->notify(new SendFCMNotification(auth('api')->user(), $data));
 
-            //Send SMS
 
-            //   $message=sendBuyPackageSMS($package, auth('api')->user());
-            //   \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
+        //Send SMS
+
+        //   $message=sendBuyPackageSMS($package, auth('api')->user());
+        //   \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
 
 
 
@@ -162,13 +125,13 @@ class GenerateAndAssignQRCodeController extends Controller
         $url = Nova::path() . '/resources/stocks';
         $Admins = User::superAdmin()->get();
         $usr_fcm_message = '"' . $package->quantity . '" QR Code Assigned Successfully To You.';
-        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find(auth('api')->user()->id)->name . ' from mobile ( '.$package->name_en. ' )';
-        // User::find($this->user_id)->notify(new BroadcastNotification($level, $corporate_message, $url));
+        $message = '"' . $package->quantity . '" QR Code Assigned Successfully To ' . User::find(auth('api')->user()->id)->name . ' from mobile ( ' . $package->name_en . ' )';
+
         foreach ($Admins as $user) {
             $user->notify(new BroadcastNotification('info', $message, $url));
         }
 
-        
+
 
         return ([
             'success' => true,

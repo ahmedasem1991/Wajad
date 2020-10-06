@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Observers\MediaLibraryObserver;
 use App\Post;
 use App\Role;
 use App\User;
@@ -22,19 +21,21 @@ use App\Observers\PostObserver;
 use App\Observers\RoleObserver;
 use App\Observers\UserObserver;
 use App\Observers\PeopleObserver;
+use App\Observers\QrcodeObserver;
 use App\Observers\QuestionObserver;
-use ClassicO\NovaMediaLibrary\Core\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use App\Observers\PostRequestObserver;
 use Illuminate\Support\Facades\Schema;
+use App\Observers\MediaLibraryObserver;
 use App\Observers\NotificationObserver;
 use App\Observers\QrcodeAssignObserver;
 use App\Observers\SubscriptionObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\QrcodeRequestObserver;
 use App\Observers\QrcodeGenerateObserver;
+use ClassicO\NovaMediaLibrary\Core\Model;
+use Illuminate\Database\Eloquent\Builder;
 use App\Observers\CorporateQrcodeAssignObserver;
 
 class LaravelLoggerProxy {
@@ -73,6 +74,7 @@ class AppServiceProvider extends ServiceProvider
         CorporateAssignQrcode::observe(CorporateQrcodeAssignObserver::class);
         Post::observe(PostObserver::class);
         People::observe(PeopleObserver::class);
+        Qrcode::observe(QrcodeObserver::class);
         User::observe(UserObserver::class);
         PostRequest::observe(PostRequestObserver::class);
         Question::observe(QuestionObserver::class);

@@ -4,16 +4,17 @@ namespace App\NovaCorporate;
 
 use App\User;
 use App\Nova\Resource;
-use Laravel\Nova\Fields\Heading;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use NovaErrorField\Errors;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -84,49 +85,55 @@ class ExpiredQRcode extends Resource
             ID::make()->sortable(),
             Text::make('Unique Reference Number','unique_reference_number')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ,
+                //->hideWhenUpdating()
+                BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+               ->readonly()
+                ->hideWhenCreating(),
+               // ->hideWhenUpdating(),
             BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+            ->readonly()
+                ->hideWhenCreating(),
+              //  ->hideWhenUpdating(),
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
-            QrcodeGenerator::make('QR CODE URL', 'qrcode_url')
-                ->creationRules('required', 'string', 'min:15', 'unique:qrcodes,qrcode_url')
-                ->length(15)
-                ->showUrl(true)
-                ->qrCodeRouteName(route('api.scan-qrcode-api'))
+
+            Text::make('QR CODE URL', 'qrcode_url', function () {
+
+                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+            })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
-                ->asHtml()->hideFromDetail(),
+                ->asHtml()
+                ->hideWhenUpdating()
+                ->hideFromDetail(),
             Image::make('QRCode Images', 'image')
                 ->disk('public')
                 ->path('images/qrcodes')
                 ->prunable()
                 ->deletable()
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideWhenCreating(),
+                //->hideWhenUpdating(),
 
             BelongsTo::make('User')
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+                //->hideWhenUpdating()
                 ->readonly(),
             BelongsTo::make('Item')
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+              //  ->hideWhenUpdating()
                 ->readonly(),
             Text::make('Start Date','start_at')
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+               // ->hideWhenUpdating()
                 ->readonly(),
-            Text::make('End Date','end_at')
-                ->hideWhenCreating()
-                ->hideWhenUpdating()
-                ->readonly(),
+                DateTime::make('End Date','end_at')
+                //->withTime()
+                ->hideWhenCreating(),
+               // ->hideWhenUpdating()
+              //  ->readonly(),
 
 
 

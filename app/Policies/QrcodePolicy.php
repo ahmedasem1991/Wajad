@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use App\Qrcode;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class QrcodePolicy
@@ -66,7 +67,13 @@ class QrcodePolicy
      */
     public function update(User $user, Qrcode $qrcode)
     {
-        return false;
+        $URL = URL::current();
+
+        if (strstr($URL, 'expired-q-rcodes')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
