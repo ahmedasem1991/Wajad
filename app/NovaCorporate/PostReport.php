@@ -71,7 +71,6 @@ class PostReport extends Resource
      */
     public function fields(Request $request)
     {
-
         return [
             Errors::make(),
             ID::make()->sortable(),
@@ -95,19 +94,14 @@ class PostReport extends Resource
                 ->disk('public')
                 ->path('images/postreports'),
 
-
             BelongsTo::make('User','user',\App\NovaCorporate\NormalUser::class)
-                ->readonly()
-            ,
+                ->readonly(),
             BelongsTo::make('Post','post',\App\NovaCorporate\Post::class)
-                ->readonly()
-            ,
+                ->readonly(),
             DateTime::make('Created At')
                 ->hideFromIndex()
                 ->exceptOnForms()
                 ->nullable(),
-
-
         ];
     }
 
@@ -120,9 +114,6 @@ class PostReport extends Resource
     public function cards(Request $request)
     {
         return [
-            // new PostsPeriod,
-            // new ShowVsHiddenPosts,
-            // new OpenVsClosedPosts,
             new ApprovalPosts
         ];
     }
@@ -164,12 +155,6 @@ class PostReport extends Resource
         return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-
-
-    }
-
     public static function authorizedToCreate(Request $request)
     {
         return false;
@@ -182,7 +167,4 @@ class PostReport extends Resource
     {
         return false;
     }
-
-
-
 }

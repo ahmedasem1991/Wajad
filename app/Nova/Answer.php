@@ -57,13 +57,9 @@ class Answer extends Resource
     {
         return [
             ID::make()->sortable(),
-
             Text::make('answers')->readonly(),
             BelongsTo::make('User')->readonly(),
             BelongsTo::make('question')->readonly(),
-
-
-
         ];
     }
 

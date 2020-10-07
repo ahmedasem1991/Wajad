@@ -92,13 +92,12 @@ class SuperAdmin extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-            //Gravatar::make(),
             Image::make('Profile Image', 'image')
-            ->disk('public')
-            ->path('images/profile')
-            ->prunable()
-            ->deletable()
-            ->rules('dimensions:max_width=1000,max_height=1000'),
+                ->disk('public')
+                ->path('images/profile')
+                ->prunable()
+                ->deletable()
+                ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
@@ -115,33 +114,22 @@ class SuperAdmin extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
-
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
 
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
-            ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
-            //->updateRules('required','unique:users,email,{{resourceId}}'),
-            // ->creationRules('required', 'min:9','max:14')
-            // ->updateRules('nullable',  'min:9','max:14'),
-        //   PhoneNumber::make('Mobile Number','mobile_number')
-        //         ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-        //         ->onlyCustomFormats(),
+                ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
+                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
 
-//            Toggle::make('Active', 'status'),
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-            // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-                BelongsToMany::make('Roles', 'roles', Role::class),
-
-
+            BelongsToMany::make('Roles', 'roles', Role::class),
         ];
     }
 
@@ -154,8 +142,6 @@ class SuperAdmin extends Resource
     public function cards(Request $request)
     {
         return [
-            // new NewUsers,
-            // new UsersActivity,
             new UsersTypes,
         ];
     }
@@ -195,8 +181,6 @@ class SuperAdmin extends Resource
         ];
     }
 
-
-
     /**
      * Build an "index" query for the given resource.
      *
@@ -210,6 +194,6 @@ class SuperAdmin extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

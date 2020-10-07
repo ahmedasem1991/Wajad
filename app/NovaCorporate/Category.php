@@ -30,17 +30,6 @@ class Category extends Resource
     public static $group = 'Categories';
     public static $title = 'name_en';
 
-
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
-    // public function title()
-    // {
-    //     return $this->name_en . ' - ' . $this->name_ar;
-    // }
-
     /**
      * The columns that should be searched.
      *

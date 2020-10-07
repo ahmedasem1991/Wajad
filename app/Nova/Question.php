@@ -65,9 +65,6 @@ class Question extends Resource
                 'required', 'min:2'
             ]),
             HasMany::make('Answers')
-
-
-
         ];
     }
 

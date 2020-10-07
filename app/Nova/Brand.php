@@ -79,23 +79,11 @@ class Brand extends Resource
                 ->path('images/brands')
                 ->prunable()
                 ->deletable()
-                ->creationRules('required')
-//                ->updateRules(
-//                    'dimensions:max_width=100,max_height=100'
-//                )
-//                ->showOnIndex(function () {
-//                    if(file_exists(public_path().'images/brands/'. $this->image .'png'))
-//                    return true;
-//                    else return false;
-//                })
-            ,
+                ->creationRules('required'),
 
-                BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class),
-            // NovaBelongsToDepend::make('Sub Categories', 'subcategories', SubCategory::class)
-            //     ->placeholder('Sub Categories')
-            //     ->options(\App\SubCategory::all())
-            //      ->rules('required'),
-             HasMany::make('Models'),
+            BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class),
+
+            HasMany::make('Models'),
         ];
     }
 
@@ -146,6 +134,6 @@ class Brand extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/brand.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/brand.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

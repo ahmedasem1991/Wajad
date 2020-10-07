@@ -70,8 +70,6 @@ class People extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-
-
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
@@ -88,8 +86,7 @@ class People extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-
-                NovaBelongsToDepend::make('Corporate')->rules('required')
+            NovaBelongsToDepend::make('Corporate')->rules('required')
                 ->placeholder('Corporate')
                 ->options(\App\Corporate::all()),
         ];
@@ -103,11 +100,7 @@ class People extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            // new NewUsers,
-            // new UsersActivity,
-           // new UsersTypes,
-        ];
+        return [];
     }
 
     /**
@@ -140,31 +133,16 @@ class People extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-           // new DownloadExcel,
-        ];
+        return [];
     }
 
-
-
-    /**
-     * Build an "index" query for the given resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    // public static function indexQuery(NovaRequest $request, $query)
-    // {
-    //     return $query->SuperAdmin();
-    // }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
     }
 }

@@ -87,42 +87,26 @@ class Item extends Resource
                 'required', 'min:2'
             ]),
 
-
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
-            ->placeholder('Select Sub category')
-            ->options(\App\SubCategory::with('brands')->get())
-            ->rules('required'),
+                ->placeholder('Select Sub category')
+                ->options(\App\SubCategory::with('brands')->get())
+                ->rules('required'),
 
+            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+                ->placeholder('Select Brand')
+                ->optionsResolve(function ($subcategory) {
+                    return $subcategory->brands;
+                })
+                ->rules('required')
+                ->dependsOn('Subcategory'),
 
-        NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
-            ->placeholder('Select Brand')
-            ->optionsResolve(function ($subcategory) {
-                return $subcategory->brands;
-            })
-            ->rules('required')
-            ->dependsOn('Subcategory'),
-
-
-        NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
-            ->placeholder('Optional Placeholder')
-            ->optionsResolve(function ($brand) {
-                return $brand->models()->get(['id', 'name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
-
-            // NovaBelongsToDepend::make('Brand')
-            //     ->placeholder('Optional Placeholder')
-            //     ->options(\App\Brand::all())
-            //     ->rules('required'),
-
-            // NovaBelongsToDepend::make('Model', 'model')
-            //     ->placeholder('Optional Placeholder')
-            //     ->optionsResolve(function ($brand) {
-            //         return $brand->models()->get(['id', 'name_en']);
-            //     })
-            //     ->rules('required')
-            //     ->dependsOn('Brand'),
+            NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id', 'name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
 
             Select2::make('Owner', 'owner_id')
                 ->sortable()
@@ -130,7 +114,6 @@ class Item extends Resource
                 ->displayUsingLabels()
                 ->rules('required')
                 ->showAsLink(User::class)
-                // ->default(0)
                 ->configuration([
                     'placeholder'             => __('Choose an option'),
                     'allowClear'              => true,

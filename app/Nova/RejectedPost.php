@@ -88,7 +88,6 @@ class RejectedPost extends Resource
         'color_id',
         'brand_id',
         'city_id',
-
         'owner_releated_to_system',
         'founder_releated_to_system',
         'deleted_at',
@@ -133,11 +132,6 @@ class RejectedPost extends Resource
             Text::make('Title')->readonly(),
             Textarea::make('Description')->readonly(),
             Textarea::make('Reject Reasone', 'reject_reason'),
-            // RadioButton::make('Status')
-            //     ->options([
-            //         0 => 'Lost',
-            //         1 => 'Found',
-            //     ])->default(0), // optional
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
@@ -153,7 +147,6 @@ class RejectedPost extends Resource
                 ->options(\App\SubCategory::with('brands')->get())
                 ->rules('required'),
 
-
             NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
@@ -161,7 +154,6 @@ class RejectedPost extends Resource
                 })
                 ->rules('required')
                 ->dependsOn('Subcategory'),
-
 
             NovaBelongsToDepend::make('Model', 'model', \App\NovaCorporate\Model::class)
                 ->placeholder('Optional Placeholder')
@@ -172,7 +164,6 @@ class RejectedPost extends Resource
                 ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
-
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
@@ -181,9 +172,6 @@ class RejectedPost extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-
-            //  ->rules('required'),
-
             Select::make('Post Type','status')->options([
                 0 => 'Lost',
                 1 => 'Found'
@@ -191,10 +179,7 @@ class RejectedPost extends Resource
                 ->displayUsingLabels()
                 ->rules('required'),
 
-
-
             NovaDependencyContainer::make([
-
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                 DateTimeField::make('Losted At')->hideFromIndex()
                     //->dateFormat('YYYY-MM-DD')
@@ -212,13 +197,11 @@ class RejectedPost extends Resource
                     ->default(2)
                     ->hideFromIndex(),
 
-
                 NovaDependencyContainer::make([
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
-
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -230,34 +213,18 @@ class RejectedPost extends Resource
 
                     NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                         ->placeholder('Select Item')
-
                         ->optionsResolve(function ($owner) {
                             return $owner->items()->get();
                         })
                         ->rules('required_if:owner_releated_to_system,1')
                         ->dependsOn('Owner'),
-
                 ])->dependsOn('owner_releated_to_system', 1),
-
-
             ])->dependsOn('status', 0),
-
-
-
-
-
-
-
-
-
-
-
 
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
                     ->Rules('required_if:status,1')
-                    //->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime(),
 
@@ -266,25 +233,18 @@ class RejectedPost extends Resource
                         2 => 'default',
                         0 => 'No',
                         1 => 'yes',
-
                     ])
                     ->stack()
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
-
-
                 ])->dependsOn('founder_releated_to_system', 0),
 
-
-
                 NovaDependencyContainer::make([
-
                     NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
                         ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                         ->placeholder('Select Owner')
@@ -293,7 +253,6 @@ class RejectedPost extends Resource
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
@@ -301,31 +260,20 @@ class RejectedPost extends Resource
                     ->hideFromIndex(),
 
                 Text::make('Question 2', 'question_2')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 Text::make('Question 3', 'question_3')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
-
                 MediaField::make('Item Image', 'images')->listing(),
-
             ])->dependsOn('status', 1),
 
-
-
-
-
-
             NovaDependencyContainer::make([
-
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                 DateTimeField::make('Losted At')->hideFromIndex()
-                    //->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime()
                     ->Rules('required_if:status,0'),
@@ -340,13 +288,11 @@ class RejectedPost extends Resource
                     ->default(2)
                     ->hideFromIndex(),
 
-
                 NovaDependencyContainer::make([
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
-
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -358,29 +304,20 @@ class RejectedPost extends Resource
 
                     NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                         ->placeholder('Select Item')
-
                         ->optionsResolve(function ($owner) {
                             return $owner->items()->get();
                         })
                         ->rules('required_if:owner_releated_to_system,1')
                         ->dependsOn('Owner'),
-
                 ])->dependsOn('owner_releated_to_system', 1),
-
-
             ])->dependsOn('status', 1)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
 
-
-
-
-
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
                     ->Rules('required_if:status,1')
-                    //->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime(),
 
@@ -400,14 +337,9 @@ class RejectedPost extends Resource
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
-
-
                 ])->dependsOn('founder_releated_to_system', 0),
 
-
-
                 NovaDependencyContainer::make([
-
                     NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
                         ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                         ->placeholder('Select Owner')
@@ -416,7 +348,6 @@ class RejectedPost extends Resource
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
@@ -424,34 +355,21 @@ class RejectedPost extends Resource
                     ->hideFromIndex(),
 
                 Text::make('Question 2', 'question_2')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 Text::make('Question 3', 'question_3')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 MediaField::make('Item Image', 'images')->listing(),
-
             ])->dependsOn('status', 0)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
 
-
             Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
-
-
-
-//            MapMarker::make("Location")
-//                ->defaultZoom(5)
-//                ->defaultLatitude(21.4498898)
-//                ->defaultLongitude(39.4913431)
-//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
-//                ->hideFromIndex(),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
@@ -459,9 +377,6 @@ class RejectedPost extends Resource
                 ->hideFromIndex()
                 ->hideFromDetail(),
 
-            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-            // HasMany::make('Questions'),
-            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
             $Questions,
             $PostRequests
@@ -492,15 +407,9 @@ class RejectedPost extends Resource
     public function cards(Request $request)
     {
         return [
-            // new PostsPeriod,
-            // new ShowVsHiddenPosts,
-            // new OpenVsClosedPosts,
             new ApprovalPosts
         ];
     }
-
-
-
 
     /**
      * Get the filters available for the resource.

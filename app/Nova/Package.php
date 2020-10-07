@@ -45,9 +45,9 @@ class Package extends Resource
     }
 
     public function subtitle()
-{
-   return  $this->price . ' $';
-}
+    {
+        return  $this->price . ' $';
+    }
 
     /**
      * The columns that should be searched.
@@ -97,11 +97,11 @@ class Package extends Resource
                 ->rules(
                     ['required', 'string']
                 )->hideFromIndex(),
-                Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>SAR</big> Unit </p>')
+            Heading::make('<p class="text-info" style="margin-left:20%"> Package  Price In <big>SAR</big> Unit </p>')
                 ->asHtml(),
             Number::make('Package Price', 'price')
                 ->rules(['required', 'integer']),
-                Heading::make('<p class="text-info" style="margin-left:20%"> Package Period In <big>Days</big>  </p>')
+            Heading::make('<p class="text-info" style="margin-left:20%"> Package Period In <big>Days</big>  </p>')
                 ->asHtml(),
             Number::make('Package Period', 'period')->rules('required'),
             Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
@@ -119,18 +119,8 @@ class Package extends Resource
                     2 => 'Multi Assign',
                 ])->default(1), // optional
 
-            // BelongsToMany::make('Product', 'products', Product::class)
-            //     ->fields(function () {
-            //         return [
-            //             Number::make('Quantity Of Products In Package', 'product_count')
-            //                 ->rules(['required', 'integer'])
-            //         ];
-            //     })->hideWhenUpdating(),
-
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
-
-            // MorphMany::make('PackageProductMedia', 'media', PackageProductMedia::class)
         ];
     }
 
@@ -142,21 +132,7 @@ class Package extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            // (new Paypal())
-
-            //     //you can set days to retrieve transacitons
-            //     (new Paypal())->days(3)  //default last 5 days
-
-            //     //you can specifivy how many transactions to retreive
-            //     (new Paypal())->count(5) //default is 10 transactions
-
-            //     //you can hide PayPal logo
-            //     (new Paypal())->hideLogo(true) //default false
-
-            //    //Example for all options
-            //    (new Paypal())->days(3)->count(5)->hideLogo(true)
-        ];
+        return [];
     }
 
     /**

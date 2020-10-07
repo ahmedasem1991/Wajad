@@ -71,55 +71,34 @@ class Notification extends Resource
             Textarea::make('Body', 'body')->creationRules([
                 'required', 'min:2'
             ]) ,
-            //->showOnIndex()
-//            ->readMore(),
-
 
             RadioButton::make('Send To', 'send_to')
                 ->options([
                     0 => 'All Users',
                     1 => 'Special Users',
-
-                ])->default(0), // optional
+                ])->default(0),
 
             NovaDependencyContainer::make([
-
                 Multiselect::make('Users')
                     ->options(
                         User::normalusers()->get()->pluck('name','id')->toArray()
                     )
-
-                    // Optional:
-                    ->placeholder('Choose football teams') // Placeholder text
-                  //  ->max(4) // Maximum number of items the user can choose
-                   // ->saveAsJSON() // Saves value as JSON if the database column is of JSON type
-                   // ->optionsLimit(5) // How many items to display at once
-                    ->reorderable(), // Allows reordering functionality
-                //->singleSelect(), // If you want a searchable single select field
-
-
+                    ->placeholder('Choose football teams')
+                    ->reorderable(),
             ])->dependsOn('send_to', '1'),
 
             Multiselect::make('Send By','send_by')
-            ->options(
-               [
-                   'email'=>'Email',
-                   'fcm'=>'FCM',
-                   'sms'=>'SMS',
-               ]
-            )
-            ->creationRules('required')
+                ->options(
+                    [
+                        'email'=>'Email',
+                        'fcm'=>'FCM',
+                        'sms'=>'SMS',
+                    ]
+                )
+                ->creationRules('required')
 
-            // Optional:
-            ->placeholder('Choose football teams') // Placeholder text
-           // ->max(4) // Maximum number of items the user can choose
-           // ->saveAsJSON() // Saves value as JSON if the database column is of JSON type
-           // ->optionsLimit(5) // How many items to display at once
-            ->reorderable(), // Allows reordering functionality
-        //->singleSelect(), // If you want a searchable single select field
-
-
-
+                ->placeholder('Choose football teams')
+                ->reorderable(),
         ];
     }
 
@@ -131,9 +110,7 @@ class Notification extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            //  new Colors()
-        ];
+        return [];
     }
 
     /**

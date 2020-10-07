@@ -70,8 +70,6 @@ class People extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-
-
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
@@ -87,9 +85,6 @@ class People extends Resource
             Text::make('Address')
                 ->sortable()
                 ->rules('required', 'max:255'),
-
-
-
         ];
     }
 
@@ -101,11 +96,7 @@ class People extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            // new NewUsers,
-            // new UsersActivity,
-           // new UsersTypes,
-        ];
+        return [];
     }
 
     /**
@@ -138,9 +129,7 @@ class People extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-           // new DownloadExcel,
-        ];
+        return [];
     }
 
 
@@ -158,11 +147,11 @@ class People extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
     }
 }

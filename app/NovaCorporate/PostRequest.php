@@ -74,26 +74,22 @@ class PostRequest extends Resource
         session()->put('user_id',$this->user_id);
         return [
             Errors::make(),
-           ID::make()->sortable(),
-           RadioButton::make('Valid Status','is_request_valid')
-           ->options([
-               0 => 'Not Valid',
-               1 => 'Valid',
-           ])->default(0), // optional
-           BelongsTo::make('Post')
-           ->readonly()
-           ,
-           HasMany::make('Answers'),
-           BelongsTo::make('Claim user','postrequestuser',\App\NovaCorporate\NormalUser::class)
-           ->readonly()
-           ,
-           DateTime::make('Rejected At')
-           ->hideFromIndex()
-           ->exceptOnForms()
-           ->nullable(),
-           Text::make('Comment'),
-
-
+            ID::make()->sortable(),
+            RadioButton::make('Valid Status','is_request_valid')
+                ->options([
+                    0 => 'Not Valid',
+                    1 => 'Valid',
+                ])->default(0), // optional
+            BelongsTo::make('Post')
+                ->readonly(),
+            HasMany::make('Answers'),
+            BelongsTo::make('Claim user','postrequestuser',\App\NovaCorporate\NormalUser::class)
+                ->readonly(),
+            DateTime::make('Rejected At')
+                ->hideFromIndex()
+                ->exceptOnForms()
+                ->nullable(),
+            Text::make('Comment'),
         ];
     }
 
@@ -106,9 +102,6 @@ class PostRequest extends Resource
     public function cards(Request $request)
     {
         return [
-            // new PostsPeriod,
-            // new ShowVsHiddenPosts,
-            // new OpenVsClosedPosts,
             new ApprovalPosts
         ];
     }
@@ -147,14 +140,6 @@ class PostRequest extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-
-
-    }
-
-
 }

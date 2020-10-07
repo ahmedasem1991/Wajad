@@ -84,23 +84,21 @@ class ExpiredQRcode extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Unique Reference Number','unique_reference_number')
-                ->hideWhenCreating()
-                ,
-                //->hideWhenUpdating()
-                BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
-               ->readonly()
                 ->hideWhenCreating(),
-               // ->hideWhenUpdating(),
+
+            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+                ->readonly()
+                ->hideWhenCreating(),
+
             BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
-            ->readonly()
+                ->readonly()
                 ->hideWhenCreating(),
-              //  ->hideWhenUpdating(),
+
             Text::make('Status',function(){
                 return $this->statusTitle($this->status);
             }),
 
             Text::make('QR CODE URL', 'qrcode_url', function () {
-
                 return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
             })->asHtml()
                 ->hideWhenUpdating()
@@ -115,42 +113,18 @@ class ExpiredQRcode extends Resource
                 ->prunable()
                 ->deletable()
                 ->hideWhenCreating(),
-                //->hideWhenUpdating(),
 
             BelongsTo::make('User')
                 ->hideWhenCreating()
-                //->hideWhenUpdating()
                 ->readonly(),
             BelongsTo::make('Item')
                 ->hideWhenCreating()
-              //  ->hideWhenUpdating()
                 ->readonly(),
             Text::make('Start Date','start_at')
                 ->hideWhenCreating()
-               // ->hideWhenUpdating()
                 ->readonly(),
-                DateTime::make('End Date','end_at')
-                //->withTime()
+            DateTime::make('End Date','end_at')
                 ->hideWhenCreating(),
-               // ->hideWhenUpdating()
-              //  ->readonly(),
-
-
-
-            // QrcodeImgGenerator::make('Qrcode image')->text($this->qrcode_url)->hideWhenCreating()->hideWhenUpdating(),
-
-            // DownloadQrcodeImage::make('Download Qrcode')->onlyOnDetail()->withMeta(['qrcodeUrl' => $this->qrcode_url]),
-
-            // NovaBelongsToDepend::make('User')->placeholder('User')->options(User::all()),
-
-            // NovaBelongsToDepend::make('Item')
-            //     ->placeholder('Item')
-            //     ->optionsResolve(function ($user) {
-            //         return $user->items()
-            //             ->whereDoesntHave('qrcode')
-            //             ->get();
-            //     })->dependsOn('user')->nullable(),
-
         ];
     }
 
@@ -197,12 +171,7 @@ class ExpiredQRcode extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            // (new Actions\DownloadQRCode)
-            //     ->confirmText('Are you sure you want to activate this user?')
-            //     ->confirmButtonText('Activate')
-            //     ->cancelButtonText("Don't activate"),
-        ];
+        return [];
     }
 
 
@@ -214,10 +183,6 @@ class ExpiredQRcode extends Resource
         return $query->expired()->whereNull('corporate_assign_reference_number')
             ->where('corporate_id',Auth()->user()->corporate->id);
     }
-
-    // public static function relatableProjects(NovaRequest $request, $query){
-    //     return $query->where('type', 'Series');
-    // }
 
     public static function icon()
     {

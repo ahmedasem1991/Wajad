@@ -83,8 +83,6 @@ class Model extends Resource
             NovaBelongsToDepend::make('Brand')
                 ->placeholder('Brand')
                 ->options(\App\Brand::all()),
-            //HasMany::make('Colors'),
-
         ];
     }
 
@@ -96,9 +94,7 @@ class Model extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-          //  new Models()
-        ];
+        return [];
     }
 
     /**

@@ -99,22 +99,19 @@ class Role extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view roles')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view roles')) ? true :false;
     }
 
     public function fields(Request $request)
     {
-       // logger(collect(config('novapermissions.permissions')) );
-       $array=[];
-       foreach(Auth()->User()->roles as $role)
-       {
-        foreach($role->permissions as $permission)
+        $array=[];
+        foreach(Auth()->User()->roles as $role)
         {
-        $array[$permission]= $permission;
+            foreach($role->permissions as $permission)
+            {
+                $array[$permission]= $permission;
+            }
         }
-       }
-
-
         return [
             Errors::make(),
             ID::make()->sortable(),
@@ -130,13 +127,11 @@ class Role extends Resource
                 ->updateRules('unique:roles,slug,{{resourceId}}')
                 ->sortable(),
 
-                Checkboxes::make(__('Permissions'), 'permissions')
-                //->withGroups()
+            Checkboxes::make(__('Permissions'), 'permissions')
                 ->options( $array)
                 ->hideFromIndex()
                 ->columns(3)
-               -> withoutTypeCasting()
-                ,
+                -> withoutTypeCasting(),
 
             Text::make(__('Users'), function () {
                 return \count($this->users);
@@ -182,7 +177,7 @@ class Role extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)

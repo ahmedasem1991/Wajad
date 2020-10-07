@@ -129,8 +129,6 @@ class WajadOffice extends Resource
                 'max:5012'
             )->disk('public')->path('images/offices')->deletable(false),
 
-
-//            Toggle::make('Active','status'),
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)
@@ -140,11 +138,6 @@ class WajadOffice extends Resource
                 ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex()
                 ->hideFromDetail(),
-//            MapMarker::make("Location")
-//                ->defaultZoom(5)
-//                ->defaultLatitude(21.4498898)
-//                ->defaultLongitude(39.4913431)
-//                ->centerCircle(10000, 'DarkCyan', 1, 0.3),
         ];
     }
 

@@ -110,8 +110,6 @@ class Role extends Resource
      */
     public function fields(Request $request)
     {
-        // logger(collect(config('novapermissions.permissions')) );
-
         return [
             Errors::make(),
             ID::make()->sortable(),
@@ -127,61 +125,46 @@ class Role extends Resource
                 ->updateRules('unique:roles,slug,{{resourceId}}')
                 ->sortable(),
 
-
-                            //Toggle::make('Mobile Users Group', 'mobile_group'),
-
             RadioButton::make('Group Control', 'mobile_group')
-            ->options([
-                0 => 'Web Group',
-                1 => 'Mobile Group',
-                2 => 'default',
-            ])
-            ->stack()
+                ->options([
+                    0 => 'Web Group',
+                    1 => 'Mobile Group',
+                    2 => 'default',
+                ])
+                ->stack()
 
-            ->default(2) // optional
-            ->rules('required'),
+                ->default(2) // optional
+                ->rules('required'),
 
             Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
+            NovaDependencyContainer::make([
+                Checkboxes::make(__('Permissions'), 'permissions')
+                    ->withGroups()
+                    ->options(collect(config('novapermissionsAdmin.permissions'))
+                        ->map(function ($permission, $key) {
+                            return [
+                                'group'        => ucfirst($permission['group']),
+                                'option'       => $key,
+                                'label'        => $permission['display_name'],
+                                'description'  => $permission['description'],
+                            ];
+                        })->groupBy('group')->toArray()),
 
-                NovaDependencyContainer::make([
-            Checkboxes::make(__('Permissions'), 'permissions')
-                ->withGroups()
-                ->options(collect(config('novapermissionsAdmin.permissions'))
-                    ->map(function ($permission, $key) {
-                        return [
-                            'group'        => ucfirst($permission['group']),
-                            'option'       => $key,
-                            'label'        => $permission['display_name'],
-                            'description'  => $permission['description'],
-                        ];
-                    })->groupBy('group')->toArray()),
-
-                    ])->dependsOn('mobile_group', 0),
+            ])->dependsOn('mobile_group', 0),
             Text::make(__('Users'), function () {
                 return \count($this->users);
             })->onlyOnIndex(),
-
-
 
             NovaDependencyContainer::make([
                 Toggle::make('Default Group'),
                 Toggle::make('Auto Approve'),
                 Number::make('Limitation Of Posts Number', 'limitation_of_posts')->min(1)->max(10000)->step(1)->rules('required'),
-
                 Number::make('Posts Active Period In Days', 'posts_period')->min(1)->max(10000)->step(1)->rules('required'),
-
                 Number::make('Number Of Free QRCodes', 'free_qrcodes')->min(1)->max(100)->step(1)->rules('required'),
                 Number::make('Available Period OF Free QRCodes', 'available_period_qrcodes')->min(1)->max(100)->step(1)->rules('required'),
-
-
             ])->dependsOn('mobile_group', 1),
-
             BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\AllUser')),
-
-            // BelongsTo::make('Corporate')
-            //     ->nullable(),
-            // ->searchable(),
         ];
     }
 
@@ -223,10 +206,6 @@ class Role extends Resource
         return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    // public static function indexQuery(NovaRequest $request, $query)
-    // {
-    //    // return $query->whe();
-    // }
     public  function authorizedToDelete(Request $request)
     {
         return false;

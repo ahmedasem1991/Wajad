@@ -93,14 +93,13 @@ class CorporateAdmin extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            //  Avatar::make('Avatar'),
-            //Gravatar::make(),
+
             Image::make('Profile Image', 'image')
-            ->disk('public')
-            ->path('images/profile')
-            ->prunable()
-            ->deletable()
-            ->rules('dimensions:max_width=1000,max_height=1000'),
+                ->disk('public')
+                ->path('images/profile')
+                ->prunable()
+                ->deletable()
+                ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
@@ -108,55 +107,35 @@ class CorporateAdmin extends Resource
 
             Text::make('Email')
                 ->sortable()
-                // ->rules('required', 'email', 'max:254')
-                // ->creationRules('unique:users,email')
-                // ->updateRules('unique:users,email,{{resourceId}}'),
                 ->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
                 ->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
+
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
-            ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
-            // ->creationRules('required', 'min:9','max:14')
-            // ->updateRules('nullable',  'min:9','max:14'),
-            //->rules('required' 'max:14'),
-               // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-               // ->onlyCustomFormats(),
-            //HasMany::make('Items'),
-//            Toggle::make('Active', 'status'),
+                ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
+                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
+
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-            //  Boolean::make('Show My Data','show_my_data'),
-
-
-            // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            // HasMany::make('Subscription')
-            //     ->hideWhenUpdating(),
             Select2::make('Type', 'type')->options([
-
                 '2' => 'Corpoare Admin',
-                //  '4' => 'Corporate User',
-               // '1' => 'Normal User',
-
             ])->default('2')
-            ->rules('required')
-            ->displayUsingLabels(),
-
-            //Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
+                ->rules('required')
+                ->displayUsingLabels(),
 
             NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
                 ->placeholder('Corporate')
@@ -164,10 +143,6 @@ class CorporateAdmin extends Resource
                 ->creationRules('required_if:type,2')
                 ->updateRules('required_if:type,2')
                 ->nullable(),
-
-             //   BelongsToMany::make('Roles', 'roles', Role::class),
-               // HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
-
         ];
     }
 
@@ -180,8 +155,6 @@ class CorporateAdmin extends Resource
     public function cards(Request $request)
     {
         return [
-            // new NewUsers,
-            // new UsersActivity,
             new UsersTypes,
         ];
     }

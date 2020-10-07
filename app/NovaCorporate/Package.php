@@ -35,7 +35,7 @@ class Package extends Resource
      *
      * @var string
      */
-   public static $group = 'Packages';
+    public static $group = 'Packages';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -49,7 +49,7 @@ class Package extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('packages')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('packages')) ? true :false;
     }
 
     /**
@@ -84,30 +84,17 @@ class Package extends Resource
     {
 
         $feild=Help::make('Package Information');
-        // $success=$request->session()->get('success_payment');
-        // $error=$request->session()->get('error_payment');
         if ($request->session()->has('success_payment')) {
             $message=  $request->session()->get('success_payment');
             $feild= Help::info($message,'Your QR Codes Will generated now.');
-
-           /// $request->session()->forget('success_payment');
-          // $request->session()->flush();
         }
         if ($request->session()->has('error_payment')) {
             $message=  $request->session()->get('error_payment');
             $feild= Help::danger($message,'Try again later.');
-
-           /// $request->session()->forget('success_payment');
-          // $request->session()->flush();
         }
-        // $request->session()->forget('error_payment');
-        // $request->session()->forget('success_payment');
-
         return [
             Errors::make(),
             $feild,
-
-           // $request->session()->forget('success_payment'),
             ID::make()->sortable(),
             Text::make('Package English Name', 'name_en')
                 ->rules(['required', 'string', 'max:255']),
@@ -133,20 +120,18 @@ class Package extends Resource
             Number::make('Package Period', 'period')->rules('required'),
             Number::make('Quantity Of QR Codes', 'quantity')->rules('required'),
 
-           // Toggle::make('Show Package', 'is_active')->color('#4099de'),
             RadioButton::make('Type')
-            ->options([
-                1 => 'Single Assign',
-                2 => 'Multi Assign',
-            ])->default(1), // optional
+                ->options([
+                    1 => 'Single Assign',
+                    2 => 'Multi Assign',
+                ])->default(1), // optional
             Button::make('PayPal')
                 ->link(URL::to('paypal?p='.base64_encode($this->id)),'_self')
                 ->style('primary'),
 
-                Button::make('Paytabs')
+            Button::make('Paytabs')
                 ->link(URL::to('paytabs?p='.base64_encode($this->id)),'_self')
                 ->style('info'),
-
         ];
     }
 
@@ -195,7 +180,7 @@ class Package extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)

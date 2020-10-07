@@ -97,7 +97,6 @@ class User extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-            // Gravatar::make(),
             Image::make('Profile Image', 'image')
                 ->thumbnail(function (){
                     return $this->getAvatar();
@@ -110,7 +109,6 @@ class User extends Resource
                 ->prunable()
                 ->deletable()
                 ->rules('dimensions:max_width=1000,max_height=1000'),
-
 
             Text::make('Name')
                 ->sortable()
@@ -126,10 +124,6 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            //  HasMany::make('Items','items',Item::class),
-            // PhoneNumber::make('Mobile Number','mobile_number')
-            //     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-            //     ->onlyCustomFormats(),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\NovaCorporate\Country::class)
                 ->placeholder('Select Country')
@@ -143,24 +137,16 @@ class User extends Resource
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-            // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities',Activity::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Select2::make('Type', 'type')->options([
                 '2' => 'Corpoare Admin',
-                // '4' => 'Corporate User',
             ])->default('2')
-            ->displayUsingLabels()
+                ->displayUsingLabels()
                 ->creationRules('required')
                 ->updateRules('required'),
-
-            // BelongsToMany::make('Corporate', 'corporate', Corporate::class)
-            // ->creationRules('required'),
-
-            //  HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
-
         ];
     }
 
@@ -172,11 +158,7 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            // new NewUsers,
-            // new UsersActivity,
-            // new UsersTypes,
-        ];
+        return [];
     }
 
     /**
@@ -230,5 +212,4 @@ class User extends Resource
         }
         return env('APP_URL') . "/" . $this->image;
     }
-
 }

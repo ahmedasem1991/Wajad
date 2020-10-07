@@ -59,7 +59,7 @@ class Item extends Resource
     ];
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('view items')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('view items')) ? true :false;
     }
 
     /**
@@ -80,27 +80,26 @@ class Item extends Resource
                 'required', 'min:2'
             ]),
 
-
             NovaBelongsToDepend::make('Brand')
-            ->placeholder('Optional Placeholder')
-            ->options(\App\Brand::all())
-            ->rules('required'),
+                ->placeholder('Optional Placeholder')
+                ->options(\App\Brand::all())
+                ->rules('required'),
 
             NovaBelongsToDepend::make('Model', 'model')
-            ->placeholder('Optional Placeholder')
-            ->optionsResolve(function ($brand) {
-            return $brand->models()->get(['id','name_en']);
-            })
-            ->rules('required')
-            ->dependsOn('Brand'),
+                ->placeholder('Optional Placeholder')
+                ->optionsResolve(function ($brand) {
+                    return $brand->models()->get(['id','name_en']);
+                })
+                ->rules('required')
+                ->dependsOn('Brand'),
 
             NovaBelongsToDepend::make('Owner', 'owner', User::class)
-            ->placeholder('Owner')
-            ->options(\App\User::all()),
+                ->placeholder('Owner')
+                ->options(\App\User::all()),
 
             NovaBelongsToDepend::make('Color','color','App\Nova\Color')
-            ->placeholder('Color')
-            ->options(Color::all()),
+                ->placeholder('Color')
+                ->options(Color::all()),
 
             HasMany::make('Images', 'images', ItemImage::class),
 
@@ -116,9 +115,7 @@ class Item extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-           // new Items()
-        ];
+        return [];
     }
 
     /**
@@ -156,11 +153,11 @@ class Item extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-       return $query->whereIn('owner_id',Auth()->user()->corporate->users->pluck('id'));
+        return $query->whereIn('owner_id',Auth()->user()->corporate->users->pluck('id'));
     }
 
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

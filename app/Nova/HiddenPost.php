@@ -99,11 +99,6 @@ class HiddenPost extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            // RadioButton::make('Status')
-            //     ->options([
-            //         0 => 'Lost',
-            //         1 => 'Found',
-            //     ])->default(0), // optional
 
             Toggle::make('Appearance Status', 'appearance_status'),
             Toggle::make('Open Status', 'open_status'),
@@ -111,7 +106,6 @@ class HiddenPost extends Resource
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())
                 ->rules('required'),
-
 
             NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
                 ->placeholder('Select Brand')
@@ -146,11 +140,7 @@ class HiddenPost extends Resource
                 ->displayUsingLabels()
                 ->rules('required'),
 
-
-
-
             NovaDependencyContainer::make([
-
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                 DateTimeField::make('Losted At')->hideFromIndex()
                     //->dateFormat('YYYY-MM-DD')
@@ -168,13 +158,11 @@ class HiddenPost extends Resource
                     ->default(2)
                     ->hideFromIndex(),
 
-
                 NovaDependencyContainer::make([
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
-
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -186,34 +174,18 @@ class HiddenPost extends Resource
 
                     NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                         ->placeholder('Select Item')
-
                         ->optionsResolve(function ($owner) {
                             return $owner->items()->get();
                         })
                         ->rules('required_if:owner_releated_to_system,1')
                         ->dependsOn('Owner'),
-
                 ])->dependsOn('owner_releated_to_system', 1),
-
-
             ])->dependsOn('status', 0),
-
-
-
-
-
-
-
-
-
-
-
 
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
                     ->Rules('required_if:status,1')
-                    //->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime(),
 
@@ -222,22 +194,16 @@ class HiddenPost extends Resource
                         2 => 'default',
                         0 => 'No',
                         1 => 'yes',
-
                     ])
                     ->stack()
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
-
-
                 ])->dependsOn('founder_releated_to_system', 0),
-
-
 
                 NovaDependencyContainer::make([
 
@@ -249,7 +215,6 @@ class HiddenPost extends Resource
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
@@ -257,31 +222,21 @@ class HiddenPost extends Resource
                     ->hideFromIndex(),
 
                 Text::make('Question 2', 'question_2')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 Text::make('Question 3', 'question_3')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 MediaField::make('Item Image', 'images')->listing(),
-
             ])->dependsOn('status', 1),
 
-
-
-
-
-
             NovaDependencyContainer::make([
-
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                 DateTimeField::make('Losted At')->hideFromIndex()
-                    //->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime()
                     ->Rules('required_if:status,0'),
@@ -296,13 +251,11 @@ class HiddenPost extends Resource
                     ->default(2)
                     ->hideFromIndex(),
 
-
                 NovaDependencyContainer::make([
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
-
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -314,30 +267,20 @@ class HiddenPost extends Resource
 
                     NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
                         ->placeholder('Select Item')
-
                         ->optionsResolve(function ($owner) {
                             return $owner->items()->get();
                         })
                         ->rules('required_if:owner_releated_to_system,1')
                         ->dependsOn('Owner'),
-
                 ])->dependsOn('owner_releated_to_system', 1),
-
-
             ])->dependsOn('status', 1)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
-
-
-
-
-
 
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
                     ->Rules('required_if:status,1')
-                    //->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime(),
 
@@ -346,25 +289,18 @@ class HiddenPost extends Resource
                         2 => 'default',
                         0 => 'No',
                         1 => 'yes',
-
                     ])
                     ->stack()
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-
                     NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
-
-
                 ])->dependsOn('founder_releated_to_system', 0),
 
-
-
                 NovaDependencyContainer::make([
-
                     NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
                         ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
                         ->placeholder('Select Owner')
@@ -373,7 +309,6 @@ class HiddenPost extends Resource
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-                //HasMany::make('Images', 'images', \App\Nova\PostImage::class),
                 Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
@@ -381,13 +316,11 @@ class HiddenPost extends Resource
                     ->hideFromIndex(),
 
                 Text::make('Question 2', 'question_2')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 Text::make('Question 3', 'question_3')
-                    //->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
@@ -398,10 +331,6 @@ class HiddenPost extends Resource
                 ->hideFromIndex()
                 ->hideWhenCreating(),
 
-
-
-
-
             Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
             Button::make('Show')
@@ -409,22 +338,12 @@ class HiddenPost extends Resource
                 ->reload()
                 ->event('App\Events\ShowPostEvent'),
 
-//            MapMarker::make("Location")
-//                ->defaultZoom(5)
-//                ->defaultLatitude(21.4498898)
-//                ->defaultLongitude(39.4913431)
-//                ->centerCircle(10000, 'DarkCyan', 1, 0.3)
-//                ->hideFromIndex(),
-
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex()
                 ->hideFromDetail(),
 
-            // HasMany::make('Images', 'images', \App\Nova\PostImage::class),
-            // HasMany::make('Questions'),
-            // HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class),
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
             $Questions,
             $PostRequests
@@ -441,7 +360,6 @@ class HiddenPost extends Resource
             $request->offsetUnset('founder_releated_to_system');
         }
 
-
         return parent::fill($request, $model);
     }
 
@@ -454,9 +372,7 @@ class HiddenPost extends Resource
     public function cards(Request $request)
     {
         return [
-            // new PostsPeriod,
             new ShowVsHiddenPosts,
-            // new OpenVsClosedPosts,
         ];
     }
 

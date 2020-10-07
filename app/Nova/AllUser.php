@@ -93,14 +93,12 @@ class AllUser extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            //  Avatar::make('Avatar'),
-            //Gravatar::make(),
             Image::make('Profile Image', 'image')
-            ->disk('public')
-            ->path('images/profile')
-            ->prunable()
-            ->deletable()
-            ->rules('dimensions:max_width=1000,max_height=1000'),
+                ->disk('public')
+                ->path('images/profile')
+                ->prunable()
+                ->deletable()
+                ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')
                 ->sortable()
@@ -118,24 +116,17 @@ class AllUser extends Resource
                 ->updateRules('nullable', 'string', 'min:8'),
 
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required', 'min:9','max:14')
-            ->updateRules('nullable',  'min:9','max:14'),
-            //->rules('required' 'max:14'),
-               // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-               // ->onlyCustomFormats(),
+                ->creationRules('required', 'min:9','max:14')
+                ->updateRules('nullable',  'min:9','max:14'),
+
             HasMany::make('Items'),
-//            Toggle::make('Active', 'status'),
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-            //  Boolean::make('Show My Data','show_my_data'),
-
-
-            // CashierResourceTool::make()->onlyOnDetail(),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
@@ -144,12 +135,9 @@ class AllUser extends Resource
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
             Select::make('Type', 'type')->options([
-
                 '2' => 'Corpoare Admin',
-                //  '4' => 'Corporate User',
                 '1' => 'Normal User',
                 '3' => 'Super Admin',
-
             ])->displayUsingLabels(),
 
             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
@@ -161,8 +149,8 @@ class AllUser extends Resource
                 ->updateRules('required_if:type,2')
                 ->nullable(),
 
-                BelongsToMany::make('Roles', 'roles', Role::class),
-                HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            BelongsToMany::make('Roles', 'roles', Role::class),
+            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
 
         ];
     }
@@ -176,8 +164,6 @@ class AllUser extends Resource
     public function cards(Request $request)
     {
         return [
-            // new NewUsers,
-            // new UsersActivity,
             new UsersTypes,
         ];
     }
@@ -217,10 +203,6 @@ class AllUser extends Resource
         ];
     }
 
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        //return $query->NotSuperAdmin();
-    }
     public static function icon()
     {
         return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';

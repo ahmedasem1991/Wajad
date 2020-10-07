@@ -61,7 +61,6 @@ class AssignQrcode extends Resource
         'assign_reference_number',
         'assign_to',
         'user_id',
-        //'qrcodes.unique_reference_number',
         'corporate_id',
         'type',
         'available_period',
@@ -82,109 +81,94 @@ class AssignQrcode extends Resource
      */
     public function fields(Request $request)
     {
-      $SingleCount=  count(Qrcode::type('Single Assign')->where('status','1')->get());
-      $MultiCount=  count(Qrcode::type('Multi Assign')->where('status','1')->get());
+        $SingleCount=  count(Qrcode::type('Single Assign')->where('status','1')->get());
+        $MultiCount=  count(Qrcode::type('Multi Assign')->where('status','1')->get());
 
         return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Reference Number','assign_reference_number')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
-
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             Select::make('Assign To', 'assign_to')->options([
                 '1' => 'To User',
                 '2' => 'To Corporate',
-
             ])->rules('required')
-            ->displayUsingLabels(),
+                ->displayUsingLabels(),
 
             NovaDependencyContainer::make([
                 Select2::make('User','user_id')
-                ->sortable()
-                ->options(User::normalusers()->get()->pluck('email', 'id'))
-                ->displayUsingLabels()
-                ->rules('required_if:assign_to,1')
-                ->showAsLink(User::class)
-              // ->default(0)
-                ->configuration([
-                    'placeholder'             => __('Choose an option'),
-                    'allowClear'              => true,
-                    'minimumResultsForSearch' => 1,
-                    'multiple'                => false,
-                ])
+                    ->sortable()
+                    ->options(User::normalusers()->get()->pluck('email', 'id'))
+                    ->displayUsingLabels()
+                    ->rules('required_if:assign_to,1')
+                    ->showAsLink(User::class)
+                    ->configuration([
+                        'placeholder'             => __('Choose an option'),
+                        'allowClear'              => true,
+                        'minimumResultsForSearch' => 1,
+                        'multiple'                => false,
+                    ])
 
             ])->dependsOn('assign_to', '1'),
             NovaDependencyContainer::make([
                 Select2::make('Corporate','corporate_id')
-                ->sortable()
-                ->options(Corporate::get()->pluck('name_en','id'))
-                ->displayUsingLabels()
-                ->rules('required_if:assign_to,2')
-               // ->readonly()
-               // ->showAsLink()
-                //->default(0)
-                ->configuration([
-                    'placeholder'             => __('Choose an option'),
-                    'allowClear'              => true,
-                    'minimumResultsForSearch' => 1,
-                    'multiple'                => false,
-                ])
+                    ->sortable()
+                    ->options(Corporate::get()->pluck('name_en','id'))
+                    ->displayUsingLabels()
+                    ->rules('required_if:assign_to,2')
+                    ->configuration([
+                        'placeholder'             => __('Choose an option'),
+                        'allowClear'              => true,
+                        'minimumResultsForSearch' => 1,
+                        'multiple'                => false,
+                    ])
 
             ])->dependsOn('assign_to', '2'),
             BelongsTo::make('User')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             BelongsTo::make('Corporate')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             RadioButton::make('Type')
-            ->options([
-                1 => 'Single Assign',
-                2 => 'Multi Assign',
-            ]),
-          //  ->default(1), // optional
+                ->options([
+                    1 => 'Single Assign',
+                    2 => 'Multi Assign',
+                ]),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
-                ->asHtml()->hideFromDetail()
-               ,
+                    ->asHtml()->hideFromDetail(),
                 Number::make('Quantity Of QR Codes','quantity')
-                ->min(1)->max($SingleCount)->step(1)
-                ->rules('required','max:'.$SingleCount),
+                    ->min(1)->max($SingleCount)->step(1)
+                    ->rules('required','max:'.$SingleCount),
             ])->dependsOn('type', '1'),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
-                ->asHtml()->hideFromDetail()
-               ,
+                    ->asHtml()->hideFromDetail(),
                 Number::make('Quantity Of QR Codes','quantity')
-                ->min(1)->max($MultiCount)->step(1)
-                ->rules('required','max:'.$MultiCount),
+                    ->min(1)->max($MultiCount)->step(1)
+                    ->rules('required','max:'.$MultiCount),
             ])->dependsOn('type', '2'),
 
-
-
-
             Number::make('Available Period In Days','available_period')
-            ->min(1)->max(365)->step(1)
-            ->rules('required'),
-            // Status::make('Status')
-            // ->loadingWhen(['waiting'])
-            // ->failedWhen(['finished']),
+                ->min(1)->max(365)->step(1)
+                ->rules('required'),
+
             Button::make('PDF')
-            ->link(URL::to('assignqrcodepdf?p='.base64_encode($this->id)),'_blank')
-            ->style('danger'),
+                ->link(URL::to('assignqrcodepdf?p='.base64_encode($this->id)),'_blank')
+                ->style('danger'),
             RadioButton::make('Created From')
-            ->options([
-                'web' => 'web',
-          ])->default('web')
-          ->hideFromIndex()
-          ->hideFromDetail(), // optional,
+                ->options([
+                    'web' => 'web',
+                ])->default('web')
+                ->hideFromIndex()
+                ->hideFromDetail(), // optional,
 
-          Text::make('Created From')
-        ->hideWhenCreating()
-        ->hideWhenUpdating(),
-
+            Text::make('Created From')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
 
@@ -242,7 +226,7 @@ class AssignQrcode extends Resource
         return 'Assign';
     }
     public static function icon()
-{
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
-}
+    {
+        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+    }
 }

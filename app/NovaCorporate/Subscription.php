@@ -59,7 +59,7 @@ class Subscription extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-      return  (Auth()->User()->hasPermissionTo('subscription')) ? true :false;
+        return  (Auth()->User()->hasPermissionTo('subscription')) ? true :false;
     }
     /**
      * Get the fields displayed by the resource.
@@ -73,31 +73,18 @@ class Subscription extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-          //  Date::make('Start Date', 'start_date')->rules('required'),
-
-           // Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
-
-
-
-
-            //BelongsTo::make('User'),
             Select2::make('Corporate', 'corporate_id')
-            ->options(Corporate::find(auth()->user()->corporate_id)->first()->pluck('name_en','id'))
-            ->hideWhenCreating(),
+                ->options(Corporate::find(auth()->user()->corporate_id)->first()->pluck('name_en','id'))
+                ->hideWhenCreating(),
 
             Select2::make('Package', 'package_id')
-            ->options(\App\Package::get()->pluck('name_en','id'))
-            ->rules('required')
-            ->hideWhenUpdating(),
-
-            // NovaBelongsToDepend::make('Package')->rules('required')
-            //     ->options(\App\Package::all())
-            //     ->placeholder('Package'),
+                ->options(\App\Package::get()->pluck('name_en','id'))
+                ->rules('required')
+                ->hideWhenUpdating(),
 
             DateTime::make('Created At')
-            ->hideWhenUpdating()
-            ->hideWhenCreating()
-
+                ->hideWhenUpdating()
+                ->hideWhenCreating()
         ];
     }
 
@@ -146,11 +133,11 @@ class Subscription extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query
-        ->where('corporate_id',Auth()->user()->corporate->id);
+            ->where('corporate_id',Auth()->user()->corporate->id);
     }
 }

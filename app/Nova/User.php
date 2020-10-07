@@ -94,8 +94,7 @@ class User extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            //  Avatar::make('Avatar'),
-            //Gravatar::make(),
+
             Image::make('Profile Image', 'image')
                 ->thumbnail(function () {
                     return $this->getAvatar();
@@ -115,9 +114,6 @@ class User extends Resource
 
             Text::make('Email')
                 ->sortable()
-                // ->rules('required', 'email', 'max:254')
-                // ->creationRules('unique:users,email')
-                // ->updateRules('unique:users,email,{{resourceId}}'),
                 ->creationRules('required','email:rfc,dns','unique:users,email,NULL,id,type,1,deleted_at,NULL')
                 ->updateRules('required','email:rfc,dns','unique:users,email,{{resourceId}},id,type,1,deleted_at,NULL'),
 
@@ -132,20 +128,11 @@ class User extends Resource
             Number::make('Mobile Number', 'mobile_number')
                 ->creationRules('required','unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
                 ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
-            // ->creationRules('required', 'min:9','max:14')
-            // ->updateRules('nullable',  'min:9','max:14'),
-            //->rules('required' 'max:14'),
-            // ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-            // ->onlyCustomFormats(),
             HasMany::make('Items'),
-//            Toggle::make('Active', 'status'),
-              Boolean::make('Active','status')
-                  ->trueValue(1)
-                  ->falseValue(0)
-                  ->withMeta(['value' => $this->status ?? true]),
-
-
-            // CashierResourceTool::make()->onlyOnDetail(),
+            Boolean::make('Active','status')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->status ?? true]),
 
             HasMany::make('Activity', 'activities')
                 ->hideWhenCreating()
@@ -154,27 +141,13 @@ class User extends Resource
             HasMany::make('Subscription')
                 ->hideWhenUpdating(),
             Select2::make('Type', 'type')->options([
-
-                //'2' => 'Corpoare Admin',
-                //  '4' => 'Corporate User',
                 '1' => 'Normal User',
-
             ])->default('1')
                 ->rules('required')
                 ->displayUsingLabels(),
 
-            // Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
-
-            // NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
-            //     ->placeholder('Corporate')
-            //     ->options(Corporate::all())
-            //     ->creationRules('required_if:type,2')
-            //     ->updateRules('required_if:type,2')
-            //     ->nullable(),
-
             BelongsToMany::make('Roles', 'roles', Role::class),
             HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
-
         ];
     }
 
@@ -187,8 +160,6 @@ class User extends Resource
     public function cards(Request $request)
     {
         return [
-            // new NewUsers,
-            // new UsersActivity,
             new UsersTypes,
         ];
     }

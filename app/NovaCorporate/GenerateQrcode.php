@@ -74,27 +74,19 @@ class GenerateQrcode extends Resource
     {
         return [
             Errors::make(),
-           ID::make()->sortable(),
-           Text::make('Reference Number','generate_reference_number')
-           ->hideWhenCreating()
-           ->hideWhenUpdating(),
+            ID::make()->sortable(),
+            Text::make('Reference Number','generate_reference_number')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             RadioButton::make('Type')
-            ->options([
-                1 => 'Single Assign',
-                2 => 'Multi Assign',
-            ])->default(1), // optional
+                ->options([
+                    1 => 'Single Assign',
+                    2 => 'Multi Assign',
+                ])->default(1), // optional
             Number::make('Quantity Of QR Codes','quantity')
-            ->min(1)->max(10000)->step(1)
-            ->rules('required'),
-            // Status::make('Status')
-            // ->loadingWhen(['waiting'])
-            // ->failedWhen(['finished']),
+                ->min(1)->max(10000)->step(1)
+                ->rules('required'),
             HasMany::make('QR Codes','qrcodes',\App\Nova\Stock::class),
-
-           // Number::make('Available Period In Days','available_period')->min(1)->max(365)->step(1),
-
-
-
         ];
     }
 
@@ -106,9 +98,7 @@ class GenerateQrcode extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-           // new QrCodes,
-        ];
+        return [];
     }
 
     /**
@@ -154,6 +144,6 @@ class GenerateQrcode extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-       return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
+        return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
     }
 }

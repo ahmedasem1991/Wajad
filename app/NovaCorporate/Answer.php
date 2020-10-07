@@ -31,7 +31,6 @@ class Answer extends Resource
      */
     public static $title = 'answers';
 
-
     /**
      * The columns that should be searched.
      *
@@ -58,7 +57,6 @@ class Answer extends Resource
     {
         return [
             ID::make()->sortable(),
-
             Text::make('answers')->readonly(),
             NovaBelongsToDepend::make('User')->readonly()
                 ->placeholder('User')
@@ -66,9 +64,6 @@ class Answer extends Resource
             NovaBelongsToDepend::make('question')->readonly()
                 ->placeholder('Question')
                 ->options(\App\Question::all()),
-
-
-
         ];
     }
 

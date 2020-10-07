@@ -41,12 +41,10 @@ class Page extends Resource
      */
     public static $search = [
         'id',
-
         'title_en',
         'title_ar',
         'body_en',
         'body_ar',
-
         'deleted_at',
         'created_at',
         'updated_at',
@@ -83,10 +81,6 @@ class Page extends Resource
             TextArea::make('Body Ar')->rules([
                 'required', 'min:3'
             ]),
-
-
-
-
         ];
     }
 

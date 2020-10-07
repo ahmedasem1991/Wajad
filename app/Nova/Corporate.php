@@ -88,7 +88,7 @@ class Corporate extends Resource
                 'max:255',
                 'min:6'
             )
-            ->creationRules('unique:corporates'),
+                ->creationRules('unique:corporates'),
             Text::make('Corporate English Name', 'name_en')->rules(
                 'required',
                 'string',
@@ -102,11 +102,11 @@ class Corporate extends Resource
                 'min:2'
             ),
             NovaBelongsToDepend::make('Country Code', 'country', \App\Nova\Country::class)
-            ->placeholder('Select Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Select Country')
+                ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required','unique:corporates,mobile_number')
-            ->updateRules('required','unique:corporates,mobile_number,{{resourceId}}'),
+                ->creationRules('required','unique:corporates,mobile_number')
+                ->updateRules('required','unique:corporates,mobile_number,{{resourceId}}'),
             Trix::make('Corporate English Details', 'details_en')
                 ->rules(
                     'required',
@@ -148,22 +148,15 @@ class Corporate extends Resource
 
             DateTime::make('Availabe End Date','end_date'),
             HasMany::make('Corporate Admins', 'users','\App\Nova\CorporateAdmin'),
-//            Toggle::make('Active','status'),
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
-//            MapMarker::make("Location")
-//            ->defaultZoom(5)
-//            ->defaultLatitude(21.4498898)
-//            ->defaultLongitude(39.4913431)
-//            ->centerCircle(10000, 'DarkCyan', 1, 0.3),
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex()
                 ->hideFromDetail(),
-
             HasMany::make('Posts','posts','App\Nova\AllPost'),
             HasMany::make('Subscriptions'),
             HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
@@ -217,6 +210,6 @@ class Corporate extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

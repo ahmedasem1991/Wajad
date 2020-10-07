@@ -64,9 +64,6 @@ class Setting extends Resource
                 'required', 'min:3', 'max:255', 'unique:settings,key'
             ])->readonly(),
 
-            // Text::make('Title', 'title')->rules([
-            //     'required', 'min:3', 'max:255', 'unique:settings,key'
-            // ]),
             Text::make('Value', 'value')->creationRules([
                 'required', 'min:6'
             ]),
@@ -140,7 +137,4 @@ class Setting extends Resource
             return false;
         }
     }
-
-
-
 }

@@ -95,24 +95,18 @@ class CorporateAssignQrcode extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-
-
-
-
             Select2::make('User','user_id')
                 ->sortable()
                 ->options(User::normalusers()->get()->pluck('email', 'id'))
                 ->displayUsingLabels()
                 ->rules('required')
                 ->showAsLink(User::class)
-                // ->default(0)
                 ->configuration([
                     'placeholder'             => __('Choose an option'),
                     'allowClear'              => true,
                     'minimumResultsForSearch' => 1,
                     'multiple'                => false,
                 ]),
-
 
             BelongsTo::make('User')
                 ->hideWhenCreating()
@@ -122,11 +116,9 @@ class CorporateAssignQrcode extends Resource
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
                 ]),
-            //  ->default(1), // optional
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
-                    ->asHtml()->hideFromDetail()
-                ,
+                    ->asHtml()->hideFromDetail(),
                 Number::make('Quantity Of QR Codes','quantity')
                     ->min(1)->max($SingleCount)->step(1)
                     ->rules('required','max:'.$SingleCount),
@@ -140,25 +132,17 @@ class CorporateAssignQrcode extends Resource
                     ->rules('required','max:'.$MultiCount),
             ])->dependsOn('type', '2'),
 
-
-
-
-
-            // Status::make('Status')
-            // ->loadingWhen(['waiting'])
-            // ->failedWhen(['finished']),
             RadioButton::make('Created From')
-            ->options([
-                'web' => 'web',
-          ])->default('web')
-          ->hideFromIndex()
-          ->hideFromDetail(), // optional,
+                ->options([
+                    'web' => 'web',
+                ])->default('web')
+                ->hideFromIndex()
+                ->hideFromDetail(), // optional,
 
-          Text::make('Created From')
-        ->hideWhenCreating()
-        ->hideWhenUpdating(),
+            Text::make('Created From')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
-
         ];
     }
 
@@ -170,9 +154,7 @@ class CorporateAssignQrcode extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            // new QrCodes,
-        ];
+        return [];
     }
 
     /**
@@ -211,7 +193,6 @@ class CorporateAssignQrcode extends Resource
     {
         return [];
     }
-
 
     public static function label() {
         return 'Assign';

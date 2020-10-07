@@ -77,10 +77,6 @@ class Subscription extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-            //  Date::make('Start Date', 'start_date')->rules('required'),
-
-            // Date::make('End Date', 'end_date')->hideWhenCreating()->hideWhenUpdating(),
-
             Select::make('Subscriber Type', 'subscriber')->options([
                 '1' => 'User',
                 '2' => 'Corporate',
@@ -92,10 +88,7 @@ class Subscription extends Resource
                     ->sortable()
                     ->hideFromDetail()
                     ->options(User::normalusers()->get()->pluck('email', 'id'))
-                    // ->displayUsingLabels()
                     ->rules('required_if:subscriber,1')
-                    // ->showAsLink()
-                    // ->default(0)
                     ->configuration([
                         'placeholder'             => __('Choose an option'),
                         'allowClear'              => true,
@@ -109,11 +102,7 @@ class Subscription extends Resource
                     ->hideFromDetail()
                     ->sortable()
                     ->options(Corporate::get()->pluck('name_en','id'))
-                    // ->displayUsingLabels()
                     ->rules('required_if:subscriber,2')
-                    // ->readonly()
-                    // ->showAsLink()
-                    //->default(0)
                     ->configuration([
                         'placeholder'             => __('Choose an option'),
                         'allowClear'              => true,
@@ -126,24 +115,20 @@ class Subscription extends Resource
             BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Package')
-                ->rules('required')
-                // >display(function ($name_en ,$price,$quantity) {
-                //     return $name_en .' - '.$quantity.' QR Code - '.$price .' $';
-                // })
-                ,
+                ->rules('required'),
             DateTime::make('Created At')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
-                RadioButton::make('Created From')
+            RadioButton::make('Created From')
                 ->options([
                     'web' => 'web',
-              ])->default('web')
-              ->hideFromIndex()
-              ->hideFromDetail(), // optional,
-    
-              Text::make('Created From')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+                ])->default('web')
+                ->hideFromIndex()
+                ->hideFromDetail(), // optional,
+
+            Text::make('Created From')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
         ];
     }

@@ -39,7 +39,6 @@ class Banner extends Resource
      *
      * @var string
      */
-    // public static $group = 'Banners';
     public static $group = 'Resources';
 
     /**
@@ -145,48 +144,7 @@ class Banner extends Resource
                     })
                     ->rules('required')
                     ->dependsOn('User'),
-
-
-
-                // NovaDependencyContainer::make([
-                //     NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
-                //   ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                //       ->placeholder('Select User')
-                //       ->options(User::NormalUsers()->get())
-                //       ->rules('required_if:item_type,0'),
-
-                //       NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                //       ->placeholder('Select Item')
-
-                //       ->optionsResolve(function ($user) {
-                //           return $user->items()->withFilters(
-                //   new Lost)->get();
-                //   })
-                //       ->rules('required_if:item_type,0')
-                //      ->dependsOn('User'),
-
-                //   ])->dependsOn('item_type',0),
-
-                //   NovaDependencyContainer::make([
-                //     NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
-                //   ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
-                //       ->placeholder('Select User')
-                //       ->options(User::NormalUsers()->get())
-                //       ->rules('required_if:item_type,1'),
-
-                //       NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                //       ->placeholder('Select Item')
-                //       ->optionsResolve(function ($user) {
-                        //   return $user->items()->withFilters(new Found)->get();
-                //       })
-                //       ->rules('required_if:item_type,1')
-                //      ->dependsOn('user'),
-
-                //   ])->dependsOn('item_type',1),
-
             ])->dependsOn('type', 'item'),
-
-            //BelongsTo::make('item')->hideWhenCreating()
         ];
     }
     /**
