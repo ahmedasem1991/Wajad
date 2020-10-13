@@ -27,6 +27,7 @@ class SendSMSEvent implements ShouldQueue
     {
         $this->phone_number = $phone_number;
         $this->message = $message;
+        logger('__construct');
     }
 
     /**

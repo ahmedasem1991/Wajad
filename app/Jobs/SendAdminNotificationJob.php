@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\User;
 use App\AdminNotification;
 use Illuminate\Support\Arr;
+use App\Events\SendSMSEvent;
 use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use App\Services\FCM\Facades\FCM;
@@ -107,6 +108,8 @@ class SendAdminNotificationJob implements ShouldQueue
                 User::chunk(1000, function ($users) {
                     foreach ($users as $user) {
                         \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
+
+                        // new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                     }
                 });
             }
@@ -116,6 +119,7 @@ class SendAdminNotificationJob implements ShouldQueue
                 $Users = User::find($this->users);
                 foreach ($Users as $user) {
                     \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
+                    // new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                 }
             }
             logger('sms');

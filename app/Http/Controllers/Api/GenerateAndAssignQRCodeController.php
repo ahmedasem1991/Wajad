@@ -7,9 +7,11 @@ use App\Qrcode;
 use App\Package;
 use Carbon\Carbon;
 use App\AssignQrcode;
+use App\Subscription;
 use Laravel\Nova\Nova;
 use App\GenerateQrcode;
 use App\Events\SendFCMEvent;
+use App\Events\SendSMSEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -17,7 +19,6 @@ use App\Jobs\GenerateAndAssigneQrcodeJob;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendFCMNotification;
 use App\Notifications\BroadcastNotification;
-use App\Subscription;
 
 /**
  * @group QR Codes
@@ -116,8 +117,9 @@ class GenerateAndAssignQRCodeController extends Controller
 
         //Send SMS
 
-        //   $message=sendBuyPackageSMS($package, auth('api')->user());
-        //   \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
+          $message=sendBuyPackageSMS($package, auth('api')->user());
+          \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
+        //   new SendSMSEvent(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
 
 
 

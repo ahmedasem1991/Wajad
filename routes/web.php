@@ -84,8 +84,8 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
-    $message='test';
-    dd ( \Unifonic::send('201142416124', $message));
+    $message='Test WAJAD';
+    dd ( \Unifonic::send('966549660386', $message));
 
 
    $C= Corporate::find(1);
