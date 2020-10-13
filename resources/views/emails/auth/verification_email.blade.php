@@ -267,7 +267,7 @@
                                                     <td valign="middle" width="100%"
                                                         style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 35px; color: rgb(255, 255, 255); line-height: 40px; font-weight: 100;"
                                                         class="fullCenter">
-                                                        Wajad Hub </td>
+                                                        <img src="{{url('/images/wajad_logo.png')}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="100%" height="30"
@@ -418,14 +418,6 @@
                                                 <tr>
                                                     <td width="100%" height="20"
                                                         style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="middle" width="100%"
-                                                        style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(177, 183, 192); line-height: 24px; font-weight: 400;"
-                                                        class="fullCenter">
-                                                        or do something else <a href="#"
-                                                                                style="color: rgb(177, 183, 192);">here</a>
-                                                    </td>
                                                 </tr>
                                             </table>
 
