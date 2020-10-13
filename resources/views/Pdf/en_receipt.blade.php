@@ -126,7 +126,7 @@
     <div class="body-title"><h2>RECEIPT</h2> </div>
     <div class="body-content">
         <p>I declare that / {{GoogleTranslate::trans($post->owner->name ?? "..............................................",'en') }}
-        <br><br>on the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}}<br> <br>
+            <br><br>on the day {{\Carbon\Carbon::now()->format('l')}} corresponding {{\Carbon\Carbon::now()->format('d-m-Y')}}<br> <br>
             That I received my missing item
             {{GoogleTranslate::trans($post->title ,'en')}} <br> <br>
             With the following specifications :
@@ -140,7 +140,9 @@
             Color
             {{$post->color->name_en}}
         </p>
-        <img src="{{public_path($post->item->images[0])}}" alt="" style="max-width: 250px">
+        @if(!empty($post->item->images))
+            <img src="{{public_path($post->item->images[0])}}" alt="" style="max-width: 250px">
+        @endif
     </div>
 
     <div class="footer">

@@ -150,7 +150,9 @@
             لون
             {{$post->color->name_ar}}
         </p>
-        <img src="{{$post->item->images[0]}}" alt="" style="max-width: 250px">
+        @if(!empty($post->item->images))
+            <img src="{{$post->item->images[0]}}" alt="" style="max-width: 250px">
+        @endif
     </div>
 </div>
 
