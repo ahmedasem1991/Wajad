@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\User;
+use App\Events\SendSMSEvent;
 use App\Services\SmsProvider;
 use App\Mail\ResetPasswordMail;
 use App\Exceptions\Api\ApiException;
@@ -67,15 +68,17 @@ class ResetPasswordController extends Controller
                 throw new ApiException(trans('auth.mail_not_verified'), 400);
             }
 
-            Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
-
+           // Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
+           Mail::to($user->email)->send(new ResetPasswordRequestMail());
             $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
         }
 
         if (is_numeric(request('user'))) {
             $message = trans('auth.new_password') . $new_password;
+            // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
+            \Unifonic::send($user->country->country_code. $user->mobile_number, $message);
 
-//            (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
+        //    (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
             Mail::to($user->email)->send(new ResetPasswordRequestMail());
 

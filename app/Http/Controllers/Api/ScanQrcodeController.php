@@ -7,10 +7,11 @@ use App\Qrcode;
 use Carbon\Carbon;
 use App\Mail\ScanQRCode;
 use App\Events\SendFCMEvent;
-use http\Exception\BadUrlException;
+use App\Events\SendSMSEvent;
 use Illuminate\Http\Request;
 use App\Services\SmsProvider;
 use Spatie\QueryBuilder\Filter;
+use http\Exception\BadUrlException;
 use Illuminate\Support\Facades\Log;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
@@ -71,8 +72,9 @@ class ScanQrcodeController extends Controller
            $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '30.1545585',$request->lng ?? '30.15245525',$qr_code->id);
            $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
            //send SMS
-         // $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
-          //\Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
+         $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
+          \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
+        //   new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
         if ($request->expectsJson())

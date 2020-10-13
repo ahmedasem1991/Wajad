@@ -91,10 +91,11 @@ class UserService
 
 
             if($user->country->country_code==="966" || $user->country->country_code==="+966"){
-                new SendSMSEvent($message, $user->country->country_code. $user->mobile_number);
+                \Unifonic::send($user->country->country_code. $user->mobile_number, $message);
+                // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
             }
             else{
-                (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
+                // (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
             }
             return true;
         }

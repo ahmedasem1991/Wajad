@@ -26,6 +26,8 @@ class SendSMSListener
      */
     public function handle(SendSMSEvent $event)
     {
-        Unifonic::send($event->phone_number, $event->message);
+        logger('before send');
+        \Unifonic::send($event->phone_number, $event->message);
+        logger('after send');
     }
 }
