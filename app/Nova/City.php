@@ -52,7 +52,7 @@ class City extends Resource
         'updated_at',
     ];
     public static $searchRelations = [
-        'area' => [ 'name_en', 'name_ar'],
+        'region' => [ 'name_en', 'name_ar'],
     ];
 
     /**
