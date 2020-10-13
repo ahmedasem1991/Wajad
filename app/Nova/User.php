@@ -147,7 +147,7 @@ class User extends Resource
                 ->displayUsingLabels(),
 
             BelongsToMany::make('Roles', 'roles', Role::class),
-            HasMany::make('Qrcode', 'qrcodes', Qrcode::class),
+            HasMany::make('QR Code', 'qrcodes', Qrcode::class),
         ];
     }
 
