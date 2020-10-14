@@ -4,7 +4,7 @@
             @if(Auth::check() == false)
                 <center> <img
                         src="{{ URL::asset('/images/wajad_logo.png')}}"
-                        style="height:50px;width:70px;;margin-left:auto;margin-right: auto;display:block;float:snap"
+                        style="height:50px;margin-left:auto;margin-right: auto;display:block;float:snap"
                         alt="Avatar"></center>
             @else
            <?php
