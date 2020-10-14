@@ -260,7 +260,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function country()
     {
-        return $this->belongsTo(Country::class, 'mobile_country_id');
+        return $this->belongsTo(Country::class, 'mobile_country_id')->withTrashed();
     }
     public function devices()
     {

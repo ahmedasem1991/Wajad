@@ -53,11 +53,11 @@ class PDFController extends Controller
         // $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
         $pdf = \DomPDF::loadView('Pdf.en_receipt', $data);
 
-        $dispatcher = Post::getEventDispatcher();
-        Post::unsetEventDispatcher();
-        $post->open_status = 0;
-        $post->save();
-        Post::setEventDispatcher($dispatcher);
+        // $dispatcher = Post::getEventDispatcher();
+        // Post::unsetEventDispatcher();
+        // $post->open_status = 0;
+        // $post->save();
+        // Post::setEventDispatcher($dispatcher);
 
         return $pdf->stream('document.pdf');
     }
@@ -66,11 +66,11 @@ class PDFController extends Controller
         $post = Post::find(base64_decode($request->get('p')));
         $settings = Setting::all()->pluck('value','key')->toArray();
 
-        $dispatcher = Post::getEventDispatcher();
-        Post::unsetEventDispatcher();
-        $post->open_status = 0;
-        $post->save();
-        Post::setEventDispatcher($dispatcher);
+        // $dispatcher = Post::getEventDispatcher();
+        // Post::unsetEventDispatcher();
+        // $post->open_status = 0;
+        // $post->save();
+        // Post::setEventDispatcher($dispatcher);
 
         return view('Pdf.ar_receipt', compact('post', 'settings'));
     }
