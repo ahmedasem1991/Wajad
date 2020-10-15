@@ -4,17 +4,19 @@ namespace App\NovaCorporate;
 use App\User;
 use App\Corporate;
 use App\Nova\Resource;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
+use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class Subscription extends Resource
 {
@@ -77,14 +79,29 @@ class Subscription extends Resource
                 ->options(Corporate::find(auth()->user()->corporate_id)->first()->pluck('name_en','id'))
                 ->hideWhenCreating(),
 
-            Select2::make('Package', 'package_id')
-                ->options(\App\Package::get()->pluck('name_en','id'))
-                ->rules('required')
-                ->hideWhenUpdating(),
+            // Select2::make('Package', 'package_id')
+            //     ->options(\App\Package::get()->pluck('name_en','id'))
+            //     ->rules('required')
+            //     ->hideWhenUpdating(),
 
-            DateTime::make('Created At')
-                ->hideWhenUpdating()
-                ->hideWhenCreating()
+            // DateTime::make('Created At')
+            //     ->hideWhenUpdating()
+            //     ->hideWhenCreating()
+            BelongsTo::make('Package')
+            ->rules('required'),
+        DateTime::make('Created At')
+            ->hideWhenUpdating()
+            ->hideWhenCreating(),
+        RadioButton::make('Created From')
+            ->options([
+                'web' => 'web',
+            ])->default('web')
+            ->hideFromIndex()
+            ->hideFromDetail(), // optional,
+
+        Text::make('Created From')
+            ->hideWhenCreating()
+            ->hideWhenUpdating(),
         ];
     }
 

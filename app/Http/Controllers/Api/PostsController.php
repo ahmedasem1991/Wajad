@@ -142,9 +142,9 @@ class PostsController extends Controller
             'auto_approve' => $auto_approve,
             'appearance_status' => $appearance_status,
             'approval_status' => $approval_status,
-            'auto_approve' => 1,
-            'appearance_status' => 1,
-            'approval_status' => 1,
+            // 'auto_approve' => 1,
+            // 'appearance_status' => 1,
+            // 'approval_status' => 1,
         ]);
 
         if ($type == "lost") {

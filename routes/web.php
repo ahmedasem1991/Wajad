@@ -84,7 +84,7 @@ Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function () {
-    $message='Test WAJAD';
+    dd (  User::where('email','w@gaasmail.com')->first()->roles()->latest('id')->first()); 
     dd ( \Unifonic::send('966549660386', $message));
 
 
