@@ -9,6 +9,7 @@ class Activity extends Model
 {
     use SoftDeletes;
   protected  $table = 'activity_log';
+  protected $casts = ['properties' => 'array'];
 
   public function user()
   {

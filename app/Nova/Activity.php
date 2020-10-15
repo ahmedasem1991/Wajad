@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\BelongsTo;
@@ -72,14 +73,34 @@ class Activity extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
+            Text::make('properties')
+            ->displayUsing(function ($model){
+                $old = '';
+                $new = '';
+                if (!empty($model['old'])){
+                $old = "<p style='color: red'>Old: </p>";
+                    foreach ($model['old'] as $key => $item) {
+                        $old .= "<p style='color: red'>{$key}: {$item}</p><br>";
+                    }
+                }
+                if (!empty($model['attributes']))
+                {
+                    $new = "<p style='color: green'>New: </p>";
+                    foreach ($model['attributes'] as $key => $item){
+                        $new .= "<p style='color: green'>{$key}: {$item}</p><br>";
+                    }
+                }
+                return $old . $new;
+
+            })->asHtml(),
             Text::make('DESCRIPTION'),
             Text::make('SUBJECT ID'),
             Text::make('SUBJECT TYPE'),
             Text::make('USER ID','causer_id'),
             Text::make('CREATED_AT'),
             NovaBelongsToDepend::make('User')
-            ->placeholder('User')
-            ->options(\App\User::all()),
+                ->placeholder('User')
+                ->options(\App\User::all()),
         ];
     }
 
@@ -128,6 +149,6 @@ class Activity extends Resource
     }
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
+        return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
     }
 }

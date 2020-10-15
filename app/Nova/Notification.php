@@ -83,7 +83,7 @@ class Notification extends Resource
                     ->options(
                         User::normalusers()->get()->pluck('name','id')->toArray()
                     )
-                    ->placeholder('Choose football teams')
+                    ->placeholder('Select Users')
                     ->reorderable(),
             ])->dependsOn('send_to', '1'),
 
@@ -97,7 +97,7 @@ class Notification extends Resource
                 )
                 ->creationRules('required')
 
-                ->placeholder('Choose football teams')
+                ->placeholder('Select Options')
                 ->reorderable(),
         ];
     }

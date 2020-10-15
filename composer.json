@@ -72,7 +72,8 @@
         "tightenco/nova-google-analytics": "*",
         "tintnaingwin/email-checker": "^2.0",
         "titasgailius/search-relations": "^1.0",
-        "tymon/jwt-auth": "1.0.*"
+        "tymon/jwt-auth": "1.0.*",
+        "ext-json": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.5",
