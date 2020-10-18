@@ -379,11 +379,10 @@ class AllPost extends Resource
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
-                MediaField::make('Item Image', 'images')->listing(),
-
             ])->dependsOn('status', 0)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
+            MediaField::make('Item Image', 'images')->listing(),
 
             Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 
