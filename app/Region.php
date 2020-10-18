@@ -8,6 +8,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Region extends Model
 {
     use LogsActivity,SoftDeletes;
+
+    protected static $logAttributes = [
+        'name_en',
+        'name_ar',
+        'country.name_en',
+    ];
+    protected static $logOnlyDirty = true;
     /**
      * Get the Cities for the region.
      */

@@ -9,6 +9,14 @@ class Country extends Model
 {
     use SoftDeletes;
     use LogsActivity;
+
+    protected static $logAttributes = [
+        'name_en',
+        'name_ar',
+        'iso_code',
+        'country_code',
+    ];
+    protected static $logOnlyDirty = true;
     public function regions()
     {
         return $this->hasMany(Region::class);

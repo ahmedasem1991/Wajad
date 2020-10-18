@@ -13,6 +13,11 @@ class City extends Model
     protected $fillable = [
         'id', 'name_en', 'name_ar',
     ];
+
+    protected static $logAttributes = [
+        'name_en', 'name_ar',
+    ];
+    protected static $logOnlyDirty = true;
     /**
      * Get the region that owns the governorate.
      */

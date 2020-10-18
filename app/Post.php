@@ -43,7 +43,33 @@ class Post extends MasterModel
         'question_3'
     ];
 
-    protected static $logAttributes = ['title', 'description'];
+    protected static $logAttributes = [
+        'title',
+        'description',
+        'publisher.name',
+        'item.title',
+        'status',
+        'losted_at',
+        'founded_at',
+        'owner.name',
+        'founder.name',
+        'latitude',
+        'longitude',
+        'approval_status',
+        'sub_category.name_en',
+        'model.name_en',
+        'color.name_en',
+        'post_type.title',
+        'appearance_status',
+        'brand.name_en',
+        'city.name_en',
+        'images',
+        'reward',
+        'question_1',
+        'question_2',
+        'question_3'
+    ];
+    protected static $logOnlyDirty = true;
 
     protected $casts = [
         'losted_at' => 'datetime',

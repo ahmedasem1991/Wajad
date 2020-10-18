@@ -13,4 +13,8 @@ class DeviceType extends Model
 
     protected $fillable = ['user_id', 'device_type'];
     protected $table = 'devices_types';
+    protected static $logAttributes = [
+        'user.name', 'device_type'
+    ];
+    protected static $logOnlyDirty = true;
 }

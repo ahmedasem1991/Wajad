@@ -39,6 +39,29 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'social_id',
     ];
 
+    protected static $logAttributes = [
+        'name',
+        'email',
+        'password',
+        'type',
+        'status',
+        'mobile_number',
+        'country.name_en',
+        'is_mobile_number_verified',
+        'email_verified_at',
+        'default_distance_unit',
+        'receive_emails',
+        'receive_push_notifications',
+        'remember_token',
+        'corporate.name_en',
+        'posts_number',
+        'image',
+        'social_name',
+        'is_social_user',
+        'social_id',
+    ];
+    protected static $logOnlyDirty = true;
+
     protected $hidden = [
         'password', 'remember_token',
     ];

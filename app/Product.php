@@ -8,6 +8,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Product extends Model
 {
     use LogsActivity,SoftDeletes;
+
+    protected static $logAttributes = [
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar',
+    ];
+    protected static $logOnlyDirty = true;
+
     protected $guarded = [];
 
     /**

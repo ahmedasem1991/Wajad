@@ -17,4 +17,13 @@ class Page extends Model
         'title_ar',
         'body_ar',
     ];
+
+    protected static $logAttributes = [
+        'key',
+        'title_en',
+        'body_en',
+        'title_ar',
+        'body_ar',
+    ];
+    protected static $logOnlyDirty = true;
 }

@@ -36,6 +36,25 @@ class Qrcode extends Model implements QrcodeConstants
         'item_id'
     ];
 
+    protected static $logAttributes = [
+        'unique_reference_number',
+        'generate_reference_number',
+        'assign_reference_number',
+        'type',
+        'status',
+        'quantity',
+        'qrcode_url',
+        'image',
+        'available_period',
+        'start_at',
+        'end_at',
+        'user.name',
+        'corporate.name_en',
+        'corporate_assign_reference_number',
+        'item.title'
+    ];
+    protected static $logOnlyDirty = true;
+
     protected $casts = [
         'end_at' => 'datetime',
         'start_at' => 'datetime'

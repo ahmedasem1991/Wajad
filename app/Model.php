@@ -13,9 +13,12 @@ class Model extends MasterModel
 {
     use LogsActivity, SoftDeletes, ModelObserveImage;
 
-
-
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'brand_id'];
+
+    protected static $logAttributes = [
+        'name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'brand.name_en'
+    ];
+    protected static $logOnlyDirty = true;
 
 
     /**

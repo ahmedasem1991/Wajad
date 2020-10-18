@@ -78,16 +78,20 @@ class Activity extends Resource
                 $old = '';
                 $new = '';
                 if (!empty($model['old'])){
-                $old = "<p style='color: red'>Old: </p>";
+                $old = "<p style='color: red'><b>OLD</b>: </p>";
                     foreach ($model['old'] as $key => $item) {
-                        $old .= "<p style='color: red'>{$key}: {$item}</p><br>";
+                        $index = explode('.', $key);
+                        $i = $index[0];
+                        $old .= "<p style='color: red'>{$i}: {$item}</p>";
                     }
                 }
                 if (!empty($model['attributes']))
                 {
-                    $new = "<p style='color: green'>New: </p>";
+                    $new = "<p style='color: green'><b>NEW: </b></p>";
                     foreach ($model['attributes'] as $key => $item){
-                        $new .= "<p style='color: green'>{$key}: {$item}</p><br>";
+                        $index = explode('.', $key);
+                        $i = $index[0];
+                        $new .= "<p style='color: green'>{$i}: {$item}</p>";
                     }
                 }
                 return $old . $new;

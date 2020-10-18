@@ -12,6 +12,11 @@ class Question extends Model
 
     protected $fillable = ['post_id', 'question', 'founder_id', 'corporate_id'];
 
+    protected static $logAttributes = [
+        'post.title', 'question', 'founder.name', 'corporate.name_en'
+    ];
+    protected static $logOnlyDirty = true;
+
 
     public function user()
     {

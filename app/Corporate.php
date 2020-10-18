@@ -29,6 +29,24 @@ class Corporate extends Model
         'end_date'
     ];
 
+    protected static $logAttributes = [
+        'name_en',
+        'name_ar',
+        'mobile_number',
+        'details_en',
+        'details_ar',
+        'address_en',
+        'address_ar',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+        'location',
+        'unique_id',
+        'end_date'
+    ];
+    protected static $logOnlyDirty = true;
+
     protected $casts = [
         'end_date'   => 'datetime'
     ];

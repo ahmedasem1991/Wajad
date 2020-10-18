@@ -14,7 +14,10 @@ class Subscription extends Model
         'user_id','package_id','corporate_id','subscriber'
     ];
 
-
+    protected static $logAttributes = [
+        'user.name','package.name_en','corporate.name_en','subscriber'
+    ];
+    protected static $logOnlyDirty = true;
 
     public function user()
     {

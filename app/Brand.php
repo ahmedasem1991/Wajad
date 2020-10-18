@@ -13,6 +13,11 @@ class Brand extends ModelMaster
   use LogsActivity, SoftDeletes, ModelObserveImage;
   protected  $fillable=['name_en','name_ar','description_en','description_ar','image','sub_category_id'];
 
+    protected static $logAttributes = [
+        'name_en','name_ar','description_en','description_ar','image','sub_category.name_en'
+    ];
+    protected static $logOnlyDirty = true;
+
 //   public function getNameEnAttribute($value)
 // {
 //     //return "{$this->name_en} - {$this->subcategory->name_en}";

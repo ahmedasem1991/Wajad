@@ -16,6 +16,11 @@ class Setting extends Model
         'key', 'value', 'image', 'title'
     ];
 
+    protected static $logAttributes = [
+        'key', 'value', 'image', 'title'
+    ];
+    protected static $logOnlyDirty = true;
+
     protected $casts = [
         'title' => 'array',
         'value' => 'array'

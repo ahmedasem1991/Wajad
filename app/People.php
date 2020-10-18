@@ -12,7 +12,12 @@ class People extends Model
 
    protected $table="people";
    protected $fillable=['name','email','mobile_number','address','type','corporate_id'];
-   
+
+    protected static $logAttributes = [
+        'name','email','mobile_number','address','type','corporate.name_en'
+    ];
+    protected static $logOnlyDirty = true;
+
    public function corporate()
    {
        return $this->belongsTo(Corporate::class);

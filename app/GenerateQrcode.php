@@ -12,6 +12,10 @@ class GenerateQrcode extends Model
     protected $fillable =['generate_reference_number','type','quantity','created_from'];
     protected $table='generate_qrcodes';
 
+    protected static $logAttributes = [
+        'generate_reference_number','type','quantity','created_from'
+    ];
+    protected static $logOnlyDirty = true;
 
     const Types = [
         1 => 'Single Assign',

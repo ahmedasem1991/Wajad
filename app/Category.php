@@ -15,6 +15,11 @@ class Category extends Model
 
     protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
 
+    protected static $logAttributes = [
+        'name_en','name_ar','description_en','description_ar','image'
+    ];
+    protected static $logOnlyDirty = true;
+
     public function scopeCategory($query, $category_id)
     {
         return $query->where('id', $category_id) ?? null;

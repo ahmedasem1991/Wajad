@@ -10,6 +10,21 @@ class WajadOffice extends Model
 {
     use LogsActivity,SoftDeletes;
 
+    protected static $logAttributes = [
+        'name_en',
+        'name_ar',
+        'details_en',
+        'details_ar',
+        'address_en',
+        'address_ar',
+        'location',
+        'latitude',
+        'longitude',
+        'status',
+        'image',
+    ];
+    protected static $logOnlyDirty = true;
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

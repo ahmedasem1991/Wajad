@@ -10,4 +10,9 @@ class PostType extends Model
 {
     use  LogsActivity, SoftDeletes;
     protected $fillable = ['title', 'description'];
+
+    protected static $logAttributes = [
+        'title', 'description'
+    ];
+    protected static $logOnlyDirty = true;
 }

@@ -24,6 +24,19 @@ class Banner extends Model implements Sortable
         'order_column_name' => 'order',
         'sort_when_creating' => true,
     ];
+
+    protected static $logAttributes = [
+        'type',
+        'order',
+        'url',
+        'item.title',
+        'user.name',
+        'image',
+        'start_date',
+        'end_date',
+        'clicks',
+    ];
+    protected static $logOnlyDirty = true;
     public function visits()
     {
         return $this->morphOne(Visit::class, 'visitable');

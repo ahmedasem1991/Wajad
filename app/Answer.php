@@ -10,6 +10,10 @@ class Answer extends Model
 {
     use SoftDeletes, LogsActivity;
     protected $fillable = ['user_id', 'answers', 'question_id', 'post_request_id'];
+    protected static $logAttributes = [
+        'user.name', 'answers', 'question.question', 'post_request_id'
+    ];
+    protected static $logOnlyDirty = true;
 
     public function question()
     {

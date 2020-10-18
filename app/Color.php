@@ -15,6 +15,11 @@ class Color extends MasterModel
 
     protected $fillable=['name_en','name_ar','icon'];
 
+    protected static $logAttributes = [
+        'name_en','name_ar','icon'
+    ];
+    protected static $logOnlyDirty = true;
+
 
     public function items()
     {

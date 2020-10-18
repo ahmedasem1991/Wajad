@@ -19,6 +19,11 @@ class Item extends MasterModel
 
     protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images', 'status'];
 
+    protected static $logAttributes = [
+        'title', 'details', 'owner.name', 'model.name_en', 'color.name_en', 'sub_category.name_en', 'brand.name_en', 'images', 'status'
+    ];
+    protected static $logOnlyDirty = true;
+
     protected $casts = [
         'images' => 'array'
     ];

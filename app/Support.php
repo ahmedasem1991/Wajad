@@ -9,4 +9,9 @@ class Support extends Model
 {
     use LogsActivity,SoftDeletes;
     protected $fillable = ['name','phone','email','message'];
+
+    protected static $logAttributes = [
+        'name','phone','email','message'
+    ];
+    protected static $logOnlyDirty = true;
 }
