@@ -100,7 +100,10 @@ class CorporateAssignQrcode extends Resource
                 // Create ajax field, with parent method 
                 //AjaxField::make('Bar')->setUrl('/api/ajaxselect/foo')->parent('foo'),
                 AjaxField::make('User','user_id')->setUrl('/smart-search')->setValueKey('id')->setLabelKey('name')
-                ->responsive(),
+                ->responsive()
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
 
             // Select2::make('User','user_id')
             //     ->sortable()
@@ -208,5 +211,10 @@ class CorporateAssignQrcode extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
+    }
+
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
     }
 }
