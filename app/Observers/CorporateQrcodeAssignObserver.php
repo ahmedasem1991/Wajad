@@ -22,12 +22,16 @@ class CorporateQrcodeAssignObserver
      */
     public function saving(CorporateAssignQrcode $assignQrcode)
     {
-       
+         
+       $user_id= session()->get('smart_user_id');
+       session()->forget('smart_user_id');
          $now = Carbon::now();
          $pre='C-';
          $assignQrcode->corporate_assign_reference_number=$pre.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second; 
          $assignQrcode->corporate_id=Auth()->User()->corporate->id;
          $assignQrcode->created_by=Auth()->User()->id;
+         $assignQrcode->user_id=$user_id;
+         logger($assignQrcode);
      
     }
     public function saved(CorporateAssignQrcode $assignQrcode)
