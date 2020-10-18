@@ -3,8 +3,10 @@
 namespace App\Nova;
 
 use App\User;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Carbon\Carbon;
+use NovaButton\Button;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -20,20 +22,19 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Metrics\ApprovalPosts;
-use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosePosts;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
 use Bissolli\NovaPhoneField\PhoneNumber;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use ClassicO\NovaMediaLibrary\MediaField;
 use App\Services\Filters\ItemFilters\Lost;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
-use Carbon\Carbon;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class ReportedPost extends Resource
 {
@@ -370,6 +371,16 @@ class ReportedPost extends Resource
             ])->dependsOn('status', 0)
                 ->hideFromIndex()
                 ->hideWhenCreating(),
+
+                Button::make('Close')
+                ->style('danger')
+                ->reload()
+                ->event('App\Events\ClosePostEvent'),
+
+            Button::make('Hidden')
+                ->style('grey')
+                ->reload()
+                ->event('App\Events\HiddenPostEvent'),
 
             Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 

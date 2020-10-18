@@ -82,10 +82,38 @@ Route::get('ar_receipt', 'PDFController@arReceipt');
 Route::get('qrcodepdf', 'PDFController@qrcodepdf');
 Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
+Route::get('/smart-search', function (Request $request) {
+    sleep(5);
+    $array=[];
+    $user=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ; 
 
-Route::get('/test600', function () {
-    dd (  User::where('email','w@gaasmail.com')->first()->roles()->latest('id')->first()); 
-    dd ( \Unifonic::send('966549660386', $message));
+    if( $user)
+    { 
+      $array[0]['value']= $user->id;
+      $array[0]['label']= request('search') .'('.$user->name .')' ;
+      return  json_encode( $array);
+    }
+   else
+   return 0;
+  });
+ 
+
+Route::get('/test600', function (Request $request) {
+    sleep(5);
+    $array=[];
+    
+   // w@gaasmail.com
+   $ii=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ; 
+   //return $ii;
+//    $array[0]['value']= 0;
+//    $array[0]['label']= 'Select';
+if( $ii)
+  { $array[0]['value']= $ii->id;
+   $array[0]['label']= request('search') .' ('.$ii->name .')' ;
+   
+   return  json_encode( $array);}
+   else
+   return 0;
 
 
    $C= Corporate::find(1);
