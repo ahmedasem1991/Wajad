@@ -86,6 +86,12 @@ class PageController extends Controller
             return new PageResource(Page::where('key','about_us')->first());
         }
 
+        if($page=='privacy-policy')
+        {
+           
+            return new PageResource(Page::where('key','privacy-policy')->first());
+        }
+
         return new PageResource(Page::whereKey($page)->first());
     }
 }

@@ -6,6 +6,7 @@ use App\User;
 use App\Qrcode;
 use App\Corporate;
 use App\Nova\Resource;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -18,8 +19,8 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
-use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
+use Razorcreations\AjaxField\AjaxField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
@@ -94,19 +95,28 @@ class CorporateAssignQrcode extends Resource
             Text::make('Reference Number','corporate_assign_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
+              // Text::make('Foo', 'corporate_assign_reference_number'),
+	
+                // Create ajax field, with parent method 
+                //AjaxField::make('Bar')->setUrl('/api/ajaxselect/foo')->parent('foo'),
+                AjaxField::make('User','user_id')->setUrl('/smart-search')->setValueKey('id')->setLabelKey('name')
+                ->responsive()
+                ->hideWhenUpdating()
+                ->hideFromDetail()
+                ->hideFromIndex(),
 
-            Select2::make('User','user_id')
-                ->sortable()
-                ->options(User::normalusers()->get()->pluck('email', 'id'))
-                ->displayUsingLabels()
-                ->rules('required')
-                ->showAsLink(User::class)
-                ->configuration([
-                    'placeholder'             => __('Choose an option'),
-                    'allowClear'              => true,
-                    'minimumResultsForSearch' => 1,
-                    'multiple'                => false,
-                ]),
+            // Select2::make('User','user_id')
+            //     ->sortable()
+            //     ->options(User::normalusers()->get()->pluck('email', 'id'))
+            //     ->displayUsingLabels()
+            //     ->rules('required')
+            //     ->showAsLink(User::class)
+            //     ->configuration([
+            //         'placeholder'             => __('Choose an option'),
+            //         'allowClear'              => true,
+            //         'minimumResultsForSearch' => 1,
+            //         'multiple'                => false,
+            //     ]),
 
             BelongsTo::make('User')
                 ->hideWhenCreating()
@@ -201,5 +211,10 @@ class CorporateAssignQrcode extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
+    }
+
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
     }
 }

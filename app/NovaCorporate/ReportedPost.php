@@ -183,6 +183,16 @@ class ReportedPost extends Resource
                 ->hideFromDetail()
                 ->hideFromIndex(),
 
+                Button::make('Close')
+                ->style('danger')
+                ->reload()
+                ->event('App\Events\ClosePostEvent'),
+
+            Button::make('Hidden')
+                ->style('grey')
+                ->reload()
+                ->event('App\Events\HiddenPostEvent'),
+
             HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             $Questions,
             $PostRequests
