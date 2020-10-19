@@ -49,7 +49,7 @@ class Qrcode extends Model implements QrcodeConstants
         'start_at',
         'end_at',
         'user.name',
-        'corporate.name_en',
+        //'corporate.name_en',
         'corporate_assign_reference_number',
         'item.title'
     ];
@@ -94,10 +94,10 @@ class Qrcode extends Model implements QrcodeConstants
         return $this->belongsTo(PackageProductManagement::class, 'package_product_pivot_id');
     }
 
-    public function corporate()
-    {
-        return $this->belongsTo(Corporate::class);
-    }
+    // public function corporate()
+    // {
+    //     return $this->belongsTo(Corporate::class);
+    // }
 
     public function getQrcodeUrlAttribute($value)
     {
