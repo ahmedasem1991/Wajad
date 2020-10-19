@@ -14,7 +14,7 @@ class Brand extends ModelMaster
   protected  $fillable=['name_en','name_ar','description_en','description_ar','image','sub_category_id'];
 
     protected static $logAttributes = [
-        'name_en','name_ar','description_en','description_ar','image','sub_category.name_en'
+        'name_en','name_ar','description_en','description_ar','image'
     ];
     protected static $logOnlyDirty = true;
 
