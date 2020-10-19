@@ -76,7 +76,7 @@ class ResetPasswordController extends Controller
         if (is_numeric(request('user'))) {
             $message = trans('auth.new_password') . $new_password;
             // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
-            \Unifonic::send($user->country->country_code. $user->mobile_number, $message);
+           // \Unifonic::send($user->country->country_code. $user->mobile_number, $message);
 
         //    (new SmsProvider)->sendMessage($message, $user->country->country_code. $user->mobile_number);
 
