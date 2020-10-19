@@ -3,6 +3,7 @@
 namespace App\NovaCorporate;
 
 use App\Nova\Metrics\Categories;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\Heading;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -78,28 +79,13 @@ class Category extends Resource
             Toggle::make('Use Default Image For Items In Category', 'items_has_default_image')->color('#4099de'),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Category Items Default Image', 'default_image')->rules([
-                'required_if:has_default_image,1', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])
-                ->disk('public')
-                ->path('/images/categories/images')
-                ->disableDownload()
-                ->prunable()
-                ->deletable(),
+            MediaField::make('Category Items Default Image', 'default_image')->rules([
+                'required_if:has_default_image,1'
+            ]),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Category Icon', 'icon')
-                ->creationRules([
-                    'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->updateRules([
-                    'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->disk('public')
-                ->path('/images/categories/icons')
-                ->disableDownload()
-                ->prunable()
-                ->deletable(),
+            MediaField::make('Category Icon', 'icon')
+                ->rules('required'),
 
             HasMany::make('Item', 'items', \App\Nova\Item::class),
             HasMany::make('Brand', 'brands', \App\Nova\Brand::class)

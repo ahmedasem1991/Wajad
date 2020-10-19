@@ -88,20 +88,20 @@ class Subscription extends Resource
             //     ->hideWhenUpdating()
             //     ->hideWhenCreating()
             BelongsTo::make('Package')
-            ->rules('required'),
-        DateTime::make('Created At')
-            ->hideWhenUpdating()
-            ->hideWhenCreating(),
-        RadioButton::make('Created From')
-            ->options([
-                'web' => 'web',
-            ])->default('web')
-            ->hideFromIndex()
-            ->hideFromDetail(), // optional,
+                ->rules('required'),
+            DateTime::make('Created At')
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+            RadioButton::make('Created From')
+                ->options([
+                    'web' => 'web',
+                ])->default('web')
+                ->hideFromIndex()
+                ->hideFromDetail(), // optional,
 
-        Text::make('Created From')
-            ->hideWhenCreating()
-            ->hideWhenUpdating(),
+            Text::make('Created From')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
         ];
     }
 

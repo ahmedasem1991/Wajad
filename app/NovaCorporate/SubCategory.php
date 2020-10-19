@@ -5,6 +5,7 @@ namespace App\NovaCorporate;
 use App\Nova\Category;
 use App\Nova\Metrics\SubCategories;
 use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -73,12 +74,7 @@ class SubCategory extends Resource
             Textarea::make('Sub-Category Arabic Body', 'description_ar'),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Sub-Category Image', 'image')
-                ->disk('public')
-                ->path('images/subcategories')
-                ->prunable()
-                ->deletable()
-                ->rules('required','dimensions:max_width=100,max_height=100'),
+            MediaField::make('Sub-Category Image', 'image')->rules('required'),
             NovaBelongsToDepend::make('Category')->rules('required')
                 ->placeholder('Category')
                 ->options(\App\Category::all()),

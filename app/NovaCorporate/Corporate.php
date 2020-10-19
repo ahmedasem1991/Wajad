@@ -3,6 +3,7 @@
 namespace App\NovaCorporate;
 
 use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
@@ -135,16 +136,7 @@ class Corporate extends Resource
             ),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Corporate Image', 'image')->creationRules(
-                'required',
-                'image',
-                'mimes:jpeg,bmp,png,jpg',
-                'max:5012'
-            )->updateRules(
-                'image',
-                'mimes:jpeg,bmp,png,jpg',
-                'max:5012'
-            )->disk('public')->path('images/corporates')->disableDownload()->deletable(false),
+            MediaField::make('Corporate Image', 'image')->rules('required'),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
