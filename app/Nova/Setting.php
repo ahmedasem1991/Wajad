@@ -72,9 +72,7 @@ class Setting extends Resource
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
 
-            MediaField::make('Image', 'image')->rules([
-                'nullable', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ]),
+            MediaField::make('Image', 'image'),
         ];
     }
 

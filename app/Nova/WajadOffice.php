@@ -119,16 +119,7 @@ class WajadOffice extends Resource
             ),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            MediaField::make('Office Image', 'image')->creationRules(
-                'required',
-                'image',
-                'mimes:jpeg,bmp,png',
-                'max:5012'
-            )->updateRules(
-                'image',
-                'mimes:jpeg,bmp,png',
-                'max:5012'
-            ),
+            MediaField::make('Office Image', 'image')->rules('required'),
 
             Boolean::make('Active','status')
                 ->trueValue(1)

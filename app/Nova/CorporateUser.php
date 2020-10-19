@@ -98,7 +98,7 @@ class CorporateUser extends Resource
             ID::make()->sortable(),
 
             MediaField::make('Profile Image', 'image')
-                ->rules('dimensions:max_width=1000,max_height=1000'),
+                ->rules('required'),
 
             Text::make('Name')
                 ->sortable()
