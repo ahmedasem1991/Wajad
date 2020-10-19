@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Corporate;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
@@ -96,11 +97,7 @@ class CorporateUser extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-            Image::make('Profile Image', 'image')
-                ->disk('public')
-                ->path('images/profile')
-                ->prunable()
-                ->deletable()
+            MediaField::make('Profile Image', 'image')
                 ->rules('dimensions:max_width=1000,max_height=1000'),
 
             Text::make('Name')

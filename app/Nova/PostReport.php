@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\Heading;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
@@ -84,16 +85,13 @@ class PostReport extends Resource
 
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Report Image', 'image')
+            MediaField::make('Report Image', 'image')
                 ->creationRules([
                     'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
                 ])
                 ->updateRules([
                     'image', 'mimes:jpeg,bmp,png', 'max:5012'
-                ])
-                ->disk('public')
-                ->path('images/postreports'),
-
+                ]),
 
             BelongsTo::make('User','user',\App\Nova\NormalUser::class)
                 ->readonly(),

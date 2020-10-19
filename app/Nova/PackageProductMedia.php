@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -63,12 +64,8 @@ class PackageProductMedia extends Resource
             ID::make()->sortable(),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Image / Icon', 'media_path')->creationRules([
-                'required', 'image', 'mimes:jpeg,bmp,png', 'max:5012'
-            ])->disk('public')->path('images/packages_products_image')
-                ->disableDownload()
-                ->deletable()
-                ->prunable(),
+            MediaField::make('Image / Icon', 'media_path'),
+
             MorphTo::make('package_product_media')->types([
                 Package::class,
                 Product::class

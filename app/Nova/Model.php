@@ -6,6 +6,7 @@ use App\Nova\Category;
 use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Models;
 use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -79,11 +80,7 @@ class Model extends Resource
             Textarea::make('Model Arabic Body', 'description_ar'),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Model Image', 'image')
-                ->disk('public')
-                ->path('images/models')
-                ->prunable()
-                ->deletable()
+            MediaField::make('Model Image', 'image')
                 ->creationRules('required'),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)

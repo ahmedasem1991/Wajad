@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Corporate;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -93,12 +94,7 @@ class AllUser extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Image::make('Profile Image', 'image')
-                ->disk('public')
-                ->path('images/profile')
-                ->prunable()
-                ->deletable()
-                ->rules('dimensions:max_width=1000,max_height=1000'),
+            MediaField::make('Profile Image', 'image'),
 
             Text::make('Name')
                 ->sortable()

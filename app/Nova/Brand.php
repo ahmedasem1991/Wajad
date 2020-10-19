@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Category;
 use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
@@ -74,12 +75,8 @@ class Brand extends Resource
             Textarea::make('Brand Arabic Body', 'description_ar'),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Brand Image', 'image')
-                ->disk('public')
-                ->path('images/brands')
-                ->prunable()
-                ->deletable()
-                ->creationRules('required'),
+
+            MediaField::make('Brand Image', 'image'),
 
             BelongsToMany::make('Sub Categories', 'subcategories', SubCategory::class),
 

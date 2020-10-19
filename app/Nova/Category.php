@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -67,12 +68,7 @@ class Category extends Resource
             Textarea::make('Category Arabic Body', 'description_ar'),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Dimensions are: <b>100 * 100 Pixels</b> <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Category Image', 'image')
-                ->disk('public')
-                ->path('images/categories')
-                ->prunable()
-                ->deletable()
-                ->creationRules('required'),
+            MediaField::make('Category Image', 'image'),
             HasMany::make('Subcategories'),
         ];
     }

@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Item;
 use App\User;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -106,21 +107,15 @@ class Banner extends Resource
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                     ->asHtml()->hideFromDetail(),
-                Image::make('Advertise Image', 'image')
-                    ->disk('public')
-                    ->path('images/banners')
-                    ->prunable()
-                    ->nullable()
+                MediaField::make('Advertise Image', 'image')
+                    ->nullable(),
             ])->dependsOn('type', 'ads'),
 
             NovaDependencyContainer::make([
                 Text::make('URL Link', 'url')->nullable(),
                 Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                     ->asHtml()->hideFromDetail(),
-                Image::make('Url Image', 'image')
-                    ->disk('public')
-                    ->path('images/banners')
-                    ->prunable()
+                MediaField::make('Url Image', 'image')
                     ->nullable()
             ])->dependsOn('type', 'url'),
 

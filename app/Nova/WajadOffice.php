@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use ClassicO\NovaMediaLibrary\MediaField;
 use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
@@ -118,7 +119,7 @@ class WajadOffice extends Resource
             ),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
-            Image::make('Office Image', 'image')->creationRules(
+            MediaField::make('Office Image', 'image')->creationRules(
                 'required',
                 'image',
                 'mimes:jpeg,bmp,png',
@@ -127,7 +128,7 @@ class WajadOffice extends Resource
                 'image',
                 'mimes:jpeg,bmp,png',
                 'max:5012'
-            )->disk('public')->path('images/offices')->deletable(false),
+            ),
 
             Boolean::make('Active','status')
                 ->trueValue(1)
