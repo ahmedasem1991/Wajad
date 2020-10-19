@@ -192,7 +192,7 @@ class SubCategoryPostController extends Controller
 
         $parentCategory = [
             'subCategoryName' => trans('keywords.all'),
-            'subCategoryIcon' => env('APP_URL') . '/' . 'subcategories/all.png',
+            'subCategoryIcon' => env('APP_URL') . '/images/' . 'subcategories/all.png',
             'subCategoryPostsCount' => Post::$status()->isShow()->isOpen()->isApproved()->count(),
         ];
 
