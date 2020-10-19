@@ -158,7 +158,8 @@ class AllPost extends Resource
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->rules('required'),
 
             NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->placeholder('Select Brand')
@@ -166,7 +167,8 @@ class AllPost extends Resource
                     return $subcategory->brands;
                 })
                 ->dependsOn('Subcategory')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->rules('required'),
 
             NovaBelongsToDepend::make('Model', 'model', \App\Nova\Model::class)
                 ->placeholder('Optional Placeholder')
@@ -174,8 +176,10 @@ class AllPost extends Resource
                     return $brand->models()->get(['id', 'name_en']);
                 })
                 ->dependsOn('Brand')
-                ->hideFromIndex(),
-            BelongsTo::make('Color', 'color', \App\Nova\Color::class)->hideFromIndex(),
+                ->hideFromIndex()
+                ->rules('required'),
+            BelongsTo::make('Color', 'color', \App\Nova\Color::class)
+            ->rules('required')->hideFromIndex(),
 
             BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
                 ->hideWhenCreating()
