@@ -29,6 +29,6 @@ class HiddenPostListener
         //$event->resource->open_status =1;
         $event->resource->appearance_status =0;
         $event->resource->end_date=  null;
-        $event->resource->update();
+        $event->resource->save();
     }
 }

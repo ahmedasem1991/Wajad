@@ -30,6 +30,6 @@ class RejectPostListener
        // $event->resource->appearance_status =0;
         $event->resource->approval_status =0;
         $event->resource->end_date=  null;
-        $event->resource->update();
+        $event->resource->save();
     }
 }
