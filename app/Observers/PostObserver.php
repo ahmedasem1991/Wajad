@@ -64,7 +64,9 @@ class PostObserver
 
                 $question = $Post->question_1;
                 if ($question == '' || $question == null) {
-                    $Post->questions->take(1)->delete();
+                    $get_question=$Post->questions->take(1)->first();
+                    if ($get_question)
+                    $get_question->delete();
                 } else {
                     $question_1 = $Post->questions->first();
                     $question_1->update([
