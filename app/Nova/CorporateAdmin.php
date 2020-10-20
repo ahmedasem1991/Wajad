@@ -103,8 +103,10 @@ class CorporateAdmin extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
-                ->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
+                //->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
+                ->creationRules('required','email')
+                //->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
+                ->updateRules('required','email'),
 
             Password::make('Password')
                 ->onlyOnForms()
