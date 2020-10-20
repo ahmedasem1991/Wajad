@@ -29,6 +29,6 @@ class ClosePostListener
         $event->resource->open_status =0;
         $event->resource->appearance_status =0;
         $event->resource->end_date=  now();
-        $event->resource->save();
+        $event->resource->update();
     }
 }

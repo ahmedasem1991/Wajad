@@ -29,6 +29,6 @@ class OpenPostListener
         $event->resource->open_status =1;
         $event->resource->appearance_status =1;
         $event->resource->end_date=  null;
-        $event->resource->save();
+        $event->resource->update();
     }
 }
