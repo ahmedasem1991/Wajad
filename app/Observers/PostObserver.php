@@ -44,7 +44,7 @@ class PostObserver
             if( !$publisher_id)
             $publisher_id=Auth()->User()->id;
             $Post->publisher_type = 3;
-            $Post->publisher_id = ($Post->owner_id) ? $Post->owner_id: $Post->founder_id;
+            $Post->publisher_id =  $publisher_id;
             $Post->end_date = $Post->end_date;
             if( ! $Post->isDirty('appearance_status'))
             $Post->appearance_status = 1;
