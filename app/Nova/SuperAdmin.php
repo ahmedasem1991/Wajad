@@ -113,9 +113,12 @@ class SuperAdmin extends Resource
                 ->placeholder('Select Country')
                 ->options(\App\Country::all()),
 
+            // Number::make('Mobile Number', 'mobile_number')
+            //     ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
+            //     ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
-                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
+            ->creationRules('required')
+            ->updateRules('required'),
 
             Boolean::make('Active','status')
                 ->trueValue(1)
