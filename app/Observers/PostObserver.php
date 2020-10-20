@@ -56,6 +56,7 @@ class PostObserver
     public function saved(Post $Post)
     {
         if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin() ) {
+
             $question= $Post->question_1;
             if($question=='' || $question == null) {
                 $question = null;
@@ -101,7 +102,60 @@ class PostObserver
      */
     public function updated(Post $Post)
     {
-        //
+        
+            if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin() ) {
+    
+                //this for update
+                if($Post->questions)
+                {
+                   
+                    $question= $Post->question_1;
+                    if($question=='' || $question == null) {
+                        $Post->questions->take(1)->delete();
+                    }else {
+                        $question_1 =$Post->questions->first();
+                        $question_1->update([
+                           
+                            'question' => $question,
+                        ]);
+                    }
+
+                    $question= $Post->question_2;
+                    if($question=='' || $question == null) {
+                        $get_question= $Post->questions->skip(1)->take(1)->first();
+                        if($get_question)
+                          $get_question->delete();
+                    }else {
+                        $question_2 =$Post->questions->skip(1)->take(1)->first();
+                       if( $question_2)
+                       {
+                        $question_2->update([
+                           
+                            'question' => $question,
+                        ]);
+                       }
+
+                    }
+
+                    $question= $Post->question_3;
+                    if($question=='' || $question == null) {
+                        $get_question=$Post->questions->skip(2)->take(1)->first();
+                        if($get_question)
+                        $get_question->delete();
+                    }else {
+                        $question_3 =$Post->questions->skip(2)->take(1)->first();
+                       if(  $question_3)
+                       {
+                        $question_3->update([
+                           
+                            'question' => $question,
+                        ]);
+                       }
+
+                    }
+    
+                }
+            }
     }
 
     /**

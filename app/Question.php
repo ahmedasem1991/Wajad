@@ -13,7 +13,7 @@ class Question extends Model
     protected $fillable = ['post_id', 'question', 'founder_id', 'corporate_id'];
 
     protected static $logAttributes = [
-        'post.title', 'question', 'founder.name', 'corporate.name_en'
+        'post.title', 'question'
     ];
     protected static $logOnlyDirty = true;
 
