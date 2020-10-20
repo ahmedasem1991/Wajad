@@ -60,9 +60,9 @@ class PostsController extends Controller
     public function store(Request $request, $type = null)
     {
         abort_unless(in_array($type, self::TYPES), 404);
-        if (defaultGroup()->limitation_of_posts >= auth('api')->user()->posts_number) {
-            throw new ApiException('You have reached the limit!', 400);
-        }
+        // if (defaultGroup()->limitation_of_posts >= auth('api')->user()->posts_number) {
+        //     throw new ApiException('You have reached the limit!', 400);
+        // }
 
         $validate_request = Validator::make($request->all(), [
             'title' => ['required', 'min:6', 'max:128'],
