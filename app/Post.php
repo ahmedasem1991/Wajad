@@ -127,14 +127,14 @@ class Post extends MasterModel
      */
     public function item()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Item::class)->withTrashed();
     }
     /**
      * Define The User was Published The Post with Post
      */
     public function publisher()
     {
-        return $this->belongsTo(User::class, 'publisher_id');
+        return $this->belongsTo(User::class, 'publisher_id')->withTrashed();
     }
 
     /**
@@ -142,14 +142,14 @@ class Post extends MasterModel
      */
     public function founder()
     {
-        return $this->belongsTo(User::class, 'founder_id');
+        return $this->belongsTo(User::class, 'founder_id')->withTrashed();
     }
     /**
      * Define The Owner Of The Item "In Case Of Lost Item"
      */
     public function owner()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class, 'owner_id')->withTrashed();
     }
 
     /**
@@ -164,12 +164,12 @@ class Post extends MasterModel
      */
     public function corporate()
     {
-        return $this->belongsTo(Corporate::class);
+        return $this->belongsTo(Corporate::class)->withTrashed();
     }
 
     public function person()
     {
-        return $this->belongsTo(People::class,'person_id');
+        return $this->belongsTo(People::class,'person_id')->withTrashed();
     }
 
     /**
@@ -185,21 +185,21 @@ class Post extends MasterModel
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Brand::class, 'brand_id')->withTrashed();
     }
     /**
      * Define The Model Of The Post
      */
     public function model()
     {
-        return $this->belongsTo(Model::class, 'model_id');
+        return $this->belongsTo(Model::class, 'model_id')->withTrashed();
     }
     /**
      * Define The Color Of The Post
      */
     public function color()
     {
-        return $this->belongsTo(Color::class, 'color_id');
+        return $this->belongsTo(Color::class, 'color_id')->withTrashed();
     }
 
     /**

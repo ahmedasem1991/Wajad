@@ -113,4 +113,14 @@ class Question extends Resource
     {
         return [];
     }
+
+    public  function authorizedToUpdate(Request $request)
+    {
+        return false;
+    }
+    
+    public  function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
 }
