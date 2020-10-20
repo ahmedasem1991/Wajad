@@ -98,6 +98,6 @@ class Corporate extends Model
     }
     public function country()
     {
-        return $this->belongsTo(Country::class, 'mobile_country_id');
+        return $this->belongsTo(Country::class, 'mobile_country_id')->withTrashed();
     }
 }
