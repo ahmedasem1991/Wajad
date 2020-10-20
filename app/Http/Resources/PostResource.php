@@ -11,7 +11,7 @@ class PostResource extends JsonResource
     {
         if($this->corporate)
         {
-            dd($this->publisher);
+            //dd($this->publisher);
             $this->publisher->name=$this->corporate->{'name_' . app()->getLocale()};
             $this->publisher->mobile_number=$this->corporate->country ? $this->corporate->country->country_code .$this->corporate->mobile_number: '' .$this->corporate->mobile_number;
             session()->put('corporate_publisher','true');
