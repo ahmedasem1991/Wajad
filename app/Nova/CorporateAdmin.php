@@ -103,10 +103,8 @@ class CorporateAdmin extends Resource
 
             Text::make('Email')
                 ->sortable()
-                //->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
-                ->creationRules('required','email')
-                //->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
-                ->updateRules('required','email'),
+                ->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
+                ->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -117,8 +115,10 @@ class CorporateAdmin extends Resource
                 ->placeholder('Select Country')
                 ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
-                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
+                // ->creationRules('required','unique:users,mobile_number,NULL,id,type,2,deleted_at,NULL')
+                // ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,2,deleted_at,NULL'),
+                ->creationRules('required')
+                ->updateRules('required'),
 
             Boolean::make('Active','status')
                 ->trueValue(1)
