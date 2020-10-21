@@ -149,10 +149,10 @@
                     <div >
                         <div class="mt-3" style="display: inline-flex; position: relative; float: right">
                             <a href="#">
-                                <img src="/images/GoogleAppStore.png"  style=" max-width: 250px" alt="">
+                                <img src="/images/GoogleAppStore.png"  style=" max-width: 100%" alt="">
                             </a>
                             <a href="#">
-                                <img src="/images/AppleAppStore.png" style="max-width: 250px"  alt="">
+                                <img src="/images/AppleAppStore.png" style="max-width: 100%"  alt="">
                             </a>
                         </div>
                     </div>
