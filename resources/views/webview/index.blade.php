@@ -32,9 +32,9 @@
                             <!--customer Details start-->
                             <h3 class="font-weight-bold">
                                 <span>Brand: </span></h3>
-                            <h4 class="my-3 ">
+                            <h5 class="my-3 ">
                                 <span >{{$qr_code->item->brand->name_en ?? 'Not Available'}}</span>
-                            </h4><br>
+                            </h5><br>
 
                             <!--customer Details end-->
                         </div>
