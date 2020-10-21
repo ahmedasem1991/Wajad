@@ -144,15 +144,16 @@
                                 <!--customer Details end-->
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="m-3 p-3" style="display: inline-flex; position: relative; bottom: -100%">
-                                <a href="#">
-                                    <img src="/images/google-play-badge.png"  style=" max-width: 250px" alt="">
-                                </a>
-                                <a href="#">
-                                    <img src="/images/Download-on-the-App-Store-01.png" style="max-width: 250px"  alt="">
-                                </a>
-                            </div>
+
+                    </div>
+                    <div >
+                        <div class="mt-3" style="display: inline-flex; position: relative; float: right">
+                            <a href="#">
+                                <img src="/images/GoogleAppStore.png"  style=" max-width: 250px" alt="">
+                            </a>
+                            <a href="#">
+                                <img src="/images/AppleAppStore.png" style="max-width: 250px"  alt="">
+                            </a>
                         </div>
                     </div>
                 </div>

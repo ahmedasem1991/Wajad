@@ -67,9 +67,6 @@ class Color extends Resource
             Text::make('Color Arabic Name', 'name_ar')->creationRules([
                 'required', 'min:2'
             ]),
-            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
-                ->asHtml()->hideFromDetail(),
-            MediaField::make('Icon', 'icon')->rules('required'),
         ];
     }
 

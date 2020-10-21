@@ -12,7 +12,7 @@ return [
   |
   */
 
-  'fixedSidebar' => true,
+  'fixedSidebar' => false,
 
   /*
   |--------------------------------------------------------------------------
@@ -24,6 +24,6 @@ return [
   |
   */
 
-  'fixedNavbar' => true,
+  'fixedNavbar' => false,
 
 ];
