@@ -622,3 +622,94 @@ Route::get('/paytabs_response', function(){
     dd( $result);
     return $result->result;
 });
+
+
+
+
+
+Route::get('/test-qrcodes', function(){
+
+ 
+
+    
+    $url = "https://rapidapi.p.rapidapi.com/qr/custom";
+     
+    $Data= '{
+        "data": "https://atcorp.sa",
+        "config": {
+            "body": "circle-zebra-vertical",
+            "eye": "frame13",
+            "eyeBall": "ball15",
+            "erf1": [],
+            "erf2": [],
+            "erf3": [],
+            "brf1": [],
+            "brf2": [],
+            "brf3": [],
+            "bodyColor": "#0277BD",
+            "bgColor": "#FFFFFF",
+            "eye1Color": "#075685",
+            "eye2Color": "#075685",
+            "eye3Color": "#075685",
+            "eyeBall1Color": "#0277BD",
+            "eyeBall2Color": "#0277BD",
+            "eyeBall3Color": "#0277BD",
+            "gradientColor1": "#075685",
+            "gradientColor2": "#0277BD",
+            "gradientType": "linear",
+            "gradientOnEyes": false,
+            "logo": "#facebook"
+        },
+        "size": 600,
+        "download": true,
+        "file": "png"
+    }';
+     
+
+       $data = json_encode($Data);
+
+  $client = new \GuzzleHttp\Client([
+      'headers' => [
+        'content-type' => 'application/json',
+        'x-rapidapi-host' => 'qrcode-monkey.p.rapidapi.com',
+        'x-rapidapi-key' => 'a234aa0e2bmsh691d9755ff431d4p1d4528jsnde5abe068474'
+      ]
+  ]);
+  $response = $client->post($url,
+          ['body' => $data]
+  );
+  $response = json_decode($response->getBody(), true);
+
+return $response;
+    
+    //$request = new http\Client\Request;
+    
+    //$body = new http\Message\Body;
+     
+ 
+    
+  
+ });
+ 
+ Route::get('/test-free-qrcodes', function(){
+
+    $ImageName= time().Str::random(20).'.png';
+   $q= \QrCode::
+    //gradient(10,20,30,40,50,60,'radial')
+  eye('circle')
+  ->color(55,126, 154)
+  ->eyeColor(0, 0,0, 0, 6,120, 160) 
+  ->eyeColor( 1,0,0, 0, 6,120, 160)  
+  ->eyeColor( 2,0,0, 0, 6,120, 160) 
+    ->style('round',0.5)
+    
+    ->format('png')
+    ->merge(public_path('/images/wajad1.png'), 0.2, true)
+    ->size(2000)
+    ->generate(env('API_URL').'/api/scan-qr-code/'.$ImageName,
+    public_path('images/qrcodes2/'.$ImageName))
+   ;
+   
+   return '<br> <br> <center><img src="'.env('API_URL').'/images/qrcodes2/'.$ImageName.'" height="600" width="600"></center>';
+ });
+

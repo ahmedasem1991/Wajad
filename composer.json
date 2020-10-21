@@ -58,7 +58,7 @@
         "pusher/pusher-http-laravel": "^4.2",
         "razorcreations/ajax-field": "^0.3.5",
         "silvanite/novafieldcheckboxes": "^1.2",
-        "simplesoftwareio/simple-qrcode": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.1",
         "sloveniangooner/searchable-select": "^1.3",
         "smartappco/google-maps": "*",
         "socialiteproviders/apple": "^3.0",
