@@ -111,7 +111,7 @@
                                     class="font-weight-bold">Contact #: </h3>
                                 <h5 class="my-3 ">
 {{--                                    <a href="tel:{{$qr_code->item->owner ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : ''}}">--}}
-                                        <span>{{$qr_code->item->owner ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : 'Not Available'}}</span>
+                                        <span>{{!empty($qr_code->item->owner) ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : 'Not Available'}}</span>
 {{--                                    </a>--}}
                                 </h5><br>
                                 <!--customer Details end-->
@@ -121,7 +121,7 @@
                                 <h3
                                     class="font-weight-bold">Date: </h3>
                                 <h5 class="my-3 ">
-                                    <span >{{$qr_code->item->created_at->format('d F Y')}}</span>
+                                    <span >{{!empty($qr_code->item) ? $qr_code->item->created_at->format('d F Y') : 'Not Available'}}</span>
                                 </h5><br>
                                 <!--customer Details end-->
                             </div>
