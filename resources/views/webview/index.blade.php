@@ -19,7 +19,7 @@
     <img src="/images/wajad_logo.png" class="logo">
 </div>
 <div class="container-fluid" style="background-color: #ffffff;">
-    <div class="service-40 wrap-feature40-box p-3">
+    <div class="service-40 wrap-feature40-box p-4">
         <div class="row">
             <div class="col-lg-6">
                 <div class="card border-0 mb-4">
@@ -70,7 +70,7 @@
                                     @if($qr_code->item)
                                         @foreach($qr_code->item->images as $image)
                                             <img src="{{$image}}" alt="wrapkit" class="img img-fluid rounded my-3 mr-3"
-                                                 style="max-width: 390px;
+                                                 style="max-width: 47%;
                                             object-fit: cover;" />
                                         @endforeach
                                     @endif
@@ -101,7 +101,7 @@
                                 <h3
                                     class="font-weight-bold">Item Owner: </h3>
                                 <h5 class="my-3 ">
-                                    <span >{{$qr_code->user->name ?? 'Not Available'}}</span>
+                                    <span >{{$qr_code->item->owner->name ?? 'Not Available'}}</span>
                                 </h5><br>
                                 <!--customer Details end-->
                             </div>
@@ -110,7 +110,9 @@
                                 <h3
                                     class="font-weight-bold">Contact #: </h3>
                                 <h5 class="my-3 ">
-                                    <span >{{$qr_code->user ? $qr_code->user->country->country_code . $qr_code->user->mobile_number : 'Not Available'}}</span>
+{{--                                    <a href="tel:{{$qr_code->item->owner ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : ''}}">--}}
+                                        <span>{{$qr_code->item->owner ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : 'Not Available'}}</span>
+{{--                                    </a>--}}
                                 </h5><br>
                                 <!--customer Details end-->
                             </div>
@@ -148,7 +150,7 @@
                                     <img src="/images/google-play-badge.png"  style=" max-width: 250px" alt="">
                                 </a>
                                 <a href="#">
-                                    <img src="/images/Download-On-The-App-Store-PNG-Image.png" style="max-width: 250px"  alt="">
+                                    <img src="/images/Download-on-the-App-Store-01.png" style="max-width: 250px"  alt="">
                                 </a>
                             </div>
                         </div>

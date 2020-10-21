@@ -110,7 +110,10 @@ html {
     border: 0;
 }
 .bodies{
-    border: 1px solid;
+    border: 2px solid;
     border-radius: 10px;
     border-color: #b7b7b7;
+}
+.store-icon{
+    clip-path: polygon(50% 0%, 100% 45%, 50% 100%, 0 50%);
 }
