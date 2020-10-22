@@ -704,7 +704,7 @@ return $response;
     ->style('dot',0.9)
     
     ->format('png')
-    ->merge(public_path('/images/wajad1.png'), 0.2, true)
+    ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
     ->size(2000)
     ->generate(env('API_URL').'/api/scan-qr-code/'.$ImageName,
     public_path('images/qrcodes2/'.$ImageName))
