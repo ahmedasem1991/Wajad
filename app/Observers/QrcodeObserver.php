@@ -10,12 +10,12 @@ class QrcodeObserver
     {
         if( $qrcode->status==6)
         {
-            if( \Carbon\Carbon::now() < $qrcode->end_at ){
+            //if( \Carbon\Carbon::now() < $qrcode->end_at ){
                 if($qrcode->user_id !=NULL)
                 $qrcode->status=2;
                 else
                 $qrcode->status=3;
-            }
+            //}
         }
 
 
