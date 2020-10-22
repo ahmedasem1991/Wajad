@@ -694,14 +694,15 @@ return $response;
  Route::get('/test-free-qrcodes', function(){
 
     $ImageName= time().Str::random(20).'.png';
-//    $q= \QrCode::
+   $q= \QrCode::
     //gradient(10,20,30,40,50,60,'radial')
-  //eye('circle')
-  //->color(55,126, 154)
+  eye('square')
+  ->color(0,0, 0)
 //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
 //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
 //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
-$q= \QrCode::style('round',0.5)
+    ->style('dot',0.9)
+    
     ->format('png')
     ->merge(public_path('/images/wajad1.png'), 0.2, true)
     ->size(2000)
