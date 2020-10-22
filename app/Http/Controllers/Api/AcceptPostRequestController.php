@@ -32,7 +32,7 @@ class AcceptPostRequestController extends Controller
     public function  __invoke(Request $request, Post $post)
     {
         $validate_request = Validator::make($request->all(), [
-            'user_id' => ['required', 'int', 'exists:users,id'],
+            'user_id' => ['required', 'exists:users,id'],
         ]);
 
         if ($validate_request->fails()) {
