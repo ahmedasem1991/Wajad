@@ -72,7 +72,12 @@ class CorporatePolicy
      */
     public function update(User $user, Corporate $corporate)
     {
-        return true;
+        if(Auth()->User()->isCorporateAdmin()){
+            return false;
+             }
+             else{
+                 return true;
+             }
     }
 
     /**

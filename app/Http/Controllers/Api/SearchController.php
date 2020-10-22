@@ -102,14 +102,15 @@ class SearchController extends Controller
         }
 
         $posts = Post::isApproved()->isShow()->isOpen()
-            ->where('title', 'like', "%$keywords%")
-            ->orWhere('description', 'like', "%$keywords%")
-            ->orWhereHas('item', function ($query) use ($keywords) {
-                return $query->orWhere([
-                    ['title', 'like', "%$keywords%"],
-                    ['details', 'like', "%$keywords%"]
-                ]);
-            })->get();
+            ->where('title', 'LIKE', $keywords)
+            ->orWhere('description', 'LIKE', $keywords)
+            // ->orWhereHas('item', function ($query) use ($keywords) {
+            //     return $query->orWhere([
+            //         ['title', 'like', "%$keywords%"],
+            //         ['details', 'like', "%$keywords%"]
+            //     ]);
+            // })
+            ->get();
 
         return PostResource::collection($posts);
     }
