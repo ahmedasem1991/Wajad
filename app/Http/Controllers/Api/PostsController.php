@@ -619,7 +619,7 @@ class PostsController extends Controller
     }
 
 
-    public function  testAccept(Request $request, Post $post)
+    public function  AcceptRequest(Request $request, Post $post)
     {
          
         $validate_request = Validator::make($request->all(), [
