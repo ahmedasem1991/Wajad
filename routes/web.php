@@ -696,13 +696,12 @@ return $response;
     $ImageName= time().Str::random(20).'.png';
    $q= \QrCode::
     //gradient(10,20,30,40,50,60,'radial')
-  eye('circle')
-  ->color(55,126, 154)
-  ->eyeColor(0, 0,0, 0, 6,120, 160) 
-  ->eyeColor( 1,0,0, 0, 6,120, 160)  
-  ->eyeColor( 2,0,0, 0, 6,120, 160) 
-    ->style('round',0.5)
-    
+  //eye('circle')
+  //->color(55,126, 154)
+//   ->eyeColor(0, 0,0, 0, 6,120, 160) 
+//   ->eyeColor( 1,0,0, 0, 6,120, 160)  
+//   ->eyeColor( 2,0,0, 0, 6,120, 160) 
+    style('round',0.5)
     ->format('png')
     ->merge(public_path('/images/wajad1.png'), 0.2, true)
     ->size(2000)
