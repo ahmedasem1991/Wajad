@@ -697,7 +697,7 @@ return $response;
    $q= \QrCode::
     //gradient(10,20,30,40,50,60,'radial')
   eye('square')
- -> color(1,55, 44)
+ -> color(1,0, 0)
 //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
 //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
 //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
