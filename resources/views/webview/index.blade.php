@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<div >
+<div class="col-md-3 col-sm-3 m-3 p-3">
     <img src="/images/wajad_logo.png" class="logo">
 </div>
 <div class="container-fluid" style="background-color: #ffffff;">
