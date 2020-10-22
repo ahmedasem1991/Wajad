@@ -8,12 +8,16 @@ class QrcodeObserver
 {
     public function saving(Qrcode $qrcode)
     {
-        if($qrcode->end_at > \Carbon\Carbon::now()){
-            if($qrcode->user_id !=NULL)
-            $qrcode->status=2;
-            else
-            $qrcode->status=3;
+        if( $qrcode->status==6)
+        {
+            if( \Carbon\Carbon::now() < $qrcode->end_at ){
+                if($qrcode->user_id !=NULL)
+                $qrcode->status=2;
+                else
+                $qrcode->status=3;
+            }
         }
+
 
  
     }
