@@ -701,7 +701,7 @@ return $response;
 //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
 //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
 //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
-    ->style('dot',0.5)
+    ->style('dot',0.9)
     
     ->format('png')
     ->merge(public_path('/images/wajad1.png'), 0.2, true)
