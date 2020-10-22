@@ -622,6 +622,7 @@ class PostsController extends Controller
     public function  AcceptRequest(Request $request, Post $post)
     {
          
+        dd($request);
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required','exists:users,id'],
         ]);
