@@ -61,6 +61,7 @@ class GenerateQrcodeJob implements ShouldQueue
             //gradient(10,20,30,40,50,60,'radial')
             eye('square')
             ->color(1, 0, 0)
+            ->margin(3)
             //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
             //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
             //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
