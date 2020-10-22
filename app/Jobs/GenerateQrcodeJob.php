@@ -50,12 +50,28 @@ class GenerateQrcodeJob implements ShouldQueue
         for ($x = 1; $x <= (int)$this->quantity; $x++) {
            $ImageName= time().Str::random(20).'.png';
            $Url=$this->id.time().Str::random(20);
-            \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
+
+            // \QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
+            // ->format('png')
+            // ->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.2, true)
+            // ->size(2000)
+            // ->generate(env('API_URL').'/api/scan-qr-code/'.$Url,
+            // public_path('images/qrcodes/'.$ImageName));
+            \QrCode::
+            //gradient(10,20,30,40,50,60,'radial')
+            eye('square')
+            ->color(1, 0, 0)
+            //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
+            //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
+            //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
+  
             ->format('png')
-            ->merge(public_path('/images/'.env('QRCODE_LOGO','logo.png')), 0.2, true)
+            ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
+            ->style('dot', 0.9)
             ->size(2000)
-            ->generate(env('API_URL').'/api/scan-qr-code/'.$Url,
-            public_path('images/qrcodes/'.$ImageName));
+           ->generate(env('API_URL').'/scan-qr-code/'.$Url,
+           public_path('images/qrcodes/'.$ImageName));
+
             Qrcode::create([
             'unique_reference_number'=>'QR-' . $middle . Carbon::now()->second  .'-'.Str::random(5),
              'generate_reference_number'=>$this->generate_reference_number,
