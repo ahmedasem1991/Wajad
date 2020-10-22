@@ -617,4 +617,35 @@ class PostsController extends Controller
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
     }
+
+
+    public function  testAccept(Request $request, Post $post)
+    {
+         
+        $validate_request = Validator::make($request->all(), [
+            'user_id' => ['required','exists:users,id'],
+        ]);
+
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
+        if ($post->publisher_id !== auth('api')->user()->id) {
+            throw new ApiException(trans('auth.not_authorized'), 400);
+        }
+
+        $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
+        $postRequest->update(['is_request_valid' => true, 'comment' => $request->input('comment')]);
+        $post->update(['owner_id' => $request->user_id]);
+
+        $request_user=User::find($request->user_id);
+        //send FCM
+        $badge =getBadge($request_user);
+        $data=sendAcceptPostRequestFCM($post->founder,$post,$badge,$postRequest->id);
+        $request_user->notify(new SendFCMNotification($request_user,$data));
+
+        $this->addResponse(trans('messages.accepted', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
+
+        return $this->response();
+    }
 }
