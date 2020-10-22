@@ -70,6 +70,52 @@ class Activity extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('properties')
+                ->displayUsing(function ($model){
+                    $arr = [];
+                    if (!empty($model['old'])){
+                        foreach ($model['old'] as $key => $item) {
+                            $index = explode('.', $key);
+                            $i = $index[0];
+                            if (is_array($item)){
+                                $item = implode('<br>', $item);
+                            }
+                            $arr[$i]['old'] = $item;
+                        }
+                    }
+                    if (!empty($model['attributes']))
+                    {
+                        foreach ($model['attributes'] as $key => $item){
+                            $index = explode('.', $key);
+                            $i = $index[0];
+                            if (is_array($item)){
+                                $item = implode('<br>', $item);
+                            }
+                            $arr[$i]['new'] = $item;
+                        }
+                    }
+                    $output = <<<html
+<table>
+<tr>
+<th>Properties</th>
+<th>Old</th>
+<th>New</th>
+</tr>
+html;
+                    foreach ($arr as $key => $val){
+                        $output .= '<tr>';
+                        $output .= "<td>$key</td>";
+                        $output .= '<td style="color: red">';
+                        $output .= $val['old'] ?? '' ;
+                        $output .= '</td>';
+                        $output .= '<td style="color: green">';
+                        $output .= $val['new'] ?? '' ;
+                        $output .= '</td>';
+                        $output .= '</tr>';
+                    }
+                    $output .= '</table>';
+                    return $output;
+                })->asHtml(),
             Text::make('DESCRIPTION'),
             Text::make('SUBJECT ID'),
             Text::make('SUBJECT TYPE'),

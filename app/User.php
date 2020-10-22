@@ -42,7 +42,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected static $logAttributes = [
         'name',
         'email',
-        'password',
         'type',
         'status',
         'mobile_number',
