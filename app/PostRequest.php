@@ -17,7 +17,7 @@ class PostRequest extends Model
     protected $fillable = ['user_id', 'post_id', 'is_request_valid', 'rejected_at', 'comment'];
 
     protected static $logAttributes = [
-        'user.name', 'post.title', 'is_request_valid', 'rejected_at', 'comment'
+        'post.title', 'is_request_valid', 'rejected_at', 'comment'
     ];
     protected static $logOnlyDirty = true;
 
