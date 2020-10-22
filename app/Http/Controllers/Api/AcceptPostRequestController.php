@@ -32,14 +32,14 @@ class AcceptPostRequestController extends Controller
     public function  __invoke(Request $request, Post $post)
     {
         //return $request->user_id;
-        $validate_request = Validator::make($request->all(), [
-           // 'user_id' => ['required','exists:users,id'],
-            'user_id' => ['required']
-        ]);
+        // $validate_request = Validator::make($request->all(), [
+        //    // 'user_id' => ['required','exists:users,id'],
+        //     'user_id' => ['required']
+        // ]);
 
-        if ($validate_request->fails()) {
-            throw new ApiException($validate_request->errors()->first(), 400);
-        }
+        // if ($validate_request->fails()) {
+        //     throw new ApiException($validate_request->errors()->first(), 400);
+        // }
 
         if ($post->publisher_id !== auth('api')->user()->id) {
             throw new ApiException(trans('auth.not_authorized'), 400);
