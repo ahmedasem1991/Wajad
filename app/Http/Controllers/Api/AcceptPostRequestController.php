@@ -29,9 +29,9 @@ class AcceptPostRequestController extends Controller
      *}
      * @return void
      */
-    public function  testAccept(Request $request, Post $post)
+    public function  __invoke(Request $request, Post $post)
     {
-         
+       // dd($request);
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required','exists:users,id'],
         ]);
