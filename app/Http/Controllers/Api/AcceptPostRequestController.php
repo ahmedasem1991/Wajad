@@ -44,9 +44,10 @@ class AcceptPostRequestController extends Controller
         if ($post->publisher_id != auth('api')->user()->id) {
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        dd($post);
+       
 
         $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
+        dd($postRequest);
         $postRequest->update(['is_request_valid' => true, 'comment' => $request->input('comment')]);
         $post->update(['owner_id' => $request->user_id]);
 
