@@ -23,6 +23,8 @@ class CreateCorporateAssignQrcodesTable extends Migration
             $table->integer('quantity')->default(1);
             $table->integer('created_by')->unsigned()->nullable();
             $table->string('created_from')->default('web');
+            $table->string('search')->nullable();
+            $table->string('search_user')->nullable();
             $table->string('status')->default('waiting');//finished
 
            $table->softDeletes();
