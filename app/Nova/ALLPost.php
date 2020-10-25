@@ -269,24 +269,6 @@ class AllPost extends Resource
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-                Text::make('Question 1', 'question_1')
-                    ->creationRules('required_if:status,1')
-                    ->hideWhenUpdating()
-                    ->hideFromDetail()
-                    ->hideFromIndex(),
-
-                Text::make('Question 2', 'question_2')
-                    //->creationRules('required_if:status,1')
-                    ->hideWhenUpdating()
-                    ->hideFromDetail()
-                    ->hideFromIndex(),
-
-                Text::make('Question 3', 'question_3')
-                    //->creationRules('required_if:status,1')
-                    ->hideWhenUpdating()
-                    ->hideFromDetail()
-                    ->hideFromIndex(),
-                MediaField::make('Item Image', 'images')->listing(),
             ])->dependsOn('status', 1),
 
             NovaDependencyContainer::make([
