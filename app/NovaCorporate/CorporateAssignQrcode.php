@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use NovaAjaxSelect\AjaxSelect;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Status;
@@ -21,6 +22,7 @@ use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
 use Razorcreations\AjaxField\AjaxField;
+use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
@@ -99,11 +101,26 @@ class CorporateAssignQrcode extends Resource
 	
                 // Create ajax field, with parent method 
                 //AjaxField::make('Bar')->setUrl('/api/ajaxselect/foo')->parent('foo'),
-                AjaxField::make('User','user_id')->setUrl('/smart-search')->setValueKey('id')->setLabelKey('name')
-                ->responsive()
+                // AjaxField::make('User','user_id')->setUrl('/smart-search')->setValueKey('id')->setLabelKey('name')
+                // ->responsive()
+                // ->hideWhenUpdating()
+                // ->hideFromDetail()
+                // ->hideFromIndex(),
+
+                Text::make('Search by email or phone', 'search')
                 ->hideWhenUpdating()
+                ->hideFromIndex()
                 ->hideFromDetail()
-                ->hideFromIndex(),
+                ->withMeta(['ignoreOnSaving']), 
+
+                AjaxSelect::make('Search User')
+                ->get('/smart-search/{search}')
+                ->parent('search')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->withMeta(['ignoreOnSaving']),
+               // SelectPlus::make('qrcodes', 'qrcodes'),
 
             // Select2::make('User','user_id')
             //     ->sortable()
@@ -121,11 +138,17 @@ class CorporateAssignQrcode extends Resource
             BelongsTo::make('User')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            RadioButton::make('Type')
+            RadioButton::make('Type','type')
                 ->options([
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
                 ]),
+                // ->rules('required', function($attribute, $value, $fail) {
+                //     logger($value);
+                //     if ( $value !=1 || $value !=2) {
+                //         return $fail('The '.$attribute.' field is required.');
+                //     }
+                // }),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
                     ->asHtml()->hideFromDetail(),

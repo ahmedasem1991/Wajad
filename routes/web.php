@@ -82,20 +82,27 @@ Route::get('ar_receipt', 'PDFController@arReceipt');
 Route::get('qrcodepdf', 'PDFController@qrcodepdf');
 Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
-Route::get('/smart-search', function (Request $request) {
+Route::get('/smart-search/{search}', function ($search) {
     //sleep(5);
     $array=[];
-    $user=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ; 
+    $user=  User::where('email',$search)->orWhere('mobile_number',$search)->first()  ; 
 
     if( $user)
     { 
-      $array[0]['value']= $user->id;
-      $array[0]['label']= request('search') .'('.$user->name .')' ;
+    //   $array[0]['value']= 0;
+    //   $array[0]['display']= 'Select' ;
+      $array[1]['value']= $user->id;
+      $array[1]['display']= request('search') .'('.$user->name .')' ;
       session()->put('smart_user_id',$user->id);
       return  json_encode( $array);
     }
    else
-   return 0;
+   {
+       return 0;
+    // $array[0]['value']= 0;
+    // $array[0]['display']= 'Select' ;
+    // return  json_encode( $array);
+   }
   });
  
 

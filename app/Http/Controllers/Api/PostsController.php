@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendFCMNotification;
+use App\PostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 
 /**
@@ -635,7 +636,7 @@ class PostsController extends Controller
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 
-        $postRequest = PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
+        $postRequest = \App\PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
         $postRequest->update(['is_request_valid' => true, 'comment' => $request->input('comment')]);
         $post->update(['owner_id' => $request->user_id]);
 
