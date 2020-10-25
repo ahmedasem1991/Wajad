@@ -118,7 +118,8 @@ class CorporateAssignQrcode extends Resource
                 ->hideWhenUpdating()
                 ->hideFromIndex()
                 ->hideFromDetail()
-                ->withMeta(['ignoreOnSaving']),
+                ->withMeta(['ignoreOnSaving'])
+                ->rules('required'),
                // SelectPlus::make('qrcodes', 'qrcodes'),
 
             // Select2::make('User','user_id')
