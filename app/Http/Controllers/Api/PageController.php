@@ -24,6 +24,7 @@ class PageController extends Controller
         'about-us',
         'contact-us',
         'privacy-policy',
+        'terms',
         // 'facebook-link',
         // 'twitter-link',
     ];
@@ -31,7 +32,7 @@ class PageController extends Controller
 
     /**
      * Pages
-     * @urlParam type required about-us or contact-us or privacy-policy
+     * @urlParam type required about-us or contact-us or privacy-policy or terms
      * @response
      * {
      * "data": {
@@ -49,6 +50,7 @@ class PageController extends Controller
      * @urlParam contact-us required
      * @urlParam about-us required
      * @urlParam privacy-policy required
+     * @urlParam terms required
      * @response
      * {
      * "data contact-us": {
@@ -82,14 +84,19 @@ class PageController extends Controller
         }
         if($page=='about-us')
         {
-           
+
             return new PageResource(Page::where('key','about_us')->first());
         }
 
         if($page=='privacy-policy')
         {
-           
+
             return new PageResource(Page::where('key','privacy-policy')->first());
+        }
+        if($page=='terms')
+        {
+
+            return new PageResource(Page::where('key','terms')->first());
         }
 
         return new PageResource(Page::whereKey($page)->first());
