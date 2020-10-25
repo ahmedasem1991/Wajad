@@ -214,7 +214,7 @@ class AllPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person 1', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
@@ -254,7 +254,7 @@ class AllPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person 2', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
@@ -307,7 +307,7 @@ class AllPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person 3', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
@@ -352,7 +352,7 @@ class AllPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person 4', 'person', 'App\Nova\People')
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),

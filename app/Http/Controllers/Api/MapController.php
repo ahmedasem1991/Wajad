@@ -51,8 +51,10 @@ class MapController extends Controller
     public function __invoke(Request $request, $type = null)
     {
         $validate_request = Validator::make($request->all(), [
-            'longitude' => ['required', 'regex:/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,9})?))$/'],
-            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            // 'longitude' => ['required', 'regex:/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,9})?))$/'],
+            // 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required'],
+            'latitude' => ['required'],
             'radius' => ['required', 'integer'],
             'unit' => ['required', 'in:kilo,mile']
         ]);
