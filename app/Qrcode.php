@@ -185,8 +185,8 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->update([
             'item_id' => $item_id,
-            'status' => 5,
-           // 'status' => self::STATUS['Re-Registered'],
+            //'status' => 5,
+            'status' => self::STATUS['Re-Registered'],
         ]);
     }
 
@@ -194,8 +194,8 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->update([
             'item_id' => $item_id,
-            //'status' => self::STATUS['Registered'],
-            'status' => 4,
+            'status' => self::STATUS['Registered'],
+            //'status' => 4,
             'start_at' => Carbon::now()->toDateTimeString(),
             'end_at' => Carbon::now()->addDays($this->available_period),
         ]);

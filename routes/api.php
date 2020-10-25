@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/create', 'FcmController@store');
             Route::delete('/delete', 'FcmController@destroy');
             });
-
+           // Route::post('request/{post}/accept', 'PostsController@testAccept');
     Route::middleware('phone_verified')->group(function () {
         Route::prefix('request')->group(function () {
 
@@ -52,10 +52,10 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/post/{post}', 'PostRequestController');
 
             //accept this request send fcm
-            Route::post('/{post}/accept', 'AcceptPostRequestController');
+            Route::post('/{post}/accept', 'PostsController@AcceptRequest');
 
              //reject this request send fcm
-            Route::post('/{post}/reject', 'RejectPostRequestController');
+            Route::post('/{post}/reject', 'RejectPostRequestController@rejectRequest');
         });
 
          //report  this post send fcm
