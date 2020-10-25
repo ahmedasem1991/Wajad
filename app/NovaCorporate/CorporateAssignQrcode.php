@@ -110,10 +110,9 @@ class CorporateAssignQrcode extends Resource
                 Text::make('Search by email or phone', 'search')
                 ->hideWhenUpdating()
                 ->hideFromIndex()
-                ->hideFromDetail()
-                ->withMeta(['ignoreOnSaving']), 
+                ->hideFromDetail(), 
 
-                AjaxSelect::make('Search User')
+                AjaxSelect::make('Search User','search_user')
                 ->get('/smart-search/{search}')
                 ->parent('search')
                 ->hideWhenUpdating()
@@ -142,13 +141,14 @@ class CorporateAssignQrcode extends Resource
                 ->options([
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
-                ]),
-                // ->rules('required', function($attribute, $value, $fail) {
-                //     logger($value);
-                //     if ( $value !=1 || $value !=2) {
-                //         return $fail('The '.$attribute.' field is required.');
-                //     }
-                // }),
+                 ])
+                //->rules('required'),
+                ->rules('required', function($attribute, $value, $fail) {
+                    logger($value);
+                    if ( $value >2 || $value <1) {
+                        return $fail('The '.$attribute.' field is required.');
+                    }
+                }),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
                     ->asHtml()->hideFromDetail(),

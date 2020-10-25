@@ -24,7 +24,7 @@ class CorporateQrcodeAssignObserver
     {
          
        $user_id= session()->get('smart_user_id');
-       session()->forget('smart_user_id');
+       //session()->forget('smart_user_id');
          $now = Carbon::now();
          $pre='C-';
          $assignQrcode->corporate_assign_reference_number=$pre.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second; 
