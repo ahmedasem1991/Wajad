@@ -8,12 +8,15 @@ use App\Qrcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @group QR Codes
+ */
 class QrcodeController extends Controller
 {
     /**
      * Rename QR Code
-     * @bodyParam qrcode_url required string exists in qrcodes
-     * @bodyParam name required string
+     * @bodyParam qrcode_url string required exists in qrcodes
+     * @bodyParam name string required
      * @response
      * {
      * "success": true,
@@ -46,7 +49,7 @@ class QrcodeController extends Controller
     }
     /**
      * Assign QR Code To Me
-     * @bodyParam qrcode_url required string exists in qrcodes
+     * @bodyParam qrcode_url string required exists in qrcodes
      * @response
      * {
      * "success": true,
