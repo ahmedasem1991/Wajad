@@ -14,6 +14,7 @@ class MapResource extends JsonResource
      */
     public function toArray($request)
     {
+        $image=$this->images[0] ? $this->images[0] :'';
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()} ?? $this->title,
@@ -21,7 +22,7 @@ class MapResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             // 'image' => (string) env("APP_URL") . "/" . $this->images ?? (string) $this->images()->first('image')['image'] ?? '',
-            'image' => (string) env("APP_URL") . "/" .$this->images[0] ? $this->images[0] :'',
+            'image' => (string) env("APP_URL") . "/" . $image,
           
             'address' => $this->address ?? ''
         ];
