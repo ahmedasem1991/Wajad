@@ -142,13 +142,13 @@
             بالمواصفات التالية :
             {{GoogleTranslate::trans($post->description, 'ar') ?? ".................."}} <br> <br>
             من فئة
-            {{$post->subcategory->name_ar}}
+            @if($post->subcategory){{$post->subcategory->name_ar}}@endif
             ماركة
-            {{$post->brand->name_ar}}
+            @if($post->brand)   {{$post->brand->name_ar}}@endif
             موديل
-            {{$post->model->name_ar}}
+            @if($post->model)  {{$post->model->name_ar}}@endif
             لون
-            {{$post->color->name_ar}}
+            @if($post->color)   {{$post->color->name_ar}}@endif
         </p>
         @if(!empty($post->item->images))
             <img src="{{$post->item->images[0]}}" alt="" style="max-width: 250px">
