@@ -132,13 +132,13 @@
             With the following specifications :
             {{GoogleTranslate::trans($post->description ?? "..................",'en') }} <br> <br>
             Of subcategory
-            {{$post->subcategory->name_en}}
+        @if($post->subcategory)    {{$post->subcategory->name_en}} @endif
             Brand
-            {{$post->brand->name_en}}
+            @if($post->brand)        {{$post->brand->name_en}}@endif
             Model
-            {{$post->model->name_en}}
+            @if($post->model)       {{$post->model->name_en}}@endif
             Color
-            {{$post->color->name_en}}
+            @if($post->color)      {{$post->color->name_en}}@endif
         </p>
         @if(!empty($post->item->images))
             <img src="{{public_path($post->item->images[0])}}" alt="" style="max-width: 250px">
