@@ -18,6 +18,7 @@ return [
 	'scan_qrcode' =>  'There Some One Scanned Your QR Code.',
 	'scan_qrcode2' =>  'Open his location on the map',
 	'renamed' =>  'QR Code Renamed Successfully',
+	'assigned' =>  'QR Code Assigned Successfully',
 
 
 	'attributes' => [

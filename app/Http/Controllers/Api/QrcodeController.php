@@ -20,7 +20,7 @@ class QrcodeController extends Controller
      * "message": "QR Code Renamed Successfully",
      * "status_code": 200
      *}
-     * @return void
+     * @return object
      */
     public function rename(Request $request)
     {
@@ -42,6 +42,39 @@ class QrcodeController extends Controller
         $qrcode->name = $request->input('name');
         $qrcode->save();
         $this->addResponse(trans('messages.renamed'))->addStatusCode(201);
+        return $this->response();
+    }
+    /**
+     * Assign QR Code To Me
+     * @bodyParam qrcode_url required string exists in qrcodes
+     * @response
+     * {
+     * "success": true,
+     * "message": "QR Code Assigned Successfully",
+     * "status_code": 200
+     *}
+     * @return object
+     */
+    public function assignToMe(Request $request)
+    {
+        $validate_request = Validator::make($request->all(), [
+            'qrcode_url' => ['required'],
+        ]);
+
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
+        $qrcode = Qrcode::where('qrcode_url', $request->input('qrcode_url'))->first();
+
+        if (is_null($qrcode) || in_array($qrcode->status, [2, 4, 5, 6]) || $qrcode->user_id !==null ){
+            throw new ApiException('QR Code Not Found', 400);
+        }
+
+        $qrcode->user_id = auth('api')->user()->id;
+        $qrcode->status = 2;
+        $qrcode->save();
+        $this->addResponse(trans('messages.assigned'))->addStatusCode(201);
         return $this->response();
     }
 }
