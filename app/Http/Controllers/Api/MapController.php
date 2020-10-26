@@ -23,7 +23,8 @@ class MapController extends Controller
     const TYPES = [
         'lost',
         'found',
-        'office'
+        'office',
+        'all'
     ];
     /**
      * Map
@@ -67,6 +68,16 @@ class MapController extends Controller
             return $this->$type($request);
         }
         throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 404);
+    }
+
+    private function all(Request $request)
+    {
+        $all = Post::isShow()->get();
+        $items = $this->getItemsBasedOnLocation($request, $all);
+        $office = Corporate::active()->get();
+        $office = $this->getItemsBasedOnLocation($request, $office);
+        $data = $items->merge($office);
+        return MapResource::collection($data);
     }
 
     private function lost(Request $request)

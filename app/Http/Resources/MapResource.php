@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Corporate;
+use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MapResource extends JsonResource
@@ -14,16 +16,25 @@ class MapResource extends JsonResource
      */
     public function toArray($request)
     {
-        $image=$this->images[0] ? $this->images[0] :'';
+        $image='';
+        $type = '';
+        if ($this->resource instanceof Post){
+            $type = Post::Status[$this->status];
+            $image = $this->images[0];
+        }
+        if ($this->resource instanceof Corporate){
+            $type = 'office';
+            $image= $this->image;
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()} ?? $this->title,
             'details' => $this->{'details_' . app()->getLocale()} ?? $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            // 'image' => (string) env("APP_URL") . "/" . $this->images ?? (string) $this->images()->first('image')['image'] ?? '',
             'image' => (string) env("APP_URL") . "/" . $image,
-          
+            'type' => $type,
             'address' => $this->address ?? ''
         ];
     }
