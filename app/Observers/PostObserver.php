@@ -3,13 +3,14 @@
 namespace App\Observers;
 
 use App\Post;
+use App\People;
+use App\Question;
 use Carbon\Carbon;
 use App\AssignQrcode;
 use App\GenerateQrcode;
 use Illuminate\Support\Str;
 use App\Jobs\AssignQrcodeJob;
 use App\Jobs\GenerateQrcodeJob;
-use App\Question;
 use Illuminate\Support\Facades\Log;
 
 class PostObserver
@@ -53,6 +54,50 @@ class PostObserver
             if (!$Post->isDirty('approval_status'))
                 $Post->approval_status = 1;
         }
+
+        if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin()) {
+        $person=new People();
+         if($Post->owner_name !='' || $Post->owner_name != NULL)
+         {
+            
+            
+             $person->name=$Post->owner_name;
+             $person->email=$Post->owner_email;
+             $person->mobile_number=$Post->owner_mobile_number;
+             $person->address=$Post->owner_address;
+             $person->save();
+             $Post->owner_person_id=$person->id;
+           
+             unset( $Post->owner_name);
+             unset( $Post->owner_email);
+             unset( $Post->owner_address);
+             unset( $Post->owner_mobile_number);
+           
+         }
+
+         if($Post->founder_name !='' || $Post->founder_name != NULL)
+         {
+            
+            
+             $person->name=$Post->founder_name;
+             $person->email=$Post->founder_email;
+             $person->mobile_number=$Post->founder_mobile_number;
+             $person->address=$Post->founder_address;
+             $person->save();
+             $Post->founder_person_id=$person->id;
+            
+             unset( $Post->founder_name);
+             unset( $Post->founder_email);
+             unset( $Post->founder_address);
+             unset( $Post->founder_mobile_number);
+            
+         }
+       
+
+         
+
+        }
+
     }
 
     public function saved(Post $Post)
@@ -111,8 +156,11 @@ class PostObserver
             if($Post->questions)
             {
 
+                
                 $question= $Post->question_1;
                 if($question=='' || $question == null) {
+                    $get_question= $Post->questions->first();
+                    if($get_question)
                     $Post->questions->take(1)->delete();
                 }else {
                     $question_1 =$Post->questions->first();

@@ -167,9 +167,13 @@ class Post extends MasterModel
         return $this->belongsTo(Corporate::class)->withTrashed();
     }
 
-    public function person()
+    public function ownerPerson()
     {
-        return $this->belongsTo(People::class,'person_id')->withTrashed();
+        return $this->belongsTo(People::class,'owner_person_id')->withTrashed();
+    }
+    public function founderPerson()
+    {
+        return $this->belongsTo(People::class,'founder_person_id')->withTrashed();
     }
 
     /**
@@ -177,7 +181,7 @@ class Post extends MasterModel
      */
     public function subcategory()
     {
-        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+        return $this->belongsTo(SubCategory::class, 'sub_category_id')->withTrashed();
     }
 
     /**
@@ -185,21 +189,21 @@ class Post extends MasterModel
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id')->withTrashed();
+        return $this->belongsTo(Brand::class, 'brand_id')->withTrashed()->withTrashed();
     }
     /**
      * Define The Model Of The Post
      */
     public function model()
     {
-        return $this->belongsTo(Model::class, 'model_id')->withTrashed();
+        return $this->belongsTo(Model::class, 'model_id')->withTrashed()->withTrashed();
     }
     /**
      * Define The Color Of The Post
      */
     public function color()
     {
-        return $this->belongsTo(Color::class, 'color_id')->withTrashed();
+        return $this->belongsTo(Color::class, 'color_id')->withTrashed()->withTrashed();
     }
 
     /**

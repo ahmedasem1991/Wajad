@@ -214,11 +214,39 @@ class AllPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                        ->placeholder('Select Person')
-                        ->options(People::all())
-                        ->rules('required_if:owner_releated_to_system,0'),
+                    Select2::make('Person', 'owner_person_id')
+                    ->showAsLink(People::class)
+                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
+                    ->rules('required_if:owner_releated_to_system,0'),
+
+                    
+                NovaDependencyContainer::make([
+
+
+                    Text::make('Name','owner_name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+                Text::make('Email','owner_email')
+                    ->sortable()
+                    ->rules('required', 'email', 'max:254'),
+    
+                PhoneNumber::make('Mobile Number','owner_mobile_number')
+                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                    ->onlyCustomFormats(),
+    
+                Text::make('Address','owner_address')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+
+                   
+                ])->dependsOn('owner_person_id', 0),
+        
+
                 ])->dependsOn('owner_releated_to_system', 0),
+
+
 
                 NovaDependencyContainer::make([
                     NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
@@ -254,10 +282,37 @@ class AllPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                        ->placeholder('Select Person')
-                        ->options(People::all())
-                        ->rules('required_if:founder_releated_to_system,0'),
+                    
+                    Select2::make('Person', 'founder_person_id')
+                    ->showAsLink(People::class)
+                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
+                    ->rules('required_if:founder_releated_to_system,0'),
+
+                    
+                NovaDependencyContainer::make([
+
+
+                    Text::make('Name','founder_name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+                Text::make('Email','founder_email')
+                    ->sortable()
+                    ->rules('required', 'email', 'max:254'),
+    
+                PhoneNumber::make('Mobile Number','founder_mobile_number')
+                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                    ->onlyCustomFormats(),
+    
+                Text::make('Address','founder_address')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+
+                   
+                ])->dependsOn('founder_person_id', 0),
+        
+
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -268,6 +323,25 @@ class AllPost extends Resource
                 ])
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
+
+
+                    Text::make('Question 1', 'question_1')
+                    ->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 2', 'question_2')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
+
+                Text::make('Question 3', 'question_3')
+                    //->creationRules('required_if:status,1')
+                    ->hideWhenUpdating()
+                    ->hideFromDetail()
+                    ->hideFromIndex(),
 
             ])->dependsOn('status', 1),
 
@@ -289,10 +363,35 @@ class AllPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                        ->placeholder('Select Person')
-                        ->options(People::all())
-                        ->rules('required_if:owner_releated_to_system,0'),
+                    Select2::make('Person', 'owner_person_id')
+                    ->showAsLink(People::class)
+                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
+                    ->rules('required_if:owner_releated_to_system,0'),
+
+                    
+                NovaDependencyContainer::make([
+
+
+                    Text::make('Name','owner_name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+                Text::make('Email','owner_email')
+                    ->sortable()
+                    ->rules('required', 'email', 'max:254'),
+    
+                PhoneNumber::make('Mobile Number','owner_mobile_number')
+                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                    ->onlyCustomFormats(),
+    
+                Text::make('Address','owner_address')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+
+                   
+                ])->dependsOn('owner_person_id', 0),
+
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -334,10 +433,38 @@ class AllPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
-                        ->placeholder('Select Person')
-                        ->options(People::all())
-                        ->rules('required_if:founder_releated_to_system,0'),
+                    // NovaBelongsToDepend::make('Person 4', 'person', 'App\Nova\People')
+                    //     ->placeholder('Select Person')
+                    //     ->options(People::all())
+                    //     ->rules('required_if:founder_releated_to_system,0'),
+                    Select2::make('Person', 'founder_person_id')
+                    ->showAsLink(People::class)
+                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
+                    ->rules('required_if:founder_releated_to_system,0'),
+
+                    
+                NovaDependencyContainer::make([
+
+
+                    Text::make('Name','founder_name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+                Text::make('Email','founder_email')
+                    ->sortable()
+                    ->rules('required', 'email', 'max:254'),
+    
+                PhoneNumber::make('Mobile Number','founder_mobile_number')
+                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                    ->onlyCustomFormats(),
+    
+                Text::make('Address','founder_address')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+    
+
+                   
+                ])->dependsOn('founder_person_id', 0),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
@@ -416,6 +543,37 @@ class AllPost extends Resource
     {
         return [];
     }
+
+//     public static function fill(NovaRequest $request, $model)
+// {
+
+    // if ($request->input('email')) {
+
+    //     $request->offsetUnset('email');
+
+    // }
+    
+    // if ($request->input('name')) {
+
+    //     $request->offsetUnset('name');
+
+    // }
+    
+    // if ($request->input('address')) {
+
+    //     $request->offsetUnset('address');
+
+    // }
+    
+    // if ($request->input('mobile_number')) {
+
+    //     $request->offsetUnset('mobile_number');
+
+    // }
+
+    // return parent::fill($request, $model);
+
+// }
 
     /**
      * Get the lenses available for the resource.

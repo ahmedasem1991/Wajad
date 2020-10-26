@@ -191,7 +191,7 @@ class ClosedPost extends Resource
                 ->hideWhenCreating(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
+            NovaBelongsToDepend::make('Person', 'founderPerson', 'App\NovaCorporate\People')
                 ->placeholder('Select Person')
                 ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
                 ->rules('required')

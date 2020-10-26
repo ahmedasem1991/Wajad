@@ -210,10 +210,41 @@ class Post extends Resource
                 ->hideWhenCreating(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
-                ->placeholder('Select Person')
-                ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
-                ->rules('required'),
+            // NovaBelongsToDepend::make('Person', 'person', 'App\NovaCorporate\People')
+            //     ->placeholder('Select Person')
+            //     ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
+            //     ->rules('required'),
+
+            Select2::make('Person', 'founder_person_id')
+            ->showAsLink(People::class)
+            ->options(People::where('corporate_id',auth()->user()->corporate->id)->withTrashed()->orderBy('id','asc')->orWhere('id',0)->get()->pluck('name', 'id'))
+            ->rules('required'),
+
+            
+        NovaDependencyContainer::make([
+
+
+            Text::make('Name','founder_name')
+            ->sortable()
+            ->rules('required', 'max:255'),
+
+        Text::make('Email','founder_email')
+            ->sortable()
+            ->rules('required', 'email', 'max:254'),
+
+        PhoneNumber::make('Mobile Number','founder_mobile_number')
+            ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+            ->onlyCustomFormats(),
+
+        Text::make('Address','founder_address')
+            ->sortable()
+            ->rules('required', 'max:255'),
+
+
+           
+        ])->dependsOn('founder_person_id', 0),
+
+
 
             DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
                 ->Rules('required_if:status,1')
