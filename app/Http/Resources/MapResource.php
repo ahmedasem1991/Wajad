@@ -20,7 +20,7 @@ class MapResource extends JsonResource
             'details' => $this->{'details_' . app()->getLocale()} ?? $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'image' => (string) env("APP_URL") . "/" . $this->image ?? (string) $this->images()->first('image')['image'] ?? '',
+            'image' => (string) env("APP_URL") . "/" . $this->images ?? (string) $this->images()->first('image')['image'] ?? '',
             'address' => $this->address ?? ''
         ];
     }

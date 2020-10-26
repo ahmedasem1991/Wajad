@@ -184,7 +184,7 @@ class ClosedPost extends Resource
                 ->readonly(),
 
             NovaDependencyContainer::make([
-                NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
                     ->placeholder('Select Person')
                     ->options(People::all())
                     ->rules('required_if:owner_releated_to_system,0')
@@ -214,7 +214,7 @@ class ClosedPost extends Resource
                 ->readonly(),
 
             NovaDependencyContainer::make([
-                NovaBelongsToDepend::make('Person', 'person', 'App\Nova\People')
+                NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
                     ->placeholder('Select Person')
                     ->options(People::all())
                     ->rules('required_if:founder_releated_to_system,0'),

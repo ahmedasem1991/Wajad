@@ -167,9 +167,13 @@ class Post extends MasterModel
         return $this->belongsTo(Corporate::class)->withTrashed();
     }
 
-    public function person()
+    public function ownerPerson()
     {
-        return $this->belongsTo(People::class,'person_id')->withTrashed();
+        return $this->belongsTo(People::class,'owner_person_id')->withTrashed();
+    }
+    public function founderPerson()
+    {
+        return $this->belongsTo(People::class,'founder_person_id')->withTrashed();
     }
 
     /**

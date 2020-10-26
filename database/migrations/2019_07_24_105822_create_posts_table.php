@@ -40,7 +40,8 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('city_id')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->integer('person_id')->nullable();
+            $table->integer('owner_person_id')->nullable();
+            $table->integer('founder_person_id')->nullable();
             $table->integer('person_type')->default(1);
             $table->integer('owner_releated_to_system')->default(2);
             $table->integer('founder_releated_to_system')->default(2);

@@ -86,7 +86,8 @@ class People extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            NovaBelongsToDepend::make('Corporate')->rules('required')
+            NovaBelongsToDepend::make('Corporate')
+            //->rules('required')
                 ->placeholder('Corporate')
                 ->options(\App\Corporate::all()),
         ];
@@ -144,5 +145,31 @@ class People extends Resource
     public static function availableForNavigation(Request $request)
     {
         return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
+    }
+
+ 
+    public  function authorizedToUpdate(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
+    public  function authorizedToDelete(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
+    public  function authorizedToRestore(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
+    public  function authorizedToView(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
     }
 }
