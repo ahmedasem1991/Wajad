@@ -19,6 +19,7 @@ class CreateQrcodesTable extends Migration
             $table->string('generate_reference_number')->nullable();
             $table->string('assign_reference_number')->nullable();
             $table->string('corporate_assign_reference_number')->nullable();
+            $table->string('name')->nullable();
             $table->integer('type')->default(1); //default  (single)
             $table->integer('status')->default(1); // default (In stock)
             $table->integer('quantity')->default(1);
@@ -31,7 +32,6 @@ class CreateQrcodesTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('corporate_id')->unsigned()->nullable();
             $table->tinyInteger('printed')->default(0);
-
             $table->integer('item_id')->unsigned()->nullable();
             $table->softDeletes();
             $table->timestamps();

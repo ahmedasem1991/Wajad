@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
      // Send FCM and SMS
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
+    Route::post('/qrcodes/rename', 'QrcodeController@rename');
     // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
 
     //Send FCM
