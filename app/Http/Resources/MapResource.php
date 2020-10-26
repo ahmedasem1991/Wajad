@@ -21,7 +21,7 @@ class MapResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             // 'image' => (string) env("APP_URL") . "/" . $this->images ?? (string) $this->images()->first('image')['image'] ?? '',
-            'image' => (string) env("APP_URL") . "/" .$this->images ?(string) $this->images[0] :'',
+            'image' => (string) env("APP_URL") . "/" .$this->images ? $this->images[0] :'',
           
             'address' => $this->address ?? ''
         ];
