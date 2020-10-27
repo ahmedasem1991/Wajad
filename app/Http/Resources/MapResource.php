@@ -35,7 +35,8 @@ class MapResource extends JsonResource
             'longitude' => $this->longitude,
             'image' => (string) env("APP_URL") . "/" . $image,
             'type' => $type,
-            'address' => $this->address ?? ''
+            'address' => $this->address ?? '',
+            'post' => $this->resource instanceof Post ? PostResource::make($this->resource) : null,
         ];
     }
 }
