@@ -23,7 +23,7 @@
 <p id="demo"></p>
 <script type="application/javascript">
 $.getJSON('https://api.ipify.org?format=json', function(data){
-    console.log(data.ip);
+    console.log(data);
 });
 
 
