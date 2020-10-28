@@ -25,18 +25,20 @@ var city='';
 var ip ='';
 
 
-$.getJSON('https://api.ipify.org?format=json', function(data){
-    ip=data.ip;
-    console.log(data.ip);
-    $.getJSON('https://api.hackertarget.com/geoip/?q='+data.ip, function(data) {
-  console.log(JSON.stringify(data, null, 2));
-  console.log('data2');
-});
-    console.log('data');
-});
+// $.getJSON('https://api.ipify.org?format=json', function(data){
+//     ip=data.ip;
+//     console.log(data.ip);
+//     $.getJSON('https://api.hackertarget.com/geoip/?q='+data.ip, function(data) {
+//   console.log(JSON.stringify(data, null, 2));
+//   console.log('data2');
+// });
+//     console.log('data');
+// });
 
 
 $.getJSON('https://ipapi.co/json/', function(data) { 
+    ip=data.ip;
+    city=data.city;
   console.log(data)
 })
  
@@ -50,6 +52,7 @@ if (navigator.geolocation) {
   }
 
 
+
  
 function showPosition(position) {
     lat=position.coords.latitude;
@@ -58,6 +61,7 @@ function showPosition(position) {
   "<br>Longitude: " + position.coords.longitude);
 }
  
+ console.log(ip);console.log(lat);console.log(lng);console.log(city);
 </script>
  
 
