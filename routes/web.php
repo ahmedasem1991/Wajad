@@ -789,7 +789,7 @@ return $ip_val;
 
 Route::get('code2', function(){
 
-    return view('code2');
+    dd(request()->getClientIp(true));
 
 });
 

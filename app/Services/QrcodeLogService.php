@@ -8,10 +8,10 @@ class QrcodeLogService{
 
     public static function LogQrcode($request, $qrcode)
     {
-        $lat = $request->lat ?? '30.1545585';
-        $lng = $request->lng ?? '30.15245525';
+        $lat = $request->lat ?? '21.4498898';
+        $lng = $request->lng ?? '39.4913423';
         $location = self::getLocation($lat, $lng);
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = $request->ip;
         $device_type = $request->device_type ?? 'web';
         $log = new QrcodeLog();
         $log->ip = $ip;
