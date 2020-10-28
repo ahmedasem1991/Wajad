@@ -36,6 +36,10 @@ $.getJSON('https://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
   console.log(JSON.stringify(data, null, 2));
   console.log('test');
 });
+$.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+  console.log('test');
+});
 
 
  
