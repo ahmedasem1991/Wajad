@@ -22,8 +22,8 @@
 
 <p id="demo"></p>
 <script type="application/javascript">
-$.getJSON('https://ip-api.com/json?callback=?', function(data) {
-  console.log(data);
+$.getJSON('https://api.ipify.org?format=json', function(data){
+    console.log(data.ip);
 });
 
 
