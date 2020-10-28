@@ -24,6 +24,7 @@
 <script type="application/javascript">
 $.getJSON('https://api.ipify.org?format=json', function(data){
     console.log(data);
+    console.log('data');
 });
 
 
