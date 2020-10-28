@@ -28,17 +28,13 @@ var ip ='';
 $.getJSON('https://api.ipify.org?format=json', function(data){
     ip=data.ip;
     console.log(data.ip);
-    $.getJSON('https://api.hackertarget.com/geoip/?q='+ip, function(data) {
+    $.getJSON('https://api.hackertarget.com/geoip/?q='+data.ip, function(data) {
   console.log(JSON.stringify(data, null, 2));
   console.log('data2');
 });
     console.log('data');
 });
 
-$.getJSON('https://jsonip.com/?callback=?', function(data) {
-  console.log(JSON.stringify(data, null, 2));
-  console.log('data5');
-});
  
 
  
