@@ -40,10 +40,10 @@ $.getJSON('https://api.ipify.org?format=json', function(data){
 //   console.log('data5');
 // });
 
-// $.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
-//   console.log(JSON.stringify(data, null, 2));
-//   console.log('data4');
-// });
+$.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+  console.log('data4');
+});
 
 // $.getJSON('https://ipinfo.io/json', function(data) {
 //   console.log(JSON.stringify(data, null, 2));
