@@ -15,6 +15,14 @@
 </head>
 
 <body>
+
+<script type="application/javascript">
+$.getJSON('http://ip-api.com/json?callback=?', function(data) {
+  console.log(data);
+});
+</script>
+ 
+
 <div class="col-md-3 col-sm-3 m-3 p-3">
     <img src="/images/wajad_logo.png" class="logo">
 </div>

@@ -758,10 +758,38 @@ return $response;
  Route::get('ipp', function () {
 
     
-  
+    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $keys)
+{
+// check for clent ip address
+if (array_key_exists($keys, $_SERVER) === true)
+{
+// get clent ip address
+foreach (explode(',', $_SERVER[$keys]) as $ip_val)
+{
+// get clent ip address
+// just to be safe for ip address
+$ip_val = trim($ip_val);
+if (filter_var($ip_val, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)
+{
+// return ip address
+return $ip_val;
+}
+}
+}
+}
+  //dd( request());
 	$ip =  request()->getClientIp(true);
     $data = \Location::get($ip);
-    dd($data);
+   // dd($data);
    
+});
+
+
+
+
+Route::get('code2', function(){
+
+    return view('code2');
+
 });
 
