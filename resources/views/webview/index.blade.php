@@ -16,10 +16,37 @@
 
 <body>
 
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
 <script type="application/javascript">
 $.getJSON('http://ip-api.com/json?callback=?', function(data) {
   console.log(data);
 });
+
+
+
+ 
+var x = document.getElementById("demo");
+var lat='';
+var lng='';
+var city='';
+var ip ='';
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+ 
 </script>
  
 
