@@ -39,7 +39,7 @@ class DownloadQRCodeZIP extends Action
           
                 // Add File in ZipArchive
 
-                $zip->addFile($public_dir . '/'. $model->image,$key.'.png');
+                $zip->addFile($public_dir . '/'. $model->image,$model->unique_reference_number.'.png');
                 logger($public_dir . '/'. $model->image);
                 // Close ZipArchive     
               
