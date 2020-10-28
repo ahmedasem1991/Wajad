@@ -758,8 +758,8 @@ return $response;
  Route::get('ipp', function () {
 
     
-    dd(request()->getClientIp(true));
-	$ip = '156.214.126.9';
+  
+	$ip =  request()->getClientIp(true);
     $data = \Location::get($ip);
     dd($data);
    
