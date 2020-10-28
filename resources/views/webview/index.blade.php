@@ -31,14 +31,9 @@ $.getJSON('https://api.ipify.org?format=json', function(data){
     console.log('data');
 });
 
-$.getJSON('https://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+$.getJSON('https://jsonip.com/?callback=?', function(data) {
   console.log(JSON.stringify(data, null, 2));
-  console.log('data2');
-});
-
-$.getJSON('https://api.ipdata.co', function(data) {
-  console.log(JSON.stringify(data, null, 2));
-  console.log('data3');
+  console.log('data5');
 });
 
 $.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
