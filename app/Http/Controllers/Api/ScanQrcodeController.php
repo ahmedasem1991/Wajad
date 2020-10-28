@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Qrcode;
 
+use App\Services\QrcodeLogService;
 use Carbon\Carbon;
 use App\Mail\ScanQRCode;
 use App\Events\SendFCMEvent;
@@ -64,24 +65,26 @@ class ScanQrcodeController extends Controller
         // if (Carbon::now()->toDateTimeString() < $qr_code->end_at) {
         //     throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         // }
+        QrcodeLogService::LogQrcode($request, $qr_code);
         if($qr_code->user)
         { //send mail
-           Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
-           //send FCM
-           $badge =getBadge($qr_code->user);
-           $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '30.1545585',$request->lng ?? '30.15245525',$qr_code->id);
-           $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
-           //send SMS
-         $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
-         // \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
-        //   new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
+
+            Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
+            //send FCM
+            $badge =getBadge($qr_code->user);
+            $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '30.1545585',$request->lng ?? '30.15245525',$qr_code->id);
+            $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
+            //send SMS
+            $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
+            // \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
+            //   new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
         if ($request->expectsJson())
             return new QrcodeResource($qr_code);
 
-            return view('webview.index', compact('qr_code')) ;
-     //   return $qr_code->item()->exists() ? view('webview.index', compact('qr_code')) : view('errors.404');
+        return view('webview.index', compact('qr_code')) ;
+        //   return $qr_code->item()->exists() ? view('webview.index', compact('qr_code')) : view('errors.404');
     }
 
     public function registerQrcodes(Request $request)
