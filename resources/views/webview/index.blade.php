@@ -22,19 +22,24 @@
 
 <p id="demo"></p>
 <script type="application/javascript">
+
+var x = document.getElementById("demo");
+var lat='';
+var lng='';
+var city='';
+var ip ='';
+
+
 $.getJSON('https://api.ipify.org?format=json', function(data){
-    console.log(data);
+    ip=data.ip;
+    console.log(data.ip);
     console.log('data');
 });
 
 
 
  
-var x = document.getElementById("demo");
-var lat='';
-var lng='';
-var city='';
-var ip ='';
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
