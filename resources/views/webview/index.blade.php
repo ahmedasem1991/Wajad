@@ -23,17 +23,12 @@ var lat=0;
 var lng=0;
 var city=0;
 var ip =0;
-
-
-// $.getJSON('https://api.ipify.org?format=json', function(data){
-//     ip=data.ip;
-//     console.log(data.ip);
-//     $.getJSON('https://api.hackertarget.com/geoip/?q='+data.ip, function(data) {
-//   console.log(JSON.stringify(data, null, 2));
-//   console.log('data2');
-// });
-//     console.log('data');
-// });
+ 
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+  }
 
 
 $.getJSON('https://ipapi.co/json/', function(data) { 
@@ -46,12 +41,6 @@ $.getJSON('https://ipapi.co/json/', function(data) {
  
 
  
- 
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    console.log("Geolocation is not supported by this browser.");
-  }
 
 
 
@@ -62,8 +51,10 @@ function showPosition(position) {
     console.log("Latitude: " +lat + 
   "<br>Longitude: " + lng);
 }
+setTimeout(function(){
+    console.log(ip);console.log(lat);console.log(lng);console.log(city);
+}, 2000);
  
- console.log(ip);console.log(lat);console.log(lng);console.log(city);
 </script>
  
 
