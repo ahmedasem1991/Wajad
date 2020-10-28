@@ -59,8 +59,8 @@ if (navigator.geolocation) {
 function showPosition(position) {
     lat=position.coords.latitude;
     lng=position.coords.longitude;
-    console.log("Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude);
+    console.log("Latitude: " +lat + 
+  "<br>Longitude: " + lng);
 }
  
  console.log(ip);console.log(lat);console.log(lng);console.log(city);
