@@ -754,3 +754,14 @@ return $response;
    return '<br> <br> <center><img src="'.env('API_URL').'/images/qrcodes2/'.$ImageName.'" height="600" width="600"></center>';
  });
 
+
+ Route::get('ipp', function () {
+
+    
+    dd(request()->getClientIp(true));
+	$ip = '156.214.126.9';
+    $data = \Location::get($ip);
+    dd($data);
+   
+});
+
