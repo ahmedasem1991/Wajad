@@ -40,6 +40,11 @@ $.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
   console.log(JSON.stringify(data, null, 2));
   console.log('data4');
 });
+
+$.getJSON('https://ipinfo.io/json', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+  console.log('data6');
+})
  
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
