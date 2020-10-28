@@ -19,10 +19,10 @@
  
 <script type="application/javascript">
 
-var lat='';
-var lng='';
-var city='';
-var ip ='';
+var lat=0;
+var lng=0;
+var city=0;
+var ip =0;
 
 
 // $.getJSON('https://api.ipify.org?format=json', function(data){
@@ -39,6 +39,8 @@ var ip ='';
 $.getJSON('https://ipapi.co/json/', function(data) { 
     ip=data.ip;
     city=data.city;
+    console.log(ip);
+    console.log(city);
   console.log(data)
 })
  
