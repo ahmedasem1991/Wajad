@@ -86,6 +86,30 @@ class PDFController extends Controller
         return $pdf->download(now() . '_QR_CODE.pdf');
     }
 
+    public function qrcodeZIP(Request $request)
+    {
+        $public_dir=public_path();
+        $zipFileName = 'QRCodes.zip';
+        $filetopath=$public_dir.'/'.$zipFileName;
+        $headers = array(
+            'Content-Type' => 'application/zip',
+            "Pragma" =>"public",
+            "Expires" =>"0" ,
+            "Cache-Control" =>"must-revalidate, post-check=0, pre-check=0",
+            "Cache-control" =>"public",
+            "Content-Description" =>"File Transfer",
+            "Content-type" =>"application/zip", 
+             'Content-Disposition' =>'attachment; filename="'.basename($filetopath).'"',
+            "Content-Transfer-Encoding" =>"binary",
+          // "Content-Length: " . filesize($filetopath) ,
+        );
+        set_time_limit(3000);
+
+        if(file_exists($filetopath)){
+            return response()->download($filetopath,$zipFileName,$headers);
+        }
+    }
+
     public function assignqrcodepdf(Request $request)
     {
         $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));

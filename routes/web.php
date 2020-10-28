@@ -80,6 +80,7 @@ Route::post('paytabschecker', 'PaymentController@checkPayWithPaytabs')->name('pa
 Route::get('receipt', 'PDFController@receipt');
 Route::get('ar_receipt', 'PDFController@arReceipt');
 Route::get('qrcodepdf', 'PDFController@qrcodepdf');
+Route::get('qrcodezip', 'PDFController@qrcodeZIP');
 Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
 Route::get('/smart-search/{search}', function ($search) {
@@ -610,6 +611,42 @@ Route::get('/paytabs_payment', function () {
         dd($result);
         //return $result->result;
 });
+
+
+Route::get('/testt', function(){
+    $path=public_path().'/QRCodes.zip';
+    if(file_exists($path))
+   return  unlink( $path);
+   else
+   return 0;
+
+return 0;
+        // Define Dir Folder
+        $public_dir=public_path();
+        // Zip File Name
+        $zipFileName = 'AllDocuments.zip';
+        // Create ZipArchive Obj
+        $zip = new ZipArchive;
+        if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
+            // Add File in ZipArchive
+            $zip->addFile($public_dir. '/' .'office_mark.png','file_name.png');
+            // Close ZipArchive     
+            $zip->close();
+        }
+        // Set Header
+        $headers = array(
+            'Content-Type' => 'application/octet-stream',
+        );
+        $filetopath=$public_dir.'/'.$zipFileName;
+        // Create Download Response
+        if(file_exists($filetopath)){
+            return response()->download($filetopath,$zipFileName,$headers);
+        }
+    
+    // $fileurl = public_path()."/Photos.zip";
+    // return \Response::download($fileurl, 'Photos.zip', ['Content-Length: '. filesize($fileurl)]);
+});
+
 
 
 Route::get('/paytabs_response', function(){

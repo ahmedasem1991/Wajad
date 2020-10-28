@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\User;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -13,8 +14,8 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\DownloadQRCode;
+use App\Nova\Actions\DownloadQRCodeZIP;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use NovaErrorField\Errors;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -161,6 +162,9 @@ class Stock extends Resource
     {
         return [
             (new DownloadQRCode)->canRun(function (NovaRequest $request) {
+                return true;
+            }),
+            (new DownloadQRCodeZIP)->canRun(function (NovaRequest $request) {
                 return true;
             }),
         ];

@@ -32,6 +32,7 @@ class CreateQrcodesTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('corporate_id')->unsigned()->nullable();
             $table->tinyInteger('printed')->default(0);
+            $table->tinyInteger('downloaded')->default(0);
             $table->integer('item_id')->unsigned()->nullable();
             $table->softDeletes();
             $table->timestamps();
