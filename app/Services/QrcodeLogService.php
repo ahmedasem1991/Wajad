@@ -11,7 +11,7 @@ class QrcodeLogService{
         $lat = $request->lat ?? '21.4498898';
         $lng = $request->lng ?? '39.4913423';
         $location = self::getLocation($lat, $lng);
-        $ip = $request->ip;
+        $ip = $request->ip ?? '127.0.0.1';
         $device_type = $request->device_type ?? 'web';
         $log = new QrcodeLog();
         $log->ip = $ip;

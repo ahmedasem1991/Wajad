@@ -21,7 +21,7 @@
         var lat = 0;
         var lng = 0;
         var city = 0;
-        var ip = 0;
+        var ip = '127.0.0.1';
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
