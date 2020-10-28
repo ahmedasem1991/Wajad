@@ -28,20 +28,23 @@ var ip ='';
 $.getJSON('https://api.ipify.org?format=json', function(data){
     ip=data.ip;
     console.log(data.ip);
-   
+    console.log('data');
 });
-
 
 $.getJSON('https://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
   console.log(JSON.stringify(data, null, 2));
-  console.log('test');
+  console.log('data2');
 });
-$.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+
+$.getJSON('https://api.ipdata.co', function(data) {
   console.log(JSON.stringify(data, null, 2));
-  console.log('test');
+  console.log('data3');
 });
 
-
+$.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+  console.log('data4');
+});
  
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
