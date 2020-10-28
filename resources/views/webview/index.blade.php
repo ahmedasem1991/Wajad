@@ -30,6 +30,7 @@ $.getJSON('https://api.ipify.org?format=json', function(data){
     console.log(data.ip);
     $.getJSON('https://api.hackertarget.com/geoip/?q='+ip, function(data) {
   console.log(JSON.stringify(data, null, 2));
+  console.log('data2');
 });
     console.log('data');
 });
