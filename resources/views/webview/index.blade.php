@@ -16,43 +16,54 @@
 
 <body>
 
-<p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
+ 
 <script type="application/javascript">
 
-var x = document.getElementById("demo");
-var lat='';
-var lng='';
-var city='';
-var ip ='';
+var lat=0;
+var lng=0;
+var city=0;
+var ip =0;
 
 
-$.getJSON('https://api.ipify.org?format=json', function(data){
+// $.getJSON('https://api.ipify.org?format=json', function(data){
+//     ip=data.ip;
+//     console.log(data.ip);
+//     $.getJSON('https://api.hackertarget.com/geoip/?q='+data.ip, function(data) {
+//   console.log(JSON.stringify(data, null, 2));
+//   console.log('data2');
+// });
+//     console.log('data');
+// });
+
+
+$.getJSON('https://ipapi.co/json/', function(data) { 
     ip=data.ip;
-    console.log(data.ip);
-    console.log('data');
-});
-
-
-
+    city=data.city;
+    console.log(ip);
+    console.log(city);
+  console.log(data)
+})
  
 
-function getLocation() {
-  if (navigator.geolocation) {
+ 
+ 
+if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
+    console.log("Geolocation is not supported by this browser.");
   }
-}
 
+
+
+ 
 function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
+    lat=position.coords.latitude;
+    lng=position.coords.longitude;
+    console.log("Latitude: " +lat + 
+  "<br>Longitude: " + lng);
 }
  
+ console.log(ip);console.log(lat);console.log(lng);console.log(city);
 </script>
  
 
