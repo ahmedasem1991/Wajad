@@ -20,7 +20,7 @@ class MapResource extends JsonResource
         $type = '';
         if ($this->resource instanceof Post){
             $type = Post::Status[$this->status];
-            $image = $this->images[0];
+            $image = !empty($this->images[0]) ? $this->images[0] : '';
         }
         if ($this->resource instanceof Corporate){
             $type = 'office';
@@ -35,7 +35,8 @@ class MapResource extends JsonResource
             'longitude' => $this->longitude,
             'image' => (string) env("APP_URL") . "/" . $image,
             'type' => $type,
-            'address' => $this->address ?? ''
+            'address' => $this->address ?? '',
+            'post' => $this->resource instanceof Post ? PostResource::make($this->resource) : null,
         ];
     }
 }

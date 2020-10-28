@@ -28,7 +28,7 @@ class MapController extends Controller
     ];
     /**
      * Map
-     * @urlParam type required in:lost,found,office
+     * @urlParam type required in:lost,found,office,all
      * @bodyParam longitude string required
      * @bodyParam latitude string required
      * @bodyParam radius int required
@@ -39,12 +39,107 @@ class MapController extends Controller
      *"data": [
      *   {
      *      "id": 1,
-     *     "name": "Error cumque sit culpa quibusdam aut sunt nemo.",
-     *    "details": "Quis voluptate perspiciatis officia omnis veritatis id. Voluptas culpa molestiae beatae corporis saepe quos iusto. Molestiae enim optio maiores dolor sit soluta. Aliquid commodi pariatur aliquid. Fugiat animi eos sapiente dolor possimus. Ut quo voluptatem nobis eos. Vitae nulla illum debitis consequuntur quaerat deserunt. Suscipit cum earum et et consectetur et. Tempore voluptates dolore ratione eveniet molestiae ullam. Est qui sit totam modi voluptas omnis officia. Illum nostrum vel unde iusto. Animi reiciendis odio et repellendus rem id. Qui deserunt rerum explicabo est dolorem dolorem nulla. Ratione dolorem libero doloremque laboriosam temporibus autem veniam corrupti. Accusantium ad autem excepturi quasi minus. Eveniet velit rem numquam ipsum. Voluptatibus eligendi nihil dolor hic perspiciatis. Qui omnis est voluptatem assumenda. Debitis fuga est blanditiis dolorem nihil impedit. Nihil est illum cupiditate unde beatae suscipit labore. Et alias eligendi sed quam blanditiis consequatur.",
-     *   "latitude": -47.854138,
-     *  "longitude": -18.526692,
-     * "image": "http://wajad.test/",
-     *"address": ""
+     *      "name": "Error cumque sit culpa quibusdam aut sunt nemo.",
+     *      "details": "Quis voluptate perspiciatis officia omnis veritatis id. Voluptas culpa molestiae beatae corporis saepe quos iusto. Molestiae enim optio maiores dolor sit soluta. Aliquid commodi pariatur aliquid. Fugiat animi eos sapiente dolor possimus. Ut quo voluptatem nobis eos. Vitae nulla illum debitis consequuntur quaerat deserunt. Suscipit cum earum et et consectetur et. Tempore voluptates dolore ratione eveniet molestiae ullam. Est qui sit totam modi voluptas omnis officia. Illum nostrum vel unde iusto. Animi reiciendis odio et repellendus rem id. Qui deserunt rerum explicabo est dolorem dolorem nulla. Ratione dolorem libero doloremque laboriosam temporibus autem veniam corrupti. Accusantium ad autem excepturi quasi minus. Eveniet velit rem numquam ipsum. Voluptatibus eligendi nihil dolor hic perspiciatis. Qui omnis est voluptatem assumenda. Debitis fuga est blanditiis dolorem nihil impedit. Nihil est illum cupiditate unde beatae suscipit labore. Et alias eligendi sed quam blanditiis consequatur.",
+     *      "latitude": -47.854138,
+     *      "longitude": -18.526692,
+     *      "image": "http://wajad.test/",
+     *      "address": ""
+     *      "type": "lost"
+     *      "post": {
+     *          "id": 3,
+     *          "title": "jndfhjjdfghdfg",
+     *          "approval_status": 1,
+     *          "longitude": 39.4913431,
+     *          "latitude": 21.4498898,
+     *          "reward": null,
+     *          "description": "dfghdtghsefgfgsdfgsdfg",
+     *          "status": "found",
+     *          "attached_to_item": false,
+     *          "item": null,
+     *          "sub_category": {
+     *          "id": 2,
+     *          "name": "shoes",
+     *          "description": null,
+     *          "image": "http://wajad.test//images/default.png"
+     *          },
+     *          "model": {
+     *          "id": 5,
+     *          "name": "Sony SA1",
+     *          "description": "",
+     *          "image": "http://wajad.test//images/posts/post6.jpg"
+     *          },
+     *          "brand": {
+     *          "id": 4,
+     *          "name": "corocs",
+     *          "description": "",
+     *          "image": "http://wajad.test//images/posts/post7.jpg"
+     *          },
+     *          "color": {
+     *          "id": 13,
+     *          "name": "Others",
+     *          "icon": "images/profile/default-profile.png"
+     *          },
+     *          "date": "2020-07-11 18:51:33",
+     *          "images": [
+     *          "/images/screenshot-from-2020-08-26-16-08-02-1599649865-vqZeC.png"
+     *          ],
+     *          "questions": [
+     *          {
+     *          "id": 13,
+     *          "question": "asdffasedfasdfa",
+     *          "answer": null
+     *          },
+     *          {
+     *          "id": 14,
+     *          "question": "adgfbhdfhnjdfghdfg",
+     *          "answer": null
+     *          },
+     *          {
+     *          "id": 15,
+     *          "question": "dfgndfgsdfbsd",
+     *          "answer": null
+     *          }
+     *          ],
+     *          "allow_post_requests": false,
+     *          "claimers": [],
+     *          "city": null,
+     *          "publisher": {
+     *          "id": 2,
+     *          "name": "WAJAD Corporate",
+     *          "email": "corporate@wajad.com",
+     *          "status": 1,
+     *          "mobile_number": "",
+     *          "mobile_country_id": 1,
+     *          "mobile_country_code": "93",
+     *          "receive_emails": false,
+     *          "receive_push_notifications": false,
+     *          "is_email_verified": false,
+     *          "is_mobile_number_verified": false,
+     *          "default_distance_unit": "kilo",
+     *          "quick_user_id": null,
+     *          "quick_user_email": "corporate@wajad.com",
+     *          "quick_user_password": null,
+     *          "image": "http://wajad.test/images/profile/default-profile.png",
+     *          "country": {
+     *          "id": 1,
+     *          "name_ar": "أفغانستان",
+     *          "name_en": "Afghanistan",
+     *          "iso_code": "AF",
+     *          "country_code": "93",
+     *          "deleted_at": null,
+     *          "created_at": null,
+     *          "updated_at": null
+     *          }
+     *          },
+     *          "corporate": {
+     *          "id": 1,
+     *          "name": "WAJAD Corporate",
+     *          "address": "Jadda - KSA",
+     *          "details": "WAJAD Corporate For Haj & Omra",
+     *          "mobile_number": ""
+     *          }
+     *          },
      *}
      *]
      *}
