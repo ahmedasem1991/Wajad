@@ -16,14 +16,9 @@
 
 <body>
 
-<p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
+ 
 <script type="application/javascript">
 
-var x = document.getElementById("demo");
 var lat='';
 var lng='';
 var city='';
@@ -36,21 +31,24 @@ $.getJSON('https://api.ipify.org?format=json', function(data){
     console.log('data');
 });
 
+$.getJSON('https://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+});
+
+ 
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+  }
 
 
  
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
 function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
+    lat=position.coords.latitude;
+    lng=position.coords.longitude;
+    console.log("Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude);
 }
  
 </script>
