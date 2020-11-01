@@ -47,7 +47,6 @@ class OptimizeUsersPics extends Command
                 if ((!empty($app->image)) && strpos($app->image, '/') !== 0){
                     $this->info($app->image);
                     $app->image = '/'.$app->image;
-                    $app->fire_events = false;
                     $app->save();
                     $this->info($app->image);
                 }
