@@ -74,6 +74,13 @@ class PostObserver
              unset( $Post->owner_mobile_number);
            
          }
+         else{
+            // return false;
+            unset( $Post->owner_name);
+            unset( $Post->owner_email);
+            unset( $Post->owner_address);
+            unset( $Post->owner_mobile_number);
+         }
 
          if($Post->founder_name !='' || $Post->founder_name != NULL)
          {
@@ -92,6 +99,13 @@ class PostObserver
              unset( $Post->founder_mobile_number);
             
          }
+         else{
+            //return false;
+           unset( $Post->owner_name);
+           unset( $Post->owner_email);
+           unset( $Post->owner_address);
+           unset( $Post->owner_mobile_number);
+        }
        
 
          
