@@ -69,7 +69,6 @@
         "spatie/laravel-query-builder": "^3.2",
         "srmklive/paypal": "^1.6",
         "stephenlake/nova-fixed-bars": "^1.1",
-        "stevebauman/location": "^5.2",
         "stichoza/google-translate-php": "^4.1",
         "techouse/intl-date-time": "^1.6",
         "tightenco/nova-google-analytics": "*",
