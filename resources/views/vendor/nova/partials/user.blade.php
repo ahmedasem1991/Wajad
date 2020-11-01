@@ -1,7 +1,7 @@
 <dropdown-trigger class="h-9 flex items-center" slot-scope="{toggle}" :handle-click="toggle">
     @isset($user->email)
         <img
-            src="{{'/'.auth()->user()->image }}?size=512"
+            src="{{'/'.auth()->user()->image }}"
             class="rounded-full w-8 h-8 mr-3"
         />
     @endisset
