@@ -21,7 +21,7 @@ class UpdateUserProfileController extends Controller
 {
     /**
      *Update User Profile
-     * @bodyParam name string required min:6,max:255 
+     * @bodyParam name string required min:6,max:255
      * @bodyParam receive_emails boolean required in:true,false,0,1. Example:1
      * @bodyParam receive_push_notifications boolean required in:true,false,0,1. Example:1
      * @bodyParam default_distance_unit string,in:kilo,mile required kilo or mile. Example:mile
@@ -64,7 +64,7 @@ class UpdateUserProfileController extends Controller
 
         if ($request->has('image') && $request->image !== '' && !is_null($request->image)) {
 
-            if ($user->image != 'images/profile/default-profile.png') {
+            if ($user->image != '/images/profile/default-profile.png') {
                 Storage::disk('public')->delete($user->image);
             }
             $image_name = \Str::random(15) . '.' . 'png';
@@ -72,7 +72,7 @@ class UpdateUserProfileController extends Controller
             Image::make(file_get_contents($request->image))->save($path);
 
             $user->update([
-                'image' =>   'images/profile/' . $image_name
+                'image' =>   '/images/profile/' . $image_name
             ]);
         }
 

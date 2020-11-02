@@ -14,23 +14,9 @@ class BannerResource extends JsonResource
             return  $images_main_path . $item->image;
         }
 
-        if ($item->type == 'item') {
-             return (string) $images_main_path . $this->item->images[0] ?? null;
+        if ($item->type == 'post') {
+             return (string) $images_main_path . $this->post->images[0] ?? null;
         }
-    }
-
-    public function getItem($item)
-    {
-        return $item->item_id ?
-            [
-                'latitude' => $item->post->latitude ?? 0,
-                'longitude' => $item->post->longitude ?? 0,
-                'name' => $item->post->title ?? "",
-                'description' => $item->post->description ?? "",
-                'city' => $item->post ? $item->post->city->{'name_' . app()->getLocale()} : '',
-                'date' => $item->post ? $item->post->created_at->toDateTimeString() : '',
-                // 'status' => $item->getStatus()
-            ] : null;
     }
 
     public function toArray($request)
@@ -40,8 +26,8 @@ class BannerResource extends JsonResource
             'type' => $this->type,
             'image' => $this->getImage($this) ?? "",
             'url' => $this->url ?? "",
-            'item_id' => $this->item_id ?? null,
-            'item' => $this->getItem($this) ?? null,
+            'post_id' => $this->post_id ?? null,
+            'post' => PostResource::make($this->post) ?? null,
             'clicks' => $this->clicks ?? null,
             'start_date' => $this->start_date ?? null,
             'end_date' => $this->end_date ?? null,

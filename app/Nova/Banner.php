@@ -59,7 +59,7 @@ class Banner extends Resource
         'type',
         'image',
         'url',
-        'item_id',
+        'post_id',
         'user_id',
         'clicks',
         'start_date',
@@ -101,8 +101,8 @@ class Banner extends Resource
             Select::make('Banner Type', 'type')->options([
                 "ads" => "Advertisement",
                 "url" => "URL",
-                "item" => "Item"
-            ])->rules(['required', 'in:ads,url,item'])->displayUsingLabels(),
+                "post" => "Post"
+            ])->rules(['required', 'in:ads,url,post'])->displayUsingLabels(),
 
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
@@ -120,10 +120,10 @@ class Banner extends Resource
             ])->dependsOn('type', 'url'),
 
             NovaDependencyContainer::make([
-                Select::make('Item Type', 'item_type')->options([
-                    0 => 'Lost',
-                    1 => 'Found'
-                ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
+//                Select::make('Post Type', 'item_type')->options([
+//                    0 => 'Lost',
+//                    1 => 'Found'
+//                ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
 
                 NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
                     ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
@@ -131,15 +131,15 @@ class Banner extends Resource
                     ->options(User::NormalUsers()->get())
                     ->rules('required'),
 
-                NovaBelongsToDepend::make('Item', 'item', \App\Nova\Item::class)
-                    ->placeholder('Select Item')
+                NovaBelongsToDepend::make('Post', 'post', \App\Nova\AllPost::class)
+                    ->placeholder('Select Post')
 
                     ->optionsResolve(function ($user) {
-                        return $user->items()->get();
+                        return $user->posts()->get();
                     })
                     ->rules('required')
                     ->dependsOn('User'),
-            ])->dependsOn('type', 'item'),
+            ])->dependsOn('type', 'post'),
         ];
     }
     /**
