@@ -29,7 +29,7 @@ class Banner extends Model implements Sortable
         'type',
         'order',
         'url',
-        'item.title',
+        'post.title',
         'user.name',
         'image',
         'start_date',
@@ -42,9 +42,9 @@ class Banner extends Model implements Sortable
         return $this->morphOne(Visit::class, 'visitable');
     }
 
-    public function item()
+    public function post()
     {
-        return $this->belongsTo(Item::class, 'item_id');
+        return $this->belongsTo(Post::class, 'post_id');
     }
 
     public function user()
