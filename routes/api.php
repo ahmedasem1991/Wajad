@@ -74,6 +74,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
 
     //Send FCM
+    Route::post('/unregister/qrcode', 'UnRegisterQRCodeController');
     Route::post('/register/qrcode', 'RegisterQRCodeController');
     Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
 });

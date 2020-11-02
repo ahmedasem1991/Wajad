@@ -12,6 +12,7 @@ return [
 	'rejected' => ':model rejected successfully.',
 	'expired' => ':model is expired.',
 	'registered' => ':model registered successfully.',
+	'unregistered' => ':model unregistered successfully.',
 	'logged_out' => ':model logged out successfully.',
 	'cannot_buy' => 'Sorry..try again after some minutes.',
 	'app_name' =>  'Wajad',

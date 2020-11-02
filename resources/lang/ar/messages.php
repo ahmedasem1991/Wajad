@@ -11,6 +11,7 @@ return [
 	'accepted' => 'تم قبول :model بنجاح.',
 	'rejected' =>  'تم رفض :model بنجاح.',
 	'registered' =>  'تم تسجيل :model بنجاح.',
+	'unregistered' =>  'تم فصل :model بنجاح.',
 	'logged_out' => 'تم تسجيل الخروج بنجاح.',
 	'logged_out' =>  'تم تسجيل خروج :model بنجاح.',
 	'cannot_buy' =>  'عذرا .. حاول مرة أخرى بعد بضع دقائق',
