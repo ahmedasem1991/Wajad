@@ -75,7 +75,7 @@ class AnswerController extends Controller
         }, $request->data);
 
         
-        if($post->corporate_id !=NULL || $post->publisher()->isAdmin())
+        if($post->corporate_id !=NULL || $post->publisher->isAdmin())
         {
             //send Broadcast Notification
             $level='info';
