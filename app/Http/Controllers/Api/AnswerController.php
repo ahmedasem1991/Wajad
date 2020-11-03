@@ -80,6 +80,9 @@ class AnswerController extends Controller
             //send Broadcast Notification
             $level='info';
             $message='You had a new post request for your post "'.$post->title .' "';
+            if($post->publisher->isAdmin())
+            $url=Nova::path().'/resources/all-posts/'.$post->id;
+            else
             $url=Nova::path().'/resources/posts/'.$post->id;
             User::find($post->publisher_id)->notify(new BroadcastNotification($level,$message,$url));
 
