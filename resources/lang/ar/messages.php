@@ -7,6 +7,7 @@ return [
 	'limited' => "عفوا لقد وصلت إلي الحد الأقصي من :model",
 	'reported' => "تم الابلاغ :model بنجاح.",
 	'not_found' => ':model غير موجود.',
+	'single_assign' => ':model غير قابل للفصل.',
 	'verified' => 'تم تفعيل :model بنجاح.',
 	'accepted' => 'تم قبول :model بنجاح.',
 	'rejected' =>  'تم رفض :model بنجاح.',
