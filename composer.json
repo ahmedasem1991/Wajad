@@ -67,6 +67,7 @@
         "socialiteproviders/twitter": "^3.0",
         "spatie/laravel-permission": "^3.2",
         "spatie/laravel-query-builder": "^3.2",
+        "spatie/laravel-searchable": "^1.7",
         "srmklive/paypal": "^1.6",
         "stephenlake/nova-fixed-bars": "^1.1",
         "stichoza/google-translate-php": "^4.1",
