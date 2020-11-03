@@ -75,7 +75,7 @@ class AnswerController extends Controller
         }, $request->data);
 
         
-        if($post->corporate_id !=NULL || $post->publisher_id->isAdmin())
+        if($post->corporate_id !=NULL || $post->publisher()->isAdmin())
         {
             //send Broadcast Notification
             $level='info';
@@ -84,7 +84,7 @@ class AnswerController extends Controller
             User::find($post->publisher_id)->notify(new BroadcastNotification($level,$message,$url));
 
         }
-        if($post->publisher_id->isUser()){
+        if($post->publisher->isUser()){
             //send FCM
             $badge =getBadge($post->founder);
             $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
