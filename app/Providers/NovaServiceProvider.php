@@ -90,9 +90,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 }
 
                 if (Auth()->user()->hasPermissionTo('settings')) {
-                    array_push($array,new \Tightenco\NovaGoogleAnalytics\PageViewsMetric);
+                   // array_push($array,new \Tightenco\NovaGoogleAnalytics\PageViewsMetric);
                     array_push($array,new \Tightenco\NovaGoogleAnalytics\VisitorsMetric);
-                    array_push($array,new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard);
+                    //array_push($array,new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard);
                     array_push($array,new ActivationDevices);
                     array_push($array, (new GoogleMaps)->markers($Corporates)->offices($Offices));
                      //new QRCodeCount,
