@@ -58,6 +58,8 @@ class RejectPostRequestController extends Controller
             //TO DO: take some actions
         }
 
+
+         
         $request_user=User::find($request->user_id);
         //send FCM
         $badge =getBadge($request_user);

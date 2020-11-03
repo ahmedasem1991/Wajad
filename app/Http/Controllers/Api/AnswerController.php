@@ -75,16 +75,19 @@ class AnswerController extends Controller
         }, $request->data);
 
         
-        if($post->corporate_id !=NULL)
+        if($post->corporate_id !=NULL || $post->publisher->isAdmin())
         {
             //send Broadcast Notification
             $level='info';
             $message='You had a new post request for your post "'.$post->title .' "';
+            if($post->publisher->isAdmin())
+            $url=Nova::path().'/resources/all-posts/'.$post->id;
+            else
             $url=Nova::path().'/resources/posts/'.$post->id;
             User::find($post->publisher_id)->notify(new BroadcastNotification($level,$message,$url));
 
         }
-        else{
+        if($post->publisher->isUser()){
             //send FCM
             $badge =getBadge($post->founder);
             $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);

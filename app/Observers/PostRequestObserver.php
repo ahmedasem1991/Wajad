@@ -40,7 +40,7 @@ class PostRequestObserver
                 }
                 PostRequest::setEventDispatcher($dispatcher);
 
-                if (Auth()->check() && Auth()->User()->isCorporateAdmin()) {
+                if (Auth()->check() ) {
                 $request_user=User::find($postRequest->user_id);
                 $post=Post::find($postRequest->post_id);
                 //send FCM
@@ -49,7 +49,7 @@ class PostRequestObserver
                 $request_user->notify(new SendFCMNotification($request_user,$data));
                 }
             }else{
-                if (Auth()->check() && Auth()->User()->isCorporateAdmin()) {
+                if (Auth()->check() ) {
                 $request_user=User::find($postRequest->user_id);
                 $post=Post::find($postRequest->post_id);
                 //send FCM
