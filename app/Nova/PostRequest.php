@@ -43,7 +43,7 @@ class PostRequest extends Resource
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'comment';
 
     /**
      * The columns that should be searched.
