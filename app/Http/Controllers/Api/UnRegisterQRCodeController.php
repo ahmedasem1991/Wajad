@@ -48,7 +48,7 @@ class UnRegisterQRCodeController extends Controller
         }
 
         if ($qr_code->type !== 2 ){
-            throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
+            throw new ApiException(trans('messages.single_assign', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 
         $qr_code->status = 2;

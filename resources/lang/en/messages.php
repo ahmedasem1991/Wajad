@@ -7,6 +7,7 @@ return [
 	'limited' => 'Sorry You have reached the maximum number of :model .',
 	'reported' => ':model reported successfully.',
 	'not_found' => ':model is not found.',
+	'single_assign' => ':model is single assign and cannot be unregistered.',
 	'verified' => ':model verified successfully.',
 	'accepted' => ':model accepted successfully.',
 	'rejected' => ':model rejected successfully.',
