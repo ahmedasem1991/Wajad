@@ -84,7 +84,7 @@ class AnswerController extends Controller
             User::find($post->publisher_id)->notify(new BroadcastNotification($level,$message,$url));
 
         }
-        else{
+        if($post->publisher_id->isUser()){
             //send FCM
             $badge =getBadge($post->founder);
             $data=sendPostRequestFCM($post->founder,auth('api')->user(),$post,$badge,$post_request->id);
