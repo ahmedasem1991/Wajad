@@ -59,7 +59,7 @@ class RejectPostRequestController extends Controller
         }
 
 
-        logger('not sent fcm');
+         
         $request_user=User::find($request->user_id);
         //send FCM
         $badge =getBadge($request_user);
