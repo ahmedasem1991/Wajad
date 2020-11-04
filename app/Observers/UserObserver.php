@@ -13,18 +13,20 @@ class UserObserver
 
 
     public function creating(User $User) {
+        if(auth()->check() && !auth()->user()->isUser())
+        {
         if($User->type==1)
     {
-    //   $check=  User::withTrashed()->where('email',$User->email)->where('type',User::Types['user'])->first();
-    //   if( $check)
-    //   throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
+      $check=  User::withTrashed()->where('email',$User->email)->where('type',User::Types['user'])->first();
+      if( $check)
+      throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
     }
  
       $check=  User::withTrashed()->where('email',$User->email)->where('type',$User->type)->first();
       if($check)
       throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
     
-         
+    }
     }
     public function saving(User $User)
     {
