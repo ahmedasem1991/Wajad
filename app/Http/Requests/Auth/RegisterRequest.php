@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
                 'email' => ['required', 'email:rfc,dns'],
                 //'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
                 'password' => ['required', 'min:6', 'max:255'],
-                'mobile_number' => ['required', ],
+                'mobile_number' => ['required'],
                 'device_type' => ['required', 'string', 'in:android,ios'],
                 'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
             ];
