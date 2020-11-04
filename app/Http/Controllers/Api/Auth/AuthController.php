@@ -186,12 +186,16 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $User=\App\User::where('email',$request->email)
+        $DeletedUser=\App\User::where('email',$request->email)
         ->orWhere('mobile_number',$request->mobile_number)
         ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
 
-        logger($User);
-        if( $User)
+        $NormalUser=\App\User::where('email',$request->email)
+        ->orWhere('mobile_number',$request->mobile_number)
+        ->where('deleted_at' ,NULL)->withTrashed()->first();
+
+      
+        if( $User && ! $NormalUser)
         {
             $validate_request = Validator::make($request->all(), [
                 'name' => ['required', 'min:6', 'max:255'],
