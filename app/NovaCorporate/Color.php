@@ -119,4 +119,8 @@ class Color extends Resource
     {
         return  '<img class="sidebar-icon" src="/images/icons/colors.png" style="height:22px;width:22px;margin=10px" />';
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

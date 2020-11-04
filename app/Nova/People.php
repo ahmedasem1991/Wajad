@@ -160,11 +160,15 @@ class People extends Resource
         return false;
         else return true;
     }
-    public  function authorizedToForceDelete(Request $request)
+    // public  function authorizedToForceDelete(Request $request)
+    // {
+    //     if($this->id ==0)
+    //     return false;
+    //     else return true;
+    // }
+    public   function authorizedToForceDelete(Request $request)
     {
-        if($this->id ==0)
         return false;
-        else return true;
     }
     public  function authorizedToRestore(Request $request)
     {

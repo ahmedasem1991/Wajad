@@ -309,4 +309,8 @@ class ClosedPost extends Resource
     {
         return false;
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

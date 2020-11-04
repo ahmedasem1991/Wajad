@@ -139,4 +139,8 @@ class SubCategory extends Resource
     {
         return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

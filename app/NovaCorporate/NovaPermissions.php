@@ -40,4 +40,8 @@ class NovaPermissions extends Tool
 
         return $this;
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }
