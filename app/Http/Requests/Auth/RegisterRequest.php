@@ -21,6 +21,7 @@ class RegisterRequest extends FormRequest
         ->where('deleted_at' ,'!=',NULL)->first();
         if( $User)
         {
+            logger('found user');
             return [
                 'name' => ['required', 'min:6', 'max:255'],
                 'email' => ['required', 'email:rfc,dns'],
