@@ -793,3 +793,12 @@ Route::get('code2', function(){
 
 });
 
+
+Route::get('image', function(){
+    $post=\App\Post::find(11);
+if($post->images)
+if($post->images[0])
+return env('ADMIN_URL').$post->images[0];
+  //  dd(request()->getClientIp(true));
+
+});
