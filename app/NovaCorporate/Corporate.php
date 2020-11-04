@@ -203,4 +203,8 @@ class Corporate extends Resource
     {
         return true;
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

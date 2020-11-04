@@ -486,4 +486,8 @@ class ReportedPost extends Resource
     {
         return true;
     }
+    public   function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

@@ -146,4 +146,8 @@ class GenerateQrcode extends Resource
     {
         return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

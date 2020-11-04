@@ -160,4 +160,8 @@ class Qrcode extends Resource
     public static function label() {
         return 'All QR Code';
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

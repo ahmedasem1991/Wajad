@@ -110,4 +110,8 @@ class PostType extends Resource
     {
         return [];
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

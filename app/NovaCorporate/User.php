@@ -212,4 +212,8 @@ class User extends Resource
         }
         return env('APP_URL') . "/" . $this->image;
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

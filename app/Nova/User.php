@@ -224,4 +224,8 @@ class User extends Resource
         }
 
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

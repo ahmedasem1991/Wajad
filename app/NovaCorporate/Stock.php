@@ -182,4 +182,8 @@ class Stock extends Resource
         return $query->whereNull('corporate_assign_reference_number')
             ->where('corporate_id',Auth()->user()->corporate->id);
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }
