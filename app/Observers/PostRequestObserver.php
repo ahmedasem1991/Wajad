@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Post;
 use App\User;
 use App\PostRequest;
+use App\Events\ClosePostEvent;
 use App\Notifications\SendFCMNotification;
 
 class PostRequestObserver
