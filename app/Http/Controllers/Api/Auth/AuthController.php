@@ -201,6 +201,9 @@ class AuthController extends Controller
                 'device_type' => ['required', 'string', 'in:android,ios'],
                 'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
             ]);
+            if ($validate_request->fails()) {
+                throw new ApiException($validate_request->errors()->first(), 400);
+            }
 
         }
         else{
@@ -212,11 +215,12 @@ class AuthController extends Controller
             'device_type' => ['required', 'string', 'in:android,ios'],
             'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ]);
-        }
-
         if ($validate_request->fails()) {
             throw new ApiException($validate_request->errors()->first(), 400);
         }
+        }
+
+
 
 
 
