@@ -15,11 +15,8 @@ class UserPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function viewAny(User $user, User $model)
+    public function viewAny(User $user)
     {
-        if ($user->id === $model->id){
-            return true;
-        }
         if($user->hasPermissionTo('view users'))
         {
             return true;
