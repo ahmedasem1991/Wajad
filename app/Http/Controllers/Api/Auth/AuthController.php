@@ -190,6 +190,7 @@ class AuthController extends Controller
         ->orWhere('mobile_number',$request->mobile_number)
         ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
 
+        logger($User);
         if( $User)
         {
             $validate_request = Validator::make($request->all(), [
