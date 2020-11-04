@@ -190,12 +190,12 @@ class AuthController extends Controller
         ->orWhere('mobile_number',$request->mobile_number)
         ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
 
-        $NormalUser=\App\User::where('email',$request->email)
+        $NormalUserCount=\App\User::where('email',$request->email)
         ->orWhere('mobile_number',$request->mobile_number)
-        ->where('deleted_at' ,NULL)->withTrashed()->first();
+        ->where('deleted_at' ,NULL)->withTrashed()->count();
 
       
-        if( $DeletedUser && ! $NormalUser)
+        if( $DeletedUser &&  $NormalUserCount>1)
         {
             $validate_request = Validator::make($request->all(), [
                 'name' => ['required', 'min:6', 'max:255'],
