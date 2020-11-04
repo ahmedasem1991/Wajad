@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\City;
+use App\Events\ClosePostEvent;
 use App\Item;
 use App\Post;
 use App\Services\Helpers\Traits\Visitable;
@@ -622,8 +623,8 @@ class PostsController extends Controller
 
     public function  acceptRequest(Request $request, Post $post)
     {
-         
-    
+
+
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required','exists:users,id'],
         ]);
@@ -639,6 +640,7 @@ class PostsController extends Controller
         $postRequest = \App\PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
         $postRequest->update(['is_request_valid' => true, 'comment' => $request->input('comment')]);
         $post->update(['owner_id' => $request->user_id]);
+        event( new ClosePostEvent($post, null));
 
         $request_user=User::find($request->user_id);
         //send FCM
