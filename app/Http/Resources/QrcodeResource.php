@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Qrcode;
+use App\QrcodeLog;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class QrcodeResource extends JsonResource
@@ -30,6 +31,7 @@ class QrcodeResource extends JsonResource
         if($this->item){
             $post=  $this->item->post ? new QrPostResource($this->item->post) : null;
     }
+        $log = QrcodeLog::where('qrcode_id', $this->id)->get();
 
 
         return [
@@ -46,6 +48,7 @@ class QrcodeResource extends JsonResource
             // 'package' => $this->package,
             // 'product' => $this->package_product_pivot->product,
             'item' => new ItemInQRCodeResource($this->item),
+            'log' => QrcodeLogResource::collection($log),
             'post' => $post,
             'available_period' => $this->available_period,
             'start_at' => $this->start_at ?  substr($this->start_at, 0, -3) : null,

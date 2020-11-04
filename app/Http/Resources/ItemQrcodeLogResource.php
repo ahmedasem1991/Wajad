@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QrcodeLogResource extends JsonResource
+class ItemQrcodeLogResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,6 +21,7 @@ class QrcodeLogResource extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'device_type' => $this->device_type,
+            'qrcode' => QrcodeResource::make($this->qrcode),
             'created_at' => $this->created_at,
         ];
     }
