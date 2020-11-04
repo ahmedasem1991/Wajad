@@ -16,34 +16,15 @@ class RegisterRequest extends FormRequest
 
     public function rules()
     {
-        $User=\App\User::where('email',request('email'))
-        ->orWhere('mobile_number',request('mobile_number'))
-        ->where('deleted_at' ,'!=',NULL)->first();
-        if( $User)
-        {
-            return [
-                'name' => ['required', 'min:6', 'max:255'],
-                'email' => ['required', 'email:rfc,dns'],
-                //'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
-                'password' => ['required', 'min:6', 'max:255'],
-                'mobile_number' => ['required', ],
-                'device_type' => ['required', 'string', 'in:android,ios'],
-                'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
-            ];
-        }
-        else{
-            return [
-                'name' => ['required', 'min:6', 'max:255'],
-                'email' => ['required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL'],
-                //'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
-                'password' => ['required', 'min:6', 'max:255'],
-                'mobile_number' => ['required', 'unique:users,mobile_number'],
-                'device_type' => ['required', 'string', 'in:android,ios'],
-                'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
-            ];
-        }
-       
-
+        return [
+            'name' => ['required', 'min:6', 'max:255'],
+            'email' => ['required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL'],
+            //'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
+            'password' => ['required', 'min:6', 'max:255'],
+            'mobile_number' => ['required', 'unique:users,mobile_number'],
+            'device_type' => ['required', 'string', 'in:android,ios'],
+            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
+        ];
     }
 
     public function withValidator($validator)
