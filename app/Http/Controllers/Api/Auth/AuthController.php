@@ -192,7 +192,7 @@ class AuthController extends Controller
 
         $NormalUserCount=\App\User::where('email',$request->email)
         ->orWhere('mobile_number',$request->mobile_number)
-        ->where('deleted_at' ,NULL)->withTrashed()->count();
+        ->where('deleted_at' ,NULL)->count();
 
       
         if( $DeletedUser &&  $NormalUserCount<1)
