@@ -16,8 +16,8 @@ class RegisterRequest extends FormRequest
 
     public function rules()
     {
-        $User=\App\User::where('email',request('user'))
-        ->orWhere('mobile_number',request('user'))
+        $User=\App\User::where('email',request('email'))
+        ->orWhere('mobile_number',request('mobile_number'))
         ->where('deleted_at' ,'!=',NULL)->first();
         if( $User)
         {

@@ -15,14 +15,17 @@ class UserPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user, User $model)
     {
+        if ($user->id === $model->id){
+            return true;
+        }
         if($user->hasPermissionTo('view users'))
         {
             return true;
-        }else{
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -35,12 +38,16 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         // if(Auth()->User()->isCorporateAdmin()){
+        if ($user->id === $model->id){
+            return true;
+        }
+
         if($user->hasPermissionTo('view users'))
         {
             return true;
-        }else{
-            return false;
         }
+
+        return false;
         // }
         // return  true;
     }
