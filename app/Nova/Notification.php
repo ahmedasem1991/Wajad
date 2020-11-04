@@ -149,4 +149,8 @@ class Notification extends Resource
     {
         return  '<img class="sidebar-icon" src="/images/icons/notification.png" style="height:22px;width:22px;margin=10px" />';
     }
+    public   function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

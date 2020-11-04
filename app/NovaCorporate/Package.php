@@ -187,4 +187,8 @@ class Package extends Resource
     {
         return $query->where('is_active',1);
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

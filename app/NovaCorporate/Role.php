@@ -184,4 +184,8 @@ class Role extends Resource
     {
         return $query->where('corporate_id',Auth()->User()->corporate_id);
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

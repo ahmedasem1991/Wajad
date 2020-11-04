@@ -157,4 +157,8 @@ class Subscription extends Resource
         return $query
             ->where('corporate_id',Auth()->user()->corporate->id);
     }
+    public  function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
 }

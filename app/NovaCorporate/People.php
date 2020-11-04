@@ -154,4 +154,38 @@ class People extends Resource
     {
         return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
     }
+    public  function authorizedToUpdate(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
+    public  function authorizedToDelete(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
+    // public  function authorizedToForceDelete(Request $request)
+    // {
+    //     if($this->id ==0)
+    //     return false;
+    //     else return true;
+    // }
+    public   function authorizedToForceDelete(Request $request)
+    {
+        return false;
+    }
+    public  function authorizedToRestore(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
+    public  function authorizedToView(Request $request)
+    {
+        if($this->id ==0)
+        return false;
+        else return true;
+    }
 }
