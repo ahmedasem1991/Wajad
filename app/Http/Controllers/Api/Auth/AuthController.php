@@ -188,7 +188,7 @@ class AuthController extends Controller
     {
         $User=\App\User::where('email',$request->email)
         ->orWhere('mobile_number',$request->mobile_number)
-        ->where('deleted_at' ,'!=',NULL)->first();
+        ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
         logger($request->email);
         logger($request->mobile_number);
         dd($User);
