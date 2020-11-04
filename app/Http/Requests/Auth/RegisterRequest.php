@@ -29,17 +29,10 @@ class RegisterRequest extends FormRequest
 
     public function withValidator($validator)
     {
-        $User=\App\User::where('email',request('email'))
-        ->orWhere('mobile_number',request('mobile_number'))
-        ->where('deleted_at' ,'!=',NULL)->first();
-        if( !$User)
-        {
-            $validator->after(function ($validator) {
-                if ($validator->errors()->any()) {
-                    throw new ApiException($validator->errors()->first(), 400);
-                }
-            });
-        }
-
+        $validator->after(function ($validator) {
+            if ($validator->errors()->any()) {
+                throw new ApiException($validator->errors()->first(), 400);
+            }
+        });
     }
 }
