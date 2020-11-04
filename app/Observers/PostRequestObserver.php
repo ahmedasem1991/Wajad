@@ -50,7 +50,7 @@ class PostRequestObserver
                 $request_user->notify(new SendFCMNotification($request_user,$data));
                 }
             }else{
-                if (Auth()->check() ) {
+                if (Auth()->check() && Auth()->user()->isAdmin()) {
                 $request_user=User::find($postRequest->user_id);
                 $post=Post::find($postRequest->post_id);
                 //send FCM
@@ -58,6 +58,14 @@ class PostRequestObserver
                 $data=sendRejectPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
                 $request_user->notify(new SendFCMNotification($request_user,$data));
                 }
+                if (Auth()->check() && Auth()->user()->isCorporateAdmin()) {
+                    $request_user=User::find($postRequest->user_id);
+                    $post=Post::find($postRequest->post_id);
+                    //send FCM
+                    $badge =getBadge($request_user);
+                    $data=sendRejectPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
+                    $request_user->notify(new SendFCMNotification($request_user,$data));
+                    }
             }
          
             
