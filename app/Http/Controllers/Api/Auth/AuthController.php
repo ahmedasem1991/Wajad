@@ -195,7 +195,7 @@ class AuthController extends Controller
         ->where('deleted_at' ,NULL)->withTrashed()->count();
 
       
-        if( $DeletedUser &&  $NormalUserCount>1)
+        if( $DeletedUser &&  $NormalUserCount<1)
         {
             $validate_request = Validator::make($request->all(), [
                 'name' => ['required', 'min:6', 'max:255'],
