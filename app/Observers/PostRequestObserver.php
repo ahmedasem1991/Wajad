@@ -20,6 +20,7 @@ class PostRequestObserver
             $Post= Post::find($postRequest->post_id);
             $Post->owner_id=$postRequest->user_id;
             $Post->save();
+            event( new ClosePostEvent($Post, null));
       }
  
     }
@@ -89,6 +90,7 @@ class PostRequestObserver
             $Post= Post::find($postRequest->post_id);
             $Post->owner_id=$postRequest->user_id;
             $Post->save();
+            event( new ClosePostEvent($Post, null));
             }
 
  
