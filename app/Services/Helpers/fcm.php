@@ -13,6 +13,13 @@ function getBadge($user)
 
 function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
 {
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($post->images)
+    {
+    if($post->images[0])
+    $ImageURL= env('ADMIN_URL').$post->images[0];
+    }
+
     $type='post_lost';
     if ($post->isFound()) 
         $type='post_found';
@@ -35,7 +42,7 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
         ],
         'type' => 'post_request',
         'deeplink' => $type,
-        'image' =>null ,
+        'image' =>$ImageURL ,
         'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
@@ -47,6 +54,13 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
 
 function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
 {
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($post->images)
+    {
+    if($post->images[0])
+    $ImageURL= env('ADMIN_URL').$post->images[0];
+    }
+
     $type='post_lost';
     if ($post->isFound()) 
         $type='post_found';
@@ -69,7 +83,7 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
         ],
         'type' => 'post_request',
         'deeplink' => $type,
-        'image' =>null ,
+        'image' => $ImageURL ,
         'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
@@ -82,6 +96,14 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
 
 function sendRejectPostRequestFCM($founder,$post,$badge,$id)
 {
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($post->images)
+    {
+    if($post->images[0])
+    $ImageURL= env('ADMIN_URL').$post->images[0];
+    }
+
+
     $type='post_lost';
     if ($post->isFound()) 
         $type='post_found';
@@ -104,7 +126,7 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
         ],
         'type' => 'post_request',
         'deeplink' => $type,
-        'image' =>null ,
+        'image' =>$ImageURL ,
         'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
@@ -117,6 +139,14 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
 
 function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
 {
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($item->images)
+    {
+    if($item->images[0])
+    $ImageURL= env('ADMIN_URL').$item->images[0];
+    }
+
+
     $title='';
     if($item)
     $title=$item->title;
@@ -137,7 +167,7 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
         ],
         'type' => 'scan_qrcode',
         'deeplink' => 'item',
-        'image' => null ,
+        'image' => $ImageURL ,
         'post' =>null,
         'item' => new ItemResource($item),
         'url' => 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng,
@@ -149,6 +179,12 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
 
 function sendCreateItemFCM($item,$badge)
 {
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($item->images)
+    {
+    if($item->images[0])
+    $ImageURL= env('ADMIN_URL').$item->images[0];
+    }
 
    // logger($item);
     $data = [
@@ -168,7 +204,7 @@ function sendCreateItemFCM($item,$badge)
         ],
         'type' => 'create',
         'deeplink' => 'item',
-        'image' =>null ,
+        'image' =>$ImageURL ,
         'item' => new ItemResource($item),
         'post' => null,  
         'url' => null ,
@@ -181,6 +217,15 @@ function sendCreateItemFCM($item,$badge)
 
 function sendUpdateItemFCM($item,$badge)
 {
+
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($item->images)
+    {
+    if($item->images[0])
+    $ImageURL= env('ADMIN_URL').$item->images[0];
+    }
+
+
     $data = [
         'ar' => [
             'title' => '  الجهاز الخاص لديك '.$item->title,
@@ -199,7 +244,7 @@ function sendUpdateItemFCM($item,$badge)
         'type' => 'update',
         'id' => $item->id,
         'deeplink' => 'item',
-        'image' =>null ,
+        'image' => $ImageURL ,
         'post' => null,
         'item' => new ItemResource($item),
         'url' => null ,
@@ -211,6 +256,7 @@ function sendUpdateItemFCM($item,$badge)
 
 function sendCustomUsersFCM($body,$badge)
 {
+
     $data = [
         'ar' => [
             'title' => '  وجد ',
@@ -225,7 +271,7 @@ function sendCustomUsersFCM($body,$badge)
         'type' => '',
         'id' => null,
         'deeplink' => 'topic',
-        'image' =>null ,
+        'image' =>env('ADMIN_URL').'/images/111.png' ,
         'post' => null,
         'item' => null,
         'url' => null ,
@@ -237,6 +283,8 @@ function sendCustomUsersFCM($body,$badge)
 
 function sendReportPostFCM($postReport,$badge)
 {
+
+
     $type='post_lost';
     if ($postReport->post->isFound()) 
         $type='post_found';
@@ -270,6 +318,8 @@ function sendReportPostFCM($postReport,$badge)
 
 function sendBuyPackageFCM($package,$badge)
 {
+
+  
     $data = [
         'ar' => [
             'title' => '  لقد قمت بشراء  '. 
@@ -289,7 +339,7 @@ function sendBuyPackageFCM($package,$badge)
         ],
         'type' => 'package',
         'deeplink' => 'qrcode',
-        'image' =>null ,
+        'image' =>  env('ADMIN_URL').'/images/Success.jpg' ,
         'post' => null,
         'item' => null,
         'url' => null ,
@@ -316,7 +366,7 @@ function sendFreeQRCodeFCM($badge)
         ],
         'type' => 'free_qrcodes',
         'deeplink' => 'qrcode',
-        'image' =>null ,
+        'image' => env('ADMIN_URL').'/images/cong.png'  ,
         'post' => null,
         'item' => null,
         'url' => null ,
@@ -344,7 +394,7 @@ function sendAssignQRCodesToUserFCM($badge,$quantity)
         ],
         'type' => 'assign_qrcodes',
         'deeplink' => 'qrcode',
-        'image' =>null ,
+        'image' =>env('ADMIN_URL').'/images/qrcodeicon.png' ,
         'post' => null,
         'item' => null,
         'url' => null ,
@@ -372,7 +422,7 @@ function sendCorporateAssignQRCodeFCM($quantity,$name,$badge)
         ],
         'type' => 'assign_qrcode',
         'deeplink' => 'qrcode',
-        'image' =>null ,
+        'image' =>env('ADMIN_URL').'/images/qrcodeicon.png'  ,
         'post' => null,
         'item' => null,
         'url' => null ,
@@ -386,6 +436,13 @@ function sendCorporateAssignQRCodeFCM($quantity,$name,$badge)
 
 function sendCreatePostFCM($post,$badge,$type)
 {
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($post->images)
+    {
+    if($post->images[0])
+    $ImageURL= env('ADMIN_URL').$post->images[0];
+    }
+
     $data = [
         'ar' => [
             'title' => '  المنشور الخاص لديك '.$post->title,
@@ -403,7 +460,7 @@ function sendCreatePostFCM($post,$badge,$type)
         ],
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
-        'image' =>null ,
+        'image' => $ImageURL ,
         'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
@@ -416,6 +473,15 @@ function sendCreatePostFCM($post,$badge,$type)
 
 function sendUpdatePostFCM($post,$badge,$type)
 {
+
+    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    if($post->images)
+    {
+    if($post->images[0])
+    $ImageURL= env('ADMIN_URL').$post->images[0];
+    }
+
+
     $data = [
         'ar' => [
             'title' => '  المنشور الخاص لديك '.$post->title,
@@ -433,7 +499,7 @@ function sendUpdatePostFCM($post,$badge,$type)
         ],
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
-        'image' =>null ,
+        'image' =>$ImageURL ,
         'post' => new FCMPostResource($post),
         'item' => null,
         'url' => null ,
@@ -464,7 +530,7 @@ function sendAssignQRCodeFCM($item,$badge)
         ],
         'type' => 'assign_qrcode',
         'deeplink' => 'item',
-        'image' =>null ,
+        'image' =>env('ADMIN_URL').'/images/qrcodeicon.png'  ,
         'item' =>new ItemResource($item),
         'post' => null,
         'url' => null ,
