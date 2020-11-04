@@ -186,41 +186,37 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        // $User=\App\User::where('email',$request->email)
-        // ->orWhere('mobile_number',$request->mobile_number)
-        // ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
+        $User=\App\User::where('email',$request->email)
+        ->orWhere('mobile_number',$request->mobile_number)
+        ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
 
-        // logger($User);
-        // if( $User)
-        // {
-        //     $validate_request = Validator::make($request->all(), [
-        //         'name' => ['required', 'min:6', 'max:255'],
-        //         'email' => ['required', 'email:rfc,dns'],
-        //         'password' => ['required', 'min:6', 'max:255'],
-        //         'mobile_number' => ['required'],
-        //         'device_type' => ['required', 'string', 'in:android,ios'],
-        //         'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
-        //     ]);
-        //     if ($validate_request->fails()) {
-        //         throw new ApiException($validate_request->errors()->first(), 400);
-        //     }
+        logger($User);
+        if( $User)
+        {
+            $validate_request = Validator::make($request->all(), [
+                'name' => ['required', 'min:6', 'max:255'],
+                'email' => ['required', 'email:rfc,dns'],
+                'password' => ['required', 'min:6', 'max:255'],
+                'mobile_number' => ['required'],
+                'device_type' => ['required', 'string', 'in:android,ios'],
+                'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
+            ]);
 
-        // }
-        // else{
-        // $validate_request = Validator::make($request->all(), [
-        //     'name' => ['required', 'min:6', 'max:255'],
-        //     'email' => ['required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL'],
-        //     'password' => ['required', 'min:6', 'max:255'],
-        //     'mobile_number' => ['required', 'unique:users,mobile_number'],
-        //     'device_type' => ['required', 'string', 'in:android,ios'],
-        //     'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
-        // ]);
-        // if ($validate_request->fails()) {
-        //     throw new ApiException($validate_request->errors()->first(), 400);
-        // }
-        // }
+        }
+        else{
+        $validate_request = Validator::make($request->all(), [
+            'name' => ['required', 'min:6', 'max:255'],
+            'email' => ['required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL'],
+            'password' => ['required', 'min:6', 'max:255'],
+            'mobile_number' => ['required', 'unique:users,mobile_number'],
+            'device_type' => ['required', 'string', 'in:android,ios'],
+            'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
+        ]);
+        }
 
-
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
 
 
 
