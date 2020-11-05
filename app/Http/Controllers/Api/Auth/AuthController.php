@@ -379,46 +379,56 @@ class AuthController extends Controller
      */
     public function socialLogin($driver)
     {
+        
         $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
 
+        $DeletedUser=\App\User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)
+        ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
+
+        $NormalUserCount=\App\User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)
+        ->where('deleted_at' ,NULL)->count();
+
         $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
-        if (is_null($user)){
-            $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
-        // $imagepath='images/profile/default-profile.png';
-        // if($avatar != null || $avatar !='')
-        // {
-        //     $imagepath ='images/profile/' . basename($avatar);
-        //     Image::make($avatar)->save(public_path($imagepath));
-        // }
-            $user = User::create([
-                'name' => $login_user->name,
-                'email' => $login_user->email,
-                'image' => $avatar,
-                'is_social_user' => true,
-                'mobile_number' => null,
-                'social_name' => $driver,
-                'type' => User::Types['user'],
-                'is_mobile_number_verified' => false,
-                'posts_number' => 0,
-            ]);
-
-            $langHeader=request()->header('Content-Language');
-            if ($langHeader != 'ar') {
-                $langHeader = 'en';
+      
+        if( $DeletedUser &&  $NormalUserCount<1)
+        {
+            if (is_null($user)){
+                $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
+    
+                $user = User::create([
+                    'name' => $login_user->name,
+                    'email' => $login_user->email,
+                    'image' => $avatar,
+                    'is_social_user' => true,
+                    'mobile_number' => null,
+                    'social_name' => $driver,
+                    'type' => User::Types['user'],
+                    'is_mobile_number_verified' => false,
+                    'posts_number' => 0,
+                ]);
+    
+                $langHeader=request()->header('Content-Language');
+                if ($langHeader != 'ar') {
+                    $langHeader = 'en';
+                }
+                PrepereNewUser::dispatch($user);
+                if(count($user->qrcodes) == 0 ){
+                AssignQrcode::create([
+                    'assign_to'=>1,
+                    'type'=>1,
+                    'user_id'=>$user->id,
+                    'quantity'=>  defaultGroup()->free_qrcodes ,
+                    'available_period'=>  defaultGroup()->available_period_qrcodes ,
+                    'created_from'=>'new_register' ,
+                ]);
+                }
+    
             }
-            PrepereNewUser::dispatch($user);
-            if(count($user->qrcodes) == 0 ){
-            AssignQrcode::create([
-                'assign_to'=>1,
-                'type'=>1,
-                'user_id'=>$user->id,
-                'quantity'=>  defaultGroup()->free_qrcodes ,
-                'available_period'=>  defaultGroup()->available_period_qrcodes ,
-                'created_from'=>'new_register' ,
-            ]);
-            }
-
         }
+        
+       
+
+     
 
         if (!$token = auth('api')->login($user)) {
             throw new ApiException(trans('auth.failed'), 400);
