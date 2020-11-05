@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/{post}/accept', 'PostsController@acceptRequest');
 
              //reject this request send fcm
-            Route::post('/{post}/reject', 'RejectPostRequestController@rejectRequest');
+            Route::post('/{post}/reject', 'PostsController@rejectRequest');
         });
 
          //report  this post send fcm
