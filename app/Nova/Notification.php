@@ -2,22 +2,23 @@
 
 namespace App\Nova;
 
+use App\User;
 use App\Nova\Category;
 use App\Nova\Resource;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Colors;
-use App\User;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use OptimistDigital\MultiselectField\Multiselect;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class Notification extends Resource
@@ -74,8 +75,10 @@ class Notification extends Resource
 
             RadioButton::make('Send To', 'send_to')
                 ->options([
+                 //   2 => 'As Advertisement',
                     0 => 'All Users',
                     1 => 'Special Users',
+                   
                 ])->default(0),
 
             NovaDependencyContainer::make([
@@ -86,7 +89,31 @@ class Notification extends Resource
                     ->placeholder('Select Users')
                     ->reorderable(),
             ])->dependsOn('send_to', '1'),
+/*
+            NovaDependencyContainer::make([
+                NovaBelongsToDepend::make('Country', 'country', \App\Nova\Country::class)
+                ->placeholder('Select Country')
+                ->options(\App\Country::with('regions')->get())
+                ->hideFromIndex()
+                ->rules('required'),
 
+            NovaBelongsToDepend::make('Region', 'region', \App\Nova\Area::class)
+                ->placeholder('Select Region')
+                ->options(\App\Region::with('cities')->get())
+                ->hideFromIndex()
+                ->rules('required'),
+
+            NovaBelongsToDepend::make('City', 'city', \App\Nova\City::class)
+                ->placeholder('Select City')
+                ->optionsResolve(function ($region) {
+                    return $region->cities;
+                })
+                ->dependsOn('region')
+                ->hideFromIndex()
+                ->rules('required'),
+
+           ])->dependsOn('send_to', '0'),
+*/
             Multiselect::make('Send By','send_by')
                 ->options(
                     [

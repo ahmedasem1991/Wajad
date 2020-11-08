@@ -19,6 +19,9 @@ class CreateAdminNotificationsTable extends Migration
             $table->string('send_to');
             $table->text('users')->nullable();
             $table->string('send_by');
+            $table->string('country_id');
+            $table->string('region_id');
+            $table->string('city_id');
             $table->softDeletes();
             $table->timestamps();
         });

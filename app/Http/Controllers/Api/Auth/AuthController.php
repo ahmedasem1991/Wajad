@@ -382,16 +382,16 @@ class AuthController extends Controller
         
         $login_user = Socialite::driver($driver)->userFromToken(request()->input('token'));
 
-        $DeletedUser=\App\User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)
+        $DeletedUser=\App\User::where('email', '=', $login_user->email)
         ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
 
-        $NormalUserCount=\App\User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)
+        $NormalUserCount=\App\User::where('email', '=', $login_user->email)
         ->where('deleted_at' ,NULL)->count();
 
-        $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->first();
+        $user = User::where('name', '=', $login_user->name)->where('email', '=', $login_user->email)->where('deleted_at' ,NULL)->first();
       
-        if( $DeletedUser &&  $NormalUserCount<1)
-        {
+        // if( $DeletedUser &&  $NormalUserCount<1)
+        // {
             if (is_null($user)){
                 $avatar=is_null($login_user->avatar) ? User::DEFAULT_PHOTO : $login_user->avatar;
     
@@ -399,6 +399,7 @@ class AuthController extends Controller
                     'name' => $login_user->name,
                     'email' => $login_user->email,
                     'image' => $avatar,
+                    'password' => null,
                     'is_social_user' => true,
                     'mobile_number' => null,
                     'social_name' => $driver,
@@ -424,7 +425,7 @@ class AuthController extends Controller
                 }
     
             }
-        }
+       // }
         
        
 

@@ -149,7 +149,16 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
 
     $title='';
     if($item)
-    $title=$item->title;
+    {
+        $title=$item->title;
+        if($item->images)
+        {
+        if($item->images[0])
+        $ImageURL= env('ADMIN_URL').$item->images[0];
+        }
+   
+    }
+   
     $data = [
         'ar' => [
             'title' => '  هناك شخص  قرأ رمز التعريف  الخاص بك '.$title,

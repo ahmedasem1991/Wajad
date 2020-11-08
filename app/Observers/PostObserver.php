@@ -167,7 +167,7 @@ class PostObserver
         if (Auth()->User()->isCorporateAdmin() || Auth()->User()->isAdmin()) {
 
             // //this for update
-            if($Post->questions)
+            if($Post->questions->count() > 0)
             {
 
                 
@@ -175,7 +175,7 @@ class PostObserver
                 if($question=='' || $question == null) {
                     $get_question= $Post->questions->first();
                     if($get_question)
-                    $Post->questions->take(1)->delete();
+                    $get_question->delete();
                 }else {
                     $question_1 =$Post->questions->first();
                     $question_1->update([
