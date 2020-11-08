@@ -184,12 +184,16 @@ class PostsController extends Controller
             ]);
             $post->save();
 
-            foreach ($request->questions as $question) {
+            foreach ($request->questions as $key => $question) {
                 //if ($question) {
+                    $x='question_'.$key+1;
                     $post->questions()->create([
                         'founder_id' => auth('api')->user()->id,
                         'question' => $question,
                     ]);
+                    $post->$x= $question;
+                   
+                    $post->save();
                // }
             }
 
