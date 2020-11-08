@@ -132,6 +132,11 @@ class PostsController extends Controller
             $appearance_status = 1;
             $approval_status=1;
         }
+
+         $dispatcher = Post::getEventDispatcher();
+         Post::unsetEventDispatcher();
+       
+       
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -180,12 +185,12 @@ class PostsController extends Controller
             $post->save();
 
             foreach ($request->questions as $question) {
-                if ($question) {
+                //if ($question) {
                     $post->questions()->create([
                         'founder_id' => auth('api')->user()->id,
                         'question' => $question,
                     ]);
-                }
+               // }
             }
 
             // array_map(function ($question) use ($post) {
@@ -215,7 +220,7 @@ class PostsController extends Controller
             $post->save();
         }
 
-
+        Post::setEventDispatcher($dispatcher);
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
    // Send FCM
