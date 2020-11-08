@@ -186,14 +186,14 @@ class PostsController extends Controller
 
             foreach ($request->questions as $key => $question) {
                 //if ($question) {
-                    $x='question_'.$key+1;
+                   // $x='question_'.$key+1;
                     $post->questions()->create([
                         'founder_id' => auth('api')->user()->id,
                         'question' => $question,
                     ]);
-                    $post->$x= $question;
+                   // $post->$x= $question;
                    
-                    $post->save();
+                    //$post->save();
                // }
             }
 
