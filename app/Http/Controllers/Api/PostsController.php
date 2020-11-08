@@ -178,14 +178,19 @@ class PostsController extends Controller
                 'founder_releated_to_system' => 1
             ]);
             $post->save();
-            array_map(function ($question) use ($post) {
+
+            foreach ($request->questions as $question) {
                 if ($question) {
                     $post->questions()->create([
                         'founder_id' => auth('api')->user()->id,
                         'question' => $question,
                     ]);
                 }
-            }, $request->questions);
+            }
+
+            // array_map(function ($question) use ($post) {
+
+            // }, $request->questions);
         }
 
         auth('api')->user()->increment('posts_number');
