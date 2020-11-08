@@ -37,6 +37,7 @@
 
         gtag('config', 'UA-156033330-1');
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body class="min-w-site bg-40 text-black min-h-full">
 <div id="nova">
@@ -97,15 +98,15 @@
 <!-- Tool Scripts -->
 @foreach (Nova::availableScripts(request()) as $name => $path)
     @if (\Illuminate\Support\Str::startsWith($path, ['http://', 'https://']))
-        <script src="{!! $path !!}"></script>
+        <script type="text/javascript" src="{!! $path !!}"></script>
     @else
-        <script src="/nova-api/scripts/{{ $name }}"></script>
+        <script type="text/javascript" src="/nova-api/scripts/{{ $name }}"></script>
     @endif
 @endforeach
 
 <!-- Start Nova -->
 <script>
-    Nova.liftOff()
+    Nova.liftOff();
 </script>
 </body>
 </html>

@@ -1,0 +1,28 @@
+table,
+tr,
+td,
+th {
+    border-collapse: collapse;
+}
+
+tr.headers {
+    cursor: pointer;
+}
+td.old{
+    color: red
+}
+td.new{
+    color: green
+}
+.data{
+
+}
+.marker{
+
+}
+.mini{
+    max-width: 400px;
+}
+.hide{
+    display: none;
+}

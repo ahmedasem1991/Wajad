@@ -11,6 +11,10 @@ class Activity extends Model
   protected  $table = 'activity_log';
   protected $casts = ['properties' => 'array'];
 
+    public function subject()
+    {
+        return $this->morphTo();
+    }
   public function user()
   {
     return $this->belongsTo(User::class, 'causer_id');

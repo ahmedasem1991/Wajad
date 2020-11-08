@@ -2,16 +2,13 @@
 
 namespace App\NovaCorporate;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Activity extends Resource
@@ -68,7 +65,39 @@ class Activity extends Resource
      */
     public function fields(Request $request)
     {
-        return [
+        $types = [
+            Answer::class,
+            Brand::class,
+            Category::class,
+            ClosedPost::class,
+            Color::class,
+            Corporate::class,
+            CorporateAssignQrcode::class,
+            Country::class,
+            ExpiredQRcode::class,
+            GenerateQrcode::class,
+            HiddenPost::class,
+            Item::class,
+            Model::class,
+            NormalUser::class,
+            NovaPermissions::class,
+            Package::class,
+            People::class,
+            Post::class,
+            PostReport::class,
+            PostRequest::class,
+            PostType::class,
+            Qrcode::class,
+            Question::class,
+            ReportedPost::class,
+            Role::class,
+            Stock::class,
+            SubCategory::class,
+            Subscription::class,
+            User::class,
+        ];
+        return array(
+            Errors::make(),
             ID::make()->sortable(),
             Text::make('properties')
                 ->displayUsing(function ($model){
@@ -95,21 +124,22 @@ class Activity extends Resource
                         }
                     }
                     $output = <<<html
-<table>
-<tr>
+<table >
+<tr class="headers">
 <th>Properties</th>
 <th>Old</th>
 <th>New</th>
+<th><button type="button" onclick="hideTable()"><h1>+</h1></button></th>
 </tr>
 html;
                     foreach ($arr as $key => $val){
-                        $output .= '<tr>';
+                        $output .= '<tr class="data hide">';
                         $output .= "<td>$key</td>";
-                        $output .= '<td style="color: red">';
-                        $output .= $val['old'] ?? '' ;
+                        $output .= '<td class="old">';
+                        $output .= $val['old'] ?? 'N/A' ;
                         $output .= '</td>';
-                        $output .= '<td style="color: green">';
-                        $output .= $val['new'] ?? '' ;
+                        $output .= '<td class="new">';
+                        $output .= $val['new'] ?? 'N/A' ;
                         $output .= '</td>';
                         $output .= '</tr>';
                     }
@@ -117,14 +147,15 @@ html;
                     return $output;
                 })->asHtml(),
             Text::make('DESCRIPTION'),
-            Text::make('SUBJECT ID'),
-            Text::make('SUBJECT TYPE'),
-            Text::make('USER ID','causer_id'),
-            Text::make('CREATED_AT'),
+//            Text::make('SUBJECT ID'),
+//            Text::make('SUBJECT TYPE'),
+//            Text::make('USER ID','causer_id'),
+            MorphTo::make('subject')->types($types),
+            DateTime::make('CREATED_AT'),
             NovaBelongsToDepend::make('User')
-                ->placeholder("User")
+                ->placeholder('User')
                 ->options(\App\User::all()),
-        ];
+        );
     }
 
     /**

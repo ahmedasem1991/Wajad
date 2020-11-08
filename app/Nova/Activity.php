@@ -2,17 +2,11 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Image;
-use Kristories\Qrcode\Qrcode;
-use Laravel\Nova\Fields\HasMany;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -70,6 +64,58 @@ class Activity extends Resource
      */
     public function fields(Request $request)
     {
+        $types = [
+            ALLPost::class,
+            AllUser::class,
+            Answer::class,
+            Area::class,
+            AssignQrcode::class,
+            Banner::class,
+            Brand::class,
+            Category::class,
+            City::class,
+            ClosedPost::class,
+            Color::class,
+            Corporate::class,
+            CorporateAdmin::class,
+            CorporateUser::class,
+            Country::class,
+            ExpiredQRcode::class,
+            GenerateQrcode::class,
+            HiddenPost::class,
+            Item::class,
+            Keyword::class,
+            Model::class,
+            NormalUser::class,
+            Notification::class,
+            OpeningPost::class,
+            Package::class,
+            PackageProductMedia::class,
+            Page::class,
+            PendingPost::class,
+            People::class,
+            Permissions::class,
+            PostReport::class,
+            PostRequest::class,
+            PostType::class,
+            Qrcode::class,
+            Question::class,
+            RejectedPost::class,
+            ReportedPost::class,
+            Resource::class,
+            Role::class,
+            Setting::class,
+            Stock::class,
+            SubCategory::class,
+            Subscription::class,
+            SuperAdmin::class,
+            Support::class,
+            User::class,
+            Visit::class,
+            WajadOffice::class,
+        ];
+
+
         return array(
             Errors::make(),
             ID::make()->sortable(),
@@ -98,21 +144,22 @@ class Activity extends Resource
                         }
                     }
                     $output = <<<html
-<table>
-<tr>
+<table >
+<tr class="headers">
 <th>Properties</th>
 <th>Old</th>
 <th>New</th>
+<th><button type="button" onclick="hideTable()"><h1>+</h1></button></th>
 </tr>
 html;
                     foreach ($arr as $key => $val){
-                        $output .= '<tr>';
+                        $output .= '<tr class="data hide">';
                         $output .= "<td>$key</td>";
-                        $output .= '<td style="color: red">';
-                        $output .= $val['old'] ?? '' ;
+                        $output .= '<td class="old">';
+                        $output .= $val['old'] ?? 'N/A' ;
                         $output .= '</td>';
-                        $output .= '<td style="color: green">';
-                        $output .= $val['new'] ?? '' ;
+                        $output .= '<td class="new">';
+                        $output .= $val['new'] ?? 'N/A' ;
                         $output .= '</td>';
                         $output .= '</tr>';
                     }
@@ -120,10 +167,11 @@ html;
                     return $output;
                 })->asHtml(),
             Text::make('DESCRIPTION'),
-            Text::make('SUBJECT ID'),
-            Text::make('SUBJECT TYPE'),
-            Text::make('USER ID','causer_id'),
-            Text::make('CREATED_AT'),
+//            Text::make('SUBJECT ID'),
+//            Text::make('SUBJECT TYPE'),
+//            Text::make('USER ID','causer_id'),
+            MorphTo::make('subject')->types($types),
+            DateTime::make('CREATED_AT'),
             NovaBelongsToDepend::make('User')
                 ->placeholder('User')
                 ->options(\App\User::all()),

@@ -31,6 +31,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+        Nova::style('table', public_path('css/table.css'));
+        Nova::script('table', public_path('js/table.js'));
     }
 
     protected function resources()
@@ -73,7 +75,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             $array = [];
 
             if (Auth()->user()->hasPermissionTo('view posts')) {
-                 
+
                 array_push($array, new PostsPeriod);
                 array_push($array, new ShowVsHiddenPosts);
                 array_push($array, new OpenVsClosedPosts);
@@ -99,7 +101,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 // new \Marianvlad\NovaEnvCard\NovaEnvCard,
                     }
             return $array;
- 
+
         }
 
         if (Auth()->user()->isCorporateAdmin()) {
@@ -121,7 +123,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
 
-       
+
         if (Auth()->user()->isCorporateAdmin()) {
             //  copy(config_path() . "/novapermissionsCorporate.php", config_path() . "/novapermissions.php");
             return [
