@@ -140,11 +140,11 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
 function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
 {
     $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($item->images)
-    {
-    if($item->images[0])
-    $ImageURL= env('ADMIN_URL').$item->images[0];
-    }
+    // if($item->images)
+    // {
+    // if($item->images[0])
+    // $ImageURL= env('ADMIN_URL').$item->images[0];
+    // }
 
 
     $title='';
