@@ -49,9 +49,9 @@ class SendAdminNotificationJob implements ShouldQueue
 
         
         if (strpos($this->send_by, 'fcm') !== false) {
-            // if (in_array("fcm",$this->send_by)) {
-            // To All Users
-            if ($this->send_to == 0) {
+            
+            // To All Users as adv.
+            if ($this->send_to == 2) {
                 $notificationBuilder = new PayloadNotificationBuilder('Wajad');
                 $notificationBuilder->setBody($this->body)
                     ->setSound('default');
@@ -63,15 +63,24 @@ class SendAdminNotificationJob implements ShouldQueue
 
                 $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
             }
+             // To All Users
+            if ($this->send_to == 0) {
+
+                User::chunk(1000, function ($users) {
+                    foreach ($users as $user) {
+                    $badge =getBadge($user);
+                    $data = sendCustomUsersFCM($this->body, $badge);
+                    $user->notify(new SendFCMNotification($user, $data));
+                    }
+                });
+
+            }
 
             //Special Users
             if ($this->send_to == 1) {
                
                 $Users = User::find($this->users);
-               
-               
-               
-             //   dd( $Users);
+
                 foreach ($Users as $user) {
                     $badge =getBadge($user);
                     $data = sendCustomUsersFCM($this->body, $badge);

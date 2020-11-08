@@ -12,11 +12,13 @@ use App\Nova\Metrics\Colors;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use OptimistDigital\MultiselectField\Multiselect;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -73,13 +75,25 @@ class Notification extends Resource
                 'required', 'min:2'
             ]) ,
 
-            RadioButton::make('Send To', 'send_to')
-                ->options([
-                 //   2 => 'As Advertisement',
-                    0 => 'All Users',
-                    1 => 'Special Users',
+            // RadioButton::make('Send To', 'send_to')
+            //     ->options([
+            //         0 => 'All Users',
+            //         1 => 'Special Users',
+            //         2 => 'As Advertisement (FCM)',
                    
-                ])->default(0),
+            //     ])
+            //     ->rules('required')
+              //  ->default(0)
+               // ,
+               Select::make('Send To', 'send_to')
+               ->options([
+                0 => 'All Users',
+                1 => 'Special Users',
+                2 => 'As Advertisement (FCM)',
+            ])
+            //->default('2')
+                ->rules('required')
+                ->displayUsingLabels(),
 
             NovaDependencyContainer::make([
                 Multiselect::make('Users')
@@ -89,43 +103,70 @@ class Notification extends Resource
                     ->placeholder('Select Users')
                     ->reorderable(),
             ])->dependsOn('send_to', '1'),
-/*
-            NovaDependencyContainer::make([
-                NovaBelongsToDepend::make('Country', 'country', \App\Nova\Country::class)
-                ->placeholder('Select Country')
-                ->options(\App\Country::with('regions')->get())
-                ->hideFromIndex()
-                ->rules('required'),
 
-            NovaBelongsToDepend::make('Region', 'region', \App\Nova\Area::class)
-                ->placeholder('Select Region')
-                ->options(\App\Region::with('cities')->get())
-                ->hideFromIndex()
-                ->rules('required'),
+        //     NovaDependencyContainer::make([
+        //         NovaBelongsToDepend::make('Country', 'country', \App\Nova\Country::class)
+        //         ->placeholder('Select Country')
+        //         ->options(\App\Country::with('regions')->get())
+        //         ->hideFromIndex()
+        //         ->rules('required'),
 
-            NovaBelongsToDepend::make('City', 'city', \App\Nova\City::class)
-                ->placeholder('Select City')
-                ->optionsResolve(function ($region) {
-                    return $region->cities;
-                })
-                ->dependsOn('region')
-                ->hideFromIndex()
-                ->rules('required'),
+        //     NovaBelongsToDepend::make('Region', 'region', \App\Nova\Area::class)
+        //         ->placeholder('Select Region')
+        //       //  ->options(\App\Region::with('cities')->get())
+        //       ->optionsResolve(function ($country) {
+        //         return $country->regions;
+        //     })
+        //     ->dependsOn('country')
+        //         ->hideFromIndex()
+        //         ->rules('required'),
 
-           ])->dependsOn('send_to', '0'),
-*/
-            Multiselect::make('Send By','send_by')
-                ->options(
-                    [
-                        'email'=>'Email',
-                        'fcm'=>'FCM',
-                        'sms'=>'SMS',
-                    ]
-                )
-                ->creationRules('required')
+        //     NovaBelongsToDepend::make('City', 'city', \App\Nova\City::class)
+        //         ->placeholder('Select City')
+        //         ->optionsResolve(function ($region) {
+        //             return $region->cities()->get(['id', 'name_en']);
+        //         })
+        //         ->dependsOn('region')
+        //         ->hideFromIndex()
+        //         ->rules('required'),
 
-                ->placeholder('Select Options')
-                ->reorderable(),
+        //    ])->dependsOn('send_to', '2'),
+
+
+
+                NovaDependencyContainer::make([
+                    Multiselect::make('Send By','send_by')
+                    ->options(
+                        [
+                            'email'=>'Email',
+                            'fcm'=>'FCM',
+                            'sms'=>'SMS',
+                        ]
+                    )
+                    ->creationRules('required')
+                    ->placeholder('Select Options')
+                    ->reorderable(),
+
+                ])
+                ->dependsOn('send_to', '0')
+                ->dependsOn('send_to', '1'),
+
+                NovaDependencyContainer::make([
+                    Multiselect::make('Send By','send_by')
+                    ->options(
+                        [
+                           
+                            'fcm'=>'FCM'
+                           
+                        ]
+                    )
+                    ->creationRules('required')
+                    ->placeholder('Select Options')
+                    ->reorderable(),
+
+                ])
+                //->dependsOn('send_to', '0')
+                ->dependsOn('send_to', '2'),
         ];
     }
 

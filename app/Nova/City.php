@@ -32,7 +32,7 @@ class City extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name_en';
 
     /**
      * The columns that should be searched.
