@@ -74,7 +74,7 @@
 
 
     <div class="col-md-3 col-sm-3 m-3 p-3">
-        <img src="/images/wajad_logo.png" class="logo">
+        <img src="/images/logo20.png" class="logo">
     </div>
     <div class="container-fluid" style="background-color: #ffffff;">
         <div class="service-40 wrap-feature40-box p-4">
@@ -82,42 +82,42 @@
                 <div class="col-lg-6">
                     <div class="card border-0 mb-4">
                         <div class="card-header heads">
-                            <h3 style="color: #07a3e2"><strong>ITEM INFORMATION</strong></h3>
+                            <h5 style="color: #07a3e2"><strong>ITEM INFORMATION</strong></h5>
                         </div>
                         <div class="card-body bodies">
 
                             <div class="col-12 col-md-6">
                                 <!--customer Details start-->
-                                <h3 class="font-weight-bold">
-                                    <span>Brand: </span></h3>
-                                <h5 class="my-3 ">
+                                <h5 class="font-weight-bold">
+                                    <span>Brand: </span></h5>
+                                <h7 class="my-3 ">
                                     <span>{{$qr_code->item->brand->name_en ?? 'Not Available'}}</span>
-                                </h5><br>
+                                </h7><br>
 
                                 <!--customer Details end-->
                             </div>
                             <div class="col-12 col-md-6">
                                 <!--customer Details start-->
-                                <h3 class="font-weight-bold">Model: </h3>
-                                <h5 class="my-3 ">
+                                <h5 class="font-weight-bold">Model: </h5>
+                                <h7 class="my-3 ">
                                     <span>{{$qr_code->item->model->name_en ?? 'Not Available'}}</span>
-                                </h5><br>
+                                </h7><br>
                                 <!--customer Details end-->
                             </div>
                             <div class="col-12 col-md-6">
                                 <!--customer Details start-->
-                                <h3 class="font-weight-bold">Color: </h3>
-                                <h5 class="my-3 ">
+                                <h5 class="font-weight-bold">Color: </h5>
+                                <h7 class="my-3 ">
                                     <span>{{$qr_code->item->color->name_en ?? 'Not Available'}}</span>
-                                </h5><br>
+                                </h7><br>
                                 <!--customer Details end-->
                             </div>
                             <div class="col-12 col-md-6">
                                 <!--customer Details start-->
-                                <h3 class="font-weight-bold">Item: </h3>
-                                <h5 class="my-3 ">
+                                <h5 class="font-weight-bold">Item: </h5>
+                                <h7 class="my-3 ">
                                     <span>{{$qr_code->item->title ?? 'Not Available'}}</span>
-                                </h5><br>
+                                </h7><br>
                                 <!--customer Details end-->
                             </div>
                             <div class="container">
@@ -134,10 +134,10 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <!--customer Details start-->
-                                <h3 class="font-weight-bold">Description: </h3>
-                                <h5 class="my-3 ">
+                                <h5 class="font-weight-bold">Description: </h5>
+                                <h7 class="my-3 ">
                                     <span>{{$qr_code->item->details ?? 'Not Available'}}</span>
-                                </h5><br>
+                                </h7><br>
                                 <!--customer Details end-->
                             </div>
                         </div>
@@ -147,49 +147,49 @@
                     <div class="">
                         <div class="card border-0 mb-4">
                             <div class="card-header heads">
-                                <h3 style="color: #07a3e2"><strong>OWNER INFORMATION</strong></h3>
+                                <h5 style="color: #07a3e2"><strong>OWNER INFORMATION</strong></h5>
                             </div>
                             <div class="card-body bodies">
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h3 class="font-weight-bold">Item Owner: </h3>
-                                    <h5 class="my-3 ">
+                                    <h5 class="font-weight-bold">Item Owner: </h5>
+                                    <h7 class="my-3 ">
                                         <span>{{$qr_code->item->owner->name ?? 'Not Available'}}</span>
-                                    </h5><br>
+                                    </h7><br>
                                     <!--customer Details end-->
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h3 class="font-weight-bold">Contact #: </h3>
-                                    <h5 class="my-3 ">
+                                    <h5 class="font-weight-bold">Contact #: </h5>
+                                    <h7 class="my-3 ">
                                         {{-- <a href="tel:{{$qr_code->item->owner ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : ''}}">--}}
                                         <span>{{!empty($qr_code->item->owner) ? '+'. $qr_code->item->owner->country->country_code . $qr_code->item->owner->mobile_number : 'Not Available'}}</span>
                                         {{-- </a>--}}
-                                    </h5><br>
+                                    </h7><br>
                                     <!--customer Details end-->
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h3 class="font-weight-bold">Date: </h3>
-                                    <h5 class="my-3 ">
+                                    <h5 class="font-weight-bold">Date: </h5>
+                                    <h7 class="my-3 ">
                                         <span>{{!empty($qr_code->item) ? $qr_code->item->created_at->format('d F Y') : 'Not Available'}}</span>
-                                    </h5><br>
+                                    </h7><br>
                                     <!--customer Details end-->
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h3 class="font-weight-bold">Item: </h3>
-                                    <h5 class="my-3 ">
+                                    <h5 class="font-weight-bold">Item: </h5>
+                                    <h7 class="my-3 ">
                                         <span>{{$qr_code->item->title ?? 'Not Available'}}</span>
-                                    </h5><br>
+                                    </h7><br>
                                     <!--customer Details end-->
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h3 class="font-weight-bold">Contact The Owner: </h3>
-                                    <h5 class="my-3 ">
+                                    <h5 class="font-weight-bold">Contact The Owner: </h5>
+                                    <h7 class="my-3 ">
                                         <a href="#"><span>Click Here</span></a>
-                                    </h5><br>
+                                    </h7><br>
                                     <!--customer Details end-->
                                 </div>
                             </div>

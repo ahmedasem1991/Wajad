@@ -124,4 +124,8 @@ class Country extends Resource
     {
         return false;
     }
+    public   function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
 }
