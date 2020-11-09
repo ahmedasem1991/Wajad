@@ -149,7 +149,7 @@ class Activity extends Resource
 <th>Properties</th>
 <th>Old</th>
 <th>New</th>
-<th><button type="button" onclick="hideTable()"><h1>+</h1></button></th>
+<th><button type="button" onclick="hideTable()" class="coll"><h1>+</h1></button></th>
 </tr>
 html;
                     foreach ($arr as $key => $val){
