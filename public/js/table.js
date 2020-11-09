@@ -1,10 +1,7 @@
 function hideTable(){
-    var attached = false;
-    if (attached === false){
         $('.headers').click(function()
         {
-            attached = true;
+            $('button').replaceWith($('<h1>+</h1>'));
             $(this).nextUntil('tr.headers').toggleClass('hide');
         });
-    }
 }
