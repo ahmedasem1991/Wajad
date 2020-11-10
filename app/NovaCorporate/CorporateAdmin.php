@@ -193,7 +193,7 @@ class CorporateAdmin extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->CorporateAdmin();
+        return $query->where('type',2)->where('corporate_id', auth()->user()->corporate_id);
     }
     public static function icon()
     {
