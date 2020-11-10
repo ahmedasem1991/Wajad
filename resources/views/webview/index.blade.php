@@ -151,14 +151,20 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12" style="display: inline-block">
                                         @if($qr_code->item)
-                                        @foreach($qr_code->item->images as $key=> $image)
-                                        @if($key % 2 === 0 && $key != 0)<tr>@endif
                                         
-                                       <td><center> <img src="{{$image}}" alt=""  style="max-width: 40%;
+                                        @foreach($qr_code->item->images as $key=> $image)
+                                        @if( $key == 0)<tr>@endif
+                                        
+                                       <td>
+                                       <center> <img src="{{$image}}" alt=""  style="max-width:60%;max-height: 200px;
                                             object-fit: cover;" />
-                                    </center>  </td>
-                                      @if($key % 2 === 0 && $key != 0)</tr>@endif
+                                       </center>  
+                                      </td>
+                                     
+                                      @if($key % 2 != 0 && $key != 0)</tr>@endif
+                                   
                                         @endforeach
+                                        </tr>
                                         @endif
                                     </div>
                                 </div>
@@ -226,12 +232,15 @@
                         </div>
                         <div>
                             <div class="mt-3" style="display: inline-flex; position: relative; float: right">
+                             
                                 <a href="#">
-                                    <img src="/images/GoogleAppStore.png" style=" max-width: 100%" alt="">
+                                <center>   <img src="/images/GoogleAppStore.png" style=" max-width: 80%" alt="">  </center>
                                 </a>
                                 <a href="#">
-                                    <img src="/images/AppleAppStore.png" style="max-width: 100%" alt="">
-                                </a>
+                                <center>    <img src="/images/AppleAppStore.png" style="max-width: 80%" alt="">
+                               
+                                    </center> </a>
+                              
                             </div>
                         </div>
                     </div>
