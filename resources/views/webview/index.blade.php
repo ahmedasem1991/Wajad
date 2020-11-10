@@ -152,12 +152,12 @@
                                     <div class="col-12 col-md-12" style="display: inline-block">
                                         @if($qr_code->item)
                                         @foreach($qr_code->item->images as $key=> $image)
-                                        @if($key % 3 === 0 && $key != 0)<tr>@endif
-                                        {{$key % 4}}
-                                       <td> <img src="{{$image}}" alt=""  style="max-width: 40%;
+                                        @if($key % 2 === 0 && $key != 0)<tr>@endif
+                                        
+                                       <td><center> <img src="{{$image}}" alt=""  style="max-width: 40%;
                                             object-fit: cover;" />
-                                      </td>
-                                      @if($key % 3 === 0 && $key != 0)</tr>@endif
+                                    </center>  </td>
+                                      @if($key % 2 === 0 && $key != 0)</tr>@endif
                                         @endforeach
                                         @endif
                                     </div>
