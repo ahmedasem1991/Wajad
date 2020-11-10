@@ -22,7 +22,7 @@
         @endif
         @if(auth()->user()->isCorporateAdmin())
                 <li>
-                    <a href="/wajad/resources/users/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3">
+                    <a href="/wajad/resources/corporate-admins/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3">
                     <i class="fa fa-user"></i>       My Profile
                     </a>
                 </li>
