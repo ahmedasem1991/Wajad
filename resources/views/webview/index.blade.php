@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body >
 
 
     <script type="application/javascript">
@@ -178,6 +178,7 @@
                         </div>
                     </div>
                 </div>
+                <br>.
                 <div class="col-lg-6">
                     <div class="">
                         <div class="card border-0 mb-4">
