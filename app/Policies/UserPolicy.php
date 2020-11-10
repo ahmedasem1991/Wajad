@@ -35,7 +35,7 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         // if(Auth()->User()->isCorporateAdmin()){
-        if ($user->id === $model->id){
+        if (auth()->user()->id === $model->id){
             return true;
         }
 
@@ -78,6 +78,11 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         // if(Auth()->User()->isCorporateAdmin()){
+
+        if (auth()->user()->id === $model->id){
+            return true;
+        }
+
         if($user->hasPermissionTo('edit users'))
         {
             return true;
