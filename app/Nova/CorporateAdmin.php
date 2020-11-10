@@ -38,7 +38,7 @@ class CorporateAdmin extends Resource
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = 'App\User';
 
     /**
      * The logical group associated with the resource.
