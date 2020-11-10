@@ -74,7 +74,7 @@
 
 
     <div class="col-md-3 col-sm-3 m-3 p-3">
-        <img src="/images/logo20.png" class="logo">
+        <img src="/images/logo20.png"  style="width:120px;height:70px">
     </div>
     <div class="container-fluid" style="background-color: #ffffff;">
         <div class="service-40 wrap-feature40-box p-4">
@@ -141,7 +141,7 @@
 
 
                             </td>
-                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 70%;float:right"  /></td>
+                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 90%;float:right"  /></td>
 </tr>
 </table>
 <br>
