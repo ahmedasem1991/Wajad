@@ -141,7 +141,7 @@
 
 
                             </td>
-                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 90%;float:right"  /></td>
+                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
 </tr>
 </table>
 <br>
