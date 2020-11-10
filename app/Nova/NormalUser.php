@@ -33,7 +33,7 @@ class NormalUser extends Resource
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = 'App\User';
     public static $displayInNavigation = false;
 
     /**

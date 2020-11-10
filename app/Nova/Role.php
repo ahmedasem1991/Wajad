@@ -30,7 +30,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $model = \App\Role::class;
+    public static $model = 'App\Role';
     public static $displayInNavigation = true;
 
     /**
