@@ -74,7 +74,7 @@
 
 
     <div class="col-md-3 col-sm-3 m-3 p-3">
-        <img src="/images/logo20.png"  style="width:120px;height:70px">
+        <img src="/images/wlogo.png"  style="width:140px;height:70px">
     </div>
     <div class="container-fluid" style="background-color: #ffffff;">
         <div class="service-40 wrap-feature40-box p-4">

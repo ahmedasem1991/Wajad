@@ -19,11 +19,12 @@ use phpseclib\Crypt\RSA;
 use App\Events\TestEvent;
 use Damas\Paytabs\Paytabs;
 use App\Events\SendFCMEvent;
+use App\Jobs\DeleteUserChat;
 use Illuminate\Http\Request;
 use App\Services\FCM\Facades\FCM;
 use App\Mail\EmailVerificationCode;
-use Illuminate\Support\Facades\App;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
+use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
@@ -799,6 +800,17 @@ Route::get('image', function(){
 if($post->images)
 if($post->images[0])
 return env('ADMIN_URL').$post->images[0];
+  //  dd(request()->getClientIp(true));
+
+});
+
+
+
+
+Route::get('deleteuserchat', function(){
+    $user=\App\User::find(50);
+    //dd($user);
+    DeleteUserChat::dispatch($user);
   //  dd(request()->getClientIp(true));
 
 });
