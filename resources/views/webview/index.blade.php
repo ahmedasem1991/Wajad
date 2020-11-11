@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body >
 
 
     <script type="application/javascript">
@@ -74,7 +74,7 @@
 
 
     <div class="col-md-3 col-sm-3 m-3 p-3">
-        <img src="/images/logo20.png" class="logo">
+        <img src="/images/wlogo.png"  style="width:140px;height:70px">
     </div>
     <div class="container-fluid" style="background-color: #ffffff;">
         <div class="service-40 wrap-feature40-box p-4">
@@ -141,7 +141,7 @@
 
 
                             </td>
-                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 70%;float:right"  /></td>
+                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
 </tr>
 </table>
 <br>
@@ -151,14 +151,20 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12" style="display: inline-block">
                                         @if($qr_code->item)
-                                        @foreach($qr_code->item->images as $key=> $image)
-                                        @if($key % 2 === 0 && $key != 0)<tr>@endif
                                         
-                                       <td><center> <img src="{{$image}}" alt=""  style="max-width: 40%;
+                                        @foreach($qr_code->item->images as $key=> $image)
+                                        @if( $key == 0)<tr>@endif
+                                        
+                                       <td>
+                                       <center> <img src="{{$image}}" alt=""  style="max-width:60%;max-height: 200px;
                                             object-fit: cover;" />
-                                    </center>  </td>
-                                      @if($key % 2 === 0 && $key != 0)</tr>@endif
+                                       </center>  
+                                      </td>
+                                     
+                                      @if($key % 2 != 0 && $key != 0)</tr>@endif
+                                   
                                         @endforeach
+                                        </tr>
                                         @endif
                                     </div>
                                 </div>
@@ -172,6 +178,7 @@
                         </div>
                     </div>
                 </div>
+                <br>.
                 <div class="col-lg-6">
                     <div class="">
                         <div class="card border-0 mb-4">
@@ -226,12 +233,15 @@
                         </div>
                         <div>
                             <div class="mt-3" style="display: inline-flex; position: relative; float: right">
+                             
                                 <a href="#">
-                                    <img src="/images/GoogleAppStore.png" style=" max-width: 100%" alt="">
+                                <center>   <img src="/images/GoogleAppStore.png" style=" max-width: 80%" alt="">  </center>
                                 </a>
                                 <a href="#">
-                                    <img src="/images/AppleAppStore.png" style="max-width: 100%" alt="">
-                                </a>
+                                <center>    <img src="/images/AppleAppStore.png" style="max-width: 80%" alt="">
+                               
+                                    </center> </a>
+                              
                             </div>
                         </div>
                     </div>
