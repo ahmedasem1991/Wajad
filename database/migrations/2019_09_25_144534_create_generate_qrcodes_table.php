@@ -19,6 +19,7 @@ class CreateGenerateQrcodesTable extends Migration
             $table->integer('type')->default(1);//default  (single)
             $table->string('status')->default('waiting');//finished
             $table->integer('quantity')->default(1);
+            $table->integer('blue_eyes')->default(0);
             $table->integer('created_by')->unsigned()->nullable();
             $table->string('created_from')->default('web');
            $table->softDeletes();
