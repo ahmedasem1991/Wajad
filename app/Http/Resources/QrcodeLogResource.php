@@ -21,7 +21,7 @@ class QrcodeLogResource extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'device_type' => $this->device_type,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }
 }

@@ -22,7 +22,7 @@ class ItemQrcodeLogResource extends JsonResource
             'lng' => $this->lng,
             'device_type' => $this->device_type,
             'qrcode' => QrcodeResource::make($this->qrcode),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }
 }
