@@ -20,7 +20,11 @@ use App\Notifications\BroadcastNotification;
 class GenerateQrcodeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private $id,$generate_reference_number,$quantity,$type,$generateQrcode,$auth_id;
+    private $id,$generate_reference_number,$quantity,$type,$generateQrcode,$auth_id,$blue_eyes;
+    
+        private $R=0;
+        private $G=0;
+        private $B=0;
     /**
      * Create a new job instance.
      *
@@ -34,6 +38,7 @@ class GenerateQrcodeJob implements ShouldQueue
        $this->quantity=$generateQrcode->quantity;
        $this->type=$generateQrcode->type;
        $this->auth_id=$generateQrcode->created_by;
+       $this->blue_eyes=$generateQrcode->blue_eyes;
     }
 
     /**
@@ -46,6 +51,16 @@ class GenerateQrcodeJob implements ShouldQueue
        
         $now = Carbon::now();
         $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
+        if($this->blue_eyes==1)
+        {
+           $R=14;
+           $G=177;
+           $B=233;
+        }else{
+            $R=0;
+            $G=0;
+            $B=0;
+        }
        // $unique_reference_number = 'QR-' . $middle . $now->second  .'-'.str_random(5);
         for ($x = 1; $x <= (int)$this->quantity; $x++) {
            $ImageName= time().Str::random(20).'.png';
@@ -62,9 +77,9 @@ class GenerateQrcodeJob implements ShouldQueue
             eye('square')
             ->color(1, 0, 0)
             ->margin(3)
-            //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
-            //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
-            //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
+            ->eyeColor(0, 0,0, 0, $R,$G, $B) 
+            ->eyeColor( 1,0,0, 0, $R,$G, $B)  
+            ->eyeColor( 2,0,0, 0, $R,$G, $B) 
   
             ->format('png')
             ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)

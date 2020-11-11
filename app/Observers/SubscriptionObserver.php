@@ -87,6 +87,7 @@ class SubscriptionObserver
         //     'type' => $Package->type,
         //     'user_id' => $subscription->user_id,
         //     'auth_id' => NULL,
+          //    'blue_eyes' => 1,
         //     'corporate_id' => $subscription->corporate_id,
         //     'available_period' => str_replace(" Day/s", "", $Package->period),
         // ];

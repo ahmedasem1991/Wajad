@@ -85,12 +85,18 @@ class GenerateQrcode extends Resource
                 ->min(1)->max(10000)->step(1)
                 ->rules('required'),
 
+                Boolean::make('With Blue Eyes','blue_eyes')
+                ->trueValue(1)
+                ->falseValue(0)
+                ->withMeta(['value' => $this->blue_eyes ?? false]),
+
             RadioButton::make('Created From')
                 ->options([
                     'web' => 'web',
                 ])->default('web')
                 ->hideFromIndex()
                 ->hideFromDetail(),
+
 
             Text::make('Created From')
                 ->hideWhenCreating()

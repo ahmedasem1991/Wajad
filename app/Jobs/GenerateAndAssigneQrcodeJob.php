@@ -22,7 +22,12 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  private $generate_reference_number, $assign_reference_number, $quantity, $status, $type, $user_id, $corporate_id, $available_period, $generate_id, $auth_id;
+  private $generate_reference_number, $assign_reference_number, $quantity, $status, $type, $user_id, $corporate_id, $available_period, $generate_id, $auth_id,$blue_ayes;
+
+  private $R=0;
+  private $G=0;
+  private $B=0;
+
   /**
    * Create a new job instance.
    *
@@ -40,6 +45,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
     $this->available_period = $QRcodesData['available_period'];
     $this->generate_id = $QRcodesData['generate_id'];
     $this->auth_id = $QRcodesData['auth_id'];
+    $this->blue_ayes = $QRcodesData['blue_ayes'];
   }
 
   /**
@@ -63,6 +69,13 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
       $now = Carbon::now();
       $middle = $now->year . $now->month . $now->day . '-' . $now->hour . $now->minute;
       $unique_reference_number = 'QR-' . $middle . $now->second  . '-' . Str::random(5);
+
+      if($this->blue_eyes==1)
+      {
+         $R=6;
+         $G=120;
+         $B=160;
+      }
       for ($x = 1; $x <= (int)$this->quantity; $x++) {
         $ImageName = time() . Str::random(20) . '.png';
         $Url = $this->generate_id . time() . Str::random(20);
@@ -76,9 +89,9 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
           eye('square')
           ->color(1, 0, 0)
           ->margin(3)
-          //   ->eyeColor(0, 0,0, 0, 6,120, 160) 
-          //   ->eyeColor( 1,0,0, 0, 6,120, 160)  
-          //   ->eyeColor( 2,0,0, 0, 6,120, 160) 
+            ->eyeColor(0, 0,0, 0, $R,$G, $B) 
+            ->eyeColor( 1,0,0, 0, $R,$G, $B)  
+            ->eyeColor( 2,0,0, 0, $R,$G, $B) 
 
           ->format('png')
           ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
