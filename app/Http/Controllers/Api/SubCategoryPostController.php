@@ -200,11 +200,16 @@ class SubCategoryPostController extends Controller
             if ($subcategory_id) {
                 return $query->where('sub_category_id', $subcategory_id);
             }
-        })->orderBy('id', 'desc')->get();
+        })->orderBy('id', 'desc')->paginate(25);
 
         return SubCategoryPostResource::collection($subCategory)->additional([
             'parentCategory' => $parentCategory,
-            'posts' => PostResource::collection($posts)
+            'posts' => PostResource::collection($posts),
+            'total' => $posts->total(),
+            'count' => $posts->count(),
+            'per_page' => $posts->perPage(),
+            'current_page' => $posts->currentPage(),
+            'total_pages' => $posts->lastPage()
         ]);
     }
 }
