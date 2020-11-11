@@ -200,7 +200,7 @@ class SubCategoryPostController extends Controller
             if ($subcategory_id) {
                 return $query->where('sub_category_id', $subcategory_id);
             }
-        })->orderBy('id', 'desc')->paginate(25);
+        })->orderBy('id', 'desc')->paginate(20);
 
         return SubCategoryPostResource::collection($subCategory)->additional([
             'parentCategory' => $parentCategory,
