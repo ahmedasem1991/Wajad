@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\User;
+use URL;
 use NovaButton\Button;
 use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
@@ -70,7 +71,9 @@ class QrcodeLog extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-                Text::make('Scan time', 'created_at')
+                Text::make('Scan time', 'created_at', function () {
+                    return   $this->created_at->format('Y-m-d H:i:s');
+                })
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
