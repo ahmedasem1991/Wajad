@@ -348,7 +348,7 @@ class QrcodeLogController extends Controller
      */
     public function show($qrcode_id)
     {
-        $log = QrcodeLog::where('qrcode_id',$qrcode_id)->get();
+        $log = QrcodeLog::where('qrcode_id',$qrcode_id)->orderBy('id','desc')->get();
         return QrcodeLogResource::collection($log);
     }
 }
