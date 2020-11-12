@@ -137,19 +137,7 @@
                             <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
 </tr>
 
-                    <tr>
-                    <td>
-                    <div class="col-12 col-md-12">
-                    <!--customer Details start-->
-                    <h6 class="font-weight-bold">Description: </h6>
-                    <h8 class="my-3 ">
-                    <span>{{$qr_code->item->details ?? 'Not Available'}}</span>
-                    </h8><br>
-                    <!--customer Details end-->
-                    </div>
-                    </td>
 
-                    </tr>
 </table>
 <br>
 <table>
@@ -173,6 +161,23 @@
                                         @endforeach
                                         </tr>
                                         @endif
+
+                                        
+
+
+                     <tr>
+                    <td>
+                    <div class="col-12 col-md-12">
+                    <!--customer Details start-->
+                    <h6 class="font-weight-bold">Description: </h6>
+                    <h8 class="my-3 ">
+                    <span>{{$qr_code->item->details ?? 'Not Available'}}</span>
+                    </h8><br>
+                    <!--customer Details end-->
+                    </div>
+                    </td>
+
+                    </tr>
                                     </div>
                                 </div>
                             </div>
