@@ -149,7 +149,7 @@ class QrcodeLog extends Resource
     {
         return false;
     }
-    public   function authorizedToCreate(Request $request)
+    public static  function authorizedToCreate(Request $request)
     {
         return false;
     }
