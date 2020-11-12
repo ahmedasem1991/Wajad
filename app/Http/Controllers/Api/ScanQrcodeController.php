@@ -62,7 +62,7 @@ class ScanQrcodeController extends Controller
      */
     public function __invoke(Request $request, Qrcode $qr_code)
     {
-        return Carbon::now()->toDateTimeString();
+        return $qr_code->end_at;
         if ($qr_code->end_at < Carbon::now()->toDateTimeString()  ) {
             throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
