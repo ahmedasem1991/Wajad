@@ -65,7 +65,7 @@ class QrcodeLog extends Resource
            // Errors::make(),
             ID::make()->sortable(),
             Button::make('Location')
-            ->link(URL::to($this->url),'_blank')
+            ->link(URL::to($this->location),'_blank')
             ->style('success'),
             Text::make('IP', 'ip')
                 ->hideWhenCreating()
