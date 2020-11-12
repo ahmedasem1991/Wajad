@@ -3,30 +3,26 @@
 namespace App\Nova;
 
 use App\User;
+use NovaButton\Button;
 use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
-class Qrcode extends Resource
+class QrcodeLog extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = 'App\QrcodeLog';
     public static $perPageOptions = [50, 100, 150];
     /**
      * The logical group associated with the resource.
@@ -83,36 +79,18 @@ class Qrcode extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Text::make('Unique Reference Number', 'unique_reference_number')
+            Button::make('Location')
+            ->link(URL::to($this->url),'_blank')
+            ->style('success'),
+            Text::make('IP', 'ip')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', 'App\Nova\GenerateQrcode')
+                Text::make('Scan time', 'created_at')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
-            Text::make('Status', function () {
-                return $this->statusTitle($this->status);
-            }),
-
-            Text::make('QR CODE URL', 'qrcode_url', function () {
-                return  '<a target="_blank" href=' . $this->qrcode_url . '>URL</a>';
-            })->asHtml()
                 ->hideWhenUpdating()
-                ->hideFromIndex(),
-
-            Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
-                ->asHtml()->hideFromDetail(),
-            Image::make('QRCode Images', 'image')
-                ->disk('public')
-                ->path('images/qrcodes')
-                ->prunable()
-                ->deletable()
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
-                HasMany::make('qrcodeLogs'),
+                ->readonly(),
+ 
         ];
     }
 
