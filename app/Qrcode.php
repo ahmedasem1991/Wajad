@@ -219,7 +219,7 @@ class Qrcode extends Model implements QrcodeConstants
         return $query->where('status', 2);
     }
 
-    public function qrcodeLog()
+    public function qrcodelog()
     {
         return $this->hasMany(QrcodeLog::class);
     }

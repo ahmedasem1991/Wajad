@@ -36,7 +36,7 @@ class QrcodeLog extends Resource
      *
      * @var string
      */
-    public static $title = 'qrcode_url';
+    public static $title = 'url';
 
     /**
      * The columns that should be searched.
@@ -45,24 +45,8 @@ class QrcodeLog extends Resource
      */
     public static $search = [
         'id',
-        'unique_reference_number',
-        'generate_reference_number',
-        'assign_reference_number',
-        'corporate_assign_reference_number',
-        'type',
-        'status',
-        'quantity',
-        'qrcode_url',
-        'image',
-        'available_period',
-        'start_at',
-        'end_at',
-        'package_product_pivot_id',
-        'user_id',
-        'corporate_id',
-        'printed',
-        'item_id',
-        'deleted_at',
+        'url',
+        'ip',
         'created_at',
         'updated_at',
     ];
@@ -77,7 +61,7 @@ class QrcodeLog extends Resource
     public function fields(Request $request)
     {
         return [
-            Errors::make(),
+           // Errors::make(),
             ID::make()->sortable(),
             Button::make('Location')
             ->link(URL::to($this->url),'_blank')
@@ -103,7 +87,7 @@ class QrcodeLog extends Resource
     public function cards(Request $request)
     {
         return [
-            new QrCodes,
+           // new QrCodes,
         ];
     }
 
@@ -143,7 +127,7 @@ class QrcodeLog extends Resource
 
     public static function label()
     {
-        return 'All QR Code';
+        return 'QR Code Log';
     }
 
     public static function icon()

@@ -112,7 +112,7 @@ class Qrcode extends Resource
                 ->deletable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-                HasMany::make('qrcodeLogs'),
+                HasMany::make('qrcodelog'),
         ];
     }
 
