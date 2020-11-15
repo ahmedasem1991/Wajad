@@ -25,9 +25,7 @@
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
-            $.getJSON('https://ipapi.co/json/', function(data) {
-                ip = data.ip;
-            })
+          
 
 
         } else {
@@ -50,14 +48,17 @@
 
 
         function showPosition(position) {
-            lat = position.coords.latitude;
-            lng = position.coords.longitude;
-            console.log("Latitude: " + lat +
-                "<br>Longitude: " + lng);
+            $.getJSON('https://ipapi.co/json/', function(data) {
+                ip = data.ip;
+                lat = position.coords.latitude;
+                lng = position.coords.longitude;
+
  
                 if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
                     window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
                 }
+            })
+
  
         }
 
