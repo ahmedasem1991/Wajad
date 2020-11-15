@@ -89,28 +89,28 @@ class ScanQrcodeController extends Controller
         }
         if ($request->expectsJson())
         {
-         $log=   $qr_code->qrcodelog()->create([
+              $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip,
                 'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat.','.$request->lng,
                 'lat' =>  $request->lat,
                 'lng' => $request->lng,
                 'device_type' => $request->device_type,
-               //'qrcode_id' =>  $qrcode->id
+               
             ]);
-            dd( $log);
+            
         
            // QrcodeLogService::LogQrcode($request, $qr_code);
             return new QrcodeResource($qr_code);
         }else{
-         $log=   $qr_code->qrcodelog()->create([
+        $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip,
                 'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat.','.$request->lng,
                 'lat' =>  $request->lat,
                 'lng' => $request->lng,
                 'device_type' => $request->device_type,
-               //'qrcode_id' =>  $qrcode->id
+             
             ]);
-            dd( $log);
+             
              
             //QrcodeLogService::LogQrcode($request, $qr_code);
             return view('webview.index', compact('qr_code')) ;
