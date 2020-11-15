@@ -25,6 +25,10 @@
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
+            $.getJSON('https://ipapi.co/json/', function(data) {
+                ip = data.ip;
+            })
+
 
         } else {
             console.log("Geolocation is not supported by this browser.");
