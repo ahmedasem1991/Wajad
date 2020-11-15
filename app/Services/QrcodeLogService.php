@@ -14,7 +14,7 @@ class QrcodeLogService{
         $ip = $request->ip ?? '127.0.0.1';
         $device_type = $request->device_type ?? 'web';
        // $log = new QrcodeLog();
-        QrcodeLog::firstOrCreate([
+        QrcodeLog::Create([
             'ip' =>  $ip,
             'location' =>  $location,
             'lat' =>  $lat,
