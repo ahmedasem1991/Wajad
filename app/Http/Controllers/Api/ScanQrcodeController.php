@@ -62,7 +62,7 @@ class ScanQrcodeController extends Controller
      */
     public function __invoke(Request $request, Qrcode $qr_code)
     {
-       // return $qr_code->end_at->toDateTimeString();
+
 
        if($qr_code->end_at)
        {
@@ -71,11 +71,7 @@ class ScanQrcodeController extends Controller
         }
        }
 
-
-       
-
-        
-        if($qr_code->user && $request->has('ip'))
+        if($qr_code->user && $request->has('lat'))
         { //send mail
 
             Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
@@ -89,7 +85,7 @@ class ScanQrcodeController extends Controller
             //   new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
-        if($request->has('ip'))
+        if($request->has('lat'))
         {
             $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip,
