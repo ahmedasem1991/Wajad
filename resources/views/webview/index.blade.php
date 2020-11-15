@@ -25,10 +25,7 @@
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
-          
-
-
-        } else {
+            } else {
             console.log("Geolocation is not supported by this browser.");
             $.getJSON('https://ipapi.co/json/', function(data) {
                 ip = data.ip;
@@ -48,13 +45,11 @@
 
 
         function showPosition(position) {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
             $.getJSON('https://ipapi.co/json/', function(data) {
                 ip = data.ip;
-                lat = position.coords.latitude;
-                lng = position.coords.longitude;
-
- 
-                if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
+               if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
                     window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
                 }
             })
