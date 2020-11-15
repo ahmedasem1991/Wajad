@@ -13,23 +13,14 @@ class QrcodeLogService{
         $location = self::getLocation($lat, $lng);
         $ip = $request->ip ?? '127.0.0.1';
         $device_type = $request->device_type ?? 'web';
-       // $log = new QrcodeLog();
-        QrcodeLog::Create([
-            'ip' =>  $ip,
-            'location' =>  $location,
-            'lat' =>  $lat,
-            'lng' => $lng,
-            'device_type' => $device_type,
-            'qrcode_id' =>  $qrcode->id
-            ]);
-        
-        //$log->ip = $ip;
-       // $log->location = $location;
-        // $log->lat = $lat;
-        // $log->lng = $lng;
-        // $log->device_type = $device_type;
-        // $log->qrcode_id = $qrcode->id;
-        // $log->save();
+        $log = new QrcodeLog();
+        $log->ip = $ip;
+        $log->location = $location;
+        $log->lat = $lat;
+        $log->lng = $lng;
+        $log->device_type = $device_type;
+        $log->qrcode_id = $qrcode->id;
+        $log->save();
     }
 
     protected static function getLocation($lat, $lng)
