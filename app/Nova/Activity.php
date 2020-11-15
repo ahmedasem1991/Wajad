@@ -55,7 +55,6 @@ class Activity extends Resource
     public static $searchRelations = [
         'user' => ['name', 'email', 'mobile_number'],
     ];
-    public static $perPageOptions = [60, 200, 300];
 
     /**
      * Get the fields displayed by the resource.
@@ -169,7 +168,7 @@ html;
 //            Text::make('SUBJECT ID'),
 //            Text::make('SUBJECT TYPE'),
 //            Text::make('USER ID','causer_id'),
-           // MorphTo::make('subject')->types($types),
+            MorphTo::make('subject')->types($types),
             DateTime::make('CREATED_AT'),
             NovaBelongsToDepend::make('User')
                 ->placeholder('User')
