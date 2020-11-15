@@ -72,7 +72,8 @@ class ScanQrcodeController extends Controller
        }
        if(!$request->ip)
        {
-         throw new ApiException('Missing Location,IP and Device Type', 400);
+         //throw new ApiException('Missing Location,IP and Device Type', 400); 
+         return back();
       
        }
 
