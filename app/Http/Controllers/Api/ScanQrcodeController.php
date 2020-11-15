@@ -70,7 +70,7 @@ class ScanQrcodeController extends Controller
         }
        }
 
-        QrcodeLogService::LogQrcode($request, $qr_code);
+        
         if($qr_code->user)
         { //send mail
 
@@ -86,9 +86,16 @@ class ScanQrcodeController extends Controller
 
         }
         if ($request->expectsJson())
+        {
+            QrcodeLogService::LogQrcode($request, $qr_code);
             return new QrcodeResource($qr_code);
+        }else{
+            QrcodeLogService::LogQrcode($request, $qr_code);
+            return view('webview.index', compact('qr_code')) ;
+        }
+           
 
-        return view('webview.index', compact('qr_code')) ;
+       
         //   return $qr_code->item()->exists() ? view('webview.index', compact('qr_code')) : view('errors.404');
     }
 
