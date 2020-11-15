@@ -36,7 +36,7 @@
                 console.log(lat);
 
                 if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
-                    window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip;
+                    window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
                 }
 
 
@@ -52,7 +52,7 @@
                 "<br>Longitude: " + lng);
  
                 if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
-                    window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip;
+                    window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
                 }
  
         }
