@@ -75,7 +75,7 @@ class ScanQrcodeController extends Controller
        
 
         
-        if($qr_code->user && $request->ip)
+        if($qr_code->user && $request->has('ip'))
         { //send mail
 
             Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
@@ -89,7 +89,7 @@ class ScanQrcodeController extends Controller
             //   new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
-        if(!$request->ip)
+        if($request->has('ip'))
         {
             $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip,
