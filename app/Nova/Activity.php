@@ -55,7 +55,7 @@ class Activity extends Resource
     public static $searchRelations = [
         'user' => ['name', 'email', 'mobile_number'],
     ];
-    public static $perPageOptions = [30, 200, 300];
+    public static $perPageOptions = [40, 200, 300];
 
     /**
      * Get the fields displayed by the resource.
