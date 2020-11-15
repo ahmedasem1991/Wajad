@@ -75,7 +75,7 @@ class ScanQrcodeController extends Controller
        
 
         
-        if($qr_code->user)
+        if($qr_code->user && $request->ip)
         { //send mail
 
             Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
@@ -102,7 +102,8 @@ class ScanQrcodeController extends Controller
        
         }
         if ($request->expectsJson())
-        {// QrcodeLogService::LogQrcode($request, $qr_code);
+        {
+            // QrcodeLogService::LogQrcode($request, $qr_code);
             return new QrcodeResource($qr_code);
         }else{
              //QrcodeLogService::LogQrcode($request, $qr_code);
