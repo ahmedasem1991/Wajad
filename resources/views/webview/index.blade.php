@@ -32,7 +32,7 @@
                 city = data.city;
                 lat=data.latitude;
                 lng=data.longitude;
-                console.log(lat);
+                console.log('Not  allow GPS');
 
                 if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
                     window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
@@ -45,14 +45,15 @@
 
 
         function showPosition(position) {
+            console.log('test allow GPS');
             lat = position.coords.latitude;
             lng = position.coords.longitude;
-            //$.getJSON('https://ipapi.co/json/', function(data) {
-             //   ip = data.ip;
+            $.getJSON('https://ipapi.co/json/', function(data) {
+                ip = data.ip;
                if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
                     window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
                 }
-           // })
+            })
 
  
         }
