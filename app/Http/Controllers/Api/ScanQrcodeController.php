@@ -87,10 +87,14 @@ class ScanQrcodeController extends Controller
         }
         if ($request->expectsJson())
         {
-            QrcodeLogService::LogQrcode($request, $qr_code);
+            $qr_code->qrcodelog()->create($request->toArray());
+        
+           // QrcodeLogService::LogQrcode($request, $qr_code);
             return new QrcodeResource($qr_code);
         }else{
-            QrcodeLogService::LogQrcode($request, $qr_code);
+            $qr_code->qrcodelog()->create($request->toArray());
+             
+            //QrcodeLogService::LogQrcode($request, $qr_code);
             return view('webview.index', compact('qr_code')) ;
         }
            

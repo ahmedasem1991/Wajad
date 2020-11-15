@@ -77,10 +77,7 @@ class QrcodeLog extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-                Text::make('IP', 'ip')
-                ->hideWhenCreating()
-                ->hideWhenUpdating()
-                ->readonly(),
+
                 Text::make('Device Type', 'device_type')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()

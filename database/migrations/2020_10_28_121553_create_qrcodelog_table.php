@@ -15,14 +15,15 @@ class CreateQrcodelogTable extends Migration
     {
         Schema::create('qrcode_log', function (Blueprint $table) {
             $table->id();
-            $table->string('ip')->nullable();
-            $table->string('location')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-            $table->string('device_type')->nullable();
+            $table->string('ip')->default('0.0.0.0');
+            $table->string('location')->default('https://www.google.com/maps/search/?api=1&query=21.4498898,39.4913423');
+            $table->string('lat')->default('21.4498898');
+            $table->string('lng')->default('39.4913423');
+            $table->string('device_type')->default('default web');
             $table->unsignedInteger('qrcode_id')->nullable();
             $table->foreign('qrcode_id')->references('id')->on('qrcodes');
             $table->timestamps();
+
         });
     }
 
