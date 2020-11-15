@@ -24,7 +24,8 @@
         var ip = '127.0.0.1';
 
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+           // navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:3000});
             } else {
             console.log("Geolocation is not supported by this browser.");
             $.getJSON('https://ipapi.co/json/', function(data) {
@@ -43,7 +44,8 @@
         }
 
 
-
+        function errorCallback(position) {
+        }
         function showPosition(position) {
             console.log('test allow GPS');
             lat = position.coords.latitude;
