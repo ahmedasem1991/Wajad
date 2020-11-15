@@ -35,13 +35,10 @@
                 lng=data.longitude;
                 console.log(lat);
 
-            //setTimeout(function() {
-           // $(document).ready(function() {
                 if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
-                    window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng;
+                    window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip;
                 }
-           // });
-      //  }, 3000);
+
 
             })
         }
@@ -53,14 +50,11 @@
             lng = position.coords.longitude;
             console.log("Latitude: " + lat +
                 "<br>Longitude: " + lng);
-
-               // setTimeout(function() {
-           // $(document).ready(function() {
+ 
                 if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
                     window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip;
                 }
-           // });
-        //}, 3000);
+ 
         }
 
 
