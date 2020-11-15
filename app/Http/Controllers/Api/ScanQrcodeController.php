@@ -70,12 +70,7 @@ class ScanQrcodeController extends Controller
             throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
        }
-       if(!$request->ip)
-       {
-         //throw new ApiException('Missing Location,IP and Device Type', 400); 
-         return back();
-      
-       }
+
 
        
 
@@ -94,9 +89,9 @@ class ScanQrcodeController extends Controller
             //   new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
-        if ($request->expectsJson())
+        if(!$request->ip)
         {
-              $qr_code->qrcodelog()->create([
+            $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip,
                 'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat.','.$request->lng,
                 'lat' =>  $request->lat,
@@ -104,22 +99,13 @@ class ScanQrcodeController extends Controller
                 'device_type' => $request->device_type,
                
             ]);
-            
-        
-           // QrcodeLogService::LogQrcode($request, $qr_code);
+       
+        }
+        if ($request->expectsJson())
+        {// QrcodeLogService::LogQrcode($request, $qr_code);
             return new QrcodeResource($qr_code);
         }else{
-        $qr_code->qrcodelog()->create([
-                'ip' =>  $request->ip,
-                'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat.','.$request->lng,
-                'lat' =>  $request->lat,
-                'lng' => $request->lng,
-                'device_type' => $request->device_type,
-             
-            ]);
-             
-             
-            //QrcodeLogService::LogQrcode($request, $qr_code);
+             //QrcodeLogService::LogQrcode($request, $qr_code);
             return view('webview.index', compact('qr_code')) ;
         }
            
