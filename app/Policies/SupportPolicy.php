@@ -37,7 +37,7 @@ class SupportPolicy
      */
     public function view(User $user, Support $support)
     {
-        //
+      return true;
     }
 
     /**
