@@ -167,6 +167,12 @@ class Notification extends Resource
                 ])
                 //->dependsOn('send_to', '0')
                 ->dependsOn('send_to', '2'),
+
+                Text::make('Created At','created_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+
         ];
     }
 
