@@ -46,7 +46,7 @@ class QrcodeLog extends Resource
      */
     public static $search = [
         'id',
-        'url',
+        'location',
         'ip',
         'created_at',
         'updated_at',
