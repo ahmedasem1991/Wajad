@@ -94,7 +94,7 @@ Route::get('/smart-search/{search}', function ($search) {
    // return  json_encode($users->toArray());
     foreach($users as $key => $user){
         $array[$key]['value']= $user->id;
-        $array[$key]['display']= request('search') .'('.$user->name .')' ;
+        $array[$key]['display']= $user->mobile_number .'('.$user->name .')' ;
 
     }
     return  json_encode( $array);
