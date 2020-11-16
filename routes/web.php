@@ -89,7 +89,7 @@ Route::get('/smart-search/{search}', function ($search) {
     $array=[];
     $user=  User::normalusers()
     ->where('email' ,'LIKE', '%'.$search.'%')
-    ->orWhere('mobile_number','LIKE', '%'.$search.'%')->first()  ; 
+    ->orWhere('mobile_number','LIKE', '%'.$search.'%')->get()  ; 
 
     if( $user)
     { 
