@@ -87,10 +87,11 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 Route::get('/smart-search/{search}', function ($search) {
     //sleep(5);
     $array=[];
-    $user=  User::normalusers()
+    $users=  User::normalusers()
     ->where('email' ,'LIKE', '%'.$search.'%')
     ->orWhere('mobile_number','LIKE', '%'.$search.'%')->get()  ; 
 
+    return  json_encode($users->toArray());
     if( $user)
     { 
       $array[1]['value']= $user->id;
