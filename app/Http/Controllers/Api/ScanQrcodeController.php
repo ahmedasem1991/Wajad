@@ -66,8 +66,22 @@ class ScanQrcodeController extends Controller
 
        if($qr_code->end_at)
        {
+           
         if ($qr_code->end_at->toDateTimeString() < Carbon::now()->toDateTimeString()  ) {
-            throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
+
+
+            if ($request->expectsJson())
+            {
+                throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
+            }else{
+                 //QrcodeLogService::LogQrcode($request, $qr_code);
+                return view('expired') ;
+            }
+               
+
+
+
+          
         }
        }
 
