@@ -176,7 +176,7 @@ class Stock extends Resource
     }
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereNull('assign_reference_number');
+        return $query->whereNull('assign_reference_number')->where('status',1);
     }
     public static function icon()
     {
