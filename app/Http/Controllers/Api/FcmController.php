@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
  
 
 /**
@@ -106,6 +108,7 @@ class FcmController extends Controller
      */
     public function index(Request $request)
     {
+        dd(auth('api')->user()->notifications()->get());
         return FcmResource::collection(auth('api')->user()->notifications()->get());
     }
  
@@ -210,5 +213,52 @@ class FcmController extends Controller
 
         return  $this->response();
     }
+
+
+        /**
+     * Save Fcm  Device Token
+     * @bodyParam notification_id required
+     * @bodyParam token Barier-token required
+     * @response {
+     * "success": true,
+     *  "message": "Notification  Updated successfully.",
+     *   "status_code": 200
+     *}
+     * @return void
+     */
+    public function readfcm(Request $request)
+    {
+        $validate_request = Validator::make($request->all(), [
+                'notification_id'  => 'required',
+        ]);
+
+        if ($validate_request->fails()) {
+            throw new ApiException($validate_request->errors()->first(), 400);
+        }
+
+    
+        if($notification=DB::table('notifications')->find($request->notification_id))
+        {
+           
+            $notification->update(['read_at' => \Carbon\Carbon::now()]);
+           
+            
+        $this->addResponse('Notification  Updated successfully')->addStatusCode(200);
+
+        return $this->response();
+        }
+        else{
+            
+        $this->addResponse('Notification  Not Found')->addStatusCode(201);
+
+        return $this->response();
+        }
+        
+       
+
+    }
+
+
+
 
 }

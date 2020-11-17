@@ -84,33 +84,46 @@ Route::get('qrcodepdf', 'PDFController@qrcodepdf');
 Route::get('qrcodezip', 'PDFController@qrcodeZIP');
 Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
 Route::get('status', 'PaymentController@getPaymentStatus');
-Route::get('/smart-search/{search}', function ($search) {
+// Route::get('/smart-search/{search}', function ($search) {
+//     //sleep(5);
+//     $array=[];
+//     $user=  User::normalusers()
+//     ->where('email',$search)
+//     ->orWhere('mobile_number',$search)->first()  ; 
+
+//     if( $user)
+//     { 
+//       $array[1]['value']= $user->id;
+//       $array[1]['display']= request('search') .'('.$user->name .')' ;
+//       session()->put('smart_user_id',$user->id);
+//       return  json_encode( $array);
+//     }
+//    else
+//    {
+//        return 0;
+//    }
+//   });
+ 
+
+
+  Route::get('/smart-search/{search}', function ($search) {
     //sleep(5);
     $array=[];
     $users=  User::normalusers()
     ->where('email' ,'LIKE', '%'.$search.'%')
     ->orWhere('mobile_number','LIKE', '%'.$search.'%')->get()  ; 
 
-   // return  json_encode($users->toArray());
     foreach($users as $key => $user){
+        if( $user)
+        { 
         $array[$key]['value']= $user->id;
         $array[$key]['display']= $user->mobile_number .'('.$user->name .')' ;
+        }
 
     }
     return  json_encode( $array);
-    if( $user)
-    { 
-      $array[1]['value']= $user->id;
-      $array[1]['display']= request('search') .'('.$user->name .')' ;
-      session()->put('smart_user_id',$user->id);
-      return  json_encode( $array);
-    }
-   else
-   {
-       return 0;
-   }
-  });
  
+  });
 
 Route::get('/test600', function (Request $request) {
     sleep(5);

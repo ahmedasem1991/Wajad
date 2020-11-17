@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/', 'FcmController@index');
             Route::post('/create', 'FcmController@store');
             Route::delete('/delete', 'FcmController@destroy');
+            Route::post('/readfcm', 'FcmController@readfcm');
             });
            // Route::post('request/{post}/accept', 'PostsController@testAccept');
     Route::middleware('phone_verified')->group(function () {
