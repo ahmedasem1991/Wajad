@@ -26,7 +26,9 @@ class FcmController extends Controller
          * Get FCM List
          * @bodyParam token Barier-token required
          * @response 
+         *  
          * {
+         * "unread_count": 3,
          *  "data": [
        * {
          *   "id": "35b355cb-0c30-46ed-b56c-e1217f71af0a",
