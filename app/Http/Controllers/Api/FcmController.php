@@ -111,7 +111,7 @@ class FcmController extends Controller
         //dd(auth('api')->user()->notifications()->get());
         $array['unread_count']=auth('api')->user()->notifications()->where('read_at',null)->count();
         $array['notifications']=FcmResource::collection(auth('api')->user()->notifications()->get());
-        return $data; 
+        return $array; 
     }
  
     /**
