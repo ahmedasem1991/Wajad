@@ -108,7 +108,7 @@ class FcmController extends Controller
      */
     public function index(Request $request)
     {
-        //dd(auth('api')->user()->notifications()->get());
+       
         $array['unread_count']=auth('api')->user()->notifications()->where('read_at',null)->count();
         $array['data']=FcmResource::collection(auth('api')->user()->notifications()->get());
         return $array; 
@@ -218,7 +218,7 @@ class FcmController extends Controller
 
 
         /**
-     * Save Fcm  Device Token
+     * Save Read  Time
      * @bodyParam notification_id required
      * @bodyParam token Barier-token required
      * @response {
