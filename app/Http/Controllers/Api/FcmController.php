@@ -108,7 +108,7 @@ class FcmController extends Controller
      */
     public function index(Request $request)
     {
-        dd(auth('api')->user()->notifications()->get());
+        //dd(auth('api')->user()->notifications()->get());
         return FcmResource::collection(auth('api')->user()->notifications()->get());
     }
  
@@ -236,21 +236,15 @@ class FcmController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-    
-        if($notification=DB::table('notifications')->find($request->notification_id))
+        $notification=DB::table('notifications')->find($request->notification_id);
+        if($notification)
         {
-           
-            $notification->update(['read_at' => \Carbon\Carbon::now()]);
-           
-            
-        $this->addResponse('Notification  Updated successfully')->addStatusCode(200);
-
-        return $this->response();
+          DB::table('notifications')->where('id',$request->notification_id)->update(['read_at' => \Carbon\Carbon::now()]);
+          $this->addResponse('Notification  Updated successfully')->addStatusCode(200);
+          return $this->response();
         }
         else{
-            
         $this->addResponse('Notification  Not Found')->addStatusCode(201);
-
         return $this->response();
         }
         
