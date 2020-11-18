@@ -76,7 +76,11 @@ class SubscriptionObserver
             'quantity' => $Package->quantity,
             'created_from' =>  $created_from,
         ]);
-        $subscription->assign_id=$AssignQrcode->id;
+        $dispatcher = Subscription::getEventDispatcher();
+        Subscription::unsetEventDispatcher();
+        $subscription->assign_id= $AssignQrcode->id;
+        $subscription->save();
+        Subscription::setEventDispatcher($dispatcher);
         //$subscription->save();
        // AssignQrcode::setEventDispatcher($dispatcher);
 
