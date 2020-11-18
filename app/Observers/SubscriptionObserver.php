@@ -77,7 +77,7 @@ class SubscriptionObserver
             'created_from' =>  $created_from,
         ]);
         $subscription->assign_id=$AssignQrcode->id;
-        $subscription->save();
+        //$subscription->save();
        // AssignQrcode::setEventDispatcher($dispatcher);
 
         // $QRcodesData = [
