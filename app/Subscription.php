@@ -11,7 +11,7 @@ class Subscription extends Model
     protected $table = 'package_user';
 
     protected $fillable = [
-        'user_id','package_id','corporate_id','subscriber'
+        'user_id','package_id','corporate_id','subscriber','created_from'
     ];
 
     protected static $logAttributes = [
