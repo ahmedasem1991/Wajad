@@ -60,7 +60,7 @@ class GenerateAndAssignQRCodeController extends Controller
 
         $dispatcher = Subscription::getEventDispatcher();
         Subscription::unsetEventDispatcher();
-        $subscription=$package->subscription([
+        $subscription=$package->subscription->create([
             'corporate_id' => Null,
             'user_id' => auth('api')->user()->id,
             'subscriber' => 1,
