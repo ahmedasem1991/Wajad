@@ -114,24 +114,71 @@ class Subscription extends Resource
 
             BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
+
             BelongsTo::make('Package')
                 ->rules('required'),
-            DateTime::make('Created At')
+
+               Text::make('Package Price',function( $request){
+                if($request->package)
+                return   $request->package->price;
+                else
+                return false;
+               })
+               ->hideWhenCreating()
+               ->hideWhenUpdating(),
+
+
+               Text::make('QR Codes Quantity',function( $request){
+                if($request->package)
+                return   $request->package->quantity;
+                return false;
+               })
+               ->hideWhenCreating()
+               ->hideWhenUpdating(),
+
+
+
+               Text::make('QR Codes Available Period',function( $request){
+                if($request->package)
+                return   $request->package->period;
+                return false;
+               })
+               ->hideWhenCreating()
+               ->hideWhenUpdating(),
+
+          
+
+            DateTime::make('Subscription Date','created_at')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
-            RadioButton::make('Created From')
+            RadioButton::make('Subscription From','created_from')
                 ->options([
                     'web' => 'web',
                 ])->default('web')
                 ->hideFromIndex()
                 ->hideFromDetail(), // optional,
 
-            Text::make('Created From')
+            Text::make('Subscription From','created_from')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
+               
+
         ];
     }
+
+    // public static function fill(NovaRequest $request, $model)
+    // {
+    //     // if ($request->input('owner_releated_to_system')) {
+    //     //     $request->offsetUnset('owner_releated_to_system');
+    //     // }
+
+    //     // if ($request->input('founder_releated_to_system')) {
+    //     //     $request->offsetUnset('founder_releated_to_system');
+    //     // }
+
+    //     // return parent::fill($request, $model);
+    // }
 
     /**
      * Get the cards available for the request.

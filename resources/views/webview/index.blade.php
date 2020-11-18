@@ -70,18 +70,25 @@
     </script>
 
 
-    <div class="col-md-3 col-sm-3 m-3 p-3">
+    <!-- <div class="col-md-3 col-sm-3 m-3 p-3  col-md-8">
         <img src="/images/wlogo.png"  style="width:140px;height:70px">
-    </div>
-    <div class="container-fluid" style="background-color: #ffffff;">
+    </div> -->
+    <div class="container-fluid col-md-8" style="background-color: #ffffff;">
         <div class="service-40 wrap-feature40-box p-4">
             <div class="row">
+            <div class="col-md-3 col-sm-3 m-3 p-3  col-md-8">
+        <img src="/images/wlogo.png"  style="width:140px;height:70px">
+    </div>
                 <div class="col-lg-6">
                     <div class="card border-0 mb-4">
                         <div class="card-header heads">
                             <h6 style="color: #07a3e2"><strong>ITEM INFORMATION</strong></h6>
                         </div>
                         <div class="card-body bodies">
+
+
+
+
 
 <table>
 <colgroup>
@@ -90,7 +97,8 @@
         
     </colgroup>
 <tr>
-<td >
+<td style="vertical-align:top; word-wrap: break-word" >
+
 
                              <div class="col-12 col-md-12">
                                 <!--customer Details start-->
@@ -131,24 +139,16 @@
 
 
                             </td>
-                            <td style="padding=10px"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
-</tr>
+                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$qr_code->image}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
+    </tr>
 
-                    <tr>
-                    <td>
-                    <div class="col-12 col-md-12">
-                    <!--customer Details start-->
-                    <h6 class="font-weight-bold">Description: </h6>
-                    <h8 class="my-3 ">
-                    <span>{{$qr_code->item->details ?? 'Not Available'}}</span>
-                    </h8><br>
-                    <!--customer Details end-->
-                    </div>
-                    </td>
-
-                    </tr>
+                   
 </table>
 <br>
+
+
+
+
 <table>
 
 <div >
@@ -177,12 +177,34 @@
 
 
 </table>
+
+<table>
+<colgroup>
+       <col span="1" style="width: 60%;">
+       <col span="1" style="width: 40%;">
+        
+    </colgroup>
+    <tr>
+                    <td>
+                    <div class="col-12 col-md-12">
+                    <!--customer Details start-->
+                    <h6 class="font-weight-bold">Description: </h6>
+                    <h8 class="my-3 ">
+                    <span>{{$qr_code->item->details ?? 'Not Available'}}</span>
+                    </h8><br>
+                    <!--customer Details end-->
+                    </div>
+                    </td>
+
+                    </tr>
+</table>
+
                       
                             
                         </div>
                     </div>
                 </div>
-                <br>.
+               
                 <div class="col-lg-6">
                     <div class="">
                         <div class="card border-0 mb-4">
@@ -239,10 +261,10 @@
                             <div class="mt-3" style="display: inline-flex; position: relative; float: right">
                              
                                 <a href="#">
-                                <center>   <img src="/images/GoogleAppStore.png" style=" max-width: 80%" alt="">  </center>
+                                <center>   <img src="/images/GoogleAppStore.png" style=" max-width: 65%" alt="">  </center>
                                 </a>
                                 <a href="#">
-                                <center>    <img src="/images/AppleAppStore.png" style="max-width: 80%" alt="">
+                                <center>    <img src="/images/AppleAppStore.png" style="max-width: 65%" alt="">
                                
                                     </center> </a>
                               

@@ -35,6 +35,14 @@ class QrcodeController extends Controller
         if ($validate_request->fails()) {
             throw new ApiException($validate_request->errors()->first(), 400);
         }
+       $check_qrcode= Qrcode::where('name', $request->input('name'))
+       ->where('user_id', auth('api')->user()->id)
+       ->where('qrcode_url','!=',$request->input('qrcode_url'))
+       ->first();
+
+       if($check_qrcode)
+       throw new ApiException('You have QR Code with same name', 400);
+       
 
         $qrcode = Qrcode::where('qrcode_url', $request->input('qrcode_url'))->first();
 

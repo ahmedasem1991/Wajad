@@ -97,7 +97,13 @@ class Notification extends Resource
 
             NovaDependencyContainer::make([
                 Multiselect::make('Users')
-                    ->options(
+                     ->options(
+                         //function(){
+                    //     User::normalusers()->get()
+                    //     ->filter(function ($user) {
+                    //         return User::normalusers() $user->name . "-".$user->mobile_number;
+                    //     })->pluck('name','id')->toArray();
+                    // }
                         User::normalusers()->get()->pluck('name','id')->toArray()
                     )
                     ->placeholder('Select Users')
