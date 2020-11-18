@@ -120,7 +120,7 @@ class Subscription extends Resource
 
                Text::make('Package Price',function( $request){
                 if($request->package)
-                return   $request->package->price;
+                return   $request->package->price . ' SR';
                 else
                 return false;
                })
@@ -130,7 +130,8 @@ class Subscription extends Resource
 
                Text::make('QR Codes Quantity',function( $request){
                 if($request->package)
-                return   $request->package->quantity;
+                return   $request->package->quantity .' QR Code';
+                else
                 return false;
                })
                ->hideWhenCreating()
@@ -140,7 +141,8 @@ class Subscription extends Resource
 
                Text::make('QR Codes Available Period',function( $request){
                 if($request->package)
-                return   $request->package->period;
+                return   $request->package->period . ' Days';
+                else
                 return false;
                })
                ->hideWhenCreating()
