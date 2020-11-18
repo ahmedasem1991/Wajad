@@ -66,7 +66,7 @@ class SubscriptionObserver
         $created_from='subscription by admin   (' . $Package->name_en.')';
         if($subscription->created_from=='Package')
         $created_from='Package (' . $Package->name_en.')';
-        AssignQrcode::create([
+      $AssignQrcode=  AssignQrcode::create([
             'assign_reference_number' => $assign_reference_number,
             'assign_to' => $subscription->subscriber,
             'user_id' => $subscription->user_id,
@@ -76,6 +76,8 @@ class SubscriptionObserver
             'quantity' => $Package->quantity,
             'created_from' =>  $created_from,
         ]);
+        $subscription->assign_id=$AssignQrcode->id;
+        $subscription->save();
        // AssignQrcode::setEventDispatcher($dispatcher);
 
         // $QRcodesData = [

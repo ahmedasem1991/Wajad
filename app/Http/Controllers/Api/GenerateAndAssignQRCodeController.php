@@ -60,7 +60,7 @@ class GenerateAndAssignQRCodeController extends Controller
 
         $dispatcher = Subscription::getEventDispatcher();
         Subscription::unsetEventDispatcher();
-        $package->subscription([
+        $subscription=$package->subscription([
             'corporate_id' => Null,
             'user_id' => auth('api')->user()->id,
             'subscriber' => 1,
@@ -81,7 +81,7 @@ class GenerateAndAssignQRCodeController extends Controller
 
         $dispatcher = AssignQrcode::getEventDispatcher();
         AssignQrcode::unsetEventDispatcher();
-        AssignQrcode::create([
+        $AssignQrcode=  AssignQrcode::create([
             'assign_reference_number' => $assign_reference_number,
             'assign_to' => 1,
             'user_id' => auth('api')->user()->id,
@@ -93,6 +93,15 @@ class GenerateAndAssignQRCodeController extends Controller
         ]);
 
         AssignQrcode::setEventDispatcher($dispatcher);
+
+
+        $dispatcher = Subscription::getEventDispatcher();
+        Subscription::unsetEventDispatcher();
+        $subscription->assign_id= $AssignQrcode->id;
+        $subscription->save();
+        Subscription::setEventDispatcher($dispatcher);
+
+        
         $QRCodes = Qrcode::status('In Stock')->where('type', $package->type)->take($package->quantity)->get();
 
 
