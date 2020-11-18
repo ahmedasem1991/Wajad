@@ -41,6 +41,8 @@ class Subscription extends Model
 
     public function qrcodes()
     {
+        if($this->assignqrcode)
         return $this->assignqrcode->qrcodes();
+        
     }
 }
