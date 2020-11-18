@@ -33,4 +33,14 @@ class Subscription extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function assignqrcode()
+    {
+        return $this->belongsTo(AssignQrcode::class,'assign_id');
+    }
+
+    public function qrcodes()
+    {
+        return $this->assignqrcode->qrcodes();
+    }
 }

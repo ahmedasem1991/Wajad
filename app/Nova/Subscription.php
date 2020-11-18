@@ -4,12 +4,14 @@ namespace App\Nova;
 use App\User;
 use App\Corporate;
 use App\Nova\Resource;
+use App\Nova\AssignQrcode;
 use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
@@ -114,6 +116,7 @@ class Subscription extends Resource
 
             BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
+            BelongsTo::make('QR Codes Details','assignqrcode',AssignQrcode::class)->hideWhenCreating()->hideWhenUpdating(),
 
             BelongsTo::make('Package')
                 ->rules('required'),
@@ -164,6 +167,7 @@ class Subscription extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
+                HasMany::make('qrcodes'),
                
 
         ];

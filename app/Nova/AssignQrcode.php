@@ -138,15 +138,15 @@ class AssignQrcode extends Resource
                     2 => 'Multi Assign',
                 ]),
             NovaDependencyContainer::make([
-                Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
-                    ->asHtml()->hideFromDetail(),
+               // Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
+                  //  ->asHtml()->hideFromDetail(),
                 Number::make('Quantity Of QR Codes','quantity')
                     ->min(1)->max($SingleCount)->step(1)
                     ->rules('required','max:'.$SingleCount),
             ])->dependsOn('type', '1'),
             NovaDependencyContainer::make([
-                Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
-                    ->asHtml()->hideFromDetail(),
+               // Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
+                   // ->asHtml()->hideFromDetail(),
                 Number::make('Quantity Of QR Codes','quantity')
                     ->min(1)->max($MultiCount)->step(1)
                     ->rules('required','max:'.$MultiCount),
