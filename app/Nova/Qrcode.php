@@ -107,7 +107,7 @@ class Qrcode extends Resource
             // }),
             Select::make('Status')->options(function(){
                // return \App\Qrcode::STATUS;
-               $Array ;
+              return $Array ;
             }
             //     [
             //     'S' => 'Small',
