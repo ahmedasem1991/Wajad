@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
@@ -93,9 +94,18 @@ class Qrcode extends Resource
             BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            Text::make('Status', function () {
-                return $this->statusTitle($this->status);
-            }),
+            // Text::make('Status', function () {
+            //     return $this->statusTitle($this->status);
+            // }),
+            Select::make('Status')->options(function(){
+                return \App\Qrcode::STATUS;
+            }
+            //     [
+            //     'S' => 'Small',
+            //     'M' => 'Medium',
+            //     'L' => 'Large',
+            // ]
+            )->displayUsingLabels(),
 
             Text::make('QR CODE URL', 'qrcode_url', function () {
                 return  '<a target="_blank" href=' . $this->qrcode_url . '>URL</a>';
