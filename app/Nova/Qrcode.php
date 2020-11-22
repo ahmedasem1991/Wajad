@@ -105,7 +105,7 @@ class Qrcode extends Resource
             // Text::make('Status', function () {
             //     return $this->statusTitle($this->status);
             // }),
-            Select::make('Status')->options(//function(){
+            Select::make('Status')->searchable()->options(//function(){
                // return \App\Qrcode::STATUS;
                $Array 
           //  }
