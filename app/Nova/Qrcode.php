@@ -82,12 +82,12 @@ class Qrcode extends Resource
     public function fields(Request $request)
     {
          $Array = [
-            1 => 'In Stock',
-            2 => 'Assigned To User',
-            3 => 'Assigned To Corporate',
-            4 => 'Registered',
-            5 => 'Re-Registered',
-            6 => 'Expired',
+            '1' => 'In Stock',
+            '2' => 'Assigned To User',
+            '3' => 'Assigned To Corporate',
+            '4' => 'Registered',
+            '5' => 'Re-Registered',
+            '6' => 'Expired',
         ];
         return [
             Errors::make(),
