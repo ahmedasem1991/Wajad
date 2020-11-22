@@ -81,6 +81,14 @@ class Qrcode extends Resource
      */
     public function fields(Request $request)
     {
+         $Array = [
+            1 => 'In Stock',
+            2 => 'Assigned To User',
+            3 => 'Assigned To Corporate',
+            4 => 'Registered',
+            5 => 'Re-Registered',
+            6 => 'Expired',
+        ];
         return [
             Errors::make(),
             ID::make()->sortable(),
@@ -98,7 +106,8 @@ class Qrcode extends Resource
             //     return $this->statusTitle($this->status);
             // }),
             Select::make('Status')->options(function(){
-                return \App\Qrcode::STATUS;
+               // return \App\Qrcode::STATUS;
+               $Array ;
             }
             //     [
             //     'S' => 'Small',
