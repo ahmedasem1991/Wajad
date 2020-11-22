@@ -22,6 +22,7 @@ class CreateBannersTable extends Migration
             $table->integer('post_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('clicks')->default(0);
+            $table->integer('show_period')->default(60);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->softDeletes();

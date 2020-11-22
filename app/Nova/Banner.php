@@ -95,6 +95,9 @@ class Banner extends Resource
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
+            Number::make('Period to appear in seconds', 'show_period')
+                ->rules('required'),
+               // ->hideWhenCreating(),
             Number::make('Number of clicks', 'clicks')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),

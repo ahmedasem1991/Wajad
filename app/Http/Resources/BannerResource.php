@@ -31,6 +31,7 @@ class BannerResource extends JsonResource
             'clicks' => $this->clicks ?? null,
             'start_date' => $this->start_date ?? null,
             'end_date' => $this->end_date ?? null,
+            'show_period' => $this->show_period ?? 20,
         ];
     }
 }
