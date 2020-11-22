@@ -81,8 +81,8 @@ class AssignQrcode extends Resource
      */
     public function fields(Request $request)
     {
-        $SingleCount=  Qrcode::type('Single Assign')->where('status','1')->count();
-        $MultiCount=  Qrcode::type('Multi Assign')->where('status','1')->get();
+        $SingleCount=  count(Qrcode::type('Single Assign')->where('status','1')->get());
+        $MultiCount=  count(Qrcode::type('Multi Assign')->where('status','1')->get());
 
         return [
             Errors::make(),
