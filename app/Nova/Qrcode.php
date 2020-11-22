@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
@@ -81,14 +80,6 @@ class Qrcode extends Resource
      */
     public function fields(Request $request)
     {
-         $Array = [
-            '1' => 'In Stock',
-            '2' => 'Assigned To User',
-            '3' => 'Assigned To Corporate',
-            '4' => 'Registered',
-            '5' => 'Re-Registered',
-            '6' => 'Expired',
-        ];
         return [
             Errors::make(),
             ID::make()->sortable(),
@@ -102,19 +93,9 @@ class Qrcode extends Resource
             BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            // Text::make('Status', function () {
-            //     return $this->statusTitle($this->status);
-            // }),
-            Select::make('Status')->searchable()->options(//function(){
-               // return \App\Qrcode::STATUS;
-               $Array 
-          //  }
-            //     [
-            //     'S' => 'Small',
-            //     'M' => 'Medium',
-            //     'L' => 'Large',
-            // ]
-            )->displayUsingLabels(),
+            Text::make('Status', function () {
+                return $this->statusTitle($this->status);
+            }),
 
             Text::make('QR CODE URL', 'qrcode_url', function () {
                 return  '<a target="_blank" href=' . $this->qrcode_url . '>URL</a>';
