@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
+use NovaAjaxSelect\AjaxSelect;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
@@ -86,17 +87,32 @@ class Subscription extends Resource
                 ->displayUsingLabels(),
 
             NovaDependencyContainer::make([
-                Select2::make('User Email','user_id')
-                    ->sortable()
-                    ->hideFromDetail()
-                    ->options(User::normalusers()->get()->pluck('email', 'id'))
-                    ->rules('required_if:subscriber,1')
-                    ->configuration([
-                        'placeholder'             => __('Choose an option'),
-                        'allowClear'              => true,
-                        'minimumResultsForSearch' => 1,
-                        'multiple'                => false,
-                    ])
+
+                Text::make('', 'search_user')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail(), 
+
+                AjaxSelect::make('User','user_id')
+                ->get('/smart-search/{search_user}')
+                ->parent('search_user')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->withMeta(['ignoreOnSaving'])
+                ->rules('required'),
+
+                // Select2::make('User Email','user_id')
+                //     ->sortable()
+                //     ->hideFromDetail()
+                //     ->options(User::normalusers()->get()->pluck('email', 'id'))
+                //     ->rules('required_if:subscriber,1')
+                //     ->configuration([
+                //         'placeholder'             => __('Choose an option'),
+                //         'allowClear'              => true,
+                //         'minimumResultsForSearch' => 1,
+                //         'multiple'                => false,
+                //     ])
 
             ]) ->hideFromDetail()->dependsOn('subscriber', '1'),
             NovaDependencyContainer::make([
@@ -171,6 +187,14 @@ class Subscription extends Resource
                
 
         ];
+    }
+
+    public static function fill(NovaRequest $request, $model)
+    {
+        if ($request->input('search_user')) {
+            $request->offsetUnset('search_user');
+        }
+        return parent::fill($request, $model);
     }
 
     // public static function fill(NovaRequest $request, $model)

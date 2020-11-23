@@ -131,7 +131,9 @@ class AssignQrcode extends Resource
                 //         'multiple'                => false,
                 //     ])
 
-            ])->dependsOn('assign_to', '1'),
+            ]) 
+            ->hideFromDetail()
+            ->dependsOn('assign_to', '1'),
             NovaDependencyContainer::make([
                 Select2::make('Corporate','corporate_id')
                     ->sortable()
