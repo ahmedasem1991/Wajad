@@ -120,20 +120,6 @@ class CorporateAssignQrcode extends Resource
                 ->hideFromDetail()
                 ->withMeta(['ignoreOnSaving'])
                 ->rules('required'),
-               // SelectPlus::make('qrcodes', 'qrcodes'),
-
-            // Select2::make('User','user_id')
-            //     ->sortable()
-            //     ->options(User::normalusers()->get()->pluck('email', 'id'))
-            //     ->displayUsingLabels()
-            //     ->rules('required')
-            //     ->showAsLink(User::class)
-            //     ->configuration([
-            //         'placeholder'             => __('Choose an option'),
-            //         'allowClear'              => true,
-            //         'minimumResultsForSearch' => 1,
-            //         'multiple'                => false,
-            //     ]),
 
             BelongsTo::make('User')
                 ->hideWhenCreating()

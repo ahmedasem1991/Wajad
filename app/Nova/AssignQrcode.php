@@ -6,11 +6,13 @@ use App\User;
 use App\Qrcode;
 use App\Corporate;
 use NovaButton\Button;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use NovaAjaxSelect\AjaxSelect;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Status;
@@ -19,8 +21,8 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
-use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
@@ -98,18 +100,36 @@ class AssignQrcode extends Resource
                 ->displayUsingLabels(),
 
             NovaDependencyContainer::make([
-                Select2::make('User','user_id')
-                    ->sortable()
-                    ->options(User::normalusers()->get()->pluck('email', 'id'))
-                    ->displayUsingLabels()
-                    ->rules('required_if:assign_to,1')
-                    ->showAsLink(User::class)
-                    ->configuration([
-                        'placeholder'             => __('Choose an option'),
-                        'allowClear'              => true,
-                        'minimumResultsForSearch' => 1,
-                        'multiple'                => false,
-                    ])
+
+                Text::make('', 'search_user')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail(), 
+
+                AjaxSelect::make('User','user_id')
+                ->get('/smart-search/{search_user}')
+                ->parent('search_user')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->withMeta(['ignoreOnSaving'])
+                ->rules('required'),
+
+            // BelongsTo::make('User')
+            //     ->hideWhenCreating()
+            //     ->hideWhenUpdating(),
+                // Select2::make('User','user_id')
+                //     ->sortable()
+                //     ->options(User::normalusers()->get()->pluck('email', 'id'))
+                //     ->displayUsingLabels()
+                //     ->rules('required_if:assign_to,1')
+                //     ->showAsLink(User::class)
+                //     ->configuration([
+                //         'placeholder'             => __('Choose an option'),
+                //         'allowClear'              => true,
+                //         'minimumResultsForSearch' => 1,
+                //         'multiple'                => false,
+                //     ])
 
             ])->dependsOn('assign_to', '1'),
             NovaDependencyContainer::make([
@@ -175,6 +195,14 @@ class AssignQrcode extends Resource
         ];
     }
 
+    public static function fill(NovaRequest $request, $model)
+    {
+        if ($request->input('search_user')) {
+            $request->offsetUnset('search_user');
+        }
+     return parent::fill($request, $model);
+    }
+
     /**
      * Get the cards available for the request.
      *
@@ -198,6 +226,18 @@ class AssignQrcode extends Resource
     {
         return [];
     }
+
+    
+    // public static function fill(NovaRequest $request, $model)
+    // {
+
+    //     if ($request->has('search_user')) {
+
+    //         $request->offsetUnset('search_user');
+    //     }
+
+    //     return parent::fill($request, $model);
+    // }
 
     /**
      * Get the lenses available for the resource.

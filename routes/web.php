@@ -126,6 +126,12 @@ Route::get('status', 'PaymentController@getPaymentStatus');
   });
 
 Route::get('/test600', function (Request $request) {
+
+
+  return  User::normalusers()->get()->toArray();
+                        // ->filter(function ($user) {
+                        //     return User::normalusers() $user->name . "-".$user->mobile_number;
+                        // })->pluck('name','id')->toArray();
     dd( Qrcode::type('Single Assign')->where('status','1')->count());
     sleep(5);
     $array=[];
