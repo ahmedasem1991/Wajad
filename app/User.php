@@ -91,6 +91,20 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     //     return $this->type === self::Types[$status];
     // }
 
+
+    public function getNameAttribute()
+    {
+        $URL = \URL::current();
+        logger( $URL);
+
+        if ((strstr($URL, 'all-posts') || strstr($URL, 'notifications')|| strstr($URL, 'banners') ) && strstr($URL, 'creation-fields')) {
+            return "{$this->email} - {$this->mobile_number} -  (" . $this->attributes['name'].")";
+        } 
+
+
+      return   $this->attributes['name'];
+      
+    }
     public function firstTimeLogin()
     {
         return $this->first_time_login === 1;

@@ -107,7 +107,12 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 
   Route::get('/smart-search/{search}', function ($search) {
-    //sleep(5);
+    if(strlen($search) >= 4)
+    {
+        $str=$value;;
+        $search = ltrim($search, '+966');
+        $search = ltrim($search, '966');
+        $search = ltrim($search, '0');
     $array=[];
     $users=  User::normalusers()
     ->where('email' ,'LIKE', '%'.$search.'%')
@@ -122,12 +127,21 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
     }
     return  json_encode( $array);
- 
+    }
   });
 
-Route::get('/test600', function (Request $request) {
+Route::get('/test600/{test}', function (Request $request,$value) {
+    $URL = URL::current();
+dd(request()->all());
+
+    $str=$value;;
+    $str = ltrim($str, '+966');
+    $str = ltrim($str, '966');
+    $str = ltrim($str, '0');
+    return  $str;
 
 
+    
   return  User::normalusers()->get()->toArray();
                         // ->filter(function ($user) {
                         //     return User::normalusers() $user->name . "-".$user->mobile_number;
