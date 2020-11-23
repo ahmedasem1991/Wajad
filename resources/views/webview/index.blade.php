@@ -257,17 +257,22 @@
                             </div>
 
                         </div>
-                        <div>
-                            <div class="mt-3" style="display: inline-flex; position: relative; float: right">
-                             
+                        <div class="container-fluid col-lg-6 " style="display: inline;" >
+                            <div class="container-fluid"  >
+                          <center>
                                 <a href="#">
-                                <center>   <img src="/images/GoogleAppStore.png" style=" max-width: 65%" alt="">  </center>
+                                <!-- <center> -->
+                                  <img src="/images/GoogleAppStore.png" style="width:100px;height:40px;padding-left:" alt=""> 
+                                  <!-- </center>   -->
                                 </a>
-                                <a href="#">
-                                <center>    <img src="/images/AppleAppStore.png" style="max-width: 65%" alt="">
-                               
-                                    </center> </a>
                               
+                               
+                                <a href="#">
+                                <!-- <center> -->
+                                   <img src="/images/AppleAppStore.png" style="width:100px;height:40px" alt="">
+                                   <!-- </center> -->
+                                     </a>
+                                     </center>
                             </div>
                         </div>
                     </div>
