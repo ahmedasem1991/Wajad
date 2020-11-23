@@ -109,7 +109,7 @@ Route::get('status', 'PaymentController@getPaymentStatus');
   Route::get('/smart-search/{search}', function ($search) {
     if(strlen($search) >= 4)
     {
-        $str=$value;;
+        $search=$search;;
         $search = ltrim($search, '+966');
         $search = ltrim($search, '966');
         $search = ltrim($search, '0');
