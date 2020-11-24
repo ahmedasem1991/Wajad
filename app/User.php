@@ -101,8 +101,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             return "{$this->email} - {$this->mobile_number} -  (" . $this->attributes['name'].")";
         } 
 
+        if( isset($this->attributes['name']) and $this->attributes['name'])
+        {
+            return $this->attributes['name'];
+        }
 
-      return   $this->name;
+
+      //return   $this->name;
       
     }
     public function firstTimeLogin()
