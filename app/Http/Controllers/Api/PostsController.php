@@ -641,6 +641,38 @@ class PostsController extends Controller
     }
 
 
+
+       /**
+     * Close Post
+     *
+     * @urlParam id required int Post Id
+     * @bodyParam token Barier-token required
+     *
+     * @response
+     * {
+     *  "success": true,
+     *  "message": "Post Closed successfully.",
+     *  "status_code": 200
+     *}
+     */
+
+    public function close(Post $post)
+    {
+       // $user = auth('api')->user();
+       // if ($user->can('destroy', $post)) {
+        $post->update([
+            'end_date' =>  now(),
+            'open_status' =>  0,
+            'appearance_status' => 0
+            ]);
+            $this->addResponse(trans('messages.closed', ['model' => trans('messages.attributes.post')]))
+                ->addStatusCode(200);
+            return  $this->response();
+        //}
+       // throw new ApiException(trans('auth.not_authorized'), 400);
+    }
+
+
     public function  acceptRequest(Request $request, Post $post)
     {
 

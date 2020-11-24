@@ -154,6 +154,7 @@ Route::prefix('posts')->group(function () {
     Route::middleware(['auth:api', 'phone_verified'])->group(function () {
         Route::post('/add/{type}', 'PostsController@store');
         Route::post('/{post}', 'PostsController@update');
+        Route::post('close/{post}', 'PostsController@close');
         Route::delete('/{post}', 'PostsController@destroy');
     });
 });
