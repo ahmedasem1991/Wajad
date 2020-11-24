@@ -642,7 +642,7 @@ class PostsController extends Controller
 
 
 
-       /**
+    /**
      * Close Post
      *
      * @urlParam id required int Post Id
