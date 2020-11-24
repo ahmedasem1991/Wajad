@@ -148,6 +148,7 @@ class User extends Resource
 
             BelongsToMany::make('Roles', 'roles', Role::class),
             HasMany::make('QR Code', 'qrcodes', Qrcode::class),
+            HasMany::make('Posts', 'posts', AllPost::class),
         ];
     }
 

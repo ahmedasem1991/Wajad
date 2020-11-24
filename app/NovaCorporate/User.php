@@ -147,6 +147,8 @@ class User extends Resource
                 ->displayUsingLabels()
                 ->creationRules('required')
                 ->updateRules('required'),
+
+               // HasMany::make('Posts')
         ];
     }
 
