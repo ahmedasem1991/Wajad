@@ -104,8 +104,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         $check='';
         if($this->attributes['name'])
         $check=$this->attributes['name'];
-        if($this->name)
-        $check=$this->name;
+        
 
 
       return   $check;
