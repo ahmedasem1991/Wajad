@@ -116,7 +116,8 @@ Route::get('status', 'PaymentController@getPaymentStatus');
     $array=[];
     $users=  User::normalusers()
     ->where('email' ,'LIKE', '%'.$search.'%')
-    ->orWhere('mobile_number','LIKE', '%'.$search.'%')->get()  ; 
+    ->orWhere('mobile_number','LIKE', '%'.$search.'%')
+    ->orWhere('name','LIKE', '%'.$search.'%')->get()  ; 
 
     foreach($users as $key => $user){
         if( $user)
