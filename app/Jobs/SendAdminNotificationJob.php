@@ -118,7 +118,7 @@ class SendAdminNotificationJob implements ShouldQueue
                     foreach ($users as $user) {
                       //  \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
 
-                        // new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
+                         new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                     }
                 });
             }
@@ -128,7 +128,7 @@ class SendAdminNotificationJob implements ShouldQueue
                 $Users = User::find($this->users);
                 foreach ($Users as $user) {
                    // \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
-                    // new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
+                     new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                 }
             }
             logger('sms');
