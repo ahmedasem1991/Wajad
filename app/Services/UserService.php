@@ -41,10 +41,11 @@ class UserService
                 $user_verificatioin->increment('attempt');
                 throw new ApiException(trans('auth.wrong_code'), 400);
             }
-
+          $mobile_number=  $user->mobile_number;
+          $mobile_country_id=  $user->mobile_country_id;
         $user->update([
-            'mobile_number' => session()->get('v_mobile_number'),
-            'mobile_country_id' => session()->get('v_mobile_country_id'),
+            'mobile_number' => session()->get('v_mobile_number') ??$mobile_number,
+            'mobile_country_id' => session()->get('v_mobile_country_id')??$mobile_country_id,
             'is_mobile_number_verified' => true
         ]);
 
