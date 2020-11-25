@@ -116,9 +116,9 @@ class SendAdminNotificationJob implements ShouldQueue
             if ($this->send_to == 0) {
                 User::chunk(1000, function ($users) {
                     foreach ($users as $user) {
-                      //  \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
+                        \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
 
-                         new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
+                        // new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                     }
                 });
             }
@@ -127,8 +127,8 @@ class SendAdminNotificationJob implements ShouldQueue
             if ($this->send_to == 1) {
                 $Users = User::find($this->users);
                 foreach ($Users as $user) {
-                   // \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
-                     new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
+                    \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
+                     //new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                 }
             }
             logger('sms');

@@ -422,9 +422,7 @@ style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-seri
 class="fullCenter">
 <!-- or do something else -->
 
- <a href="#"
-style="color: rgb(177, 183, 192);">here</a>
-</td>
+
 </tr>
 </table>
 
@@ -473,9 +471,8 @@ class="fullCenter">
 <td valign="middle" width="100%"
 style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; color: rgb(254, 82, 88); font-size: 12px; font-weight: 400; line-height: 18px;"
 class="fullCenter">
-<!--subscribe--><a href="#"
-style="text-decoration: none; color: rgb(254, 82, 88);">Unsubscribe</a>
-<!--unsub-->
+
+ 
 </td>
 </tr>
 <tr>

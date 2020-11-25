@@ -127,8 +127,8 @@ class GenerateAndAssignQRCodeController extends Controller
         //Send SMS
 
           $message=sendBuyPackageSMS($package, auth('api')->user());
-        // \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
-          new SendSMSEvent(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
+         \Unifonic::send(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
+         // new SendSMSEvent(auth('api')->user()->country->country_code. auth('api')->user()->mobile_number, $message);
 
 
 
