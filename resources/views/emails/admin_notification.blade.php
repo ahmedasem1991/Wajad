@@ -391,8 +391,7 @@ align="center" class="buttonScale">
 <td align="center" height="40" bgcolor="#fe5258"
 style="border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; padding-left: 25px; padding-right: 25px; font-family: 'Open Sans', Helvetica, Arial, sans-serif; color: rgb(255, 255, 255); font-size: 28px; font-weight: 600; line-height: 1px; text-transform: uppercase; background: rgb(36,189,239);
 background: linear-gradient(90deg, rgba(36,189,239,1) 0%, rgba(5,155,221,1) 100%);">
-<p
-style="color: rgb(255, 255, 255); text-decoration: none; width: 100%;">{{ $body }}</p>
+{{ $body }}
 </td>
 </tr>
 </table>

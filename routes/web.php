@@ -5,7 +5,7 @@ use App\Post;
 use App\Role;
 use App\User;
 use App\Qrcode;
-
+use App\Mail\AdminNotification as MailAdminNotification;
 use App\Setting;
 use App\ApiToken;
 use App\Corporate;
@@ -131,7 +131,9 @@ Route::get('status', 'PaymentController@getPaymentStatus');
     }
   });
 
-Route::get('/test600/{test}', function (Request $request,$value) {
+Route::get('/test600', function (Request $request) {
+    $user=User::find(2);
+    Mail::to($user)->send(new MailAdminNotification('test'));
     $URL = URL::current();
 dd(request()->all());
 

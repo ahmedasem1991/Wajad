@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->nullable();
             //$table->integer('posts_number')->default(env('POST_LIMITATION',50));
             $table->integer('posts_number')->default(0);
+            $table->integer('max_posts_number')->default(0);
             $table->string('social_name')->nullable();
             $table->boolean('is_social_user')->default(0);
             $table->string('created_from')->nullable();
