@@ -267,7 +267,7 @@
                                                     <td valign="middle" width="100%"
                                                         style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 35px; color: rgb(255, 255, 255); line-height: 40px; font-weight: 100;"
                                                         class="fullCenter">
-                                                        Wajad Hub </td>
+                                                        Wajad </td>
                                                 </tr>
                                                 <tr>
                                                     <td width="100%" height="30"
