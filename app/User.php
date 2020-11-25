@@ -95,7 +95,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getNameAttribute()
     {
         $URL = \URL::current();
-        logger( $URL);
+       // logger( $URL);
 
         if ((strstr($URL, 'all-posts') || strstr($URL, 'notifications')|| strstr($URL, 'banners') ) && strstr($URL, 'creation-fields')) {
             return "{$this->email} - {$this->mobile_number} -  (" . $this->attributes['name'].")";
