@@ -239,6 +239,8 @@ class AuthController extends Controller
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
             'posts_number' => 0,
+            'max_posts_number' => defaultGroup()->limitation_of_posts,
+            
         ]);
 
         (new UserService)->createAndSendActivationCode($user, 'phone');
@@ -406,6 +408,7 @@ class AuthController extends Controller
                     'type' => User::Types['user'],
                     'is_mobile_number_verified' => false,
                     'posts_number' => 0,
+                    'max_posts_number' => defaultGroup()->limitation_of_posts,
                 ]);
     
                 $langHeader=request()->header('Content-Language');
@@ -504,6 +507,7 @@ class AuthController extends Controller
                 'type' => User::Types['user'],
                 'is_mobile_number_verified' => false,
                 'posts_number' => 0,
+                'max_posts_number' => defaultGroup()->limitation_of_posts,
                 'social_id' => $login_user->id,
             ]);
 

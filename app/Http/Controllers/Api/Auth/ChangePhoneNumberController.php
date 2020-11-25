@@ -41,9 +41,12 @@ class ChangePhoneNumberController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+
+        session()->put('v_mobile_number', request('mobile_number'));
+        session()->put('v_mobile_country_id',request('mobile_country_id'));
         $user->update([
-            'mobile_number' => request('mobile_number'),
-            'mobile_country_id' => request('mobile_country_id'),
+           // 'mobile_number' => request('mobile_number'),
+           // 'mobile_country_id' => request('mobile_country_id'),
             'is_mobile_number_verified' => false
         ]);
 

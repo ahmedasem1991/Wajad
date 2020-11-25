@@ -128,7 +128,20 @@ class User extends Resource
             Number::make('Mobile Number', 'mobile_number')
                 ->creationRules('required','unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
                 ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
-            HasMany::make('Items'),
+                Number::make('Posts Number', 'posts_number')
+                ->updateRules('required')
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->readonly(),
+                Number::make('Max Posts Number', 'max_posts_number')
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->updateRules('required')
+               ,
+
+            
+                HasMany::make('Items'),
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)

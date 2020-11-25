@@ -58,6 +58,7 @@ class UserObserver
 
         if (Auth::check() && Auth()->User()->isAdmin()) {
            $User->created_from = 'web';
+           $User->max_posts_number = defaultGroup()->limitation_of_posts;
         }
 
 

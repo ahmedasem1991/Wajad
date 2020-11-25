@@ -42,9 +42,11 @@ class UserService
                 throw new ApiException(trans('auth.wrong_code'), 400);
             }
 
-            $user->update([
-                'is_mobile_number_verified' => true
-            ]);
+        $user->update([
+            'mobile_number' => session()->get('v_mobile_number'),
+            'mobile_country_id' => session()->get('v_mobile_country_id'),
+            'is_mobile_number_verified' => true
+        ]);
 
             $user->userVerification()->delete();
         }

@@ -62,8 +62,9 @@ class PostsController extends Controller
     public function store(Request $request, $type = null)
     {
         abort_unless(in_array($type, self::TYPES), 404);
-        
-        if (defaultGroup()->limitation_of_posts <= auth('api')->user()->posts_number) {
+        // logger(defaultGroup()->limitation_of_posts);
+        // logger(auth('api')->user()->posts_number);
+        if (auth('api')->user()->max_posts_number <= auth('api')->user()->posts_number) {
             throw new ApiException('You have reached the limit!', 400);
         }
 

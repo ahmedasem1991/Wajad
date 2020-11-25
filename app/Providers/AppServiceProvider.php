@@ -8,6 +8,7 @@ use App\User;
 use App\People;
 use App\Qrcode;
 use App\Question;
+use App\RoleUser;
 use App\Permission;
 use App\PostRequest;
 use App\AssignQrcode;
@@ -23,7 +24,9 @@ use App\Observers\UserObserver;
 use App\Observers\PeopleObserver;
 use App\Observers\QrcodeObserver;
 use App\Observers\QuestionObserver;
+use App\Observers\RoleUserObserver;
 use Illuminate\Support\Facades\Log;
+use App\Observers\RoleUserObserver2;
 use Illuminate\Support\Facades\Queue;
 use App\Observers\PostRequestObserver;
 use Illuminate\Support\Facades\Schema;
@@ -67,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
         $pusher = $this->app->make('pusher');
         $pusher->set_logger( new LaravelLoggerProxy() );
 
+        RoleUser::observe(RoleUserObserver::class);
         Subscription::observe(SubscriptionObserver::class);
         QrcodeRequest::observe(QrcodeRequestObserver::class);
         GenerateQrcode::observe(QrcodeGenerateObserver::class);
@@ -80,6 +84,7 @@ class AppServiceProvider extends ServiceProvider
         Question::observe(QuestionObserver::class);
         AdminNotification::observe(NotificationObserver::class);
         \App\Role::observe(RoleObserver::class);
+        
         Model::addGlobalScope(function (Builder $builder){
             if (auth()->user()->isCorporateAdmin()){
             $builder->where('corporate_id',auth()->user()->corporate->id);

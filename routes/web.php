@@ -132,7 +132,9 @@ Route::get('status', 'PaymentController@getPaymentStatus');
   });
 
 Route::get('/test600', function (Request $request) {
-    $user=User::find(2);
+   // $user=User::find(2);
+
+ dd(\Unifonic::send('966504334115', 'test message'))   ;
     Mail::to($user)->send(new MailAdminNotification('test'));
     $URL = URL::current();
 dd(request()->all());
