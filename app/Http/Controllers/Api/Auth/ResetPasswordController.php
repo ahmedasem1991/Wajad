@@ -68,8 +68,8 @@ class ResetPasswordController extends Controller
                 throw new ApiException(trans('auth.mail_not_verified'), 400);
             }
 
-           // Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
-           Mail::to($user->email)->send(new ResetPasswordRequestMail());
+            Mail::to(request('user'))->send(new ResetPasswordMail($new_password));
+          // Mail::to($user->email)->send(new ResetPasswordRequestMail());
             $this->addResponse(trans('auth.new_password_sent_to_mail'))->addStatusCode(200);
         }
 

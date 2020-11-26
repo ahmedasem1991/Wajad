@@ -111,4 +111,92 @@ class UserService
 
         return false;
     }
+
+
+
+        /**
+     * Create And Send Activation Code For User
+     *
+     * @param User $user
+     * @param String[phone|email] $code_valid_for
+     * @return void
+     */
+    public function createAndSendResetPassword(User $user, string $code_valid_for)
+    {
+        if ($user->userVerification && $user->userVerification->sendCodeWithinMinute()) {
+            throw new ApiException(trans('auth.verification_code_wait_time_one_minute'), 400);
+        }
+
+        $user->userVerification()->delete();
+
+        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+
+        $user->userVerification()->create([
+            'verification_code' => $activation_code,
+            'code_valid_for' => $code_valid_for
+        ]);
+
+       
+            $message = 'Wajad,  Activation code is ' . $activation_code;
+            if($user->country->country_code==="966" || $user->country->country_code==="+966"){
+                \Unifonic::send($user->country->country_code. $user->mobile_number, $message);
+                // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
+            }
+            Mail::to($user)->send(new EmailVerificationCode($activation_code));
+
+            return true;
+   
+
+        
+    }
+
+
+
+
+        /**
+     * Verify Password For User
+     *
+     * @param User $user
+     * @param Integer $code
+     * @return void
+     */
+    public function verifyActivationPassword(User $user, $code)
+    {
+        $user_verificatioin =  $user->userVerification ?? null;
+
+        if (!$user_verificatioin) {
+            throw new ApiException(trans('auth.something_wrong'), 400);
+        }
+
+        if ($user_verificatioin->verification_code !== (int) $code) {
+            $user_verificatioin->increment('attempt');
+            throw new ApiException(trans('auth.wrong_code'), 400);
+        }
+
+        if ($user_verificatioin->attempt >= 3) {
+            throw new ApiException(trans('auth.verification_code_exceeded'), 400);
+        }
+
+     
+            if (!$user_verificatioin->codeValidForMobileNumber()) {
+                $user_verificatioin->increment('attempt');
+                throw new ApiException(trans('auth.wrong_code'), 400);
+            }
+
+
+          
+         
+
+
+            if (!$user_verificatioin->codeValidForEmail()) {
+                $user_verificatioin->increment('attempt');
+
+                throw new ApiException(trans('auth.wrong_code'), 400);
+            }
+
+ 
+
+            $user->userVerification()->delete();
+      
+    }
 }
