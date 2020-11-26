@@ -26,6 +26,7 @@ class SendResetPasswordController extends Controller
      *"success": true,
      *"message": "Verification code sent.",
      *"status_code": 200
+     *"user_id": 106
      *}
      * @return void
      */
