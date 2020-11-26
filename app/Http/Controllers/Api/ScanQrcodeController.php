@@ -87,7 +87,7 @@ class ScanQrcodeController extends Controller
 
         if($qr_code->user && $request->has('lat'))
         { //send mail
-
+          if($qr_code->user->receive_emails)
             Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
             //send FCM
             $badge =getBadge($qr_code->user);

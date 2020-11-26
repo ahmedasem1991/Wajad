@@ -54,17 +54,20 @@ class ScanQRCodeNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $GooleMap='https://www.google.com/maps/search/?api=1&query='
-        .$this->lat
-        .','.
-        $this->lng;
-        
-        
- 
-        return (new MailMessage)
-                    ->line('There Some One Scanned Your QR Code.')
-                    ->action('Open Location', url($GooleMap))
-                    ->line('Thank you for using WAJAD!');
+        if($this->qr_code->user->receive_emails){
+            $GooleMap='https://www.google.com/maps/search/?api=1&query='
+            .$this->lat
+            .','.
+            $this->lng;
+            
+            
+     
+            return (new MailMessage)
+                        ->line('There Some One Scanned Your QR Code.')
+                        ->action('Open Location', url($GooleMap))
+                        ->line('Thank you for using WAJAD!');
+        }
+
     }
 
     /**
@@ -82,8 +85,12 @@ class ScanQRCodeNotification extends Notification implements ShouldQueue
 
     public function toBroadcast($notifiable)
     {
-        event(new SendFCMEvent($this->qr_code->user,$this->data));
-        return new BroadcastMessage($this->toArray($this->data));
+        if($this->qr_code->user->receive_push_notifications){
+            event(new SendFCMEvent($this->qr_code->user,$this->data));
+            return new BroadcastMessage($this->toArray($this->data));
+        }
+        
+       
     }
  
 

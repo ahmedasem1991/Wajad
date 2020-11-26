@@ -60,8 +60,11 @@ class SendFCMNotification extends Notification implements ShouldQueue
 
     public function toBroadcast($notifiable)
     {
+        if($this->user->receive_push_notifications)
+       {
         event(new SendFCMEvent($this->user,$this->data));
         return new BroadcastMessage($this->toArray($this->data));
+       }
     }
  
 
