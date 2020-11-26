@@ -393,7 +393,7 @@ style="background-color: rgb(255, 255, 255);">
                             background: linear-gradient(90deg, rgba(36,189,239,1) 0%, rgba(5,155,221,1) 100%);">
 
                         <p
-                            style="color: rgb(255, 255, 255); text-decoration: none; width: 100%;">556</p>
+                            style="color: rgb(255, 255, 255); text-decoration: none; width: 100%;">{{ $activation_code }}</p>
                     </td>
                 </tr>
             </table>
