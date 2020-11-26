@@ -42,6 +42,7 @@ class Kernel extends HttpKernel
             'bindings',
             \App\Http\Middleware\AddHeaders::class,
             \App\Http\Middleware\SetLanguage::class,
+            \Illuminate\Session\Middleware\StartSession::class,
         ],
     ];
 

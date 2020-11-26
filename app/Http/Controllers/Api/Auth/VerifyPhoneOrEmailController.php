@@ -46,7 +46,7 @@ class VerifyPhoneOrEmailController extends Controller
         if (!in_array($type, $this->verification_types)) {
             throw new ApiException(trans('auth.failed'), 404);
         }
-
+      
         (new UserService)->verifyActivationCode($user, $request->code, $type);
 
         $this->addStatusCode(200);

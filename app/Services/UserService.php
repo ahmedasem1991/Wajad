@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use App\Events\SendSMSEvent;
 use App\User;
+use App\Country;
 use App\UserVerifications;
+use App\Events\SendSMSEvent;
 use App\Services\SmsProvider;
 use App\Mail\EmailVerificationCode;
 use App\Exceptions\Api\ApiException;
@@ -21,6 +22,7 @@ class UserService
      */
     public function verifyActivationCode(User $user, $code, $code_valid_for)
     {
+         
         $user_verificatioin =  $user->userVerification ?? null;
 
         if (!$user_verificatioin) {
@@ -43,6 +45,7 @@ class UserService
             }
           $mobile_number=  $user->mobile_number;
           $mobile_country_id=  $user->mobile_country_id;
+        
         $user->update([
             'mobile_number' => session()->get('v_mobile_number') ??$mobile_number,
             'mobile_country_id' => session()->get('v_mobile_country_id')??$mobile_country_id,
@@ -110,6 +113,48 @@ class UserService
         }
 
         return false;
+    }
+
+
+
+        /**
+     * Create And Send Activation Code For User
+     *
+     * @param User $user
+     * @param String[phone|email] $code_valid_for
+     * @return void
+     */
+    public function createAndSendActivationCodeForUpdateMobile(User $user)
+    {
+        
+        if ($user->userVerification && $user->userVerification->sendCodeWithinMinute()) {
+            throw new ApiException(trans('auth.verification_code_wait_time_one_minute'), 400);
+        }
+
+        $user->userVerification()->delete();
+
+        $verification_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+
+        $user->userVerification()->create([
+            'verification_code' => $verification_code,
+            'code_valid_for' => 'phone'
+        ]);
+        
+
+       
+            $message = 'Wajad,  verification  code is ' . $verification_code;
+          
+            $country_code=Country::find(session()->get('v_mobile_country_id'))['country_code'];
+
+                 \Unifonic::send($country_code. session()->get('v_mobile_number'),$message);
+                // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
+           
+            return true;
+        
+
+ 
+
+    
     }
 
 
