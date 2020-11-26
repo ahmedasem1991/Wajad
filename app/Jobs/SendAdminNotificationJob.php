@@ -96,6 +96,7 @@ class SendAdminNotificationJob implements ShouldQueue
             if ($this->send_to == 0) {
                 User::chunk(1000, function ($users) {
                     foreach ($users as $user) {
+                        if( $user->receive_emails)
                         Mail::to($user)->send(new MailAdminNotification($this->body));
                     }
                 });
@@ -105,6 +106,7 @@ class SendAdminNotificationJob implements ShouldQueue
             if ($this->send_to == 1) {
                 $Users = User::find($this->users);
                 foreach ($Users as $user) {
+                    if( $user->receive_emails)
                     Mail::to($user)->send(new MailAdminNotification($this->body));
                 }
             }
