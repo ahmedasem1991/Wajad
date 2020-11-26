@@ -14,8 +14,9 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/refreshToken', 'AuthController@refresh');
     Route::post('/socialLogin/{driver}', 'AuthController@socialLogin');
     Route::post('/appleLogin', 'AuthController@appleLogin');
-    Route::post('/newresetPassword/{user}', 'SendResetPasswordController');
-    Route::post('/verify_password/code', 'VerifyPasswordController');
+    Route::post('/newresetPassword', 'SendResetPasswordController');
+    Route::post('/verify_password', 'VerifyPasswordController');
+    Route::post('/newchangePassword', 'NewChangePasswordController');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');

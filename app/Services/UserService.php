@@ -166,7 +166,7 @@ class UserService
      * @param String[phone|email] $code_valid_for
      * @return void
      */
-    public function createAndSendResetPassword(User $user, string $code_valid_for)
+    public function createAndSendResetPassword(User $user)
     {
         if ($user->userVerification && $user->userVerification->sendCodeWithinMinute()) {
             throw new ApiException(trans('auth.verification_code_wait_time_one_minute'), 400);
@@ -178,7 +178,7 @@ class UserService
 
         $user->userVerification()->create([
             'verification_code' => $activation_code,
-            'code_valid_for' => $code_valid_for
+            'code_valid_for' => 'phone'
         ]);
 
        
@@ -228,18 +228,6 @@ class UserService
                 throw new ApiException(trans('auth.wrong_code'), 400);
             }
 
-
-          
-         
-
-
-            if (!$user_verificatioin->codeValidForEmail()) {
-                $user_verificatioin->increment('attempt');
-
-                throw new ApiException(trans('auth.wrong_code'), 400);
-            }
-
- 
 
             $user->userVerification()->delete();
       

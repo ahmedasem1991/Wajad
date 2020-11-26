@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\User;
+use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use App\Services\UserService;
 
 /**
- * @group Auth
+ * @group User Profile
  */
 class SendResetPasswordController extends Controller
 {
@@ -17,9 +19,8 @@ class SendResetPasswordController extends Controller
     ];
 
     /**
-     * Send Code
-     * @urlParam type required phone or email. Example:phone.
-     * @bodyParam token Barier-token required
+     * New Send Reset Password
+     * @bodyParam user string Email or Phone
      * @response
      * {
      *"success": true,
@@ -28,11 +29,11 @@ class SendResetPasswordController extends Controller
      *}
      * @return void
      */
-    public function __invoke($user)
+    public function __invoke(Request $request)
     {
 
         
-
+        $user=$request->user;
 
 
         if (is_numeric($user)) {
@@ -52,13 +53,22 @@ class SendResetPasswordController extends Controller
             throw new ApiException('User Not Found!', 400);
         }
 
-        if ((new UserService)->createAndSendResetPassword(auth('api')->user(), $type)) {
+        if ((new UserService)->createAndSendResetPassword($check_user)) {
 
-            $this->addStatusCode(201);
+            $data=[
+                "success"=> true,
+                "message"=> "Verification code sent.",
+                "user_id"=> $check_user->id,
+                "status_code"=> 200
+            ];
+            return $data;
+            // $this->addStatusCode(201);
 
-            $this->addResponse(trans('auth.verification_code_sent'));
 
-            return $this->response();
+            // $this->addResponse(trans('auth.verification_code_sent'));
+            // //$this->addResponse(['user_id'=> $check_user->id]);
+
+            // return $this->response();
         }
 
         throw new ApiException(trans('auth.something_wrong'), 400);

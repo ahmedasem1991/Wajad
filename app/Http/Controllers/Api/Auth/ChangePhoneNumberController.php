@@ -33,7 +33,8 @@ class ChangePhoneNumberController extends Controller
         ]);
 
         $validate_request = Validator::make(request()->all(), [
-            'mobile_number' => ['required', 'numeric', 'digits_between:9,14', Rule::unique('users')->ignore($user->id)],
+            'mobile_number' => ['required', 'numeric', 'digits_between:9,14', 'unique:users,mobile_number,NULL,id,deleted_at,NULL'],
+            
             'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ]);
 

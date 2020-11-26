@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
@@ -20,38 +21,37 @@ class VerifyPasswordController extends Controller
     ];
 
     /**
-     * Verify Code for Phone or Email
-     * @urlParam type required phone or email. Example:phone.
+     * Verify Password Code 
      * @bodyParam code numeric required digits:4 Example:1234
-     * @bodyParam token Barier-token required
+     * @bodyParam user_id numeric required 
      * @response {
      *         "success": true,
-     *         "message": "Phone Verified Successfully",
+     *         "message": "Password is verified Successfully!",
      *         "status_code": 200
      * }
      * @return void
      */
-    public function __invoke(Request $request, $code)
+    public function __invoke(Request $request)
     {
-        $user = auth('api')->user();
+       
 
-        // $validate_for_code = Validator::make($request->all(), [
-        //     'code' => ['required', 'numeric', 'digits:4']
-        // ]);
+        $validate_for_code = Validator::make($request->all(), [
+            'code' => ['required', 'numeric', 'digits:4'],
+            'user_id' => ['required', 'exists:users,id']
+        ]);
+  
 
-        // if ($validate_for_code->fails()) {
-        //     throw new ApiException($validate_for_code->errors()->first(), 400);
-        // }
-
-        // if (!in_array($type, $this->verification_types)) {
-        //     throw new ApiException(trans('auth.failed'), 404);
-        // }
+        if ($validate_for_code->fails()) {
+            throw new ApiException($validate_for_code->errors()->first(), 400);
+        }
+        $user = User::find($request->user_id);
+      //  dd($user);
 
         (new UserService)->verifyActivationPassword($user, $request->code);
 
         $this->addStatusCode(200);
 
-        $this->addResponse('Password is verified!');
+        $this->addResponse('Password is verified Successfully!');
 
         return $this->response();
     }
