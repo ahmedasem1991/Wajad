@@ -250,29 +250,29 @@ class="full" object="drag-module-small">
 
 <!-- Start Top -->
 <table width="400" border="0" cellpadding="0" cellspacing="0" align="center"
-class="mobile" bgcolor="#fe5258" object="drag-module-small" style="border-top-right-radius: 6px; border-top-left-radius: 6px; background: rgb(36,189,239);
-background: linear-gradient(90deg, rgba(36,189,239,1) 0%, rgba(5,155,221,1) 100%);">
+class="mobile" bgcolor="" object="drag-module-small" style="border-top-right-radius: 6px; border-top-left-radius: 6px; background:;
+background: linear-gradient(90deg, rgba(255,255,239,1) 0%, rgba(255,255,221,1) 100%);">
 <tr>
 <td width="100%" valign="middle" align="center">
 
 <!-- Header Text -->
 <table width="280" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td width="100%" height="35"></td>
-</tr>
-<tr>
-<td valign="middle" width="100%"
-style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 35px; color: rgb(255, 255, 255); line-height: 40px; font-weight: 100;"
-class="fullCenter">
-Wajad </td>
-</tr>
-<tr>
-<td width="100%" height="30"
-style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td width="100%" height="35"></td>
+    </tr>
+    <tr>
+        <td valign="middle" width="100%"
+            style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 35px; color: ; line-height: 40px; font-weight: 100;"
+            class="fullCenter">
+            <img style="max-width:100%" src="https://wajad-demo.smartappco.dev/images/wajad_logo.png"></td>
+    </tr>
+    <tr>
+        <td width="100%" height="30"
+            style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+    </tr>
 </table>
 
 </td>
@@ -286,15 +286,15 @@ background: linear-gradient(90deg, rgba(36,189,239,1) 0%, rgba(5,155,221,1) 100%
 <td width="100%" valign="middle" align="center">
 
 <table width="400" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td width="400" class="image400" style="line-height: 1px;">
-<img src="images/mail-01.png" width="10%" alt="" border="0"
-class="hover">
-</td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td width="400" class="image400" style="line-height: 1px;">
+            <img src="https://wajad-demo.smartappco.dev/images/mail-01.png" width="10%" alt="" border="0"
+                    class="hover">
+        </td>
+    </tr>
 </table>
 
 </td>
@@ -308,12 +308,12 @@ style="background-color: rgb(255, 255, 255);">
 <td width="100%" valign="middle" align="center">
 
 <table width="300" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td width="100%" height="40"></td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td width="100%" height="40"></td>
+    </tr>
 </table>
 
 </td>
@@ -327,19 +327,19 @@ style="background-color: rgb(255, 255, 255);">
 <td width="100%" valign="middle" align="center">
 
 <table width="300" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td valign="middle" width="100%"
-style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 21px; color: rgb(0, 22, 32); line-height: 30px; font-weight: 400;"
-class="fullCenter">
- </td>
-</tr>
-<tr>
-<td width="100%" height="10"
-style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td valign="middle" width="100%"
+            style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 21px; color: rgb(0, 22, 32); line-height: 30px; font-weight: 400;"
+            class="fullCenter">
+            Email Verification Code </td>
+    </tr>
+    <tr>
+        <td width="100%" height="10"
+            style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+    </tr>
 </table>
 
 </td>
@@ -353,20 +353,20 @@ style="background-color: rgb(255, 255, 255);">
 <td width="100%" valign="middle" align="center">
 
 <table width="300" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td valign="middle" width="100%"
-style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(142, 145, 151); line-height: 24px; font-weight: 400;"
-class="fullCenter">
-Wajad
-</td>
-</tr>
-<tr>
-<td width="100%" height="35"
-style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td valign="middle" width="100%"
+            style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(142, 145, 151); line-height: 24px; font-weight: 400;"
+            class="fullCenter">
+            Kindly Copy This Code and Paste It In Application Screen
+        </td>
+    </tr>
+    <tr>
+        <td width="100%" height="35"
+            style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+    </tr>
 </table>
 
 </td>
@@ -380,22 +380,25 @@ style="background-color: rgb(255, 255, 255);">
 <td width="100%" valign="middle" align="center">
 
 <table width="300" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td width="100%" align="center">
-<table border="0" cellpadding="0" cellspacing="0"
-align="center" class="buttonScale">
-<tr>
-<td align="center" height="40" bgcolor="#fe5258"
-style="">
-{{ $body }}
-</td>
-</tr>
-</table>
-</td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td width="100%" align="center">
+            <table border="0" cellpadding="0" cellspacing="0"
+                    align="center" class="buttonScale">
+                <tr>
+                    <td align="center" height="40" bgcolor="#fe5258"
+                        style="border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; padding-left: 25px; padding-right: 25px; font-family: 'Open Sans', Helvetica, Arial, sans-serif; color: rgb(255, 255, 255); font-size: 28px; font-weight: 600; line-height: 1px; text-transform: uppercase; background: rgb(36,189,239);
+                            background: linear-gradient(90deg, rgba(36,189,239,1) 0%, rgba(5,155,221,1) 100%);">
+
+                        <p
+                            style="color: rgb(255, 255, 255); text-decoration: none; width: 100%;">{{ $body }}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 
 </td>
@@ -409,21 +412,13 @@ style="background-color: rgb(255, 255, 255);">
 <td width="100%" valign="middle" align="center">
 
 <table width="300" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td width="100%" height="20"
-style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-</tr>
-<tr>
-<td valign="middle" width="100%"
-style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(177, 183, 192); line-height: 24px; font-weight: 400;"
-class="fullCenter">
-<!-- or do something else -->
-
-
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td width="100%" height="20"
+            style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+    </tr>
 </table>
 
 </td>
@@ -437,12 +432,12 @@ style="border-bottom-right-radius: 6px; border-bottom-left-radius: 6px; backgrou
 <td width="100%" valign="middle" align="center">
 
 <table width="300" border="0" cellpadding="0" cellspacing="0"
-align="center"
-style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
-class="fullCenter">
-<tr>
-<td width="100%" height="40"></td>
-</tr>
+        align="center"
+        style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        class="fullCenter">
+    <tr>
+        <td width="100%" height="40"></td>
+    </tr>
 </table>
 
 </td>
@@ -472,7 +467,6 @@ class="fullCenter">
 style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; color: rgb(254, 82, 88); font-size: 12px; font-weight: 400; line-height: 18px;"
 class="fullCenter">
 
- 
 </td>
 </tr>
 <tr>
