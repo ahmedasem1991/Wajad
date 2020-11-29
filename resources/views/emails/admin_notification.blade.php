@@ -220,7 +220,7 @@ height: auto;
 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
 <tr>
 <td align="center"
-style="background-image: url('images/not2_bg_image.jpg'); -webkit-background-size: cover; background-size: cover; background-color: rgb(242, 244, 249); background-position: center center; background-repeat: no-repeat;"
+style="background-image: url('https://wajad-demo.smartappco.dev/images/not2_bg_image.jpg'); -webkit-background-size: cover; background-size: cover; background-color: rgb(242, 244, 249); background-position: center center; background-repeat: no-repeat;"
 id="not2ChangeBG" bgcolor="#001620">
 
 
@@ -334,7 +334,7 @@ style="background-color: rgb(255, 255, 255);">
         <td valign="middle" width="100%"
             style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 21px; color: rgb(0, 22, 32); line-height: 30px; font-weight: 400;"
             class="fullCenter">
-            Email Verification Code </td>
+            Welcome ,, </td>
     </tr>
     <tr>
         <td width="100%" height="10"
@@ -357,11 +357,10 @@ style="background-color: rgb(255, 255, 255);">
         style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
         class="fullCenter">
     <tr>
-        <td valign="middle" width="100%"
-            style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(142, 145, 151); line-height: 24px; font-weight: 400;"
+    <td valign="middle" width="100%"
+            style="text-align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 21px; color: rgb(0, 22, 32); line-height: 30px; font-weight: 400;"
             class="fullCenter">
-            Kindly Copy This Code and Paste It In Application Screen
-        </td>
+            {{$body}} </td>
     </tr>
     <tr>
         <td width="100%" height="35"
@@ -393,7 +392,7 @@ style="background-color: rgb(255, 255, 255);">
                             background: linear-gradient(90deg, rgba(36,189,239,1) 0%, rgba(5,155,221,1) 100%);">
 
                         <p
-                            style="color: rgb(255, 255, 255); text-decoration: none; width: 100%;">{{ $body }}</p>
+                            style="color: rgb(255, 255, 255); text-decoration: none; width: 100%;">Regards</p>
                     </td>
                 </tr>
             </table>
