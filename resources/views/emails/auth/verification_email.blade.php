@@ -220,7 +220,7 @@ height: auto;
 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
 <tr>
 <td align="center"
-style="background-image: url('images/not2_bg_image.jpg'); -webkit-background-size: cover; background-size: cover; background-color: rgb(242, 244, 249); background-position: center center; background-repeat: no-repeat;"
+style="background-image: url('https://wajad-demo.smartappco.dev/images/not2_bg_image.jpg'); -webkit-background-size: cover; background-size: cover; background-color: rgb(242, 244, 249); background-position: center center; background-repeat: no-repeat;"
 id="not2ChangeBG" bgcolor="#001620">
 
 

@@ -133,7 +133,7 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function (Request $request) {
 
-    //Mail::to(User::find(1))->send(new MailAdminNotification('test'));
+    Mail::to(User::find(1))->send(new MailAdminNotification('test'));
   return view('emails.admin_notification')->with('body','test test test test ewdw wfw');
  dd(\Unifonic::send('966504334115', 'test message'))   ;
     Mail::to($user)->send(new MailAdminNotification('test'));

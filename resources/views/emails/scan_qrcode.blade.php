@@ -220,7 +220,7 @@ height: auto;
 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
 <tr>
 <td align="center"
-style="background-image: url('{{ asset('images/not2_bg_image.jpg')}}; -webkit-background-size: cover; background-size: cover; background-color: rgb(242, 244, 249); background-position: center center; background-repeat: no-repeat;"
+style="background-image: url('{{ asset('https://wajad-demo.smartappco.dev/images/not2_bg_image.jpg')}}; -webkit-background-size: cover; background-size: cover; background-color: rgb(242, 244, 249); background-position: center center; background-repeat: no-repeat;"
 id="not2ChangeBG" bgcolor="#001620">
 
 
@@ -291,7 +291,7 @@ id="not2ChangeBG" bgcolor="#001620">
                     class="fullCenter">
                 <tr>
                     <td width="400" class="image400" style="line-height: 1px;">
-                        <img src="http://wajad.test/images/mail-01.png" width="10%" alt="" border="0"
+                        <img src="https://wajad-demo.smartappco.dev/images/mail-01.png" width="10%" alt="" border="0"
                                 class="hover">
                     </td>
                 </tr>
