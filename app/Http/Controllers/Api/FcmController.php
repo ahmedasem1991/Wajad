@@ -14,19 +14,19 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
- 
+
 
 /**
  * @group FCM
  */
 class FcmController extends Controller
 {
- 
+
         /**
          * Get FCM List
          * @bodyParam token Barier-token required
-         * @response 
-         *  
+         * @response
+         *
          * {
          * "unread_count": 3,
          *  "data": [
@@ -105,22 +105,29 @@ class FcmController extends Controller
        * }
       *  ]
         * }
-    
+
      * @return void
      */
     public function index(Request $request)
     {
-       
+//        $notifications = auth('api')->user()->notifications()->paginate(25);
+
         $array['unread_count']=auth('api')->user()->notifications()->where('read_at',null)->count();
+
+//        $array['per_page'] = $notifications->perPage();
+//        $array['current_page'] = $notifications->currentPage();
+//        $array['total_pages'] = $notifications->lastPage();
+//        $array['data']=FcmResource::collection($notifications);
+
         $array['data']=FcmResource::collection(auth('api')->user()->notifications()->get());
-        return $array; 
+        return $array;
     }
- 
+
     /**
      * Save Fcm  Device Token
      * @bodyParam fcm_token required
      * @bodyParam lang required in:ar,en
-     * @bodyParam device required in:android,ios 
+     * @bodyParam device required in:android,ios
      * @bodyParam token Barier-token required
      * @response {
      * "success": true,
@@ -145,11 +152,11 @@ class FcmController extends Controller
             $fcm = FcmUser::whereToken($request->input('fcm_token'))->first();
         else
             $fcm = new FcmUser;
-        
-        $fcm->user_id = auth('api')->user()->id; 
-        $fcm->device  = $request->input('device'); 
-        $fcm->lang    = $request->input('lang'); 
-        $fcm->token   = $request->input('fcm_token'); 
+
+        $fcm->user_id = auth('api')->user()->id;
+        $fcm->device  = $request->input('device');
+        $fcm->lang    = $request->input('lang');
+        $fcm->token   = $request->input('fcm_token');
         $fcm->save();
 
         $this->addResponse('FCM Token added successfully')->addStatusCode(201);
@@ -161,7 +168,7 @@ class FcmController extends Controller
 
     /**
      * Delete FCM
-     * @urlParam fcm_token required 
+     * @urlParam fcm_token required
      * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
@@ -191,7 +198,7 @@ class FcmController extends Controller
 
       /**
      * Gel All FCM List
-     * @urlParam fcm_token required 
+     * @urlParam fcm_token required
      * @bodyParam token Barier-token required
      * @response {
      *  "success": true,
@@ -251,8 +258,8 @@ class FcmController extends Controller
         $this->addResponse('Notification  Not Found')->addStatusCode(201);
         return $this->response();
         }
-        
-       
+
+
 
     }
 
