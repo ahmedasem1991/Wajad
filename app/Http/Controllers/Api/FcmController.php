@@ -110,14 +110,16 @@ class FcmController extends Controller
      */
     public function index(Request $request)
     {
-        $notifications = auth('api')->user()->notifications()->paginate(25);
+//        $notifications = auth('api')->user()->notifications()->paginate(25);
 
         $array['unread_count']=auth('api')->user()->notifications()->where('read_at',null)->count();
-        $array['per_page'] = $notifications->perPage();
-        $array['current_page'] = $notifications->currentPage();
-        $array['total_pages'] = $notifications->lastPage();
-        $array['data']=FcmResource::collection($notifications);
-//        $array['data']=FcmResource::collection(auth('api')->user()->notifications()->get());
+
+//        $array['per_page'] = $notifications->perPage();
+//        $array['current_page'] = $notifications->currentPage();
+//        $array['total_pages'] = $notifications->lastPage();
+//        $array['data']=FcmResource::collection($notifications);
+
+        $array['data']=FcmResource::collection(auth('api')->user()->notifications()->get());
         return $array;
     }
 
