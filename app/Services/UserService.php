@@ -45,10 +45,12 @@ class UserService
             }
           $mobile_number=  $user->mobile_number;
           $mobile_country_id=  $user->mobile_country_id;
+          $v_mobile_number=  $user->v_mobile_number;
+          $v_mobile_country_id=  $user->v_mobile_country_id;
         
         $user->update([
-            'mobile_number' => session()->get('v_mobile_number') ??$mobile_number,
-            'mobile_country_id' => session()->get('v_mobile_country_id')??$mobile_country_id,
+            'mobile_number' =>$v_mobile_number ?? $mobile_number,
+            'mobile_country_id' => $v_mobile_country_id ??$mobile_country_id,
             'is_mobile_number_verified' => true
         ]);
 
@@ -144,9 +146,10 @@ class UserService
        
             $message = 'Wajad,  verification  code is ' . $verification_code;
           
-            $country_code=Country::find(session()->get('v_mobile_country_id'))['country_code'];
+          //  dd($user->v_mobile_country_id);
+            $country_code=Country::find($user->v_mobile_country_id)['country_code'];
 
-                 \Unifonic::send($country_code. session()->get('v_mobile_number'),$message);
+                 \Unifonic::send($country_code. $user->v_mobile_number,$message);
                 // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
            
             return true;

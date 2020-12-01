@@ -37,6 +37,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'social_name',
         'is_social_user',
         'social_id',
+        'v_mobile_number',
+        'v_mobile_country_id',
     ];
 
     protected static $logAttributes = [

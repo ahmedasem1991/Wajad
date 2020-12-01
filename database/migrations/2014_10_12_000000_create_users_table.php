@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->nullable();
             //$table->integer('posts_number')->default(env('POST_LIMITATION',50));
             $table->integer('posts_number')->default(0);
-            $table->integer('max_posts_number')->default(0);
+            $table->integer('max_posts_number')->default(100);
             $table->string('social_name')->nullable();
             $table->boolean('is_social_user')->default(0);
             $table->string('created_from')->nullable();
@@ -47,6 +47,8 @@ class CreateUsersTable extends Migration
             $table->string('language', 5)->default('en');
             $table->integer('quick_user_id')->nullable();
             $table->string('quick_user_password')->default('QuickBlox1!');
+            $table->integer('v_mobile_number')->nullable();
+            $table->integer('v_mobile_country_id')->nullable();
             $table->string('social_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
