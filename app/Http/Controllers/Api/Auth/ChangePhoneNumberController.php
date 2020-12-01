@@ -45,7 +45,7 @@ class ChangePhoneNumberController extends Controller
 
         // session()->put('v_mobile_number', request('mobile_number'));
         // session()->put('v_mobile_country_id',request('mobile_country_id'));
-      
+      dd(request('mobile_country_id'));
         $user->update([
             'v_mobile_number' => request('mobile_number'),
             'v_mobile_country_id' => request('mobile_country_id'),
