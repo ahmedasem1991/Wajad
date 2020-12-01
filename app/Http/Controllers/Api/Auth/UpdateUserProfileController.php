@@ -26,6 +26,7 @@ class UpdateUserProfileController extends Controller
      * @bodyParam receive_push_notifications boolean required in:true,false,0,1. Example:1
      * @bodyParam default_distance_unit string,in:kilo,mile required kilo or mile. Example:mile
      * @bodyParam image file mimes:jpeg,jpg,png,gif, max:5102
+     * @bodyParam email  string required unique 
      * @bodyParam token Barier-token required
      * @response
      * {
@@ -45,7 +46,7 @@ class UpdateUserProfileController extends Controller
             'receive_push_notifications' => ['required', 'boolean'],
             'default_distance_unit' => ['required', 'string', 'in:kilo,mile'],
             'image' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
-            'email' => ['required', 'email:rfc,dns','unique:users,email,NULL,id,type,1,deleted_at,NULL'],
+            'email' => ['required', 'email:rfc,dns','unique:users,email,'. $user->id.',id,type,1,deleted_at,NULL'],
         ]);
 
         if ($validate_request->fails()) {
