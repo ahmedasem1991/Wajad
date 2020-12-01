@@ -45,10 +45,12 @@ class UserService
             }
           $mobile_number=  $user->mobile_number;
           $mobile_country_id=  $user->mobile_country_id;
+          $v_mobile_number=  $user->v_mobile_number;
+          $v_mobile_country_id=  $user->v_mobile_country_id;
         
         $user->update([
-            'mobile_number' => session()->get('v_mobile_number') ??$mobile_number,
-            'mobile_country_id' => session()->get('v_mobile_country_id')??$mobile_country_id,
+            'mobile_number' =>$v_mobile_number ?? $mobile_number,
+            'mobile_country_id' => $v_mobile_country_id ??$mobile_country_id,
             'is_mobile_number_verified' => true
         ]);
 
