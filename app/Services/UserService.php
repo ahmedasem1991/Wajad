@@ -146,7 +146,7 @@ class UserService
        
             $message = 'Wajad,  verification  code is ' . $verification_code;
           
-            dd($user->v_mobile_country_id);
+          //  dd($user->v_mobile_country_id);
             $country_code=Country::find($user->v_mobile_country_id)['country_code'];
 
                  \Unifonic::send($country_code. $user->v_mobile_number,$message);
