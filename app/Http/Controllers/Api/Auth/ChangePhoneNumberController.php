@@ -45,12 +45,13 @@ class ChangePhoneNumberController extends Controller
 
         // session()->put('v_mobile_number', request('mobile_number'));
         // session()->put('v_mobile_country_id',request('mobile_country_id'));
-      dd(request('mobile_country_id'));
+      
         $user->update([
             'v_mobile_number' => request('mobile_number'),
             'v_mobile_country_id' => request('mobile_country_id'),
             'is_mobile_number_verified' => false
         ]);
+        dd( $user->v_mobile_country_id);
 
         if ((new UserService)->createAndSendActivationCodeForUpdateMobile($user)) {
             $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(200);
