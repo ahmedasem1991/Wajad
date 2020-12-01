@@ -45,6 +45,7 @@ class UpdateUserProfileController extends Controller
             'receive_push_notifications' => ['required', 'boolean'],
             'default_distance_unit' => ['required', 'string', 'in:kilo,mile'],
             'image' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
+            'email' => ['required', 'email:rfc,dns','unique:users,email,NULL,id,type,1,deleted_at,NULL'],
         ]);
 
         if ($validate_request->fails()) {
