@@ -62,6 +62,7 @@ class UpdateUserProfileController extends Controller
             'receive_emails' => (bool) $request->receive_emails,
             'receive_push_notifications' => (bool) $request->receive_push_notifications,
             'default_distance_unit' => $request->default_distance_unit,
+            'email' => $request->email,
         ]);
 
         if ($request->has('image') && $request->image !== '' && !is_null($request->image)) {
