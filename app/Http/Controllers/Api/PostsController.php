@@ -135,8 +135,8 @@ class PostsController extends Controller
 
          $dispatcher = Post::getEventDispatcher();
          Post::unsetEventDispatcher();
-       
-       
+
+
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -198,7 +198,7 @@ class PostsController extends Controller
                         'question' => $question,
                     ]);
                     //$post->{$x}= $question;
-                   
+
                     $post->save();
                // }
             }
@@ -660,6 +660,9 @@ class PostsController extends Controller
     {
        // $user = auth('api')->user();
        // if ($user->can('destroy', $post)) {
+         $user = auth('api')->user();
+        if ($user->id === $post->publisher()->id) {
+
         $post->update([
             'end_date' =>  now(),
             'open_status' =>  0,
@@ -668,8 +671,11 @@ class PostsController extends Controller
             $this->addResponse(trans('messages.closed', ['model' => trans('messages.attributes.post')]))
                 ->addStatusCode(200);
             return  $this->response();
+        }
+        throw new ApiException(trans('auth.not_authorized'), 400);
         //}
        // throw new ApiException(trans('auth.not_authorized'), 400);
+
     }
 
 
