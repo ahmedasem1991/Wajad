@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('/userPosts/{type}', 'UserPostController');
         Route::get('/userItems', 'UserItemController');
         Route::get('/userQRCodes', 'UserQRCodeController');
+        Route::get('/quickUser', 'QuickUserController');
     });
 });
 
