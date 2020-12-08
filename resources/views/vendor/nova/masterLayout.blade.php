@@ -72,9 +72,32 @@
                 @endif
 
                 <dropdown class="ml-auto h-9 flex items-center dropdown-right">
-                    @include('nova::partials.user')
+              
+                  
+
+              
                 </dropdown>
                 @include('nova_notification_feed::notification_feed')
+                @if(auth()->user()->isAdmin())
+           
+           <a href="/wajad/resources/super-admins/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3"> <img title="{{auth()->user()->name}}" src="{{auth()->user()->image }}"  class="rounded-full w-8 h-8 mr-3"/>  </a>
+           <!-- <i class="fa fa-user"></i>       -->
+           @endif
+
+              @if(auth()->user()->isCorporateAdmin())
+            
+               <a href="/wajad/resources/corporate-admins/{{auth()->user()->id }}" class="block no-underline text-90 hover:bg-30 p-3"> <img title="{{auth()->user()->name}}" src="{{auth()->user()->image }}"  class="rounded-full w-8 h-8 mr-3"/> </a>
+
+               <a href="/wajad/resources/corporates/{{auth()->user()->corporate_id }}" class="block no-underline text-90 hover:bg-30 p-3">
+               <img title="{{auth()->user()->corporate->name_en}}" src="{{auth()->user()->corporate->image }}"  class="rounded-full w-8 h-8 mr-3"/>
+                    <!-- <i class="fa fa-building"></i>  Corporate Profile -->
+                    </a>
+               <!-- <i class="fa fa-user"></i>       My Profile -->
+               @endif
+              
+                <a href="{{ route('nova.logout') }}" class="block no-underline text-90 hover:bg-30 p-3"><i class="fa fa-power-off"></i>        {{ __('Logout') }} </a>
+           
+             
             </div>
 
             <div data-testid="content" class="px-view py-view mx-auto">
