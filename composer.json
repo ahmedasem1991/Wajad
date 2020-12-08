@@ -48,6 +48,7 @@
         "naif/toggle": "^1.2",
         "nexmo/client": "^2.4",
         "niklasravnsborg/laravel-pdf": "^3.1",
+        "optimistdigital/nova-multiselect-field": "^2.0",
         "optimistdigital/nova-sortable": "^1.4",
         "orlyapps/nova-belongsto-depend": "^2.0",
         "owenmelbz/nova-radio-field": "^0.0.5",
