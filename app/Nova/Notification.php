@@ -12,6 +12,7 @@ use App\Nova\Metrics\Colors;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
+use NovaAjaxSelect\AjaxSelect;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\Textarea;
@@ -19,6 +20,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use Silvanite\NovaFieldCheckboxes\Checkboxes;
 use OptimistDigital\MultiselectField\Multiselect;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -88,7 +90,7 @@ class Notification extends Resource
                Select::make('Send To', 'send_to')
                ->options([
                 0 => 'All Users',
-                1 => 'Special Users',
+                1 => 'Special User',
                 2 => 'As Advertisement (FCM)',
             ])
             //->default('2')
@@ -96,18 +98,37 @@ class Notification extends Resource
                 ->displayUsingLabels(),
 
             NovaDependencyContainer::make([
-                Multiselect::make('Users')
-                     ->options(
-                         //function(){
-                    //     User::normalusers()->get()
-                    //     ->filter(function ($user) {
-                    //         return User::normalusers() $user->name . "-".$user->mobile_number;
-                    //     })->pluck('name','id')->toArray();
-                    // }
-                        User::normalusers()->get()->pluck('name','id')->toArray()
-                    )
-                    ->placeholder('Select Users')
-                    ->reorderable(),
+                // Multiselect::make('Users')
+                //      ->options(
+                //          //function(){
+                //     //     User::normalusers()->get()
+                //     //     ->filter(function ($user) {
+                //     //         return User::normalusers() $user->name . "-".$user->mobile_number;
+                //     //     })->pluck('name','id')->toArray();
+                //     // }
+                //         User::normalusers()->get()->pluck('name','id')->toArray()
+                //     )
+                //     ->placeholder('Select Users')
+                //     ->reorderable(),
+                Text::make('', 'search_user')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail(), 
+
+                AjaxSelect::make('User','users')
+                ->get('/smart-search/{search_user}')
+                ->parent('search_user')
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->withMeta(['ignoreOnSaving'])
+                ->rules('required'),
+                // AjaxMultiselect::make('Users')
+                // ->optionsModel(User::class)
+                // ->optionsLabel('id')
+                // ->placeholder('Select products')
+                // ->maxOptions(5),
+
             ])->dependsOn('send_to', '1'),
 
         //     NovaDependencyContainer::make([
@@ -141,34 +162,54 @@ class Notification extends Resource
 
 
                 NovaDependencyContainer::make([
-                    Multiselect::make('Send By','send_by')
-                    ->options(
-                        [
-                            'email'=>'Email',
-                            'fcm'=>'FCM',
-                            'sms'=>'SMS',
-                        ]
-                    )
+                    // Multiselect::make('Send By','send_by')
+                    // ->options(
+                    //     [
+                    //         'email'=>'Email',
+                    //         'fcm'=>'FCM',
+                    //         'sms'=>'SMS',
+                    //     ]
+                    // )
+                    // ->creationRules('required')
+                    // ->placeholder('Select Options')
+                    // ->reorderable(),
+
+                    Checkboxes::make('Send By','send_by')->options([
+                        'email'=>'Email',
+                        'fcm'=>'FCM',
+                        'sms'=>'SMS',
+                    ])
                     ->creationRules('required')
-                    ->placeholder('Select Options')
-                    ->reorderable(),
+                    ->columns(1)
+                    ->withoutTypeCasting(),
 
                 ])
                 ->dependsOn('send_to', '0')
                 ->dependsOn('send_to', '1'),
 
                 NovaDependencyContainer::make([
-                    Multiselect::make('Send By','send_by')
-                    ->options(
-                        [
+                    // Multiselect::make('Send By','send_by')
+                    // ->options(
+                    //     [
                            
-                            'fcm'=>'FCM'
+                    //         'fcm'=>'FCM'
                            
-                        ]
-                    )
+                    //     ]
+                    // )
+                    // ->creationRules('required')
+                    // ->placeholder('Select Options')
+                    // ->reorderable(),
+                    Checkboxes::make('Send By','send_by')->options([
+                       // 'email'=>'Email',
+                        'fcm'=>'FCM',
+                       // 'sms'=>'SMS',
+                    ])
                     ->creationRules('required')
-                    ->placeholder('Select Options')
-                    ->reorderable(),
+                   // ->columns(4)
+                    ->withoutTypeCasting()
+                    ,
+
+            
 
                 ])
                 //->dependsOn('send_to', '0')
@@ -195,6 +236,17 @@ class Notification extends Resource
     {
         return [];
     }
+    //     public static function fill(NovaRequest $request, $model)
+    // {
+
+    //     if ($request->has('search_user')) {
+
+    //         $request->offsetUnset('search_user');
+    //     }
+
+    //     //return parent::fill($request, $model);
+    // }
+    
 
     /**
      * Get the filters available for the resource.

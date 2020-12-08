@@ -18,6 +18,7 @@ class CreateAdminNotificationsTable extends Migration
             $table->text('body');
             $table->string('send_to');
             $table->text('users')->nullable();
+            $table->string('search_user')->nullable();
             $table->string('send_by');
             $table->string('country_id');
             $table->string('region_id');

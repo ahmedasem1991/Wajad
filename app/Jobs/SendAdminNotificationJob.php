@@ -31,8 +31,6 @@ class SendAdminNotificationJob implements ShouldQueue
      */
     public function __construct($body, $send_to, $send_by, $users)
     {
-
-
         $this->body = $body;
         $this->send_to = $send_to;
         $this->send_by = $send_by;
@@ -48,7 +46,8 @@ class SendAdminNotificationJob implements ShouldQueue
     {
 
         
-        if (strpos($this->send_by, 'fcm') !== false) {
+           if (in_array("fcm", $this->send_by)) {
+             //   if (strpos($this->send_by, 'fcm') !== false) {
             
             // To All Users as adv.
             if ($this->send_to == 2) {
@@ -79,18 +78,23 @@ class SendAdminNotificationJob implements ShouldQueue
             //Special Users
             if ($this->send_to == 1) {
                
-                $Users = User::find($this->users);
-
-                foreach ($Users as $user) {
+                $user = User::find($this->users);
                     $badge =getBadge($user);
                     $data = sendCustomUsersFCM($this->body, $badge);
                     $user->notify(new SendFCMNotification($user, $data));
-                }
+                // $Users = User::find($this->users);
+
+                // foreach ($Users as $user) {
+                //     $badge =getBadge($user);
+                //     $data = sendCustomUsersFCM($this->body, $badge);
+                //     $user->notify(new SendFCMNotification($user, $data));
+                // }
             }
 
             logger('fcm test');
         }
-        if (strpos($this->send_by, 'email') !== false) {
+       // if (strpos($this->send_by, 'email') !== false) {
+        if (in_array("email", $this->send_by)) {
             //if (in_array("email", $this->send_by)) {
             // To All Users
             if ($this->send_to == 0) {
@@ -104,15 +108,22 @@ class SendAdminNotificationJob implements ShouldQueue
 
             //Special Users
             if ($this->send_to == 1) {
-                $Users = User::find($this->users);
-                foreach ($Users as $user) {
-                    if( $user->receive_emails)
+
+                $user = User::find($this->users);
+                if( $user->receive_emails)
                     Mail::to($user)->send(new MailAdminNotification($this->body));
-                }
+            
+
+                // $Users = User::find($this->users);
+                // foreach ($Users as $user) {
+                //     if( $user->receive_emails)
+                //     Mail::to($user)->send(new MailAdminNotification($this->body));
+                // }
             }
             logger('email');
         }
-        if (strpos($this->send_by, 'sms') !== false) {
+       // if (strpos($this->send_by, 'sms') !== false) {
+        if (in_array("sms", $this->send_by)) {
             //if (in_array("sms", $this->send_by)) {
             // To All Users
             if ($this->send_to == 0) {
@@ -127,11 +138,16 @@ class SendAdminNotificationJob implements ShouldQueue
 
             //Special Users
             if ($this->send_to == 1) {
-                $Users = User::find($this->users);
-                foreach ($Users as $user) {
-                    \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
-                     //new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
-                }
+
+                $user = User::find($this->users);
+               \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
+
+
+                // $Users = User::find($this->users);
+                // foreach ($Users as $user) {
+                //     \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body);
+                //      //new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
+                // }
             }
             logger('sms');
         }

@@ -13,10 +13,14 @@ class AdminNotification extends MasterModel
     use LogsActivity, SoftDeletes;
 
     protected $table='admin_notifications';
-    protected $fillable=['body'];
+    protected $fillable=['body','send_to','users','search_user','send_by'];
 
     protected static $logAttributes = [
         'body'
+    ];
+
+    protected $casts = [
+        'send_by' => 'array',
     ];
     protected static $logOnlyDirty = true;
 

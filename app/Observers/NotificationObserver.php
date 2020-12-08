@@ -15,10 +15,13 @@ class NotificationObserver
     public function saving(AdminNotification $Notification)
     {
         
-      $users= str_replace("[","",$Notification->users); 
-      $users= str_replace("]","",$users); 
-      $users= str_replace('"',"",$users); 
-      $users = explode(',', $users);
+        logger($Notification->send_by);
+        
+     $users= $Notification->users; 
+     // $users= str_replace("[","",$Notification->users); 
+    //   $users= str_replace("]","",$users); 
+    //   $users= str_replace('"',"",$users); 
+    //   $users = explode(',', $users);
  
          
         SendAdminNotificationJob::dispatch($Notification->body,$Notification->send_to,$Notification->send_by,$users);
