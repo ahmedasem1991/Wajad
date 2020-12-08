@@ -2,14 +2,15 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
-use Laravel\Nova\Resource;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphToMany;
-use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
 class PostResource extends Resource
 {
@@ -38,10 +39,26 @@ class PostResource extends Resource
     public function fields(Request $request)
     {
         return [
-            BelongsTo::make('User', 'user', UserResource::class)->nullable()
-                ->viewable($_SERVER['nova.user.viewable-field'] ?? true),
-            BelongsToMany::make('Authors', 'authors', UserResource::class),
+            BelongsTo::make('User', 'user', UserResource::class)
+                ->nullable()
+                ->viewable($_SERVER['nova.user.viewable-field'] ?? true)
+                ->default($_SERVER['nova.user.default-value'] ?? null),
+
+            tap(BelongsToMany::make('Authors', 'authors', UserResource::class), function ($field) {
+                if ($_SERVER['nova.addAuthorPivotFields'] ?? false) {
+                    return [
+                        Text::make('Added At')->onlyOnIndex(),
+                        Date::make('Added At')->onlyOnForms(),
+                    ];
+                }
+            }),
+
             Text::make('Title', 'title')->rules('required', 'string', 'max:255'),
+
+            Text::make('Slug', 'slug')->rules('required', 'string', 'max:255')->default(function ($request) {
+                return 'default-slug';
+            }),
+
             Text::make('Description', 'description')->rules('string', 'max:255')
                 ->nullable()
                 ->canSee(function () {
@@ -134,6 +151,19 @@ class PostResource extends Resource
             new PostMinTrend,
             new PostsByUserPartition,
             new WordCountByUserPartition,
+        ];
+    }
+
+    /**
+     * Get the lenses available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function lenses(Request $request)
+    {
+        return [
+            new PostLens,
         ];
     }
 

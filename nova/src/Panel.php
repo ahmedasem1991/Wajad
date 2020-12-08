@@ -2,12 +2,14 @@
 
 namespace Laravel\Nova;
 
-use JsonSerializable;
 use Illuminate\Http\Resources\MergeValue;
+use Illuminate\Support\Traits\Macroable;
+use JsonSerializable;
+use Laravel\Nova\Metrics\HasHelpText;
 
 class Panel extends MergeValue implements JsonSerializable
 {
-    use Metable;
+    use Macroable, Metable, Makeable, HasHelpText;
 
     /**
      * The name of the panel.
@@ -25,6 +27,8 @@ class Panel extends MergeValue implements JsonSerializable
 
     /**
      * The panel's component.
+     *
+     * @var string
      */
     public $component = 'panel';
 
@@ -34,6 +38,20 @@ class Panel extends MergeValue implements JsonSerializable
      * @var bool
      */
     public $showToolbar = false;
+
+    /**
+     * The initial field display limit.
+     *
+     * @var int|null
+     */
+    public $limit = null;
+
+    /**
+     * The help text for the element.
+     *
+     * @var  string
+     */
+    public $helpText;
 
     /**
      * Create a new panel instance.
@@ -70,13 +88,17 @@ class Panel extends MergeValue implements JsonSerializable
      */
     public static function defaultNameForDetail(Resource $resource)
     {
-        return __(':resource Details', [
+        return __(':resource Details: :title', [
             'resource' => $resource->singularLabel(),
+            'title' => $resource->title(),
         ]);
     }
 
     /**
      * Get the default panel name for a create panel.
+     *
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return string
      */
     public static function defaultNameForCreate(Resource $resource)
     {
@@ -87,11 +109,15 @@ class Panel extends MergeValue implements JsonSerializable
 
     /**
      * Get the default panel name for the update panel.
+     *
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return string
      */
     public static function defaultNameForUpdate(Resource $resource)
     {
-        return __('Update :resource', [
+        return __('Update :resource: :title', [
             'resource' => $resource->singularLabel(),
+            'title' => $resource->title(),
         ]);
     }
 
@@ -108,9 +134,22 @@ class Panel extends MergeValue implements JsonSerializable
     }
 
     /**
+     * Set the number of initially visible fields.
+     *
+     * @param int $limit
+     * @return $this
+     */
+    public function limit($limit)
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
+    /**
      * Set the Vue component key for the panel.
      *
-     * @param string $component
+     * @param  string  $component
      * @return $this
      */
     public function withComponent($component)
@@ -131,6 +170,29 @@ class Panel extends MergeValue implements JsonSerializable
     }
 
     /**
+     * Set the width for the help text tooltip.
+     *
+     * @param  string
+     * @return $this
+     * @throws \Exception
+     */
+    public function helpWidth($helpWidth)
+    {
+        throw new \Exception('Help width is not supported on panels.');
+    }
+
+    /**
+     * Return the width of the help text tooltip.
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function getHelpWidth()
+    {
+        throw new \Exception('Help width is not supported on panels.');
+    }
+
+    /**
      * Prepare the panel for JSON serialization.
      *
      * @return array
@@ -141,6 +203,8 @@ class Panel extends MergeValue implements JsonSerializable
             'component' => $this->component(),
             'name' => $this->name,
             'showToolbar' => $this->showToolbar,
+            'limit' => $this->limit,
+            'helpText' => $this->getHelpText(),
         ], $this->meta());
     }
 }

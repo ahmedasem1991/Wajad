@@ -15,9 +15,12 @@ class NotificationObserver
     public function saving(AdminNotification $Notification)
     {
         
-        logger($Notification->send_by);
+        // logger($Notification->body);
+        // logger($Notification->send_by);
+        // logger($Notification->send_to);
         
      $users= $Notification->users; 
+    //  logger($users);
      // $users= str_replace("[","",$Notification->users); 
     //   $users= str_replace("]","",$users); 
     //   $users= str_replace('"',"",$users); 

@@ -2,20 +2,19 @@
 
 namespace Laravel\Nova\Filters;
 
-use JsonSerializable;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Metable;
-use Illuminate\Http\Request;
-use Laravel\Nova\AuthorizedToSee;
 use Illuminate\Container\Container;
-use Laravel\Nova\ProxiesCanSeeToGate;
+use Illuminate\Http\Request;
+use JsonSerializable;
+use Laravel\Nova\AuthorizedToSee;
 use Laravel\Nova\Contracts\Filter as FilterContract;
+use Laravel\Nova\Makeable;
+use Laravel\Nova\Metable;
+use Laravel\Nova\Nova;
+use Laravel\Nova\ProxiesCanSeeToGate;
 
 abstract class Filter implements FilterContract, JsonSerializable
 {
-    use Metable;
-    use AuthorizedToSee;
-    use ProxiesCanSeeToGate;
+    use Metable, AuthorizedToSee, ProxiesCanSeeToGate, Makeable;
 
     /**
      * The displayable name of the filter.

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSoftDeletingFilesTable extends Migration
 {
@@ -17,9 +17,8 @@ class CreateSoftDeletingFilesTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('avatar')->nullable();
-           $table->softDeletes();
-$table->timestamps();
-
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

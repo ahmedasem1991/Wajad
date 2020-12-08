@@ -2,11 +2,13 @@
 
 namespace Laravel\Nova\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class ValueCommand extends GeneratorCommand
 {
+    use ResolvesStubPath;
+
     /**
      * The console command name.
      *
@@ -50,7 +52,7 @@ class ValueCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/value.stub';
+        return $this->resolveStubPath('/stubs/nova/value.stub');
     }
 
     /**

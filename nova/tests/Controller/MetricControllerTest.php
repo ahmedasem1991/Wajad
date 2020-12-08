@@ -2,18 +2,19 @@
 
 namespace Laravel\Nova\Tests\Controller;
 
-use Laravel\Nova\Nova;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Metrics\Metric;
+use Laravel\Nova\Nova;
 use Laravel\Nova\Tests\Fixtures\Post;
-use Laravel\Nova\Tests\Fixtures\User;
-use Laravel\Nova\Tests\IntegrationTest;
+use Laravel\Nova\Tests\Fixtures\PostCountTrend;
 use Laravel\Nova\Tests\Fixtures\TotalUsers;
+use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\Fixtures\UserGrowth;
+use Laravel\Nova\Tests\IntegrationTest;
 
 class MetricControllerTest extends IntegrationTest
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -177,6 +178,34 @@ class MetricControllerTest extends IntegrationTest
         $this->assertEquals(1, $response->original['value']->previous);
     }
 
+    public function test_can_retrieve_today_count_calculations()
+    {
+        Carbon::setTestNow('Oct 1 12:00 PM');
+
+        factory(User::class, 3)->create();
+
+        $user = User::find(1);
+        $user->created_at = now()->setTime(1, 0, 0);
+        $user->save();
+
+        $user = User::find(2);
+        $user->created_at = now()->setTime(3, 0, 0);
+        $user->save();
+
+        $user = User::find(3);
+        $user->created_at = now()->yesterday();
+        $user->save();
+
+        $response = $this->withExceptionHandling()
+                        ->get('/nova-api/users/metrics/user-growth?range=TODAY');
+
+        $response->assertStatus(200);
+        $this->assertEquals(2, $response->original['value']->value);
+        $this->assertEquals(1, $response->original['value']->previous);
+
+        Carbon::setTestNow();
+    }
+
     public function test_can_retrieve_mtd_count_calculations()
     {
         factory(User::class, 2)->create();
@@ -245,6 +274,22 @@ class MetricControllerTest extends IntegrationTest
         $this->assertEquals(100, $response->original['value']->previous);
     }
 
+    public function test_can_retrieve_today_average_calculations()
+    {
+        factory(Post::class, 3)->create(['word_count' => 100]);
+
+        $post = Post::find(2);
+        $post->word_count = 50;
+        $post->save();
+
+        $response = $this->withExceptionHandling()
+                        ->get('/nova-api/posts/metrics/post-word-count?range=TODAY');
+
+        $response->assertStatus(200);
+        $this->assertEquals(83, $response->original['value']->value);
+        $this->assertEquals(0, $response->original['value']->previous);
+    }
+
     public function test_can_retrieve_mtd_average_calculations()
     {
         factory(Post::class, 2)->create(['word_count' => 100]);
@@ -294,6 +339,26 @@ class MetricControllerTest extends IntegrationTest
         $response->assertStatus(200);
         $this->assertEquals(100, $response->original['value']->value);
         $this->assertEquals(50, $response->original['value']->previous);
+    }
+
+    public function test_can_retrieve_sum_trend_value()
+    {
+        Nova::cards([new PostCountTrend]);
+
+        factory(Post::class, 2)->create([
+            'published_at' => now()->subMonth(),
+        ]);
+        factory(Post::class, 1)->create([
+            'published_at' => now()->subMonths(2),
+        ]);
+        factory(Post::class, 1)->create([
+            'published_at' => now()->subMonths(5),
+        ]);
+        $response = $this->withExceptionHandling()
+                         ->get('/nova-api/metrics/post-count-trend?range=30')
+                         ->assertStatus(200);
+
+        $this->assertEquals(4, $response->json('value.value'));
     }
 
     protected function getFirstDayOfPreviousQuarter()

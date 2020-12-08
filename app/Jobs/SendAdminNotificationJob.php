@@ -81,6 +81,8 @@ class SendAdminNotificationJob implements ShouldQueue
                 $user = User::find($this->users);
                     $badge =getBadge($user);
                     $data = sendCustomUsersFCM($this->body, $badge);
+                    // logger(';;;;;;;;;;;;;;;');
+                    // logger($data);
                     $user->notify(new SendFCMNotification($user, $data));
                 // $Users = User::find($this->users);
 

@@ -2,14 +2,15 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Nova\Actions\Actionable;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Actionable, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -33,6 +34,10 @@ class User extends Authenticatable
         'meta' => 'array',
     ];
 
+    protected $attributes = [
+        'name' => 'Anonymous User',
+    ];
+
     /**
      * The password reset token that was last issued.
      *
@@ -46,6 +51,14 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    /**
+     * Get the first of the profiles that belong to the user.
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
     /**
@@ -64,6 +77,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id')
                             ->withPivot('id', 'admin', 'photo', 'restricted')
                             ->using(RoleAssignment::class);
+    }
+
+    public function userRoles()
+    {
+        return $this->roles();
     }
 
     /**

@@ -3,13 +3,13 @@
 namespace Laravel\Nova\Actions;
 
 use DateTime;
-use Laravel\Nova\Nova;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Http\Requests\ActionRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Laravel\Nova\Http\Requests\ActionRequest;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 
 class ActionEvent extends Model
 {
@@ -31,11 +31,22 @@ class ActionEvent extends Model
     ];
 
     /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d H:i:s';
+
+    /**
      * Get the user that initiated the action.
      */
     public function user()
     {
-        return $this->belongsTo(config('auth.providers.users.model'), 'user_id');
+        $provider = config('auth.guards.'.(config('nova.guard') ?? 'web').'.provider');
+
+        return $this->belongsTo(
+            config('auth.providers.'.$provider.'.model'), 'user_id'
+        );
     }
 
     /**
@@ -117,7 +128,7 @@ class ActionEvent extends Model
             'actionable_type' => $parent->getMorphClass(),
             'actionable_id' => $parent->getKey(),
             'target_type' => Nova::modelInstanceForKey($request->relatedResource)->getMorphClass(),
-            'target_id' => $parent->getKey(),
+            'target_id' => $request->input($request->relatedResource),
             'model_type' => $pivot->getMorphClass(),
             'model_id' => $pivot->getKey(),
             'fields' => '',

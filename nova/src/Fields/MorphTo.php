@@ -3,19 +3,20 @@
 namespace Laravel\Nova\Fields;
 
 use Closure;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Laravel\Nova\Contracts\RelatableField;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Laravel\Nova\TrashedStatus;
 use Laravel\Nova\Rules\Relatable;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Laravel\Nova\Http\Requests\ResourceIndexRequest;
+use Laravel\Nova\TrashedStatus;
 
-class MorphTo extends Field
+class MorphTo extends Field implements RelatableField
 {
-    use ResolvesReverseRelation;
+    use ResolvesReverseRelation, DeterminesIfCreateRelationCanBeShown, Searchable;
 
     /**
      * The field's component.
@@ -74,11 +75,11 @@ class MorphTo extends Field
     public $display;
 
     /**
-     * Indicates if this relationship is searchable.
+     * Indicates if the related resource can be viewed.
      *
      * @var bool
      */
-    public $searchable = false;
+    public $viewable = true;
 
     /**
      * The attribute that is the inverse of this relationship.
@@ -86,6 +87,20 @@ class MorphTo extends Field
      * @var string
      */
     public $inverse;
+
+    /**
+     * Indicates whether the field should display the "With Trashed" option.
+     *
+     * @var bool
+     */
+    public $displaysWithTrashed = true;
+
+    /**
+     * The default related class value for the field.
+     *
+     * @var Closure|string
+     */
+    public $defaultResourceCallable;
 
     /**
      * Create a new field.
@@ -164,9 +179,20 @@ class MorphTo extends Field
         }
 
         if ($value) {
-            $this->value = $this->formatDisplayValue(
-                $value, Nova::resourceForModel($value)
-            );
+            if (! is_string($this->resourceClass)) {
+                $this->morphToType = $value->getMorphClass();
+                $this->value = $value->getKey();
+                $this->viewable = false;
+            } else {
+                $resource = new $this->resourceClass($value);
+
+                $this->value = $this->formatDisplayValue(
+                    $value, Nova::resourceForModel($value)
+                );
+
+                $this->viewable = $this->viewable
+                    && $resource->authorizedToView(request());
+            }
         }
     }
 
@@ -179,7 +205,7 @@ class MorphTo extends Field
      */
     public function resolveForDisplay($resource, $attribute = null)
     {
-        //
+        $this->resolve($resource, $attribute);
     }
 
     /**
@@ -309,7 +335,7 @@ class MorphTo extends Field
         return $query->tap(function ($query) use ($request, $relatedResource, $model) {
             forward_static_call(
                 $this->morphableQueryCallable($request, $relatedResource, $model),
-                $request, $query
+                $request, $query, $this
             );
         });
     }
@@ -356,6 +382,7 @@ class MorphTo extends Field
         return array_filter([
             'avatar' => $resource->resolveAvatarUrl($request),
             'display' => $this->formatDisplayValue($resource, $relatedResource),
+            'subtitle' => $resource->subtitle(),
             'value' => $resource->getKey(),
         ]);
     }
@@ -438,7 +465,7 @@ class MorphTo extends Field
      * Get the column that should be displayed for a given type.
      *
      * @param  string  $type
-     * @return \Closure
+     * @return \Closure|null
      */
     public function displayFor($type)
     {
@@ -450,14 +477,14 @@ class MorphTo extends Field
     }
 
     /**
-     * Specify if the relationship should be searchable.
+     * Specify if the related resource can be viewed.
      *
      * @param  bool  $value
      * @return $this
      */
-    public function searchable($value = true)
+    public function viewable($value = true)
     {
-        $this->searchable = $value;
+        $this->viewable = $value;
 
         return $this;
     }
@@ -476,23 +503,77 @@ class MorphTo extends Field
     }
 
     /**
-     * Get additional meta information to merge with the field payload.
+     * hides the "With Trashed" option.
+     *
+     * @return $this
+     */
+    public function withoutTrashed()
+    {
+        $this->displaysWithTrashed = false;
+
+        return $this;
+    }
+
+    /**
+     * Set the default relation resource class to be selected.
+     *
+     * @param \Closure|string $resourceClass
+     * @return $this
+     */
+    public function defaultResource($resourceClass)
+    {
+        $this->defaultResourceCallable = $resourceClass;
+
+        return $this;
+    }
+
+    /**
+     * Resolve the default resource class for the field.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return string|void
+     */
+    protected function resolveDefaultResource(NovaRequest $request)
+    {
+        if ($request->isCreateOrAttachRequest() || $request->isResourceIndexRequest() || $request->isActionRequest()) {
+            if (is_null($this->value) && $this->defaultResourceCallable instanceof Closure) {
+                $class = call_user_func($this->defaultResourceCallable, $request);
+            } else {
+                $class = $this->defaultResourceCallable;
+            }
+
+            if (class_exists($class)) {
+                return $class::uriKey();
+            }
+        }
+    }
+
+    /**
+     * Prepare the field for JSON serialization.
      *
      * @return array
      */
-    public function meta()
+    public function jsonSerialize()
     {
         $resourceClass = $this->resourceClass;
 
-        return array_merge([
-            'resourceName' => $this->resourceName,
-            'resourceLabel' => $resourceClass ? $resourceClass::singularLabel() : null,
-            'morphToRelationship' => $this->morphToRelationship,
-            'morphToTypes' => $this->morphToTypes,
-            'morphToType' => $this->morphToType,
-            'morphToId' => $this->morphToId,
-            'searchable' => $this->searchable,
-            'reverse' => $this->isReverseRelation(app(NovaRequest::class)),
-        ], $this->meta);
+        return with(app(NovaRequest::class), function ($request) use ($resourceClass) {
+            return array_merge([
+                'debounce' => $this->debounce,
+                'morphToId' => $this->morphToId,
+                'morphToRelationship' => $this->morphToRelationship,
+                'morphToType' => $this->morphToType,
+                'morphToTypes' => $this->morphToTypes,
+                'resourceLabel' => $resourceClass ? $resourceClass::singularLabel() : null,
+                'resourceName' => $this->resourceName,
+                'reverse' => $this->isReverseRelation($request),
+                'searchable' => $this->searchable,
+                'withSubtitles' => $this->withSubtitles,
+                'showCreateRelationButton' => $this->createRelationShouldBeShown($request),
+                'displaysWithTrashed' => $this->displaysWithTrashed,
+                'viewable' => $this->viewable,
+                'defaultResource' => $this->resolveDefaultResource($request),
+            ], parent::jsonSerialize());
+        });
     }
 }

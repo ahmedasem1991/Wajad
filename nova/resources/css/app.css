@@ -27,8 +27,8 @@
   --80: #7c858e;
   --90: #3c4b5f;
   --90-half: rgba(40, 54, 61, 0.5);
-  --warning-light: #fefcbf;
-  --warning-dark: #b7791f;
+  --warning-light: #fff382;
+  --warning-dark: #684f1d;
   --success-light: #c6f6d5;
   --success-dark: #38a169;
   --danger-light: #fed7d7;
@@ -65,6 +65,7 @@ input[type='search']::-webkit-search-cancel-button {
 ---------------------------------------------------------------------------- */
 .bg-grad-sidebar {
   background-image: linear-gradient(0deg, #7e8ea1 0%, #3c4655 100%);
+  background-attachment: fixed;
 }
 
 /* Custom Padding
@@ -127,9 +128,19 @@ input[type='search']::-webkit-search-cancel-button {
   white-space: nowrap;
 }
 
+/* Table Style Modifiers
+---------------------------------------------------------------------------- */
+.table.table-grid td,
+.table.table-grid th {
+  @apply border-r border-50;
+}
+
+.table.table-tight td {
+  @apply h-9;
+}
+
 /* Forms
 ---------------------------------------------------------------------------- */
-
 .form-control {
   @apply .h-9;
   line-height: normal;
@@ -139,18 +150,32 @@ input[type='search']::-webkit-search-cancel-button {
   @apply .h-8;
 }
 
+.form-search {
+  @apply form-control border-white px-3 text-80 rounded-full;
+}
+
+.form-global-search {
+  @apply form-control form-search bg-40 border-40 text-90 rounded-full;
+}
+
+.form-search:active,
+.form-search:focus,
+.form-global-search:active,
+.form-global-search:focus {
+  @apply bg-white outline-none shadow-outline;
+}
+
 .form-input {
-  @apply .bg-white .border .border-white .px-3 .text-80 .rounded-lg .shadow;
+  @apply .bg-white .border .border-white .px-3 .text-80 .rounded-lg;
 }
 
 .form-control-focus {
-  outline: none !important;
-  box-shadow: 0 0 8px config('colors.primary') !important;
+  @apply outline-none shadow-outline !important;
 }
 
 .form-input:focus,
 .form-input:active {
-  @apply .rounded-lg .form-control-focus;
+  @apply bg-white .rounded-lg .form-control-focus;
 }
 
 .form-control-lg {
@@ -158,7 +183,7 @@ input[type='search']::-webkit-search-cancel-button {
 }
 
 .form-input-bordered {
-  @apply .bg-white .border .border-60 .px-3 .text-80 .rounded-lg .shadow;
+  @apply .bg-white .border .border-60 .px-3 .text-80 .rounded-lg;
 }
 
 .form-input-row {
@@ -170,7 +195,7 @@ input[type='search']::-webkit-search-cancel-button {
 }
 
 .form-select {
-  @apply .bg-white .border .border-60 .pl-3 .pr-8 .rounded-lg .text-80 .shadow;
+  @apply .bg-white .border .border-60 .pl-3 .pr-8 .rounded-lg .text-80;
   appearance: none;
   background-repeat: no-repeat;
   background-size: 10px 6px;
@@ -185,7 +210,6 @@ textarea.form-input:read-only,
 .form-select:active:disabled,
 .form-select:focus:disabled {
   box-shadow: none;
-  @apply shadow;
 }
 
 input.form-input:read-only,
@@ -202,11 +226,11 @@ textarea.form-input:read-only,
 }
 
 .form-select:focus {
-  @apply .form-control-focus;
+  @apply bg-white .form-control-focus;
 }
 
 .form-combo {
-  @apply .bg-white .border .border-60 .rounded-lg .text-80 .shadow .overflow-hidden;
+  @apply .bg-white .border .border-60 .rounded-lg .text-80 .overflow-hidden;
 }
 
 .form-combo-select {
@@ -221,11 +245,26 @@ textarea.form-input:read-only,
 /* Checkbox
 ---------------------------------------------------------------------------- */
 .checkbox {
-  outline: none;
+  @apply appearance-none inline-block align-middle select-none flex-no-shrink h-5 w-5 text-primary bg-white border border-60 rounded;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+  display: inline-block;
+  vertical-align: middle;
+  background-origin: border-box;
 }
 
-.checkbox:focus {
-  box-shadow: 0 0 8px config('colors.primary');
+.checkbox:focus,
+.checkbox:active {
+  @apply outline-none shadow-outline;
+}
+
+.checkbox:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+  border-color: transparent;
+  background-color: currentColor;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* File Upload
@@ -250,8 +289,7 @@ textarea.form-input:read-only,
 }
 
 .form-file-input:focus + .form-file-btn {
-  outline: none;
-  box-shadow: 0 0 8px config('colors.primary');
+  @apply form-control-focus;
 }
 
 /* Buttons
@@ -260,17 +298,12 @@ textarea.form-input:read-only,
   @apply .inline-block .no-underline .font-bold;
 }
 
-.form-control-focus-border:focus {
-  outline: none;
-  box-shadow: 0 0 8px config('colors.primary');
-}
-
 .btn-text-shadow {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .btn-default {
-  @apply .h-9 .px-6 .leading-36 .rounded-lg .shadow .btn-text-shadow;
+  @apply h-9 px-6 leading-9 rounded-lg shadow btn-text-shadow;
 }
 
 .btn-disabled,
@@ -285,12 +318,15 @@ textarea.form-input:read-only,
 
 .btn-default:not([disabled]):not(.btn-disabled):focus,
 .btn-default:not([disabled]):not(.btn-disabled):active {
-  outline: none;
-  box-shadow: 0 0 8px config('colors.primary');
+  @apply outline-none shadow-outline;
 }
 
 .btn-sm {
   @apply .h-btn-sm;
+}
+
+.btn-xs {
+  @apply h-6 px-3 text-xs rounded shadow btn-text-shadow;
 }
 
 .btn-lg {
@@ -304,8 +340,7 @@ textarea.form-input:read-only,
 
 .btn-link:focus,
 .btn-link:active {
-  outline: inherit;
-  box-shadow: none;
+  @apply .form-control-focus;
 }
 
 .btn-primary {
@@ -344,8 +379,15 @@ textarea.form-input:read-only,
   text-shadow: none;
 }
 
-/* Inline Links
+/* Links
 ---------------------------------------------------------------------------- */
+.default-link {
+}
+
+.default-link:active,
+.default-link:focus {
+  @apply .form-control-focus;
+}
 
 .inline-link {
   @apply .text-primary .text-sm .font-bold .no-underline;
@@ -358,23 +400,6 @@ textarea.form-input:read-only,
 /* Dropdown
 ---------------------------------------------------------------------------- */
 
-.dropdown {
-}
-
-.dropdown-menu-left {
-  top: 2.5rem;
-  left: 0rem;
-}
-
-.dropdown-menu-right {
-  top: 2.5rem;
-  right: 0rem;
-}
-
-.dropdown-right {
-  right: 20px;
-}
-
 .dropdown-alt .dropdown-trigger {
   @apply flex items-center h-9 px-3 bg-40 rounded;
 }
@@ -385,9 +410,6 @@ textarea.form-input:read-only,
 
 /* Sidebar
 ---------------------------------------------------------------------------- */
-
-.sidebar-link {
-}
 
 .router-link-active {
   @apply font-extrabold !important;
@@ -463,10 +485,19 @@ textarea.form-input:read-only,
 /* MultiSelect Component
 ---------------------------------------------------------------------------- */
 .select-box {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="#35393C" fill-rule="nonzero" d="M8.293.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 1.707.293L5 3.586 8.293.293z"/></svg>');
+  @apply rounded;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath fill='%2335393C' fill-rule='nonzero' d='M8.293.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 1.707.293L5 3.586 8.293.293z'/%3E%3C/svg%3E");
   background-size: 10px 6px;
   background-repeat: no-repeat;
   background-position: center right 0.75rem;
+}
+
+.select-box-sm {
+  @apply rounded-sm;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath fill='%2335393C' fill-rule='nonzero' d='M8.293.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 1.707.293L5 3.586 8.293.293z'/%3E%3C/svg%3E");
+  background-size: 8px 5px;
+  background-repeat: no-repeat;
+  background-position: center right 0.55rem;
 }
 
 /* Rotate
@@ -557,7 +588,7 @@ textarea.form-input:read-only,
 }
 
 .markdown a {
-  color: blue;
+  @apply text-primary;
 }
 
 .markdown table {
@@ -665,8 +696,9 @@ textarea.form-input:read-only,
 /* Chartist
 -----------------------------------------------------------------------------*/
 .chartist-tooltip {
-  min-width: 14em !important;
-  padding: 0.2em !important;
+  min-width: 0 !important;
+  white-space: nowrap;
+  padding: 0.2em 1em !important;
   background: var(--white) !important;
   color: var(--primary) !important;
   @apply rounded border border-60 shadow font-sans !important;
@@ -719,6 +751,10 @@ textarea.form-input:read-only,
 
 .toasted.info {
   @apply bg-info nova;
+}
+
+.toasted.warning {
+  @apply bg-warning-light text-warning-dark py-2 rounded-lg shadow-lg;
 }
 
 .nova-action {
@@ -879,10 +915,80 @@ trix-editor.disabled {
   pointer-events: none;
 }
 
+/* Background Clip
+---------------------------------------------------------------------------- */
+.bg-clip {
+  background-clip: border-box;
+
+  /* -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; */
+}
+
 /* Cursor
 ---------------------------------------------------------------------------- */
 .cursor-text {
   cursor: text;
+}
+
+/* KeyValue
+---------------------------------------------------------------------------- */
+.key-value-items:last-child {
+  @apply rounded-b-lg bg-clip border-b-0;
+}
+
+.key-value-items .key-value-item:last-child > .key-value-fields {
+  border-bottom: none;
+}
+
+/* Tooltip
+---------------------------------------------------------------------------- */
+.tooltip {
+  @apply bg-white px-3 py-2 rounded border border-50 shadow text-sm leading-normal;
+}
+
+.tooltip {
+  display: block !important;
+  z-index: 88888;
+}
+
+.tooltip .tooltip-inner {
+}
+
+.tooltip.popover .popover-inner {
+}
+
+.tooltip[aria-hidden='true'] {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0.15s;
+}
+
+.tooltip[aria-hidden='false'] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s;
+}
+
+/* Flatpickr Calendar
+---------------------------------------------------------------------------- */
+.flatpickr-calendar {
+  z-index: 99999;
+}
+
+/* CodeMirror Styles
+---------------------------------------------------------------------------- */
+.CodeMirror {
+  min-height: 50px;
+  font: 14px/1.5 Menlo, Consolas, Monaco, 'Andale Mono', monospace;
+  box-sizing: border-box;
+  margin: auto;
+  position: relative;
+  z-index: 0;
+}
+
+.CodeMirror-wrap {
+  padding: 0.5rem 0;
 }
 
 /* Tailwind Utilities

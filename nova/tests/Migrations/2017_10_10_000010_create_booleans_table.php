@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateBooleansTable extends Migration
 {
@@ -16,8 +16,7 @@ class CreateBooleansTable extends Migration
         Schema::create('booleans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('active')->default('No');
-           $table->softDeletes();
-$table->timestamps();
+            $table->timestamps();
         });
     }
 

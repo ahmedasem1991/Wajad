@@ -2,18 +2,20 @@
 
 namespace Laravel\Nova\Fields;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Laravel\Nova\TrashedStatus;
-use Laravel\Nova\Rules\NotAttached;
-use Laravel\Nova\Contracts\ListableField;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Rules\RelatableAttachment;
+use Illuminate\Support\Str;
 use Laravel\Nova\Contracts\Deletable as DeletableContract;
+use Laravel\Nova\Contracts\ListableField;
+use Laravel\Nova\Contracts\PivotableField;
+use Laravel\Nova\Contracts\RelatableField;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Rules\NotAttached;
+use Laravel\Nova\Rules\RelatableAttachment;
+use Laravel\Nova\TrashedStatus;
 
-class BelongsToMany extends Field implements DeletableContract, ListableField
+class BelongsToMany extends Field implements DeletableContract, ListableField, PivotableField, RelatableField
 {
-    use Deletable, DetachesPivotModels, FormatsRelatableDisplayValues;
+    use Deletable, DetachesPivotModels, FormatsRelatableDisplayValues, Searchable;
 
     /**
      * The field's component.
@@ -70,13 +72,6 @@ class BelongsToMany extends Field implements DeletableContract, ListableField
      * @var string
      */
     public $pivotName;
-
-    /**
-     * Indicates if this relationship is searchable.
-     *
-     * @var bool
-     */
-    public $searchable = false;
 
     /**
      * The displayable singular label of the relation.
@@ -189,7 +184,7 @@ class BelongsToMany extends Field implements DeletableContract, ListableField
                               );
 
         return $query->tap(function ($query) use ($request, $model) {
-            forward_static_call($this->attachableQueryCallable($request, $model), $request, $query);
+            forward_static_call($this->attachableQueryCallable($request, $model), $request, $query, $this);
         });
     }
 
@@ -235,6 +230,7 @@ class BelongsToMany extends Field implements DeletableContract, ListableField
         return array_filter([
             'avatar' => $resource->resolveAvatarUrl($request),
             'display' => $this->formatDisplayValue($resource),
+            'subtitle' => $resource->subtitle(),
             'value' => $resource->getKey(),
         ]);
     }
@@ -279,22 +275,9 @@ class BelongsToMany extends Field implements DeletableContract, ListableField
     }
 
     /**
-     * Specify if the relationship should be searchable.
-     *
-     * @param  bool  $value
-     * @return $this
-     */
-    public function searchable($value = true)
-    {
-        $this->searchable = $value;
-
-        return $this;
-    }
-
-    /**
      * Set the displayable singular label of the resource.
      *
-     * @return string
+     * @return $this
      */
     public function singularLabel($singularLabel)
     {
@@ -304,19 +287,34 @@ class BelongsToMany extends Field implements DeletableContract, ListableField
     }
 
     /**
-     * Get additional meta information to merge with the field payload.
+     * Return the validation key for the field.
+     *
+     * @return string
+     */
+    public function validationKey()
+    {
+        return $this->attribute != $this->resourceName
+            ? $this->resourceName
+            : $this->attribute;
+    }
+
+    /**
+     * Prepare the field for JSON serialization.
      *
      * @return array
      */
-    public function meta()
+    public function jsonSerialize()
     {
         return array_merge([
-            'resourceName' => $this->resourceName,
             'belongsToManyRelationship' => $this->manyToManyRelationship,
-            'searchable' => $this->searchable,
+            'debounce' => $this->debounce,
             'listable' => true,
-            'singularLabel' => $this->singularLabel ?? Str::singular($this->name),
             'perPage'=> $this->resourceClass::$perPageViaRelationship,
-        ], $this->meta);
+            'validationKey' => $this->validationKey(),
+            'resourceName' => $this->resourceName,
+            'searchable' => $this->searchable,
+            'withSubtitles' => $this->withSubtitles,
+            'singularLabel' => $this->singularLabel ?? Str::singular($this->name),
+        ], parent::jsonSerialize());
     }
 }

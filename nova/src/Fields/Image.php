@@ -6,19 +6,14 @@ use Illuminate\Support\Facades\Storage;
 
 class Image extends File
 {
+    use PresentsImages;
+
     /**
      * Indicates if the element should be shown on the index view.
      *
      * @var bool
      */
     public $showOnIndex = true;
-
-    /**
-     * The maximum width of the component.
-     *
-     * @var int
-     */
-    public $maxWidth = 320;
 
     /**
      * Create a new field.
@@ -33,32 +28,13 @@ class Image extends File
     {
         parent::__construct($name, $attribute, $disk, $storageCallback);
 
+        $this->acceptedTypes('image/*');
+
         $this->thumbnail(function () {
-            if (file_exists($this->value) === false) {
-                return '/images/not2_bg_image.jpg';
-            }
-
-            return Storage::disk($this->disk)->url($this->value);
+            return $this->value ? Storage::disk($this->getStorageDisk())->url($this->value) : null;
         })->preview(function () {
-            if (file_exists($this->value) === false) {
-                return '/images/not2_bg_image.jpg';
-            }
-
-            return Storage::disk($this->disk)->url($this->value) ;
+            return $this->value ? Storage::disk($this->getStorageDisk())->url($this->value) : null;
         });
-    }
-
-    /**
-     * Set the maximum width of the component.
-     *
-     * @param  int  $maxWidth
-     * @return $this
-     */
-    public function maxWidth($maxWidth)
-    {
-        $this->maxWidth = $maxWidth;
-
-        return $this;
     }
 
     /**
@@ -68,8 +44,6 @@ class Image extends File
      */
     public function jsonSerialize()
     {
-        return array_merge(parent::jsonSerialize(), [
-            'maxWidth' => $this->maxWidth,
-        ]);
+        return array_merge(parent::jsonSerialize(), $this->imageAttributes());
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRecipientsTable extends Migration
 {
@@ -17,8 +17,7 @@ class CreateRecipientsTable extends Migration
             $table->increments('id');
             $table->string('email')->index();
             $table->string('name')->index();
-           $table->softDeletes();
-$table->timestamps();
+            $table->timestamps();
         });
     }
 

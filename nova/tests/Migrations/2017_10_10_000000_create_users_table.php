@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -22,9 +22,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('restricted')->default('Yes');
             $table->json('meta')->nullable();
-           $table->softDeletes();
-$table->timestamps();
-
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

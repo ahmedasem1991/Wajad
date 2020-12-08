@@ -2,9 +2,9 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
-use Laravel\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
 class GroupedUserResource extends Resource
 {
@@ -14,6 +14,13 @@ class GroupedUserResource extends Resource
      * @var string
      */
     public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
+
+    /**
+     * Indicates if the resource should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
 
     /**
      * Get the fields displayed by the resource.

@@ -2,10 +2,10 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
-use Laravel\Nova\Resource;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Resource;
 
 class RelationshipGuesserResource extends Resource
 {
@@ -15,6 +15,13 @@ class RelationshipGuesserResource extends Resource
      * @var string
      */
     public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
+
+    /**
+     * Indicates if the resource should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
 
     /**
      * The columns that should be searched.

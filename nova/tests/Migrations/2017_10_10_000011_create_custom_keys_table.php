@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCustomKeysTable extends Migration
 {
@@ -15,8 +15,7 @@ class CreateCustomKeysTable extends Migration
     {
         Schema::create('custom_keys', function (Blueprint $table) {
             $table->increments('pk');
-           $table->softDeletes();
-$table->timestamps();
+            $table->timestamps();
         });
     }
 

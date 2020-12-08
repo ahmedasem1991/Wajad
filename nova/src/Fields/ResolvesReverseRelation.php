@@ -2,9 +2,9 @@
 
 namespace Laravel\Nova\Fields;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 trait ResolvesReverseRelation
 {
@@ -18,7 +18,7 @@ trait ResolvesReverseRelation
     /**
      * Determine if the field is the reverse relation of a showed index view.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function isReverseRelation(Request $request)
@@ -35,7 +35,7 @@ trait ResolvesReverseRelation
     /**
      * Get reverse relation field name.
      *
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return string
      */
     public function getReverseRelation(NovaRequest $request)
@@ -55,7 +55,9 @@ trait ResolvesReverseRelation
                             return false;
                         }
 
-                        if ($field instanceof BelongsToMany || $field instanceof MorphToMany) {
+                        if (! $field instanceof HasMany
+                            && ! $field instanceof MorphMany
+                            && ! $field instanceof HasOne) {
                             return false;
                         }
 

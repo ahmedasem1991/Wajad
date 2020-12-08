@@ -2,11 +2,11 @@
 
 namespace Laravel\Nova\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
+use Illuminate\Support\Str;
 use Laravel\Nova\Console\Concerns\AcceptsNameAndVendor;
+use Symfony\Component\Process\Process;
 
 class ToolCommand extends Command
 {
@@ -36,6 +36,8 @@ class ToolCommand extends Command
         if (! $this->hasValidNameArgument()) {
             return;
         }
+
+        $noInteraction = $this->option('no-interaction');
 
         (new Filesystem)->copyDirectory(
             __DIR__.'/tool-stubs',
@@ -84,19 +86,19 @@ class ToolCommand extends Command
         $this->addToolPackageToRootComposer();
         $this->addScriptsToNpmPackage();
 
-        if ($this->confirm("Would you like to install the tool's NPM dependencies?", true)) {
+        if ($noInteraction || $this->confirm("Would you like to install the tool's NPM dependencies?", true)) {
             $this->installNpmDependencies();
 
             $this->output->newLine();
         }
 
-        if ($this->confirm("Would you like to compile the tool's assets?", true)) {
+        if ($noInteraction || $this->confirm("Would you like to compile the tool's assets?", true)) {
             $this->compile();
 
             $this->output->newLine();
         }
 
-        if ($this->confirm('Would you like to update your Composer packages?', true)) {
+        if ($noInteraction || $this->confirm('Would you like to update your Composer packages?', true)) {
             $this->composerUpdate();
         }
     }
@@ -177,7 +179,7 @@ class ToolCommand extends Command
      */
     protected function installNpmDependencies()
     {
-        $this->runCommand('npm set progress=false && npm install', $this->toolPath());
+        $this->executeCommand('npm set progress=false && npm install', $this->toolPath());
     }
 
     /**
@@ -187,7 +189,7 @@ class ToolCommand extends Command
      */
     protected function compile()
     {
-        $this->runCommand('npm run dev', $this->toolPath());
+        $this->executeCommand('npm run dev', $this->toolPath());
     }
 
     /**
@@ -197,7 +199,7 @@ class ToolCommand extends Command
      */
     protected function composerUpdate()
     {
-        $this->runCommand('composer update', getcwd());
+        $this->executeCommand('composer update', getcwd());
     }
 
     /**
@@ -207,9 +209,9 @@ class ToolCommand extends Command
      * @param  string  $path
      * @return void
      */
-    protected function runCommand($command, $path,$output)
+    protected function executeCommand($command, $path)
     {
-        $process = (new Process($command, $path))->setTimeout(null);
+        $process = (Process::fromShellCommandline($command, $path))->setTimeout(null);
 
         if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
             $process->setTty(true);

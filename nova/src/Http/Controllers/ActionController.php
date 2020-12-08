@@ -3,8 +3,8 @@
 namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ActionRequest;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ActionController extends Controller
 {
@@ -16,11 +16,17 @@ class ActionController extends Controller
      */
     public function index(NovaRequest $request)
     {
+        $resource = $request->newResourceWith(
+            ($request->resourceId
+                ? $request->findModelQuery()->first()
+                : null) ?? $request->model()
+        );
+
         return response()->json([
-            'actions' => $request->newResource()->availableActions($request),
+            'actions' => $resource->availableActions($request),
             'pivotActions' => [
                 'name' => $request->pivotName(),
-                'actions' => $request->newResource()->availablePivotActions($request),
+                'actions' => $resource->availablePivotActions($request),
             ],
         ]);
     }

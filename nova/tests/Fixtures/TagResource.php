@@ -2,15 +2,22 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
-use Laravel\Nova\Resource;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
 class TagResource extends Resource
 {
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Content';
+
     /**
      * The model the resource corresponds to.
      *
@@ -37,7 +44,7 @@ class TagResource extends Resource
     {
         return [
             ID::make('ID', 'id'),
-            MorphToMany::make('Videos', 'videos', PostResource::class)->display('title')->searchable()->fields(function () {
+            MorphToMany::make('Posts', 'posts', PostResource::class)->display('title')->searchable()->fields(function () {
                 return [
                     Text::make('Admin', 'admin')->rules('required'),
                 ];

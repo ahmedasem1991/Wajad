@@ -2,8 +2,8 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
-use Laravel\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Resource;
 
 class ForbiddenUserResource extends Resource
 {
@@ -13,6 +13,13 @@ class ForbiddenUserResource extends Resource
      * @var string
      */
     public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
+
+    /**
+     * Indicates if the resource should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
 
     /**
      * Determine if the resource should be displayed for the given request.
