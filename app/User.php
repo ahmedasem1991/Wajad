@@ -94,6 +94,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     // }
 
 
+    public function assigned_qrcodes()
+    {
+        return $this->hasMany(AssignQrcode::class);
+    }
+
     public function getNameAttribute()
     {
         $URL = \URL::current();
@@ -101,7 +106,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
         if ((strstr($URL, 'all-posts') || strstr($URL, 'notifications')|| strstr($URL, 'banners') ) && strstr($URL, 'creation-fields')) {
             return "{$this->email} - {$this->mobile_number} -  (" . $this->attributes['name'].")";
-        } 
+        }
 
         if( isset($this->attributes['name']) and $this->attributes['name'])
         {
@@ -110,7 +115,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
 
       //return   $this->name;
-      
+
     }
     public function firstTimeLogin()
     {
