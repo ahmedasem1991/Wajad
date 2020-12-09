@@ -19,9 +19,9 @@ class AdminNotification extends MasterModel
         'body'
     ];
 
-    protected $casts = [
-        'send_by' => 'array',
-    ];
+    // protected $casts = [
+    //     'send_by' => 'array',
+    // ];
     protected static $logOnlyDirty = true;
 
     public function country()
