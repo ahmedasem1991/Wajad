@@ -16,13 +16,13 @@ class CreateAdminNotificationsTable extends Migration
         Schema::create('admin_notifications', function (Blueprint $table) {
             $table->Increments('id');
             $table->text('body');
-            $table->string('send_to');
+            $table->string('send_to')->nullable();
             $table->text('users')->nullable();
             $table->string('search_user')->nullable();
-            $table->string('send_by');
-            $table->string('country_id');
-            $table->string('region_id');
-            $table->string('city_id');
+            $table->string('send_by')->nullable();
+            $table->string('country_id')->nullable();
+            $table->string('region_id')->nullable();
+            $table->string('city_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
