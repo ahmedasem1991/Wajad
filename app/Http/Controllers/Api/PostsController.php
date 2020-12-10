@@ -661,13 +661,12 @@ class PostsController extends Controller
        // $user = auth('api')->user();
        // if ($user->can('destroy', $post)) {
          $user = auth('api')->user();
-        if ($user->id === $post->publisher()->id) {
+        if ($user->id === $post->publisher->id) {
 
-        $post->update([
-            'end_date' =>  now(),
-            'open_status' =>  0,
-            'appearance_status' => 0
-            ]);
+        $post->end_date = now();
+        $post->open_status = 0;
+        $post->appearance_status = 0;
+        $post->save();
             $this->addResponse(trans('messages.closed', ['model' => trans('messages.attributes.post')]))
                 ->addStatusCode(200);
             return  $this->response();
