@@ -27,6 +27,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'approval_status' => $this->approval_status,
+            'open_status' => $this->open_status,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'reward' => $this->reward,
