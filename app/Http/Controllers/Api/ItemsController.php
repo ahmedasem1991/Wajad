@@ -211,6 +211,17 @@ class ItemsController extends Controller
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 
+        if ($item->qrcode->type === 2){
+            $item->qrcode->status = 2;
+            $item->qrcode->item_id = null;
+            $item->qrcode->save();
+        }
+        if ($item->qrcode->type === 1){
+            $item->qrcode->status = 6;
+            $item->qrcode->end_at = now();
+            $item->qrcode->save();
+        }
+
         $item->delete();
 
         $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);

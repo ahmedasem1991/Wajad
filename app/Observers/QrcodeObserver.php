@@ -8,21 +8,24 @@ class QrcodeObserver
 {
     public function saving(Qrcode $qrcode)
     {
-        if( $qrcode->status==6)
+        if( auth()->check() && auth()->user()->isAdmin())
         {
-            //if( \Carbon\Carbon::now() < $qrcode->end_at ){
+            if( $qrcode->status==6)
+            {
+                //if( \Carbon\Carbon::now() < $qrcode->end_at ){
                 if($qrcode->user_id !=NULL)
-                $qrcode->status=2;
+                    $qrcode->status=2;
                 else
-                $qrcode->status=3;
-            //}
+                    $qrcode->status=3;
+                //}
+            }
         }
 
 
- 
+
     }
 
- 
+
     /**
      * Handle the qrcode "created" event.
      *
@@ -42,7 +45,7 @@ class QrcodeObserver
      */
     public function updated(Qrcode $qrcode)
     {
-        
+
     }
 
     /**
