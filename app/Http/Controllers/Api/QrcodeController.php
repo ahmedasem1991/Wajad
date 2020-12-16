@@ -20,7 +20,7 @@ class QrcodeController extends Controller
 
     /**
      * Renew QR Code
-     * @bodyParam qrcode_url string required exists in qrcodes,url
+     * @bodyParam qrcode_id string required exists in qrcodes,url
      * @bodyParam days integer required
      * @response
      * {
@@ -33,7 +33,7 @@ class QrcodeController extends Controller
     public function renew(Request $request)
     {
         $validate_request = Validator::make($request->all(), [
-            'qrcode_url' => ['required'],
+            'qrcode_id' => ['required'],
             'days' => ['required'],
         ]);
 
@@ -49,7 +49,7 @@ class QrcodeController extends Controller
     //    throw new ApiException('You have QR Code with same name', 400);
        
 
-        $qrcode = Qrcode::where('qrcode_url', $request->input('qrcode_url'))->first();
+        $qrcode = Qrcode::where('id', $request->input('qrcode_id'))->first();
 
         if (is_null($qrcode) ){
             throw new ApiException('QR Code Not Found', 400);
