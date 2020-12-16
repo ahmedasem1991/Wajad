@@ -48,6 +48,8 @@ class PostResource extends JsonResource
             'city' => new CityResource($this->city),
             'publisher' => new UserResource($this->publisher),
             'corporate' => new CorporateResource($this->corporate),
+            'show_name' => $this->show_name,
+            'show_number' => $this->show_number,
 
         ];
     }

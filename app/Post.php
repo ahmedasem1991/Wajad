@@ -40,7 +40,9 @@ class Post extends MasterModel
         'reward',
         'question_1',
         'question_2',
-        'question_3'
+        'question_3',
+        'show_name',
+        'show_number'
     ];
 
     protected static $logAttributes = [
@@ -67,7 +69,9 @@ class Post extends MasterModel
         'reward',
         'question_1',
         'question_2',
-        'question_3'
+        'question_3',
+        'show_name',
+        'show_number'
     ];
     protected static $logOnlyDirty = true;
 

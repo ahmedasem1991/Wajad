@@ -50,6 +50,8 @@ class PostsController extends Controller
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam questions array sometimes size:3
      * @bodyParam questions.* required min:9 max:500
+     * @bodyParam show_name boolean required
+     * @bodyParam show_number boolean required
      * @bodyParam token Barier-token required
      *
      * @response
@@ -84,6 +86,8 @@ class PostsController extends Controller
             'city' => ['required', 'string'],
             'images' => ['sometimes', 'array', 'between:0,5'],
             'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
+            'show_name' => ['sometimes'],
+            'show_number' => ['sometimes'],
         ]);
 
         if ($validate_request->fails()) {
@@ -154,6 +158,8 @@ class PostsController extends Controller
             'auto_approve' => $auto_approve,
             'appearance_status' => $appearance_status,
             'approval_status' => $approval_status,
+            'show_name' => $request->show_name,
+            'show_number' => $request->show_number,
             // 'auto_approve' => 1,
             // 'appearance_status' => 1,
             // 'approval_status' => 1,
@@ -459,6 +465,8 @@ class PostsController extends Controller
      *"is_mobile_number_verified": true,
      *"default_distance_unit": "kilo",
      *"image": "http://admin-wajad.smartappco.net/images/profile/sKtIyY1Kl67j9gp.png"
+     * "show_name": 1,
+     * "show_number": 1
      *}
      *}
      *}
@@ -487,6 +495,8 @@ class PostsController extends Controller
      * @bodyParam city string required
      * @bodyParam images array sometimes between:1,5
      * @bodyParam images.* image sometimes mimes:jpeg,jpg,png,gif max:5012
+     * @bodyParam show_name boolean required
+     * @bodyParam show_number boolean required
      * @bodyParam token Barier-token required
      *
      * @response
@@ -517,6 +527,8 @@ class PostsController extends Controller
                 'city' => ['required', 'string'],
                 'images' => ['sometimes', 'array', 'between:0,5'],
                 'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
+                'show_name' => ['sometimes'],
+                'show_number' => ['sometimes'],
             ]);
 
             if ($validate_request->fails()) {

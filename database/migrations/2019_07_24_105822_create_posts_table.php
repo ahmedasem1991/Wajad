@@ -49,6 +49,8 @@ class CreatePostsTable extends Migration
             $table->text('question_2')->nullable();
             $table->text('question_3')->nullable();
             $table->text('reject_reason')->nullable();
+            $table->boolean('show_name')->default(true);
+            $table->boolean('show_number')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
