@@ -56,7 +56,7 @@ class QrcodeController extends Controller
         }
 
         $qrcode->end_at =  Carbon::now()->addDays($request->input('days'));
-        $qrcode->status =2;
+        $qrcode->status =4;
         $qrcode->save();
         $this->addResponse(trans('messages.renewed'))->addStatusCode(201);
         return $this->response();
