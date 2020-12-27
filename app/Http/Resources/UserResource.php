@@ -37,6 +37,8 @@ class UserResource extends JsonResource
             "default_distance_unit" =>  $this->default_distance_unit,
             "quick_user_id" =>  $this->quick_user_id,
             "quick_user_email" =>  $this->email,
+            "mesibo_uid" =>  $this->mesibo_uid,
+            "mesibo_token" =>  $this->mesibo_token,
             "quick_user_password" =>  $this->quick_user_password,
             'image' =>  $this->image ?
                 (substr($this->image, 0, 4) === "http"
