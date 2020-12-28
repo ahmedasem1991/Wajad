@@ -12,16 +12,18 @@ class MesiboUserController extends Controller
 {
     /**
      * User Mesibo Credentials
+     * @bodyParam token Barier-token required
      * @response
      * {
      *      "name": "name",
      *      "email": "email",
      *      "mesibo_uid": mesibo_uid,
-    *      "mesibo_token" :  mesibo_token,
+     *      "mesibo_token" :  mesibo_token,
      * }
      *
-     * @return \Illuminate\Support\Collection
+     * @return void
      */
+ 
     public function __invoke(Request $request)
     {
         $user = auth('api')->user();
