@@ -64,6 +64,9 @@ class UpdateUserProfileController extends Controller
             'default_distance_unit' => $request->default_distance_unit,
             'email' => $request->email,
         ]);
+        if($request->email !=$user->email )
+        $user->email_verified_at=NULL;
+        $user->save();
 
         if ($request->has('image') && $request->image !== '' && !is_null($request->image)) {
 
