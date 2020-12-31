@@ -47,6 +47,9 @@ class CreateUsersTable extends Migration
             $table->string('language', 5)->default('en');
             $table->integer('quick_user_id')->nullable();
             $table->string('quick_user_password')->default('QuickBlox1!');
+            $table->integer('mesibo_uid')->nullable();
+            $table->string('mesibo_token')->nullable();
+            $table->integer('mesibo_address')->nullable();
             $table->integer('v_mobile_number')->nullable();
             $table->integer('v_mobile_country_id')->nullable();
             $table->string('social_id')->nullable();
