@@ -57,10 +57,10 @@ class Item extends Resource
         'created_at',
         'updated_at',
     ];
-    public static function availableForNavigation(Request $request)
-    {
-        return  (Auth()->User()->hasPermissionTo('view items')) ? true :false;
-    }
+    // public static function availableForNavigation(Request $request)
+    // {
+    //     return  (Auth()->User()->hasPermissionTo('view items')) ? true :false;
+    // }
 
     /**
      * Get the fields displayed by the resource.

@@ -133,6 +133,25 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function (Request $request) {
 
+    
+
+    // $Now = \Carbon\Carbon::now()->timestamp;
+    // $Data = 'application_id=' . env('QUICKBLOX_APPLICATION_ID') . '&auth_key=' . env('QUICKBLOX_AUTH_KEY') . '&nonce=&timestamp=' . $Now;
+    // $Hash = hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
+
+
+   // $form_params['signature'] = $Hash;
+
+   $url = "https://api.mesibo.com/api.php?op=useradd&token=kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j&addr=12&appid=wajad&expiry&active";
+    $client = new \GuzzleHttp\Client([
+        'headers' => ['Content-Type' => 'application/json']
+    ]);
+    $response = $client->get($url);
+    $response = json_decode($response->getBody(), true);
+    dd( $response['user']['uid']);
+
+    return 'success';
+
     Mail::to(User::find(6))->send(new MailAdminNotification('test'));
   return view('emails.admin_notification')->with('body','test test test test ewdw wfw');
  dd(\Unifonic::send('966504334115', 'test message'))   ;

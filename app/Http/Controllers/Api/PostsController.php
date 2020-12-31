@@ -727,7 +727,7 @@ class PostsController extends Controller
     {
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required', 'int', 'exists:users,id'],
-            'comment' => ['required'],
+          //  'comment' => ['required'],
         ]);
 
         if ($validate_request->fails()) {

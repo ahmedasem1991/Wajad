@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('/userItems', 'UserItemController');
         Route::get('/userQRCodes', 'UserQRCodeController');
         Route::get('/quickUser', 'QuickUserController');
+        Route::get('/mesiboUser', 'MesiboUserController');
     });
 });
 
