@@ -254,7 +254,19 @@ class AuthController extends Controller
         $user->setLanguage($langHeader);
 
 
-        PrepereNewUser::dispatch($user);
+        //PrepereNewUser::dispatch($user);
+        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad";
+        $client = new \GuzzleHttp\Client([
+            'headers' => ['Content-Type' => 'application/json']
+        ]);
+        $response = $client->get($url);
+        $response = json_decode($response->getBody(), true);
+        $user->mesibo_uid= $response['user']['uid']??null;
+        $user->mesibo_token= $response['user']['token']??null;
+        $user->mesibo_address= $user->id;
+        $user->save();
+
+
         if(count($user->qrcodes) == 0 ){
             AssignQrcode::create([
                 'assign_to'=>1,
@@ -415,7 +427,19 @@ class AuthController extends Controller
                 if ($langHeader != 'ar') {
                     $langHeader = 'en';
                 }
-                PrepereNewUser::dispatch($user);
+                //PrepereNewUser::dispatch($user);
+                $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad";
+                $client = new \GuzzleHttp\Client([
+                    'headers' => ['Content-Type' => 'application/json']
+                ]);
+                $response = $client->get($url);
+                $response = json_decode($response->getBody(), true);
+                $user->mesibo_uid= $response['user']['uid']??null;
+                $user->mesibo_token= $response['user']['token']??null;
+                $user->mesibo_address= $user->id;
+                $user->save();
+
+
                 if(count($user->qrcodes) == 0 ){
                 AssignQrcode::create([
                     'assign_to'=>1,
@@ -515,7 +539,20 @@ class AuthController extends Controller
             if ($langHeader != 'ar') {
                 $langHeader = 'en';
             }
-            PrepereNewUser::dispatch($user);
+            // PrepereNewUser::dispatch($user);
+            $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad";
+            $client = new \GuzzleHttp\Client([
+                'headers' => ['Content-Type' => 'application/json']
+            ]);
+            $response = $client->get($url);
+            $response = json_decode($response->getBody(), true);
+            $user->mesibo_uid= $response['user']['uid']??null;
+            $user->mesibo_token= $response['user']['token']??null;
+            $user->mesibo_address= $user->id;
+            $user->save();
+
+
+
             if(count($user->qrcodes) == 0 ){
                 AssignQrcode::create([
                     'assign_to'=>1,
