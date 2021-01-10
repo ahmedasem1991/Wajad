@@ -25,16 +25,16 @@ function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
         $type='post_found';
     $data = [
         'ar' => [
-            'title' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك  '.$post->title,
-            'body' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك   '
+            'title' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك'.$post->title,
+            'body' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك'
             .$post->title . ' '
             . $post->description 
             . ' من المستخدم  ' .
              $request_user->name 
         ],
         'en' => [
-            'title' => ' You have received a copyright request for your  post '.$post->title,
-            'body' => ' You have received a copyright request for your  post  '
+            'title' => 'You have received a copyright request for your  post '.$post->title,
+            'body' => 'You have received a copyright request for your  post  '
             .$post->title . ' '
             . $post->description 
             . ' from user  ' .
@@ -66,16 +66,16 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
         $type='post_found';
     $data = [
         'ar' => [
-            'title' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور  '.$post->title,
-            'body' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور   '
+            'title' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور'.$post->title,
+            'body' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور'
             .$post->title . ' '
             . $post->description 
             . ' من صاحب المنشور  ' .
              $founder->name 
         ],
         'en' => [
-            'title' => ' The copyright request has been approved  for the post '.$post->title,
-            'body' => ' The copyright request has been approved  for the post  '
+            'title' => 'The copyright request has been approved  for the post '.$post->title,
+            'body' => 'The copyright request has been approved  for the post  '
             .$post->title . ' '
             . $post->description 
             . 'by  the owner of the post  ' .
@@ -109,16 +109,16 @@ function sendRejectPostRequestFCM($founder,$post,$badge,$id)
         $type='post_found';
     $data = [
         'ar' => [
-            'title' => ' لقد تم رفض  طلب حق ملكية للمنشور  '.$post->title,
-            'body' => ' لقد تم رفض  طلب حق ملكية للمنشور   '
+            'title' => ' لقد تم رفض  طلب حق ملكية للمنشور'.$post->title,
+            'body' => ' لقد تم رفض  طلب حق ملكية للمنشور'
             .$post->title . ' '
             . $post->description 
             . ' من صاحب المنشور  ' .
              $founder->name 
         ],
         'en' => [
-            'title' => ' The copyright request has been rejected  for the post '.$post->title,
-            'body' => ' The copyright request has been rejected  for the post  '
+            'title' => 'The copyright request has been rejected  for the post '.$post->title,
+            'body' => 'The copyright request has been rejected  for the post  '
             .$post->title . ' '
             . $post->description 
             . 'by  the owner of the post  ' .
@@ -161,14 +161,14 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
    
     $data = [
         'ar' => [
-            'title' => '  هناك شخص  قرأ رمز التعريف  الخاص بك '.$title,
-            'body' => 'هناك شخص  قرأ رمز التعريف  الخاص بك  '
+            'title' => '  هناك شخص  قرأ رمز التعريف  الخاص بك'.$title,
+            'body' => 'هناك شخص  قرأ رمز التعريف  الخاص بك'
             .$title . ' '
             
             . 'يمكنك اللإطلاع علي الخريطة . ' 
         ],
         'en' => [
-            'title' => '  There Some One Scanned Your QR Code '.$title,
+            'title' => 'There Some One Scanned Your QR Code '.$title,
             'body' => 'There Some One Scanned Your QR Code  '
             .$title . ' '
              
@@ -198,8 +198,8 @@ function sendCreateItemFCM($item,$badge)
    // logger($item);
     $data = [
         'ar' => [
-            'title' => '  الجهاز الخاص لديك '.$item->title,
-            'body' => 'تم إضافة الجهاز الخاص لديك  '
+            'title' => '  الجهاز الخاص لديك'.$item->title,
+            'body' => 'تم إضافة الجهاز الخاص لديك '
             .$item->title . ' '
             . $item->details
             . ' بنجاح . ' 
@@ -237,14 +237,14 @@ function sendUpdateItemFCM($item,$badge)
 
     $data = [
         'ar' => [
-            'title' => '  الجهاز الخاص لديك '.$item->title,
+            'title' => '  الجهاز الخاص لديك'.$item->title,
             'body' => 'تم تعديل الجهاز الخاص لديك  '
             .$item->title . ' '
             . $item->details
             . ' بنجاح . ' 
         ],
         'en' => [
-            'title' => '  The Item '.$item->title,
+            'title' => 'The Item '.$item->title,
             'body' => 'Your Item  '
             .$item->title . ' '
             . $item->details
@@ -331,19 +331,19 @@ function sendBuyPackageFCM($package,$badge)
   
     $data = [
         'ar' => [
-            'title' => '  لقد قمت بشراء  '. 
+            'title' => '  لقد قمت بشراء'. 
             $package->name_ar .
              ' بنجاح. ',
-            'body' => '  لقد قمت بشراء '. 
+            'body' => '  لقد قمت بشراء'. 
             $package->name_ar .
              ' وتحتوي علي  ' .  $package->quantity . ' QRCodes. '  
         ],
         'en' => [
-            'title' => '  You have purchased '. 
+            'title' => 'You have purchased '. 
             $package->name_en .
              ' successfully. ',
-            'body' => '  You have purchased '. 
-            $package->name_ar .
+            'body' => 'You have purchased '. 
+            $package->name_en .
              ' and contain  ' .  $package->quantity . ' QRCodes. '  
         ],
         'type' => 'package',
@@ -363,8 +363,8 @@ function sendFreeQRCodeFCM($badge)
 {
     $data = [
         'ar' => [
-            'title' => '  تهانينا ! ',
-            'body' => '  لقد تم إضافة  '. 
+            'title' => '  تهانينا !',
+            'body' => '  لقد تم إضافة'. 
             defaultGroup()->free_qrcodes .
              ' QRCodes لك مجانا لكونك مستخد جديد .  ' 
         ],
@@ -391,13 +391,13 @@ function sendAssignQRCodesToUserFCM($badge,$quantity)
 {
     $data = [
         'ar' => [
-            'title' => '  تهانينا ! ',
-            'body' => '  لقد تم إضافة  '. 
+            'title' => '  تهانينا !',
+            'body' => '  لقد تم إضافة'. 
             $quantity .
              ' QRCodes لك  .  ' 
         ],
         'en' => [
-            'title' => '  Congratulations ! ',
+            'title' => 'Congratulations ! ',
             'body' =>  '' .  $quantity . ' QR Code have been added to you .'
            
         ],
@@ -419,8 +419,8 @@ function sendCorporateAssignQRCodeFCM($quantity,$name,$badge)
 {
     $data = [
         'ar' => [
-            'title' => '   لقد تم إضافة رموز التعريف الخاصة لديك ',
-            'body' => '  لقد تم إضافة  '. 
+            'title' => '   لقد تم إضافة رموز التعريف الخاصة لديك',
+            'body' => '  لقد تم إضافة'. 
             $quantity .
              ' QRCodes ' .' من مؤسسة ' . $name
         ],
@@ -461,7 +461,7 @@ function sendCreatePostFCM($post,$badge,$type)
             . ' بنجاح . ' 
         ],
         'en' => [
-            'title' => '  The Post '.$post->title,
+            'title' => 'The Post '.$post->title,
             'body' => 'Your Post  '
            // .$post->title . ' '
             . $post->description. ' '
@@ -493,14 +493,14 @@ function sendUpdatePostFCM($post,$badge,$type)
 
     $data = [
         'ar' => [
-            'title' => '  المنشور الخاص لديك '.$post->title,
-            'body' => 'تم تعديل المنشور الخاص لديك  '
+            'title' => '  المنشور الخاص لديك'.$post->title,
+            'body' => 'تم تعديل المنشور الخاص لديك'
           //  .$item->title . ' '
             . $post->description . ' '
             . ' بنجاح . ' 
         ],
         'en' => [
-            'title' => '  The Post '.$post->title,
+            'title' => 'The Post '.$post->title,
             'body' => 'Your Post  '
            // .$post->title . ' '
             . $post->description. ' '
@@ -524,15 +524,15 @@ function sendAssignQRCodeFCM($item,$badge)
 {
     $data = [
         'ar' => [
-            'title' => ' تم إضافة رمز التعريف الخاص لديك ',
-            'body' => 'تم إضافة رمز التعريف الخاص لديك     '
+            'title' => ' تم إضافة رمز التعريف الخاص لديك',
+            'body' => 'تم إضافة رمز التعريف الخاص لديك'
             .' إلي ' 
             . $item->title . ' ' 
             . ' بنجاح . ' 
         ],
         'en' => [
-            'title' => '  Your QRCode has been assigned ',
-            'body' => ' Your QRCode has been assigned  '
+            'title' => 'Your QRCode has been assigned ',
+            'body' => 'Your QRCode has been assigned  '
              . '  to '
             . $item->title. ' '
             . '  successfully . ' 
