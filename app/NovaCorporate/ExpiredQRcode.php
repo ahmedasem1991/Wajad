@@ -72,6 +72,11 @@ class ExpiredQRcode extends Resource
         'updated_at',
     ];
 
+    public static function availableForNavigation(Request $request)
+    {
+        return  (Auth()->User()->hasPermissionTo('expired qr code')) ? true :false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
