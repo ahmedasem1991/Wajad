@@ -219,13 +219,5 @@ class User extends Resource
         return false;
     }
 
-    public  function authorizedToForceUpdate(Request $request)
-    {
-        return  (Auth()->User()->hasPermissionTo('expired qr code')) ? true :false;
-    }
-
-    public  function authorizedToForceCreate(Request $request)
-    {
-        return  (Auth()->User()->hasPermissionTo('expired qr code')) ? true :false;
-    }
+    
 }
