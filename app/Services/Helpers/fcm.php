@@ -6,7 +6,6 @@ use App\Http\Resources\FCMPostResource;
 
 function getBadge($user)
 {
-
     return $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
 }
 

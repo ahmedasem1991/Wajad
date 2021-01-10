@@ -79,10 +79,11 @@ class NormalUser extends Resource
         'updated_at',
     ];
 
-    public static function availableForNavigation(Request $request)
-    {
-        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
-    }
+    // public static function availableForNavigation(Request $request)
+    // {
+    //    // return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+    //    return false;
+    // }
     /**
      * Get the fields displayed by the resource.
      *
