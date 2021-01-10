@@ -202,7 +202,7 @@ class SubCategoryPostController extends Controller
             }
         })
 //            ->orderBy('id', 'desc')->get();
-        ->orderBy('id', 'desc')->paginate(20);
+        ->orderBy('created_at', 'desc')->paginate(20);
 
         return SubCategoryPostResource::collection($subCategory)->additional([
             'total' => $posts->total(),
