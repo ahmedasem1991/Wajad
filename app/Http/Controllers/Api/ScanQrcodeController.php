@@ -94,8 +94,8 @@ class ScanQrcodeController extends Controller
             $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '21.4498898',$request->lng ?? '39.4913423',$qr_code->id);
             $qr_code->user->notify(new SendFCMNotification($qr_code->user,$data));
             //send SMS
-            $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
-            \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
+            // $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
+            // \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
              // new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
