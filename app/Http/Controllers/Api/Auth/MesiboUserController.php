@@ -19,6 +19,7 @@ class MesiboUserController extends Controller
      *      "email": "email",
      *      "mesibo_uid": mesibo_uid,
      *      "mesibo_token" :  mesibo_token,
+     *      "mesibo_address" :  mesibo_address,
      * }
      *
      * @return void
@@ -32,6 +33,7 @@ class MesiboUserController extends Controller
             'email' => $user->email,
             "mesibo_uid" =>  $user->mesibo_uid,
             "mesibo_token" =>  $user->mesibo_token,
+            "mesibo_address" =>  $user->mesibo_address,
         ]);
     }
 }

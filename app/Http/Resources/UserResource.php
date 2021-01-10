@@ -39,6 +39,7 @@ class UserResource extends JsonResource
             "quick_user_email" =>  $this->email,
             "mesibo_uid" =>  $this->mesibo_uid,
             "mesibo_token" =>  $this->mesibo_token,
+            "mesibo_address" =>  $this->mesibo_address,
             "quick_user_password" =>  $this->quick_user_password,
             'image' =>  $this->image ?
                 (substr($this->image, 0, 4) === "http"
