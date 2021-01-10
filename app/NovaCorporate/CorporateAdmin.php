@@ -54,6 +54,7 @@ class CorporateAdmin extends Resource
      * @var string
      */
     public static $title = 'name';
+    public static $displayInNavigation = false;
 
     /**
      * The columns that should be searched.
