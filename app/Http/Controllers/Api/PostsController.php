@@ -137,8 +137,8 @@ class PostsController extends Controller
             $approval_status=1;
         }
 
-         $dispatcher = Post::getEventDispatcher();
-         Post::unsetEventDispatcher();
+        $dispatcher = Post::getEventDispatcher();
+        Post::unsetEventDispatcher();
 
 
         $post = Post::create([
@@ -192,21 +192,21 @@ class PostsController extends Controller
 
             foreach ($request->questions as $key => $question) {
                 //if ($question) {
-                    if($key==0)
+                if($key==0)
                     $post->question_1= $question;
-                    if($key==1)
+                if($key==1)
                     $post->question_2= $question;
-                    if($key==2)
+                if($key==2)
                     $post->question_3= $question;
 
-                    $post->questions()->create([
-                        'founder_id' => auth('api')->user()->id,
-                        'question' => $question,
-                    ]);
-                    //$post->{$x}= $question;
+                $post->questions()->create([
+                    'founder_id' => auth('api')->user()->id,
+                    'question' => $question,
+                ]);
+                //$post->{$x}= $question;
 
-                    $post->save();
-               // }
+                $post->save();
+                // }
             }
 
             // array_map(function ($question) use ($post) {
@@ -239,10 +239,10 @@ class PostsController extends Controller
         Post::setEventDispatcher($dispatcher);
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
-   // Send FCM
-   $badge =getBadge($post->publisher);
-   $data=sendCreatePostFCM($post,$badge,$type);
-   $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
+        // Send FCM
+        $badge =getBadge($post->publisher);
+        $data=sendCreatePostFCM($post,$badge,$type);
+        $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
 
         return $this->response();
     }
@@ -312,7 +312,7 @@ class PostsController extends Controller
 
         $post->increment('reports_number');
 
-       // $request_user=User::find($request->user_id);
+        // $request_user=User::find($request->user_id);
         //send FCM
         $badge =getBadge($post->publisher);
         $data=sendReportPostFCM($postReport,$badge);
@@ -564,18 +564,18 @@ class PostsController extends Controller
             $post->update($request->all());
 
             if ($request->has('questions')) {
-            //     $post->questions()->sync([
-            //         $request->questions
-            //     ]);
-            $post->deleteQuestions();
-            array_map(function ($question) use ($post) {
-                if ($question) {
-                    $post->questions()->create([
-                        'founder_id' => auth('api')->user()->id,
-                        'question' => $question,
-                    ]);
-                }
-            }, $request->questions);
+                //     $post->questions()->sync([
+                //         $request->questions
+                //     ]);
+                $post->deleteQuestions();
+                array_map(function ($question) use ($post) {
+                    if ($question) {
+                        $post->questions()->create([
+                            'founder_id' => auth('api')->user()->id,
+                            'question' => $question,
+                        ]);
+                    }
+                }, $request->questions);
             }
 
             // if ($request->has('images')) {
@@ -615,10 +615,10 @@ class PostsController extends Controller
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
 
-                // Send FCM
-         $badge =getBadge($post->publisher);
-         $data=sendUpdatePostFCM($post,$badge,$type);
-         $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
+            // Send FCM
+            $badge =getBadge($post->publisher);
+            $data=sendUpdatePostFCM($post,$badge,$type);
+            $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
 
 
             return $this->response();
@@ -670,22 +670,22 @@ class PostsController extends Controller
 
     public function close(Post $post)
     {
-       // $user = auth('api')->user();
-       // if ($user->can('destroy', $post)) {
-         $user = auth('api')->user();
+        // $user = auth('api')->user();
+        // if ($user->can('destroy', $post)) {
+        $user = auth('api')->user();
         if ($user->id === $post->publisher->id) {
 
-        $post->end_date = now();
-        $post->open_status = 0;
-        $post->appearance_status = 0;
-        $post->save();
+            $post->end_date = now();
+            $post->open_status = 0;
+            $post->appearance_status = 0;
+            $post->save();
             $this->addResponse(trans('messages.closed', ['model' => trans('messages.attributes.post')]))
                 ->addStatusCode(200);
             return  $this->response();
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
         //}
-       // throw new ApiException(trans('auth.not_authorized'), 400);
+        // throw new ApiException(trans('auth.not_authorized'), 400);
 
     }
 
@@ -727,7 +727,7 @@ class PostsController extends Controller
     {
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required', 'int', 'exists:users,id'],
-          //  'comment' => ['required'],
+            //  'comment' => ['required'],
         ]);
 
         if ($validate_request->fails()) {
@@ -743,11 +743,16 @@ class PostsController extends Controller
 
         if (
             PostRequest::where('user_id', $request->user_id)
-            ->whereNotNull('rejected_at')->count()
+                ->whereNotNull('rejected_at')->count()
             >= env('REJECTED_REQUESTS_NUMBER')
         ) {
             //TO DO: take some actions
         }
+        $post->update([
+            'open_status' => 1,
+            'appearance_status' => 1,
+            'end_date' => null,
+        ]);
 
         $request_user=User::find($request->user_id);
         //send FCM
