@@ -162,7 +162,8 @@ class SendFCMListener
     
     $notification = [
         'action' => __CLASS__ . '@send',
-        'options' => $data,
+       // 'options' => $data,
+        'options' => 'test notify',
         'android' => [
             'ar' => [
                 'tokens' => $android_tokens_ar,
