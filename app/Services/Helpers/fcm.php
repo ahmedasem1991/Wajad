@@ -214,7 +214,7 @@ function sendCreateItemFCM($item,$badge)
         'type' => 'create',
         'deeplink' => 'item',
         'image' =>$ImageURL ,
-        'item' => new ItemResource($item),
+        'item' => new SmallItemResource($item),
         'post' => null,  
         'url' => null ,
         'id' => $item->id,
@@ -255,7 +255,7 @@ function sendUpdateItemFCM($item,$badge)
         'deeplink' => 'item',
         'image' => $ImageURL ,
         'post' => null,
-        'item' => new ItemResource($item),
+        'item' => new SmallItemResource($item),
         'url' => null ,
         'badge' => $badge   
     ];
@@ -540,7 +540,7 @@ function sendAssignQRCodeFCM($item,$badge)
         'type' => 'assign_qrcode',
         'deeplink' => 'item',
         'image' =>env('ADMIN_URL').'/images/qrcodeicon.png'  ,
-        'item' =>new ItemResource($item),
+        'item' =>new SmallItemResource($item),
         'post' => null,
         'url' => null ,
         'id' => $item->id,
