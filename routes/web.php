@@ -408,7 +408,7 @@ $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-dd($downstreamResponse);
+
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
 
