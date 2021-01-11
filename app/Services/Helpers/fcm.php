@@ -3,6 +3,7 @@
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\FCMPostResource;
+use App\Http\Resources\SmallItemResource;
 
 function getBadge($user)
 {
@@ -177,7 +178,7 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
         'deeplink' => 'item',
         'image' => $ImageURL ,
         'post' =>null,
-        'item' => new ItemResource($item),
+        'item' => new SmallItemResource($item),
         'url' => 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng,
         'id' => $id,
         'badge' => $badge   
