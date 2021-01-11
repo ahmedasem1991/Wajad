@@ -157,6 +157,13 @@ class SendFCMListener
     if( count($ios_tokens_ar) > 0 ){
         $iosResponse = FCM::sendTo($ios_tokens_ar, $option, $notification_ar, $data_ar);
      
+
+        logger( '$iosResponse->numberSuccess()') ;
+        logger( $iosResponse->numberSuccess()) ;
+        logger( '$iosResponse->tokensWithError()') ;
+        logger( $iosResponse->tokensWithError()) ;
+        logger( '$iosResponse->numberModification()') ;
+        logger( $iosResponse->numberModification()) ;
         $ios_tok_del = $iosResponse->tokensToDelete();
         FcmUser::deleteTokens($ios_tok_del);
         // $ios_tok_err = $iosResponse->tokensWithError();
@@ -166,6 +173,12 @@ class SendFCMListener
     if( count($ios_tokens_en) > 0 ){
         $iosResponse = FCM::sendTo($ios_tokens_en, $option, $notification_en, $data_en);
         
+        logger( '$iosResponse->numberSuccess()') ;
+        logger( $iosResponse->numberSuccess()) ;
+        logger( '$iosResponse->tokensWithError()') ;
+        logger( $iosResponse->tokensWithError()) ;
+        logger( '$iosResponse->numberModification()') ;
+        logger( $iosResponse->numberModification()) ;
         $ios_tok_del = $iosResponse->tokensToDelete();
         FcmUser::deleteTokens($ios_tok_del);
         // $ios_tok_err = $iosResponse->tokensWithError();
