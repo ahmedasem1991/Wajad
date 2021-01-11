@@ -11,6 +11,7 @@ class UserPostAnswersResource extends JsonResource
         if ($this->postRequestUser) {
             $user = new UserResource($this->postRequestUser);
 
+            session()->put('request_u_id',$user->id);
             $questions = collect([
                 'questions' => QuestionResource::collection(
                     $this->post->questions()->with([
