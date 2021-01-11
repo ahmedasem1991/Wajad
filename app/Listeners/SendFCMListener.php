@@ -124,9 +124,9 @@ class SendFCMListener
 
     if( count($android_tokens_ar) > 0 ){
         $andResponse = FCM::sendTo($android_tokens_ar, $option, $notification_ar, $data_ar);
-        logger( $andResponse->numberTokensSuccess);
-        logger( $andResponse->numberTokensFailure);
-        logger( $andResponse->messageId);
+        logger( $andResponse['numberTokensSuccess']);
+        logger( $andResponse['numberTokensFailure']);
+        logger( $andResponse['messageId']);
  
 
 
@@ -138,9 +138,9 @@ class SendFCMListener
 
     if( count($android_tokens_en) > 0 ){
         $andResponse = FCM::sendTo($android_tokens_en, $option, $notification_en, $data_en);
-        logger( $andResponse->numberTokensSuccess);
-        logger( $andResponse->numberTokensFailure);
-        logger( $andResponse->messageId);
+        logger( $andResponse['numberTokensSuccess']);
+        logger( $andResponse['numberTokensFailure']);
+        logger( $andResponse['messageId']);
         $and_tok_del = $andResponse->tokensToDelete();
         FcmUser::deleteTokens($and_tok_del);
         // $and_tok_err = $andResponse->tokensWithError();
