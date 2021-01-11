@@ -14,11 +14,11 @@ class QuestionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $this->answers->where('user_id',session()->get('request_u_id'))->toArray();
+        //$this->answers->where('user_id',session()->get('request_u_id'))->toArray();
         return [
             'id' => $this->id,
             'question' => $this->question,
-            'answer' =>   $this->answers->where('user_id',session()->get('request_u_id'))->first()->toArray()['answers'],
+            'answer' =>  $this->answers->where('user_id',session()->get('request_u_id'))->first() ?  $this->answers->where('user_id',session()->get('request_u_id'))->first()->toArray()['answers'] : null,
         ];
     }
 }
