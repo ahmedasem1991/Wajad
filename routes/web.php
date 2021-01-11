@@ -350,7 +350,7 @@ Route::get('/test500', function () {
         "updated_at": "2020-12-29T13:29:53.000000Z"
         }'
     ];
-    return $test[0]->"answers";
+    return $test[0];
 
     $data='{
             "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
