@@ -26,7 +26,7 @@ class SendFCMNotification extends Notification implements ShouldQueue
        $this->user=$user;
        $this->data=$data;
        logger('mamamamamamamamamamam');
-       logger( $this->data);
+      // logger( $this->data);
     }
 
     /**
@@ -64,6 +64,7 @@ class SendFCMNotification extends Notification implements ShouldQueue
     {
         if($this->user->receive_push_notifications)
        {
+           logger('done send to broadcast');
          
         event(new SendFCMEvent($this->user,$this->data));
         return new BroadcastMessage($this->toArray($this->data));

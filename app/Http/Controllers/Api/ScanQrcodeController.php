@@ -94,8 +94,7 @@ class ScanQrcodeController extends Controller
             $badge =getBadge($qr_code->user);
             $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '21.4498898',$request->lng ?? '39.4913423',$qr_code->id);
             if( $qr_code->item){
-
-                $qr_code->item->owner->notify(new SendFCMNotification($qr_code->item->owner,$data));
+               $qr_code->item->owner->notify(new SendFCMNotification($qr_code->item->owner,$data));
             }
            
             //send SMS
