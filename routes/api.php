@@ -35,8 +35,8 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
+Route::post('mesibo_upload', 'MesiboFileUploadController@upload');
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('mesibo_upload', 'MesiboFileUploadController@upload');
     Route::prefix('items')->group(function () {
         Route::get('/{item}', 'ItemsController@show');
         Route::middleware('phone_verified')->group(function () {
