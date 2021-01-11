@@ -119,7 +119,7 @@ class SendFCMListener
         $ios_tokens_en = (isset($user->devices))? $user->devices()->ios()->lang('en')->pluck('token')->toArray() :[];
 
      
-
+        logger( 'first android_tokens_ar' ) ;
 
 
     if( count($android_tokens_ar) > 0 ){
