@@ -31,7 +31,7 @@ class SmallItemResource extends JsonResource
             'details' => $this->details ?? '',
             'status' => Post::Status[$this->status] ?? '',
             'deleted_at' => $this->deleted_at ? $this->deleted_at->toDateTimeString() : null,
-            'owner' => new UserResource($this->owner),
+            //'owner' => new UserResource($this->owner),
             'subcategory' => new SubCategoryResource($this->subcategory),
             'model' => new ModelResource($this->model),
             'color' => new ColorResource($this->color),
