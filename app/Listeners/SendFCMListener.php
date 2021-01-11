@@ -119,7 +119,7 @@ class SendFCMListener
         $ios_tokens_en = (isset($user->devices))? $user->devices()->ios()->lang('en')->pluck('token')->toArray() :[];
 
      
-        logger( 'first android_tokens_ar' ) ;
+     
 
 
     if( count($android_tokens_ar) > 0 ){
@@ -149,7 +149,7 @@ class SendFCMListener
         logger( $andResponse->numberFailure()) ;
         logger( '$andResponse->numberModification()') ;
         logger( $andResponse->numberModification()) ;
-
+        $and_tok_del = $andResponse->tokensToDelete();
         FcmUser::deleteTokens($and_tok_del);
         // $and_tok_err = $andResponse->tokensWithError();
         // FcmUser::deleteTokens($and_tok_err);
