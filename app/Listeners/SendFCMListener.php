@@ -127,8 +127,8 @@ class SendFCMListener
         $andResponse = FCM::sendTo($android_tokens_ar, $option, $notification_ar, $data_ar);
         logger( '$andResponse->numberSuccess()') ;
         logger( $andResponse->numberSuccess()) ;
-        logger( '$andResponse->numberFailure()') ;
-        logger( $andResponse->numberFailure()) ;
+        logger( '$andResponse->tokensWithError()') ;
+        logger( $andResponse->tokensWithError()) ;
         logger( '$andResponse->numberModification()') ;
         logger( $andResponse->numberModification()) ;
  
@@ -145,8 +145,8 @@ class SendFCMListener
         $andResponse = FCM::sendTo($android_tokens_en, $option, $notification_en, $data_en);
         logger( '$andResponse->numberSuccess()') ;
         logger( $andResponse->numberSuccess()) ;
-        logger( '$andResponse->numberFailure()') ;
-        logger( $andResponse->numberFailure()) ;
+        logger( '$andResponse->tokensWithError()') ;
+        logger( $andResponse->tokensWithError()) ;
         logger( '$andResponse->numberModification()') ;
         logger( $andResponse->numberModification()) ;
         $and_tok_del = $andResponse->tokensToDelete();
