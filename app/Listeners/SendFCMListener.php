@@ -123,6 +123,7 @@ class SendFCMListener
 
 
     if( count($android_tokens_ar) > 0 ){
+        logger( 'test android_tokens_ar' ) ;
         $andResponse = FCM::sendTo($android_tokens_ar, $option, $notification_ar, $data_ar);
         logger( '$andResponse->numberSuccess()') ;
         logger( $andResponse->numberSuccess()) ;
@@ -140,6 +141,7 @@ class SendFCMListener
     }
 
     if( count($android_tokens_en) > 0 ){
+        logger( 'test android_tokens_en' ) ;
         $andResponse = FCM::sendTo($android_tokens_en, $option, $notification_en, $data_en);
         logger( '$andResponse->numberSuccess()') ;
         logger( $andResponse->numberSuccess()) ;
