@@ -338,6 +338,19 @@ Route::get('/broadcast', function () {
 });
 Route::get('/test500', function () {
 
+    $test=[
+        '{
+        "id": 27,
+        "question_id": 49,
+        "answers": "yesssssssssss",
+        "user_id": 11,
+        "post_request_id": 20,
+        "deleted_at": null,
+        "created_at": "2020-12-29T13:29:53.000000Z",
+        "updated_at": "2020-12-29T13:29:53.000000Z"
+        }'
+    ];
+    return $test[0]->"answers";
 
     $data='{
             "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
