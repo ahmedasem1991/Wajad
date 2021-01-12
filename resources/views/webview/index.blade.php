@@ -23,6 +23,9 @@
         var city = 0;
         var ip = '127.0.0.1';
 
+        var url=window.location.href;
+       
+        
         if (navigator.geolocation) {
            // navigator.geolocation.getCurrentPosition(showPosition);
             navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:3000});
@@ -34,8 +37,10 @@
                 lat=data.latitude;
                 lng=data.longitude;
                 console.log('Not  allow GPS');
+                console.log(window.location.href);
 
-                if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
+                // if (window.location.href.indexOf("lat") == -1 && window.location.href.indexOf("lng") == -1) {
+                    if (url.search("lat") == -1 && url.search("lng") == -1) {
                     window.location.href = window.location.href + "?lat=" + lat + '&lng=' + lng+ '&ip=' + ip+ '&device_type=web';
                 }
 

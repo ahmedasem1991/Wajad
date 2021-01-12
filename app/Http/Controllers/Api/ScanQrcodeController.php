@@ -77,10 +77,7 @@ class ScanQrcodeController extends Controller
                  //QrcodeLogService::LogQrcode($request, $qr_code);
                 return view('expired') ;
             }
-               
-
-
-
+        
           
         }
        }
