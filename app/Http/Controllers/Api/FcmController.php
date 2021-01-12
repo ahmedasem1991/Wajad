@@ -110,7 +110,7 @@ class FcmController extends Controller
      */
     public function index(Request $request)
     {
-        $notifications = auth('api')->user()->notifications()->paginate(25);
+        $notifications = auth('api')->user()->notifications()->orderBy('created_at','desc')->paginate(25);
 
         $array['unread_count']=auth('api')->user()->notifications()->where('read_at',null)->count();
 
