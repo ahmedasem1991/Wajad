@@ -25,8 +25,7 @@ class SendFCMNotification extends Notification implements ShouldQueue
     {
        $this->user=$user;
        $this->data=$data;
-       logger('mamamamamamamamamamam');
-      // logger( $this->data);
+      
     }
 
     /**
@@ -74,6 +73,7 @@ class SendFCMNotification extends Notification implements ShouldQueue
 
     public function toDatabase($notifiable)
     {
+        logger('done send to database');
         return [ $this->data ];
     }
 }
