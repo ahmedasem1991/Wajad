@@ -20,7 +20,7 @@ class MesiboFileUploadController extends Controller
          }
 
         //$fileName = time().'.'.$request->file->extension();
-        $fileName = $request->id.'png';
+        $fileName = $request->id.'.png';
         $request->file->move(public_path('mesibo_uploads'), $fileName);
 
         return response()->json(url('/mesibo_uploads') .'/'.$fileName,200);
