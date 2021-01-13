@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MesiboFileUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        $request->validate([
-            'file' => 'required',
+        $validator= Validator::make($request->all(), [
+            'file' => ['required'],
         ]);
+        if ($validator->fails()) {          
+            return response()->json(['error'=>$validator->errors()], 401);                        
+         }
 
         $fileName = time().'.'.$request->file->extension();
 
