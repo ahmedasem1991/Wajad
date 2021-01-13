@@ -23,7 +23,7 @@ class MesiboFileUploadController extends Controller
 
         $request->photo->move(public_path('mesibo_uploads'), $fileName);
 
-        return response()->json(url('/mesibo_uploads') .'/'.$fileName);
+        return response()->json(url('/mesibo_uploads') .'/'.$fileName,200);
 
     }
 }
