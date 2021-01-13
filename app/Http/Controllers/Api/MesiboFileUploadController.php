@@ -10,6 +10,8 @@ class MesiboFileUploadController extends Controller
 {
     public function upload(Request $request)
     {
+
+        logger($request->all());
         $validator= Validator::make($request->all(), [
             'file' => ['required'],
         ]);
