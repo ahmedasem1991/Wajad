@@ -11,7 +11,7 @@ class MesiboFileUploadController extends Controller
     public function upload(Request $request)
     {
 
-        logger($request->all());
+       
         $validator= Validator::make($request->all(), [
             'file' => ['required'],
         ]);
@@ -19,8 +19,8 @@ class MesiboFileUploadController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);                        
          }
 
-        //$fileName = time().'.'.$request->file->extension();
-        $fileName = $request->id.'.png';
+        $fileName = time().'.'.$request->file->extension();
+        //$fileName = $request->id.'.png';
         $request->file->move(public_path('mesibo_uploads'), $fileName);
 
         return response()->json(['data'=>url('/mesibo_uploads') .'/'.$fileName],200);
