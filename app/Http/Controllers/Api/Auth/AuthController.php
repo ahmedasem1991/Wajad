@@ -255,7 +255,7 @@ class AuthController extends Controller
 
 
         //PrepereNewUser::dispatch($user);
-        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad";
+        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad&name=".$user->id;
         $client = new \GuzzleHttp\Client([
             'headers' => ['Content-Type' => 'application/json']
         ]);
@@ -428,7 +428,7 @@ class AuthController extends Controller
                     $langHeader = 'en';
                 }
                 //PrepereNewUser::dispatch($user);
-                $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad";
+                $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad&name=".$user->id;
                 $client = new \GuzzleHttp\Client([
                     'headers' => ['Content-Type' => 'application/json']
                 ]);
@@ -540,7 +540,7 @@ class AuthController extends Controller
                 $langHeader = 'en';
             }
             // PrepereNewUser::dispatch($user);
-            $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad";
+            $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->id."&appid=com.smartappco.wajad&name=".$user->id;
             $client = new \GuzzleHttp\Client([
                 'headers' => ['Content-Type' => 'application/json']
             ]);
