@@ -110,7 +110,7 @@ class SearchController extends Controller
             ->orWhereHas('item', function ($query) use ($keywords) {
                 $query->Where('title', 'like', '%'.$keywords.'%');
             })
-            ->get();
+            ->paginate(25);
 
         return PostResource::collection($posts);
     }
@@ -223,7 +223,7 @@ class SearchController extends Controller
         if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
             $posts->where('status', (int) $request->status);
         }
-        return  PostResource::collection($posts->get());
+        return  PostResource::collection($posts->paginate(25));
     }
     /**
      * Get search data in Dropdown lists
