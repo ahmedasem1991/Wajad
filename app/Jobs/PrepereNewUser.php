@@ -42,7 +42,7 @@ class PrepereNewUser implements ShouldQueue
         $response = json_decode($response->getBody(), true);
         $this->user->mesibo_uid= $response['user']['uid']??null;
         $this->user->mesibo_token= $response['user']['token']??null;
-        $this->user->mesibo_address=$this->user->id;
+        $this->user->mesibo_address=$this->user->name.'-'.$this->user->id;
         $this->user->save();
         logger($this->user);
     }
