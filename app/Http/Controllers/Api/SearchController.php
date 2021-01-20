@@ -29,6 +29,11 @@ class SearchController extends Controller
      * @urlParam keywords string required
      * @response
      * {
+     *     "total": 0,
+     *     "count": 0,
+     *     "per_page": 25,
+     *     "current_page": 2,
+     *     "total_pages": 1,
      * "data": [
      * {
      * "id": 3,
@@ -112,7 +117,14 @@ class SearchController extends Controller
             })
             ->paginate(25);
 
-        return PostResource::collection($posts);
+        return collect([
+            'total' => $posts->total(),
+            'count' => $posts->count(),
+            'per_page' => $posts->perPage(),
+            'current_page' => $posts->currentPage(),
+            'total_pages' => $posts->lastPage(),
+            'data' => PostResource::collection($posts)
+        ]);
     }
     /**
      * Search Filter
@@ -124,6 +136,11 @@ class SearchController extends Controller
      * @bodyParam status int in:0,1,0 for lost, 1 for found
      * @response
      * {
+     *     "total": 0,
+     *     "count": 0,
+     *     "per_page": 25,
+     *     "current_page": 2,
+     *     "total_pages": 1,
      * "data": [
      * {
      * "id": 3,
@@ -134,7 +151,7 @@ class SearchController extends Controller
      * "status": "lost",
      * "attached_to_item": false,
      * "item": null,
-     * "sub_category": {
+     * "subCategory": {
      *  "id": 6,
      * "name": "Et expedita est explicabo qui sit veritatis.",
      *  "description": "Dolore rerum quo quis explicabo magni occaecati.",
@@ -161,7 +178,7 @@ class SearchController extends Controller
      * "status": "found",
      *  "attached_to_item": false,
      * "item": null,
-     * "sub_category": {
+     * "subCategory": {
      * "id": 8,
      * "name": "Qui maiores aut sapiente aut molestiae in quam ipsam.",
      *  "description": "Aut soluta laborum sequi et similique.",
@@ -223,7 +240,15 @@ class SearchController extends Controller
         if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
             $posts->where('status', (int) $request->status);
         }
-        return  PostResource::collection($posts->paginate(25));
+        $posts = $posts->paginate(25);
+        return collect([
+            'total' => $posts->total(),
+            'count' => $posts->count(),
+            'per_page' => $posts->perPage(),
+            'current_page' => $posts->currentPage(),
+            'total_pages' => $posts->lastPage(),
+            'data' => PostResource::collection($posts)
+        ]);
     }
     /**
      * Get search data in Dropdown lists

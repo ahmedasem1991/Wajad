@@ -2,6 +2,7 @@
 
 namespace App\NovaCorporate;
 
+use App\NovaCorporate\Metrics\LostVsFoundPosts;
 use App\User;
 use App\Brand;
 use App\People;
@@ -220,7 +221,7 @@ class Post extends Resource
             ->options(People::where('corporate_id',auth()->user()->corporate->id)->withTrashed()->orderBy('id','asc')->orWhere('id',0)->get()->pluck('name', 'id'))
             ->rules('required'),
 
-            
+
         NovaDependencyContainer::make([
 
 
@@ -241,7 +242,7 @@ class Post extends Resource
             ->rules('required', 'max:255'),
 
 
-           
+
         ])->dependsOn('founder_person_id', 0),
 
 
@@ -321,6 +322,7 @@ class Post extends Resource
             new PostsPeriod,
             new ShowVsHiddenPosts,
             new OpenVsClosedPosts,
+            new LostVsFoundPosts
         ];
     }
 

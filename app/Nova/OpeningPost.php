@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\LostVsFoundPosts;
 use App\People;
 use Carbon\Carbon;
 use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
@@ -406,7 +407,7 @@ class OpeningPost extends Resource
         return [
             new OpenVsClosedPosts,
             new ShowVsHiddenPosts,
-
+            new LostVsFoundPosts
         ];
     }
 
