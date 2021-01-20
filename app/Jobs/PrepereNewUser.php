@@ -34,7 +34,7 @@ class PrepereNewUser implements ShouldQueue
      */
     public function handle()
     {
-        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$this->user->id."&appid=com.smartappco.wajad&name=".$this->user->name;
+        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$this->user->name.'-'.$this->user->id."&appid=com.smartappco.wajad&name=".$this->user->name;
         $client = new \GuzzleHttp\Client([
             'headers' => ['Content-Type' => 'application/json']
         ]);
