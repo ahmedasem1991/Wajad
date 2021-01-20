@@ -29,6 +29,11 @@ class SearchController extends Controller
      * @urlParam keywords string required
      * @response
      * {
+     *     "total": 0,
+     *     "count": 0,
+     *     "per_page": 25,
+     *     "current_page": 2,
+     *     "total_pages": 1,
      * "data": [
      * {
      * "id": 3,
@@ -112,7 +117,14 @@ class SearchController extends Controller
             })
             ->paginate(25);
 
-        return PostResource::collection($posts);
+        return collect([
+            'total' => $posts->total(),
+            'count' => $posts->count(),
+            'per_page' => $posts->perPage(),
+            'current_page' => $posts->currentPage(),
+            'total_pages' => $posts->lastPage(),
+            'data' => PostResource::collection($posts)
+        ]);
     }
     /**
      * Search Filter
