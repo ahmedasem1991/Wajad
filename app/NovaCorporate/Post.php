@@ -2,7 +2,7 @@
 
 namespace App\NovaCorporate;
 
-use App\Nova\Metrics\LostVsFoundPosts;
+use App\NovaCorporate\Metrics\LostVsFoundPosts;
 use App\User;
 use App\Brand;
 use App\People;
