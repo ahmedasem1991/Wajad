@@ -82,7 +82,7 @@ class UserObserver
                 'created_from'=>'new_register' ,
                ]);
             }
-                if( $User->quick_user_id ==NULL)
+                if( $User->mesibo_token ==NULL)
                 PrepereNewUser::dispatch($User);
 
         }
