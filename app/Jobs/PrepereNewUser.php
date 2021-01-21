@@ -43,7 +43,11 @@ class PrepereNewUser implements ShouldQueue
         $this->user->mesibo_uid= $response['user']['uid']??null;
         $this->user->mesibo_token= $response['user']['token']??null;
         $this->user->mesibo_address=$this->user->name.'-'.$this->user->id;
-        $this->user->save();
+          $dispatcher = User::getEventDispatcher();
+          User::unsetEventDispatcher();
+          $this->user->save();
+          User::setEventDispatcher($dispatcher);
+       
         logger($this->user);
     }
 
