@@ -362,7 +362,7 @@ Route::get('/asif_test', function (Request $request) {
     $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
         $data=json_decode($data);
 
-     
+       $data2= $data;
         // dd($data->data[0]->en);
  
 $optionBuilder = new OptionsBuilder();
@@ -389,7 +389,7 @@ $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-return '{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"this is a custom push", "subtitle":"subtitle of the push", "title":"Push Test" }​​​​​​​ }​​​​​​​ }';
+return $data2;
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
