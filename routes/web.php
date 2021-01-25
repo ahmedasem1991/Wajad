@@ -389,7 +389,7 @@ $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-return $data;
+return '{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"this is a custom push", "subtitle":"subtitle of the push", "title":"Push Test" }​​​​​​​ }​​​​​​​ }';
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
