@@ -29,7 +29,7 @@ class FCMPostResource extends JsonResource
             // 'questions' =>  QuestionResource::collection($this->questions),
             // 'claimers' =>  PostRequestsResource::collection($this->postRequests),
             // 'city' => new CityResource($this->city),
-            // 'publisher' => new UserResource($this->publisher),
+            'publisher' => new FCMUserResource($this->publisher),
         ];
     }
 }
