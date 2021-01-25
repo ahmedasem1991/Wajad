@@ -356,10 +356,10 @@ Route::get('/broadcast', function () {
 
     return view('home');
 });
-Route::get('/asif_test', function () {
+Route::get('/asif_test', function (Request $request) {
  
 
-    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"this is a custom push", "subtitle":"subtitle of the push", "title":"Push Test" }​​​​​​​ }​​​​​​​ }​​​​​​​';
+    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
         $data=json_decode($data);
 
      
@@ -382,7 +382,7 @@ $dataBuilder->build();
 
 
 
-$tokens=['cm6ur6ANM0dTmabnsYmyLK:APA91bFJQ3ku6ydI2J1qBXuKLbrIiG0lY_g0VKHcgQjlrYIJ_9zlsDB86Pf4asejQhRh8E-PnoyU8dLClYYlcuIMk9bUfT_E3mHZFoGZlDX4XFe9Uu01iwFAsvnfyUISjKEpSWcdyKGj'];
+$tokens=$request->fcm_token;
 //$sender=new FCMSender();
 $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
