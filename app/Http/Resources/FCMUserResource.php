@@ -25,7 +25,7 @@ class FCMUserResource extends JsonResource
         return [
             'id' => $this->id,
             "name" =>  $this->name,
-            "email" =>  $this->email,
+            "email" =>  $this->email
             // "status" => $this->status,
             // "mobile_number" => $this->mobile_number,
             // "mobile_country_id" => $this->country?$this->country->id: NULL,
