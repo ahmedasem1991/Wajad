@@ -356,67 +356,15 @@ Route::get('/broadcast', function () {
 
     return view('home');
 });
-Route::get('/test500', function () {
+Route::get('/asif_test', function () {
+ 
 
-    $test=[
-        '{
-        "id": 27,
-        "question_id": 49,
-        "answers": "yesssssssssss",
-        "user_id": 11,
-        "post_request_id": 20,
-        "deleted_at": null,
-        "created_at": "2020-12-29T13:29:53.000000Z",
-        "updated_at": "2020-12-29T13:29:53.000000Z"
-        }'
-    ];
-    return $test[0];
-
-    $data='{
-            "id": "6b328e8f-b787-4c9b-a09c-8933bbd370dd",
-            "data": [
-                {
-                    "ar": {
-                        "title": "  هناك شخص  قرأ رمز التعريف  الخاص بك ",
-                       "body": "هناك شخص  قرأ رمز التعريف  الخاص بك   يمكنك اللإطلاع علي الخريطة . "
-                   },
-                   "en": {
-                       "title": "  There Some One Scanned Your QR Code ",
-                      "body": "There Some One Scanned Your QR Code    Check the location on the map . "
-                  },
-                   "url": "https://www.google.com/maps/search/?api=1&query=30.254445588,40.3644552",
-                   "type": "qrcode",
-                  "object_type": "scan",
-                  "post": "scan",
-                  "item": "scan",
-
-                   "id": 10295,
-                   "related_id": -1,
-                  "badge": 1
-              }
-            ],
-            "created_at": "2020-04-07T15:07:22.000000Z",
-            "read_at": "2020-04-07T15:07:22.000000Z"
-         }';
+    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"this is a custom push", "subtitle":"subtitle of the push", "title":"Push Test" }​​​​​​​ }​​​​​​​ }​​​​​​​';
         $data=json_decode($data);
 
-         $info='';
-         $lang='ar';
-         if($lang=='ar')
-         $info=$data->data[0]->ar;
-         else
-         $info=$data->data[0]->en;
-
+     
         // dd($data->data[0]->en);
-
-    $data=[
-        'notification' => [
-        'title'=>'Item updated successfully',
-        'body'=>'Item updated successfully',
-        'sound' => 'default'
-        ]
-    ];
-
+ 
 $optionBuilder = new OptionsBuilder();
 $optionBuilder->setTimeToLive(60*20);
 
@@ -429,18 +377,19 @@ $dataBuilder->addData(['data' => $data]);
 
 $option = $optionBuilder->build();
 $notification = $notificationBuilder->build();
-$data = $dataBuilder->build();
+$dataBuilder->build();
 
 
 
 
-$tokens=['czgeKTSNd74:APA91bG8Tz7SXv234psaHYD6JHrEO_Edb7QGn8nuXp2gB3kzsND_nI8n3RxowFBDDV0WqVNUelfZh8DoUSNwG0gnm_k6shiO7Z2OsQNldFtBmiFuKPRvBM9e1PQeU1alYoVQeCzyq65P','ff85vPGFJjY:APA91bHgolcEsr5tfhnX5vZuXIgRUBOfTrQtlukQHdqH9PiRcK8G31Ajdp3tufvhp1hEA47kHoKwPUCBtRqpX1jmS20cdjzO30Lueog7osD0qhpworB2ega9SWXjE5u6gPsT5__k_-L3','fgdn3qimz6w:APA91bGbOgHFs7nrNy9rkSRbG9xqstQ3l2dmKwjkVazd4DMsPtXvyu-Q_CgslCA_e2vpt9ytKOfpvSduw2E2Y1a4XaagT_Zspo_b5vqkSh7c1raKs0QF9fXtTS6v8YNTgWBTkPGvYCEy','cXlljBlySyo:APA91bFGSSYloVx-basj6rnrsP3ftdrZY31TEum0Zox1E3HjQTfgVRnFpVog5eykTZNrIk_0K9bnz7h36vG4whRqxHCkbGnkr6jcpLJvdXajtwjQlersFznol8yI9hO0qG0h19YC1Ljy','eymAGmV3Z6c:APA91bHlTyIhmKuWn5MJqBSosEL0NuqoCOK7yLEySGHpWWP5SAAhbAqapqRNl10-Wuo_Ah60GTmprhZ5oIkaCzbVf54TJDAuudkrgskDCHRVNlgwJEKQTZ-MG3s1C__z74YtlNOLjqjM','exeZR7So7k0:APA91bEaGnDoaPqkyZaMwEr3b_iEBZROYwOTF8iLG-CDIzVC17wXlDZNRPmFHX3gHlDHM5AeYYLf3ErDoGkCrpQudkgvFC8C3KSiMPRQ-OIpW3QtCGeK2G5q4ep46me5rllJiQnn7UwR','dkvoIVDtk5w:APA91bEhMGtlTkIQgDbtBr8QGT1uHow9prZpaw83Oag2v0TBbGbvgaX1NRzwijufXoBG__iCI97IuSb6_2-ZlmWVhCFmtwpRyEAUnNHcMxbVv-GjZbzskzWpyN8bsTR4GwVLMLWbjw6C'];
+$tokens=['cm6ur6ANM0dTmabnsYmyLK:APA91bFJQ3ku6ydI2J1qBXuKLbrIiG0lY_g0VKHcgQjlrYIJ_9zlsDB86Pf4asejQhRh8E-PnoyU8dLClYYlcuIMk9bUfT_E3mHZFoGZlDX4XFe9Uu01iwFAsvnfyUISjKEpSWcdyKGj'];
 //$sender=new FCMSender();
 $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
+return $data;
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
@@ -483,7 +432,7 @@ $downstreamResponse->numberModification();
 //     //   $pdf = PDF::loadView('Pdf.receipt', $data=[]);
 //     //  return $pdf->stream('receipt.pdf');
 
-})->name('test500');
+})->name('asif_test');
 
 
 Route::get('/test400', function () {
