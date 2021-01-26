@@ -369,7 +369,7 @@ $optionBuilder = new OptionsBuilder();
 $optionBuilder->setTimeToLive(60*20);
 
 $notificationBuilder = new PayloadNotificationBuilder($request->title);
-$notificationBuilder->setBody(  $data)
+$notificationBuilder->setBody( 'ssssssssssssssss')
 				    ->setSound('default');
 
 $dataBuilder = new PayloadDataBuilder();
