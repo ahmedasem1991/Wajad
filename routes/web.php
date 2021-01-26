@@ -359,7 +359,7 @@ Route::get('/broadcast', function () {
 Route::get('/asif_test', function (Request $request) {
  
 
-    $data='xxxxxxxxxxxxxxxxxxxxx';
+    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
         $data=json_decode($data);
 
        
@@ -368,8 +368,8 @@ Route::get('/asif_test', function (Request $request) {
 $optionBuilder = new OptionsBuilder();
 $optionBuilder->setTimeToLive(60*20);
 
-$notificationBuilder = new PayloadNotificationBuilder('Test title');
-$notificationBuilder->setBody('Item Added Successfully')
+$notificationBuilder = new PayloadNotificationBuilder($request->title);
+$notificationBuilder->setBody($data)
 				    ->setSound('default');
 
 $dataBuilder = new PayloadDataBuilder();
@@ -389,7 +389,7 @@ $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-return'​​​​​​​';
+return'{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
