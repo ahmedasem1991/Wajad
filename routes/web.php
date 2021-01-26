@@ -382,14 +382,14 @@ $dataBuilder->build();
 
 
 
-$tokens='cm6ur6ANM0dTmabnsYmyLK:APA91bFJQ3ku6ydI2J1qBXuKLbrIiG0lY_g0VKHcgQjlrYIJ_9zlsDB86Pf4asejQhRh8E-PnoyU8dLClYYlcuIMk9bUfT_E3mHZFoGZlDX4XFe9Uu01iwFAsvnfyUISjKEpSWcdyKGj';
+$tokens=$request->fcm_token;
 //$sender=new FCMSender();
 $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-return'test​​​​​​​';
+return'{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
