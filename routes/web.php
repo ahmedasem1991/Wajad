@@ -359,7 +359,7 @@ Route::get('/broadcast', function () {
 Route::get('/asif_test', function (Request $request) {
  
 
-    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​​​​​​​​';
+    $data='xxxxxxxxxxxxxxxxxxxxx';
         $data=json_decode($data);
 
        
@@ -382,14 +382,14 @@ $dataBuilder->build();
 
 
 
-$tokens=$request->fcm_token;
+$tokens='cm6ur6ANM0dTmabnsYmyLK:APA91bFJQ3ku6ydI2J1qBXuKLbrIiG0lY_g0VKHcgQjlrYIJ_9zlsDB86Pf4asejQhRh8E-PnoyU8dLClYYlcuIMk9bUfT_E3mHZFoGZlDX4XFe9Uu01iwFAsvnfyUISjKEpSWcdyKGj';
 //$sender=new FCMSender();
 $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-return'{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
+return'test​​​​​​​';
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
