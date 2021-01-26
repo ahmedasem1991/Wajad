@@ -68,8 +68,8 @@ Route::get('mesibo_add', function () {
 
    ;
     foreach( User::normalusers()->get() as $user)
-    { 
-        
+    {
+
         $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
         $client = new \GuzzleHttp\Client([
             'headers' => ['Content-Type' => 'application/json']
@@ -81,7 +81,7 @@ Route::get('mesibo_add', function () {
         $user->mesibo_address= $user->name.'-'.$user->id;
         $user->save();
     }
-   
+
 });
 
 Route::view('qrcode', 'Pdf.qrcode');
@@ -109,10 +109,10 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 //     $array=[];
 //     $user=  User::normalusers()
 //     ->where('email',$search)
-//     ->orWhere('mobile_number',$search)->first()  ; 
+//     ->orWhere('mobile_number',$search)->first()  ;
 
 //     if( $user)
-//     { 
+//     {
 //       $array[1]['value']= $user->id;
 //       $array[1]['display']= request('search') .'('.$user->name .')' ;
 //       session()->put('smart_user_id',$user->id);
@@ -123,7 +123,7 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 //        return 0;
 //    }
 //   });
- 
+
 
 
   Route::get('/smart-search/{search}', function ($search) {
@@ -137,11 +137,11 @@ Route::get('status', 'PaymentController@getPaymentStatus');
     $users=  User::normalusers()
     ->where('email' ,'LIKE', '%'.$search.'%')
     ->orWhere('mobile_number','LIKE', '%'.$search.'%')
-    ->orWhere('name','LIKE', '%'.$search.'%')->get()  ; 
+    ->orWhere('name','LIKE', '%'.$search.'%')->get()  ;
 
     foreach($users as $key => $user){
         if( $user)
-        { 
+        {
         $array[$key]['value']= $user->id;
         $array[$key]['display']= $user->mobile_number .'('.$user->name .')' ;
         }
@@ -153,7 +153,7 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('/test600', function (Request $request) {
 
-    
+
 
     // $Now = \Carbon\Carbon::now()->timestamp;
     // $Data = 'application_id=' . env('QUICKBLOX_APPLICATION_ID') . '&auth_key=' . env('QUICKBLOX_AUTH_KEY') . '&nonce=&timestamp=' . $Now;
@@ -186,7 +186,7 @@ dd(request()->all());
     return  $str;
 
 
-    
+
   return  User::normalusers()->get()->toArray();
                         // ->filter(function ($user) {
                         //     return User::normalusers() $user->name . "-".$user->mobile_number;
@@ -194,16 +194,16 @@ dd(request()->all());
     dd( Qrcode::type('Single Assign')->where('status','1')->count());
     sleep(5);
     $array=[];
-    
+
    // w@gaasmail.com
-   $ii=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ; 
+   $ii=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ;
    //return $ii;
 //    $array[0]['value']= 0;
 //    $array[0]['label']= 'Select';
 if( $ii)
   { $array[0]['value']= $ii->id;
    $array[0]['label']= request('search') .' ('.$ii->name .')' ;
-   
+
    return  json_encode( $array);}
    else
    return 0;
@@ -357,14 +357,14 @@ Route::get('/broadcast', function () {
     return view('home');
 });
 Route::get('/asif_test', function (Request $request) {
- 
+
 
     $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
         $data=json_decode($data);
 
-       
+
         // dd($data->data[0]->en);
- 
+
 $optionBuilder = new OptionsBuilder();
 $optionBuilder->setTimeToLive(60*20);
 
@@ -389,7 +389,22 @@ $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 $downstreamResponse->numberSuccess();
 $downstreamResponse->numberFailure();
 $downstreamResponse->numberModification();
-return'{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
+return <<<JSON
+{
+    "aps": {
+        "sound": "default",
+        "mutable-content": 1,
+        "category": "com.SmartAppCo.Wajad.expandedNotification",
+        "alert": {
+            "title": "Ability to Rise to Standing From Lying Down - Having difficulty with stairs",
+            "subtitle": "Antonio Leiva – Clean Architecture",
+            "body": "Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking..Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking"
+        }
+    },
+    "podcast-image": "https://koenig-media.raywenderlich.com/uploads/2016/11/Logo-250x250.png",
+    "podcast-guest": "Antonio Leiva"
+}
+JSON;
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
@@ -652,7 +667,7 @@ Route::get('/paytabs_payment', function () {
         'return_url' => "https://www.etabeb.com",
         "cms_with_version" => "API USING PHP"
 	));
-    
+
     	if($result->response_code == 4012){
            // dd($result);
 	    return redirect($result->payment_url);
@@ -679,7 +694,7 @@ return 0;
         if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
             // Add File in ZipArchive
             $zip->addFile($public_dir. '/' .'office_mark.png','file_name.png');
-            // Close ZipArchive     
+            // Close ZipArchive
             $zip->close();
         }
         // Set Header
@@ -691,7 +706,7 @@ return 0;
         if(file_exists($filetopath)){
             return response()->download($filetopath,$zipFileName,$headers);
         }
-    
+
     // $fileurl = public_path()."/Photos.zip";
     // return \Response::download($fileurl, 'Photos.zip', ['Content-Length: '. filesize($fileurl)]);
 });
@@ -719,11 +734,11 @@ Route::get('/paytabs_response', function(){
 
 Route::get('/test-qrcodes', function(){
 
- 
 
-    
+
+
     $url = "https://rapidapi.p.rapidapi.com/qr/custom";
-     
+
     $Data= '{
         "data": "https://atcorp.sa",
         "config": {
@@ -754,7 +769,7 @@ Route::get('/test-qrcodes', function(){
         "download": true,
         "file": "png"
     }';
-     
+
 
        $data = json_encode($Data);
 
@@ -771,16 +786,16 @@ Route::get('/test-qrcodes', function(){
   $response = json_decode($response->getBody(), true);
 
 return $response;
-    
+
     //$request = new http\Client\Request;
-    
+
     //$body = new http\Message\Body;
-     
- 
-    
-  
+
+
+
+
  });
- 
+
  Route::get('/test-free-qrcodes', function(){
 
     $ImageName= time().Str::random(20).'.png';
@@ -788,12 +803,12 @@ return $response;
     //gradient(10,20,30,40,50,60,'radial')
   eye('square')
  -> color(1,0, 0)
-//   ->eyeColor(0, 0,0, 0, 6,120, 160) 
-//   ->eyeColor( 1,0,0, 0, 6,120, 160)  
-//   ->eyeColor( 2,0,0, 0, 6,120, 160) 
-  ->eyeColor(0, 0,0, 0, 14,177, 233) 
-  ->eyeColor( 1,0,0, 0,14,177, 233)  
-  ->eyeColor( 2,0,0, 0, 14,177, 233) 
+//   ->eyeColor(0, 0,0, 0, 6,120, 160)
+//   ->eyeColor( 1,0,0, 0, 6,120, 160)
+//   ->eyeColor( 2,0,0, 0, 6,120, 160)
+  ->eyeColor(0, 0,0, 0, 14,177, 233)
+  ->eyeColor( 1,0,0, 0,14,177, 233)
+  ->eyeColor( 2,0,0, 0, 14,177, 233)
     ->margin(3)
     ->format('png')
     ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
@@ -802,14 +817,14 @@ return $response;
     ->generate(env('API_URL').'/api/scan-qr-code/'.$ImageName,
     public_path('images/qrcodes2/'.$ImageName))
    ;
-   
+
    return '<br> <br> <center><img src="'.env('API_URL').'/images/qrcodes2/'.$ImageName.'" height="600" width="600"></center>';
  });
 
 
  Route::get('ipp', function () {
 
-    
+
     foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $keys)
 {
 // check for clent ip address
@@ -833,7 +848,7 @@ return $ip_val;
 	$ip =  request()->getClientIp(true);
     $data = \Location::get($ip);
    // dd($data);
-   
+
 });
 
 
