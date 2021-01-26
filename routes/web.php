@@ -368,8 +368,8 @@ Route::get('/asif_test', function (Request $request) {
 $optionBuilder = new OptionsBuilder();
 $optionBuilder->setTimeToLive(60*20);
 
-$notificationBuilder = new PayloadNotificationBuilder('Test title');
-$notificationBuilder->setBody('Item Added Successfully')
+$notificationBuilder = new PayloadNotificationBuilder($request->title);
+$notificationBuilder->setBody(  $data)
 				    ->setSound('default');
 
 $dataBuilder = new PayloadDataBuilder();
