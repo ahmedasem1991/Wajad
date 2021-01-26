@@ -92,8 +92,9 @@ class SendFCMListener
     $data_en=[
         'payload' =>$info['en']
     ];
+logger($data_ar);
 
-
+logger($data_en);
 
     $dataBuilder_ar->addData( $data_ar );
     $dataBuilder_en->addData( $data_en );
