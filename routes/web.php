@@ -66,7 +66,7 @@ Route::get('/home', function () {
 
 Route::get('mesibo_add', function () {
 
-   ;
+    ;
     foreach( User::normalusers()->get() as $user)
     {
 
@@ -92,7 +92,7 @@ Route::get('/sendsms', 'NotificationController@sendSMS');
 //Paypal
 Route::get('paypal', 'PaymentController@payWithpaypal');
 Route::get('paywithpaypal', function () {
-   return  redirect(Nova::path());
+    return  redirect(Nova::path());
 });
 //paytabs
 Route::get('paytabs', 'PaymentController@payWithpaytabs');
@@ -126,30 +126,30 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 
 
-  Route::get('/smart-search/{search}', function ($search) {
+Route::get('/smart-search/{search}', function ($search) {
     if(strlen($search) >= 4)
     {
         $search=$search;;
         $search = ltrim($search, '+966');
         $search = ltrim($search, '966');
         $search = ltrim($search, '0');
-    $array=[];
-    $users=  User::normalusers()
-    ->where('email' ,'LIKE', '%'.$search.'%')
-    ->orWhere('mobile_number','LIKE', '%'.$search.'%')
-    ->orWhere('name','LIKE', '%'.$search.'%')->get()  ;
+        $array=[];
+        $users=  User::normalusers()
+            ->where('email' ,'LIKE', '%'.$search.'%')
+            ->orWhere('mobile_number','LIKE', '%'.$search.'%')
+            ->orWhere('name','LIKE', '%'.$search.'%')->get()  ;
 
-    foreach($users as $key => $user){
-        if( $user)
-        {
-        $array[$key]['value']= $user->id;
-        $array[$key]['display']= $user->mobile_number .'('.$user->name .')' ;
+        foreach($users as $key => $user){
+            if( $user)
+            {
+                $array[$key]['value']= $user->id;
+                $array[$key]['display']= $user->mobile_number .'('.$user->name .')' ;
+            }
+
         }
-
+        return  json_encode( $array);
     }
-    return  json_encode( $array);
-    }
-  });
+});
 
 Route::get('/test600', function (Request $request) {
 
@@ -160,9 +160,9 @@ Route::get('/test600', function (Request $request) {
     // $Hash = hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
 
 
-   // $form_params['signature'] = $Hash;
+    // $form_params['signature'] = $Hash;
 
-   $url = "https://api.mesibo.com/api.php?op=useradd&token=kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j&addr=12&appid=wajad&expiry&active";
+    $url = "https://api.mesibo.com/api.php?op=useradd&token=kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j&addr=12&appid=wajad&expiry&active";
     $client = new \GuzzleHttp\Client([
         'headers' => ['Content-Type' => 'application/json']
     ]);
@@ -173,11 +173,11 @@ Route::get('/test600', function (Request $request) {
     return 'success';
 
     Mail::to(User::find(6))->send(new MailAdminNotification('test'));
-  return view('emails.admin_notification')->with('body','test test test test ewdw wfw');
- dd(\Unifonic::send('966504334115', 'test message'))   ;
+    return view('emails.admin_notification')->with('body','test test test test ewdw wfw');
+    dd(\Unifonic::send('966504334115', 'test message'))   ;
     Mail::to($user)->send(new MailAdminNotification('test'));
     $URL = URL::current();
-dd(request()->all());
+    dd(request()->all());
 
     $str=$value;;
     $str = ltrim($str, '+966');
@@ -187,39 +187,39 @@ dd(request()->all());
 
 
 
-  return  User::normalusers()->get()->toArray();
-                        // ->filter(function ($user) {
-                        //     return User::normalusers() $user->name . "-".$user->mobile_number;
-                        // })->pluck('name','id')->toArray();
+    return  User::normalusers()->get()->toArray();
+    // ->filter(function ($user) {
+    //     return User::normalusers() $user->name . "-".$user->mobile_number;
+    // })->pluck('name','id')->toArray();
     dd( Qrcode::type('Single Assign')->where('status','1')->count());
     sleep(5);
     $array=[];
 
-   // w@gaasmail.com
-   $ii=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ;
-   //return $ii;
+    // w@gaasmail.com
+    $ii=  User::where('email',request('search'))->orWhere('mobile_number',request('search'))->first()  ;
+    //return $ii;
 //    $array[0]['value']= 0;
 //    $array[0]['label']= 'Select';
-if( $ii)
-  { $array[0]['value']= $ii->id;
-   $array[0]['label']= request('search') .' ('.$ii->name .')' ;
+    if( $ii)
+    { $array[0]['value']= $ii->id;
+        $array[0]['label']= request('search') .' ('.$ii->name .')' ;
 
-   return  json_encode( $array);}
-   else
-   return 0;
+        return  json_encode( $array);}
+    else
+        return 0;
 
 
-   $C= Corporate::find(1);
+    $C= Corporate::find(1);
 
     dd( $C->users->CorporateAdmin());
-   // return Setting::where('key', 'max-post-reports-number')->first()['value'];
-  return (trim('"["1","2","3"]"', '"'))  ;
-   dd(User::find(["1","2","3"]));
+    // return Setting::where('key', 'max-post-reports-number')->first()['value'];
+    return (trim('"["1","2","3"]"', '"'))  ;
+    dd(User::find(["1","2","3"]));
 
     foreach(User::find(2)->devices as $device)
     {
-      //  dd($device);
- array_push($array,$device->token);
+        //  dd($device);
+        array_push($array,$device->token);
     }
     return $array;
     $im = new Imagick("https://pngimg.com/uploads/qr_code/qr_code_PNG6.png");
@@ -360,36 +360,36 @@ Route::get('/asif_test', function (Request $request) {
 
 
     $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
-        $data=json_decode($data);
+    $data=json_decode($data);
 
 
-        // dd($data->data[0]->en);
+    // dd($data->data[0]->en);
 
-$optionBuilder = new OptionsBuilder();
-$optionBuilder->setTimeToLive(60*20);
+    $optionBuilder = new OptionsBuilder();
+    $optionBuilder->setTimeToLive(60*20);
 
-$notificationBuilder = new PayloadNotificationBuilder($request->title);
-$notificationBuilder->setBody($data)
-				    ->setSound('default');
+    $notificationBuilder = new PayloadNotificationBuilder($request->title);
+    $notificationBuilder->setBody($data)
+        ->setSound('default');
 
-$dataBuilder = new PayloadDataBuilder();
-$dataBuilder->addData(['data' => $data]);
+    $dataBuilder = new PayloadDataBuilder();
+    $dataBuilder->addData(['data' => $data]);
 
-$option = $optionBuilder->build();
-$notification = $notificationBuilder->build();
-$dataBuilder->build();
-
-
+    $option = $optionBuilder->build();
+    $notification = $notificationBuilder->build();
+    $dataBuilder->build();
 
 
-$tokens=$request->fcm_token;
+
+
+    $tokens=$request->fcm_token;
 //$sender=new FCMSender();
-$downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+    $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
-$downstreamResponse->numberSuccess();
-$downstreamResponse->numberFailure();
-$downstreamResponse->numberModification();
-return <<<JSON
+    $downstreamResponse->numberSuccess();
+    $downstreamResponse->numberFailure();
+    $downstreamResponse->numberModification();
+    return <<<JSON
 {
     "aps": {
         "sound": "default",
@@ -399,7 +399,9 @@ return <<<JSON
             "title": "Ability to Rise to Standing From Lying Down - Having difficulty with stairs",
             "subtitle": "Antonio Leiva – Clean Architecture",
             "body": "Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking..Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking"
-        }
+        },
+        "mutable-content": 1,
+        "category": "com.SmartAppCo.Wajad.expandedNotification"
     },
     "podcast-image": "https://koenig-media.raywenderlich.com/uploads/2016/11/Logo-250x250.png",
     "podcast-guest": "Antonio Leiva"
@@ -456,14 +458,14 @@ Route::get('/test400', function () {
     // dd($post->questions);
 //     $item = Item::find(1);
 //    return  new ItemResource($item);
-   //return  new PostResource($post);
+    //return  new PostResource($post);
 
     // if ($post->isFound())
     //   return  $type='post_found';
     //   else
     //   return  $type='post_lost';
 // return   checklocate(auth('api')->user);
-  //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
+    //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
 
     $user = User::find(9);
     $item = Item::find(1);
@@ -473,15 +475,15 @@ Route::get('/test400', function () {
     $user->notify(new SendFCMNotification($user,$data));
 
 
-    })->name('test400');
+})->name('test400');
 
-    Route::get('/chat', function(){
-        return view('scan-qr-code');
-    });
+Route::get('/chat', function(){
+    return view('scan-qr-code');
+});
 
 
 
-    Route::get('/quicksession', function () {
+Route::get('/quicksession', function () {
 
 
     $url = "https://api.quickblox.com/session.json";
@@ -489,48 +491,48 @@ Route::get('/test400', function () {
     $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
     $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
 
-       $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
-       $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
-       $form_params['timestamp'] = $Now;
-       $form_params['nonce'] = "";
-       $form_params['signature'] = $Hash;
+    $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
+    $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
+    $form_params['timestamp'] = $Now;
+    $form_params['nonce'] = "";
+    $form_params['signature'] = $Hash;
 
-       $data = json_encode($form_params);
+    $data = json_encode($form_params);
 
-  $client = new \GuzzleHttp\Client([
-      'headers' => ['Content-Type' => 'application/json']
-  ]);
-  $response = $client->post($url,
-          ['body' => $data]
-  );
-  $response = json_decode($response->getBody(), true);
+    $client = new \GuzzleHttp\Client([
+        'headers' => ['Content-Type' => 'application/json']
+    ]);
+    $response = $client->post($url,
+        ['body' => $data]
+    );
+    $response = json_decode($response->getBody(), true);
 
-  $token=$response['session']['token'];
-  session(['token' => $token]);
-   return( $token);
+    $token=$response['session']['token'];
+    session(['token' => $token]);
+    return( $token);
 
-  });
+});
 
 
-  Route::get('/quickgetusers', function () {
+Route::get('/quickgetusers', function () {
     //dd(session('token'));
 
-      $url = "https://api.quickblox.com/users.json";
-      $client = new \GuzzleHttp\Client([
+    $url = "https://api.quickblox.com/users.json";
+    $client = new \GuzzleHttp\Client([
         'headers' => [
             'Content-Type' => 'application/json',
             'QB-Token' => session('token'),
 
-            ]
+        ]
     ]);
-$response = $client->get($url
-);
-$response = json_decode($response->getBody(), true);
+    $response = $client->get($url
+    );
+    $response = json_decode($response->getBody(), true);
 
- return( $response);
-  });
+    return( $response);
+});
 
-  Route::get('/quickcreateuser', function () {
+Route::get('/quickcreateuser', function () {
 
     $Users=User::Normalusers()->whereNull('quick_user_id')->get();
     foreach($Users as $User)
@@ -567,12 +569,12 @@ $response = json_decode($response->getBody(), true);
         );
         $response = json_decode($response->getBody(), true);
 
-         if($response['user']['id']);
-      {
-          $User->quick_user_id= $response['user']['id'];
-          $User->save();
-          logger($User->quick_user_id);
-      }
+        if($response['user']['id']);
+        {
+            $User->quick_user_id= $response['user']['id'];
+            $User->save();
+            logger($User->quick_user_id);
+        }
     }
 
 
@@ -585,7 +587,7 @@ $response = json_decode($response->getBody(), true);
 
 
 
-  Route::get('/quicklogin', function () {
+Route::get('/quicklogin', function () {
 
 
     $url = "https://api.quickblox.com/login.json";
@@ -593,34 +595,34 @@ $response = json_decode($response->getBody(), true);
     $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.$Now;
     $Hash= hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
 
-       $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
-       $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
-       $form_params['timestamp'] = $Now;
-       $form_params['nonce'] = "";
-       $form_params['signature'] = $Hash;
+    $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
+    $form_params['auth_key'] =env('QUICKBLOX_AUTH_KEY');
+    $form_params['timestamp'] = $Now;
+    $form_params['nonce'] = "";
+    $form_params['signature'] = $Hash;
 
-       $data = json_encode($form_params);
+    $data = json_encode($form_params);
 
-  $client = new \GuzzleHttp\Client([
-      'headers' => [
-          'Content-Type' => 'application/json',
-          'QB-Token' => session('token'),
+    $client = new \GuzzleHttp\Client([
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'QB-Token' => session('token'),
 
-          ]
-  ]);
-  $response = $client->post($url,
-          ['body' => $data]
-  );
-  $response = json_decode($response->getBody(), true);
-
-
-   return( $response);
-
-  });
+        ]
+    ]);
+    $response = $client->post($url,
+        ['body' => $data]
+    );
+    $response = json_decode($response->getBody(), true);
 
 
-  Route::get('/test800', function(){
-   $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.\Carbon\Carbon::now()->timestamp;
+    return( $response);
+
+});
+
+
+Route::get('/test800', function(){
+    $Data= 'application_id='.env('QUICKBLOX_APPLICATION_ID').'&auth_key='.env('QUICKBLOX_AUTH_KEY').'&nonce=&timestamp='.\Carbon\Carbon::now()->timestamp;
     echo hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
 });
 Route::get('/apple-app-site-association', function () {
@@ -635,7 +637,7 @@ Route::get('/paytabs_payment', function () {
     $email='i.saber@smartappco.com';
     $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
     $pt = Paytabs::getInstance( $email, $secret);
-	$result = $pt->create_pay_page(array(
+    $result = $pt->create_pay_page(array(
         "merchant_email" => $email,
         'secret_key' => $secret,
         'title' => "John Doe",
@@ -666,46 +668,46 @@ Route::get('/paytabs_payment', function () {
         "site_url" => "https://www.smartappco.com/",
         'return_url' => "https://www.etabeb.com",
         "cms_with_version" => "API USING PHP"
-	));
+    ));
 
-    	if($result->response_code == 4012){
-           // dd($result);
-	    return redirect($result->payment_url);
-        }
-        dd($result);
-        //return $result->result;
+    if($result->response_code == 4012){
+        // dd($result);
+        return redirect($result->payment_url);
+    }
+    dd($result);
+    //return $result->result;
 });
 
 
 Route::get('/testt', function(){
     $path=public_path().'/QRCodes.zip';
     if(file_exists($path))
-   return  unlink( $path);
-   else
-   return 0;
+        return  unlink( $path);
+    else
+        return 0;
 
-return 0;
-        // Define Dir Folder
-        $public_dir=public_path();
-        // Zip File Name
-        $zipFileName = 'AllDocuments.zip';
-        // Create ZipArchive Obj
-        $zip = new ZipArchive;
-        if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
-            // Add File in ZipArchive
-            $zip->addFile($public_dir. '/' .'office_mark.png','file_name.png');
-            // Close ZipArchive
-            $zip->close();
-        }
-        // Set Header
-        $headers = array(
-            'Content-Type' => 'application/octet-stream',
-        );
-        $filetopath=$public_dir.'/'.$zipFileName;
-        // Create Download Response
-        if(file_exists($filetopath)){
-            return response()->download($filetopath,$zipFileName,$headers);
-        }
+    return 0;
+    // Define Dir Folder
+    $public_dir=public_path();
+    // Zip File Name
+    $zipFileName = 'AllDocuments.zip';
+    // Create ZipArchive Obj
+    $zip = new ZipArchive;
+    if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
+        // Add File in ZipArchive
+        $zip->addFile($public_dir. '/' .'office_mark.png','file_name.png');
+        // Close ZipArchive
+        $zip->close();
+    }
+    // Set Header
+    $headers = array(
+        'Content-Type' => 'application/octet-stream',
+    );
+    $filetopath=$public_dir.'/'.$zipFileName;
+    // Create Download Response
+    if(file_exists($filetopath)){
+        return response()->download($filetopath,$zipFileName,$headers);
+    }
 
     // $fileurl = public_path()."/Photos.zip";
     // return \Response::download($fileurl, 'Photos.zip', ['Content-Length: '. filesize($fileurl)]);
@@ -715,7 +717,7 @@ return 0;
 
 Route::get('/paytabs_response', function(){
 
-   // dd('ok');
+    // dd('ok');
     $email='i.saber@smartappco.com';
     $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
 
@@ -771,21 +773,21 @@ Route::get('/test-qrcodes', function(){
     }';
 
 
-       $data = json_encode($Data);
+    $data = json_encode($Data);
 
-  $client = new \GuzzleHttp\Client([
-      'headers' => [
-        'content-type' => 'application/json',
-        'x-rapidapi-host' => 'qrcode-monkey.p.rapidapi.com',
-        'x-rapidapi-key' => 'a234aa0e2bmsh691d9755ff431d4p1d4528jsnde5abe068474'
-      ]
-  ]);
-  $response = $client->post($url,
-          ['body' => $data]
-  );
-  $response = json_decode($response->getBody(), true);
+    $client = new \GuzzleHttp\Client([
+        'headers' => [
+            'content-type' => 'application/json',
+            'x-rapidapi-host' => 'qrcode-monkey.p.rapidapi.com',
+            'x-rapidapi-key' => 'a234aa0e2bmsh691d9755ff431d4p1d4528jsnde5abe068474'
+        ]
+    ]);
+    $response = $client->post($url,
+        ['body' => $data]
+    );
+    $response = json_decode($response->getBody(), true);
 
-return $response;
+    return $response;
 
     //$request = new http\Client\Request;
 
@@ -794,60 +796,60 @@ return $response;
 
 
 
- });
+});
 
- Route::get('/test-free-qrcodes', function(){
+Route::get('/test-free-qrcodes', function(){
 
     $ImageName= time().Str::random(20).'.png';
-   $q= \QrCode::
+    $q= \QrCode::
     //gradient(10,20,30,40,50,60,'radial')
-  eye('square')
- -> color(1,0, 0)
+    eye('square')
+        -> color(1,0, 0)
 //   ->eyeColor(0, 0,0, 0, 6,120, 160)
 //   ->eyeColor( 1,0,0, 0, 6,120, 160)
 //   ->eyeColor( 2,0,0, 0, 6,120, 160)
-  ->eyeColor(0, 0,0, 0, 14,177, 233)
-  ->eyeColor( 1,0,0, 0,14,177, 233)
-  ->eyeColor( 2,0,0, 0, 14,177, 233)
-    ->margin(3)
-    ->format('png')
-    ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
-    ->style('dot',0.9)
-    ->size(2000)
-    ->generate(env('API_URL').'/api/scan-qr-code/'.$ImageName,
-    public_path('images/qrcodes2/'.$ImageName))
-   ;
+        ->eyeColor(0, 0,0, 0, 14,177, 233)
+        ->eyeColor( 1,0,0, 0,14,177, 233)
+        ->eyeColor( 2,0,0, 0, 14,177, 233)
+        ->margin(3)
+        ->format('png')
+        ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
+        ->style('dot',0.9)
+        ->size(2000)
+        ->generate(env('API_URL').'/api/scan-qr-code/'.$ImageName,
+            public_path('images/qrcodes2/'.$ImageName))
+    ;
 
-   return '<br> <br> <center><img src="'.env('API_URL').'/images/qrcodes2/'.$ImageName.'" height="600" width="600"></center>';
- });
+    return '<br> <br> <center><img src="'.env('API_URL').'/images/qrcodes2/'.$ImageName.'" height="600" width="600"></center>';
+});
 
 
- Route::get('ipp', function () {
+Route::get('ipp', function () {
 
 
     foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $keys)
-{
+    {
 // check for clent ip address
-if (array_key_exists($keys, $_SERVER) === true)
-{
+        if (array_key_exists($keys, $_SERVER) === true)
+        {
 // get clent ip address
-foreach (explode(',', $_SERVER[$keys]) as $ip_val)
-{
+            foreach (explode(',', $_SERVER[$keys]) as $ip_val)
+            {
 // get clent ip address
 // just to be safe for ip address
-$ip_val = trim($ip_val);
-if (filter_var($ip_val, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)
-{
+                $ip_val = trim($ip_val);
+                if (filter_var($ip_val, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)
+                {
 // return ip address
-return $ip_val;
-}
-}
-}
-}
-  //dd( request());
-	$ip =  request()->getClientIp(true);
+                    return $ip_val;
+                }
+            }
+        }
+    }
+    //dd( request());
+    $ip =  request()->getClientIp(true);
     $data = \Location::get($ip);
-   // dd($data);
+    // dd($data);
 
 });
 
@@ -863,10 +865,10 @@ Route::get('code2', function(){
 
 Route::get('image', function(){
     $post=\App\Post::find(11);
-if($post->images)
-if($post->images[0])
-return env('ADMIN_URL').$post->images[0];
-  //  dd(request()->getClientIp(true));
+    if($post->images)
+        if($post->images[0])
+            return env('ADMIN_URL').$post->images[0];
+    //  dd(request()->getClientIp(true));
 
 });
 
@@ -877,6 +879,6 @@ Route::get('deleteuserchat', function(){
     $user=\App\User::find(50);
     //dd($user);
     DeleteUserChat::dispatch($user);
-  //  dd(request()->getClientIp(true));
+    //  dd(request()->getClientIp(true));
 
 });
