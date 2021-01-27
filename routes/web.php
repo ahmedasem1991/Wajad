@@ -359,21 +359,34 @@ Route::get('/broadcast', function () {
 Route::get('/asif_test', function (Request $request) {
 
 
-    $data='{
-        ​​​​​​​ "aps":{
-            ​​​"sound":"default", "mutable-content": 1,
-            "mutable-content": 1,
-            "category": "com.SmartAppCo.Wajad.expandedNotification",
-            "alert":{​​​​​​​
-                 "body":"'.$request->body.'", 
-                 "subtitle":"'.$request->subtitle.'", 
-                 "title":"'.$request->title.'",
-                 "mutable-content": 1,
-                 "category": "com.SmartAppCo.Wajad.expandedNotification"
-                    }​​​​​​​
-                 }​​​​​​​
-            }​​​​​​​';
-    $data=json_decode($data);
+    // $data='{
+    //     ​​​​​​​ "aps":{
+    //         ​​​"sound":"default",
+    //          "mutable-content": 1,
+    //         "mutable-content": 1,
+    //         "category": "com.SmartAppCo.Wajad.expandedNotification",
+    //         "alert":{​​​​​​​
+    //              "body":"'.$request->body.'", 
+    //              "subtitle":"'.$request->subtitle.'", 
+    //              "title":"'.$request->title.'",
+    //              "mutable-content": 1,
+    //              "category": "com.SmartAppCo.Wajad.expandedNotification"
+    //                 }​​​​​​​
+    //              }​​​​​​​
+    //         }​​​​​​​';
+            
+            $alert['body']=$request->body;
+            $alert['subtitle']=$request->subtitle;
+            $alert['title']=$request->title;
+            $alert['mutable-content']=1;
+            $alert['category']="com.SmartAppCo.Wajad.expandedNotification";
+
+
+            $data['aps']['sound']="default";
+            $data['aps']['mutable-content']=1;
+            $data['aps']['category']="com.SmartAppCo.Wajad.expandedNotification";
+            $data['aps']['alert']=$alert;
+    //$data=json_decode($data);
 
 
     // dd($data->data[0]->en);
@@ -386,7 +399,7 @@ Route::get('/asif_test', function (Request $request) {
         ->setSound('default');
 
     $dataBuilder = new PayloadDataBuilder();
-    $dataBuilder->addData(['data' => $data]);
+    $dataBuilder->addData( $data);
 
     $option = $optionBuilder->build();
     $notification = $notificationBuilder->build();
