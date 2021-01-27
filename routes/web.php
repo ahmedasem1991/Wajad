@@ -359,9 +359,20 @@ Route::get('/broadcast', function () {
 Route::get('/asif_test', function (Request $request) {
 
 
-    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory","mutable-content": 1,
-        "category": "com.SmartAppCo.Wajad.expandedNotification", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'","mutable-content": 1,
-        "category": "com.SmartAppCo.Wajad.expandedNotification" }​​​​​​​ }​​​​​​​ }​​​​​​​';
+    $data='{
+        ​​​​​​​ "aps":{
+            ​​​"sound":"default", "mutable-content": 1,
+            "mutable-content": 1,
+            "category": "com.SmartAppCo.Wajad.expandedNotification",
+            "alert":{​​​​​​​
+                 "body":"'.$request->body.'", 
+                 "subtitle":"'.$request->subtitle.'", 
+                 "title":"'.$request->title.'",
+                 "mutable-content": 1,
+                 "category": "com.SmartAppCo.Wajad.expandedNotification"
+                    }​​​​​​​
+                 }​​​​​​​
+            }​​​​​​​';
     $data=json_decode($data);
 
 
