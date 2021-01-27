@@ -382,11 +382,11 @@ Route::get('/asif_test', function (Request $request) {
     $optionBuilder->setTimeToLive(60*20);
 
     $notificationBuilder = new PayloadNotificationBuilder($request->title);
-    $notificationBuilder->setBody($data)
+    $notificationBuilder->setBody($request->body)
         ->setSound('default');
 
     $dataBuilder = new PayloadDataBuilder();
-    $dataBuilder->addData(['data' => 'test']);
+    $dataBuilder->addData(['data' => $data]);
 
     $option = $optionBuilder->build();
     $notification = $notificationBuilder->build();
