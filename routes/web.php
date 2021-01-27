@@ -359,21 +359,7 @@ Route::get('/broadcast', function () {
 Route::get('/asif_test', function (Request $request) {
 
 
-    // $data='{
-    //     ​​​​​​​ "aps":{
-    //         ​​​"sound":"default",
-    //          "mutable-content": 1,
-    //         "mutable-content": 1,
-    //         "category": "com.SmartAppCo.Wajad.expandedNotification",
-    //         "alert":{​​​​​​​
-    //              "body":"'.$request->body.'", 
-    //              "subtitle":"'.$request->subtitle.'", 
-    //              "title":"'.$request->title.'",
-    //              "mutable-content": 1,
-    //              "category": "com.SmartAppCo.Wajad.expandedNotification"
-    //                 }​​​​​​​
-    //              }​​​​​​​
-    //         }​​​​​​​';
+   
             
             $alert['body']=$request->body;
             $alert['subtitle']=$request->subtitle;
@@ -386,7 +372,8 @@ Route::get('/asif_test', function (Request $request) {
             $data['aps']['mutable-content']=1;
             $data['aps']['category']="com.SmartAppCo.Wajad.expandedNotification";
             $data['aps']['alert']=$alert;
-    //$data=json_decode($data);
+         //   dd( $data);
+   // $data=json_encode($data);
 
 
     // dd($data->data[0]->en);
@@ -403,7 +390,7 @@ Route::get('/asif_test', function (Request $request) {
 
     $option = $optionBuilder->build();
     $notification = $notificationBuilder->build();
-    $dataBuilder->build();
+   $data= $dataBuilder->build();
 
 
 
