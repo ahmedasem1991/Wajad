@@ -368,10 +368,10 @@ Route::get('/asif_test', function (Request $request) {
             $alert['category']="com.SmartAppCo.Wajad.expandedNotification";
 
 
-            $data['aps']['sound']="default";
-            $data['aps']['mutable-content']=1;
-            $data['aps']['category']="com.SmartAppCo.Wajad.expandedNotification";
-            $data['aps']['alert']=$alert;
+            $data['payload']['sound']="default";
+            $data['payload']['mutable-content']=1;
+            $data['payload']['category']="com.SmartAppCo.Wajad.expandedNotification";
+            $data['payload']['alert']=$alert;
          //   dd( $data);
    // $data=json_encode($data);
 
@@ -399,12 +399,12 @@ Route::get('/asif_test', function (Request $request) {
 //$sender=new FCMSender();
     $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
-    $downstreamResponse->numberSuccess();
+  dd( $downstreamResponse )  ;
     $downstreamResponse->numberFailure();
     $downstreamResponse->numberModification();
     return <<<JSON
 {
-    "aps": {
+    "payload": {
         "sound": "default",
         "mutable-content": 1,
         "category": "com.SmartAppCo.Wajad.expandedNotification",
