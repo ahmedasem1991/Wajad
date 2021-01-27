@@ -386,7 +386,7 @@ Route::get('/asif_test', function (Request $request) {
         ->setSound('default');
 
     $dataBuilder = new PayloadDataBuilder();
-    $dataBuilder->addData($data);
+    $dataBuilder->addData(['data' => $data]);
 
     $option = $optionBuilder->build();
     $notification = $notificationBuilder->build();
