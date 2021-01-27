@@ -390,36 +390,19 @@ Route::get('/asif_test', function (Request $request) {
 
     $option = $optionBuilder->build();
     $notification = $notificationBuilder->build();
-   $data= $dataBuilder->build();
+   $data2= $dataBuilder->build();
 
 
 
 
     $tokens=$request->fcm_token;
 //$sender=new FCMSender();
-    $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+    $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data2);
 
-  dd( $downstreamResponse )  ;
+  //dd( $downstreamResponse )  ;
     $downstreamResponse->numberFailure();
     $downstreamResponse->numberModification();
-    return <<<JSON
-{
-    "payload": {
-        "sound": "default",
-        "mutable-content": 1,
-        "category": "com.SmartAppCo.Wajad.expandedNotification",
-        "alert": {
-            "title": "Ability to Rise to Standing From Lying Down - Having difficulty with stairs",
-            "subtitle": "Antonio Leiva – Clean Architecture",
-            "body": "Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking..Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking"
-        },
-        "mutable-content": 1,
-        "category": "com.SmartAppCo.Wajad.expandedNotification"
-    },
-    "podcast-image": "https://koenig-media.raywenderlich.com/uploads/2016/11/Logo-250x250.png",
-    "podcast-guest": "Antonio Leiva"
-}
-JSON;
+    return json_encode($data);
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
