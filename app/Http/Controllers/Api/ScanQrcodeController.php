@@ -103,7 +103,7 @@ class ScanQrcodeController extends Controller
         // if($request->has('lat'))
         // {
             $qr_code->qrcodelog()->create([
-                'ip' =>  $request->ip,
+                'ip' =>  $request->ip ?? "",
                 'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat ?? "".','.$request->lng?? "",
                 'lat' =>  $request->lat ?? "",
                 'lng' => $request->lng ?? "",
