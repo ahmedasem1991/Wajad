@@ -368,13 +368,15 @@ Route::get('/asif_test', function (Request $request) {
             $alert['category']="com.SmartAppCo.Wajad.expandedNotification";
 
 
-            $data['payload']['sound']="default";
-            $data['payload']['mutable-content']=1;
-            $data['payload']['category']="com.SmartAppCo.Wajad.expandedNotification";
-            $data['payload']['alert']=$alert;
+            $data['payload2']['sound']="default";
+            $data['payload2']['mutable-content']=1;
+            $data['payload2']['category']="com.SmartAppCo.Wajad.expandedNotification";
+            $data['payload2']['alert']=$alert;
          //   dd( $data);
    // $data=json_encode($data);
 
+$body['message']= $request->body;
+$body['click_action']= 'post';
 
     // dd($data->data[0]->en);
 
@@ -382,7 +384,10 @@ Route::get('/asif_test', function (Request $request) {
     $optionBuilder->setTimeToLive(60*20);
 
     $notificationBuilder = new PayloadNotificationBuilder($request->title);
-    $notificationBuilder->setBody($request->body)
+    $notificationBuilder->setBody(
+
+        $body['message']
+        )
         ->setSound('default');
 
     $dataBuilder = new PayloadDataBuilder();
@@ -878,3 +883,10 @@ Route::get('deleteuserchat', function(){
     //  dd(request()->getClientIp(true));
 
 });
+
+
+
+
+
+
+http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F

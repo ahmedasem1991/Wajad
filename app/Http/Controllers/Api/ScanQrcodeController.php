@@ -82,14 +82,14 @@ class ScanQrcodeController extends Controller
         }
        }
 
-        if($qr_code->user && $request->has('lat'))
+        if($qr_code->user )
         { //send mail
           if($qr_code->user->receive_emails)
-            Mail::to($qr_code->user)->send(new ScanQRCode($request->lat,$request->lng,$qr_code->item ?? ''));
+            Mail::to($qr_code->user)->send(new ScanQRCode($request->lat?? "",$request->lng ?? "",$qr_code->item ?? ''));
             //send FCM
            
             $badge =getBadge($qr_code->user);
-            $data=sendScanQRCodeFCM($qr_code->item ?? '',$badge,$request->lat?? '21.4498898',$request->lng ?? '39.4913423',$qr_code->id);
+            $data=sendScanQRCodeFCM($qr_code->item ?? '' ,$badge,$request->lat?? '',$request->lng ?? '',$qr_code->id);
             if( $qr_code->item){
                $qr_code->item->owner->notify(new SendFCMNotification($qr_code->item->owner,$data));
             }
@@ -100,18 +100,18 @@ class ScanQrcodeController extends Controller
              // new SendSMSEvent($qr_code->user->country->country_code. $qr_code->user->mobile_number,$message );
 
         }
-        if($request->has('lat'))
-        {
+        // if($request->has('lat'))
+        // {
             $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip,
-                'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat.','.$request->lng,
-                'lat' =>  $request->lat,
-                'lng' => $request->lng,
+                'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat ?? "".','.$request->lng?? "",
+                'lat' =>  $request->lat ?? "",
+                'lng' => $request->lng ?? "",
                 'device_type' => $request->device_type,
                
             ]);
        
-        }
+       // }
         if ($request->expectsJson())
         {
             // QrcodeLogService::LogQrcode($request, $qr_code);
