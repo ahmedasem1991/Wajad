@@ -107,7 +107,7 @@ class ScanQrcodeController extends Controller
                 'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat ?? "".','.$request->lng?? "",
                 'lat' =>  $request->lat ?? "",
                 'lng' => $request->lng ?? "",
-                'device_type' => $request->device_type,
+                'device_type' => $request->device_type ?? "",
                
             ]);
        
