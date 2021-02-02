@@ -66,6 +66,12 @@ class UserQRCodeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $all = auth('api')->user()->qrcodes->where('status', '!=', 6)->where('end_at', '<', now());
+        if($all->count() > 0){
+            foreach ($all as $item){
+                $item->update(['status' => 6]);
+            }
+        }
         $available_single_qr_code = auth('api')->user()->qrcodes()->withFilters(
             new SingleAssign , new AssignedToUser
         )->paginate(20, ['*'], 'available_single_page');
