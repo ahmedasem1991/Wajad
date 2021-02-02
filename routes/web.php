@@ -359,9 +359,24 @@ Route::get('/broadcast', function () {
 Route::get('/asif_test', function (Request $request) {
 
 
-    $data='{​​​​​​​ "aps":{​​​​​​​ "sound":"default", "mutable-content": 1, "category": "myCategory", "alert":{​​​​​​​ "body":"'.$request->body.'", "subtitle":"'.$request->subtitle.'", "title":"'.$request->title.'" }​​​​​​​ }​​​​​​​ }​​​​​​​';
-    $data=json_decode($data);
+   
+            
+            $alert['body']=$request->body;
+            $alert['subtitle']=$request->subtitle;
+            $alert['title']=$request->title;
+            $alert['mutable-content']=1;
+            $alert['category']="com.SmartAppCo.Wajad.expandedNotification";
 
+
+            $data['payload2']['sound']="default";
+            $data['payload2']['mutable-content']=1;
+            $data['payload2']['category']="com.SmartAppCo.Wajad.expandedNotification";
+            $data['payload2']['alert']=$alert;
+         //   dd( $data);
+   // $data=json_encode($data);
+
+$body['message']= $request->body;
+$body['click_action']= 'post';
 
     // dd($data->data[0]->en);
 
@@ -369,44 +384,30 @@ Route::get('/asif_test', function (Request $request) {
     $optionBuilder->setTimeToLive(60*20);
 
     $notificationBuilder = new PayloadNotificationBuilder($request->title);
-    $notificationBuilder->setBody($data)
+    $notificationBuilder->setBody(
+
+        $body['message']
+        )
         ->setSound('default');
 
     $dataBuilder = new PayloadDataBuilder();
-    $dataBuilder->addData(['data' => $data]);
+    $dataBuilder->addData( $data);
 
     $option = $optionBuilder->build();
     $notification = $notificationBuilder->build();
-    $dataBuilder->build();
+   $data2= $dataBuilder->build();
 
 
 
 
     $tokens=$request->fcm_token;
 //$sender=new FCMSender();
-    $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+    $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data2);
 
-    $downstreamResponse->numberSuccess();
+  //dd( $downstreamResponse )  ;
     $downstreamResponse->numberFailure();
     $downstreamResponse->numberModification();
-    return <<<JSON
-{
-    "aps": {
-        "sound": "default",
-        "mutable-content": 1,
-        "category": "com.SmartAppCo.Wajad.expandedNotification",
-        "alert": {
-            "title": "Ability to Rise to Standing From Lying Down - Having difficulty with stairs",
-            "subtitle": "Antonio Leiva – Clean Architecture",
-            "body": "Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking..Over the last 7 days, select the number that best describes how pain as interfered with your dog's ability to rise from difficulty walking"
-        },
-        "mutable-content": 1,
-        "category": "com.SmartAppCo.Wajad.expandedNotification"
-    },
-    "podcast-image": "https://koenig-media.raywenderlich.com/uploads/2016/11/Logo-250x250.png",
-    "podcast-guest": "Antonio Leiva"
-}
-JSON;
+    return json_encode($data);
 
 // // return Array - you must remove all this tokens in your database
 // $downstreamResponse->tokensToDelete();
@@ -882,3 +883,10 @@ Route::get('deleteuserchat', function(){
     //  dd(request()->getClientIp(true));
 
 });
+
+
+
+
+
+
+http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
