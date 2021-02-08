@@ -66,7 +66,7 @@ class ScanQrcodeController extends Controller
 
        if($qr_code->end_at)
        {
-           
+
         if ($qr_code->end_at->toDateTimeString() < Carbon::now()->toDateTimeString()  ) {
 
 
@@ -77,8 +77,8 @@ class ScanQrcodeController extends Controller
                  //QrcodeLogService::LogQrcode($request, $qr_code);
                 return view('expired') ;
             }
-        
-          
+
+
         }
        }
 
@@ -87,13 +87,13 @@ class ScanQrcodeController extends Controller
           if($qr_code->user->receive_emails)
             Mail::to($qr_code->user)->send(new ScanQRCode($request->lat?? "",$request->lng ?? "",$qr_code->item ?? ''));
             //send FCM
-           
+
             $badge =getBadge($qr_code->user);
             $data=sendScanQRCodeFCM($qr_code->item ?? '' ,$badge,$request->lat?? '',$request->lng ?? '',$qr_code->id);
             if( $qr_code->item){
                $qr_code->item->owner->notify(new SendFCMNotification($qr_code->item->owner,$data));
             }
-           
+
             //send SMS
             // $message=sendScanQRCodeSMS($qr_code->user,$qr_code->item ?? '');
             // \Unifonic::send($qr_code->user->country->country_code. $qr_code->user->mobile_number, $message);
@@ -105,12 +105,12 @@ class ScanQrcodeController extends Controller
             $qr_code->qrcodelog()->create([
                 'ip' =>  $request->ip ?? "",
                 'location' =>  'https://www.google.com/maps/search/?api=1&query='.$request->lat ?? "".','.$request->lng?? "",
-                'lat' =>  $request->lat ?? "",
-                'lng' => $request->lng ?? "",
+                'lat' =>  $request->lat ?? null,
+                'lng' => $request->lng ?? null,
                 'device_type' => $request->device_type ?? "",
-               
+
             ]);
-       
+
        // }
         if ($request->expectsJson())
         {
@@ -120,9 +120,9 @@ class ScanQrcodeController extends Controller
              //QrcodeLogService::LogQrcode($request, $qr_code);
             return view('webview.index', compact('qr_code')) ;
         }
-           
 
-       
+
+
         //   return $qr_code->item()->exists() ? view('webview.index', compact('qr_code')) : view('errors.404');
     }
 
