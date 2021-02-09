@@ -130,6 +130,7 @@ class ClosedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('description')->readonly(),
+            Textarea::make('notes'),
 
             Select::make('Post Type','status')->options([
                 0 => 'Lost',

@@ -134,6 +134,7 @@ class ReportedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('Description')->readonly(),
+            Textarea::make('notes'),
 
             RadioButton::make('Approval Status','approval_status')
                 ->options([
