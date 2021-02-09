@@ -134,7 +134,7 @@ class AllPost extends Resource
                 ->rules('required'),
             Textarea::make('description')
                 ->rules('required'),
-            Textarea::make('notes'),
+            Textarea::make('Internal Note','notes'),
 
             Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             Toggle::make('Open Status', 'open_status')

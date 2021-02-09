@@ -99,7 +99,7 @@ class HiddenPost extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            Textarea::make('notes'),
+            Textarea::make('Internal Note','notes'),
 
             Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             Toggle::make('Open Status', 'open_status'),

@@ -131,7 +131,7 @@ class RejectedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('Description')->readonly(),
-            Textarea::make('notes'),
+            Textarea::make('Internal Note','notes'),
             Textarea::make('Reject Reasone', 'reject_reason'),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([

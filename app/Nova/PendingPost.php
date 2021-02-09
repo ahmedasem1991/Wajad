@@ -130,7 +130,7 @@ class PendingPost extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            Textarea::make('notes'),
+            Textarea::make('Internal Note','notes'),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',

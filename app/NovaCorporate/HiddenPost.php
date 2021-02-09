@@ -124,7 +124,7 @@ class HiddenPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),
-            Textarea::make('notes'),
+            Textarea::make('Internal Note','notes'),
             RadioButton::make('Post Type', 'status')
                 ->options([
                     1 => 'Found',
