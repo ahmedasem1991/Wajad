@@ -140,7 +140,7 @@ class RejectedPost extends Resource
                 ])
                 ->stack()
                 ->default(0), // optional
-            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')

@@ -128,7 +128,7 @@ class OpeningPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('description')->rules('required'),
-            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             Toggle::make('Open Status', 'open_status'),
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')

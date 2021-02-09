@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->Increments('id');
             $table->string('title');
             $table->text('description');
+            $table->text('notes')->nullable();
             $table->longtext('images')->nullable();
             $table->unsignedInteger('item_id')->nullable();
             $table->boolean('status')->nullable();

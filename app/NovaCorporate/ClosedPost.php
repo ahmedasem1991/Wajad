@@ -133,7 +133,7 @@ class ClosedPost extends Resource
 
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
-            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())
