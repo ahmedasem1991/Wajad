@@ -132,8 +132,7 @@ class HiddenPost extends Resource
 
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
-            Toggle::make('Appearance Status', 'appearance_status')
-                ->hideWhenCreating(),
+            Toggle::make('Appearance Status', 'appearance_status'),
 
             BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->rules('required')

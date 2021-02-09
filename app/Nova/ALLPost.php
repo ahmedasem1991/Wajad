@@ -135,7 +135,7 @@ class AllPost extends Resource
             Textarea::make('description')
                 ->rules('required'),
 
-            Toggle::make('Appearance Status', 'appearance_status')->hideWhenCreating(),
+            Toggle::make('Appearance Status', 'appearance_status'),
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
             DateTimeField::make('Post Closing Date', 'end_date')
@@ -219,30 +219,30 @@ class AllPost extends Resource
                     ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
                     ->rules('required_if:owner_releated_to_system,0'),
 
-                    
+
                 NovaDependencyContainer::make([
 
 
                     Text::make('Name','owner_name')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
+
                 Text::make('Email','owner_email')
                     ->sortable()
                     ->rules('required', 'email', 'max:254'),
-    
+
                 PhoneNumber::make('Mobile Number','owner_mobile_number')
                     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                     ->onlyCustomFormats(),
-    
+
                 Text::make('Address','owner_address')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
 
-                   
+
+
                 ])->dependsOn('owner_person_id', 0),
-        
+
 
                 ])->dependsOn('owner_releated_to_system', 0),
 
@@ -282,36 +282,36 @@ class AllPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    
+
                     Select2::make('Person', 'founder_person_id')
                     ->showAsLink(People::class)
                     ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
                     ->rules('required_if:founder_releated_to_system,0'),
 
-                    
+
                 NovaDependencyContainer::make([
 
 
                     Text::make('Name','founder_name')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
+
                 Text::make('Email','founder_email')
                     ->sortable()
                     ->rules('required', 'email', 'max:254'),
-    
+
                 PhoneNumber::make('Mobile Number','founder_mobile_number')
                     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                     ->onlyCustomFormats(),
-    
+
                 Text::make('Address','founder_address')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
 
-                   
+
+
                 ])->dependsOn('founder_person_id', 0),
-        
+
 
                 ])->dependsOn('founder_releated_to_system', 0),
 
@@ -368,28 +368,28 @@ class AllPost extends Resource
                     ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
                     ->rules('required_if:owner_releated_to_system,0'),
 
-                    
+
                 NovaDependencyContainer::make([
 
 
                     Text::make('Name','owner_name')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
+
                 Text::make('Email','owner_email')
                     ->sortable()
                     ->rules('required', 'email', 'max:254'),
-    
+
                 PhoneNumber::make('Mobile Number','owner_mobile_number')
                     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                     ->onlyCustomFormats(),
-    
+
                 Text::make('Address','owner_address')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
 
-                   
+
+
                 ])->dependsOn('owner_person_id', 0),
 
                 ])->dependsOn('owner_releated_to_system', 0),
@@ -442,28 +442,28 @@ class AllPost extends Resource
                     ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
                     ->rules('required_if:founder_releated_to_system,0'),
 
-                    
+
                 NovaDependencyContainer::make([
 
 
                     Text::make('Name','founder_name')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
+
                 Text::make('Email','founder_email')
                     ->sortable()
                     ->rules('required', 'email', 'max:254'),
-    
+
                 PhoneNumber::make('Mobile Number','founder_mobile_number')
                     ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                     ->onlyCustomFormats(),
-    
+
                 Text::make('Address','founder_address')
                     ->sortable()
                     ->rules('required', 'max:255'),
-    
 
-                   
+
+
                 ])->dependsOn('founder_person_id', 0),
                 ])->dependsOn('founder_releated_to_system', 0),
 
@@ -552,19 +552,19 @@ class AllPost extends Resource
     //     $request->offsetUnset('email');
 
     // }
-    
+
     // if ($request->input('name')) {
 
     //     $request->offsetUnset('name');
 
     // }
-    
+
     // if ($request->input('address')) {
 
     //     $request->offsetUnset('address');
 
     // }
-    
+
     // if ($request->input('mobile_number')) {
 
     //     $request->offsetUnset('mobile_number');
