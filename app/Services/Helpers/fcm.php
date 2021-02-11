@@ -169,7 +169,7 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
         ],
         'en' => [
             'title' => 'Your Item '.$title . ' Got Scanned.',
-            'body' => 'Your Item '.$title . ' Got Scanned. Check The Location on The Map . '
+            'body' => 'Your Item '.$title . ' Got Scanned. Check The Location on The Map.'
         ],
         'type' => 'scan_qrcode',
         'deeplink' => 'item',
