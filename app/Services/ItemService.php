@@ -122,15 +122,15 @@ class ItemService
             $badge =getBadge($item->owner);
             $data=sendUpdateItemFCM($item,$badge);
             $item->owner->notify(new SendFCMNotification($item->owner,$data));
-            
+
         }
     }
 
     private function validateItemRequest($request)
     {
         $validate_request = Validator::make($request->all(), [
-            'title' => ['required', 'min:6', 'max:255'],
-            'details' => ['required', 'min:20', 'max:500'],
+            'title' => ['required', 'min:4', 'max:255'],
+            'details' => ['required', 'min:4', 'max:500'],
             'color_id' => ['required', 'exists:colors,id'],
             'model_id' => ['required', 'exists:models,id'],
             'brand_id' => ['required', 'exists:brands,id'],

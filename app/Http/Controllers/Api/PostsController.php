@@ -71,8 +71,8 @@ class PostsController extends Controller
         }
 
         $validate_request = Validator::make($request->all(), [
-            'title' => ['required', 'min:6', 'max:128'],
-            'description' => ['required', 'min:9', 'max:500'],
+            'title' => ['required', 'min:4', 'max:128'],
+            'description' => ['required', 'min:4', 'max:500'],
             'reward' => ['nullable', 'string'],
             'longitude' => ['required'],
             //'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
@@ -514,8 +514,8 @@ class PostsController extends Controller
 
         if ($user->can('update', $post)) {
             $validate_request = Validator::make($request->all(), [
-                'title' => ['required', 'min:6', 'max:255'],
-                'description' => ['required', 'min:9', 'max:500'],
+                'title' => ['required', 'min:4', 'max:255'],
+                'description' => ['required', 'min:4', 'max:500'],
                 'reward' => ['nullable', 'string'],
                 'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
