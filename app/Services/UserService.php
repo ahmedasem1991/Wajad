@@ -136,7 +136,8 @@ class UserService
 
         $user->userVerification()->delete();
 
-        $verification_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $verification_code = random_int(1000, 9999);
+//        $verification_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
         $user->userVerification()->create([
             'verification_code' => $verification_code,
@@ -178,7 +179,8 @@ class UserService
 
         $user->userVerification()->delete();
 
-        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $activation_code = random_int(1000, 9999);
+//        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
         $user->userVerification()->create([
             'verification_code' => $activation_code,
