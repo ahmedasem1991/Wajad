@@ -25,6 +25,10 @@ class UserService
 
         $user_verificatioin =  $user->userVerification ?? null;
 
+        if ($user_verificatioin->expire_at < now()){
+            throw new ApiException(trans('auth.verification_code_expired'),400);
+        }
+
         if (!$user_verificatioin) {
             throw new ApiException(trans('auth.something_wrong'), 400);
         }
@@ -232,6 +236,10 @@ class UserService
             if (!$user_verificatioin->codeValidForMobileNumber()) {
                 $user_verificatioin->increment('attempt');
                 throw new ApiException(trans('auth.wrong_code'), 400);
+            }
+
+            if ($user_verificatioin->expire_at < now()){
+                throw new ApiException(trans('auth.verification_code_expired'),400);
             }
 
 

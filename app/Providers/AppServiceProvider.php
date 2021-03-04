@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\UserVerificationsObserver;
 use App\Post;
 use App\Role;
 use App\User;
@@ -25,6 +26,7 @@ use App\Observers\PeopleObserver;
 use App\Observers\QrcodeObserver;
 use App\Observers\QuestionObserver;
 use App\Observers\RoleUserObserver;
+use App\UserVerifications;
 use Illuminate\Support\Facades\Log;
 use App\Observers\RoleUserObserver2;
 use Illuminate\Support\Facades\Queue;
@@ -84,7 +86,8 @@ class AppServiceProvider extends ServiceProvider
         Question::observe(QuestionObserver::class);
         AdminNotification::observe(NotificationObserver::class);
         \App\Role::observe(RoleObserver::class);
-        
+        UserVerifications::observe(UserVerificationsObserver::class);
+
         Model::addGlobalScope(function (Builder $builder){
             if (auth()->user()->isCorporateAdmin()){
             $builder->where('corporate_id',auth()->user()->corporate->id);
