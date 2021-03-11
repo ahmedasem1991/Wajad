@@ -25,7 +25,7 @@ class MesiboNotificationController extends Controller
      */
     public function  __invoke(Request $request)
     {
-        DB::table('mesibo_notification')->insert($request->all());
+        DB::table('mesibo_notification')->insert(['payload' => $request->all()]);
         return 'MESIBO OK';
 //
 //        $validate_request = Validator::make($request->all(), [
