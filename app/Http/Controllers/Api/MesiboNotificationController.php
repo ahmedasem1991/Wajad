@@ -26,7 +26,7 @@ class MesiboNotificationController extends Controller
     public function  __invoke(Request $request)
     {
         try {
-            DB::table('integration_temp')->insert($request->data);
+            DB::table('mesibo_notification')->insert(['payload' => $request->all()]);
             return 'MESIBO OK';
         } catch (\Exception $e) {
             return $e->getMessage();
