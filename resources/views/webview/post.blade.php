@@ -245,7 +245,7 @@
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">NAME: </h6>
                                     <h8 class="my-3 ">
-                                    @if({{$post->publisher)
+                                    @if($post->publisher)
                                         <span>{{$post->publisher->name ?? 'Not Available'}}</span>
                                         @endif
                                     </h8><br>
