@@ -9,26 +9,26 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="shortcut icon" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="icon" sizes="16x16 32x32 64x64" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="icon" type="image/png" sizes="196x196" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="icon" type="image/png" sizes="96x96" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="icon" type="image/png" sizes="64x64" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="icon" type="image/png" sizes="32x32" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="icon" type="image/png" sizes="16x16" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="114x114" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="72x72" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="144x144" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="60x60" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="120x120" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="76x76" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<link rel="apple-touch-icon" sizes="152x152" href="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
+<link rel="shortcut icon" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="icon" sizes="16x16 32x32 64x64" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="icon" type="image/png" sizes="196x196" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="icon" type="image/png" sizes="96x96" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="icon" type="image/png" sizes="64x64" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
 <meta name="application-name" content="PayTabs"/>
 <meta name="msapplication-TileColor" content="#FFFFFF"/>
-<meta name="msapplication-TileImage" content="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<meta name="msapplication-square70x70logo" content="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
-<meta name="msapplication-square150x150logo" content="https://wajad-demo.smartappco.dev/images/wajad_logo.png"/>
+<meta name="msapplication-TileImage" content="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<meta name="msapplication-square70x70logo" content="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
+<meta name="msapplication-square150x150logo" content="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
     <link rel="alternate" href="wajad://api-wajad.smartappco.dev/api/share-post/{{$post->id}}" />
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}" />
