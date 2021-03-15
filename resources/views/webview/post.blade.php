@@ -111,7 +111,7 @@
                 <div class="col-lg-6">
                     <div class="card border-0 mb-4">
                         <div class="card-header heads">
-                            <h6 style="color: #07a3e2"><strong>ITEM INFORMATION</strong></h6>
+                            <h6 style="color: #07a3e2"><strong>POST INFORMATION</strong></h6>
                         </div>
                         <div class="card-body bodies">
 
@@ -134,7 +134,7 @@
                                 <h6 class="font-weight-bold">
                                     <span>Brand: </span></h6>
                                 <h8 class="my-3 ">
-                                    <span>{{$post->item->brand->name_en ?? 'Not Available'}}</span>
+                                    <span>{{$post->brand->name_en ?? 'Not Available'}}</span>
                                 </h8><br>
 
                                 <!--customer Details end-->
@@ -143,7 +143,7 @@
                                 <!--customer Details start-->
                                 <h6 class="font-weight-bold">Model: </h6>
                                 <h8 class="my-3 ">
-                                    <span>{{$post->item->model->name_en ?? 'Not Available'}}</span>
+                                    <span>{{$post->model->name_en ?? 'Not Available'}}</span>
                                 </h8><br>
                                 <!--customer Details end-->
                             </div>
@@ -151,16 +151,16 @@
                                 <!--customer Details start-->
                                 <h6 class="font-weight-bold">Color: </h6>
                                 <h8 class="my-3 ">
-                                    <span>{{$post->item->color->name_en ?? 'Not Available'}}</span>
+                                    <span>{{$post->color->name_en ?? 'Not Available'}}</span>
                                 </h8><br>
                                 <!--customer Details end-->
                             </div>
 
                             <div class="col-12 col-md-12">
                                 <!--customer Details start-->
-                                <h6 class="font-weight-bold">Item: </h6>
+                                <h6 class="font-weight-bold">Post: </h6>
                                 <h8 class="my-3 ">
-                                    <span>{{$post->item->title ?? 'Not Available'}}</span>
+                                    <span>{{$post->title ?? 'Not Available'}}</span>
                                 </h8><br>
                                 <!--customer Details end-->
                             </div>
@@ -168,7 +168,7 @@
 
 
                             </td>
-                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$post->image}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
+                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$post->images[0]}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
     </tr>
 
                    
@@ -183,9 +183,9 @@
 <div >
                                 <div class="row">
                                     <div class="col-12 col-md-12" style="display: inline-block">
-                                        @if($post->item)
+                                        @if($post->images)
                                         
-                                        @foreach($post->item->images as $key=> $image)
+                                        @foreach($post->images as $key=> $image)
                                         @if( $key == 0)<tr>@endif
                                         
                                        <td>
@@ -219,7 +219,7 @@
                     <!--customer Details start-->
                     <h6 class="font-weight-bold">Description: </h6>
                     <h8 class="my-3 ">
-                    <span>{{$post->item->details ?? 'Not Available'}}</span>
+                    <span>{{$post->description ?? 'Not Available'}}</span>
                     </h8><br>
                     <!--customer Details end-->
                     </div>
@@ -238,14 +238,16 @@
                     <div class="">
                         <div class="card border-0 mb-4">
                             <div class="card-header heads">
-                                <h6 style="color: #07a3e2"><strong>OWNER INFORMATION</strong></h6>
+                                <h6 style="color: #07a3e2"><strong>PUBLISHER INFORMATION</strong></h6>
                             </div>
                             <div class="card-body bodies">
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h6 class="font-weight-bold">Item Owner: </h6>
+                                    <h6 class="font-weight-bold">NAME: </h6>
                                     <h8 class="my-3 ">
-                                        <span>{{$post->item->owner->name ?? 'Not Available'}}</span>
+                                    @if({{$post->publisher)
+                                        <span>{{$post->publisher->name ?? 'Not Available'}}</span>
+                                        @endif
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
@@ -253,8 +255,8 @@
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">Contact #: </h6>
                                     <h8 class="my-3 ">
-                                        {{-- <a href="tel:{{$post->item->owner ? '+'. $post->item->owner->country->country_code . $post->item->owner->mobile_number : ''}}">--}}
-                                        <span>{{!empty($post->item->owner) ? '+'. $post->item->owner->country->country_code . $post->item->owner->mobile_number : 'Not Available'}}</span>
+                                        {{-- <a href="tel:{{$post->publisher ? '+'. $post->publisher->country->country_code . $post->publisher->mobile_number : ''}}">--}}
+                                        <span>{{!empty($post->publisher) ? '+'. $post->publisher->country->country_code . $post->publisher->mobile_number : 'Not Available'}}</span>
                                         {{-- </a>--}}
                                     </h8><br>
                                     <!--customer Details end-->
@@ -263,24 +265,24 @@
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">Date: </h6>
                                     <h8 class="my-3 ">
-                                        <span>{{!empty($post->item) ? $post->item->created_at->format('d F Y') : 'Not Available'}}</span>
+                                        <span>{{!empty($post) ? $post->created_at->format('d F Y') : 'Not Available'}}</span>
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h6 class="font-weight-bold">Item: </h6>
+                                    <h6 class="font-weight-bold">Title: </h6>
                                     <h8 class="my-3 ">
-                                        <span>{{$post->item->title ?? 'Not Available'}}</span>
+                                        <span>{{$post->title ?? 'Not Available'}}</span>
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <!--customer Details start-->
-                                    <h6 class="font-weight-bold">Contact The Owner: </h6>
+                                    <!-- <h6 class="font-weight-bold">Contact The Owner: </h6>
                                     <h8 class="my-3 ">
                                         <a href="#"><span>Click Here</span></a>
-                                    </h8><br>
+                                    </h8><br> -->
                                     <!--customer Details end-->
                                 </div>
                             </div>
