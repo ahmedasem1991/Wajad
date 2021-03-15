@@ -168,7 +168,7 @@
 
 
                             </td>
-                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$post->images[0]}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
+                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$post->images->toArray()[0]}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
     </tr>
 
                    
@@ -185,7 +185,7 @@
                                     <div class="col-12 col-md-12" style="display: inline-block">
                                         @if($post->images)
                                         
-                                        @foreach($post->images as $key=> $image)
+                                        @foreach($post->images->toArray() as $key=> $image)
                                         @if( $key == 0)<tr>@endif
                                         
                                        <td>
