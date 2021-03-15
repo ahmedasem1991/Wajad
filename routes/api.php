@@ -146,6 +146,9 @@ Route::post('/contact-us', 'SupportController@store');
 # Qr Code
 Route::get('/scan-qr-code/{qr_code}', 'ScanQrcodeController')->name('scan-qrcode-api');
 
+# Qr Code
+Route::get('/share-post/{id}', 'SharePostController')->name('share-post');
+
 # Packages
 Route::get('/packages', 'PackageController');
 
