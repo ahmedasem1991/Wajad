@@ -265,7 +265,7 @@
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">Date: </h6>
                                     <h8 class="my-3 ">
-                                        <span>{{!empty($post) ? $post->created_at->format('d F Y') : 'Not Available'}}</span>
+                                        <span>{{ $post->created_at }}</span>
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
