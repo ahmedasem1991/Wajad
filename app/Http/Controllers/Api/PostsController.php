@@ -71,8 +71,8 @@ class PostsController extends Controller
         }
 
         $validate_request = Validator::make($request->all(), [
-            'title' => ['required', 'min:6', 'max:128'],
-            'description' => ['required', 'min:9', 'max:500'],
+            'title' => ['required', 'min:4', 'max:128'],
+            'description' => ['required', 'min:4', 'max:500'],
             'reward' => ['nullable', 'string'],
             'longitude' => ['required'],
             //'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
@@ -97,9 +97,9 @@ class PostsController extends Controller
         if ($type == "found") {
             $validate_found_post = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
-                'questions.0' => ['required', 'min:9', 'max:500'],
-                'questions.1' => ['min:9', 'max:500'],
-                'questions.2' => ['min:9', 'max:500'],
+                'questions.0' => ['required', 'min:4', 'max:500'],
+                'questions.1' => ['min:4', 'max:500'],
+                'questions.2' => ['min:4', 'max:500'],
             ]);
 
             if ($validate_found_post->fails()) {
@@ -114,9 +114,9 @@ class PostsController extends Controller
         if ($type == "found") {
             $validate_questions = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
-                'questions.0' => ['required', 'min:9', 'max:500'],
-                'questions.1' => ['nullable', 'min:9', 'max:500'],
-                'questions.2' => ['nullable', 'min:9', 'max:500'],
+                'questions.0' => ['required', 'min:4', 'max:500'],
+                'questions.1' => ['nullable', 'min:4', 'max:500'],
+                'questions.2' => ['nullable', 'min:4', 'max:500'],
             ]);
             if ($validate_questions->fails()) {
                 throw new ApiException($validate_questions->errors()->first(), 400);
@@ -514,8 +514,8 @@ class PostsController extends Controller
 
         if ($user->can('update', $post)) {
             $validate_request = Validator::make($request->all(), [
-                'title' => ['required', 'min:6', 'max:255'],
-                'description' => ['required', 'min:9', 'max:500'],
+                'title' => ['required', 'min:4', 'max:255'],
+                'description' => ['required', 'min:4', 'max:500'],
                 'reward' => ['nullable', 'string'],
                 'longitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
@@ -540,9 +540,9 @@ class PostsController extends Controller
                 $type='found';
                 $validate_found_post = Validator::make($request->all(), [
                     'questions' => ['required',  'array', 'between:1,3'],
-                    'questions.0' => ['required', 'min:9', 'max:500'],
-                    'questions.1' => ['min:9', 'max:500'],
-                    'questions.2' => ['min:9', 'max:500'],
+                    'questions.0' => ['required', 'min:4', 'max:500'],
+                    'questions.1' => ['min:4', 'max:500'],
+                    'questions.2' => ['min:4', 'max:500'],
                 ]);
 
                 if ($validate_found_post->fails()) {

@@ -22,6 +22,7 @@ class CreateUserVerificationsTable extends Migration
                 'email'
             ]);
             $table->integer('attempt')->default(1);
+            $table->dateTime('expire_at');
             $table->timestamps();
         });
     }

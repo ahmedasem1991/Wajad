@@ -184,3 +184,5 @@ Route::get('paywithpaypal', function () {
     return  redirect(Nova::path());
  });
 
+Route::match(['get', 'post'],'/mesibo/notification', 'MesiboNotificationController');
+

@@ -130,6 +130,7 @@ class PendingPost extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
+            Textarea::make('Internal Note','notes'),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
@@ -138,7 +139,7 @@ class PendingPost extends Resource
                 ])
                 ->stack()
                 ->default(0),
-            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())

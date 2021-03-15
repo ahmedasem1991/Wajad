@@ -22,8 +22,12 @@ class UserService
      */
     public function verifyActivationCode(User $user, $code, $code_valid_for)
     {
-         
+
         $user_verificatioin =  $user->userVerification ?? null;
+
+        if ($user_verificatioin->expire_at < now()){
+            throw new ApiException(trans('auth.verification_code_expired'),400);
+        }
 
         if (!$user_verificatioin) {
             throw new ApiException(trans('auth.something_wrong'), 400);
@@ -47,7 +51,7 @@ class UserService
           $mobile_country_id=  $user->mobile_country_id;
           $v_mobile_number=  $user->v_mobile_number;
           $v_mobile_country_id=  $user->v_mobile_country_id;
-        
+
         $user->update([
             'mobile_number' =>$v_mobile_number ?? $mobile_number,
             'mobile_country_id' => $v_mobile_country_id ??$mobile_country_id,
@@ -87,7 +91,8 @@ class UserService
 
         $user->userVerification()->delete();
 
-        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $activation_code = random_int(1000, 9999);
+//        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
         $user->userVerification()->create([
             'verification_code' => $activation_code,
@@ -128,36 +133,37 @@ class UserService
      */
     public function createAndSendActivationCodeForUpdateMobile(User $user)
     {
-        
+
         if ($user->userVerification && $user->userVerification->sendCodeWithinMinute()) {
             throw new ApiException(trans('auth.verification_code_wait_time_one_minute'), 400);
         }
 
         $user->userVerification()->delete();
 
-        $verification_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $verification_code = random_int(1000, 9999);
+//        $verification_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
         $user->userVerification()->create([
             'verification_code' => $verification_code,
             'code_valid_for' => 'phone'
         ]);
-        
 
-       
+
+
             $message = 'Wajad,  verification  code is ' . $verification_code;
-          
+
           //  dd($user->v_mobile_country_id);
             $country_code=Country::find($user->v_mobile_country_id)['country_code'];
 
                  \Unifonic::send($country_code. $user->v_mobile_number,$message);
                 // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
-           
+
             return true;
-        
 
- 
 
-    
+
+
+
     }
 
 
@@ -177,14 +183,15 @@ class UserService
 
         $user->userVerification()->delete();
 
-        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
+        $activation_code = random_int(1000, 9999);
+//        $activation_code = env('STATIC_VERIFICATION_CODE', rand(1000, 9999));
 
         $user->userVerification()->create([
             'verification_code' => $activation_code,
             'code_valid_for' => 'phone'
         ]);
 
-       
+
             $message = 'Wajad,  Activation code is ' . $activation_code;
             if($user->country->country_code==="966" || $user->country->country_code==="+966"){
                 \Unifonic::send($user->country->country_code. $user->mobile_number, $message);
@@ -193,9 +200,9 @@ class UserService
             Mail::to($user)->send(new EmailVerificationCode($activation_code));
 
             return true;
-   
 
-        
+
+
     }
 
 
@@ -225,14 +232,18 @@ class UserService
             throw new ApiException(trans('auth.verification_code_exceeded'), 400);
         }
 
-     
+
             if (!$user_verificatioin->codeValidForMobileNumber()) {
                 $user_verificatioin->increment('attempt');
                 throw new ApiException(trans('auth.wrong_code'), 400);
             }
 
+            if ($user_verificatioin->expire_at < now()){
+                throw new ApiException(trans('auth.verification_code_expired'),400);
+            }
+
 
             $user->userVerification()->delete();
-      
+
     }
 }

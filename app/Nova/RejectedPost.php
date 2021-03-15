@@ -131,6 +131,7 @@ class RejectedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('Description')->readonly(),
+            Textarea::make('Internal Note','notes'),
             Textarea::make('Reject Reasone', 'reject_reason'),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
@@ -140,7 +141,7 @@ class RejectedPost extends Resource
                 ])
                 ->stack()
                 ->default(0), // optional
-            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')

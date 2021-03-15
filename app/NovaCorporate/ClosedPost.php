@@ -125,6 +125,7 @@ class ClosedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),
+            Textarea::make('Internal Note','notes'),
             RadioButton::make('Post Type','status')
                 ->options([
                     1 => 'Found',
@@ -133,8 +134,7 @@ class ClosedPost extends Resource
 
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
-            Toggle::make('Appearance Status', 'appearance_status')
-                ->hideWhenCreating(),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())

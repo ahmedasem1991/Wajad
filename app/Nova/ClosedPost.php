@@ -130,6 +130,7 @@ class ClosedPost extends Resource
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('description')->readonly(),
+            Textarea::make('Internal Note','notes'),
 
             Select::make('Post Type','status')->options([
                 0 => 'Lost',
@@ -137,7 +138,7 @@ class ClosedPost extends Resource
             ])
                 ->displayUsingLabels()
                 ->readonly(),
-            Toggle::make('Appearance Status', 'appearance_status'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
             Toggle::make('Open Status', 'open_status'),
             DateTimeField::make('Post Closing Date', 'end_date')
                 ->maxDate(Carbon::today())
