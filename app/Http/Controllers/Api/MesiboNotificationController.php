@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
-use App\User;
-use App\Answer;
-use App\Question;
-use App\PostRequest;
-use Illuminate\Support\Facades\DB;
-use Laravel\Nova\Nova;
-use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use App\Notifications\SendFCMNotification;
-use App\Notifications\BroadcastNotification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MesiboNotificationController extends Controller
 {
@@ -26,16 +17,18 @@ class MesiboNotificationController extends Controller
     public function  __invoke(Request $request)
     {
         if($request->method() == 'POST'){
-            try {
-                DB::table('mesibo_notification')->insert(['payload' => json_encode($request->all())]);
-                return 'MESIBO OK';
-            } catch (\Exception $e) {
-                DB::table('mesibo_notification')->insert(['payload' => $e->getMessage()]);
-                return $e->getMessage();
+            $data = json_decode($request->all(),true);
+            if ($data['events']['type'] == 'message'){
+                try {
+                    DB::table('mesibo_notification')->insert(['payload' => json_encode($request->all())]);
+                    return 'MESIBO OK';
+                } catch (\Exception $e) {
+                    DB::table('mesibo_notification')->insert(['payload' => $e->getMessage()]);
+                    return $e->getMessage();
+                }
             }
+            return 'MESIBO OK';
         }
-        return 'MESIBO OK';
-
 
 //
 //        $validate_request = Validator::make($request->all(), [
