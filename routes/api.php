@@ -146,6 +146,9 @@ Route::post('/contact-us', 'SupportController@store');
 # Qr Code
 Route::get('/scan-qr-code/{qr_code}', 'ScanQrcodeController')->name('scan-qrcode-api');
 
+# Qr Code
+
+
 # Packages
 Route::get('/packages', 'PackageController');
 
@@ -183,3 +186,4 @@ Route::get('paywithpaypal', function () {
 
 Route::match(['get', 'post'],'/mesibo/notification', 'MesiboNotificationController');
 
+Route::get('/share-post/{id}', 'SharePostController')->name('share-post');
