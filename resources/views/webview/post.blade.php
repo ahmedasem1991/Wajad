@@ -98,7 +98,7 @@
 
     </script>
 
-
+ 
     <!-- <div class="col-md-3 col-sm-3 m-3 p-3  col-md-8">
         <img src="/images/wlogo.png"  style="width:140px;height:70px">
     </div> -->
@@ -129,6 +129,15 @@
 <td style="vertical-align:top; word-wrap: break-word" >
 
 
+<div class="col-12 col-md-12">
+                                <!--customer Details start-->
+                                <h6 class="font-weight-bold">Post: </h6>
+                                <h8 class="my-3 ">
+                                    <span>{{$post->title ?? 'Not Available'}}</span>
+                                </h8><br>
+                                <!--customer Details end-->
+                            </div>
+
                              <div class="col-12 col-md-12">
                                 <!--customer Details start-->
                                 <h6 class="font-weight-bold">
@@ -158,9 +167,9 @@
 
                             <div class="col-12 col-md-12">
                                 <!--customer Details start-->
-                                <h6 class="font-weight-bold">Post: </h6>
+                                <h6 class="font-weight-bold">Date: </h6>
                                 <h8 class="my-3 ">
-                                    <span>{{$post->title ?? 'Not Available'}}</span>
+                                    <span>{{$post->created_at ?? 'Not Available'}}</span>
                                 </h8><br>
                                 <!--customer Details end-->
                             </div>
@@ -168,7 +177,7 @@
 
 
                             </td>
-                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$post->images}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
+                            <td  style="vertical-align:top"><img src="{{env('APP_URL')}}/{{$post->images[0]}}" alt="" class="" style="max-width: 100%;float:right"  /></td>
     </tr>
 
                    
@@ -246,7 +255,9 @@
                                     <h6 class="font-weight-bold">NAME: </h6>
                                     <h8 class="my-3 ">
                                     @if($post->publisher)
+                                    @if($post->show_name==1)
                                         <span>{{$post->publisher->name ?? 'Not Available'}}</span>
+                                        @endif
                                         @endif
                                     </h8><br>
                                     <!--customer Details end-->
@@ -256,7 +267,9 @@
                                     <h6 class="font-weight-bold">Contact #: </h6>
                                     <h8 class="my-3 ">
                                         {{-- <a href="tel:{{$post->publisher ? '+'. $post->publisher->country->country_code . $post->publisher->mobile_number : ''}}">--}}
+                                        @if($post->show_number==1)
                                         <span>{{!empty($post->publisher) ? '+'. $post->publisher->country->country_code . $post->publisher->mobile_number : 'Not Available'}}</span>
+                                       @endif
                                         {{-- </a>--}}
                                     </h8><br>
                                     <!--customer Details end-->

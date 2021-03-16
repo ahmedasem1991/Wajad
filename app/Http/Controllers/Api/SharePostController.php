@@ -62,9 +62,9 @@ class SharePostController extends Controller
      *}
      * @return void
      */
-    public function __invoke(Request $request, Post $post)
+    public function __invoke(Request $request,$post)
     {
- 
+          $post=Post::find($post);
         if ($request->expectsJson())
         {
             return new PostResource($post);
