@@ -250,7 +250,7 @@
                                 <h6 style="color: #07a3e2"><strong>PUBLISHER INFORMATION</strong></h6>
                             </div>
                             <div class="card-body bodies">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-12">
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">NAME: </h6>
                                     <h8 class="my-3 ">
@@ -262,7 +262,7 @@
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-12">
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">Contact #: </h6>
                                     <h8 class="my-3 ">
@@ -274,7 +274,7 @@
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-12">
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">Date: </h6>
                                     <h8 class="my-3 ">
@@ -282,7 +282,7 @@
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-12">
                                     <!--customer Details start-->
                                     <h6 class="font-weight-bold">Title: </h6>
                                     <h8 class="my-3 ">
@@ -290,7 +290,7 @@
                                     </h8><br>
                                     <!--customer Details end-->
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-12">
                                     <!--customer Details start-->
                                     <!-- <h6 class="font-weight-bold">Contact The Owner: </h6>
                                     <h8 class="my-3 ">
