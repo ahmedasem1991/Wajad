@@ -2796,7 +2796,7 @@ fetch(url, {
     "http://api.wajad.test/api/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"00966236363256","password":"123456789","device_type":"dolorem","mobile_country_id":"beatae"}'
+    -d '{"user":"00966236363256","password":"123456789","device_type":"odio","mobile_country_id":"suscipit"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/login"
@@ -2810,8 +2810,8 @@ let headers = {
 let body = {
     "user": "00966236363256",
     "password": "123456789",
-    "device_type": "dolorem",
-    "mobile_country_id": "beatae"
+    "device_type": "odio",
+    "mobile_country_id": "suscipit"
 }
 
 fetch(url, {
@@ -2906,7 +2906,7 @@ fetch(url, {
     "http://api.wajad.test/api/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"necessitatibus","mobile_country_id":11}'
+    -d '{"name":"Api Username","email":"api@wajad.com","password":"123456789","mobile_number":"123456789","device_type":"mollitia","mobile_country_id":6}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register"
@@ -2922,8 +2922,8 @@ let body = {
     "email": "api@wajad.com",
     "password": "123456789",
     "mobile_number": "123456789",
-    "device_type": "necessitatibus",
-    "mobile_country_id": 11
+    "device_type": "mollitia",
+    "mobile_country_id": 6
 }
 
 fetch(url, {
@@ -3026,7 +3026,7 @@ fetch(url, {
     "http://api.wajad.test/api/refreshToken" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"ex"}'
+    -d '{"token":"in"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/refreshToken"
@@ -3038,7 +3038,7 @@ let headers = {
 };
 
 let body = {
-    "token": "ex"
+    "token": "in"
 }
 
 fetch(url, {
@@ -3095,13 +3095,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/socialLogin/impedit" \
+    "http://api.wajad.test/api/socialLogin/vel" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"non","device_type":"voluptate"}'
+    -d '{"token":"rerum","device_type":"non"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/socialLogin/impedit"
+    "http://api.wajad.test/api/socialLogin/vel"
 );
 
 let headers = {
@@ -3110,8 +3110,8 @@ let headers = {
 };
 
 let body = {
-    "token": "non",
-    "device_type": "voluptate"
+    "token": "rerum",
+    "device_type": "non"
 }
 
 fetch(url, {
@@ -3198,7 +3198,7 @@ fetch(url, {
     "http://api.wajad.test/api/appleLogin" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"excepturi","device_type":"dolor","name":"non","email":"laborum"}'
+    -d '{"token":"temporibus","device_type":"maiores","name":"quasi","email":"minima"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/appleLogin"
@@ -3210,10 +3210,10 @@ let headers = {
 };
 
 let body = {
-    "token": "excepturi",
-    "device_type": "dolor",
-    "name": "non",
-    "email": "laborum"
+    "token": "temporibus",
+    "device_type": "maiores",
+    "name": "quasi",
+    "email": "minima"
 }
 
 fetch(url, {
@@ -3293,7 +3293,7 @@ fetch(url, {
     "http://api.wajad.test/api/sendCode/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"ex"}'
+    -d '{"token":"non"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/sendCode/phone."
@@ -3305,7 +3305,7 @@ let headers = {
 };
 
 let body = {
-    "token": "ex"
+    "token": "non"
 }
 
 fetch(url, {
@@ -3370,7 +3370,7 @@ fetch(url, {
     "http://api.wajad.test/api/logout" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"nisi"}'
+    -d '{"token":"doloremque"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/logout"
@@ -3382,7 +3382,7 @@ let headers = {
 };
 
 let body = {
-    "token": "nisi"
+    "token": "doloremque"
 }
 
 fetch(url, {
@@ -3431,7 +3431,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/fcm" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"quo"}'
+    -d '{"token":"soluta"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/fcm"
@@ -3443,7 +3443,7 @@ let headers = {
 };
 
 let body = {
-    "token": "quo"
+    "token": "soluta"
 }
 
 fetch(url, {
@@ -3563,7 +3563,7 @@ fetch(url, {
     "http://api.wajad.test/api/fcm/create" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"fcm_token":"ut","lang":"dignissimos","device":"nesciunt","token":"aliquid"}'
+    -d '{"fcm_token":"reiciendis","lang":"aliquid","device":"architecto","token":"tempore"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/fcm/create"
@@ -3575,10 +3575,10 @@ let headers = {
 };
 
 let body = {
-    "fcm_token": "ut",
-    "lang": "dignissimos",
-    "device": "nesciunt",
-    "token": "aliquid"
+    "fcm_token": "reiciendis",
+    "lang": "aliquid",
+    "device": "architecto",
+    "token": "tempore"
 }
 
 fetch(url, {
@@ -3643,7 +3643,7 @@ fetch(url, {
     "http://api.wajad.test/api/fcm/readfcm" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"notification_id":"non","token":"sit"}'
+    -d '{"notification_id":"perspiciatis","token":"quaerat"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/fcm/readfcm"
@@ -3655,8 +3655,8 @@ let headers = {
 };
 
 let body = {
-    "notification_id": "non",
-    "token": "sit"
+    "notification_id": "perspiciatis",
+    "token": "quaerat"
 }
 
 fetch(url, {
@@ -3762,11 +3762,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/home/posts/natus/1" \
+    -G "http://api.wajad.test/api/home/posts/nisi/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/home/posts/natus/1"
+    "http://api.wajad.test/api/home/posts/nisi/1"
 );
 
 let headers = {
@@ -3972,7 +3972,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userItems" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"culpa"}'
+    -d '{"token":"dolor"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userItems"
@@ -3984,7 +3984,7 @@ let headers = {
 };
 
 let body = {
-    "token": "culpa"
+    "token": "dolor"
 }
 
 fetch(url, {
@@ -4093,7 +4093,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"repellat"}'
+    -d '{"token":"eos"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -4105,7 +4105,7 @@ let headers = {
 };
 
 let body = {
-    "token": "repellat"
+    "token": "eos"
 }
 
 fetch(url, {
@@ -4250,7 +4250,7 @@ fetch(url, {
     "http://api.wajad.test/api/items" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"ullam","details":"blanditiis","color_id":"soluta","brand_id":"quis","model_id":"vel","sub_category_id":"ut","qrcode_id":"quos","images":["eveniet"],"token":"voluptas"}'
+    -d '{"title":"tenetur","details":"voluptatum","color_id":"commodi","brand_id":"eius","model_id":"quis","sub_category_id":"consequatur","qrcode_id":"et","images":["ab"],"token":"sed"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items"
@@ -4262,17 +4262,17 @@ let headers = {
 };
 
 let body = {
-    "title": "ullam",
-    "details": "blanditiis",
-    "color_id": "soluta",
-    "brand_id": "quis",
-    "model_id": "vel",
-    "sub_category_id": "ut",
-    "qrcode_id": "quos",
+    "title": "tenetur",
+    "details": "voluptatum",
+    "color_id": "commodi",
+    "brand_id": "eius",
+    "model_id": "quis",
+    "sub_category_id": "consequatur",
+    "qrcode_id": "et",
     "images": [
-        "eveniet"
+        "ab"
     ],
-    "token": "voluptas"
+    "token": "sed"
 }
 
 fetch(url, {
@@ -4367,7 +4367,7 @@ fetch(url, {
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"adipisci","details":"neque","color_id":"sit","brand_id":"voluptatum","model_id":"voluptatem","sub_category_id":"velit","qrcode_id":"earum","images":["harum"],"token":"sit"}'
+    -d '{"title":"quo","details":"nihil","color_id":"est","brand_id":"ipsa","model_id":"et","sub_category_id":"adipisci","qrcode_id":"qui","images":["in"],"token":"aliquid"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -4379,17 +4379,17 @@ let headers = {
 };
 
 let body = {
-    "title": "adipisci",
-    "details": "neque",
-    "color_id": "sit",
-    "brand_id": "voluptatum",
-    "model_id": "voluptatem",
-    "sub_category_id": "velit",
-    "qrcode_id": "earum",
+    "title": "quo",
+    "details": "nihil",
+    "color_id": "est",
+    "brand_id": "ipsa",
+    "model_id": "et",
+    "sub_category_id": "adipisci",
+    "qrcode_id": "qui",
     "images": [
-        "harum"
+        "in"
     ],
-    "token": "sit"
+    "token": "aliquid"
 }
 
 fetch(url, {
@@ -4501,7 +4501,7 @@ fetch(url, {
     "http://api.wajad.test/api/items/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"officiis"}'
+    -d '{"token":"velit"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/items/1"
@@ -4513,7 +4513,7 @@ let headers = {
 };
 
 let body = {
-    "token": "officiis"
+    "token": "velit"
 }
 
 fetch(url, {
@@ -4576,13 +4576,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/maps/molestias" \
+    -G "http://api.wajad.test/api/maps/quis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"longitude":"earum","latitude":"beatae","radius":12,"unit":"esse"}'
+    -d '{"longitude":"dolorum","latitude":"sunt","radius":9,"unit":"quia"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/maps/molestias"
+    "http://api.wajad.test/api/maps/quis"
 );
 
 let headers = {
@@ -4591,10 +4591,10 @@ let headers = {
 };
 
 let body = {
-    "longitude": "earum",
-    "latitude": "beatae",
-    "radius": 12,
-    "unit": "esse"
+    "longitude": "dolorum",
+    "latitude": "sunt",
+    "radius": 9,
+    "unit": "quia"
 }
 
 fetch(url, {
@@ -4671,7 +4671,7 @@ fetch(url, {
     "http://api.wajad.test/api/mesibo_upload" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"file":"qui"}'
+    -d '{"file":"at"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/mesibo_upload"
@@ -4683,7 +4683,7 @@ let headers = {
 };
 
 let body = {
-    "file": "qui"
+    "file": "at"
 }
 
 fetch(url, {
@@ -4730,7 +4730,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/packages" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"temporibus"}'
+    -d '{"token":"veritatis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/packages"
@@ -4742,7 +4742,7 @@ let headers = {
 };
 
 let body = {
-    "token": "temporibus"
+    "token": "veritatis"
 }
 
 fetch(url, {
@@ -4873,7 +4873,7 @@ fetch(url, {
     "http://api.wajad.test/api/post/1/answer" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"data":[{"answers":"quia","question_id":4}],"token":"voluptas"}'
+    -d '{"data":[{"answers":"architecto","question_id":11}],"token":"ducimus"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/post/1/answer"
@@ -4887,11 +4887,11 @@ let headers = {
 let body = {
     "data": [
         {
-            "answers": "quia",
-            "question_id": 4
+            "answers": "architecto",
+            "question_id": 11
         }
     ],
-    "token": "voluptas"
+    "token": "ducimus"
 }
 
 fetch(url, {
@@ -4974,7 +4974,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userPosts/found." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"quia"}'
+    -d '{"token":"maxime"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userPosts/found."
@@ -4986,7 +4986,7 @@ let headers = {
 };
 
 let body = {
-    "token": "quia"
+    "token": "maxime"
 }
 
 fetch(url, {
@@ -5101,7 +5101,7 @@ fetch(url, {
     "http://api.wajad.test/api/report/post/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"details":"minus","image":"atque","token":"voluptatem"}'
+    -d '{"details":"molestiae","image":"et","token":"rerum"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/report/post/1"
@@ -5113,9 +5113,9 @@ let headers = {
 };
 
 let body = {
-    "details": "minus",
-    "image": "atque",
-    "token": "voluptatem"
+    "details": "molestiae",
+    "image": "et",
+    "token": "rerum"
 }
 
 fetch(url, {
@@ -5192,7 +5192,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"in"}'
+    -d '{"token":"nam"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -5204,7 +5204,7 @@ let headers = {
 };
 
 let body = {
-    "token": "in"
+    "token": "nam"
 }
 
 fetch(url, {
@@ -5262,13 +5262,13 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://api.wajad.test/api/posts/add/velit" \
+    "http://api.wajad.test/api/posts/add/illo" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"rerum","description":"explicabo","reward":"ea","longitude":"dolorum","latitude":"architecto","sub_category_id":19,"brand_id":18,"model_id":5,"color_id":18,"item_id":3,"city":"repellendus","images":["consequatur"],"questions":["unde"],"show_name":false,"show_number":true,"token":"ex"}'
+    -d '{"title":"aliquid","description":"est","reward":"in","longitude":"illum","latitude":"magnam","sub_category_id":18,"brand_id":20,"model_id":2,"color_id":3,"item_id":4,"city":"sed","images":["qui"],"questions":["nesciunt"],"show_name":true,"show_number":true,"token":"voluptatem"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/posts/add/velit"
+    "http://api.wajad.test/api/posts/add/illo"
 );
 
 let headers = {
@@ -5277,26 +5277,26 @@ let headers = {
 };
 
 let body = {
-    "title": "rerum",
-    "description": "explicabo",
-    "reward": "ea",
-    "longitude": "dolorum",
-    "latitude": "architecto",
-    "sub_category_id": 19,
-    "brand_id": 18,
-    "model_id": 5,
-    "color_id": 18,
-    "item_id": 3,
-    "city": "repellendus",
+    "title": "aliquid",
+    "description": "est",
+    "reward": "in",
+    "longitude": "illum",
+    "latitude": "magnam",
+    "sub_category_id": 18,
+    "brand_id": 20,
+    "model_id": 2,
+    "color_id": 3,
+    "item_id": 4,
+    "city": "sed",
     "images": [
-        "consequatur"
+        "qui"
     ],
     "questions": [
-        "unde"
+        "nesciunt"
     ],
-    "show_name": false,
+    "show_name": true,
     "show_number": true,
-    "token": "ex"
+    "token": "voluptatem"
 }
 
 fetch(url, {
@@ -5459,7 +5459,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"ab","description":"aliquid","status":"quaerat","reward":"sint","longitude":"aut","latitude":"ad","sub_category_id":11,"brand_id":11,"model_id":10,"color_id":12,"item_id":5,"city":"placeat","images":["hic"],"show_name":false,"show_number":false,"token":"reprehenderit"}'
+    -d '{"title":"aut","description":"rerum","status":"nesciunt","reward":"sunt","longitude":"ipsam","latitude":"est","sub_category_id":2,"brand_id":15,"model_id":8,"color_id":16,"item_id":1,"city":"iure","images":["veritatis"],"show_name":true,"show_number":true,"token":"consectetur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -5471,24 +5471,24 @@ let headers = {
 };
 
 let body = {
-    "title": "ab",
-    "description": "aliquid",
-    "status": "quaerat",
-    "reward": "sint",
-    "longitude": "aut",
-    "latitude": "ad",
-    "sub_category_id": 11,
-    "brand_id": 11,
-    "model_id": 10,
-    "color_id": 12,
-    "item_id": 5,
-    "city": "placeat",
+    "title": "aut",
+    "description": "rerum",
+    "status": "nesciunt",
+    "reward": "sunt",
+    "longitude": "ipsam",
+    "latitude": "est",
+    "sub_category_id": 2,
+    "brand_id": 15,
+    "model_id": 8,
+    "color_id": 16,
+    "item_id": 1,
+    "city": "iure",
     "images": [
-        "hic"
+        "veritatis"
     ],
-    "show_name": false,
-    "show_number": false,
-    "token": "reprehenderit"
+    "show_name": true,
+    "show_number": true,
+    "token": "consectetur"
 }
 
 fetch(url, {
@@ -5645,7 +5645,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/close/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"nemo"}'
+    -d '{"token":"qui"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/close/1"
@@ -5657,7 +5657,7 @@ let headers = {
 };
 
 let body = {
-    "token": "nemo"
+    "token": "qui"
 }
 
 fetch(url, {
@@ -5722,7 +5722,7 @@ fetch(url, {
     "http://api.wajad.test/api/posts/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"odit"}'
+    -d '{"token":"quod"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/posts/1"
@@ -5734,7 +5734,7 @@ let headers = {
 };
 
 let body = {
-    "token": "odit"
+    "token": "quod"
 }
 
 fetch(url, {
@@ -5790,6 +5790,79 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_790d23dbb8c799c36c70f7133a51e7a5 -->
+<!-- START_ec76cbf7a15e664f4afd1b865071420a -->
+<h2>Show Post</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://api.wajad.test/api/share-post/dolorum" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"token":"aut"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/share-post/dolorum"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "aut"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/share-post/{id}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>required</td>
+<td>int Post Id</td>
+</tr>
+</tbody>
+</table>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>token</code></td>
+<td>Barier-token</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<!-- END_ec76cbf7a15e664f4afd1b865071420a -->
 <h1>QR Codes</h1>
 <!-- START_31a59373caf0e95a483c98e25d562cd6 -->
 <h2>User QR Codes</h2>
@@ -5800,7 +5873,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userQRCodes" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"sapiente"}'
+    -d '{"token":"exercitationem"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userQRCodes"
@@ -5812,7 +5885,7 @@ let headers = {
 };
 
 let body = {
-    "token": "sapiente"
+    "token": "exercitationem"
 }
 
 fetch(url, {
@@ -5896,7 +5969,7 @@ fetch(url, {
     "http://api.wajad.test/api/qrcodes/create" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"package_id":2,"count":9,"token":"excepturi"}'
+    -d '{"package_id":18,"count":16,"token":"at"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/qrcodes/create"
@@ -5908,9 +5981,9 @@ let headers = {
 };
 
 let body = {
-    "package_id": 2,
-    "count": 9,
-    "token": "excepturi"
+    "package_id": 18,
+    "count": 16,
+    "token": "at"
 }
 
 fetch(url, {
@@ -5975,7 +6048,7 @@ fetch(url, {
     "http://api.wajad.test/api/qrcodes/rename" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"qrcode_url":"praesentium","name":"ut"}'
+    -d '{"qrcode_url":"recusandae","name":"aspernatur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/qrcodes/rename"
@@ -5987,8 +6060,8 @@ let headers = {
 };
 
 let body = {
-    "qrcode_url": "praesentium",
-    "name": "ut"
+    "qrcode_url": "recusandae",
+    "name": "aspernatur"
 }
 
 fetch(url, {
@@ -6042,7 +6115,7 @@ fetch(url, {
     "http://api.wajad.test/api/qrcodes/renew" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"qrcode_id":"vel","days":3}'
+    -d '{"qrcode_id":"ipsam","days":8}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/qrcodes/renew"
@@ -6054,8 +6127,8 @@ let headers = {
 };
 
 let body = {
-    "qrcode_id": "vel",
-    "days": 3
+    "qrcode_id": "ipsam",
+    "days": 8
 }
 
 fetch(url, {
@@ -6109,7 +6182,7 @@ fetch(url, {
     "http://api.wajad.test/api/qrcodes/assigntome" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"qrcode_url":"excepturi"}'
+    -d '{"qrcode_url":"ab"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/qrcodes/assigntome"
@@ -6121,7 +6194,7 @@ let headers = {
 };
 
 let body = {
-    "qrcode_url": "excepturi"
+    "qrcode_url": "ab"
 }
 
 fetch(url, {
@@ -6198,11 +6271,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://api.wajad.test/api/qrcodelog/assumenda" \
+    -G "http://api.wajad.test/api/qrcodelog/accusantium" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://api.wajad.test/api/qrcodelog/assumenda"
+    "http://api.wajad.test/api/qrcodelog/accusantium"
 );
 
 let headers = {
@@ -6301,7 +6374,7 @@ fetch(url, {
     "http://api.wajad.test/api/register/qrcode" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"quia"}'
+    -d '{"token":"aspernatur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/register/qrcode"
@@ -6313,7 +6386,7 @@ let headers = {
 };
 
 let body = {
-    "token": "quia"
+    "token": "aspernatur"
 }
 
 fetch(url, {
@@ -6383,7 +6456,7 @@ fetch(url, {
     "http://api.wajad.test/api/reregister/qrcode" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"eveniet"}'
+    -d '{"token":"sed"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/reregister/qrcode"
@@ -6395,7 +6468,7 @@ let headers = {
 };
 
 let body = {
-    "token": "eveniet"
+    "token": "sed"
 }
 
 fetch(url, {
@@ -6465,7 +6538,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/scan-qr-code/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"doloremque"}'
+    -d '{"token":"aspernatur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/scan-qr-code/1"
@@ -6477,7 +6550,7 @@ let headers = {
 };
 
 let body = {
-    "token": "doloremque"
+    "token": "aspernatur"
 }
 
 fetch(url, {
@@ -6562,7 +6635,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/home/search" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"model":19,"color":7,"brand":12,"subcategory":10,"date":"quia","status":16}'
+    -d '{"model":2,"color":6,"brand":11,"subcategory":19,"date":"aperiam","status":7}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/home/search"
@@ -6574,12 +6647,12 @@ let headers = {
 };
 
 let body = {
-    "model": 19,
-    "color": 7,
-    "brand": 12,
-    "subcategory": 10,
-    "date": "quia",
-    "status": 16
+    "model": 2,
+    "color": 6,
+    "brand": 11,
+    "subcategory": 19,
+    "date": "aperiam",
+    "status": 7
 }
 
 fetch(url, {
@@ -6960,7 +7033,7 @@ fetch(url, {
     "http://api.wajad.test/api/newresetPassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user":"voluptas"}'
+    -d '{"user":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/newresetPassword"
@@ -6972,7 +7045,7 @@ let headers = {
 };
 
 let body = {
-    "user": "voluptas"
+    "user": "et"
 }
 
 fetch(url, {
@@ -7017,7 +7090,7 @@ fetch(url, {
     "http://api.wajad.test/api/verify_password" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"code":"1234","user_id":"omnis"}'
+    -d '{"code":"1234","user_id":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/verify_password"
@@ -7030,7 +7103,7 @@ let headers = {
 
 let body = {
     "code": "1234",
-    "user_id": "omnis"
+    "user_id": "et"
 }
 
 fetch(url, {
@@ -7084,7 +7157,7 @@ fetch(url, {
     "http://api.wajad.test/api/newchangePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"user_id":20,"new_password":"aliquid","new_password_confirmation":"consequatur"}'
+    -d '{"user_id":4,"new_password":"nostrum","new_password_confirmation":"unde"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/newchangePassword"
@@ -7096,9 +7169,9 @@ let headers = {
 };
 
 let body = {
-    "user_id": 20,
-    "new_password": "aliquid",
-    "new_password_confirmation": "consequatur"
+    "user_id": 4,
+    "new_password": "nostrum",
+    "new_password_confirmation": "unde"
 }
 
 fetch(url, {
@@ -7158,7 +7231,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/userData" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"veniam"}'
+    -d '{"token":"earum"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/userData"
@@ -7170,7 +7243,7 @@ let headers = {
 };
 
 let body = {
-    "token": "veniam"
+    "token": "earum"
 }
 
 fetch(url, {
@@ -7214,7 +7287,7 @@ fetch(url, {
     "http://api.wajad.test/api/verify/phone." \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"code":"1234","token":"iure"}'
+    -d '{"code":"1234","token":"voluptatibus"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/verify/phone."
@@ -7227,7 +7300,7 @@ let headers = {
 
 let body = {
     "code": "1234",
-    "token": "iure"
+    "token": "voluptatibus"
 }
 
 fetch(url, {
@@ -7298,7 +7371,7 @@ fetch(url, {
     "http://api.wajad.test/api/updateUserProfile" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"doloremque","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"minus","email":"odit","token":"distinctio"}'
+    -d '{"name":"delectus","receive_emails":true,"receive_push_notifications":true,"default_distance_unit":"mile","image":"dignissimos","email":"est","token":"debitis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/updateUserProfile"
@@ -7310,13 +7383,13 @@ let headers = {
 };
 
 let body = {
-    "name": "doloremque",
+    "name": "delectus",
     "receive_emails": true,
     "receive_push_notifications": true,
     "default_distance_unit": "mile",
-    "image": "minus",
-    "email": "odit",
-    "token": "distinctio"
+    "image": "dignissimos",
+    "email": "est",
+    "token": "debitis"
 }
 
 fetch(url, {
@@ -7400,7 +7473,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePassword" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"old_password":"voluptates","new_password":"consequatur","new_password_confirmation":"qui","token":"dolorem"}'
+    -d '{"old_password":"eos","new_password":"tempora","new_password_confirmation":"eius","token":"consequatur"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePassword"
@@ -7412,10 +7485,10 @@ let headers = {
 };
 
 let body = {
-    "old_password": "voluptates",
-    "new_password": "consequatur",
-    "new_password_confirmation": "qui",
-    "token": "dolorem"
+    "old_password": "eos",
+    "new_password": "tempora",
+    "new_password_confirmation": "eius",
+    "token": "consequatur"
 }
 
 fetch(url, {
@@ -7481,7 +7554,7 @@ fetch(url, {
     "http://api.wajad.test/api/changePhone" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"mobile_number":"sunt","mobile_country_id":"itaque","token":"veritatis"}'
+    -d '{"mobile_number":"quis","mobile_country_id":"dolorem","token":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changePhone"
@@ -7493,9 +7566,9 @@ let headers = {
 };
 
 let body = {
-    "mobile_number": "sunt",
-    "mobile_country_id": "itaque",
-    "token": "veritatis"
+    "mobile_number": "quis",
+    "mobile_country_id": "dolorem",
+    "token": "et"
 }
 
 fetch(url, {
@@ -7555,7 +7628,7 @@ fetch(url, {
     "http://api.wajad.test/api/changeEmail" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email":"corporis","token":"consequuntur"}'
+    -d '{"email":"dolore","token":"facere"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/changeEmail"
@@ -7567,8 +7640,8 @@ let headers = {
 };
 
 let body = {
-    "email": "corporis",
-    "token": "consequuntur"
+    "email": "dolore",
+    "token": "facere"
 }
 
 fetch(url, {
@@ -7657,7 +7730,7 @@ fetch(url, {
     -G "http://api.wajad.test/api/mesiboUser" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"token":"molestias"}'
+    -d '{"token":"quis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://api.wajad.test/api/mesiboUser"
@@ -7669,7 +7742,7 @@ let headers = {
 };
 
 let body = {
-    "token": "molestias"
+    "token": "quis"
 }
 
 fetch(url, {
@@ -7770,9 +7843,170 @@ fetch(url, {
         },
         {
             "id": 2,
-            "name": "sdhsdghsdghds",
-            "description": "dsghsdghdghsdgh",
-            "image": "http:\/\/wajad.test\/\/images\/shirt-1607608901-9pM9l.jpeg",
+            "name": "Art, Crafts &amp; Collectables",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 3,
+            "name": "Baby",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 4,
+            "name": "Beauty",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 5,
+            "name": "Bed &amp; Bath",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 6,
+            "name": "Books",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 7,
+            "name": "Coins, Stamps &amp; Paper money",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 8,
+            "name": "Computers, IT &amp; Networking",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 9,
+            "name": "Eyewear &amp; Optics",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 10,
+            "name": "Garden &amp; Outdoor",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 11,
+            "name": "Furniture",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 12,
+            "name": "Electronics",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 13,
+            "name": "Home Appliances",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 14,
+            "name": "Grocery, Food &amp; Beverages",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 15,
+            "name": "Kitchen Appliances",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 16,
+            "name": "Gaming",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 17,
+            "name": "Health &amp; Personal Care",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 18,
+            "name": "Music &amp; Movies",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 19,
+            "name": "Jewelry &amp; Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 20,
+            "name": "Toys",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 21,
+            "name": "Mobile Phones, Tablets &amp; Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 22,
+            "name": "Sports &amp; Fitness",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 23,
+            "name": "Perfumes &amp; Fragrances",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 24,
+            "name": "Vehicle Parts &amp; Accessories",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
+            "item_coount": 0
+        },
+        {
+            "id": 25,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png",
             "item_coount": 0
         }
     ]
@@ -7850,9 +8084,81 @@ fetch(url, {
     "data": [
         {
             "id": 1,
-            "name": "sdfgsdfgsdf",
-            "description": "fgsdfgsdfgsd",
-            "image": "http:\/\/wajad.test\/\/images\/whatever-notjustalabel-1083035493-1607608908-SnMIr.jpg"
+            "name": "Blouse",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 2,
+            "name": "shoes",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 3,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 4,
+            "name": "artifact",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 5,
+            "name": "candlestick",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 6,
+            "name": "wall clock",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 7,
+            "name": "Antiquities",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 8,
+            "name": "Estatua",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 9,
+            "name": "Art object",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 10,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 11,
+            "name": "kids shampo",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 12,
+            "name": "Lap top",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 13,
+            "name": "Cameras",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
         }
     ]
 }</code></pre>
@@ -7890,9 +8196,81 @@ fetch(url, {
     "data": [
         {
             "id": 1,
-            "name": "sdfgsdfgsdf",
-            "description": "fgsdfgsdfgsd",
-            "image": "http:\/\/wajad.test\/\/images\/whatever-notjustalabel-1083035493-1607608908-SnMIr.jpg"
+            "name": "Blouse",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 2,
+            "name": "shoes",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 3,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 4,
+            "name": "artifact",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 5,
+            "name": "candlestick",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 6,
+            "name": "wall clock",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 7,
+            "name": "Antiquities",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 8,
+            "name": "Estatua",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 9,
+            "name": "Art object",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 10,
+            "name": "Others",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 11,
+            "name": "kids shampo",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 12,
+            "name": "Lap top",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 13,
+            "name": "Cameras",
+            "description": null,
+            "image": "http:\/\/wajad.test\/images\/default.png"
         }
     ]
 }</code></pre>
@@ -7930,15 +8308,99 @@ fetch(url, {
     "data": [
         {
             "id": 1,
-            "name": "fasdfasdf",
-            "description": "asdfasdfaasdfasdf",
-            "image": "http:\/\/wajad.test\/\/images\/hmgoepprod-1607608902-AbooT.jpeg"
+            "name": "LCWIKIKI",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
         },
         {
             "id": 2,
-            "name": "dfgbdxghxcg",
-            "description": "xcvbxcv",
-            "image": "http:\/\/wajad.test\/\/images\/shirt-1607608901-9pM9l.jpeg"
+            "name": "H&amp;M",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 4,
+            "name": "lacoste",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 5,
+            "name": "corocs",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Others",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 7,
+            "name": "gohnson",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post7.jpg"
+        },
+        {
+            "id": 8,
+            "name": "panten",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post1.jpg"
+        },
+        {
+            "id": 9,
+            "name": "sherosa",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post1.jpg"
+        },
+        {
+            "id": 10,
+            "name": "Toshiba",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post2.jpg"
+        },
+        {
+            "id": 11,
+            "name": "Hp",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post2.jpg"
+        },
+        {
+            "id": 12,
+            "name": "Dell",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post3.jpg"
+        },
+        {
+            "id": 13,
+            "name": "Nicon",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post5.jpg"
+        },
+        {
+            "id": 14,
+            "name": "Canon",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post5.jpg"
+        },
+        {
+            "id": 15,
+            "name": "Sony",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        },
+        {
+            "id": 16,
+            "name": "asdfgnfd",
+            "description": "asdfgnfd",
+            "image": "http:\/\/wajad.test\/images\/brands\/YBg81a38tndwbiTJx9bUokBADbsrJivFoNsTiFSe.png"
         }
     ]
 }</code></pre>
@@ -7976,9 +8438,45 @@ fetch(url, {
     "data": [
         {
             "id": 1,
-            "name": "fdgsdfg",
-            "description": "gsdfgs",
-            "image": "http:\/\/wajad.test\/\/images\/whatever-notjustalabel-1083035493-1607608908-SnMIr.jpg"
+            "name": "Dell XPS 13",
+            "description": "CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch FHD (1,920 x 1,080) – 4k (3840 x 2160) | Storage: 256GB – 1TB SSD",
+            "image": "http:\/\/wajad.test\/images\/posts\/post3.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Huawei MateBook 13",
+            "description": "CPU: 8th generation Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 , Nvidia GeForce MX150 2GB GDDR5 | RAM: 8GB | Screen: 13-inch 1440p (2,160 x 1,440) | Storage: 256GB - 512GB SSD",
+            "image": "http:\/\/wajad.test\/images\/posts\/post4.jpg"
+        },
+        {
+            "id": 3,
+            "name": "HP Spectre x360 (2019)",
+            "description": "CPU: Intel Core i5 – i7 | Graphics: Intel UHD Graphics 620 | RAM: 8GB – 16GB | Screen: 13.3-inch full HD (1,920 x 1,080) – UHD (3,840 x 2,160) touchscreen | Storage: 256GB – 2TB PCIe SSD",
+            "image": "http:\/\/wajad.test\/images\/posts\/post4.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Apple MacBook Pro (15-inch, 2019)",
+            "description": "CPU: Intel Core i7 – i9 | Graphics: AMD Radeon Pro 555X - Radeon Pro Vega 20, Intel UHD Graphics 630 | RAM: 16GB | Screen: 15.4-inch, (2,880 x 1,800) IPS | Storage: 256GB – 4TB SSD",
+            "image": "http:\/\/wajad.test\/images\/default.png"
+        },
+        {
+            "id": 5,
+            "name": "Sony SA1",
+            "description": "",
+            "image": "http:\/\/wajad.test\/images\/posts\/post6.jpg"
+        },
+        {
+            "id": 6,
+            "name": "qwefgrtfds",
+            "description": "qwefgrtfds",
+            "image": "http:\/\/wajad.test\/images\/models\/ZHUVJl0qMOR6dTDg0vhqwF3sHBnaybyvu16DLP4K.png"
+        },
+        {
+            "id": 7,
+            "name": "efrgthgngfds",
+            "description": "wefwrgtrytgf",
+            "image": "http:\/\/wajad.test\/images\/models\/ofi6oZLWLngxpplPLC1Q98pzyG1TJdaahVbvt9kp.png"
         }
     ]
 }</code></pre>
@@ -9868,6 +10366,38 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>POST api/test</code></p>
 <!-- END_50c0a334d57bffdf48ce568bad023ce0 -->
+<!-- START_30cd846654b6748bb4397a77673d49b3 -->
+<h2>api/mesibo/notification</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://api.wajad.test/api/mesibo/notification" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://api.wajad.test/api/mesibo/notification"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/mesibo/notification</code></p>
+<p><code>POST api/mesibo/notification</code></p>
+<!-- END_30cd846654b6748bb4397a77673d49b3 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

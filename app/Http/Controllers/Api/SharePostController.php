@@ -26,8 +26,13 @@ use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendFCMNotification;
 use App\Notifications\ScanQRCodeNotification;
 
- /**
-     * Share Post Link
+/**
+ * @group Posts
+ */
+class SharePostController extends Controller
+{
+     /**
+     * Show Post
      *
      * @urlParam id required int Post Id
      * @bodyParam token Barier-token required
