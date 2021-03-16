@@ -18,7 +18,7 @@ class MesiboNotificationController extends Controller
     {
         if($request->method() == 'POST'){
             $data = json_decode($request->all(),true);
-            if ($data['events']['type'] == 'message'){
+            if ($data['events'][0]['type'] == 'message'){
                 try {
                     DB::table('mesibo_notification')->insert(['payload' => json_encode($request->all())]);
                     return 'MESIBO OK';
