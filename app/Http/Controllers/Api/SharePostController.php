@@ -26,41 +26,153 @@ use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendFCMNotification;
 use App\Notifications\ScanQRCodeNotification;
 
-/**
- * @group QR Codes
- */
-class SharePostController extends Controller
-{
-    /**
-     * Scan QR Code
-     * @urlParam qrcode_url required string exists in qrcodes
+ /**
+     * Share Post Link
+     *
+     * @urlParam id required int Post Id
      * @bodyParam token Barier-token required
      * @response
-     *{
-     * "data": {
-     *  "id": 1,
-     * "url": "http:\/\/api.wajad.test\/api\/scan-qr-code\/1",
-     *"user": {
+     *  {
+     * "data":
+     *  {
+     *   "id": 3,
+     *  "title": "Quibusdam aliquid omnis quia quibusdam molestiae placeat voluptatum consequatur.",
+     * "approval_status": 1,
+     *"reward": 0,
+     *"description": "Repudiandae sequi enim aut et praesentium adipisci. Expedita deleniti explicabo aspernatur labore occaecati quidem unde sequi. Non omnis veritatis blanditiis harum perspiciatis cum sint. Et dignissimos temporibus ut excepturi. Molestiae eos qui occaecati iste. Accusantium enim quo rerum. Dignissimos omnis rerum voluptatem fugiat id. Ad optio blanditiis quis placeat. Officiis illum id sint omnis. Quisquam tempore beatae nesciunt. Reprehenderit sed quo est nobis excepturi nisi. Non nihil dignissimos alias totam. Adipisci occaecati accusantium illum itaque velit unde. Autem voluptas voluptatem qui commodi inventore ullam quia.",
+     *"status": "found",
+     *"attached_to_item": true,
+     *"item": {
+     * "id": 1,
+     *"title": "poj",
+     *"details": "pokpo",
+     *"status": "found",
+     *"owner": {
      * "id": 2,
      * "name": "User",
-     * "email": "user@nova.com",
-     * "status": 1,
-     * "mobile_number": "0096601120650906",
-     * "receive_emails": false,
-     * "receive_push_notifications": false,
-     * "is_email_verified": false,
-     * "is_mobile_number_verified": false,
-     * "default_distance_unit": "kilo",
-     * "image": "http:\/\/wajad.test\/images\/profile\/default-profile.png"
+     *"email": "user@nova.com",
+     *"status": 1,
+     *"mobile_number": "01142416124",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": false,
+     *"default_distance_unit": "kilo"
+     *},
+     *"model": {
+     *  "id": 3,
+     *  "name": "Explicabo rerum ut et dolores officiis et.",
+     *  "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+     *  "image": "http:\/\/wajad.test\/default-icon.png"
+     *},
+     * "color": {
+     *   "id": 1,
+     *   "name": "Red",
+     *  "icon": "images\/colors\/red.png"
+     *},
+     * "brand": {
+     *  "id": 2,
+     * "name": "Et dicta similique adipisci ut autem deleniti qui.",
+     * "description": "Facilis incidunt dolores consequatur quis aliquam quia voluptatem.",
+     * "image": "http:\/\/wajad.test\/\/tmp\/4886df1c2c60650759bf348635be787a.jpg"
+     *},
+     *"date": "2019-12-13 00:00:00",
+     *"images": []
+     *},
+     *"sub_category": {
+     *  "id": 5,
+     * "name": "Est ipsa explicabo et suscipit maxime quidem illo.",
+     * "description": "Quia impedit hic nesciunt quis eum.",
+     * "image": "http:\/\/wajad.test\/default-icon.png"
+     *},
+     *"model": {
+     *  "id": 3,
+     *  "name": "Explicabo rerum ut et dolores officiis et.",
+     *  "description": "Laudantium fugit ut harum magnam magnam deserunt.",
+     * "image": "http:\/\/wajad.test\/default-icon.png"
      * },
-     * "item": null,
-     * "available_period": "1",
-     * "start_at": null,
-     * "end_at": null,
-     * "created_at": null
+     *   "color": {
+     *    "id": 1,
+     *   "name": "Red",
+     *  "icon": "images\/colors\/red.png"
+     *},
+     * "date": "2019-12-08 15:40:37",
+     * "images": [
+     * {
+     * "id": 1,
+     * "image": "http:\/\/wajad.test\/default-icon.png"
+     * }
+     * ],
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
+     *}
+     *],
+     * "claimers": [
+     *   {
+     * "questions": [
+     *{
+     *"id": 1,
+     *"question": "question1?",
+     *"answer": "answer1"
+     *},
+     *{
+     *"id": 2,
+     *"question": "question2?",
+     *"answer": "answer2"
+     *},
+     *{
+     *"id": 3,
+     *"question": "question3?",
+     *"answer": "answer3"
+     *}
+     *],
+     *"id": 4,
+     *"name": "Braden Heathcote",
+     *"email": "matt.koelpin@wunsch.com",
+     *"status": 1,
+     *"mobile_number": "+18155885009",
+     *"receive_emails": true,
+     *"receive_push_notifications": true,
+     *"is_email_verified": true,
+     *"is_mobile_number_verified": false,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/default-profile.png"
+     *   }
+     *],
+     *"city": {
+     * "id": 1,
+     * "name": "Al Riyadh"
+     *},
+     *"publisher": {
+     *"id": 105,
+     *"name": "teddy tf high j",
+     *"email": "ss@ss.com",
+     *"status": 1,
+     *"mobile_number": "966512345678",
+     *"receive_emails": false,
+     *"receive_push_notifications": false,
+     *"is_email_verified": false,
+     *"is_mobile_number_verified": true,
+     *"default_distance_unit": "kilo",
+     *"image": "http://admin-wajad.smartappco.net/images/profile/sKtIyY1Kl67j9gp.png"
+     * "show_name": 1,
+     * "show_number": 1
      *}
      *}
-     * @return void
+     *}
      */
     public function __invoke(Request $request,$post)
     {
