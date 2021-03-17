@@ -11,8 +11,8 @@ class PostRequestsResource extends JsonResource
 
        if($this->postRequestUser) 
        return new UserPostAnswersResource($this);
-       else
-       return null;
+    //    else
+    //    return null;
 
         // return [
         //     'id' => $this->id,
