@@ -40,21 +40,21 @@ class FillElectronics extends Command
     public function handle()
     {
         $data = [
-            ['name_en'=>'TV',],
-            ['name_en'=>'Tablets',],
-            ['name_en'=>'Camera',],
-            ['name_en'=>'PC',],
-            ['name_en'=>'Printer',],
-            ['name_en'=>'Laptops',],
-            ['name_en'=>'Monitor',],
-            ['name_en'=>'Cell Phone',],
-            ['name_en'=>'Scanner',],
-            ['name_en'=>'GPS',],
-            ['name_en'=>'Headphones',],
-            ['name_en'=>'PlayStation',],
-            ['name_en'=>'Guitars',],
-            ['name_en'=>'Office Supplies ',],
-            ['name_en'=>'Other Electronic',],
+            ['name_ar'=>'TV','name_en'=>'TV',],
+            ['name_ar'=>'Tablets','name_en'=>'Tablets',],
+            ['name_ar'=>'Camera','name_en'=>'Camera',],
+            ['name_ar'=>'PC','name_en'=>'PC',],
+            ['name_ar'=>'Printer','name_en'=>'Printer',],
+            ['name_ar'=>'Laptops','name_en'=>'Laptops',],
+            ['name_ar'=>'Monitor','name_en'=>'Monitor',],
+            ['name_ar'=>'Cell Phone','name_en'=>'Cell Phone',],
+            ['name_ar'=>'Scanner','name_en'=>'Scanner',],
+            ['name_ar'=>'GPS','name_en'=>'GPS',],
+            ['name_ar'=>'Headphones','name_en'=>'Headphones',],
+            ['name_ar'=>'PlayStation','name_en'=>'PlayStation',],
+            ['name_ar'=>'Guitars','name_en'=>'Guitars',],
+            ['name_ar'=>'Office Supplies ','name_en'=>'Office Supplies ',],
+            ['name_ar'=>'Other Electronic','name_en'=>'Other Electronic',],
         ];
         $category = Category::find(1);
         $category->subcategories()->createMany($data);
