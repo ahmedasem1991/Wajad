@@ -41,32 +41,44 @@ class FillBrandwatch extends Command
     {
         $data = array(
             0 => array(
-                'Trek' => 'Connondale',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Trek',
+                'name_ar' => 'Trek',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             1 => array(
-                'Trek' => 'Kona Bikes',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Connondale',
+                'name_ar' => 'Connondale',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             2 => array(
-                'Trek' => 'Colnago',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Kona Bikes',
+                'name_ar' => 'Kona Bikes',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             3 => array(
-                'Trek' => 'Bianchi',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Colnago',
+                'name_ar' => 'Colnago',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             4 => array(
-                'Trek' => 'Raleigh',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Bianchi',
+                'name_ar' => 'Bianchi',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             5 => array(
-                'Trek' => 'Cervelo',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Raleigh',
+                'name_ar' => 'Raleigh',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             6 => array(
-                'Trek' => 'Orbea',
-                '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+                'name_en' => 'Cervelo',
+                'name_ar' => 'Cervelo',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+            ),
+            7 => array(
+                'name_en' => 'Orbea',
+                'name_ar' => 'Orbea',
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
         );
       //  $subcategory = SubCategory::find(4);
