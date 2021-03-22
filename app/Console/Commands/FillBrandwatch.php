@@ -55,11 +55,11 @@ class FillBrandwatch extends Command
         $Brands = Brand::all();
         foreach ($Brands as $Brand){
             
-            $Brand->models()->create([
-                'name_en' => 'Other',
-                'name_ar' => 'أخري',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-            ]);
+            // $Brand->models()->create([
+            //     'name_en' => 'Other',
+            //     'name_ar' => 'أخري',
+            //     'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
+            // ]);
         }
         //$subcategory->brands()->createMany($data);
          
