@@ -1,6 +1,5 @@
 <?php
 
-use App\Category;
 use App\Item;
 use App\Post;
 use App\Role;
@@ -885,31 +884,9 @@ Route::get('deleteuserchat', function(){
 
 });
 
-Route::get('fillelectronics',function (){
-    $data = [
-        ['name_ar'=>'TV','name_en'=>'TV',],
-        ['name_ar'=>'Tablets','name_en'=>'Tablets',],
-        ['name_ar'=>'Camera','name_en'=>'Camera',],
-        ['name_ar'=>'PC','name_en'=>'PC',],
-        ['name_ar'=>'Printer','name_en'=>'Printer',],
-        ['name_ar'=>'Laptops','name_en'=>'Laptops',],
-        ['name_ar'=>'Monitor','name_en'=>'Monitor',],
-        ['name_ar'=>'Cell Phone','name_en'=>'Cell Phone',],
-        ['name_ar'=>'Scanner','name_en'=>'Scanner',],
-        ['name_ar'=>'GPS','name_en'=>'GPS',],
-        ['name_ar'=>'Headphones','name_en'=>'Headphones',],
-        ['name_ar'=>'PlayStation','name_en'=>'PlayStation',],
-        ['name_ar'=>'Guitars','name_en'=>'Guitars',],
-        ['name_ar'=>'Office Supplies ','name_en'=>'Office Supplies ',],
-        ['name_ar'=>'Other Electronic','name_en'=>'Other Electronic',],
-    ];
-    $category = Category::find(1);
-    $category->subcategories()->createMany($data);
-});
 
 
 
 
 
-
-//http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
+http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
