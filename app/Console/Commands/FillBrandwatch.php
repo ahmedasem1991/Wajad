@@ -87,7 +87,7 @@ class FillBrandwatch extends Command
             // $subcategory->brands()->createMany($data);
         //}
         $subcategory = SubCategory::find(31);
-        $subcategory->brands()->createMany($data);
+        //$subcategory->brands()->createMany($data);
          
 
 
