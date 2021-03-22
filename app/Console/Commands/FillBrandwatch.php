@@ -343,7 +343,7 @@ class FillBrandwatch extends Command
             300 => array('name_en' => 'Zeno-Watch Basel', 'name_ar' => 'Zeno-Watch Basel', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
             301 => array('name_en' => 'Zodiac', 'name_ar' => 'Zodiac', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
         );
-        $subcategory = SubCategory::find(1);
+        $subcategory = SubCategory::find(4);
         //foreach ($category->subcategories as $subcategory){
             $subcategory->brands()->createMany($data);
         //}
