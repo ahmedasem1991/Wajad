@@ -41,78 +41,53 @@ class FillBrandwatch extends Command
     {
         $data = array(
             0 => array(
-                'name_en' => 'Aprilia',
-                'name_ar' => 'Aprilia',
+                'name_en' => 'Bertram',
+                'name_ar' => 'Bertram',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             1 => array(
-                'name_en' => 'Beta',
-                'name_ar' => 'Beta',
+                'name_en' => 'Boston Whaler',
+                'name_ar' => 'Boston Whaler',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             2 => array(
-                'name_en' => 'BMW',
-                'name_ar' => 'BMW',
+                'name_en' => 'Chaparral',
+                'name_ar' => 'Chaparral',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             3 => array(
-                'name_en' => 'Ducati',
-                'name_ar' => 'Ducati',
+                'name_en' => 'Grady-White',
+                'name_ar' => 'Grady-White',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             4 => array(
-                'name_en' => 'Gas Gas',
-                'name_ar' => 'Gas Gas',
+                'name_en' => 'Lund',
+                'name_ar' => 'Lund',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             5 => array(
-                'name_en' => 'Harley Davidson ',
-                'name_ar' => 'Harley Davidson ',
+                'name_en' => 'Mastercraft',
+                'name_ar' => 'Mastercraft',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             6 => array(
-                'name_en' => 'Honda  ',
-                'name_ar' => 'Honda  ',
+                'name_en' => 'Sea Ray',
+                'name_ar' => 'Sea Ray',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             7 => array(
-                'name_en' => 'Husqvarna',
-                'name_ar' => 'Husqvarna',
+                'name_en' => 'Tracker',
+                'name_ar' => 'Tracker',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             8 => array(
-                'name_en' => 'Kawasaki',
-                'name_ar' => 'Kawasaki',
+                'name_en' => 'Yamaha',
+                'name_ar' => 'Yamaha',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
             9 => array(
-                'name_en' => 'Royal Enfield',
-                'name_ar' => 'Royal Enfield',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-            ),
-            10 => array(
-                'name_en' => 'Suzuki ',
-                'name_ar' => 'Suzuki ',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-            ),
-            11 => array(
-                'name_en' => 'SYM Motors',
-                'name_ar' => 'SYM Motors',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-            ),
-            12 => array(
-                'name_en' => 'Triumph',
-                'name_ar' => 'Triumph',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-            ),
-            13 => array(
-                'name_en' => 'Vespa',
-                'name_ar' => 'Vespa',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-            ),
-            14 => array(
-                'name_en' => 'Yamaha',
-                'name_ar' => 'Yamaha',
+                'name_en' => 'Viking Yachts',
+                'name_ar' => 'Viking Yachts',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             ),
         );
@@ -121,7 +96,7 @@ class FillBrandwatch extends Command
             
             // $subcategory->brands()->createMany($data);
         //}
-        $subcategory = SubCategory::find(33);
+        $subcategory = SubCategory::find(34);
         $subcategory->brands()->createMany($data);
          
 
