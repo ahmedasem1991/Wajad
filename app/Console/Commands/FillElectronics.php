@@ -57,7 +57,7 @@ class FillElectronics extends Command
             ['name_en'=>'Other Electronic',],
         ];
         $category = Category::find(1);
-        $category->subcategories->create($data);
+        $category->subcategories()->createMany($data);
 
 
         $this->info('|----------------------------------|');
