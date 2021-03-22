@@ -39,8 +39,25 @@ class FillElectronics extends Command
      */
     public function handle()
     {
+        $data = [
+            ['name_en'=>'TV',],
+            ['name_en'=>'Tablets',],
+            ['name_en'=>'Camera',],
+            ['name_en'=>'PC',],
+            ['name_en'=>'Printer',],
+            ['name_en'=>'Laptops',],
+            ['name_en'=>'Monitor',],
+            ['name_en'=>'Cell Phone',],
+            ['name_en'=>'Scanner',],
+            ['name_en'=>'GPS',],
+            ['name_en'=>'Headphones',],
+            ['name_en'=>'PlayStation',],
+            ['name_en'=>'Guitars',],
+            ['name_en'=>'Office Supplies ',],
+            ['name_en'=>'Other Electronic',],
+        ];
         $category = Category::find(1);
-        dd($category);
+        $category->subcategories()->create($data);
 
 
         $this->info('|----------------------------------|');
