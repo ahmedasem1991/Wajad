@@ -40,20 +40,20 @@ class FillBrandwatch extends Command
     public function handle()
     {
         $data = array(
-            0 => array('name_en' => 'Victorinox', 'name_ar' => 'Victorinox'),
-            1 => array('name_en' => 'American Tourister', 'name_ar' => 'American Tourister'),
-            2 => array('name_en' => 'Samsonite', 'name_ar' => 'Samsonite'),
-            3 => array('name_en' => 'Travelpro', 'name_ar' => 'Travelpro'),
-            4 => array('name_en' => 'Eagle Creek', 'name_ar' => 'Eagle Creek'),
-            5 => array('name_en' => 'Delsey', 'name_ar' => 'Delsey'),
-            6 => array('name_en' => 'Briggs & Riley', 'name_ar' => 'Briggs & Riley'),
-            7 => array('name_en' => 'Victorinox', 'name_ar' => 'Victorinox'),
-            8 => array('name_en' => 'Tumi', 'name_ar' => 'Tumi'),
-            9 => array('name_en' => 'Hartmann', 'name_ar' => 'Hartmann'),
-            10 => array('name_en' => 'Bric’s', 'name_ar' => 'Bric’s'),
-            11 => array('name_en' => 'Rimowa', 'name_ar' => 'Rimowa'),
-            12 => array('name_en' => 'Globe-Trotter', 'name_ar' => 'Globe-Trotter'),
-            13 => array('name_en' => 'Away', 'name_ar' => 'Away'),
+            0 => array('name_en' => 'Victorinox', 'name_ar' => 'Victorinox', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            1 => array('name_en' => 'American Tourister', 'name_ar' => 'American Tourister', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            2 => array('name_en' => 'Samsonite', 'name_ar' => 'Samsonite', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            3 => array('name_en' => 'Travelpro', 'name_ar' => 'Travelpro', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            4 => array('name_en' => 'Eagle Creek', 'name_ar' => 'Eagle Creek', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            5 => array('name_en' => 'Delsey', 'name_ar' => 'Delsey', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            6 => array('name_en' => 'Briggs & Riley', 'name_ar' => 'Briggs & Riley', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            7 => array('name_en' => 'Victorinox', 'name_ar' => 'Victorinox', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            8 => array('name_en' => 'Tumi', 'name_ar' => 'Tumi', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            9 => array('name_en' => 'Hartmann', 'name_ar' => 'Hartmann', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            10 => array('name_en' => 'Bric’s', 'name_ar' => 'Bric’s', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            11 => array('name_en' => 'Rimowa', 'name_ar' => 'Rimowa', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            12 => array('name_en' => 'Globe-Trotter', 'name_ar' => 'Globe-Trotter', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
+            13 => array('name_en' => 'Away', 'name_ar' => 'Away', 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'),
         );
       //  $subcategory = SubCategory::find(4);
         //foreach ($category->subcategories as $subcategory){
