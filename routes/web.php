@@ -885,8 +885,19 @@ Route::get('deleteuserchat', function(){
 });
 
 
+Route::get('getbrandsmorethanone', function(){
+    $brands=\App\Brand::whereIn('name_en', function ($q){
+        $q->select('name_en')
+        ->from('brands')
+        ->groupBy('name_en')
+        ->havingRaw('COUNT(*) > 1');
+})->get();
+    dd($brands);
+    
+    //  dd(request()->getClientIp(true));
+
+});
 
 
 
-
-http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
+// http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
