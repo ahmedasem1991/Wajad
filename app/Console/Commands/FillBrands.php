@@ -289,8 +289,9 @@ class FillBrands extends Command
         ];
         $category = Category::find(1);
         foreach ($category->subcategories as $subcategory){
-            echo $subcategory->brands()->count();
-            echo '<br>';
+            $subcategory->brands()->detach();
+            $subcategory->brands()->delete();
+
         }
 
 
