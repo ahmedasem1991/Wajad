@@ -892,7 +892,13 @@ Route::get('getbrandsmorethanone', function(){
         ->groupBy('name_en')
         ->havingRaw('COUNT(*) > 1');
 })->get();
-    dd($brands);
+$array=[];
+
+foreach($brands as $brand)
+{
+    array_push($array,$brand->name_en);
+}
+    dd($array);
     
     //  dd(request()->getClientIp(true));
 
