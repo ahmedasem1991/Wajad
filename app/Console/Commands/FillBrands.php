@@ -290,7 +290,7 @@ class FillBrands extends Command
         ];
         $category = Category::find(1);
         foreach ($data as $item){
-            $brand = Brand::create([$item]);
+            $brand = Brand::create($item);
 
             foreach ($category->subcategories as $subcategory){
                 $subcategory->brands()->attach($brand);
