@@ -891,7 +891,7 @@ Route::get('getbrandsmorethanone', function(){
         ->from('brands')
         ->groupBy('name_en')
         ->havingRaw('COUNT(*) > 1');
-})->get();
+})->where('deleted_at',NULL)->get();
 $array=[];
 
 foreach($brands as $brand)
