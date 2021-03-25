@@ -289,7 +289,7 @@ class FillBrands extends Command
         ];
         $category = Category::find(1);
         foreach ($category->subcategories as $subcategory){
-            $subcategory->brands()->createMany($data);
+            echo $subcategory->brands()->count();
         }
 
 
