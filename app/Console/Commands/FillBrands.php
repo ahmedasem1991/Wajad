@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Brand;
 use App\Category;
 use App\SubCategory;
 use Illuminate\Console\Command;
@@ -288,10 +289,12 @@ class FillBrands extends Command
             ['name_en' => '1', 'name_ar' => 'ترو'],
         ];
         $category = Category::find(1);
-        foreach ($category->subcategories as $subcategory){
-            $subcategory->brands()->detach();
-            $subcategory->brands()->delete();
+        foreach ($data as $item){
+            $brand = Brand::create([$item]);
 
+            foreach ($category->subcategories as $subcategory){
+                $subcategory->brands()->attach($brand);
+            }
         }
 
 
