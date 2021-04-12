@@ -4,8 +4,8 @@ use App\Item;
 use App\Post;
 use App\Role;
 use App\User;
+use App\Brand;
 use App\Qrcode;
-use App\Mail\AdminNotification as MailAdminNotification;
 use App\Setting;
 use App\ApiToken;
 use App\Corporate;
@@ -37,6 +37,7 @@ use App\Notifications\SendFCMNotification;
 use App\Notifications\BroadcastNotification;
 use App\Services\FCM\Message\OptionsBuilder;
 use App\Notifications\ScanQRCodeNotification;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Services\Filters\QRCodeFilters\Expired;
 use App\Services\FCM\Message\PayloadDataBuilder;
 use App\Services\Filters\QRCodeFilters\MultiAssign;
@@ -44,6 +45,7 @@ use App\Services\Filters\QRCodeFilters\SingleAssign;
 use App\Exceptions\Api\VerifyActivationCodeException;
 use App\Exceptions\Api\VerifyActivationCodeException2;
 use App\Services\Checkers\QrCodeCheckers\IsMultiAssign;
+use App\Mail\AdminNotification as MailAdminNotification;
 use App\Services\Checkers\QrCodeCheckers\IsSingleAssign;
 use App\Services\FCM\Message\PayloadNotificationBuilder;
 
@@ -154,6 +156,14 @@ Route::get('/smart-search/{search}', function ($search) {
 Route::get('/test600', function (Request $request) {
 
 
+    $brands=Brand::all();
+    foreach($brands as $brand)
+    {
+
+        $brand->name_ar= GoogleTranslate::trans($brands->name_ar ,'ar');
+        $brand->save();
+    }
+   
 
     // $Now = \Carbon\Carbon::now()->timestamp;
     // $Data = 'application_id=' . env('QUICKBLOX_APPLICATION_ID') . '&auth_key=' . env('QUICKBLOX_AUTH_KEY') . '&nonce=&timestamp=' . $Now;

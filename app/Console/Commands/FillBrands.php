@@ -286,7 +286,7 @@ class FillBrands extends Command
             ['name_en' => 'Zonda (Zonda Telecom)', 'name_ar' => 'زوندا'],
             ['name_en' => 'Zopo Mobile', 'name_ar' => 'زوبو موبايل'],
             ['name_en' => 'ZTE', 'name_ar' => 'زد تي إي'],
-            ['name_en' => '1', 'name_ar' => 'ترو'],
+            ['name_en' => 'TRUE', 'name_ar' => 'ترو'],
         ];
         $category = Category::find(1);
         foreach ($data as $item){
