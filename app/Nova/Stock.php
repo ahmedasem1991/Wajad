@@ -29,7 +29,7 @@ class Stock extends Resource
      * @var string
      */
     public static $model = 'App\Qrcode';
-    public static $perPageOptions = [50, 100, 150];
+    public static $perPageOptions = [100, 200, 300];
     /**
      * The logical group associated with the resource.
      *
