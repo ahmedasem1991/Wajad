@@ -161,7 +161,10 @@ Route::get('/test600', function (Request $request) {
     foreach($brands as $brand)
     {
 
-        $brand->name_ar= GoogleTranslate::trans($brand->name_ar , 'en','ar');
+        $tr = new GoogleTranslate();
+        $tr->setSource();
+        $tr->setTarget('ar');
+        $brand->name_ar= $tr->translate($brand->name_en);
         $brand->save();
     }
     return 'ok';
