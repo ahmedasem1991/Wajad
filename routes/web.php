@@ -156,7 +156,7 @@ Route::get('/smart-search/{search}', function ($search) {
 Route::get('/test600', function (Request $request) {
 
 
-    $brands=Brand::take(500)->skip(600)->get();
+    $brands=Brand::take(700)->skip(600)->get();
     foreach($brands as $brand)
     {
 
