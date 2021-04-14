@@ -159,14 +159,18 @@ Route::get('/test600', function (Request $request) {
 
     $brands=Brand::take(700)->skip(600)->get();
      
+    dd('test');
     foreach($brands as $brand)
     {
          try {
             $tr = new GoogleTranslate();
             $tr->setSource();
             $tr->setTarget('ar');
-            $brand->name_ar= $tr->translate($brand->name_en);
-            $brand->save();
+            if($tra=$tr->translate($brand->name_en)){
+                $brand->name_ar= $tra;
+                $brand->save();
+            }
+          
         } catch (Throwable $e) {
            logger('error');
     
