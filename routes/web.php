@@ -172,7 +172,7 @@ Route::get('/test600', function (Request $request) {
             }
           
         } catch (Throwable $e) {
-           logger('error');
+           dd( $e);
     
            
         }
