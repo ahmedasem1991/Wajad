@@ -163,6 +163,7 @@ Route::get('/test600', function (Request $request) {
         $brand->name_ar= GoogleTranslate::trans($brand->name_ar , 'en','ar');
         $brand->save();
     }
+    return 'ok';
    
 
     // $Now = \Carbon\Carbon::now()->timestamp;
