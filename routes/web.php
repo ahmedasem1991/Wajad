@@ -157,6 +157,7 @@ Route::get('/test600', function (Request $request) {
 
 
     $brands=Brand::take(700)->skip(600)->get();
+    dd($brands);
     foreach($brands as $brand)
     {
 
