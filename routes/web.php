@@ -5,6 +5,7 @@ use App\Post;
 use App\Role;
 use App\User;
 use App\Brand;
+use Throwable;
 use App\Qrcode;
 use App\Setting;
 use App\ApiToken;
@@ -22,8 +23,8 @@ use App\Events\SendFCMEvent;
 use App\Jobs\DeleteUserChat;
 use Illuminate\Http\Request;
 use App\Services\FCM\Facades\FCM;
-use App\Mail\EmailVerificationCode;
 //use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Mail\EmailVerificationCode;
 use Illuminate\Support\Facades\App;
 use App\Exceptions\Api\ApiException;
 use App\Http\Resources\ItemResource;
@@ -160,12 +161,19 @@ Route::get('/test600', function (Request $request) {
      
     foreach($brands as $brand)
     {
+         try {
+            $tr = new GoogleTranslate();
+            $tr->setSource();
+            $tr->setTarget('ar');
+            $brand->name_ar= $tr->translate($brand->name_en);
+            $brand->save();
+        } catch (Throwable $e) {
+           logger('error');
+    
+           
+        }
 
-        $tr = new GoogleTranslate();
-        $tr->setSource();
-        $tr->setTarget('ar');
-        $brand->name_ar= $tr->translate($brand->name_en);
-        $brand->save();
+       
     }
     return 'ok';
    
