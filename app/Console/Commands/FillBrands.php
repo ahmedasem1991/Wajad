@@ -41,23 +41,17 @@ class FillBrands extends Command
     public function handle()
     {
         $data =array(
-            0 => array('name_en' => 'Victorinox', 'name_ar' => 'فسكتورنوكس'),
-            1 => array('name_en' => 'American Tourister', 'name_ar' => 'أمريكان توريستر'),
-            2 => array('name_en' => 'Samsonite', 'name_ar' => 'سامسونايت'),
-            3 => array('name_en' => 'Travelpro', 'name_ar' => 'ترافلبرو'),
-            4 => array('name_en' => 'Eagle Creek', 'name_ar' => 'إيجل كريك'),
-            5 => array('name_en' => 'Delsey', 'name_ar' => 'ديلسي'),
-            6 => array('name_en' => 'Briggs & Riley', 'name_ar' => 'بريجز اند رايلي'),
-            7 => array('name_en' => 'Victorinox', 'name_ar' => 'فسكتورنوكس'),
-            8 => array('name_en' => 'Tumi', 'name_ar' => 'تومي'),
-            9 => array('name_en' => 'Hartmann', 'name_ar' => 'هارتمان'),
-            10 => array('name_en' => 'Bric’s', 'name_ar' => 'بريتش'),
-            11 => array('name_en' => 'Rimowa', 'name_ar' => 'ريموا'),
-            12 => array('name_en' => 'Globe-Trotter', 'name_ar' => 'غلوب تروتر'),
-            13 => array('name_en' => 'Away', 'name_ar' => 'أواي'),
-            14 => array('name_en' => 'Others', 'name_ar' => 'أخرى'),
+            0 => array('name_en' => 'Trek', 'name_ar' => 'تريك'),
+            1 => array('name_en' => 'Connondale', 'name_ar' => 'كونونديل'),
+            2 => array('name_en' => 'Kona Bikes', 'name_ar' => 'كونا بيكس'),
+            3 => array('name_en' => 'Colnago', 'name_ar' => 'كولناغو'),
+            4 => array('name_en' => 'Bianchi', 'name_ar' => 'بيانكي'),
+            5 => array('name_en' => 'Raleigh', 'name_ar' => 'رالي'),
+            6 => array('name_en' => 'Cervelo', 'name_ar' => 'سيرفلو'),
+            7 => array('name_en' => 'Orbea', 'name_ar' => 'أوربيا'),
+            8 => array('name_en' => 'Others', 'name_ar' => 'أخرى'),
         );
-        $subcategory = SubCategory::find(9);
+        $subcategory = SubCategory::find(33);
          
         foreach ($data as $item){
             $brand = Brand::create($item);
