@@ -165,7 +165,7 @@ Route::get('/test600', function (Request $request) {
          try {
             if (!preg_match('/[^A-Za-z0-9]/', $brand->name_en)) // '/[^a-z\d]/i' should also work.
             {
-                dd( 'test');
+              
               // string contains only english letters & digits
             
             $tr = new GoogleTranslate();
