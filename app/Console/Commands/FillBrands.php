@@ -51,7 +51,7 @@ class FillBrands extends Command
             7 => array('name_en' => 'Orbea', 'name_ar' => 'أوربيا'),
             8 => array('name_en' => 'Others', 'name_ar' => 'أخرى'),
         );
-        $subcategory = SubCategory::find(33);
+        $subcategory = SubCategory::find(32);
          
         foreach ($data as $item){
             $brand = Brand::create($item);
