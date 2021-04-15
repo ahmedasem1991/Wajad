@@ -171,7 +171,8 @@ Route::get('/test600', function (Request $request) {
             $tr = new GoogleTranslate();
             $tr->setSource();
             $tr->setTarget('ar');
-            if($tra=$tr->translate($brand->name_en)){
+            if($tra=$tr->translate('hellow')){
+                dd( $tra);
                 $brand->name_ar= $tra;
                 $brand->save();
             }
