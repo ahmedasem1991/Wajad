@@ -196,7 +196,7 @@ return [
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
     
-        \SocialiteProviders\Manager\ServiceProvider::class,
+        //\SocialiteProviders\Manager\ServiceProvider::class,
 ],
 
 
