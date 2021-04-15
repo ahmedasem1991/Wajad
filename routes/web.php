@@ -169,9 +169,9 @@ Route::get('/test600', function (Request $request) {
               // string contains only english letters & digits
             
             $tr = new GoogleTranslate();
-            $tr->setSource();
+            $tr->setSource('en');
             $tr->setTarget('ar');
-            if($tra=$tr->translate('hellow')){
+            if($tra=$tr->translate('welcome')){
                 dd( $tra);
                 $brand->name_ar= $tra;
                 $brand->save();
