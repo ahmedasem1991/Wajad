@@ -78,7 +78,6 @@ class FillBrands extends Command
             34 => array('name_en' => 'Hunted Scooters', 'name_ar' => 'هونتد سكوتيرز'),
             35 => array('name_en' => 'Hyosung', 'name_ar' => 'هيوسونغ'),
             36 => array('name_en' => 'Jialing', 'name_ar' => '"جيالينغ'),
-            37 => array(),
             38 => array('name_en' => 'Jianshe', 'name_ar' => 'جيانشي'),
             39 => array('name_en' => 'JMI', 'name_ar' => 'جيمي'),
             40 => array('name_en' => 'Jonway', 'name_ar' => 'جونواي'),
