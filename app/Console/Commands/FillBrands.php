@@ -40,7 +40,7 @@ class FillBrands extends Command
      */
     public function handle()
     {
-        $brands = array(
+        $data =array(
             0 => array('name_en' => 'A. Favre & Fils', 'name_ar' => 'أ. فافر وفلس'),
             1 => array('name_en' => 'A. Lange & Söhne', 'name_ar' => 'أ. لانج وسون'),
             2 => array('name_en' => 'Aaron Lufkin Dennison', 'name_ar' => 'آرون لوفكين دينيسون'),
@@ -323,13 +323,14 @@ class FillBrands extends Command
             279 => array('name_en' => 'Zodiac', 'name_ar' => 'زودياك'),
             280 => array('name_en' => 'Others', 'name_ar' => 'أخرى'),
         );
-        $SubCategory = SubCategory::find(4);
-        
+        $subcategory = SubCategory::find(4);
+        foreach ($data as $item){
+            $brand = Brand::create($item);
 
-            foreach ($brands as $brand){
-                $SubCategory->brands()->attach($brand);
-            }
-        
+            
+                $subcategory->brands()->attach($brand);
+         
+        }
 
 
 
