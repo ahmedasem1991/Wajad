@@ -19,8 +19,8 @@ function sendBuyPackageSMS($package,$user)
 {
     
     if($user->getLanguage()=='ar')
-    $message='  لقد قمت بشراء '. $package->name_ar . 'بنجاح.' 
-   . ' وتحتوي علي  ' .  $package->quantity . ' QRCodes. '  ;
+    $message='  لقد قمت بشراء '. $package->name_ar . ' بنجاح ' 
+   . ' وتحتوي على  ' .  $package->quantity . ' QRCodes. '  ;
     else
     $message='  You have purchased '. 
     $package->name_en .

@@ -66,8 +66,8 @@ function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
         $type='post_found';
     $data = [
         'ar' => [
-            'title' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور'.$post->title,
-            'body' => ' لقد تم الموافقة علي  طلب حق ملكية للمنشور'
+            'title' => ' لقد تم الموافقة على  طلب حق ملكية للمنشور'.$post->title,
+            'body' => ' لقد تم الموافقة على  طلب حق ملكية للمنشور'
             .$post->title . ' '
             . $post->description
             . ' من صاحب المنشور  ' .
@@ -165,7 +165,7 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
             'body' => 'هناك شخص  قرأ رمز التعريف  الخاص بك'
             .$title . ' '
 
-            . 'يمكنك اللإطلاع علي الخريطة . '
+            . 'يمكنك اللإطلاع على الخريطة . '
         ],
         'en' => [
             'title' => 'Your Item '.$title . ' Got Scanned.',
@@ -328,12 +328,12 @@ function sendBuyPackageFCM($package,$badge)
 
     $data = [
         'ar' => [
-            'title' => '  لقد قمت بشراء'.
+            'title' => '  لقد قمت بشراء '.
             $package->name_ar .
              ' بنجاح. ',
-            'body' => '  لقد قمت بشراء'.
+            'body' => '  لقد قمت بشراء '.
             $package->name_ar .
-             ' وتحتوي علي  ' .  $package->quantity . ' QRCodes. '
+             ' وتحتوي على  ' .  $package->quantity . ' QRCodes '
         ],
         'en' => [
             'title' => 'You have purchased '.
@@ -341,7 +341,7 @@ function sendBuyPackageFCM($package,$badge)
              ' successfully. ',
             'body' => 'You have purchased '.
             $package->name_en .
-             ' and contain  ' .  $package->quantity . ' QRCodes. '
+             ' and contain  ' .  $package->quantity . ' QRCodes '
         ],
         'type' => 'package',
         'deeplink' => 'qrcode',
