@@ -940,5 +940,22 @@ foreach($brands as $brand)
 });
 
 
+Route::get('deletebrands', function(){
+    //$authors = Author::doesnthave('books')->get();
+    $brands=\App\Brand::doesnthave('subcategories')->get();
+    dd( $brands);
+$array=[];
+
+foreach($brands as $brand)
+{
+    array_push($array,$brand->name_en);
+}
+    dd($array);
+    
+    //  dd(request()->getClientIp(true));
+
+});
+
+
 
 // http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
