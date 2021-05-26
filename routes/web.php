@@ -948,7 +948,7 @@ $array=[];
 
 foreach($brands as $brand)
 {
-    array_push($array,$brand->name_en);
+    $brand->delete();
 }
     dd($array);
     
