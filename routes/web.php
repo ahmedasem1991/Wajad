@@ -943,7 +943,7 @@ foreach($brands as $brand)
 Route::get('deletebrands', function(){
     //$authors = Author::doesnthave('books')->get();
     $brands=\App\Brand::doesnthave('subcategories')->get();
-    dd( $brands);
+   /// dd( $brands);
 $array=[];
 
 foreach($brands as $brand)
