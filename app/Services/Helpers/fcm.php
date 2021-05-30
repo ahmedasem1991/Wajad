@@ -195,8 +195,8 @@ function sendCreateItemFCM($item,$badge)
    // logger($item);
     $data = [
         'ar' => [
-            'title' => '  الجهاز الخاص لديك'.$item->title,
-            'body' => 'تم إضافة الجهاز الخاص لديك '
+            'title' => '  المقتنى الخاص لديك '.$item->title,
+            'body' => ' تم إضافة المقتنى الخاص لديك '
             .$item->title . ' '
             . $item->details
             . ' بنجاح . '
@@ -234,8 +234,8 @@ function sendUpdateItemFCM($item,$badge)
 
     $data = [
         'ar' => [
-            'title' => '  الجهاز الخاص لديك'.$item->title,
-            'body' => 'تم تعديل الجهاز الخاص لديك  '
+            'title' => '  المقتنى الخاص لديك '.$item->title,
+            'body' => ' تم تعديل المقتنى الخاص لديك  '
             .$item->title . ' '
             . $item->details
             . ' بنجاح . '
