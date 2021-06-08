@@ -296,12 +296,12 @@ class SearchController extends Controller
      */
     public function fetchSearchData()
     {
-        $subcategories = SubCategory::orderBy('name_en','asc')->get();
+        $subcategories = SubCategory::orderBy('name_'. app()->getLocale(),'asc')->get();
 
         $subcategories->load(['brands' => function($q){
-            $q->orderBy('name_en','asc');
+            $q->orderBy('name_'. app()->getLocale(),'asc');
         },'brands.models' => function($q){
-            $q->orderBy('name_en','asc');
+            $q->orderBy('name_'. app()->getLocale(),'asc');
         }]);
 
         $data = [
