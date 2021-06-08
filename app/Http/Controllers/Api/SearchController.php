@@ -296,9 +296,13 @@ class SearchController extends Controller
      */
     public function fetchSearchData()
     {
-        $subcategories = SubCategory::all();
+        $subcategories = SubCategory::orderBy('name_en','asc')->get();
 
-        $subcategories->load('brands.models');
+        $subcategories->load(['brands' => function($q){
+            $q->orderBy('name_en','asc');
+        },'brands.models' => function($q){
+            $q->orderBy('name_en','asc');
+        }]);
 
         $data = [
             'regions' => RegionResource::collection(Region::all()),
