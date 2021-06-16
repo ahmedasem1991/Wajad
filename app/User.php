@@ -87,13 +87,27 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'Active' => 1,
     ];
 
-    const DEFAULT_PHOTO = 'images/profile/default-profile.png';
+    // const DEFAULT_PHOTO = 'images/profile/default-profile.png';
+    // // public function getImageAttribute($image){
+    // //     if (!$image) {
+    // //        return DEFAULT_PHOTO;
+    // //     }
+        
+    // }
     // public function status($status)
     // {
     //     return $this->type === self::Types[$status];
     // }
 
 
+    public function getImageAttribute($value)
+{
+    if ($value) {
+        return asset($value);
+    } else {
+        return asset('images/profile/default-profile.png');
+    }
+}
     public function assigned_qrcodes()
     {
         return $this->hasMany(AssignQrcode::class);
