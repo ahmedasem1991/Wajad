@@ -93,7 +93,8 @@ class SuperAdmin extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-            MediaField::make('Profile Image', 'image'),
+            MediaField::make('Profile Image', 'image')
+            ->rules('required'),
 
             Text::make('Name')
                 ->sortable()
