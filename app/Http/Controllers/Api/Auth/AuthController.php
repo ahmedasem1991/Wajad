@@ -212,7 +212,7 @@ class AuthController extends Controller
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL'],
             'password' => ['required', 'min:6', 'max:255'],
-            'mobile_number' => ['required', 'unique:users,mobile_number'],
+            'mobile_number' => ['required', 'unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL'],
             'device_type' => ['required', 'string', 'in:android,ios'],
             'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ]);
