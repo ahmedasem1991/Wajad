@@ -186,14 +186,14 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $request->mobile_number=  ltrim((string) $request->mobile_number, 0);
-        
+        $mobile_number=  ltrim((string) $request->mobile_number, 0);
+
         $DeletedUser=\App\User::where('email',$request->email)
-        ->orWhere('mobile_number',$request->mobile_number)
+        ->orWhere('mobile_number',$mobile_number)
         ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
 
         $NormalUserCount=\App\User::where('email',$request->email)
-        ->orWhere('mobile_number',$request->mobile_number)
+        ->orWhere('mobile_number',$mobile_number)
         ->where('deleted_at' ,NULL)->count();
 
       
@@ -237,7 +237,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'email' => $request->email,
             'mobile_country_id' => $request->mobile_country_id,
-            'mobile_number' => ltrim((string) $request->mobile_number, 0),
+            'mobile_number' => $mobile_number,
             'type' => User::Types['user'],
             'is_mobile_number_verified' => false,
             'posts_number' => 0,
