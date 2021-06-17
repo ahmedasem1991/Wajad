@@ -225,7 +225,13 @@ class AuthController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
+        $NormalUserMobileCount=\App\User::Where('mobile_number',$mobile_number)
+        ->where('deleted_at' ,NULL)->NormalUsers()->count();
 
+        if($NormalUserMobileCount > 0)
+        {
+            throw new ApiException('Mobile Number Already Taken', 400);
+        }
 
         $result=true;
         $result = filter_var( $request->email, FILTER_VALIDATE_EMAIL );
