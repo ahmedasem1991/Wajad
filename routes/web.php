@@ -5,7 +5,7 @@ use App\Post;
 use App\Role;
 use App\User;
 use App\Brand;
-use Throwable;
+// use Throwable;
 use App\Qrcode;
 use App\Setting;
 use App\ApiToken;
@@ -155,34 +155,35 @@ Route::get('/smart-search/{search}', function ($search) {
 });
 
 Route::get('/test600', function (Request $request) {
-
-
+ $string='01142416124';
+$string2=   ltrim((string) $string, 0);
+return $string2;
     $brands=Brand::take(700)->skip(600)->get();
      
     
     foreach($brands as $brand)
     {
-         try {
-            if (!preg_match('/[^A-Za-z0-9]/', $brand->name_en)) // '/[^a-z\d]/i' should also work.
-            {
+        //  try {
+        //     if (!preg_match('/[^A-Za-z0-9]/', $brand->name_en)) // '/[^a-z\d]/i' should also work.
+        //     {
               
-              // string contains only english letters & digits
+        //       // string contains only english letters & digits
             
-            $tr = new GoogleTranslate();
-            $tr->setSource('en');
-            $tr->setTarget('ar');
-            if($tra=$tr->translate('welcome')){
-                dd( $tra);
-                $brand->name_ar= $tra;
-                $brand->save();
-            }
-        }
+        //     $tr = new GoogleTranslate();
+        //     $tr->setSource('en');
+        //     $tr->setTarget('ar');
+        //     if($tra=$tr->translate('welcome')){
+        //         dd( $tra);
+        //         $brand->name_ar= $tra;
+        //         $brand->save();
+        //     }
+        // }
           
-        } catch (Throwable $e) {
-           dd( $e);
+        // } catch (Throwable $e) {
+        //    dd( $e);
     
            
-        }
+        // }
 
        
     }

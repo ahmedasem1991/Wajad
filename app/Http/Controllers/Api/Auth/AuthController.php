@@ -188,6 +188,7 @@ class AuthController extends Controller
     {
         $mobile_number=  ltrim((string) $request->mobile_number, 0);
 
+        logger($mobile_number);
         $DeletedUser=\App\User::where('email',$request->email)
         ->orWhere('mobile_number',$mobile_number)
         ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
