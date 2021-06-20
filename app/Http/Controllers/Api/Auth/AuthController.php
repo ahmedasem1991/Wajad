@@ -89,6 +89,11 @@ class AuthController extends Controller
 
             if ($validate_mobile_number->fails()) {
                 throw new ApiException($validate_mobile_number->errors()->first(), 400);
+            }else{
+                $User=User::where('mobile_number',request('user'))->normalusers()->where('deleted_at',null)->first();
+                if(!$User){
+                    throw new ApiException('Sorry, Credentials not match our records', 400);
+                }
             }
             $User=User::where('mobile_number',request('user'))->where('mobile_country_id',request('mobile_country_id'))->normalusers()->where('deleted_at',null)->first();
             if(!$User){
