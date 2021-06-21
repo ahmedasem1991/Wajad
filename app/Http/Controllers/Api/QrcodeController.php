@@ -84,6 +84,7 @@ class QrcodeController extends Controller
         return $this->response();
     }
 
+    
 
     /**
      * Rename QR Code
