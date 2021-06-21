@@ -58,7 +58,7 @@ class QrcodeController extends Controller
 
         if( $qrcode->item)
         {
-            if($qrcode->isQrcodeSingleAssign && $qrcode->item->deleted_at != NULL )
+            if($qrcode->isQrcodeSingleAssign() && $qrcode->item->deleted_at != NULL )
             {
                 throw new ApiException(trans('messages.cannotrenew'), 400);
             }
@@ -73,7 +73,7 @@ class QrcodeController extends Controller
         
         if( $qrcode->item)
         {
-            if($qrcode->isQrcodeMultiAssign && $qrcode->item->deleted_at != NULL )
+            if($qrcode->isQrcodeMultiAssign() && $qrcode->item->deleted_at != NULL )
             {
                 $qrcode->item->deleted_at=NULL;
                 $qrcode->item->save();
