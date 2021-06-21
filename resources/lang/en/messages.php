@@ -22,6 +22,7 @@ return [
 	'scan_qrcode2' =>  'Open his location on the map',
 	'renamed' =>  'QR Code Renamed Successfully',
 	'renewed' =>  'QR Code Renewed Successfully',
+	'cannotrenew' =>  'Can not renew this QR Code !',
 	'assigned' =>  'QR Code Assigned Successfully',
 
 

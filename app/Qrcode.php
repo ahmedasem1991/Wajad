@@ -128,6 +128,10 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->belongsTo(Item::class)->withTrashed();
     }
+    public function itemWithOutTrashed()
+    {
+        return $this->belongsTo(Item::class);
+    }
 
 
     public function registerQrcode(Request $request)
@@ -201,9 +205,13 @@ class Qrcode extends Model implements QrcodeConstants
         ]);
     }
 
-    public function isQrcodeMulitAssign()
+    public function isQrcodeMultiAssign()
     {
         return $this->type == 2;
+    }
+    public function isQrcodeSingleAssign()
+    {
+        return $this->type == 1;
     }
 
     public function isQrcodeRegistered()

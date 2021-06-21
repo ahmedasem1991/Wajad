@@ -55,9 +55,31 @@ class QrcodeController extends Controller
             throw new ApiException('QR Code Not Found', 400);
         }
 
+
+        if( $qrcode->item)
+        {
+            if($qrcode->isQrcodeSingleAssign && $qrcode->item->deleted_at != NULL )
+            {
+                throw new ApiException('Can not renew this QR Code', 400);
+            }
+
+        }
+       
+    
+
         $qrcode->end_at =  Carbon::now()->addDays($request->input('days'));
         $qrcode->status =4;
         $qrcode->save();
+        
+        if( $qrcode->item)
+        {
+            if($qrcode->isQrcodeMultiAssign && $qrcode->item->deleted_at != NULL )
+            {
+                $qrcode->item->deleted_at=NULL;
+                $qrcode->item->save();
+            }
+
+        }
         $this->addResponse(trans('messages.renewed'))->addStatusCode(201);
         return $this->response();
     }
