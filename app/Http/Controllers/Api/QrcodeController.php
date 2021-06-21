@@ -60,7 +60,7 @@ class QrcodeController extends Controller
         {
             if($qrcode->isQrcodeSingleAssign && $qrcode->item->deleted_at != NULL )
             {
-                throw new ApiException('Can not renew this QR Code', 400);
+                throw new ApiException(trans('messages.cannotrenew'), 400);
             }
 
         }
@@ -84,7 +84,7 @@ class QrcodeController extends Controller
         return $this->response();
     }
 
-    
+
 
     /**
      * Rename QR Code
