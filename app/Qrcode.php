@@ -207,11 +207,11 @@ class Qrcode extends Model implements QrcodeConstants
 
     public function isQrcodeMultiAssign()
     {
-        return $this->type == 2;
+        return $this->type === 2;
     }
     public function isQrcodeSingleAssign()
     {
-        return $this->type == 1;
+        return $this->type === 1;
     }
 
     public function isQrcodeRegistered()
