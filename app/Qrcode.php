@@ -196,13 +196,25 @@ class Qrcode extends Model implements QrcodeConstants
 
     public function assignQrcodeToItem($item_id)
     {
-        return $this->update([
-            'item_id' => $item_id,
-            'status' => self::STATUS['Registered'],
-            //'status' => 4,
-            'start_at' => Carbon::now()->toDateTimeString(),
-            'end_at' => Carbon::now()->addDays($this->available_period),
-        ]);
+        if($this->end_at == NULL)
+        {
+            return $this->update([
+                'item_id' => $item_id,
+                'status' => self::STATUS['Registered'],
+                //'status' => 4,
+                'start_at' => Carbon::now()->toDateTimeString(),
+                'end_at' => Carbon::now()->addDays($this->available_period),
+            ]);
+        }else{
+            return $this->update([
+                'item_id' => $item_id,
+                'status' => self::STATUS['Registered'],
+                //'status' => 4,
+               // 'start_at' => Carbon::now()->toDateTimeString(),
+               // 'end_at' => Carbon::now()->addDays($this->available_period),
+            ]);
+        }
+
     }
 
     public function isQrcodeMultiAssign()
