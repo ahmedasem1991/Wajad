@@ -74,7 +74,7 @@ Route::get('mesibo_add', function () {
     ]);
    
     $response = $client->get($url);
-    dd( $response);
+    dd( $response->getBody());
     ;
     foreach( User::normalusers()->get() as $user)
     {
