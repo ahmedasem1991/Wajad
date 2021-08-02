@@ -269,16 +269,16 @@ class AuthController extends Controller
 
 
         //PrepereNewUser::dispatch($user);
-        // $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
-        // $client = new \GuzzleHttp\Client([
-        //     'headers' => ['Content-Type' => 'application/json']
-        // ]);
-        // $response = $client->get($url);
-        // $response = json_decode($response->getBody(), true);
-        // $user->mesibo_uid= $response['user']['uid']??null;
-        // $user->mesibo_token= $response['user']['token']??null;
-        // $user->mesibo_address= $user->name.'-'.$user->id;
-        // $user->save();
+        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
+        $client = new \GuzzleHttp\Client([
+            'headers' => ['Content-Type' => 'application/json']
+        ]);
+        $response = $client->get($url);
+        $response = json_decode($response->getBody(), true);
+        $user->mesibo_uid= $response['user']['uid']??null;
+        $user->mesibo_token= $response['user']['token']??null;
+        $user->mesibo_address= $user->name.'-'.$user->id;
+        $user->save();
 
 
         if(count($user->qrcodes) == 0 ){
