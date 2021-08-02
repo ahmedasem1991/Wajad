@@ -68,7 +68,7 @@ Route::get('/home', function () {
 });
 
 Route::get('mesibo_add', function () {
-    $url = "https://api.wajad.co/api/home/posts/lost";
+    $url = "https://api-wajad-demo.smartappco.dev/api/home/posts/lost";
     $client = new \GuzzleHttp\Client([
        'headers' => ['Content-Type' => 'application/json']
     ]);
