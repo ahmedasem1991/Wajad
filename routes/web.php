@@ -73,7 +73,7 @@ Route::get('mesibo_add', function () {
     foreach( User::normalusers()->get() as $user)
     {
 
-        $url = "https://www.facebook.com/";
+        $url = "https://mesibo.com/";
         $client = new \GuzzleHttp\Client([
            // 'headers' => ['Content-Type' => 'application/json']
         ]);
