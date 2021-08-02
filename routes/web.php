@@ -68,12 +68,13 @@ Route::get('/home', function () {
 });
 
 Route::get('mesibo_add', function () {
-    $url = "https://api.mesibo.com/api.php";
+    $url = "https://jsonplaceholder.typicode.com/todos";
     $client = new \GuzzleHttp\Client([
        'headers' => ['Content-Type' => 'application/json']
     ]);
    
     $response = $client->get($url);
+    $response = json_decode($response->getBody(), true);
     dd( $response);
     ;
     foreach( User::normalusers()->get() as $user)
