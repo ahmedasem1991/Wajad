@@ -68,13 +68,13 @@ Route::get('/home', function () {
 });
 
 Route::get('mesibo_add', function () {
-    $url = "https://api-wajad-demo.smartappco.dev/api/home/posts/lost";
+    $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".'$user->name'.'-'.'test 555'."&appid=com.smartappco.wajad&name=".'$user->name';
     $client = new \GuzzleHttp\Client([
        'headers' => ['Content-Type' => 'application/json']
     ]);
    
     $response = $client->get($url);
-    dd(json_decode($response->getBody(), true));
+    dd( $response);
     ;
     foreach( User::normalusers()->get() as $user)
     {
