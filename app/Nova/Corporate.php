@@ -2,9 +2,8 @@
 
 namespace App\Nova;
 
-use ClassicO\NovaMediaLibrary\MediaField;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -17,8 +16,10 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsToMany;
-use NovaErrorField\Errors;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Spatie\NovaTranslatable\Translatable;
 use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -108,14 +109,14 @@ class Corporate extends Resource
             Number::make('Mobile Number', 'mobile_number')
                 ->creationRules('required','unique:corporates,mobile_number')
                 ->updateRules('required','unique:corporates,mobile_number,{{resourceId}}'),
-            Trix::make('Corporate English Details', 'details_en')
+                Textarea::make('Corporate English Details', 'details_en')
                 ->rules(
                     'required',
                     'string',
                     'max:255',
                     'min:2'
                 ),
-            Trix::make('Corporate Arabic Details', 'details_ar')
+                Textarea::make('Corporate Arabic Details', 'details_ar')
                 ->rules(
                     'required',
                     'string',
