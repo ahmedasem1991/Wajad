@@ -29,7 +29,7 @@
 <meta name="msapplication-TileImage" content="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
 <meta name="msapplication-square70x70logo" content="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
 <meta name="msapplication-square150x150logo" content="https://wajad-demo.smartappco.dev/images/wajadfinallogo.png"/>
-    <link rel="alternate" href="wajad://api-wajad.smartappco.dev/api/share-post/{{$post->id}}" />
+    <link rel="alternate" href="wajad://api.wajad.co/api/share-post/{{$post->id}}" />
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
