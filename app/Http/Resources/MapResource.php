@@ -30,7 +30,7 @@ class MapResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->{'name_' . app()->getLocale()} ?? $this->title,
-            'details' => $this->{'details_' . app()->getLocale()} ?? $this->description,
+            'details' =>strip_tags($this->{'details_' . app()->getLocale()} ?? $this->description) ,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'image' => (string) env("APP_URL") . "/" . $image,
