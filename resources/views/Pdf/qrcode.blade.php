@@ -13,22 +13,7 @@
             /*padding: 10px;*/
             box-sizing: border-box;
         }
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 15%;
-            width: 100%;
-            text-align: left;
-            /*padding-left: 50px;*/
-            color: #767d7c;
-        }
-        .signature{
-            color: #767d7c;
-            font-size: 16px;
-            text-align: right;
-            margin-right: 25px;
-            padding-bottom: 10%;
-        }
+        
         .item{
             position: relative;
             width:25%;
@@ -88,12 +73,6 @@
     @endforeach
 </div>
 
-<div class="footer">
-    <div class="signature"><p>
-        <p>Signature</p>
-    </div>
-    <p><small>{{$settings['Address-1']}} | {{$settings['Phone-Number-1']}} - {{$settings['Address-2']}} | {{$settings['Phone-Number-2']}}
-            <hr>{{$settings['Email-1']}} | {{$settings['Email-2']}}</small></p>
-</div>
+ 
 </body>
 </html>
