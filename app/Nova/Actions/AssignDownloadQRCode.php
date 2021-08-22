@@ -11,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\App;
 
-class SingleDownloadQRCode extends Action
+class AssignDownloadQRCode extends Action
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
