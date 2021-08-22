@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\URL;
 use App\Nova\Actions\DownloadQRCode;
 use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Actions\DownloadQRCodeZIP;
+use App\Nova\Actions\SingleDownloadQRCode;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
@@ -263,7 +264,7 @@ class AssignQrcode extends Resource
     public function actions(Request $request)
     {
         return [
-            (new DownloadQRCode)->canRun(function (NovaRequest $request) {
+            (new SingleDownloadQRCode)->canRun(function (NovaRequest $request) {
                 return true;
             }),
             (new DownloadQRCodeZIP)->canRun(function (NovaRequest $request) {
