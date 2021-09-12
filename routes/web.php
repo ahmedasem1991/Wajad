@@ -965,6 +965,5 @@ foreach($brands as $brand)
 
 });
 
-
-
-// http://admin.wajad.test/asif_test?title=test%20asif testtest test test testtest test testtesttesttesttesttest test test test test test testtest testtest&body=test%20test%20test%20test%20test%20test%20test%20testtest%20test%20testtest%20test%20testtesttesttesttest%20testtest%20with%20asif%20asif&tisubtitletle=asif&fcm_token=dlINrOmWS1m93ARhq22klT:APA91bEwQ6UEAVFtNCqEKwGSGOksAacV09AYQPC5AALdlKTFKt3u_w-PCJdCj1NCKb29hr9_fvwPAZbWj8yDfHNiWhMscrtp8m4Ue1HIvWiuwWH0dfwaWGHhPajyCwZkxzWKUy0DTv4F
+Route::get('contact-us', 'ContactController@getContact');
+Route::post('contact-us', 'ContactController@saveContact');
