@@ -41,7 +41,7 @@ class ContactController extends Controller {
         ), function($message) use ($request)
           {
              $message->from(env('MAIL_FROM_ADDRESS'));
-             $message->to('i.saber@smartappco.com');
+             $message->to('info@wajad.co');
           });
         
         return back()->with('success', 'Thank you for contact us!');
