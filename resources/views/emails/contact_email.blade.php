@@ -239,7 +239,7 @@ id="not2ChangeBG" bgcolor="#001620">
 <!-- SORTABLE -->
 <div class="sortable_inner ui-sortable">
 
-<img src="https://atcorp.sa/images/masterlogo.png" height="50px" width="30px"  alt="" border="0"
+<img src="https://admin.wajad.co/images/wajad_logo.png" height="50px" width="80px"  alt="" border="0"
                 class=""> 
                 <br>
               <h2>  WAJAD  </h2>
