@@ -40,7 +40,7 @@ class ContactController extends Controller {
             'user_message' => $request->get('message'),
         ), function($message) use ($request)
           {
-             $message->from($request->email);
+             $message->from(env('MAIL_FROM_ADDRESS'));
              $message->to('i.saber@smartappco.com');
           });
         
