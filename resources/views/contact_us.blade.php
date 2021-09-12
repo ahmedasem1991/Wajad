@@ -5,7 +5,7 @@
 <meta name=”viewport” content=”width=device-width, initial-scale=1.0″>
 <meta http-equiv=”X-UA-Compatible” content=”ie=edge”>
 <title>CONTACT US</title>
-<link href=”https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css” rel=”stylesheet”>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
 <div class=”container”>
@@ -18,6 +18,13 @@
            <h5 class="card-title">Contact Us</h5>
          </div>
         <div class="card-body">
+
+        <div class="text-center">
+                            <center> <img src="https://admin.wajad.co/images/wajad_logo.png" style="height:50px;margin-left:auto;margin-right: auto;display:block;float:snap" alt="Avatar"></center>
+                    </div>
+
+
+                    
            @if(Session::has('success'))
               <div class="alert alert-success">
         	    {{ Session::get('success') }}
@@ -26,8 +33,9 @@
            
           <form method="post" action="contact-us">
              {{csrf_field()}}
-             <div class="row">
-               <div class="col-md-12">
+             <div class="row  ">
+             <div class="col-md-6 update ml-auto mr-auto">
+               
                  <div class="form-group">
                    <label> Name </label>
                    <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name">
@@ -37,8 +45,8 @@
                        </span>
                    @enderror
                  </div>
-               </div>
-             <div class="col-md-12">
+               
+            
                <div class="form-group">
                    <label> Email </label>
                    <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email">
@@ -48,8 +56,8 @@
                        </span>
                    @enderror
                  </div>
-               </div>   
-             <div class="col-md-12">
+                
+            
                 <div class="form-group">
                    <label> Phone Number </label>
                    <input type="text" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Phone Number" name="phone_number">
@@ -59,8 +67,8 @@
                        </span>
                    @enderror
                  </div>
-               </div>
-              <div class="col-md-12">
+               
+             
                  <div class="form-group">
                    <label> Subject </label>
                    <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="Subject" name="subject">
@@ -70,8 +78,8 @@
                        </span>
                    @enderror
                  </div>
-               </div>
-              <div class="col-md-12">
+               
+              
                 <div class="form-group">
                    <label> Message </label>
                    <textarea class="form-control textarea @error('message') is-invalid @enderror" placeholder="Message" name="message"></textarea>
@@ -81,8 +89,8 @@
                        </span>
                    @enderror
                  </div>
-               </div>
-             </div>
+               
+               </div> </div>
              <div class="row">
               <div class="update ml-auto mr-auto">
                  <button type="submit" class="btn btn-primary btn-round">Send</button>
