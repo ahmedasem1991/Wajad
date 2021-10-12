@@ -80,8 +80,8 @@ class PDFController extends Controller
         $models =  session()->get('models');
         $settings = Setting::all()->pluck('value','key')->toArray();
         //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
-        if(count($models) > 1000){
-            $models->chunk(1000, function ($modelss) use( $settings) {
+        if(count($models) > 100){
+            $models->chunk(100, function ($modelss) use( $settings) {
                 foreach ($modelss as $model) {
                     $data=['models' => $model, 'settings' => $settings];
                     set_time_limit(8000);
