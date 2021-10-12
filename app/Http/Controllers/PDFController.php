@@ -80,10 +80,23 @@ class PDFController extends Controller
         $models =  session()->get('models');
         $settings = Setting::all()->pluck('value','key')->toArray();
         //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
-        $data=['models' => $models, 'settings' => $settings];
-        set_time_limit(9000);
-        $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
-        return $pdf->download(now() . '_QR_CODE.pdf');
+        if(count($models) > 50){
+            $models->chunk(1000, function ($modelss) use( $settings) {
+                foreach ($modelss as $model) {
+                    $data=['models' => $model, 'settings' => $settings];
+                    set_time_limit(3000);
+                    $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
+                    return $pdf->download(now() . '_QR_CODE.pdf');
+                }
+            });
+          
+        }else{
+            $data=['models' => $models, 'settings' => $settings];
+            set_time_limit(8000);
+            $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
+            return $pdf->download(now() . '_QR_CODE.pdf');
+        }
+
     }
 
     public function qrcodeZIP(Request $request)
