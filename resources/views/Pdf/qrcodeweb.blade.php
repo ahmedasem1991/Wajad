@@ -42,7 +42,11 @@
     </style>
 </head>
 <body class="border">
-
+<script>
+        
+            window.print();
+      
+      </script>
 <img src="images/wajad_logo.png" style="width: 25%; margin-left: 25px; margin-top: 1%">
  
 <div style="padding-left:20px">
