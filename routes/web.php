@@ -378,8 +378,8 @@ Route::get('test', function () {
 
 
 
-Route::get('/test-pdf', function (Request $request) {
-    $AssignQrcode=  AssignQrcode::find($request->id);
+Route::get('/qrcode-print-pdf', function (Request $request) {
+    $AssignQrcode=  AssignQrcode::find(base64_decode($request->get('p')));
 
     
     return view('Pdf.qrcodeweb')->with('assignQrcode',$AssignQrcode);
