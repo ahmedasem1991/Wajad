@@ -49,7 +49,7 @@
     <br>
     <div style="text-align: left; color: #767d7c;">
         <p>
-            Date: {{ date("l jS \of F Y h:i:s A") }} | Count: {{ $assignQrcode->qrcodes ? $assignQrcode->qrcodes : 0 }}
+            Date: {{ date("l jS \of F Y h:i:s A") }} | Count: {{ count($assignQrcode->qrcodes) ? count($assignQrcode->qrcodes) : 0 }}
         </p>
     </div>
 </div>
