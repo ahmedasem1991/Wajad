@@ -195,6 +195,10 @@ class AssignQrcode extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
+                Button::make('PRINT PDF')
+                ->link(URL::to('qrcode-print-pdf?p=' . base64_encode($this->id)), '_blank')
+                ->style('primary'),
+
             HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
 
         ];
