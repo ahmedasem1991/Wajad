@@ -9,6 +9,7 @@ use App\Brand;
 use App\Qrcode;
 use App\Setting;
 use App\ApiToken;
+use App\AssignQrcode;
 use App\Corporate;
 use Carbon\Carbon;
 use App\PostRequest;
@@ -375,6 +376,14 @@ Route::get('test', function () {
     return   $request;
 });
 
+
+
+Route::get('/test-pdf', function (Request $request) {
+    $AssignQrcode=  AssignQrcode::find($request->id);
+
+    
+    return view('Pdf.qrcodeweb')->with('assignQrcode',$AssignQrcode);
+});
 
 
 
