@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Heading;
+use App\Nova\Metrics\QrCodesTypes;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\DownloadQRCode;
 use App\Nova\Actions\DownloadQRCodeZIP;
@@ -127,6 +128,7 @@ class Stock extends Resource
     {
         return [
             new QrCodes,
+          new  QrCodesTypes
         ];
     }
 
