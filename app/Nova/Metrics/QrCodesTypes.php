@@ -52,6 +52,6 @@ class QrCodesTypes extends Partition
 
     public function name()
     {
-        return 'QR Codes Types';
+        return 'Free QR Codes Types';
     }
 }

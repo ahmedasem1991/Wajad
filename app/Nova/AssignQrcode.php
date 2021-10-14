@@ -19,14 +19,15 @@ use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
+use App\Nova\Metrics\QrCodesTypes;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Support\Facades\URL;
 use App\Nova\Actions\DownloadQRCode;
 use OwenMelbz\RadioField\RadioButton;
-use App\Nova\Actions\AssignDownloadQRCodeZIP;
 use App\Nova\Actions\AssignDownloadQRCode;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use App\Nova\Actions\AssignDownloadQRCodeZIP;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
 use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
@@ -222,6 +223,8 @@ class AssignQrcode extends Resource
     {
         return [
             new QrCodes,
+            new  QrCodesTypes
+
         ];
     }
 

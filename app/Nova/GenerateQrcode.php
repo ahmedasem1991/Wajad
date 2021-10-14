@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\User;
+use NovaErrorField\Errors;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
@@ -12,8 +13,8 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use App\Nova\Metrics\QrCodesTypes;
 use Laravel\Nova\Fields\BelongsTo;
-use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Faker\Provider\fr_CH\Text as FakerText;
 use Smartappco\QrcodeGenerator\QrcodeGenerator;
@@ -116,6 +117,7 @@ class GenerateQrcode extends Resource
     {
         return [
             new QrCodes,
+            new  QrCodesTypes
         ];
     }
 
