@@ -84,7 +84,7 @@ class GenerateQrcodeJob implements ShouldQueue
             ->format('png')
             ->merge(public_path('/images/wajadfinallogo.png'), 0.2, true)
             ->style('dot', 0.9)
-            ->size(2000)
+            ->size(200)
            ->generate(env('API_URL').'/api/scan-qr-code/'.$Url,
            public_path('images/qrcodes/'.$ImageName));
 
