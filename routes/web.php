@@ -410,10 +410,12 @@ Route::get('/broadcast', function () {
 });
 Route::get('/asif_test', function (Request $request) {
 
-     Qrcode::where('status','1')->chunk(1000, function($Qrcodes) {
+     Qrcode::where('status','10')->chunk(1000, function($Qrcodes) {
         foreach ($Qrcodes as $Qrcode) {
             $Qrcode->status=10;
-            $Qrcode->save();
+            $image_path = public_path().'/'.$Qrcode->image;
+            unlink($image_path);
+           // $Qrcode->save();
         }
     });
     
