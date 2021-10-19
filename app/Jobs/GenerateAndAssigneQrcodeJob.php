@@ -56,7 +56,7 @@ class GenerateAndAssigneQrcodeJob implements ShouldQueue
   public function handle()
   {
     if ($this->generate_reference_number == NULL) {
-      $QRCodes = Qrcode::skip(119650)->status('In Stock')->type($this->type)->take($this->quantity)->get();
+      $QRCodes = Qrcode::status('In Stock')->type($this->type)->take($this->quantity)->get();
       foreach ($QRCodes as $QRCode) {
         $QRCode->assign_reference_number = $this->assign_reference_number;
         $QRCode->status = $this->status;
