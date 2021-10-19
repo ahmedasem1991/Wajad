@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/images/qrcodes
+/public
 /storage/*.key
 /vendor
 .env
