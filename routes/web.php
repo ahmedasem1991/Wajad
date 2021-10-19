@@ -410,7 +410,15 @@ Route::get('/broadcast', function () {
 });
 Route::get('/asif_test', function (Request $request) {
 
+     Qrcode::where('status','1')->chunk(1000, function($Qrcodes) {
+        foreach ($Qrcodes as $Qrcode) {
+            $Qrcode->status=10;
+            $Qrcode->save();
+        }
+    });
+    
 
+    dd('done');
 
 
             $alert['body']=$request->body;
