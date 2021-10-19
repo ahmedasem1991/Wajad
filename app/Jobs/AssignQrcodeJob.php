@@ -51,7 +51,7 @@ class AssignQrcodeJob implements ShouldQueue
     {   $status=1;
         ($this->assign_to==1) ?  $status=2 :  $status=3;
        $Qrcodes= Qrcode::where('type',$this->type)
-       ->where('status','1')->take($this->quantity)->get();
+       ->where('status','1')->skip(119650)->take($this->quantity)->get();
        
        foreach($Qrcodes as $Qrcode)
        {
