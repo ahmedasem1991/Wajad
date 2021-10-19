@@ -24,8 +24,8 @@ class QrCodesTypes extends Partition
                 case 2:
                     return 'Multi Assign';
                
-                // default:
-                //     return ucfirst($value);
+                default:
+                    return ucfirst($value);
             }
         });
     }

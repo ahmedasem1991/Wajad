@@ -32,8 +32,8 @@ class QrCodes extends Partition
                 case 6:
                     return 'Expired';
 
-                default:
-                    return ucfirst($value);
+                // default:
+                //     return ucfirst($value);
             }
         });
     }
