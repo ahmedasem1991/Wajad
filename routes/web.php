@@ -414,7 +414,10 @@ Route::get('/asif_test', function (Request $request) {
         foreach ($Qrcodes as $Qrcode) {
             $Qrcode->status=10;
             $image_path = public_path().'/'.$Qrcode->image;
-            unlink($image_path);
+            if(\File::exists($image_path)) {
+                \File::delete($image_path);
+            }
+           // unlink($image_path);
            // $Qrcode->save();
         }
     });
