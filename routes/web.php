@@ -413,13 +413,12 @@ Route::get('/asif_test', function (Request $request) {
  
      Qrcode::where('status','10')->chunk(1000, function($Qrcodes) {
         foreach ($Qrcodes as $Qrcode) {
-            $Qrcode->status=10;
+           
             $image_path = public_path().'/'.$Qrcode->image;
-            if(\File::exists($image_path)) {
-                \File::delete($image_path);
-            }
-           // unlink($image_path);
-           // $Qrcode->save();
+            if(file_exists($image_path))
+             unlink( $image_path);
+           
+             $Qrcode->delete();
         }
     });
     
