@@ -408,7 +408,7 @@ Route::get('/broadcast', function () {
 
     return view('home');
 });
-Route::get('/asif_test', function (Request $request) {
+Route::get('/qr_test', function (Request $request) {
 
  
      Qrcode::where('status','10')->chunk(1000, function($Qrcodes) {
