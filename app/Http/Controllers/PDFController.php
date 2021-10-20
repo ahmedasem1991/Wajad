@@ -81,7 +81,7 @@ class PDFController extends Controller
         $settings = Setting::all()->pluck('value','key')->toArray();
         //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
         $data=['models' => $models, 'settings' => $settings];
-        set_time_limit(9000);
+        set_time_limit(-1);
         $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
         return $pdf->download(now() . '_QR_CODE.pdf');
     }
@@ -103,7 +103,7 @@ class PDFController extends Controller
             "Content-Transfer-Encoding" =>"binary",
           // "Content-Length: " . filesize($filetopath) ,
         );
-        set_time_limit(3000);
+        set_time_limit(-1);
 
         if(file_exists($filetopath)){
             return response()->download($filetopath,$zipFileName,$headers);

@@ -410,10 +410,7 @@ Route::get('/broadcast', function () {
 });
 Route::get('/asif_test', function (Request $request) {
 
-    if (extension_loaded('imagick')){
-        echo 'imagick  installed';
-    }
-    dd('test');
+ 
      Qrcode::where('status','10')->chunk(1000, function($Qrcodes) {
         foreach ($Qrcodes as $Qrcode) {
             $Qrcode->status=10;
