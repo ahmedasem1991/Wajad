@@ -31,7 +31,7 @@ class AssignDownloadQRCodeZIP extends Action
      unlink( $check_path);
         $public_dir=public_path();
         // Zip File Name
-        $zipFileName = 'QRCodes.zip';
+        $zipFileName = 'QR-Codes.zip';
         // Create ZipArchive Obj
         $zip = new ZipArchive;
         if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
