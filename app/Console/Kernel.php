@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(GenerateQRCodes::class)->daily();
         $schedule->command(TestSchedule::class)->daily();
-        $schedule->command('schedule:daily')->daily();
+        $schedule->command('schedule:daily')->everyMinute();
 
     }
 
