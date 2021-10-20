@@ -163,12 +163,12 @@ class Stock extends Resource
     public function actions(Request $request)
     {
         return [
-            (new DownloadQRCode)->canRun(function (NovaRequest $request) {
-                return true;
-            }),
-            (new DownloadQRCodeZIP)->canRun(function (NovaRequest $request) {
-                return true;
-            }),
+            // (new DownloadQRCode)->canRun(function (NovaRequest $request) {
+            //     return true;
+            // }),
+            // (new DownloadQRCodeZIP)->canRun(function (NovaRequest $request) {
+            //     return true;
+            // }),
         ];
     }
 
