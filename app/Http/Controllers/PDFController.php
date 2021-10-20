@@ -89,7 +89,7 @@ class PDFController extends Controller
     public function qrcodeZIP(Request $request)
     {
         $public_dir=public_path();
-        $zipFileName = 'QR-Codes.zip';
+        $zipFileName = $request->filename.'.zip';
         $filetopath=$public_dir.'/'.$zipFileName;
         $headers = array(
             'Content-Type' => 'application/zip',
