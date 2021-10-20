@@ -31,7 +31,7 @@ class AssignDownloadQRCodeZIP extends Action
         unlink( $check_path);
         $public_dir=public_path();
         // Zip File Name
-        $zipFileName = $models[0]->qrcodes[0]->assign_reference_number.'zip';
+        $zipFileName = $models[0]->qrcodes[0]->assign_reference_number.'.zip';
         // Create ZipArchive Obj
         $zip = new ZipArchive;
         if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
@@ -47,7 +47,7 @@ class AssignDownloadQRCodeZIP extends Action
             $zip->close();
         }
 
-        return Action::download(env('ADMIN_URL').'/qrcodezip?filename='.$zipFileName.'.zip',  $zipFileName);
+        return Action::download(env('ADMIN_URL').'/qrcodezip?filename='.$zipFileName,  $zipFileName);
 
      }
 
