@@ -26,7 +26,7 @@ class AssignDownloadQRCodeZIP extends Action
     public function handle(ActionFields $fields, Collection $models)
     { 
 
-        $check_path=public_path().'/'.$models[0]->qrcodes[0]->assign_reference_number.'zip';
+        $check_path=public_path().'/'.$models[0]->qrcodes[0]->assign_reference_number.'.zip';
         if(file_exists($check_path))
         unlink( $check_path);
         $public_dir=public_path();
@@ -47,7 +47,7 @@ class AssignDownloadQRCodeZIP extends Action
             $zip->close();
         }
 
-        return Action::download(env('ADMIN_URL').'/qrcodezip?filename='.$zipFileName,  $zipFileName);
+        return Action::download(env('ADMIN_URL').'/qrcodezip?filename='.$zipFileName.'.zip',  $zipFileName);
 
      }
 
