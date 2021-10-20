@@ -40,7 +40,7 @@ class AssignDownloadQRCodeZIP extends Action
                 // Add File in ZipArchive
 
                 $zip->addFile($public_dir . '/'. $qrcode->image,$qrcode->unique_reference_number.'.png');
-                logger($public_dir . '/'. $qrcode->image);
+              //  logger($public_dir . '/'. $qrcode->image);
                 // Close ZipArchive     
               
             }
