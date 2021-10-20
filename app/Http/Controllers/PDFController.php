@@ -89,7 +89,7 @@ class PDFController extends Controller
     public function qrcodeZIP(Request $request)
     {
         $public_dir=public_path();
-        $zipFileName = 'QRCodes.zip';
+        $zipFileName = $request->filename;
         $filetopath=$public_dir.'/'.$zipFileName;
         $headers = array(
             'Content-Type' => 'application/zip',
@@ -103,7 +103,7 @@ class PDFController extends Controller
             "Content-Transfer-Encoding" =>"binary",
           // "Content-Length: " . filesize($filetopath) ,
         );
-        set_time_limit(3000);
+        set_time_limit(-1);
 
         if(file_exists($filetopath)){
             return response()->download($filetopath,$zipFileName,$headers);
