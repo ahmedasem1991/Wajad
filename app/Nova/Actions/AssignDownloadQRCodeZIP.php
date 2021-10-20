@@ -26,12 +26,12 @@ class AssignDownloadQRCodeZIP extends Action
     public function handle(ActionFields $fields, Collection $models)
     { 
 
-        $check_path=public_path().'/'.$models[0]->qrcodes[0]->assign_reference_number.'.zip';
-        if(file_exists($check_path))
-        unlink( $check_path);
+        $check_path=public_path().'/QR-Codes.zip';
+    if(file_exists($check_path))
+     unlink( $check_path);
         $public_dir=public_path();
         // Zip File Name
-        $zipFileName = $models[0]->qrcodes[0]->assign_reference_number.'.zip';
+        $zipFileName = 'QRCodes.zip';
         // Create ZipArchive Obj
         $zip = new ZipArchive;
         if ($zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
@@ -40,14 +40,14 @@ class AssignDownloadQRCodeZIP extends Action
                 // Add File in ZipArchive
 
                 $zip->addFile($public_dir . '/'. $qrcode->image,$qrcode->unique_reference_number.'.png');
-              //  logger($public_dir . '/'. $qrcode->image);
+                logger($public_dir . '/'. $qrcode->image);
                 // Close ZipArchive     
               
             }
             $zip->close();
         }
 
-        return Action::download(env('ADMIN_URL').'/qrcodezip?filename='.$zipFileName,  $zipFileName);
+        return Action::download(env('ADMIN_URL').'/qrcodezip', 'QR-Codes.zip');
 
      }
 
