@@ -231,6 +231,10 @@ class SearchController extends Controller
                 ->orWhereDate('founded_at', '=',  $request->date);
         }
 
+        if ($request->has('region_id') && $request->region_id != "") {
+            $posts->where('region_id', '=',  $request->region_id);
+        }
+
         if ($request->has('subcategory') && $request->subcategory != "") {
             $posts->whereHas('subcategory', function ($query) use ($request) {
                 $query->where('id', $request->subcategory);

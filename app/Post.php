@@ -42,6 +42,7 @@ class Post extends MasterModel
         'question_2',
         'question_3',
         'show_name',
+        'region_id',
         'show_number'
     ];
 
@@ -67,6 +68,7 @@ class Post extends MasterModel
         'city.name_en',
         'images',
         'reward',
+        'region_id',
         'question_1',
         'question_2',
         'question_3',
@@ -154,6 +156,10 @@ class Post extends MasterModel
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id')->withTrashed();
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id')->withTrashed();
     }
 
     /**
