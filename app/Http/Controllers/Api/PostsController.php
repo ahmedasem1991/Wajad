@@ -531,6 +531,7 @@ class PostsController extends Controller
                 'image.*' => ['sometimes', 'base64dimensions:min_width=100,min_height=200'],
                 'show_name' => ['sometimes'],
                 'show_number' => ['sometimes'],
+                'region_id' => ['required', 'exists:regions,id'],
             ]);
 
             if ($validate_request->fails()) {
