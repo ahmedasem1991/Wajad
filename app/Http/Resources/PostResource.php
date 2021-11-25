@@ -46,6 +46,7 @@ class PostResource extends JsonResource
             'allow_post_requests' => $value,
             'claimers' =>  PostRequestsResource::collection($this->postRequests),
             'city' => new CityResource($this->city),
+            'region' => new RegionResource($this->region),
             'publisher' => new UserResource($this->publisher),
             'corporate' => new CorporateResource($this->corporate),
             'show_name' => $this->show_name,
