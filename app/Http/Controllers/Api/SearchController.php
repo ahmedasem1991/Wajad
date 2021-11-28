@@ -242,8 +242,8 @@ class SearchController extends Controller
                 $query_master->where('status', (int) $request->status);
             }
             if ($request->has('date') && $request->date != "") {
-                $query_master->where('losted_at', '%LIKE%',  $request->date)
-                    ->orWhere('founded_at', '%LIKE%',  $request->date);
+                $query_master->where('losted_at', 'like',  '%' .$request->date .'%' )
+                    ->orWhere('founded_at', 'like',  '%' .$request->date .'%' );
             }
 
         }
