@@ -247,9 +247,9 @@ class SearchController extends Controller
             }
 
         }
-    );
+    )->paginate(25);
        
-        $posts = $posts->paginate(25);
+       // $posts = $posts;
         return collect([
             'total' => $posts->total(),
             'count' => $posts->count(),
