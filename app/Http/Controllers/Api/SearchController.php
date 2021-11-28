@@ -226,10 +226,7 @@ class SearchController extends Controller
                 $query->where('id', $request->brand);
             });
         }
-        if ($request->has('date') && $request->date != "") {
-            $posts->whereDate('losted_at', '=',  $request->date)
-                ->orWhereDate('founded_at', '=',  $request->date);
-        }
+      
 
         if ($request->has('region_id') && $request->region_id != "") {
             $posts->where('region_id', '=',  $request->region_id);
@@ -243,6 +240,10 @@ class SearchController extends Controller
 
         if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
             $posts->where('status', (int) $request->status);
+        }
+        if ($request->has('date') && $request->date != "") {
+            $posts->whereDate('losted_at', '=',  $request->date)
+                ->orWhereDate('founded_at', '=',  $request->date);
         }
         $posts = $posts->paginate(25);
         return collect([
