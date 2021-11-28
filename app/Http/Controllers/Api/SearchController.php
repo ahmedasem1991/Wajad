@@ -210,41 +210,45 @@ class SearchController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        $posts = Post::isShow()->isApproved()->isOpen();
-        if ($request->has('color') && $request->color != "") {
-            $posts->whereHas('color', function ($query) use ($request) {
-                $query->where('id', '=', $request->color);
-            });
-        }
-        if ($request->has('model') && $request->model != "") {
-            $posts->whereHas('model', function ($query) use ($request) {
-                $query->where('id', $request->model);
-            });
-        }
-        if ($request->has('brand') && $request->brand != "") {
-            $posts->whereHas('brand', function ($query) use ($request) {
-                $query->where('id', $request->brand);
-            });
-        }
-      
+        $posts = Post::isShow()->isApproved()->isOpen()->where(function($query_master) use($request){
+            if ($request->has('color') && $request->color != "") {
+                $query_master->whereHas('color', function ($query) use ($request) {
+                    $query->where('id', '=', $request->color);
+                });
+            }
+            if ($request->has('model') && $request->model != "") {
+                $query_master->whereHas('model', function ($query) use ($request) {
+                    $query->where('id', $request->model);
+                });
+            }
+            if ($request->has('brand') && $request->brand != "") {
+                $query_master->whereHas('brand', function ($query) use ($request) {
+                    $query->where('id', $request->brand);
+                });
+            }
+          
+    
+            if ($request->has('region_id') && $request->region_id != "") {
+                $query_master->where('region_id', '=',  $request->region_id);
+            }
+    
+            if ($request->has('subcategory') && $request->subcategory != "") {
+                $query_master->whereHas('subcategory', function ($query) use ($request) {
+                    $query->where('id', $request->subcategory);
+                });
+            }
+    
+            if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
+                $query_master->where('status', (int) $request->status);
+            }
+            if ($request->has('date') && $request->date != "") {
+                $query_master->whereDate('losted_at', '=',  $request->date)
+                    ->orWhereDate('founded_at', '=',  $request->date);
+            }
 
-        if ($request->has('region_id') && $request->region_id != "") {
-            $posts->where('region_id', '=',  $request->region_id);
         }
-
-        if ($request->has('subcategory') && $request->subcategory != "") {
-            $posts->whereHas('subcategory', function ($query) use ($request) {
-                $query->where('id', $request->subcategory);
-            });
-        }
-
-        if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
-            $posts->where('status', (int) $request->status);
-        }
-        if ($request->has('date') && $request->date != "") {
-            $posts->whereDate('losted_at', '=',  $request->date)
-                ->orWhereDate('founded_at', '=',  $request->date);
-        }
+    );
+       
         $posts = $posts->paginate(25);
         return collect([
             'total' => $posts->total(),
