@@ -95,8 +95,8 @@ Route::get('mesibo_add', function () {
 
  
    
-    $response = $client->post($url);
-    dd( $response->getBody());
+    $response = $client->get($url);
+    dd( $response->getStatusCode());
     ;
     dd('test');
     foreach( User::normalusers()->get() as $user)
