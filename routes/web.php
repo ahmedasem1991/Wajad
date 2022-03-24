@@ -69,36 +69,14 @@ Route::get('/home', function () {
 });
 
 Route::get('mesibo_add', function () {
-    $url = "https://api.mesibo.com/backend/";
-   $user=[
-    "address" =>  "ahmed-test55578",
-    "name" =>  "ahmed gamal",
-    "token"=>[
-        "appid"=> "com.smartappco.wajad",
-		"expiry"=> 525600
-
-    ]
-
-    ];
-    
-    $data   = [
-      
-    "op"   => "useradd",
-    "token" => "kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j",
-    "user" =>$user
-      ];
+    $url = "https://api.mesibo.com/api.php?op=useradd&token=kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j&addr=ahmed-test555&appid=com.smartappco.wajad&name=ahmed";
     $client = new \GuzzleHttp\Client([
-       'headers' => ['Content-Type' => 'application/json'],
-       'body' => json_encode($data)
+       'headers' => ['Content-Type' => 'application/json']
     ]);
-
-
- 
    
     $response = $client->get($url);
-    dd( $response->getStatusCode());
+    dd( $response->getBody());
     ;
-    dd('test');
     foreach( User::normalusers()->get() as $user)
     {
 
