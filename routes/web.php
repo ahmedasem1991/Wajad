@@ -84,7 +84,7 @@ Route::get('mesibo_add', function () {
     $data   = [
       
     "op"   => "useradd",
-    "token" => "kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j",
+    "token" => "kyiy639elg9i7g4r4es6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j",
     "user" =>$user
       ];
     $client = new \GuzzleHttp\Client([
