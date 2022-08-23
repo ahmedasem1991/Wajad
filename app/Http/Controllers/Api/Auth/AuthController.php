@@ -269,16 +269,42 @@ class AuthController extends Controller
 
 
         //PrepereNewUser::dispatch($user);
-        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
-        $client = new \GuzzleHttp\Client([
-            'headers' => ['Content-Type' => 'application/json']
-        ]);
+        // $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
+        // $client = new \GuzzleHttp\Client([
+        //     'headers' => ['Content-Type' => 'application/json']
+        // ]);
+
+        
+        $url = "https://api.mesibo.com/backend/";
+        $userArray=[
+         "address" =>  $user->name.'-'.$user->id,
+         "name" =>  $user->name,
+         "token"=>[
+             "appid"=> "com.smartappco.wajad",
+             "expiry"=> 5256000
+         ]
+     
+         ];
+         
+         $data   = [
+         "op"   => "useradd",
+         "token" => env('MESIBO_APP_TOKEN'),
+         "user" =>$userArray
+           ];
+         $client = new \GuzzleHttp\Client([
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($data)
+         ]);
+     
         $response = $client->get($url);
         $response = json_decode($response->getBody(), true);
         $user->mesibo_uid= $response['user']['uid']??null;
         $user->mesibo_token= $response['user']['token']??null;
         $user->mesibo_address= $user->name.'-'.$user->id;
         $user->save();
+
+       
+        
 
 
         if(count($user->qrcodes) == 0 ){
@@ -442,10 +468,32 @@ class AuthController extends Controller
                     $langHeader = 'en';
                 }
                 //PrepereNewUser::dispatch($user);
-                $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
-                $client = new \GuzzleHttp\Client([
-                    'headers' => ['Content-Type' => 'application/json']
-                ]);
+                // $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
+                // $client = new \GuzzleHttp\Client([
+                //     'headers' => ['Content-Type' => 'application/json']
+                // ]);
+        $url = "https://api.mesibo.com/backend/";
+        $userArray=[
+         "address" =>  $user->name.'-'.$user->id,
+         "name" =>  $user->name,
+         "token"=>[
+             "appid"=> "com.smartappco.wajad",
+             "expiry"=> 5256000
+         ]
+     
+         ];
+         
+         $data   = [
+         "op"   => "useradd",
+         "token" => env('MESIBO_APP_TOKEN'),
+         "user" =>$userArray
+           ];
+         $client = new \GuzzleHttp\Client([
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($data)
+         ]);
+     
+        
                 $response = $client->get($url);
                 $response = json_decode($response->getBody(), true);
                 $user->mesibo_uid= $response['user']['uid']??null;
@@ -554,10 +602,32 @@ class AuthController extends Controller
                 $langHeader = 'en';
             }
             // PrepereNewUser::dispatch($user);
-            $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
-            $client = new \GuzzleHttp\Client([
-                'headers' => ['Content-Type' => 'application/json']
-            ]);
+            // $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$user->name.'-'.$user->id."&appid=com.smartappco.wajad&name=".$user->name;
+            // $client = new \GuzzleHttp\Client([
+            //     'headers' => ['Content-Type' => 'application/json']
+            // ]);
+        $url = "https://api.mesibo.com/backend/";
+        $userArray=[
+         "address" =>  $user->name.'-'.$user->id,
+         "name" =>  $user->name,
+         "token"=>[
+             "appid"=> "com.smartappco.wajad",
+             "expiry"=> 5256000
+         ]
+     
+         ];
+         
+         $data   = [
+         "op"   => "useradd",
+         "token" => env('MESIBO_APP_TOKEN'),
+         "user" =>$userArray
+           ];
+         $client = new \GuzzleHttp\Client([
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($data)
+         ]);
+     
+        
             $response = $client->get($url);
             $response = json_decode($response->getBody(), true);
             $user->mesibo_uid= $response['user']['uid']??null;
