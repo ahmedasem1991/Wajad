@@ -184,7 +184,7 @@ Route::get('/smart-search/{search}', function ($search) {
 });
 
 Route::get('/test600', function (Request $request) {
-    return(\Unifonic::send('966504334115', 'test message'))   ;
+    dd(\Unifonic::send('966504334115', 'test message'))   ;
  $string='01142416124';
 $string2=   ltrim((string) $string, 0);
 return $string2;
