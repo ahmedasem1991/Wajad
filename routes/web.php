@@ -184,6 +184,7 @@ Route::get('/smart-search/{search}', function ($search) {
 });
 
 Route::get('/test600', function (Request $request) {
+    dd(\Unifonic::send('966502191190', 'test message'))   ;
  $string='01142416124';
 $string2=   ltrim((string) $string, 0);
 return $string2;
@@ -238,7 +239,7 @@ return $string2;
 
     Mail::to(User::find(6))->send(new MailAdminNotification('test'));
     return view('emails.admin_notification')->with('body','test test test test ewdw wfw');
-    dd(\Unifonic::send('966504334115', 'test message'))   ;
+
     Mail::to($user)->send(new MailAdminNotification('test'));
     $URL = URL::current();
     dd(request()->all());
