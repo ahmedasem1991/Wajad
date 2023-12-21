@@ -185,6 +185,7 @@ Route::get('/smart-search/{search}', function ($search) {
 
 Route::get('/test600', function (Request $request) {
     Mail::to('ibrahim.saber512@outlook.com')->send(new MailAdminNotification('test'));
+    dd('test');
     dd(\Unifonic::send('966504334115', 'test message'))   ;
  $string='01142416124';
 $string2=   ltrim((string) $string, 0);
