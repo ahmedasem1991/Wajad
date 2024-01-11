@@ -172,7 +172,7 @@ return [
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         FCMServiceProvider::class,
-       
+        Multicaret\Unifonic\UnifonicServiceProvider::class,
 
         
 
@@ -256,7 +256,7 @@ return [
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
-        
+        'Unifonic' => Multicaret\Unifonic\UnifonicFacade::class,
 
         
 

@@ -49,10 +49,19 @@ return [
         'sms_from' => 'WAJAD',
     ],
 
+    // 'unifonic' => [
+    //     'app_id' => env('UNIFONIC_APP_ID'),
+    //     'sender_id' => env('UNIFONIC_SENDER_ID') //optional
+    // ],
+
     'unifonic' => [
         'app_id' => env('UNIFONIC_APP_ID'),
-        'sender_id' => env('UNIFONIC_SENDER_ID') //optional
+        'sender_id' => env('UNIFONIC_SENDER_ID'), // String, Optional
+        'account_email' => env('UNIFONIC_ACCOUNT_EMAIL'),
+        'account_password' => env('UNIFONIC_ACCOUNT_PASSWORD')
     ],
+
+    
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),

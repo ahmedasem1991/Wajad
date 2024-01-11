@@ -184,9 +184,9 @@ Route::get('/smart-search/{search}', function ($search) {
 });
 
 Route::get('/test600', function (Request $request) {
-    Mail::to('ibrahim.saber512@outlook.com')->send(new MailAdminNotification('test'));
-    dd('test');
-    dd(\Unifonic::send('966504334115', 'test message'))   ;
+    // Mail::to('ibrahim.saber512@outlook.com')->send(new MailAdminNotification('test'));
+  
+    dd(Unifonic::send('+966555577005','Test Message', 'WAJAD'))   ;
  $string='01142416124';
 $string2=   ltrim((string) $string, 0);
 return $string2;
@@ -554,7 +554,7 @@ Route::get('/test400', function () {
     //   else
     //   return  $type='post_lost';
 // return   checklocate(auth('api')->user);
-    //dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','eTabeb'));
+   dd (Unifonic::send('966505770041', 'Test uinfonic by Ibrahem Saber','WAJAD'));
 
     $user = User::find(9);
     $item = Item::find(1);
