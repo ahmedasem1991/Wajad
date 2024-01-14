@@ -118,7 +118,7 @@ class SendAdminNotificationJob implements ShouldQueue
             if ($this->send_to == 0) {
                 User::chunk(1000, function ($users) {
                     foreach ($users as $user) {
-                        Unifonic::send($user->country->country_code . $user->mobile_number, $this->body, 'WAJAD');
+                        \Unifonic::send($user->country->country_code . $user->mobile_number, $this->body, 'WAJAD');
 
                         // new SendSMSEvent($user->country->country_code . $user->mobile_number, $this->body);
                     }

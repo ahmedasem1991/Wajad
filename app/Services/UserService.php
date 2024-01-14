@@ -155,7 +155,7 @@ class UserService
           //  dd($user->v_mobile_country_id);
             $country_code=Country::find($user->v_mobile_country_id)['country_code'];
 
-                 Unifonic::send($country_code. $user->v_mobile_number,$message, 'WAJAD');
+                 \Unifonic::send($country_code. $user->v_mobile_number,$message, 'WAJAD');
                 // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
 
             return true;
@@ -194,7 +194,7 @@ class UserService
 
             $message = 'Wajad,  Activation code is ' . $activation_code;
             if($user->country->country_code==="966" || $user->country->country_code==="+966"){
-                Unifonic::send($user->country->country_code. $user->mobile_number, $message, 'WAJAD');
+                \Unifonic::send($user->country->country_code. $user->mobile_number, $message, 'WAJAD');
                 // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
             }
             Mail::to($user)->send(new EmailVerificationCode($activation_code));
