@@ -109,7 +109,7 @@ class Post extends Resource
         'founder' => [ 'name', 'email', 'mobile_number'],
         'owner' => ['name', 'email', 'mobile_number'],
     ];
-
+/////
     //Can not find the Field "model" in the Model "App\NovaCorporate\ClosedPost"
     public static function availableForNavigation(Request $request)
     {

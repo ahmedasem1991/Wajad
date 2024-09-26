@@ -204,10 +204,10 @@ class CorporateAdmin extends Resource
     {
         return false;
     }
-    public function authorizedToView(Request $request): bool
-    {
-        return auth()->user()->id === $this->id;
-    }
+    // public function authorizedToView(Request $request): bool
+    // {
+    //     return auth()->user()->id === $this->id;
+    // }
     public function authorizedToUpdate(Request $request): bool
     {
         return auth()->user()->id === $this->id;
@@ -215,5 +215,10 @@ class CorporateAdmin extends Resource
     public static function authorizedToViewAny(Request $request)
     {
         return true;
+    }
+
+    public function authorizedToDelete(Request $request): bool
+    {
+        return false;
     }
 }

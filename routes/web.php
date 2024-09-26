@@ -189,7 +189,7 @@ Route::get('/test600', function (Request $request) {
 
    
 
-    dd(Mail::to('ibrahim.saber512@outlook.com')->send(new MailAdminNotification('test'))) ;
+    dd(Mail::to('ahmed.m.fouad@live.com')->send(new MailAdminNotification('test'))) ;
 
     
     dd(Unifonic::send('+966555577005','Test Message', 'WAJAD'))   ;
