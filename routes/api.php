@@ -17,7 +17,8 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/newresetPassword', 'SendResetPasswordController');
     Route::post('/verify_password', 'VerifyPasswordController');
     Route::post('/newchangePassword', 'NewChangePasswordController');
-
+    Route::post('/delete-account/request','AuthController@verifyDeleteAccount');
+    Route::post('/delete-account/verify','AuthController@confirmDeleteAccount');
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');

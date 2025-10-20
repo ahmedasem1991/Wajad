@@ -15,6 +15,11 @@ use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Services\SmsProvider;
+use App\UserVerifications;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -672,5 +677,141 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+   /**
+     * Verfify delete account
+     * @bodyParam type string required email or phone
+     * @bodyParam phone string
+     * @bodyParam email string
+     * @response {
+     * success: true
+     * }
+     *
+     */
+    public function verifyDeleteAccount(Request $request)
+    {
+        $request->validate([
+            'email' => 'nullable|email',
+            'mobile_number' => 'nullable|string',
+            'country_code' => 'nullable|string',
+        ]);
+
+        // Ensure at least one method is provided
+        if (empty($request->email) && (empty($request->mobile_number) || empty($request->country_code))) {
+            return response()->json(['message' => 'Either email or mobile number (with country) is required'], 422);
+        }
+
+        $user = null;
+        $method = null;
+        $contact = null;
+
+        if (!empty($request->email)) {
+            $user = User::where('email', $request->email)->first();
+            $method = 'email';
+            $contact = $request->email;
+        } else {
+             // Verify by phone
+            $fullPhone = $request->country_code . $request->mobile_number;
+            $user = User::where('mobile_number', $request->mobile_number)
+                        ->first();
+            $method = 'phone';
+            $contact = $fullPhone;
+        }
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Generate 6-digit code
+        $code = rand(1000, 9999);
+        $verify = new UserVerifications ([
+            'user_id' => $user->id,
+            'code_valid_for' => $method,
+            'verification_code' => $code
+        ]);
+        $verify->save();
+
+
+        try {
+            if ($method === 'phone') {
+            if($user->country->country_code==="966" || $user->country->country_code==="+966"){
+                \Unifonic::send($user->country->country_code. $user->mobile_number, "Your account deletion verification code is: $code", 'WAJAD');
+                // new SendSMSEvent( $user->country->country_code. $user->mobile_number,$message);
+            }
+            else{
+                \Unifonic::send($user->country->country_code. $user->mobile_number, "Your account deletion verification code is: $code", 'WAJAD');
+                // (new SmsProvider)->sendMessage($code, $user->country->country_code. $user->mobile_number);
+            }
+                // SmsService::send($user->phone, "Your delete verification code is $code");
+                Log ::info("Delete code sent to phone {$user->phone}: $code");
+            } else {
+                // Send email
+                Mail::raw("Your account deletion verification code is: $code", function ($message) use ($user) {
+                    $message->to($user->email)
+                            ->subject('Account Deletion Verification Code');
+                });
+                Log::info("Delete code sent to email {$user->email}: $code");
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to send verification code'], 500);
+        }
+
+        return response()->json([
+            'message' => 'Verification code sent successfully',
+            'method' => $method,
+        ]);
+    }
+    public function confirmDeleteAccount(Request $request)
+    {
+        $request->validate([
+            'email' => 'nullable|email',
+            'mobile_number' => 'nullable|string',
+            'country_code' => 'nullable|string',
+            'verification_code' => 'required|numeric',
+        ]);
+
+    // Ensure at least one method is provided
+    if (empty($request->email) && (empty($request->mobile_number) || empty($request->country_code))) {
+        return response()->json(['message' => 'Either email or mobile number (with country) is required'], 422);
+    }
+
+    $user = null;
+
+    if (!empty($request->email)) {
+        $user = User::where('email', $request->email)->first();
+    } else {
+        $user = User::where('mobile_number', $request->mobile_number)->first();
+    }
+
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+        // Find latest verification record for this user
+    $verification = UserVerifications::where('user_id', $user->id)
+        ->where('verification_code', $request->verification_code)
+        ->orderByDesc('created_at')
+        ->first();
+
+    if (!$verification) {
+        return response()->json(['message' => 'Invalid verification code'], 400);
+    }
+
+    // Optionally, check if code expired (if you store expiry info)
+    if ($verification->created_at->diffInMinutes(now()) > 10) {
+        return response()->json(['message' => 'Verification code expired'], 400);
+    }
+    // Delete the user safely inside a transaction
+    DB::transaction(function () use ($user) {
+        // You can perform any cleanup here (logs, related data, etc.)
+        $user->delete();
+    });
+
+    // Optionally mark the verification as used
+    $verification->delete();
+
+    return response()->json([
+        'message' => 'Account deleted successfully',
+    ]);
+
     }
 }
