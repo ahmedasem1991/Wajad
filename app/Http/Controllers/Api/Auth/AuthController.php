@@ -732,7 +732,6 @@ class AuthController extends Controller
         $verify->save();
 
 
-        try {
             if ($method === 'phone') {
             if($user->country->country_code==="966" || $user->country->country_code==="+966"){
                 \Unifonic::send($user->country->country_code. $user->mobile_number, "Your account deletion verification code is: $code", 'WAJAD');
@@ -746,15 +745,15 @@ class AuthController extends Controller
                 Log ::info("Delete code sent to phone {$user->phone}: $code");
             } else {
                 // Send email
-                Mail::raw("Your account deletion verification code is: $code", function ($message) use ($user) {
-                    $message->to($user->email)
-                            ->subject('Account Deletion Verification Code');
-                });
+                // Mail::raw("Your account deletion verification code is: $code", function ($message) use ($user) {
+                //     $message->to($user->email)
+                //             ->subject('Account Deletion Verification Code');
+                // });
                 Log::info("Delete code sent to email {$user->email}: $code");
             }
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to send verification code'], 500);
-        }
+        // } catch (\Exception $e) {
+        //     return response()->json(['message' => 'Failed to send verification code'], 500);
+        // }
 
         return response()->json([
             'message' => 'Verification code sent successfully',

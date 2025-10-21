@@ -14,6 +14,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+                    \App\Http\Middleware\AddHeaders::class,
+
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -38,12 +40,12 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \App\Http\Middleware\AddHeaders::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\StartSession::class,
             'throttle:60,1',
             'bindings',
-            \App\Http\Middleware\AddHeaders::class,
             \App\Http\Middleware\SetLanguage::class,
-            
         ],
     ];
 

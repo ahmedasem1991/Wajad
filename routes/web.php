@@ -67,6 +67,10 @@ Route::get('/home', function () {
 
     return  redirect(Nova::path());
 });
+Route::get('/delete-account', function () {
+
+   return view('delete-account');
+});
 
 Route::get('mesibo_add', function () {
     $url = "https://api.mesibo.com/backend/";
