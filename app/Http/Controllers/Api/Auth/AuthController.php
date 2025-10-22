@@ -745,10 +745,10 @@ class AuthController extends Controller
                 Log ::info("Delete code sent to phone {$user->phone}: $code");
             } else {
                 // Send email
-                // Mail::raw("Your account deletion verification code is: $code", function ($message) use ($user) {
-                //     $message->to($user->email)
-                //             ->subject('Account Deletion Verification Code');
-                // });
+                Mail::raw("Your account deletion verification code is: $code", function ($message) use ($user) {
+                    $message->to($user->email)
+                            ->subject('Account Deletion Verification Code');
+                });
                 Log::info("Delete code sent to email {$user->email}: $code");
             }
         // } catch (\Exception $e) {
