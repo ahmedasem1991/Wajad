@@ -67,7 +67,7 @@ Route::get('/home', function () {
 
     return  redirect(Nova::path());
 });
-Route::get('/wajad/delete-account', function () {
+Route::get('/delete-account/wajad', function () {
 
    return view('delete-account');
 });
