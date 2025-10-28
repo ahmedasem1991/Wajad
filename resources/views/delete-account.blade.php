@@ -127,7 +127,7 @@
       </p>
 
       <div class="px-3">
-        <div class="step"><div class="step-number">1</div> <div>Login to the eTabeb application.</div></div>
+        <div class="step"><div class="step-number">1</div> <div>Login to the Wajad application.</div></div>
         <div class="step"><div class="step-number">2</div> <div>From the app menu, open your user profile.</div></div>
         <div class="step"><div class="step-number">3</div> <div>Under profile, select <strong>"Delete Account"</strong>.</div></div>
         <div class="step"><div class="step-number">4</div> <div>Provide confirmation before proceeding.</div></div>
