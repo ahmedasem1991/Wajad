@@ -60,7 +60,7 @@
     <div class="delete-wrapper">
       <!-- Header -->
       <div class="text-center mb-4">
-        <img src="Logo.png" alt="Wajad Logo" class="logo">
+        <img src="https://wajad.co/logo.png" alt="Wajad Logo" class="logo">
         <h4 class="mb-2 text-danger">Delete Your Account</h4>
         <p class="text-muted">You can delete your account permanently using email or phone verification below.</p>
       </div>
