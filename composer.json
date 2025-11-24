@@ -97,22 +97,21 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": ["laravel/dusk"]
+            "dont-discover": [
+                "laravel/dusk"
+            ]
         }
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
             "app/Services/Helpers/helper.php",
             "app/Services/Helpers/fcm.php",
             "app/Services/Helpers/sms.php"
-
-        ],
-        "classmap": [
-            "database/seeds",
-            "database/factories"
         ]
     },
     "autoload-dev": {
@@ -142,7 +141,6 @@
             "type": "path",
             "url": "./nova"
         },
-
         {
             "type": "path",
             "url": "./nova-components/GoogleMaps"
