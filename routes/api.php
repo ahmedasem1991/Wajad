@@ -6,7 +6,7 @@ Route::post('csrf-token', function () {
     return 'we are done';
 })->middleware('csrf_api_token');
 // Auth
-Route::group(['namespace' => 'Auth'], function () {
+Route::namespace('Auth')->group(function () {
     Route::get('/countrycodes', 'AuthController@getCountries');
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::middleware('auth:api')->group(function () {
     Route::post('mesibo_upload', 'MesiboFileUploadController@upload');
     Route::prefix('items')->group(function () {
         Route::get('/{item}', 'ItemsController@show');
@@ -92,7 +92,7 @@ Route::prefix('home')->group(function () {
     Route::get('/banners/{banner?}', 'BannerController');
     Route::get('/posts/{status}/{subcategory_id?}', 'SubCategoryPostController@index');
 
-    Route::group(['prefix' => 'search'], function () {
+    Route::prefix('search')->group(function () {
         Route::get('/', 'SearchController@searchFilter');
         Route::get('/keywords', 'SearchController@searchByKeyWords');
         Route::get('/data', 'SearchController@fetchSearchData');
