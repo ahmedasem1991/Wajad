@@ -32,13 +32,13 @@ class ContactController extends Controller {
         $contact->save();
 
         \Mail::send('emails.contact_email',
-        array(
+        [
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'subject' => $request->get('subject'),
             'phone_number' => $request->get('phone_number'),
             'user_message' => $request->get('message'),
-        ), function($message) use ($request)
+        ], function($message) use ($request)
           {
              $message->from(env('MAIL_FROM_ADDRESS'));
              $message->to('info@wajad.co');

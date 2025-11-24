@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 trait Filters
 {
     function array_flatten($array) {
-        $return = array();
+        $return = [];
         foreach ($array as $key => $value) {
             if (is_array($value)){
                 $return = array_merge($return, array_flatten($value));

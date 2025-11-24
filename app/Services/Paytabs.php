@@ -30,7 +30,7 @@ class Paytabs {
 	}
 
 	function authentication(){
-		$obj = json_decode($this->runPost(AUTHENTICATION, array("merchant_email"=> $this->merchant_email, "merchant_secretKey"=>  $this->merchant_secretKey)));
+		$obj = json_decode($this->runPost(AUTHENTICATION, ["merchant_email"=> $this->merchant_email, "merchant_secretKey"=>  $this->merchant_secretKey]));
 		if($obj->access == "granted")
 			$this->api_key = $obj->api_key;
 		else
@@ -69,10 +69,10 @@ class Paytabs {
 		$ch = curl_init();
 		$ip = $_SERVER['REMOTE_ADDR'];
 
-		$ip_address = array(
+		$ip_address = [
 			"REMOTE_ADDR" => $ip,
 			"HTTP_X_FORWARDED_FOR" => $ip
-		);
+		];
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $ip_address);
 		curl_setopt($ch, CURLOPT_POST, count($fields));

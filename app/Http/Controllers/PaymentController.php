@@ -73,7 +73,7 @@ class PaymentController extends Controller
         $email=env('PAYTABS_EMAIL');
         $secret=env('PAYTABS_SECRET');
         $pt = Paytabs::getInstance( $email, $secret);
-        $result = $pt->create_pay_page(array(
+        $result = $pt->create_pay_page([
             "merchant_email" => $email,
             'secret_key' => $secret,
             'title' => auth()->user()->corporate->name_en,
@@ -106,7 +106,7 @@ class PaymentController extends Controller
             'return_url' =>route('paytabschecker'),
             //env('ADMIN_URL').'/'.  Nova::path() . '/resources/packages/'.$package_id,
             "cms_with_version" => "API USING PHP"
-        ));
+        ]);
         
             if($result->response_code == 4012){
                 ///dd($result);
@@ -239,7 +239,7 @@ class PaymentController extends Controller
             ->setPrice($Price);
         /** unit price **/
         $item_list = new ItemList();
-        $item_list->setItems(array($item_1));
+        $item_list->setItems([$item_1]);
 
         # Disable all irrelevant PayPal aspects in payment
         $inputFields = new InputFields();
@@ -271,13 +271,13 @@ class PaymentController extends Controller
         $payment->setIntent('Sale')
             ->setPayer($payer)
             ->setRedirectUrls($redirect_urls)
-            ->setTransactions(array($transaction));
+            ->setTransactions([$transaction]);
 
         $payment = new Payment();
         $payment->setIntent('Sale')
             ->setPayer($payer)
             ->setRedirectUrls($redirectURLs)
-            ->setTransactions(array($transaction));
+            ->setTransactions([$transaction]);
          $payment->setExperienceProfileId($createProfile->getId());
 
          try {

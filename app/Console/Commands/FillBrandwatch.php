@@ -41,12 +41,12 @@ class FillBrandwatch extends Command
      */
     public function handle()
     {
-        $data = array(
-            0 => array(
+        $data = [
+            0 => [
                 'name_en' => 'Trek',
                 'name_ar' => 'Trek',
                 'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-                ) );
+                ] ];
       //  $subcategory = SubCategory::find(4);
         //foreach ($category->subcategories as $subcategory){
             

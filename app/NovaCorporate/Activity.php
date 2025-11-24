@@ -95,7 +95,7 @@ class Activity extends Resource
             Subscription::class,
             User::class,
         ];
-        return array(
+        return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('properties')
@@ -154,7 +154,7 @@ html;
             NovaBelongsToDepend::make('User')
                 ->placeholder('User')
                 ->options(\App\User::all()),
-        );
+        ];
     }
 
     /**

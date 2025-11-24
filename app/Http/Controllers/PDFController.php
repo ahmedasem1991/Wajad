@@ -91,7 +91,7 @@ class PDFController extends Controller
         $public_dir=public_path();
         $zipFileName = $request->filename.'.zip';
         $filetopath=$public_dir.'/'.$zipFileName;
-        $headers = array(
+        $headers = [
             'Content-Type' => 'application/zip',
             "Pragma" =>"public",
             "Expires" =>"0" ,
@@ -102,7 +102,7 @@ class PDFController extends Controller
              'Content-Disposition' =>'attachment; filename="'.basename($filetopath).'"',
             "Content-Transfer-Encoding" =>"binary",
           // "Content-Length: " . filesize($filetopath) ,
-        );
+        ];
         set_time_limit(-1);
 
         if(file_exists($filetopath)){

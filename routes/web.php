@@ -401,7 +401,7 @@ Route::get('test', function () {
         //       'size' => '400',
 
         //   ]],
-        array('form_params' =>  $form_params)
+        ['form_params' =>  $form_params]
     ]);
 
 
@@ -427,7 +427,7 @@ Route::get('/bridge', function () {
     $pusher->trigger(
         'test-channel',
         'test-event',
-        array('text' => 'Preparing the Pusher Laracon.eu workshop!')
+        ['text' => 'Preparing the Pusher Laracon.eu workshop!']
     );
 
     return view('welcome');
@@ -737,7 +737,7 @@ Route::get('/paytabs_payment', function () {
     $email='i.saber@smartappco.com';
     $secret='809n8W8nSId5fWYxWFHHynkeeucgzfpHfy4ovdLoVYtbUsJR8qzGNUU2o7jYmIFChK0NXLbTKF5F8Oxge6X20S5p0onn730pN0dL';
     $pt = Paytabs::getInstance( $email, $secret);
-    $result = $pt->create_pay_page(array(
+    $result = $pt->create_pay_page([
         "merchant_email" => $email,
         'secret_key' => $secret,
         'title' => "John Doe",
@@ -768,7 +768,7 @@ Route::get('/paytabs_payment', function () {
         "site_url" => "https://www.smartappco.com/",
         'return_url' => "https://www.etabeb.com",
         "cms_with_version" => "API USING PHP"
-    ));
+    ]);
 
     if($result->response_code == 4012){
         // dd($result);
@@ -800,9 +800,9 @@ Route::get('/testt', function(){
         $zip->close();
     }
     // Set Header
-    $headers = array(
+    $headers = [
         'Content-Type' => 'application/octet-stream',
-    );
+    ];
     $filetopath=$public_dir.'/'.$zipFileName;
     // Create Download Response
     if(file_exists($filetopath)){
@@ -927,7 +927,7 @@ Route::get('/test-free-qrcodes', function(){
 Route::get('ipp', function () {
 
 
-    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $keys)
+    foreach (['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'] as $keys)
     {
 // check for clent ip address
         if (array_key_exists($keys, $_SERVER) === true)
