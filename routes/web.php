@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UpdatePasswordController;
 use App\AssignQrcode;
 use App\Brand;
 use App\Corporate;
@@ -106,23 +111,23 @@ Route::get('mesibo_add', function () {
 Route::view('qrcode', 'Pdf.qrcode');
 Auth::routes();
 // Test Notification
-Route::get('/sendfcm', 'NotificationController@sendFCM');
-Route::get('/sendsms', 'NotificationController@sendSMS');
+Route::get('/sendfcm', [NotificationController::class, 'sendFCM']);
+Route::get('/sendsms', [NotificationController::class, 'sendSMS']);
 // Paypal
-Route::get('paypal', 'PaymentController@payWithpaypal');
+Route::get('paypal', [PaymentController::class, 'payWithpaypal']);
 Route::get('paywithpaypal', function () {
     return redirect(Nova::path());
 });
 // paytabs
-Route::get('paytabs', 'PaymentController@payWithpaytabs');
-Route::post('paytabschecker', 'PaymentController@checkPayWithPaytabs')->name('paytabschecker');
+Route::get('paytabs', [PaymentController::class, 'payWithpaytabs']);
+Route::post('paytabschecker', [PaymentController::class, 'checkPayWithPaytabs'])->name('paytabschecker');
 // PDF
-Route::get('receipt', 'PDFController@receipt');
-Route::get('ar_receipt', 'PDFController@arReceipt');
-Route::get('qrcodepdf', 'PDFController@qrcodepdf');
-Route::get('qrcodezip', 'PDFController@qrcodeZIP');
-Route::get('assignqrcodepdf', 'PDFController@assignqrcodepdf');
-Route::get('status', 'PaymentController@getPaymentStatus');
+Route::get('receipt', [PDFController::class, 'receipt']);
+Route::get('ar_receipt', [PDFController::class, 'arReceipt']);
+Route::get('qrcodepdf', [PDFController::class, 'qrcodepdf']);
+Route::get('qrcodezip', [PDFController::class, 'qrcodeZIP']);
+Route::get('assignqrcodepdf', [PDFController::class, 'assignqrcodepdf']);
+Route::get('status', [PaymentController::class, 'getPaymentStatus']);
 // Route::get('/smart-search/{search}', function ($search) {
 //     //sleep(5);
 //     $array=[];
@@ -298,7 +303,7 @@ Route::get('/test600', function (Request $request) {
 Route::domain(config('nova.domain', null))
     ->prefix(Nova::path())
     ->group(function () {
-        Route::post('/updatePassword', 'UpdatePasswordController@updatePassword')->name('update_password');
+        Route::post('/updatePassword', [UpdatePasswordController::class, 'updatePassword'])->name('update_password');
     });
 route::get('/', function () {
     return redirect(Nova::path());
@@ -929,5 +934,5 @@ Route::get('deletebrands', function () {
 
 });
 
-Route::get('contact-us', 'ContactController@getContact');
-Route::post('contact-us', 'ContactController@saveContact');
+Route::get('contact-us', [ContactController::class, 'getContact']);
+Route::post('contact-us', [ContactController::class, 'saveContact']);

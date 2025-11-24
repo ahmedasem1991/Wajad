@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'App\Http\Controllers';
 
     protected $api_namespace = 'App\Http\Controllers\Api';
 
@@ -60,7 +59,6 @@ Route::bind('qr_code', function ($qr_code) {
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-            ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
         // config(['nova.domain' =>env('ADMIN_URL', '/')]);
         // config(['nova.url' =>env('ADMIN_URL', '/')]);
@@ -73,7 +71,6 @@ Route::bind('qr_code', function ($qr_code) {
             ->as('corporate.')
             ->middleware('web')
             ->domain(env('CORPORATE_URL', 'corporate-wajad.smartappco.net'))
-            ->namespace($this->corporate_namespace)
             ->group(base_path('routes/corporate.php'));
 
         //  config(['nova.domain' =>env('CORPORATE_URL', '/')]);
@@ -88,7 +85,6 @@ Route::bind('qr_code', function ($qr_code) {
             ->as('api.')
             ->middleware('api')
             ->domain(env('API_URL', 'api-wajad.smartappco.dev'))
-            ->namespace($this->api_namespace)
             ->group(base_path('routes/api.php'));
     }
 

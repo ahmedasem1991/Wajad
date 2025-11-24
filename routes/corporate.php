@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
 use App\Item;
 use App\Package;
 
@@ -24,7 +26,7 @@ Auth::routes();
 Route::get('/', function () {
     return 'welcome';
 });
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/test', function () {
     // return htmlspecialchars(Item::where('id', 100)->first());
     // $nexmo = app('Nexmo\Client');
