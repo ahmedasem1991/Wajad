@@ -2,54 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Setting;
-use URL;
-use App\Post;
-use App\User;
-use App\Qrcode;
-use App\Package;
-use Carbon\Carbon;
-use PayPal\Api\Item;
 use App\AssignQrcode;
-use App\Subscription;
-use PayPal\Api\Payer;
-use Laravel\Nova\Nova;
-use PayPal\Api\Amount;
-use App\GenerateQrcode;
-use PayPal\Api\Payment;
-use PayPal\Api\ItemList;
-
-use PayPal\Api\WebProfile;
-use PayPal\Api\InputFields;
-use PayPal\Api\Transaction;
-use PayPal\Rest\ApiContext;
+use App\Post;
+use App\Qrcode;
+use App\Setting;
 use Illuminate\Http\Request;
-use League\Flysystem\Config;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\PaymentExecution;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use App\Jobs\GenerateAndAssigneQrcodeJob;
-use niklasravnsborg\LaravelPdf\PdfWrapper;
-use App\Notifications\BroadcastNotification;
 use niklasravnsborg\LaravelPdf\Pdf as PDF;
-
-
+use niklasravnsborg\LaravelPdf\PdfWrapper;
 
 class PDFController extends Controller
 {
-
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function receipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $settings = Setting::all()->pluck('value','key')->toArray();
-        $data=['post'=>$post, 'settings'=>$settings];
+        $settings = Setting::all()->pluck('value', 'key')->toArray();
+        $data = ['post' => $post, 'settings' => $settings];
         // $pdf = (new PdfWrapper)->loadView('Pdf.receipt', ['post' => $post]);
         $pdf = \DomPDF::loadView('Pdf.en_receipt', $data);
 
@@ -61,10 +30,11 @@ class PDFController extends Controller
 
         return $pdf->stream('document.pdf');
     }
+
     public function arReceipt(Request $request)
     {
         $post = Post::find(base64_decode($request->get('p')));
-        $settings = Setting::all()->pluck('value','key')->toArray();
+        $settings = Setting::all()->pluck('value', 'key')->toArray();
 
         // $dispatcher = Post::getEventDispatcher();
         // Post::unsetEventDispatcher();
@@ -77,47 +47,49 @@ class PDFController extends Controller
 
     public function qrcodepdf(Request $request)
     {
-        $models =  session()->get('models');
-        $settings = Setting::all()->pluck('value','key')->toArray();
+        $models = session()->get('models');
+        $settings = Setting::all()->pluck('value', 'key')->toArray();
         //  $pdf = (new PdfWrapper)->loadView('Pdf.qrcode', ['models' => $models]);
-        $data=['models' => $models, 'settings' => $settings];
+        $data = ['models' => $models, 'settings' => $settings];
         set_time_limit(-1);
         $pdf = \DomPDF::loadView('Pdf.qrcode', $data);
-        return $pdf->download(now() . '_QR_CODE.pdf');
+
+        return $pdf->download(now().'_QR_CODE.pdf');
     }
 
     public function qrcodeZIP(Request $request)
     {
-        $public_dir=public_path();
+        $public_dir = public_path();
         $zipFileName = $request->filename.'.zip';
-        $filetopath=$public_dir.'/'.$zipFileName;
-        $headers = array(
+        $filetopath = $public_dir.'/'.$zipFileName;
+        $headers = [
             'Content-Type' => 'application/zip',
-            "Pragma" =>"public",
-            "Expires" =>"0" ,
-            "Cache-Control" =>"must-revalidate, post-check=0, pre-check=0",
-            "Cache-control" =>"public",
-            "Content-Description" =>"File Transfer",
-            "Content-type" =>"application/zip", 
-             'Content-Disposition' =>'attachment; filename="'.basename($filetopath).'"',
-            "Content-Transfer-Encoding" =>"binary",
-          // "Content-Length: " . filesize($filetopath) ,
-        );
+            'Pragma' => 'public',
+            'Expires' => '0',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Cache-control' => 'public',
+            'Content-Description' => 'File Transfer',
+            'Content-type' => 'application/zip',
+            'Content-Disposition' => 'attachment; filename="'.basename($filetopath).'"',
+            'Content-Transfer-Encoding' => 'binary',
+            // "Content-Length: " . filesize($filetopath) ,
+        ];
         set_time_limit(-1);
 
-        if(file_exists($filetopath)){
-            return response()->download($filetopath,$zipFileName,$headers);
+        if (file_exists($filetopath)) {
+            return response()->download($filetopath, $zipFileName, $headers);
         }
     }
 
     public function assignqrcodepdf(Request $request)
     {
         $assignqrcode = AssignQrcode::find(base64_decode($request->get('p')));
-        $settings = Setting::all()->pluck('value','key')->toArray();
-        //logger($assignqrcode);
-        //$pdf = (new PdfWrapper)->loadView('Pdf.assignqrcode', ['assignqrcode' => $assignqrcode]);
-        $data=['assignqrcode' => $assignqrcode, 'settings' => $settings];
+        $settings = Setting::all()->pluck('value', 'key')->toArray();
+        // logger($assignqrcode);
+        // $pdf = (new PdfWrapper)->loadView('Pdf.assignqrcode', ['assignqrcode' => $assignqrcode]);
+        $data = ['assignqrcode' => $assignqrcode, 'settings' => $settings];
         $pdf = \DomPDF::loadView('Pdf.assignqrcode', $data);
+
         return $pdf->stream('document.pdf');
     }
 }

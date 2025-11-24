@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateBrandSubCategoryTable extends Migration
 {
@@ -17,8 +17,8 @@ class CreateBrandSubCategoryTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('sub_category_id')->nullable();
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

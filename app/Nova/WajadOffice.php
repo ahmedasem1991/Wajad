@@ -3,22 +3,14 @@
 namespace App\Nova;
 
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
 use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Image;
-use Naif\MapAddress\MapAddress;
-use App\Nova\Metrics\Corporates;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsToMany;
-use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
-use Spatie\NovaTranslatable\Translatable;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
 
 class WajadOffice extends Resource
 {
@@ -27,7 +19,8 @@ class WajadOffice extends Resource
      *
      * @var string
      */
-    public static $model = 'App\WajadOffice';
+    public static $model = \App\WajadOffice::class;
+
     public static $displayInNavigation = false;
 
     /**
@@ -59,6 +52,7 @@ class WajadOffice extends Resource
         'created_at',
         'updated_at',
     ];
+
     /**
      * The logical group associated with the resource.
      *
@@ -121,7 +115,7 @@ class WajadOffice extends Resource
                 ->asHtml()->hideFromDetail(),
             MediaField::make('Office Image', 'image')->rules('required'),
 
-            Boolean::make('Active','status')
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
@@ -133,11 +127,9 @@ class WajadOffice extends Resource
         ];
     }
 
-
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -148,7 +140,6 @@ class WajadOffice extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -159,7 +150,6 @@ class WajadOffice extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -170,18 +160,19 @@ class WajadOffice extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/office.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/office.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

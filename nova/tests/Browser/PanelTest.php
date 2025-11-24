@@ -25,8 +25,8 @@ class PanelTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($address) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('addresses', $address->id))
-                    ->assertSee('More Address Details');
+                ->visit(new Detail('addresses', $address->id))
+                ->assertSee('More Address Details');
 
             $browser->blank();
         });

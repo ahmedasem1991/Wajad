@@ -16,7 +16,7 @@ class IsAssignedTpSoecificUser implements CheckerContract
     /**
      * Construct Assigned To Specific User
      *
-     * @param int|null $user_id default will be auth('api')->user()->id
+     * @param  int|null  $user_id  default will be auth('api')->user()->id
      */
     public function __construct($user_id = null)
     {

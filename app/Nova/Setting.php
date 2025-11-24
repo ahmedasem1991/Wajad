@@ -3,12 +3,10 @@
 namespace App\Nova;
 
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Textarea;
 use NovaErrorField\Errors;
 
 class Setting extends Resource
@@ -18,7 +16,7 @@ class Setting extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Setting';
+    public static $model = \App\Setting::class;
 
     /**
      * The logical group associated with the resource.
@@ -53,7 +51,6 @@ class Setting extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -62,11 +59,11 @@ class Setting extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Key', 'key')->creationRules([
-                'required', 'min:3', 'max:255', 'unique:settings,key'
+                'required', 'min:3', 'max:255', 'unique:settings,key',
             ])->readonly(),
 
             Text::make('Value', 'value')->creationRules([
-                'required', 'min:6'
+                'required', 'min:6',
             ]),
 
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
@@ -79,7 +76,6 @@ class Setting extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -90,7 +86,6 @@ class Setting extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -101,7 +96,6 @@ class Setting extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -112,16 +106,16 @@ class Setting extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/settings.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/settings.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function availableForNavigation(Request $request)
@@ -134,7 +128,7 @@ class Setting extends Resource
         }
     }
 
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

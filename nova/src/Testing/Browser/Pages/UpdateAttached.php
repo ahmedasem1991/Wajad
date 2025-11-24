@@ -8,8 +8,11 @@ use Laravel\Nova\Nova;
 class UpdateAttached extends Page
 {
     public $resourceName;
+
     public $resourceId;
+
     public $relation;
+
     public $relatedId;
 
     /**
@@ -58,7 +61,6 @@ class UpdateAttached extends Page
     /**
      * Assert that the browser is on the page.
      *
-     * @param  Browser  $browser
      * @return void
      */
     public function assert(Browser $browser)

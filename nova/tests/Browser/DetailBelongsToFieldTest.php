@@ -24,12 +24,12 @@ class DetailBelongsToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('posts', $post->id))
-                    ->within(new DetailComponent('posts', $post->id), function ($browser) use ($user) {
-                        $browser->clickLink($user->name);
-                    })
-                    ->pause(250)
-                    ->assertPathIs('/nova/resources/users/'.$user->id);
+                ->visit(new Detail('posts', $post->id))
+                ->within(new DetailComponent('posts', $post->id), function ($browser) use ($user) {
+                    $browser->clickLink($user->name);
+                })
+                ->pause(250)
+                ->assertPathIs('/nova/resources/users/'.$user->id);
 
             $browser->blank();
         });
@@ -46,8 +46,8 @@ class DetailBelongsToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('invoice-items', 1))
-                    ->assertSee('Client Invoice');
+                ->visit(new Detail('invoice-items', 1))
+                ->assertSee('Client Invoice');
 
             $browser->blank();
         });

@@ -2,7 +2,7 @@
 
 namespace App\Nova\Metrics;
 
-use App\Corporate ;
+use App\Corporate;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Partition;
 
@@ -11,29 +11,28 @@ class Corporates extends Partition
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
         return $this->count($request, Corporate::class, 'status')
-        ->label(function ($value) {
-            switch ($value) {
-                case 0:
-                    return 'Active';
-                case 1:
-                    return 'Not Active';
-                
-                default:
-                    return ucfirst($value);
-            }
-        });
+            ->label(function ($value) {
+                switch ($value) {
+                    case 0:
+                        return 'Active';
+                    case 1:
+                        return 'Not Active';
+
+                    default:
+                        return ucfirst($value);
+                }
+            });
     }
 
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

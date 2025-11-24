@@ -10,8 +10,11 @@ class Line extends Text
     use Makeable;
 
     const HEADING = 'extra-large';
+
     const BASE = 'large';
+
     const SUBTITLE = 'medium';
+
     const SMALL = 'small';
 
     /**
@@ -52,10 +55,9 @@ class Line extends Text
      *
      * @param  string  $name
      * @param  string|callable|null  $attribute
-     * @param  callable|null  $resolveCallback
      * @return void
      */
-    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    public function __construct($name, $attribute = null, ?callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
@@ -113,7 +115,7 @@ class Line extends Text
     /**
      * Set the extra CSS classes to be applied to the line field.
      *
-     * @param mixed $classes
+     * @param  mixed  $classes
      * @return $this
      */
     public function extraClasses($classes)

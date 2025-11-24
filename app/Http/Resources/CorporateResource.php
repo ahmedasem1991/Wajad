@@ -16,10 +16,10 @@ class CorporateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'address' => $this->{'address_' . app()->getLocale()},
-            'details' => $this->{'details_' . app()->getLocale()},
-            'mobile_number' => $this->country ? $this->country->country_code .$this->mobile_number: '' .$this->mobile_number,
+            'name' => $this->{'name_'.app()->getLocale()},
+            'address' => $this->{'address_'.app()->getLocale()},
+            'details' => $this->{'details_'.app()->getLocale()},
+            'mobile_number' => $this->country ? $this->country->country_code.$this->mobile_number : ''.$this->mobile_number,
         ];
     }
 }

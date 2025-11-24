@@ -2,15 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Brand;
-use App\Item;
-use App\User;
 use App\Category;
 use App\Model;
 use App\SubCategory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class SeedCategories extends Command
 {
@@ -302,11 +298,11 @@ class SeedCategories extends Command
                                         // 'owner_id' =>  2,
                                         'brand_id' => 3,
                                     ],
-                                ], //end models
+                                ], // end models
                             ],
                         ],
                     ],
-                ]
+                ],
             ],
             [
                 'name_en' => 'Eyewear & Optics',
@@ -368,7 +364,7 @@ class SeedCategories extends Command
                                             [
                                                 'title' => 'Compact Camera',
                                                 'details' => 'A compact camera is an inexpensive    entry-level camera for the amateur digital   photographer.',
-                                                'owner_id' =>  2,
+                                                'owner_id' => 2,
                                                 'model_id' => 5,
                                                 'color_id' => 1,
                                                 'status' => 1,
@@ -376,7 +372,7 @@ class SeedCategories extends Command
                                             [
                                                 'title' => 'Zoom Compact Camera',
                                                 'details' => 'Compact zoom cameras have a more powerful zoom lens. This means a much greater magnification ability.',
-                                                'owner_id' =>  2,
+                                                'owner_id' => 2,
                                                 'model_id' => 5,
                                                 'color_id' => 1,
                                                 'status' => 1,
@@ -384,7 +380,7 @@ class SeedCategories extends Command
                                             [
                                                 'title' => 'Advanced Compact Cameras',
                                                 'details' => 'These are for the more experienced hobbyists. They want more control over their photos than what a regular compact camera provides.',
-                                                'owner_id' =>  2,
+                                                'owner_id' => 2,
                                                 'model_id' => 5,
                                                 'color_id' => 1,
                                                 'status' => 0,
@@ -398,7 +394,7 @@ class SeedCategories extends Command
                                                 'status' => 0,
                                             ],
                                         ],
-                                    ]
+                                    ],
                                 ],
                             ],
                         ],
@@ -499,13 +495,13 @@ class SeedCategories extends Command
                                         'name_ar' => 'اخرى',
                                         'image' => 'images/posts/post6.jpg',
                                         'brand_id' => 14,
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         // foreach ($Categories as $Category) {

@@ -17,7 +17,9 @@ class City extends Model
     protected static $logAttributes = [
         'name_en', 'name_ar',
     ];
+
     protected static $logOnlyDirty = true;
+
     /**
      * Get the region that owns the governorate.
      */
@@ -28,6 +30,6 @@ class City extends Model
 
     public function getNameAttribute()
     {
-        return $this->{'name_' . app()->getLocale()};
+        return $this->{'name_'.app()->getLocale()};
     }
 }

@@ -2,25 +2,16 @@
 
 namespace App\Nova;
 
-use App\User;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Status;
+use App\Nova\Metrics\QrCodesTypes;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use App\Nova\Metrics\QrCodesTypes;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
-use Faker\Provider\fr_CH\Text as FakerText;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
 class GenerateQrcode extends Resource
 {
@@ -29,7 +20,7 @@ class GenerateQrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\GenerateQrcode';
+    public static $model = \App\GenerateQrcode::class;
 
     /**
      * The logical group associated with the resource.
@@ -66,7 +57,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -74,7 +64,7 @@ class GenerateQrcode extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Text::make('Reference Number','generate_reference_number')
+            Text::make('Reference Number', 'generate_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             RadioButton::make('Type')
@@ -82,11 +72,11 @@ class GenerateQrcode extends Resource
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
                 ])->default(1), // optional
-            Number::make('Quantity Of QR Codes','quantity')
+            Number::make('Quantity Of QR Codes', 'quantity')
                 ->min(1)->max(10000)->step(1)
                 ->rules('required'),
 
-                Boolean::make('With Blue Eyes','blue_eyes')
+            Boolean::make('With Blue Eyes', 'blue_eyes')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->blue_eyes ?? false]),
@@ -98,33 +88,30 @@ class GenerateQrcode extends Resource
                 ->hideFromIndex()
                 ->hideFromDetail(),
 
-
             Text::make('Created From')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            HasMany::make('QR Codes','qrcodes',\App\Nova\Stock::class),
+            HasMany::make('QR Codes', 'qrcodes', \App\Nova\Stock::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
             new QrCodes,
-            new  QrCodesTypes
+            new QrCodesTypes,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -135,7 +122,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -146,7 +132,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -154,19 +139,22 @@ class GenerateQrcode extends Resource
         return [];
     }
 
-    public static function singularLabel() {
+    public static function singularLabel()
+    {
         return 'Generate';
     }
 
-    public static function label() {
+    public static function label()
+    {
         return 'Generate';
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

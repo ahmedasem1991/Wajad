@@ -16,7 +16,7 @@ class PostImagesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'image' => $this->image ? env('APP_URL').'/'.$this->image : '',
         ];
     }
 }

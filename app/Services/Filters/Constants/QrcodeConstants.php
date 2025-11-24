@@ -23,6 +23,6 @@ interface QrcodeConstants
         1 => 'Single Assign',
         2 => 'Multi Assign',
         'Single Assign' => 1,
-        'Multi Assign' => 2
+        'Multi Assign' => 2,
     ];
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->integer('corporate_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('role_id')->nullable();
-            //$table->integer('posts_number')->default(env('POST_LIMITATION',50));
+            // $table->integer('posts_number')->default(env('POST_LIMITATION',50));
             $table->integer('posts_number')->default(0);
             $table->integer('max_posts_number')->default(100);
             $table->string('social_name')->nullable();
@@ -43,7 +43,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_mobile_number_verified')->default(false);
 
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('image', 500)->default("images/profile/default-profile.png");
+            $table->string('image', 500)->default('images/profile/default-profile.png');
             $table->string('language', 5)->default('en');
             $table->integer('quick_user_id')->nullable();
             $table->string('quick_user_password')->default('QuickBlox1!');

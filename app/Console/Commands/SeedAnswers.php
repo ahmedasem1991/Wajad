@@ -46,7 +46,7 @@ class SeedAnswers extends Command
         $answers = [
             [
                 'user_id' => 1,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 8,
                 'post_request_id' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -54,7 +54,7 @@ class SeedAnswers extends Command
             ],
             [
                 'user_id' => 2,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 9,
                 'post_request_id' => 2,
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -62,7 +62,7 @@ class SeedAnswers extends Command
             ],
             [
                 'user_id' => 3,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 10,
                 'post_request_id' => 3,
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -70,7 +70,7 @@ class SeedAnswers extends Command
             ],
             [
                 'user_id' => 4,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 11,
                 'post_request_id' => 4,
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -78,7 +78,7 @@ class SeedAnswers extends Command
             ],
             [
                 'user_id' => 5,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 12,
                 'post_request_id' => 5,
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -86,7 +86,7 @@ class SeedAnswers extends Command
             ],
             [
                 'user_id' => 6,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 13,
                 'post_request_id' => 6,
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -94,7 +94,7 @@ class SeedAnswers extends Command
             ],
             [
                 'user_id' => 7,
-                'answers' => "answer1",
+                'answers' => 'answer1',
                 'question_id' => 14,
                 'post_request_id' => 7,
                 'created_at' => Carbon::now()->toDateTimeString(),

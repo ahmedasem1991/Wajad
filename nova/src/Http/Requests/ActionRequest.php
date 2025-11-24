@@ -74,7 +74,6 @@ class ActionRequest extends NovaRequest
      * Get the selected models for the action in chunks.
      *
      * @param  int  $count
-     * @param  \Closure  $callback
      * @return mixed
      */
     public function chunks($count, Closure $callback)
@@ -121,8 +120,8 @@ class ActionRequest extends NovaRequest
     protected function modelsViaRelationship()
     {
         return $this->findParentModel()->{$this->viaRelationship}()
-                        ->withoutGlobalScopes()
-                        ->whereIn($this->model()->getQualifiedKeyName(), explode(',', $this->resources));
+            ->withoutGlobalScopes()
+            ->whereIn($this->model()->getQualifiedKeyName(), explode(',', $this->resources));
     }
 
     /**
@@ -152,9 +151,9 @@ class ActionRequest extends NovaRequest
         })->all(), [], $fields->reject(function ($field) {
             return empty($field->name);
         })
-        ->mapWithKeys(function ($field) {
-            return [$field->attribute => $field->name];
-        })->all());
+            ->mapWithKeys(function ($field) {
+                return [$field->attribute => $field->name];
+            })->all());
     }
 
     /**

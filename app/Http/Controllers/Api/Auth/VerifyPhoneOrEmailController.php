@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-
-use Illuminate\Http\Request;
-use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -16,19 +15,23 @@ class VerifyPhoneOrEmailController extends Controller
 {
     private $verification_types = [
         'phone',
-        'email'
+        'email',
     ];
 
     /**
      * Verify Code for Phone or Email
+     *
      * @urlParam type required phone or email. Example:phone.
+     *
      * @bodyParam code numeric required digits:4 Example:1234
      * @bodyParam token Barier-token required
+     *
      * @response {
      *         "success": true,
      *         "message": "Phone Verified Successfully",
      *         "status_code": 200
      * }
+     *
      * @return void
      */
     public function __invoke(Request $request, $type)
@@ -36,17 +39,17 @@ class VerifyPhoneOrEmailController extends Controller
         $user = auth('api')->user();
 
         $validate_for_code = Validator::make($request->all(), [
-            'code' => ['required', 'numeric', 'digits:4']
+            'code' => ['required', 'numeric', 'digits:4'],
         ]);
 
         if ($validate_for_code->fails()) {
             throw new ApiException($validate_for_code->errors()->first(), 400);
         }
 
-        if (!in_array($type, $this->verification_types)) {
+        if (! in_array($type, $this->verification_types)) {
             throw new ApiException(trans('auth.failed'), 404);
         }
-      
+
         (new UserService)->verifyActivationCode($user, $request->code, $type);
 
         $this->addStatusCode(200);

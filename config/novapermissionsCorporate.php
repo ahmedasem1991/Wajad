@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'userModel' => 'App\User',
+    'userModel' => App\User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'userResource' => 'App\NovaCorporate\User',
+    'userResource' => App\NovaCorporate\User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -39,56 +39,56 @@ return [
     */
 
     'permissions' => [
-         ///////////////Users///////////////
+        // /////////////Users///////////////
         'view users' => [
             'display_name' => 'View users',
-            'description'  => 'Can view users',
-            'group'        => 'Users',
+            'description' => 'Can view users',
+            'group' => 'Users',
         ],
 
         'create users' => [
             'display_name' => 'Create users',
-            'description'  => 'Can create users',
-            'group'        => 'Users',
+            'description' => 'Can create users',
+            'group' => 'Users',
         ],
 
         'edit users' => [
             'display_name' => 'Edit users',
-            'description'  => 'Can edit users',
-            'group'        => 'Users',
+            'description' => 'Can edit users',
+            'group' => 'Users',
         ],
 
         'delete users' => [
             'display_name' => 'Delete users',
-            'description'  => 'Can delete users',
-            'group'        => 'Users',
+            'description' => 'Can delete users',
+            'group' => 'Users',
         ],
 
-         ///////////////Roles///////////////
-         'view roles' => [
+        // /////////////Roles///////////////
+        'view roles' => [
             'display_name' => 'View roles',
-            'description'  => 'Can view roles',
-            'group'        => 'Roles',
+            'description' => 'Can view roles',
+            'group' => 'Roles',
         ],
 
         'create roles' => [
             'display_name' => 'Create roles',
-            'description'  => 'Can create roles',
-            'group'        => 'Roles',
+            'description' => 'Can create roles',
+            'group' => 'Roles',
         ],
 
         'edit roles' => [
             'display_name' => 'Edit roles',
-            'description'  => 'Can edit roles',
-            'group'        => 'Roles',
+            'description' => 'Can edit roles',
+            'group' => 'Roles',
         ],
 
         'delete roles' => [
             'display_name' => 'Delete roles',
-            'description'  => 'Can delete roles',
-            'group'        => 'Roles',
+            'description' => 'Can delete roles',
+            'group' => 'Roles',
         ],
-             ///////////////Brands///////////////
+        // /////////////Brands///////////////
         // 'view brands' => [
         //     'display_name' => 'View brands',
         //     'description'  => 'Can view brands',
@@ -112,7 +112,7 @@ return [
         //     'description'  => 'Can delete brands',
         //     'group'        => 'Brands',
         // ],
-         ///////////////Categories///////////////
+        // /////////////Categories///////////////
         //  'view categories' => [
         //     'display_name' => 'View categories',
         //     'description'  => 'Can view categories',
@@ -280,11 +280,11 @@ return [
         //     'description'  => 'Can delete countries',
         //     'group'        => 'Countries',
         // ],
-         ///////////////Activities///////////////
-         'view activities' => [
+        // /////////////Activities///////////////
+        'view activities' => [
             'display_name' => 'View activities',
-            'description'  => 'Can view activities',
-            'group'        => 'Activities',
+            'description' => 'Can view activities',
+            'group' => 'Activities',
         ],
 
         // 'create activities' => [
@@ -304,7 +304,7 @@ return [
         //     'description'  => 'Can delete activities',
         //     'group'        => 'Activities',
         // ],
-         ///////////////Banners///////////////
+        // /////////////Banners///////////////
         //  'view banners' => [
         //     'display_name' => 'View banners',
         //     'description'  => 'Can view banners',
@@ -352,7 +352,7 @@ return [
         //     'description'  => 'Can delete corporates',
         //     'group'        => 'Corporates',
         // ],
-         ///////////////Items///////////////
+        // /////////////Items///////////////
         //  'view items' => [
         //     'display_name' => 'View items',
         //     'description'  => 'Can view items',
@@ -377,15 +377,15 @@ return [
         //     'group'        => 'Items',
         // ],
         //  ///////////////Packages///////////////
-         'packages' => [
+        'packages' => [
             'display_name' => 'View packages',
-            'description'  => 'Can view packages',
-            'group'        => 'Packages',
+            'description' => 'Can view packages',
+            'group' => 'Packages',
         ],
         'subscription' => [
             'display_name' => 'View subscription',
-            'description'  => 'Can view subscription',
-            'group'        => 'Packages',
+            'description' => 'Can view subscription',
+            'group' => 'Packages',
         ],
 
         // 'create packages' => [
@@ -405,48 +405,48 @@ return [
         //     'description'  => 'Can delete packages',
         //     'group'        => 'Packages',
         // ],
-         ///////////////Posts///////////////
-         'view posts' => [
+        // /////////////Posts///////////////
+        'view posts' => [
             'display_name' => 'View posts',
-            'description'  => 'Can view posts',
-            'group'        => 'Posts',
+            'description' => 'Can view posts',
+            'group' => 'Posts',
         ],
 
         'create posts' => [
             'display_name' => 'Create posts',
-            'description'  => 'Can create posts',
-            'group'        => 'Posts',
+            'description' => 'Can create posts',
+            'group' => 'Posts',
         ],
 
         'edit posts' => [
             'display_name' => 'Edit posts',
-            'description'  => 'Can edit posts',
-            'group'        => 'Posts',
+            'description' => 'Can edit posts',
+            'group' => 'Posts',
         ],
 
         'delete posts' => [
             'display_name' => 'Delete posts',
-            'description'  => 'Can delete posts',
-            'group'        => 'Posts',
+            'description' => 'Can delete posts',
+            'group' => 'Posts',
         ],
 
         'hidden posts' => [
             'display_name' => 'Hidden posts',
-            'description'  => 'Can display hidden posts',
-            'group'        => 'Posts',
+            'description' => 'Can display hidden posts',
+            'group' => 'Posts',
         ],
 
         'closed posts' => [
             'display_name' => 'Closed posts',
-            'description'  => 'Can display closed posts',
-            'group'        => 'Posts',
+            'description' => 'Can display closed posts',
+            'group' => 'Posts',
         ],
         'reported posts' => [
             'display_name' => 'Reported posts',
-            'description'  => 'Can display reported posts',
-            'group'        => 'Posts',
+            'description' => 'Can display reported posts',
+            'group' => 'Posts',
         ],
-         ///////////////Offices///////////////
+        // /////////////Offices///////////////
         //  'view offices' => [
         //     'display_name' => 'View offices',
         //     'description'  => 'Can view offices',
@@ -471,20 +471,19 @@ return [
         //     'group'        => 'Offices',
         // ],
         //  ///////////////Assign QR Code///////////////
-         'view assign qr code' => [
+        'view assign qr code' => [
             'display_name' => 'View assign qr code',
-            'description'  => 'Can view assign qr code',
-            'group'        => 'QR Code',
+            'description' => 'Can view assign qr code',
+            'group' => 'QR Code',
         ],
 
         'create assign qr code' => [
             'display_name' => 'Create assign qr code',
-            'description'  => 'Can create assign qr code',
-            'group'        => 'QR Code',
+            'description' => 'Can create assign qr code',
+            'group' => 'QR Code',
         ],
 
-
-         ///////////////Generate QR Code///////////////
+        // /////////////Generate QR Code///////////////
         //  'view generate qr code' => [
         //     'display_name' => 'View generate qr code',
         //     'description'  => 'Can view generate qr code',
@@ -497,28 +496,25 @@ return [
         //     'group'        => 'Generate QR Code',
         // ],
 
-
-
-         ///////////////QR Code Stock///////////////
-         'view stock' => [
+        // /////////////QR Code Stock///////////////
+        'view stock' => [
             'display_name' => 'View stock',
-            'description'  => 'Can view stock',
-            'group'        => 'QR Code',
+            'description' => 'Can view stock',
+            'group' => 'QR Code',
         ],
 
         'delete qr code' => [
             'display_name' => 'Delete qr code',
-            'description'  => 'Can delete qr code',
-            'group'        => 'QR Code',
+            'description' => 'Can delete qr code',
+            'group' => 'QR Code',
         ],
 
-        
         'expired qr code' => [
             'display_name' => 'Expired qr code',
-            'description'  => 'Can view expired qr code',
-            'group'        => 'QR Code',
+            'description' => 'Can view expired qr code',
+            'group' => 'QR Code',
         ],
-         ///////////////Setting///////////////
+        // /////////////Setting///////////////
         //  'view setting' => [
         //     'display_name' => 'View setting',
         //     'description'  => 'Can view setting',

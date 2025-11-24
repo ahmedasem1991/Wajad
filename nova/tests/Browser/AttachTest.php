@@ -23,15 +23,15 @@ class AttachTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($role) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->waitFor('@roles-index-component', 25)
-                    ->within(new IndexComponent('roles'), function ($browser) {
-                        $browser->click('@attach-button');
-                    })
-                    ->on(new Attach('users', 1, 'roles'))
-                    ->waitFor('.content form', 25)
-                    ->selectAttachable($role->id)
-                    ->clickAttach();
+                ->visit(new Detail('users', 1))
+                ->waitFor('@roles-index-component', 25)
+                ->within(new IndexComponent('roles'), function ($browser) {
+                    $browser->click('@attach-button');
+                })
+                ->on(new Attach('users', 1, 'roles'))
+                ->waitFor('.content form', 25)
+                ->selectAttachable($role->id)
+                ->clickAttach();
 
             $this->assertDatabaseHas('role_user', [
                 'user_id' => '1',
@@ -54,17 +54,17 @@ class AttachTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($role) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->waitFor('@roles-index-component', 25)
-                    ->within(new IndexComponent('roles'), function ($browser) {
-                        $browser->click('@attach-button');
-                    })
-                    ->on(new Attach('users', 1, 'roles'))
-                    ->waitFor('.content form', 25)
-                    ->selectAttachable($role->id)
-                    ->type('@notes', 'Test Notes')
-                    ->clickAttach()
-                    ->waitFor('[dusk="roles-index-component"] table', 60);
+                ->visit(new Detail('users', 1))
+                ->waitFor('@roles-index-component', 25)
+                ->within(new IndexComponent('roles'), function ($browser) {
+                    $browser->click('@attach-button');
+                })
+                ->on(new Attach('users', 1, 'roles'))
+                ->waitFor('.content form', 25)
+                ->selectAttachable($role->id)
+                ->type('@notes', 'Test Notes')
+                ->clickAttach()
+                ->waitFor('[dusk="roles-index-component"] table', 60);
 
             $this->assertDatabaseHas('role_user', [
                 'user_id' => '1',
@@ -87,15 +87,15 @@ class AttachTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->waitFor('@roles-index-component', 25)
-                    ->within(new IndexComponent('roles'), function ($browser) {
-                        $browser->click('@attach-button');
-                    })
-                    ->on(new Attach('users', 1, 'roles'))
-                    ->waitFor('.content form', 25)
-                    ->clickAttach()
-                    ->waitForText('The role field is required.');
+                ->visit(new Detail('users', 1))
+                ->waitFor('@roles-index-component', 25)
+                ->within(new IndexComponent('roles'), function ($browser) {
+                    $browser->click('@attach-button');
+                })
+                ->on(new Attach('users', 1, 'roles'))
+                ->waitFor('.content form', 25)
+                ->clickAttach()
+                ->waitForText('The role field is required.');
 
             $this->assertDatabaseMissing('role_user', [
                 'user_id' => '1',

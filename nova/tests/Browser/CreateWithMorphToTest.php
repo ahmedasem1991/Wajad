@@ -23,12 +23,12 @@ class CreateWithMorphToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('comments'))
-                    ->select('@commentable-type', 'posts')
-                    ->pause(500)
-                    ->searchAndSelectFirstRelation('commentable', 1)
-                    ->type('@body', 'Test Comment')
-                    ->create();
+                ->visit(new Create('comments'))
+                ->select('@commentable-type', 'posts')
+                ->pause(500)
+                ->searchAndSelectFirstRelation('commentable', 1)
+                ->type('@body', 'Test Comment')
+                ->create();
 
             $browser->assertPathIs('/nova/resources/comments/1');
 
@@ -50,12 +50,12 @@ class CreateWithMorphToTest extends DuskTestCase
 
             $this->browse(function (Browser $browser) use ($post) {
                 $browser->loginAs(User::find(1))
-                        ->visit(new Create('comments'))
-                        ->select('@commentable-type', 'posts')
-                        ->pause(500)
-                        ->searchAndSelectFirstRelation('commentable', 1)
-                        ->type('@body', 'Test Comment')
-                        ->create();
+                    ->visit(new Create('comments'))
+                    ->select('@commentable-type', 'posts')
+                    ->pause(500)
+                    ->searchAndSelectFirstRelation('commentable', 1)
+                    ->type('@body', 'Test Comment')
+                    ->create();
 
                 $browser->assertPathIs('/nova/resources/comments/1');
 
@@ -92,16 +92,16 @@ class CreateWithMorphToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('posts', $post->id))
-                    ->waitFor('@comments-index-component', 25)
-                    ->within(new IndexComponent('comments'), function ($browser) {
-                        $browser->click('@create-button');
-                    })
-                    ->on(new Create('comments'))
-                    ->assertDisabled('@commentable-type')
-                    ->assertDisabled('@commentable-select')
-                    ->type('@body', 'Test Comment')
-                    ->create();
+                ->visit(new Detail('posts', $post->id))
+                ->waitFor('@comments-index-component', 25)
+                ->within(new IndexComponent('comments'), function ($browser) {
+                    $browser->click('@create-button');
+                })
+                ->on(new Create('comments'))
+                ->assertDisabled('@commentable-type')
+                ->assertDisabled('@commentable-select')
+                ->type('@body', 'Test Comment')
+                ->create();
 
             $browser->assertPathIs('/nova/resources/comments/1');
 
@@ -120,9 +120,9 @@ class CreateWithMorphToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('comments'))
-                    ->assertSee('User Post')
-                    ->assertSee('User Video');
+                ->visit(new Create('comments'))
+                ->assertSee('User Post')
+                ->assertSee('User Video');
 
             $browser->blank();
         });

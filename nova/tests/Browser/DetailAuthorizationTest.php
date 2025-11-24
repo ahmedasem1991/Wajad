@@ -23,8 +23,8 @@ class DetailAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('posts', $post->id))
-                    ->assertPathIs('/nova/403');
+                ->visit(new Detail('posts', $post->id))
+                ->assertPathIs('/nova/403');
 
             $browser->blank();
         });
@@ -43,8 +43,8 @@ class DetailAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('posts', $post->id))
-                    ->assertMissing('@edit-resource-button');
+                ->visit(new Detail('posts', $post->id))
+                ->assertMissing('@edit-resource-button');
 
             $browser->blank();
         });
@@ -63,8 +63,8 @@ class DetailAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('posts', $post->id))
-                    ->assertMissing('@open-delete-modal-button');
+                ->visit(new Detail('posts', $post->id))
+                ->assertMissing('@open-delete-modal-button');
 
             $browser->blank();
         });

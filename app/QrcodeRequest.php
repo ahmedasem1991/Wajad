@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class QrcodeRequest extends Model
 {
     use SoftDeletes;
-    protected $table='qrcode_requests';
-    protected $fillable=['number'];
+
+    protected $table = 'qrcode_requests';
+
+    protected $fillable = ['number'];
+
     const Status = [
         0 => 'Pending',
         1 => 'Generated',
@@ -21,10 +24,12 @@ class QrcodeRequest extends Model
     {
         return $this->status === self::Status[$status];
     }
+
     public function corporateAdmin()
     {
-        return $this->belongsTo(User::class,'corporate_admin_id');
+        return $this->belongsTo(User::class, 'corporate_admin_id');
     }
+
     public function corporate()
     {
         return $this->belongsTo(Corporate::class);

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\AssignQrcode;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AssignQrcodePolicy
@@ -13,7 +13,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can view any qrcodes.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -28,7 +27,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can view the qrcode.
      *
-     * @param  \App\User  $user
      * @param  \App\AssignQrcode  $qrcode
      * @return mixed
      */
@@ -47,7 +45,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can create qrcodes.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -65,8 +62,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can update the qrcode.
      *
-     * @param  \App\User  $user
-     * @param  \App\AssignQrcode  $AssignQrcode
      * @return mixed
      */
     public function update(User $user, AssignQrcode $AssignQrcode)
@@ -77,8 +72,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can delete the qrcode.
      *
-     * @param  \App\User  $user
-     * @param  \App\AssignQrcode $AssignQrcode
      * @return mixed
      */
     public function delete(User $user, AssignQrcode $AssignQrcode)
@@ -89,8 +82,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can restore the qrcode.
      *
-     * @param  \App\User  $user
-     * @param  \App\AssignQrcode $AssignQrcode
      * @return mixed
      */
     public function restore(User $user, AssignQrcode $AssignQrcode)
@@ -101,8 +92,6 @@ class AssignQrcodePolicy
     /**
      * Determine whether the user can permanently delete the qrcode.
      *
-     * @param  \App\User  $user
-     * @param  \App\AssignQrcode $AssignQrcode
      * @return mixed
      */
     public function forceDelete(User $user, AssignQrcode $AssignQrcode)

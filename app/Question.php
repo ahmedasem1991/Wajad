@@ -8,15 +8,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Question extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use LogsActivity, SoftDeletes;
 
     protected $fillable = ['post_id', 'question', 'founder_id', 'corporate_id'];
 
     protected static $logAttributes = [
-        'post.title', 'question'
+        'post.title', 'question',
     ];
-    protected static $logOnlyDirty = true;
 
+    protected static $logOnlyDirty = true;
 
     public function user()
     {

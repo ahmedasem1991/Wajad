@@ -13,24 +13,28 @@ class SendCodeController extends Controller
 {
     private $types = [
         'phone',
-        'email'
+        'email',
     ];
 
     /**
      * Send Code
+     *
      * @urlParam type required phone or email. Example:phone.
+     *
      * @bodyParam token Barier-token required
+     *
      * @response
      * {
      *"success": true,
      *"message": "Verification code sent.",
      *"status_code": 200
      *}
+     *
      * @return void
      */
     public function __invoke($type)
     {
-        if (!in_array($type, $this->types)) {
+        if (! in_array($type, $this->types)) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.page')]), 400);
         }
 

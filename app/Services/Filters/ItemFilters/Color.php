@@ -2,8 +2,8 @@
 
 namespace App\Services\Filters\ItemFilters;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Services\Filters\Contracts\FilterContract;
+use Illuminate\Database\Eloquent\Builder;
 
 class Color implements FilterContract
 {
@@ -16,6 +16,6 @@ class Color implements FilterContract
 
     public function apply(Builder $query)
     {
-        return $query->where('color_id',  $this->color_id);
+        return $query->where('color_id', $this->color_id);
     }
 }

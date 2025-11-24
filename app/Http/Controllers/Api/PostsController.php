@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\City;
 use App\Events\ClosePostEvent;
-use App\Item;
-use App\Post;
-use App\Services\Helpers\Traits\Visitable;
-use App\User;
-use Carbon\Carbon;
-use App\PostReport;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use Illuminate\Support\Facades\Validator;
+use App\Item;
 use App\Notifications\SendFCMNotification;
+use App\Post;
+use App\PostReport;
 use App\PostRequest;
+use App\Services\Helpers\Traits\Visitable;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 
 /**
@@ -26,15 +26,17 @@ use Intervention\Image\ImageManagerStatic as Image;
 class PostsController extends Controller
 {
     use Visitable;
+
     const TYPES = [
         'lost' => 0,
-        'found' => 1
+        'found' => 1,
     ];
 
     /**
      * Create Post
      *
      * @urlParam type required string in:lost,found
+     *
      * @bodyParam title string required min:6 max:255
      * @bodyParam description string required min:9 max:255
      * @bodyParam reward  string
@@ -75,9 +77,9 @@ class PostsController extends Controller
             'description' => ['required', 'min:4', 'max:500'],
             'reward' => ['nullable', 'string'],
             'longitude' => ['required'],
-            //'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
+            // 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
             'latitude' => ['required'],
-            //regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/
+            // regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/
             'sub_category_id' => ['required', 'exists:sub_categories,id'],
             'brand_id' => ['required', 'exists:brands,id'],
             'model_id' => ['required', 'exists:models,id'],
@@ -95,7 +97,7 @@ class PostsController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        if ($type == "found") {
+        if ($type == 'found') {
             $validate_found_post = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
                 'questions.0' => ['required', 'min:4', 'max:500'],
@@ -109,10 +111,10 @@ class PostsController extends Controller
         }
 
         if (auth('api')->user()->exceededPostLimitation()) {
-            throw new ApiException(trans('messages.limited',  ['model' => trans('messages.attributes.post')]), 400);
+            throw new ApiException(trans('messages.limited', ['model' => trans('messages.attributes.post')]), 400);
         }
 
-        if ($type == "found") {
+        if ($type == 'found') {
             $validate_questions = Validator::make($request->all(), [
                 'questions' => ['required',  'array', 'between:1,3'],
                 'questions.0' => ['required', 'min:4', 'max:500'],
@@ -124,23 +126,22 @@ class PostsController extends Controller
             }
         }
 
-        $city_id =  City::where('name_en', 'like', '%' . $request->city . '%')
-            ->orWhere('name_ar', 'like', '%' .  $request->city . '%')
+        $city_id = City::where('name_en', 'like', '%'.$request->city.'%')
+            ->orWhere('name_ar', 'like', '%'.$request->city.'%')
             ->firstOrCreate(['name_en' => $request->city, 'name_ar' => $request->city]);
 
         $auto_approve = 0;
         $appearance_status = 0;
-        $approval_status=0;
+        $approval_status = 0;
 
         if (defaultGroup()->auto_approve == 1) {
             $auto_approve = 1;
             $appearance_status = 1;
-            $approval_status=1;
+            $approval_status = 1;
         }
 
         $dispatcher = Post::getEventDispatcher();
         Post::unsetEventDispatcher();
-
 
         $post = Post::create([
             'title' => $request->title,
@@ -167,13 +168,13 @@ class PostsController extends Controller
             // 'approval_status' => 1,
         ]);
 
-        if ($type == "lost") {
+        if ($type == 'lost') {
             $post->fill([
                 'status' => self::TYPES[$type],
                 'owner_id' => auth('api')->user()->id,
                 'losted_at' => Carbon::now()->toDateTimeString(),
                 'reward' => $request->reward,
-                'owner_releated_to_system' => 1
+                'owner_releated_to_system' => 1,
             ]);
             $post->save();
 
@@ -183,29 +184,32 @@ class PostsController extends Controller
             }
         }
 
-        if ($type == "found") {
+        if ($type == 'found') {
             $post->fill([
                 'status' => self::TYPES[$type],
                 'founder_id' => auth('api')->user()->id,
                 'founded_at' => Carbon::now()->toDateTimeString(),
-                'founder_releated_to_system' => 1
+                'founder_releated_to_system' => 1,
             ]);
             $post->save();
 
             foreach ($request->questions as $key => $question) {
-                //if ($question) {
-                if($key==0)
-                    $post->question_1= $question;
-                if($key==1)
-                    $post->question_2= $question;
-                if($key==2)
-                    $post->question_3= $question;
+                // if ($question) {
+                if ($key == 0) {
+                    $post->question_1 = $question;
+                }
+                if ($key == 1) {
+                    $post->question_2 = $question;
+                }
+                if ($key == 2) {
+                    $post->question_3 = $question;
+                }
 
                 $post->questions()->create([
                     'founder_id' => auth('api')->user()->id,
                     'question' => $question,
                 ]);
-                //$post->{$x}= $question;
+                // $post->{$x}= $question;
 
                 $post->save();
                 // }
@@ -220,19 +224,19 @@ class PostsController extends Controller
         if ($request->has('images') && count($request->images) > 0) {
             $post_images = [];
             foreach ($request->images as $image) {
-                if (preg_match("/^data:image/", $image)) {
-                    $image_name = Str::random(15) . '.' . 'png';
-                    $path = public_path('/images//' . $image_name);
+                if (preg_match('/^data:image/', $image)) {
+                    $image_name = Str::random(15).'.'.'png';
+                    $path = public_path('/images//'.$image_name);
                     Image::make(file_get_contents($image))->encode('data-url')->save($path);
-                    $post_images[] = '/images//' . $image_name;
+                    $post_images[] = '/images//'.$image_name;
                 }
 
-                if (!preg_match("/^data:image/", $image)) {
+                if (! preg_match('/^data:image/', $image)) {
                     $post_images[] = $image;
                 }
             }
             $post->fill([
-                'images' => $post_images
+                'images' => $post_images,
             ]);
 
             $post->save();
@@ -242,15 +246,16 @@ class PostsController extends Controller
 
         $this->addResponse(trans('messages.created', ['model' => trans('messages.attributes.post')]))->addStatusCode(201);
         // Send FCM
-        $badge =getBadge($post->publisher);
-        $data=sendCreatePostFCM($post,$badge,$type);
-        $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
+        $badge = getBadge($post->publisher);
+        $data = sendCreatePostFCM($post, $badge, $type);
+        $post->publisher->notify(new SendFCMNotification($post->publisher, $data));
 
         return $this->response();
     }
 
     /**
      *  Report Post
+     *
      * @urlParam id required int Post Id
      *
      * @bodyParam details string nullable max:1000
@@ -275,9 +280,9 @@ class PostsController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        $p = PostReport::where('post_id', '=',$post->id)->where('user_id', '=', auth('api')->user()->id)->get();
+        $p = PostReport::where('post_id', '=', $post->id)->where('user_id', '=', auth('api')->user()->id)->get();
 
-        if (!$p->isEmpty()){
+        if (! $p->isEmpty()) {
             throw new ApiException('You Already Made A Request', 400);
         }
 
@@ -287,27 +292,27 @@ class PostsController extends Controller
             'details' => $request->details,
         ]);
 
-        if ($request->has('image') && $request->image != "" && !is_null($request->image)) {
+        if ($request->has('image') && $request->image != '' && ! is_null($request->image)) {
 
-            if (preg_match("/^data:image/", $request->image)) {
-                $image_name = Str::random(15) . '.' . 'png';
-                $path = public_path('/images//' . $image_name);
+            if (preg_match('/^data:image/', $request->image)) {
+                $image_name = Str::random(15).'.'.'png';
+                $path = public_path('/images//'.$image_name);
                 Image::make(file_get_contents($request->image))->save($path);
-                $imageURL = '/images//' . $image_name;
+                $imageURL = '/images//'.$image_name;
             }
 
-            if (!preg_match("/^data:image/", $request->image)) {
-                $imageURL = '/images//' . $request->image;
+            if (! preg_match('/^data:image/', $request->image)) {
+                $imageURL = '/images//'.$request->image;
             }
 
             $postReport->fill([
-                'image' =>     $imageURL
+                'image' => $imageURL,
             ]);
 
             $postReport->save();
         }
 
-        //if ($post->reports()->count() >= env('REPORTS_NUMBER')) {
+        // if ($post->reports()->count() >= env('REPORTS_NUMBER')) {
         if ($post->reports()->count() >= maxReportsNumber()) {
             $post->update(['appearance_status' => 0]);
         }
@@ -315,21 +320,23 @@ class PostsController extends Controller
         $post->increment('reports_number');
 
         // $request_user=User::find($request->user_id);
-        //send FCM
-        $badge =getBadge($post->publisher);
-        $data=sendReportPostFCM($postReport,$badge);
-        $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
+        // send FCM
+        $badge = getBadge($post->publisher);
+        $data = sendReportPostFCM($postReport, $badge);
+        $post->publisher->notify(new SendFCMNotification($post->publisher, $data));
 
         $this->addResponse(trans('messages.reported', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
-        return  $this->response();
+        return $this->response();
     }
 
     /**
      * Show Post
      *
      * @urlParam id required int Post Id
+     *
      * @bodyParam token Barier-token required
+     *
      * @response
      *  {
      * "data":
@@ -476,11 +483,13 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         $this->bootVisitable($post);
+
         return new PostResource($post);
     }
 
     /**
      * Update Post
+     *
      * @urlParam id required int Post Id
      *
      * @bodyParam title string required min:6 max:255
@@ -507,9 +516,7 @@ class PostsController extends Controller
      *  "message": "Post updated successfully.",
      *  "status_code": 200
      * }
-     *
      */
-
     public function update(Request $request, Post $post)
     {
         $user = auth('api')->user();
@@ -538,9 +545,9 @@ class PostsController extends Controller
                 throw new ApiException($validate_request->errors()->first(), 400);
             }
 
-            $type='lost';
+            $type = 'lost';
             if ($post->status == self::TYPES['found']) {
-                $type='found';
+                $type = 'found';
                 $validate_found_post = Validator::make($request->all(), [
                     'questions' => ['required',  'array', 'between:1,3'],
                     'questions.0' => ['required', 'min:4', 'max:500'],
@@ -553,12 +560,12 @@ class PostsController extends Controller
                 }
             }
 
-            $city =  City::where('name_en', 'like', '%' . $request->city . '%')
-                ->orWhere('name_ar', 'like', '%' .  $request->city . '%')->first();
+            $city = City::where('name_en', 'like', '%'.$request->city.'%')
+                ->orWhere('name_ar', 'like', '%'.$request->city.'%')->first();
             if (empty($city)) {
                 $city = City::create([
-                    'name_en' =>  $request->city,
-                    'name_ar' =>  $request->city,
+                    'name_en' => $request->city,
+                    'name_ar' => $request->city,
                 ]);
             }
             $city_id = $city->id;
@@ -597,19 +604,19 @@ class PostsController extends Controller
             if ($request->has('images') && count($request->images) > 0) {
                 $post_images = [];
                 foreach ($request->images as $image) {
-                    if (preg_match("/^data:image/", $image)) {
-                        $image_name = Str::random(15) . '.' . 'png';
-                        $path = public_path('/images//' . $image_name);
+                    if (preg_match('/^data:image/', $image)) {
+                        $image_name = Str::random(15).'.'.'png';
+                        $path = public_path('/images//'.$image_name);
                         Image::make(file_get_contents($image))->encode('data-url')->save($path);
-                        $post_images[] = '/images//' . $image_name;
+                        $post_images[] = '/images//'.$image_name;
                     }
 
-                    if (!preg_match("/^data:image/", $image)) {
+                    if (! preg_match('/^data:image/', $image)) {
                         $post_images[] = $image;
                     }
                 }
                 $post->fill([
-                    'images' => $post_images
+                    'images' => $post_images,
                 ]);
 
                 $post->save();
@@ -617,12 +624,10 @@ class PostsController extends Controller
 
             $this->addResponse(trans('messages.updated', ['model' => trans('messages.attributes.post')]))->addStatusCode(200);
 
-
             // Send FCM
-            $badge =getBadge($post->publisher);
-            $data=sendUpdatePostFCM($post,$badge,$type);
-            $post->publisher->notify(new SendFCMNotification($post->publisher,$data));
-
+            $badge = getBadge($post->publisher);
+            $data = sendUpdatePostFCM($post, $badge, $type);
+            $post->publisher->notify(new SendFCMNotification($post->publisher, $data));
 
             return $this->response();
         }
@@ -633,6 +638,7 @@ class PostsController extends Controller
      * Delete Post
      *
      * @urlParam id required int Post Id
+     *
      * @bodyParam token Barier-token required
      *
      * @response
@@ -642,7 +648,6 @@ class PostsController extends Controller
      *  "status_code": 200
      *}
      */
-
     public function destroy(Post $post)
     {
         $user = auth('api')->user();
@@ -650,17 +655,17 @@ class PostsController extends Controller
             $post->delete();
             $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.post')]))
                 ->addStatusCode(200);
-            return  $this->response();
+
+            return $this->response();
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
     }
-
-
 
     /**
      * Close Post
      *
      * @urlParam id required int Post Id
+     *
      * @bodyParam token Barier-token required
      *
      * @response
@@ -670,7 +675,6 @@ class PostsController extends Controller
      *  "status_code": 200
      *}
      */
-
     public function close(Post $post)
     {
         // $user = auth('api')->user();
@@ -684,21 +688,20 @@ class PostsController extends Controller
             $post->save();
             $this->addResponse(trans('messages.closed', ['model' => trans('messages.attributes.post')]))
                 ->addStatusCode(200);
-            return  $this->response();
+
+            return $this->response();
         }
         throw new ApiException(trans('auth.not_authorized'), 400);
-        //}
+        // }
         // throw new ApiException(trans('auth.not_authorized'), 400);
 
     }
 
-
-    public function  acceptRequest(Request $request, Post $post)
+    public function acceptRequest(Request $request, Post $post)
     {
 
-
         $validate_request = Validator::make($request->all(), [
-            'user_id' => ['required','exists:users,id'],
+            'user_id' => ['required', 'exists:users,id'],
         ]);
 
         if ($validate_request->fails()) {
@@ -712,21 +715,20 @@ class PostsController extends Controller
         $postRequest = \App\PostRequest::where('post_id', $post->id)->where('user_id', $request->user_id)->first();
         $postRequest->update(['is_request_valid' => true, 'comment' => $request->input('comment')]);
         $post->update(['owner_id' => $request->user_id]);
-        event( new ClosePostEvent($post, null));
+        event(new ClosePostEvent($post, null));
 
-        $request_user=User::find($request->user_id);
-        //send FCM
-        $badge =getBadge($request_user);
-        $data=sendAcceptPostRequestFCM($post->founder,$post,$badge,$postRequest->id);
-        $request_user->notify(new SendFCMNotification($request_user,$data));
+        $request_user = User::find($request->user_id);
+        // send FCM
+        $badge = getBadge($request_user);
+        $data = sendAcceptPostRequestFCM($post->founder, $post, $badge, $postRequest->id);
+        $request_user->notify(new SendFCMNotification($request_user, $data));
 
         $this->addResponse(trans('messages.accepted', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 
         return $this->response();
     }
 
-
-    public function  rejectRequest(Request $request, Post $post)
+    public function rejectRequest(Request $request, Post $post)
     {
         $validate_request = Validator::make($request->all(), [
             'user_id' => ['required', 'int', 'exists:users,id'],
@@ -749,7 +751,7 @@ class PostsController extends Controller
                 ->whereNotNull('rejected_at')->count()
             >= env('REJECTED_REQUESTS_NUMBER')
         ) {
-            //TO DO: take some actions
+            // TO DO: take some actions
         }
         $post->update([
             'open_status' => 1,
@@ -757,11 +759,11 @@ class PostsController extends Controller
             'end_date' => null,
         ]);
 
-        $request_user=User::find($request->user_id);
-        //send FCM
-        $badge =getBadge($request_user);
-        $data=sendRejectPostRequestFCM($post->founder,$post,$badge,$postRequest->id);
-        $request_user->notify(new SendFCMNotification($request_user,$data));
+        $request_user = User::find($request->user_id);
+        // send FCM
+        $badge = getBadge($request_user);
+        $data = sendRejectPostRequestFCM($post->founder, $post, $badge, $postRequest->id);
+        $request_user->notify(new SendFCMNotification($request_user, $data));
 
         $this->addResponse(trans('messages.rejected', ['model' => trans('messages.attributes.post_request')]))->addStatusCode(201);
 

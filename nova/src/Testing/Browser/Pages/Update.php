@@ -10,7 +10,9 @@ class Update extends Page
     use HasSearchableRelations;
 
     public $resourceName;
+
     public $resourceId;
+
     public $queryParams;
 
     /**
@@ -77,7 +79,6 @@ class Update extends Page
     /**
      * Assert that the browser is on the page.
      *
-     * @param  Browser  $browser
      * @return void
      */
     public function assert(Browser $browser)

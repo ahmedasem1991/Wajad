@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Item;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserItemPolicy
@@ -19,25 +19,24 @@ class UserItemPolicy
     {
         //
     }
+
     public function update(User $user, Item $item)
     {
-        if($user->isUser())
-        {
-        if ($user->id == $item->owner_id) {
-            return true;
+        if ($user->isUser()) {
+            if ($user->id == $item->owner_id) {
+                return true;
+            }
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
-       }
     }
 
     public function destroy(User $user, Item $item)
     {
-        if($user->isUser())
-        {
-        if ($user->id == $item->owner_id) {
-            return true;
+        if ($user->isUser()) {
+            if ($user->id == $item->owner_id) {
+                return true;
+            }
+            throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        throw new ApiException(trans('auth.not_authorized'), 400);
     }
-}
 }

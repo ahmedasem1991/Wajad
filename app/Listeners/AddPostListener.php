@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\AddPostEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AddPostListener
 {
@@ -24,8 +22,5 @@ class AddPostListener
      * @param  AddPost  $event
      * @return void
      */
-    public function handle(AddPostEvent $event)
-    {
-         
-    }
+    public function handle(AddPostEvent $event) {}
 }

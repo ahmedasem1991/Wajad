@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
+use App\Exceptions\Api\ApiException;
 use App\Item;
 use App\User;
-use App\Exceptions\Api\ApiException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ItemPolicy
@@ -14,7 +14,6 @@ class ItemPolicy
     /**
      * Determine whether the user can view any items.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -29,8 +28,6 @@ class ItemPolicy
     /**
      * Determine whether the user can view the item.
      *
-     * @param  \App\User  $user
-     * @param  \App\Item  $item
      * @return mixed
      */
     public function view(User $user, Item $item)
@@ -48,12 +45,11 @@ class ItemPolicy
     /**
      * Determine whether the user can create items.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function create(User $user)
     {
-        //if(Auth()->User()->isCorporateAdmin()){
+        // if(Auth()->User()->isCorporateAdmin()){
         if ($user->hasPermissionTo('create items')) {
             return true;
         } else {
@@ -66,8 +62,6 @@ class ItemPolicy
     /**
      * Determine whether the user can update the item.
      *
-     * @param  \App\User  $user
-     * @param  \App\Item  $item
      * @return mixed
      */
     public function update(User $user, Item $item)
@@ -87,14 +81,12 @@ class ItemPolicy
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 
-        return  true;
+        return true;
     }
 
     /**
      * Determine whether the user can delete the item.
      *
-     * @param  \App\User  $user
-     * @param  \App\Item  $item
      * @return mixed
      */
     public function delete(User $user, Item $item)
@@ -112,26 +104,23 @@ class ItemPolicy
     /**
      * Determine whether the user can restore the item.
      *
-     * @param  \App\User  $user
-     * @param  \App\Item  $item
      * @return mixed
      */
     public function restore(User $user, Item $item)
     {
-        return  true;
+        return true;
     }
 
     /**
      * Determine whether the user can permanently delete the item.
      *
-     * @param  \App\User  $user
-     * @param  \App\Item  $item
      * @return mixed
      */
     public function forceDelete(User $user, Item $item)
     {
-        return  true;
+        return true;
     }
+
     public function destroy(User $user, Item $item)
     {
         if ($user->isUser()) {

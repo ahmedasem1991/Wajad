@@ -4,8 +4,6 @@ namespace App\Http\Requests\Auth;
 
 use App\Exceptions\Api\ApiException;
 use Illuminate\Foundation\Http\FormRequest;
-use Tintnaingwin\EmailChecker\Rules\EmailExist;
- 
 
 class RegisterRequest extends FormRequest
 {
@@ -19,7 +17,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'min:6', 'max:255'],
             'email' => ['required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL'],
-            //'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
+            // 'required|email|unique:users,email,NULL,id,type,1,deleted_at,NULL',
             'password' => ['required', 'min:6', 'max:255'],
             'mobile_number' => ['required', 'unique:users,mobile_number'],
             'device_type' => ['required', 'string', 'in:android,ios'],

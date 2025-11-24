@@ -5,23 +5,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+
 class GenerateQrcode extends Model
 {
-   use LogsActivity,SoftDeletes;
+    use LogsActivity,SoftDeletes;
 
-    protected $fillable =['generate_reference_number','type','quantity','created_from'];
-    protected $table='generate_qrcodes';
+    protected $fillable = ['generate_reference_number', 'type', 'quantity', 'created_from'];
+
+    protected $table = 'generate_qrcodes';
 
     protected static $logAttributes = [
-        'generate_reference_number','type','quantity','created_from'
+        'generate_reference_number', 'type', 'quantity', 'created_from',
     ];
+
     protected static $logOnlyDirty = true;
 
     const Types = [
         1 => 'Single Assign',
         2 => 'Multi Assign',
         'Single Assign' => 1,
-        'Multi Assign' => 2
+        'Multi Assign' => 2,
     ];
 
     public function typeTitle($type)
@@ -41,19 +44,14 @@ class GenerateQrcode extends Model
         'Registered' => 4,
         'Re-Registered' => 5,
     ];
-        public function status($status)
+
+    public function status($status)
     {
         return $this->status === self::Status[$status];
     }
 
-     public function qrcodes()
+    public function qrcodes()
     {
-        return $this->hasMany('App\Qrcode', 'generate_reference_number', 'generate_reference_number');
+        return $this->hasMany(\App\Qrcode::class, 'generate_reference_number', 'generate_reference_number');
     }
-
-
-
-
-
-
 }

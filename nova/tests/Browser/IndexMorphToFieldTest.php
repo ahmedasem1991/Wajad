@@ -22,13 +22,13 @@ class IndexMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($comment) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('comments'))
-                    ->waitFor('@comments-index-component', 25)
-                    ->within(new IndexComponent('comments'), function ($browser) use ($comment) {
-                        $browser->clickLink('Post: '.$comment->commentable->title);
-                    })
-                    ->pause(250)
-                    ->assertPathIs('/nova/resources/posts/'.$comment->commentable->id);
+                ->visit(new Index('comments'))
+                ->waitFor('@comments-index-component', 25)
+                ->within(new IndexComponent('comments'), function ($browser) use ($comment) {
+                    $browser->clickLink('Post: '.$comment->commentable->title);
+                })
+                ->pause(250)
+                ->assertPathIs('/nova/resources/posts/'.$comment->commentable->id);
 
             $browser->blank();
         });
@@ -48,11 +48,11 @@ class IndexMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($comment) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('comments'))
-                    ->waitFor('@comments-index-component', 25)
-                    ->within(new IndexComponent('comments'), function ($browser) use ($comment) {
-                        $browser->assertSee('Illuminate\Foundation\Auth\User: '.$comment->commentable->id);
-                    });
+                ->visit(new Index('comments'))
+                ->waitFor('@comments-index-component', 25)
+                ->within(new IndexComponent('comments'), function ($browser) use ($comment) {
+                    $browser->assertSee('Illuminate\Foundation\Auth\User: '.$comment->commentable->id);
+                });
 
             $browser->blank();
         });

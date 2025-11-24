@@ -2,15 +2,15 @@
 
 namespace App\Services\FCM\Sender;
 
-use App\Services\FCM\Message\Topics;
-use App\Services\FCM\Request\Request;
 use App\Services\FCM\Message\Options;
 use App\Services\FCM\Message\PayloadData;
+use App\Services\FCM\Message\PayloadNotification;
+use App\Services\FCM\Message\Topics;
+use App\Services\FCM\Request\Request;
+use App\Services\FCM\Response\DownstreamResponse;
 use App\Services\FCM\Response\GroupResponse;
 use App\Services\FCM\Response\TopicResponse;
 use GuzzleHttp\Exception\ClientException;
-use App\Services\FCM\Response\DownstreamResponse;
-use App\Services\FCM\Message\PayloadNotification;
 
 /**
  * Class FCMSender.
@@ -25,18 +25,14 @@ class FCMSender extends HTTPSender
      * - a unique device with is registration Token
      * - or to multiples devices with an array of registrationIds
      *
-     * @param string|array             $to
-     * @param Options|null             $options
-     * @param PayloadNotification|null $notification
-     * @param PayloadData|null         $data
-     *
+     * @param  string|array  $to
      * @return DownstreamResponse|null
      */
-    public function sendTo($to, Options $options = null, PayloadNotification $notification = null, PayloadData $data = null)
+    public function sendTo($to, ?Options $options = null, ?PayloadNotification $notification = null, ?PayloadData $data = null)
     {
         $response = null;
 
-        if (is_array($to) && !empty($to)) {
+        if (is_array($to) && ! empty($to)) {
             $partialTokens = array_chunk($to, self::MAX_TOKEN_PER_REQUEST, false);
             foreach ($partialTokens as $tokens) {
                 $request = new Request($tokens, $options, $notification, $data);
@@ -44,7 +40,7 @@ class FCMSender extends HTTPSender
                 $responseGuzzle = $this->post($request);
 
                 $responsePartial = new DownstreamResponse($responseGuzzle, $tokens);
-                if (!$response) {
+                if (! $response) {
                     $response = $responsePartial;
                 } else {
                     $response->merge($responsePartial);
@@ -63,14 +59,10 @@ class FCMSender extends HTTPSender
     /**
      * Send a message to a group of devices identified with them notification key.
      *
-     * @param                          $notificationKey
-     * @param Options|null             $options
-     * @param PayloadNotification|null $notification
-     * @param PayloadData|null         $data
      *
      * @return GroupResponse
      */
-    public function sendToGroup($notificationKey, Options $options = null, PayloadNotification $notification = null, PayloadData $data = null)
+    public function sendToGroup($notificationKey, ?Options $options = null, ?PayloadNotification $notification = null, ?PayloadData $data = null)
     {
         $request = new Request($notificationKey, $options, $notification, $data);
 
@@ -82,14 +74,10 @@ class FCMSender extends HTTPSender
     /**
      * Send message devices registered at a or more topics.
      *
-     * @param Topics                   $topics
-     * @param Options|null             $options
-     * @param PayloadNotification|null $notification
-     * @param PayloadData|null         $data
      *
      * @return TopicResponse
      */
-    public function sendToTopic(Topics $topics, Options $options = null, PayloadNotification $notification = null, PayloadData $data = null)
+    public function sendToTopic(Topics $topics, ?Options $options = null, ?PayloadNotification $notification = null, ?PayloadData $data = null)
     {
         $request = new Request(null, $options, $notification, $data, $topics);
 
@@ -101,8 +89,7 @@ class FCMSender extends HTTPSender
     /**
      * @internal
      *
-     * @param \App\Services\FCM\Request\Request $request
-     *
+     * @param  \App\Services\FCM\Request\Request  $request
      * @return null|\Psr\Http\Message\ResponseInterface
      */
     protected function post($request)

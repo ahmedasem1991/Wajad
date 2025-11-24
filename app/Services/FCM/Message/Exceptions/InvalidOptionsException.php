@@ -7,6 +7,4 @@ use Exception;
 /**
  * Class InvalidOptionsException.
  */
-class InvalidOptionsException extends Exception
-{
-}
+class InvalidOptionsException extends Exception {}

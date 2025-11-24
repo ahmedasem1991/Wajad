@@ -22,13 +22,13 @@ class PlaceFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('addresses'))
-                    ->click('@address_line_1')
-                    ->type('@address_line_1', '110 Kingsbrook St Hot Springs')
-                    ->pause(6000)
-                    ->keys('@address_line_1', '{arrow_down}', '{enter}')
-                    ->create()
-                    ->pause(2000);
+                ->visit(new Create('addresses'))
+                ->click('@address_line_1')
+                ->type('@address_line_1', '110 Kingsbrook St Hot Springs')
+                ->pause(6000)
+                ->keys('@address_line_1', '{arrow_down}', '{enter}')
+                ->create()
+                ->pause(2000);
 
             $address = Address::latest('id')->first();
 

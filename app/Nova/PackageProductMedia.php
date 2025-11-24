@@ -3,12 +3,9 @@
 namespace App\Nova;
 
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\MorphedByMany;
 use Laravel\Nova\Fields\MorphTo;
 use NovaErrorField\Errors;
 
@@ -19,7 +16,8 @@ class PackageProductMedia extends Resource
      *
      * @var string
      */
-    public static $model = 'App\PackageProductMedia';
+    public static $model = \App\PackageProductMedia::class;
+
     public static $displayInNavigation = false;
 
     /**
@@ -54,7 +52,6 @@ class PackageProductMedia extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -68,15 +65,14 @@ class PackageProductMedia extends Resource
 
             MorphTo::make('package_product_media')->types([
                 Package::class,
-                Product::class
-            ])
+                Product::class,
+            ]),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -87,7 +83,6 @@ class PackageProductMedia extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -98,7 +93,6 @@ class PackageProductMedia extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -109,7 +103,6 @@ class PackageProductMedia extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)

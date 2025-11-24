@@ -16,21 +16,21 @@ class QrcodeGenerator extends Field
     public function length($length)
     {
         return $this->withMeta([
-            'length' => $length
+            'length' => $length,
         ]);
     }
 
     public function showUrl($showUrl = false)
     {
         return $this->withMeta([
-            'showUrl' => $showUrl
+            'showUrl' => $showUrl,
         ]);
     }
 
     public function qrCodeRouteName($qrCodeRouteName)
     {
         return $this->withMeta([
-            'qrCodeRouteName' => $qrCodeRouteName
+            'qrCodeRouteName' => $qrCodeRouteName,
         ]);
     }
 }

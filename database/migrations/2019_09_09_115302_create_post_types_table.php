@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePostTypesTable extends Migration
 {
@@ -17,8 +17,8 @@ class CreatePostTypesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description', 500);
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

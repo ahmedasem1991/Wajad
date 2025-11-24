@@ -13,8 +13,9 @@ class ItemImage extends Model
     protected $fillable = ['item_id', 'image'];
 
     protected static $logAttributes = [
-        'item.title', 'image'
+        'item.title', 'image',
     ];
+
     protected static $logOnlyDirty = true;
 
     public function item()

@@ -2,20 +2,13 @@
 
 namespace App\Nova;
 
-use App\Nova\Category;
-use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Models;
-use App\Nova\Resource;
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -26,7 +19,8 @@ class Model extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Model';
+    public static $model = \App\Model::class;
+
     public static $group = 'Categories';
 
     /**
@@ -55,14 +49,13 @@ class Model extends Resource
     ];
 
     public static $searchRelations = [
-        'subcategory' => [ 'name_en', 'name_ar'],
-        'brand' => [ 'name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -71,10 +64,10 @@ class Model extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Model English Name', 'name_en')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Text::make('Model Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Textarea::make('Model English Body', 'description_en'),
             Textarea::make('Model Arabic Body', 'description_ar'),
@@ -88,7 +81,7 @@ class Model extends Resource
                 ->options(\App\SubCategory::with('brands')->get())
                 ->rules('required'),
 
-            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
@@ -102,20 +95,18 @@ class Model extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Models()
+            new Models,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -126,7 +117,6 @@ class Model extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -137,18 +127,19 @@ class Model extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/model.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/model.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

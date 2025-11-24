@@ -23,12 +23,12 @@ use Laravel\Nova\Tests\IntegrationTest;
 
 class MetricTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         DB::disableQueryLog();
         DB::flushQueryLog();
@@ -45,7 +45,8 @@ class MetricTest extends IntegrationTest
 
     public function test_metric_calculation_using_user_timezone()
     {
-        $metric = new class extends Value {
+        $metric = new class extends Value
+        {
             public function calculate(NovaRequest $request)
             {
                 return $this->count($request, User::class);
@@ -73,7 +74,8 @@ class MetricTest extends IntegrationTest
             return 'UTC';
         });
 
-        $metric = new class extends Value {
+        $metric = new class extends Value
+        {
             public function calculate(NovaRequest $request)
             {
                 return $this->count($request, User::class);
@@ -110,13 +112,12 @@ class MetricTest extends IntegrationTest
         $post->published_at = Chronos::now()->subDay(1);
         $post->save();
 
-        $this->assertEquals([1, 1], array_values((new PostCountTrend())->countByDays(NovaRequest::create('/?range=2'), new PostWithCustomCreatedAt)->trend));
+        $this->assertEquals([1, 1], array_values((new PostCountTrend)->countByDays(NovaRequest::create('/?range=2'), new PostWithCustomCreatedAt)->trend));
     }
 
     public function test_trend_calculation_using_user_timezone()
     {
-        $metric = new class extends Trend {
-        };
+        $metric = new class extends Trend {};
 
         Chronos::setTestNow(Chronos::parse('Dec 14 2019', 'UTC'));
 
@@ -142,8 +143,7 @@ class MetricTest extends IntegrationTest
             return 'UTC';
         });
 
-        $metric = new class extends Trend {
-        };
+        $metric = new class extends Trend {};
 
         Chronos::setTestNow(Chronos::parse('Dec 14 2019', 'UTC'));
 
@@ -196,13 +196,13 @@ class MetricTest extends IntegrationTest
     public function test_trend_metrics_default_precision()
     {
         factory(Post::class, 2)->create(['word_count' => 5.37894, 'published_at' => now()])->average('word_count');
-        $this->assertEquals(5, Arr::first((new PostAverageTrend)->calculate(NovaRequest::create('/', 'GET', ['range'=>1]))->trend));
+        $this->assertEquals(5, Arr::first((new PostAverageTrend)->calculate(NovaRequest::create('/', 'GET', ['range' => 1]))->trend));
     }
 
     public function test_trend_metrics_custom_precision()
     {
         factory(Post::class, 2)->create(['word_count' => 5.37894, 'published_at' => now()])->average('word_count');
-        $this->assertEquals(5.38, Arr::first((new PostAverageTrend)->precision(2)->calculate(NovaRequest::create('/', 'GET', ['range'=>1]))->trend));
+        $this->assertEquals(5.38, Arr::first((new PostAverageTrend)->precision(2)->calculate(NovaRequest::create('/', 'GET', ['range' => 1]))->trend));
     }
 
     public function test_value_metrics_can_provide_a_default_range()
@@ -231,7 +231,8 @@ class MetricTest extends IntegrationTest
         DB::enableQueryLog();
         DB::flushQueryLog();
 
-        $metric = new class extends Partition {
+        $metric = new class extends Partition
+        {
             public function calculate(Request $request)
             {
                 return $this->max($request, User::class, DB::raw('json_extract(meta, "$.value")'), 'id');
@@ -253,7 +254,8 @@ class MetricTest extends IntegrationTest
         DB::enableQueryLog();
         DB::flushQueryLog();
 
-        $metric = new class extends Trend {
+        $metric = new class extends Trend
+        {
             public function calculate(Request $request)
             {
                 return $this->max($request, User::class, 'day', DB::raw('json_extract(meta, "$.value")'));
@@ -275,7 +277,8 @@ class MetricTest extends IntegrationTest
         DB::enableQueryLog();
         DB::flushQueryLog();
 
-        $metric = new class extends Value {
+        $metric = new class extends Value
+        {
             public function calculate(Request $request)
             {
                 return $this->max($request, User::class, DB::raw('json_extract(meta, "$.value")'));

@@ -2,32 +2,21 @@
 
 namespace App\NovaCorporate;
 
-use App\Corporate;
 use App\Nova\Resource;
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\UsersTypes;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
-use Bissolli\NovaPhoneField\PhoneNumber;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class User extends Resource
 {
@@ -36,7 +25,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = \App\User::class;
 
     /**
      * The logical group associated with the resource.
@@ -83,12 +72,12 @@ class User extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('view users')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -98,10 +87,10 @@ class User extends Resource
             ID::make()->sortable(),
 
             Image::make('Profile Image', 'image')
-                ->thumbnail(function (){
+                ->thumbnail(function () {
                     return $this->getAvatar();
                 })
-                ->preview(function (){
+                ->preview(function () {
                     return $this->getAvatar();
                 })
                 ->disk('public')
@@ -130,15 +119,15 @@ class User extends Resource
                 ->options(\App\Country::all()),
 
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required', 'min:9','max:14')
-                ->updateRules('nullable',  'min:9','max:14'),
-//            Toggle::make('Active', 'status'),
-            Boolean::make('Active','status')
+                ->creationRules('required', 'min:9', 'max:14')
+                ->updateRules('nullable', 'min:9', 'max:14'),
+            //            Toggle::make('Active', 'status'),
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
 
-            HasMany::make('Activity', 'activities',Activity::class)
+            HasMany::make('Activity', 'activities', Activity::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Select2::make('Type', 'type')->options([
@@ -148,14 +137,13 @@ class User extends Resource
                 ->creationRules('required')
                 ->updateRules('required'),
 
-               // HasMany::make('Posts')
+            // HasMany::make('Posts')
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -166,7 +154,6 @@ class User extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -177,7 +164,6 @@ class User extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -188,7 +174,6 @@ class User extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -200,24 +185,25 @@ class User extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('corporate_id',Auth()->user()->corporate_id);
-    }
-    public static function icon()
-    {
-        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return $query->where('corporate_id', Auth()->user()->corporate_id);
     }
 
-    public function getAvatar() :string
+    public static function icon()
     {
-        if (substr($this->image, 0, 4) === "http") {
+        return '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+    }
+
+    public function getAvatar(): string
+    {
+        if (substr($this->image, 0, 4) === 'http') {
             return $this->image;
         }
-        return env('APP_URL') . "/" . $this->image;
+
+        return env('APP_URL').'/'.$this->image;
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
-
-    
 }

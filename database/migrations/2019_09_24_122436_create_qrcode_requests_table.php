@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateQrcodeRequestsTable extends Migration
 {
@@ -19,8 +19,8 @@ class CreateQrcodeRequestsTable extends Migration
             $table->Integer('corporate_id')->unsigned()->nullable();
             $table->Integer('corporate_admin_id')->unsigned()->nullable();
             $table->Integer('status')->default(0);
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

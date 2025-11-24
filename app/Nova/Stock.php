@@ -2,25 +2,19 @@
 
 namespace App\Nova;
 
-use App\User;
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Heading;
-use App\Nova\Metrics\QrCodesTypes;
-use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\DownloadQRCode;
 use App\Nova\Actions\DownloadQRCodeZIP;
+use App\Nova\Metrics\QrCodes;
+use App\Nova\Metrics\QrCodesTypes;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
+use Naif\Toggle\Toggle;
+use NovaErrorField\Errors;
 
 class Stock extends Resource
 {
@@ -29,8 +23,10 @@ class Stock extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = \App\Qrcode::class;
+
     public static $perPageOptions = [100, 200, 300];
+
     /**
      * The logical group associated with the resource.
      *
@@ -77,7 +73,6 @@ class Stock extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -88,17 +83,17 @@ class Stock extends Resource
             Text::make('Unique Reference Number', 'unique_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', 'App\Nova\GenerateQrcode')
+            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', \App\Nova\GenerateQrcode::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
+            BelongsTo::make('Assign Reference Number', 'assignqrcode', \App\Nova\AssignQrcode::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Status', function () {
                 return $this->statusTitle($this->status);
             }),
             Text::make('QR CODE URL', 'qrcode_url', function () {
-                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+                return '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
@@ -112,7 +107,7 @@ class Stock extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            Toggle::make('Print Status','printed')
+            Toggle::make('Print Status', 'printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
         ];
@@ -121,21 +116,19 @@ class Stock extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
             new QrCodes,
-          new  QrCodesTypes
+            new QrCodesTypes,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -146,7 +139,6 @@ class Stock extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -157,7 +149,6 @@ class Stock extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -176,15 +167,18 @@ class Stock extends Resource
     {
         return 'Stock';
     }
+
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereNull('assign_reference_number')->where('status',1);
+        return $query->whereNull('assign_reference_number')->where('status', 1);
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

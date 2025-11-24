@@ -7,19 +7,19 @@ return [
      * Available `public` or `s3`.
      *
      * @var string
+     *
      * @since 0.2.0
      */
-
-    'disk'      => 'public',
+    'disk' => 'public',
 
     /**
      * Will use to return base url of media file.
      *
      * @var string
+     *
      * @since 0.2.0
      */
-
-    'url'       => '',
+    'url' => '',
 
     /**
      * Save all files in a separate folder.
@@ -27,10 +27,10 @@ return [
      * @example `media-library`
      *
      * @var string
+     *
      * @since 0.1.0
      */
-
-    'folder'    => 'images',
+    'folder' => 'images',
 
     /**
      * Organize uploads into date based folders.
@@ -41,10 +41,10 @@ return [
      * @example Y/m-d
      *
      * @var string|null
+     *
      * @since 0.2.0
      */
-
-    'by_date'   => null,
+    'by_date' => null,
 
     /**
      * This option allow you to filter your files by types and extensions.
@@ -53,15 +53,15 @@ return [
      * @example ['*'] - allow you to save any file extensions to the specified type.
      *
      * @var array
+     *
      * @since 0.2.0
      */
-
-    'types'     => [
-        'Image'     => ['jpg', 'jpeg', 'png', 'gif', 'svg'],
-        'Docs'      => ['doc', 'xls', 'docx', 'xlsx'],
-        'Audio'     => ['mp3'],
-        'Video'     => ['mp4'],
-        #'Other'     => [ '*' ],
+    'types' => [
+        'Image' => ['jpg', 'jpeg', 'png', 'gif', 'svg'],
+        'Docs' => ['doc', 'xls', 'docx', 'xlsx'],
+        'Audio' => ['mp3'],
+        'Video' => ['mp4'],
+        // 'Other'     => [ '*' ],
     ],
 
     /**
@@ -70,23 +70,23 @@ return [
      * If you want to disable the limitation - leave empty array
      *
      * @var array
+     *
      * @since 0.2.0
      */
-
-    'max_size'  => [
-        'Image'     => 2097152,
-        'Docs'      => 5242880,
+    'max_size' => [
+        'Image' => 2097152,
+        'Docs' => 5242880,
     ],
 
     /**
      * The number of files that will be returned with each step.
      * The tool loads files from a folder not all at once.
      *
-     * @var integer
+     * @var int
+     *
      * @since 0.1.0
      */
-
-    'step'      => 40,
+    'step' => 40,
 
     /**
      * Allow you to resize images by width\height. Using http://image.intervention.io library
@@ -94,22 +94,22 @@ return [
      * Supports image formats: http://image.intervention.io/getting_started/formats
      *
      * @var array
+     *
      * @since 0.2.0
      */
+    'resize' => [
 
-    'resize'    => [
+        'image' => null,     // Label from types (Set `null` to disable resizing)
 
-        'image'     => null,     # Label from types (Set `null` to disable resizing)
+        'width' => 1200,        // Maximum width in pixels
 
-        'width'     => 1200,        # Maximum width in pixels
+        'height' => null,        // Maximum height in pixels
 
-        'height'    => null,        # Maximum height in pixels
+        'driver' => 'gd',        // `gd` or `imagick`
 
-        'driver'    => 'gd',        # `gd` or `imagick`
+        'quality' => 80,          // 0 - 100
 
-        'quality'   => 80,          # 0 - 100
-
-        'crop'      => true,        # Cropping image on the frontend
+        'crop' => true,        // Cropping image on the frontend
 
     ],
 
@@ -118,25 +118,26 @@ return [
      * Supports image formats: http://image.intervention.io/getting_started/formats
      *
      * @var array|null
+     *
      * @since 0.5.0
      */
     'image_sizes' => [
 
-        'image'     => 'Image',     # Label from types (Set `null` to disable resizing)
+        'image' => 'Image',     // Label from types (Set `null` to disable resizing)
 
-        'driver'    => 'gd',        # `gd` or `imagick`
+        'driver' => 'gd',        // `gd` or `imagick`
 
-        'quality'   => 80,          # 0 - 100
+        'quality' => 80,          // 0 - 100
 
         /**
          * @example `name` => [ width, height, upSize ]
          * Width and Height {int|null}
          * upSize {bool} - Crop image even if size will be larger. (If set to `false` - size image will be as original).
          */
-        'labels'    => [
+        'labels' => [
             'thumb' => [false, false, false],
             'medium' => [false, false, false],
-        ]
-    ]
+        ],
+    ],
 
 ];

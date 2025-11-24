@@ -58,10 +58,9 @@ return [
         'app_id' => env('UNIFONIC_APP_ID'),
         'sender_id' => env('UNIFONIC_SENDER_ID'), // String, Optional
         'account_email' => env('UNIFONIC_ACCOUNT_EMAIL'),
-        'account_password' => env('UNIFONIC_ACCOUNT_PASSWORD')
+        'account_password' => env('UNIFONIC_ACCOUNT_PASSWORD'),
     ],
 
-    
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
@@ -92,9 +91,5 @@ return [
         'client_secret' => env('MICROSOFT_CLIENT_SECRET'),
         'redirect' => env('MICROSOFT_REDIRECT_URL'),
     ],
-
-
-
-
 
 ];

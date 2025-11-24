@@ -23,8 +23,8 @@ class UpdateAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Update('posts', $post->id))
-                    ->assertPathIs('/nova/403');
+                ->visit(new Update('posts', $post->id))
+                ->assertPathIs('/nova/403');
 
             $browser->blank();
         });

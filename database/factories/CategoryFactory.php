@@ -1,19 +1,18 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Category;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
 $categories = [
     'Electronics' => 'اليكترونيات',
-    'Clothes'  =>  'ملابس',
-    'Cars' =>    'سيارات',
-    'Books' =>     'كتب',
+    'Clothes' => 'ملابس',
+    'Cars' => 'سيارات',
+    'Books' => 'كتب',
     'Home' => 'منزل',
-    'Fashon' =>  'موضة',
-    'Food' =>  'طعام',
+    'Fashon' => 'موضة',
+    'Food' => 'طعام',
 ];
 
 DB::transaction(function () {
@@ -21,14 +20,24 @@ DB::transaction(function () {
 });
 
 foreach ($categories as $key => $value) {
-    $factory->define(Category::class, function (Faker $faker) use ($key, $value) {
+}
+
+class CategoryFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
             'name_en' => $key,
-            'name_ar' =>  $value,
-            'description_en' =>  $faker->paragraph(),
-            'description_ar' => $faker->paragraph(),
+            'name_ar' => $value,
+            'description_en' => $this->faker->paragraph(),
+            'description_ar' => $this->faker->paragraph(),
             'image' => 'images/profile/default-profile.png',
 
         ];
-    });
+    }
 }

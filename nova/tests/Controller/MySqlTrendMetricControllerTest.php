@@ -8,7 +8,7 @@ class MySqlTrendMetricControllerTest extends MySqlIntegrationTest
 {
     use TrendDateTests;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->skipIfNotRunning();
 

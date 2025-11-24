@@ -31,7 +31,6 @@ class CommentResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -43,10 +42,10 @@ class CommentResource extends Resource
             }])->types([
                 PostResource::class => 'Post',
             ])
-            ->viewable($_SERVER['nova.comment.viewable-field'] ?? true)
-            ->searchable()
-            ->default($_SERVER['nova.user.default-value'] ?? null)
-            ->defaultResource($_SERVER['nova.user.default-resource'] ?? null),
+                ->viewable($_SERVER['nova.comment.viewable-field'] ?? true)
+                ->searchable()
+                ->default($_SERVER['nova.user.default-value'] ?? null)
+                ->defaultResource($_SERVER['nova.user.default-resource'] ?? null),
             BelongsTo::make('Author', 'author', UserResource::class),
             Text::make('Body', 'body')->rules('required', 'string', 'max:255'),
         ];
@@ -55,7 +54,6 @@ class CommentResource extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -66,7 +64,6 @@ class CommentResource extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -77,8 +74,7 @@ class CommentResource extends Resource
     /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function indexQuery(NovaRequest $request, $query)
@@ -93,7 +89,6 @@ class CommentResource extends Resource
     /**
      * Build a "relatable" query for the posts.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */

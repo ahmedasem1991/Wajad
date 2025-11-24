@@ -8,7 +8,7 @@ class MySqlSearchControllerTest extends MySqlIntegrationTest
 {
     use SearchControllerTests;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->skipIfNotRunning();
 

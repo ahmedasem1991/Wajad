@@ -2,8 +2,8 @@
 
 namespace Tightenco\NovaGoogleAnalytics;
 
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Nova\Metrics\Value;
 use Spatie\Analytics\Analytics;
 use Spatie\Analytics\Period;
@@ -15,7 +15,6 @@ class VisitorsMetric extends Value
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
@@ -40,9 +39,10 @@ class VisitorsMetric extends Value
             ->getAnalyticsService()
             ->data_realtime
             ->get('ga:'.env('ANALYTICS_VIEW_ID'), 'rt:activeVisitors')->totalsForAllResults['rt:activeVisitors'];
+
         return [
             'result' => $data,
-            'previous' => ''
+            'previous' => '',
         ];
     }
 
@@ -120,7 +120,7 @@ class VisitorsMetric extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

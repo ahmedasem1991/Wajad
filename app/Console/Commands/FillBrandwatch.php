@@ -3,8 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Brand;
-use App\Model;
-use App\Category;
 use App\SubCategory;
 use Illuminate\Console\Command;
 
@@ -41,30 +39,27 @@ class FillBrandwatch extends Command
      */
     public function handle()
     {
-        $data = array(
-            0 => array(
+        $data = [
+            0 => [
                 'name_en' => 'Trek',
                 'name_ar' => 'Trek',
-                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
-                ) );
-      //  $subcategory = SubCategory::find(4);
-        //foreach ($category->subcategories as $subcategory){
-            
-            // $subcategory->brands()->createMany($data);
-        //}
+                'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png',
+            ]];
+        //  $subcategory = SubCategory::find(4);
+        // foreach ($category->subcategories as $subcategory){
+
+        // $subcategory->brands()->createMany($data);
+        // }
         $Brands = Brand::all();
-        foreach ($Brands as $Brand){
-            
+        foreach ($Brands as $Brand) {
+
             // $Brand->models()->create([
             //     'name_en' => 'Other',
             //     'name_ar' => 'أخري',
             //     'image' => '/images/action-028-detail-more-info-others-512-1606640534-QDKIL.png'
             // ]);
         }
-        //$subcategory->brands()->createMany($data);
-         
-
-
+        // $subcategory->brands()->createMany($data);
 
         $this->info('|----------------------------------|');
         $this->info('| Seeding Brands Done Successfully |');

@@ -21,8 +21,8 @@ class ActionFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->visit('/')->assertMissing('Nova');
+                ->visit(new Detail('users', 1))
+                ->visit('/')->assertMissing('Nova');
 
             $browser->blank();
         });
@@ -41,14 +41,14 @@ class ActionFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs($user = User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->waitFor('@roles-index-component', 25)
-                    ->within(new IndexComponent('roles'), function ($browser) {
-                        $browser->clickCheckboxForId(1)
-                            ->runAction('update-pivot-notes', function ($browser) {
-                                $browser->type('@notes', 'Custom Notes');
-                            });
-                    });
+                ->visit(new Detail('users', 1))
+                ->waitFor('@roles-index-component', 25)
+                ->within(new IndexComponent('roles'), function ($browser) {
+                    $browser->clickCheckboxForId(1)
+                        ->runAction('update-pivot-notes', function ($browser) {
+                            $browser->type('@notes', 'Custom Notes');
+                        });
+                });
 
             $this->assertEquals('Custom Notes', $user->fresh()->roles->first()->pivot->notes);
 
@@ -69,15 +69,15 @@ class ActionFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs($user = User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->waitFor('@roles-index-component', 25)
-                    ->within(new IndexComponent('roles'), function ($browser) {
-                        $browser->clickCheckboxForId(1)
-                            ->runAction('update-required-pivot-notes')
-                            ->elsewhere('.modal', function ($browser) {
-                                $browser->assertSee('The Notes field is required.');
-                            });
-                    });
+                ->visit(new Detail('users', 1))
+                ->waitFor('@roles-index-component', 25)
+                ->within(new IndexComponent('roles'), function ($browser) {
+                    $browser->clickCheckboxForId(1)
+                        ->runAction('update-required-pivot-notes')
+                        ->elsewhere('.modal', function ($browser) {
+                            $browser->assertSee('The Notes field is required.');
+                        });
+                });
 
             $browser->blank();
         });
@@ -94,14 +94,14 @@ class ActionFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new UserIndex)
-                    ->waitFor('@users-index-component', 25)
-                    ->within(new IndexComponent('users'), function ($browser) {
-                        $browser->assertSeeIn('@1-row', 'Mark As Inactive')
-                            ->assertDontSeeIn('@2-row', 'Mark As Inactive')
-                            ->assertDontSeeIn('@3-row', 'Mark As Inactive')
-                            ->runInlineAction(1, 'mark-as-inactive');
-                    })->waitForText('Sorry! You are not authorized to perform this action.', 10);
+                ->visit(new UserIndex)
+                ->waitFor('@users-index-component', 25)
+                ->within(new IndexComponent('users'), function ($browser) {
+                    $browser->assertSeeIn('@1-row', 'Mark As Inactive')
+                        ->assertDontSeeIn('@2-row', 'Mark As Inactive')
+                        ->assertDontSeeIn('@3-row', 'Mark As Inactive')
+                        ->runInlineAction(1, 'mark-as-inactive');
+                })->waitForText('Sorry! You are not authorized to perform this action.', 10);
 
             $this->assertEquals(1, User::find(1)->active);
 

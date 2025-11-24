@@ -16,7 +16,7 @@ class ColorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
+            'name' => $this->{'name_'.app()->getLocale()},
             'icon' => $this->icon ?? '',
         ];
     }

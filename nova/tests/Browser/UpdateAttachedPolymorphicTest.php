@@ -25,11 +25,11 @@ class UpdateAttachedPolymorphicTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new UpdateAttached('posts', 1, 'tags', 1))
-                    ->assertDisabled('@attachable-select')
-                    ->assertInputValue('@notes', 'Test Notes')
-                    ->type('@notes', 'Test Notes Updated')
-                    ->update();
+                ->visit(new UpdateAttached('posts', 1, 'tags', 1))
+                ->assertDisabled('@attachable-select')
+                ->assertInputValue('@notes', 'Test Notes')
+                ->type('@notes', 'Test Notes Updated')
+                ->update();
 
             $this->assertEquals('Test Notes Updated', Post::find(1)->tags->first()->pivot->notes);
 
@@ -51,11 +51,11 @@ class UpdateAttachedPolymorphicTest extends DuskTestCase
 
             $this->browse(function (Browser $browser) {
                 $browser->loginAs(User::find(1))
-                        ->visit(new UpdateAttached('posts', 1, 'tags', 1))
-                        ->assertDisabled('@attachable-select')
-                        ->assertInputValue('@notes', 'Test Notes')
-                        ->type('@notes', 'Test Notes Updated')
-                        ->update();
+                    ->visit(new UpdateAttached('posts', 1, 'tags', 1))
+                    ->assertDisabled('@attachable-select')
+                    ->assertInputValue('@notes', 'Test Notes')
+                    ->type('@notes', 'Test Notes Updated')
+                    ->update();
 
                 $this->assertEquals('Test Notes Updated', Post::find(1)->tags->first()->pivot->notes);
 
@@ -77,9 +77,9 @@ class UpdateAttachedPolymorphicTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new UpdateAttached('posts', 1, 'tags', 1))
-                    ->type('@notes', 'Test Notes Updated')
-                    ->updateAndContinueEditing();
+                ->visit(new UpdateAttached('posts', 1, 'tags', 1))
+                ->type('@notes', 'Test Notes Updated')
+                ->updateAndContinueEditing();
 
             $browser->assertPathIs('/nova/resources/posts/1/edit-attached/tags/1');
 
@@ -102,10 +102,10 @@ class UpdateAttachedPolymorphicTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new UpdateAttached('posts', 1, 'tags', 1))
-                    ->type('@notes', str_repeat('A', 30))
-                    ->update()
-                    ->assertSee('The notes may not be greater than 20 characters.');
+                ->visit(new UpdateAttached('posts', 1, 'tags', 1))
+                ->type('@notes', str_repeat('A', 30))
+                ->update()
+                ->assertSee('The notes may not be greater than 20 characters.');
 
             $this->assertEquals('Test Notes', Post::find(1)->tags->first()->pivot->notes);
 

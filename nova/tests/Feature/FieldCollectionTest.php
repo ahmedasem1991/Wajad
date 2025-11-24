@@ -12,7 +12,7 @@ use Laravel\Nova\Tests\IntegrationTest;
 
 class FieldCollectionTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
@@ -71,7 +71,7 @@ class FieldCollectionTest extends IntegrationTest
         $collection = FieldCollection::make([
             Text::make('Text1')->hideFromDetail(),
             Text::make('Text2'),
-        ])->filterForDetail($request, new \stdClass());
+        ])->filterForDetail($request, new \stdClass);
 
         $this->assertCount(1, $collection);
         $this->assertEquals('text2', $collection->first()->attribute);
@@ -84,7 +84,7 @@ class FieldCollectionTest extends IntegrationTest
         $collection = FieldCollection::make([
             Text::make('Text1')->hideFromIndex(),
             Text::make('Text2'),
-        ])->filterForIndex($request, new \stdClass());
+        ])->filterForIndex($request, new \stdClass);
 
         $this->assertCount(1, $collection);
         $this->assertEquals('text2', $collection->first()->attribute);

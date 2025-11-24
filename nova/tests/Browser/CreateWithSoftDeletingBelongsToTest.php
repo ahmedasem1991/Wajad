@@ -24,15 +24,15 @@ class CreateWithSoftDeletingBelongsToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($dock) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('docks', $dock->id))
-                    ->waitFor('@ships-index-component', 25)
-                    ->within(new IndexComponent('ships'), function ($browser) {
-                        $browser->click('@create-button');
-                    })
-                    ->on(new Create('ships'))
-                    ->assertDisabled('@dock')
-                    ->type('@name', 'Test Ship')
-                    ->create();
+                ->visit(new Detail('docks', $dock->id))
+                ->waitFor('@ships-index-component', 25)
+                ->within(new IndexComponent('ships'), function ($browser) {
+                    $browser->click('@create-button');
+                })
+                ->on(new Create('ships'))
+                ->assertDisabled('@dock')
+                ->type('@name', 'Test Ship')
+                ->create();
 
             $this->assertCount(1, $dock->fresh()->ships);
 
@@ -52,15 +52,15 @@ class CreateWithSoftDeletingBelongsToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($ship, $ship2) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('sails'))
-                    ->assertSelectMissingOption('@ship', $ship->id)
-                    ->assertSelectHasOption('@ship', $ship2->id)
-                    ->withTrashedRelation('ships')
-                    ->assertSelectHasOption('@ship', $ship->id)
-                    ->assertSelectHasOption('@ship', $ship2->id)
-                    ->select('@ship', $ship->id)
-                    ->type('@inches', 25)
-                    ->create();
+                ->visit(new Create('sails'))
+                ->assertSelectMissingOption('@ship', $ship->id)
+                ->assertSelectHasOption('@ship', $ship2->id)
+                ->withTrashedRelation('ships')
+                ->assertSelectHasOption('@ship', $ship->id)
+                ->assertSelectHasOption('@ship', $ship2->id)
+                ->select('@ship', $ship->id)
+                ->type('@inches', 25)
+                ->create();
 
             $this->assertCount(1, $ship->fresh()->sails);
 
@@ -79,14 +79,14 @@ class CreateWithSoftDeletingBelongsToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($ship) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('sails'))
-                    ->withTrashedRelation('ships')
-                    ->select('@ship', $ship->id)
-                    ->withoutTrashedRelation('ships')
+                ->visit(new Create('sails'))
+                ->withTrashedRelation('ships')
+                ->select('@ship', $ship->id)
+                ->withoutTrashedRelation('ships')
                     // Ideally would use assertChecked here but RemoteWebDriver
                     // returns unchecked when it clearly is checked?
-                    ->type('@inches', 25)
-                    ->create();
+                ->type('@inches', 25)
+                ->create();
 
             $this->assertCount(1, $ship->fresh()->sails);
 
@@ -106,14 +106,14 @@ class CreateWithSoftDeletingBelongsToTest extends DuskTestCase
 
             $this->browse(function (Browser $browser) use ($dock) {
                 $browser->loginAs(User::find(1))
-                        ->visit(new Create('ships'))
-                        ->searchRelation('docks', '1')
-                        ->pause(1500)
-                        ->assertNoRelationSearchResults('docks')
-                        ->withTrashedRelation('docks')
-                        ->searchAndSelectFirstRelation('docks', '1')
-                        ->type('@name', 'Test Ship')
-                        ->create();
+                    ->visit(new Create('ships'))
+                    ->searchRelation('docks', '1')
+                    ->pause(1500)
+                    ->assertNoRelationSearchResults('docks')
+                    ->withTrashedRelation('docks')
+                    ->searchAndSelectFirstRelation('docks', '1')
+                    ->type('@name', 'Test Ship')
+                    ->create();
 
                 $this->assertCount(1, $dock->fresh()->ships);
 

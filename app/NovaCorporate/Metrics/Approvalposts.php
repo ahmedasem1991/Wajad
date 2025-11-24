@@ -11,32 +11,30 @@ class ApprovalPosts extends Partition
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Post::whereIn('publisher_id',Auth()->user()->corporate->users->pluck('id')), 'approval_status')
-        ->label(function ($value) {
-            switch ($value) {
-                case 0:
-                    return 'pending';
-                case 1:
-                    return 'Approved';
-                case 2:
-                    return 'Rejected';
-                default:
-                    return ucfirst($value);
-            }
-        });
-        
-        ;
+        return $this->count($request, Post::whereIn('publisher_id', Auth()->user()->corporate->users->pluck('id')), 'approval_status')
+            ->label(function ($value) {
+                switch ($value) {
+                    case 0:
+                        return 'pending';
+                    case 1:
+                        return 'Approved';
+                    case 2:
+                        return 'Rejected';
+                    default:
+                        return ucfirst($value);
+                }
+            });
+
     }
 
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

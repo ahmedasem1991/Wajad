@@ -3,8 +3,8 @@
 namespace App\Policies;
 
 use App\Policies\Helpers\Permission;
-use App\User;
 use App\Subcategory;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SubcategoryPolicy
@@ -16,22 +16,20 @@ class SubcategoryPolicy
     /**
      * Determine whether the user can view any subcategories.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
     {
-        if(Auth()->User()->isCorporateAdmin()){
+        if (Auth()->User()->isCorporateAdmin()) {
             return true;
         }
+
         return $this->permission($user);
     }
 
     /**
      * Determine whether the user can view the subcategory.
      *
-     * @param  \App\User  $user
-     * @param  \App\Subcategory  $subcategory
      * @return mixed
      */
     public function view(User $user, Subcategory $subcategory)
@@ -42,7 +40,6 @@ class SubcategoryPolicy
     /**
      * Determine whether the user can create subcategories.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -53,8 +50,6 @@ class SubcategoryPolicy
     /**
      * Determine whether the user can update the subcategory.
      *
-     * @param  \App\User  $user
-     * @param  \App\Subcategory  $subcategory
      * @return mixed
      */
     public function update(User $user, Subcategory $subcategory)
@@ -65,8 +60,6 @@ class SubcategoryPolicy
     /**
      * Determine whether the user can delete the subcategory.
      *
-     * @param  \App\User  $user
-     * @param  \App\Subcategory  $subcategory
      * @return mixed
      */
     public function delete(User $user, Subcategory $subcategory)
@@ -77,8 +70,6 @@ class SubcategoryPolicy
     /**
      * Determine whether the user can restore the subcategory.
      *
-     * @param  \App\User  $user
-     * @param  \App\Subcategory  $subcategory
      * @return mixed
      */
     public function restore(User $user, Subcategory $subcategory)
@@ -89,8 +80,6 @@ class SubcategoryPolicy
     /**
      * Determine whether the user can permanently delete the subcategory.
      *
-     * @param  \App\User  $user
-     * @param  \App\Subcategory  $subcategory
      * @return mixed
      */
     public function forceDelete(User $user, Subcategory $subcategory)

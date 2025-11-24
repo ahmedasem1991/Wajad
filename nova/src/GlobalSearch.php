@@ -23,7 +23,6 @@ class GlobalSearch
     /**
      * Create a new global search instance.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  array  $resources
      * @return void
      */

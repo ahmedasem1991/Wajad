@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Country;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LocationResource;
+use Illuminate\Http\Request;
 
 class LocationsController extends Controller
 {
@@ -17,7 +17,6 @@ class LocationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,7 +38,6 @@ class LocationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

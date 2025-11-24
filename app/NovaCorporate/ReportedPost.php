@@ -2,40 +2,27 @@
 
 namespace App\NovaCorporate;
 
-use App\Brand;
-use App\People;
 use App\Nova\Resource;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use NovaButton\Button;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
+use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
+use App\People;
+use Carbon\Carbon;
+use ClassicO\NovaMediaLibrary\MediaField;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Boolean;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Illuminate\Support\Facades\URL;
-use NovaErrorField\Errors;
-use OwenMelbz\RadioField\RadioButton;
-use Bissolli\NovaPhoneField\PhoneNumber;
-use App\NovaCorporate\Metrics\PostsCount;
-use ClassicO\NovaMediaLibrary\MediaField;
-use App\NovaCorporate\Metrics\PostsPeriod;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\NovaCorporate\Metrics\OpenVsClosedPosts;
-use App\NovaCorporate\Metrics\ShowVsHiddenPosts;
+use Naif\Toggle\Toggle;
+use NovaButton\Button;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use OwenMelbz\RadioField\RadioButton;
 use Sloveniangooner\SearchableSelect\SearchableSelect;
-
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
-use Carbon\Carbon;
-
 
 class ReportedPost extends Resource
 {
@@ -44,7 +31,7 @@ class ReportedPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -66,35 +53,35 @@ class ReportedPost extends Resource
      * @var array
      */
     public static $search = [
-        'id','title','description','owner_id','founder_id','publisher_id'
+        'id', 'title', 'description', 'owner_id', 'founder_id', 'publisher_id',
     ];
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('reported posts')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('reported posts')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
-        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        if($this->status==1)
-        {
-            $Questions=HasMany::make('Questions');
-            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
+        $Questions = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if ($this->status == 1) {
+            $Questions = HasMany::make('Questions');
+            $PostRequests = HasMany::make('Post Requests', 'postrequests', \App\NovaCorporate\PostRequest::class);
         }
+
         return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('Description')->rules('required'),
-            Textarea::make('Internal Note','notes'),
-            RadioButton::make('Post Type','status')
+            Textarea::make('Internal Note', 'notes'),
+            RadioButton::make('Post Type', 'status')
                 ->options([
                     1 => 'Found',
                 ])->default(1)
@@ -102,9 +89,10 @@ class ReportedPost extends Resource
 
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
-            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;})
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request) {
+                return 1;
+            })
                 ->hideWhenCreating(),
-
 
             BelongsTo::make('Subcategory', 'subcategory', \App\NovaCorporate\SubCategory::class)
                 ->rules('required')
@@ -130,9 +118,9 @@ class ReportedPost extends Resource
                 ->hideWhenCreating(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            NovaBelongsToDepend::make('Person', 'founderPerson', 'App\NovaCorporate\People')
+            NovaBelongsToDepend::make('Person', 'founderPerson', \App\NovaCorporate\People::class)
                 ->placeholder('Select Person')
-                ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
+                ->options(People::where('corporate_id', auth()->user()->corporate->id)->get())
                 ->rules('required')
                 ->hideFromIndex(),
 
@@ -143,7 +131,7 @@ class ReportedPost extends Resource
             Heading::make('<p class="text-info" style="margin-left:20%">Owner Data</p>')->asHtml()
                 ->hideWhenCreating(),
 
-            SearchableSelect::make("Owner", "owner_id")->resource(\App\Nova\NormalUser::class)
+            SearchableSelect::make('Owner', 'owner_id')->resource(\App\Nova\NormalUser::class)
                 ->displayUsingLabels()
                 ->nullable()
                 ->hideFromIndex()
@@ -155,12 +143,12 @@ class ReportedPost extends Resource
             Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
@@ -184,26 +172,25 @@ class ReportedPost extends Resource
                 ->hideFromDetail()
                 ->hideFromIndex(),
 
-                Button::make('Close')
+            Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             $Questions,
-            $PostRequests
+            $PostRequests,
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -216,7 +203,6 @@ class ReportedPost extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -227,7 +213,6 @@ class ReportedPost extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -238,37 +223,40 @@ class ReportedPost extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/statistics.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsReported()
-            ->where('corporate_id',Auth()->user()->corporate->id);
+            ->where('corporate_id', Auth()->user()->corporate->id);
     }
 
     public static function authorizedToCreate(Request $request)
     {
         return false;
     }
-    public  function authorizedToUpdate(Request $request)
+
+    public function authorizedToUpdate(Request $request)
     {
         return true;
     }
-    public  function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
         return true;
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

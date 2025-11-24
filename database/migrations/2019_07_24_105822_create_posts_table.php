@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePostsTable extends Migration
 {
@@ -29,7 +29,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('owner_id')->nullable();
             $table->unsignedInteger('founder_id')->nullable();
             $table->unsignedInteger('publisher_id')->nullable();
-            $table->string('publisher_type')->nullable(); //1-user  2-corporate   3-admin
+            $table->string('publisher_type')->nullable(); // 1-user  2-corporate   3-admin
             $table->unsignedInteger('corporate_id')->nullable();
             $table->timestamp('losted_at')->nullable();
             $table->timestamp('founded_at')->nullable();

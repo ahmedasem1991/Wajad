@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class WajadOffice extends Model
 {
+    use HasFactory;
     use LogsActivity,SoftDeletes;
 
     protected static $logAttributes = [
@@ -23,6 +25,7 @@ class WajadOffice extends Model
         'status',
         'image',
     ];
+
     protected static $logOnlyDirty = true;
 
     public function scopeActive($query)

@@ -2,9 +2,9 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 use NovaErrorField\Errors;
@@ -17,7 +17,7 @@ class Activity extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Activity';
+    public static $model = \App\Activity::class;
 
     /**
      * The logical group associated with the resource.
@@ -25,7 +25,6 @@ class Activity extends Resource
      * @var string
      */
     public static $group = 'Resources';
-
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -52,6 +51,7 @@ class Activity extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
         'user' => ['name', 'email', 'mobile_number'],
     ];
@@ -59,7 +59,6 @@ class Activity extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -113,35 +112,33 @@ class Activity extends Resource
             WajadOffice::class,
         ];
 
-
-        return array(
+        return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('properties')
-                ->displayUsing(function ($model){
+                ->displayUsing(function ($model) {
                     $arr = [];
-                    if (!empty($model['old'])){
+                    if (! empty($model['old'])) {
                         foreach ($model['old'] as $key => $item) {
                             $index = explode('.', $key);
                             $i = $index[0];
-                            if (is_array($item)){
+                            if (is_array($item)) {
                                 $item = implode('<br>', $item);
                             }
                             $arr[$i]['old'] = $item;
                         }
                     }
-                    if (!empty($model['attributes']))
-                    {
-                        foreach ($model['attributes'] as $key => $item){
+                    if (! empty($model['attributes'])) {
+                        foreach ($model['attributes'] as $key => $item) {
                             $index = explode('.', $key);
                             $i = $index[0];
-                            if (is_array($item)){
+                            if (is_array($item)) {
                                 $item = implode('<br>', $item);
                             }
                             $arr[$i]['new'] = $item;
                         }
                     }
-                    $output = <<<html
+                    $output = <<<'html'
 <table >
 <tr class="headers">
 <th>Properties</th>
@@ -150,36 +147,36 @@ class Activity extends Resource
 <th><button type="button" onclick="hideTable()" class="coll"><h1>+</h1></button></th>
 </tr>
 html;
-                    foreach ($arr as $key => $val){
+                    foreach ($arr as $key => $val) {
                         $output .= '<tr class="data hide">';
                         $output .= "<td>$key</td>";
                         $output .= '<td class="old">';
-                        $output .= $val['old'] ?? 'N/A' ;
+                        $output .= $val['old'] ?? 'N/A';
                         $output .= '</td>';
                         $output .= '<td class="new">';
-                        $output .= $val['new'] ?? 'N/A' ;
+                        $output .= $val['new'] ?? 'N/A';
                         $output .= '</td>';
                         $output .= '</tr>';
                     }
                     $output .= '</table>';
+
                     return $output;
                 })->asHtml(),
             Text::make('DESCRIPTION'),
-//            Text::make('SUBJECT ID'),
-//            Text::make('SUBJECT TYPE'),
-//            Text::make('USER ID','causer_id'),
+            //            Text::make('SUBJECT ID'),
+            //            Text::make('SUBJECT TYPE'),
+            //            Text::make('USER ID','causer_id'),
             MorphTo::make('subject')->types($types),
             DateTime::make('CREATED_AT'),
             NovaBelongsToDepend::make('User')
                 ->placeholder('User')
                 ->options(\App\User::all()),
-        );
+        ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -190,7 +187,6 @@ html;
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -201,7 +197,6 @@ html;
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -212,18 +207,19 @@ html;
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/scroll.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

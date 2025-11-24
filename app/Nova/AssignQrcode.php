@@ -2,37 +2,29 @@
 
 namespace App\Nova;
 
-use App\User;
-use App\Qrcode;
 use App\Corporate;
-use NovaButton\Button;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
+use App\Nova\Actions\AssignDownloadQRCode;
+use App\Nova\Actions\AssignDownloadQRCodeZIP;
 use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use NovaAjaxSelect\AjaxSelect;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Status;
-use Laravel\Nova\Fields\Boolean;
+use App\Nova\Metrics\QrCodesTypes;
+use App\Qrcode;
+use App\User;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use App\Nova\Metrics\QrCodesTypes;
-use Laravel\Nova\Fields\BelongsTo;
-use Illuminate\Support\Facades\URL;
-use App\Nova\Actions\DownloadQRCode;
-use OwenMelbz\RadioField\RadioButton;
-use App\Nova\Actions\AssignDownloadQRCode;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
-use App\Nova\Actions\AssignDownloadQRCodeZIP;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaAjaxSelect\AjaxSelect;
+use NovaButton\Button;
+use NovaErrorField\Errors;
+use OwenMelbz\RadioField\RadioButton;
 
 class AssignQrcode extends Resource
 {
@@ -41,7 +33,7 @@ class AssignQrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\AssignQrcode';
+    public static $model = \App\AssignQrcode::class;
 
     /**
      * The logical group associated with the resource.
@@ -82,18 +74,17 @@ class AssignQrcode extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
-        $SingleCount=  Qrcode::type('Single Assign')->where('status','1')->count();
-        $MultiCount=  Qrcode::type('Multi Assign')->where('status','1')->count();
+        $SingleCount = Qrcode::type('Single Assign')->where('status', '1')->count();
+        $MultiCount = Qrcode::type('Multi Assign')->where('status', '1')->count();
 
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Text::make('Reference Number','assign_reference_number')
+            Text::make('Reference Number', 'assign_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
@@ -106,22 +97,22 @@ class AssignQrcode extends Resource
             NovaDependencyContainer::make([
 
                 Text::make('', 'search_user')
-                ->hideWhenUpdating()
-                ->hideFromIndex()
-                ->hideFromDetail(), 
+                    ->hideWhenUpdating()
+                    ->hideFromIndex()
+                    ->hideFromDetail(),
 
-                AjaxSelect::make('User','user_id')
-                ->get('/smart-search/{search_user}')
-                ->parent('search_user')
-                ->hideWhenUpdating()
-                ->hideFromIndex()
-                ->hideFromDetail()
-                ->withMeta(['ignoreOnSaving'])
-                ->rules('required'),
+                AjaxSelect::make('User', 'user_id')
+                    ->get('/smart-search/{search_user}')
+                    ->parent('search_user')
+                    ->hideWhenUpdating()
+                    ->hideFromIndex()
+                    ->hideFromDetail()
+                    ->withMeta(['ignoreOnSaving'])
+                    ->rules('required'),
 
-            // BelongsTo::make('User')
-            //     ->hideWhenCreating()
-            //     ->hideWhenUpdating(),
+                // BelongsTo::make('User')
+                //     ->hideWhenCreating()
+                //     ->hideWhenUpdating(),
                 // Select2::make('User','user_id')
                 //     ->sortable()
                 //     ->options(User::normalusers()->get()->pluck('email', 'id'))
@@ -135,21 +126,21 @@ class AssignQrcode extends Resource
                 //         'multiple'                => false,
                 //     ])
 
-            ]) 
-            ->hideFromDetail()
-            ->dependsOn('assign_to', '1'),
+            ])
+                ->hideFromDetail()
+                ->dependsOn('assign_to', '1'),
             NovaDependencyContainer::make([
-                Select2::make('Corporate','corporate_id')
+                Select2::make('Corporate', 'corporate_id')
                     ->sortable()
-                    ->options(Corporate::get()->pluck('name_en','id'))
+                    ->options(Corporate::get()->pluck('name_en', 'id'))
                     ->displayUsingLabels()
                     ->rules('required_if:assign_to,2')
                     ->configuration([
-                        'placeholder'             => __('Choose an option'),
-                        'allowClear'              => true,
+                        'placeholder' => __('Choose an option'),
+                        'allowClear' => true,
                         'minimumResultsForSearch' => 1,
-                        'multiple'                => false,
-                    ])
+                        'multiple' => false,
+                    ]),
 
             ])->dependsOn('assign_to', '2'),
             BelongsTo::make('User')
@@ -164,26 +155,26 @@ class AssignQrcode extends Resource
                     2 => 'Multi Assign',
                 ]),
             NovaDependencyContainer::make([
-               // Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
-                  //  ->asHtml()->hideFromDetail(),
-                Number::make('Quantity Of QR Codes','quantity')
+                // Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
+                //  ->asHtml()->hideFromDetail(),
+                Number::make('Quantity Of QR Codes', 'quantity')
                     ->min(1)->max($SingleCount)->step(1)
-                    ->rules('required','max:'.$SingleCount),
+                    ->rules('required', 'max:'.$SingleCount),
             ])->dependsOn('type', '1'),
             NovaDependencyContainer::make([
-               // Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
-                   // ->asHtml()->hideFromDetail(),
-                Number::make('Quantity Of QR Codes','quantity')
+                // Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
+                // ->asHtml()->hideFromDetail(),
+                Number::make('Quantity Of QR Codes', 'quantity')
                     ->min(1)->max($MultiCount)->step(1)
-                    ->rules('required','max:'.$MultiCount),
+                    ->rules('required', 'max:'.$MultiCount),
             ])->dependsOn('type', '2'),
 
-            Number::make('Available Period In Days','available_period')
+            Number::make('Available Period In Days', 'available_period')
                 ->min(1)->max(365)->step(1)
                 ->rules('required'),
 
             Button::make('PDF')
-                ->link(URL::to('assignqrcodepdf?p='.base64_encode($this->id)),'_blank')
+                ->link(URL::to('assignqrcodepdf?p='.base64_encode($this->id)), '_blank')
                 ->style('danger'),
             RadioButton::make('Created From')
                 ->options([
@@ -196,11 +187,11 @@ class AssignQrcode extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                Button::make('PRINT PDF')
-                ->link(URL::to('qrcode-print-pdf?p=' . base64_encode($this->id)), '_blank')
+            Button::make('PRINT PDF')
+                ->link(URL::to('qrcode-print-pdf?p='.base64_encode($this->id)), '_blank')
                 ->style('primary'),
 
-            HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
+            HasMany::make('QR Codes', 'qrcodes', \App\Nova\Qrcode::class),
 
         ];
     }
@@ -210,20 +201,20 @@ class AssignQrcode extends Resource
         if ($request->input('search_user')) {
             $request->offsetUnset('search_user');
         }
-     return parent::fill($request, $model);
+
+        return parent::fill($request, $model);
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
             new QrCodes,
-            new  QrCodesTypes
+            new QrCodesTypes,
 
         ];
     }
@@ -231,7 +222,6 @@ class AssignQrcode extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -239,7 +229,6 @@ class AssignQrcode extends Resource
         return [];
     }
 
-    
     // public static function fill(NovaRequest $request, $model)
     // {
 
@@ -254,7 +243,6 @@ class AssignQrcode extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -265,7 +253,6 @@ class AssignQrcode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -280,15 +267,17 @@ class AssignQrcode extends Resource
         ];
     }
 
-
-    public static function label() {
+    public static function label()
+    {
         return 'Assign';
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

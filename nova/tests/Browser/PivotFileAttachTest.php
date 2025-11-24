@@ -28,10 +28,10 @@ class PivotFileAttachTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($captain, $ship) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Attach('captains', $captain->id, 'ships'))
-                    ->searchAndSelectFirstRelation('ships', $ship->id)
-                    ->attach('@contract', __DIR__.'/Fixtures/Document.pdf')
-                    ->clickAttach();
+                ->visit(new Attach('captains', $captain->id, 'ships'))
+                ->searchAndSelectFirstRelation('ships', $ship->id)
+                ->attach('@contract', __DIR__.'/Fixtures/Document.pdf')
+                ->clickAttach();
 
             // Verify the photo in the information in the database...
             $captain = Captain::orderBy('id', 'desc')->first();
@@ -41,7 +41,7 @@ class PivotFileAttachTest extends DuskTestCase
 
             // Ensure file is not removed on blank update...
             $browser->visit(new UpdateAttached('captains', $captain->id, 'ships', $ship->id))
-                    ->update();
+                ->update();
 
             $captain = Captain::orderBy('id', 'desc')->first();
             $ship = $captain->ships()->get()->first();
@@ -50,9 +50,9 @@ class PivotFileAttachTest extends DuskTestCase
 
             // Detach the record...
             $browser->visit(new Detail('captains', $captain->id))
-                    ->within(new IndexComponent('ships'), function ($browser) use ($ship) {
-                        $browser->deleteResourceById($ship->id);
-                    });
+                ->within(new IndexComponent('ships'), function ($browser) use ($ship) {
+                    $browser->deleteResourceById($ship->id);
+                });
 
             // Clean up the file...
             $this->assertFalse(Storage::disk('public')->exists($path));
@@ -73,10 +73,10 @@ class PivotFileAttachTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($captain, $ship) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Attach('captains', $captain->id, 'ships'))
-                    ->searchAndSelectFirstRelation('ships', $ship->id)
-                    ->attach('@contract', __DIR__.'/Fixtures/Document.pdf')
-                    ->clickAttach();
+                ->visit(new Attach('captains', $captain->id, 'ships'))
+                ->searchAndSelectFirstRelation('ships', $ship->id)
+                ->attach('@contract', __DIR__.'/Fixtures/Document.pdf')
+                ->clickAttach();
 
             // Verify the photo in the information in the database...
             $captain = Captain::orderBy('id', 'desc')->first();
@@ -86,10 +86,10 @@ class PivotFileAttachTest extends DuskTestCase
 
             // Delete the file...
             $browser->visit(new UpdateAttached('captains', $captain->id, 'ships', $ship->id))
-                    ->click('@contract-internal-delete-link')
-                    ->pause(250)
-                    ->click('@confirm-upload-delete-button')
-                    ->pause(250);
+                ->click('@contract-internal-delete-link')
+                ->pause(250)
+                ->click('@confirm-upload-delete-button')
+                ->pause(250);
 
             // Clean up the file...
             $this->assertFalse(Storage::disk('public')->exists($path));

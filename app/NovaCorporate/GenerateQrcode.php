@@ -2,25 +2,15 @@
 
 namespace App\NovaCorporate;
 
-use App\User;
 use App\Nova\Resource;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Status;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
-use Faker\Provider\fr_CH\Text as FakerText;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
 class GenerateQrcode extends Resource
 {
@@ -29,7 +19,7 @@ class GenerateQrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\GenerateQrcode';
+    public static $model = \App\GenerateQrcode::class;
 
     /**
      * The logical group associated with the resource.
@@ -37,6 +27,7 @@ class GenerateQrcode extends Resource
      * @var string
      */
     public static $group = 'QR Code';
+
     public static $displayInNavigation = false;
 
     /**
@@ -67,7 +58,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -75,7 +65,7 @@ class GenerateQrcode extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Text::make('Reference Number','generate_reference_number')
+            Text::make('Reference Number', 'generate_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             RadioButton::make('Type')
@@ -83,17 +73,16 @@ class GenerateQrcode extends Resource
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
                 ])->default(1), // optional
-            Number::make('Quantity Of QR Codes','quantity')
+            Number::make('Quantity Of QR Codes', 'quantity')
                 ->min(1)->max(10000)->step(1)
                 ->rules('required'),
-            HasMany::make('QR Codes','qrcodes',\App\Nova\Stock::class),
+            HasMany::make('QR Codes', 'qrcodes', \App\Nova\Stock::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -104,7 +93,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -115,7 +103,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -126,7 +113,6 @@ class GenerateQrcode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -134,19 +120,22 @@ class GenerateQrcode extends Resource
         return [];
     }
 
-    public static function singularLabel() {
+    public static function singularLabel()
+    {
         return 'Generate';
     }
 
-    public static function label() {
+    public static function label()
+    {
         return 'Generate';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
+        return $query->whereIn('created_by', Auth()->user()->corporate->users->pluck('id'));
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

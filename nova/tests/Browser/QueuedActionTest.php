@@ -19,14 +19,14 @@ class QueuedActionTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('users', 1))
-                    ->runAction('sleep')
-                    ->waitFor('[dusk="action-events-index-component"] table', 60)
-                    ->within(new IndexComponent('action-events'), function ($browser) {
-                        $browser->scrollIntoView('')
-                                ->assertSee('Sleep')
-                                ->assertSee('Finished');
-                    });
+                ->visit(new Detail('users', 1))
+                ->runAction('sleep')
+                ->waitFor('[dusk="action-events-index-component"] table', 60)
+                ->within(new IndexComponent('action-events'), function ($browser) {
+                    $browser->scrollIntoView('')
+                        ->assertSee('Sleep')
+                        ->assertSee('Finished');
+                });
         });
     }
 }

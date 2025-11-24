@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Item;
 use App\Post;
 use App\QrcodeLog;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,12 +16,10 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        $last_scan=null;
-        if($this->qrcode)
-        {
+        $last_scan = null;
+        if ($this->qrcode) {
             $last_scan = QrcodeLog::where('qrcode_id', $this->qrcode->id)->orderBy('created_at', 'desc')->first();
         }
-
 
         return [
             'id' => $this->id,

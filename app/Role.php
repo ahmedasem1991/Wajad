@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 // use Pktharindu\NovaPermissions\Permission;
-use App\Permission;
 use Pktharindu\NovaPermissions\Policies\Policy;
 
 class Role extends Model
@@ -26,7 +25,7 @@ class Role extends Model
         'mobile_group',
         'posts_period',
         'free_qrcodes',
-        'available_period_qrcodes'
+        'available_period_qrcodes',
     ];
 
     /**
@@ -54,7 +53,7 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(config('novapermissions.userModel', 'App\User'));
+        return $this->belongsToMany(config('novapermissions.userModel', \App\User::class));
     }
 
     /**
@@ -74,8 +73,6 @@ class Role extends Model
 
     /**
      * Replace all existing permissions with a new set of permissions.
-     *
-     * @param array $permissions
      */
     public function setPermissions(array $permissions)
     {
@@ -93,8 +90,7 @@ class Role extends Model
     /**
      * Check if a user has a given permission.
      *
-     * @param string $permission
-     *
+     * @param  string  $permission
      * @return bool
      */
     public function hasPermission($permission)
@@ -105,8 +101,7 @@ class Role extends Model
     /**
      * Give Permission to a Role.
      *
-     * @param string $permission
-     *
+     * @param  string  $permission
      * @return bool
      */
     public function grant($permission)
@@ -120,7 +115,7 @@ class Role extends Model
         }
 
         return Permission::create([
-            'role_id'         => $this->id,
+            'role_id' => $this->id,
             'permission_slug' => $permission,
         ]);
 
@@ -130,8 +125,7 @@ class Role extends Model
     /**
      * Revokes a Permission from a Role.
      *
-     * @param string $permission
-     *
+     * @param  string  $permission
      * @return bool
      */
     public function revoke($permission)
@@ -163,8 +157,6 @@ class Role extends Model
 
     /**
      * Replace all existing permissions with a new set of permissions.
-     *
-     * @param array $permissions
      */
     public function setPermissionsAttribute(array $permissions)
     {

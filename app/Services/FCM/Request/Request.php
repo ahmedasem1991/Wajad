@@ -2,10 +2,10 @@
 
 namespace App\Services\FCM\Request;
 
-use App\Services\FCM\Message\Topics;
 use App\Services\FCM\Message\Options;
 use App\Services\FCM\Message\PayloadData;
 use App\Services\FCM\Message\PayloadNotification;
+use App\Services\FCM\Message\Topics;
 
 /**
  * Class Request.
@@ -49,14 +49,8 @@ class Request extends BaseRequest
 
     /**
      * Request constructor.
-     *
-     * @param                     $to
-     * @param Options             $options
-     * @param PayloadNotification $notification
-     * @param PayloadData         $data
-     * @param Topics|null         $topic
      */
-    public function __construct($to, Options $options = null, PayloadNotification $notification = null, PayloadData $data = null, Topics $topic = null)
+    public function __construct($to, ?Options $options = null, ?PayloadNotification $notification = null, ?PayloadData $data = null, ?Topics $topic = null)
     {
         parent::__construct();
 
@@ -122,7 +116,7 @@ class Request extends BaseRequest
     {
         $options = $this->options ? $this->options->toArray() : [];
 
-        if ($this->topic && !$this->topic->hasOnlyOneTopic()) {
+        if ($this->topic && ! $this->topic->hasOnlyOneTopic()) {
             $options = array_merge($options, $this->topic->build());
         }
 

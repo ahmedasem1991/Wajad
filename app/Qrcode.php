@@ -2,21 +2,20 @@
 
 namespace App;
 
-use Exception;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Helpers\Api\ResponseTrait;
 use App\Services\Checkers\Checkers;
 use App\Services\Filters\Constants\QrcodeConstants;
 use App\Services\Filters\Filters;
-use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Qrcode extends Model implements QrcodeConstants
 {
-    use LogsActivity, SoftDeletes, Filters, Checkers;
+    use Checkers, Filters, LogsActivity, SoftDeletes;
 
     protected $fillable = [
         'unique_reference_number',
@@ -33,7 +32,7 @@ class Qrcode extends Model implements QrcodeConstants
         'user_id',
         'corporate_id',
         'corporate_assign_reference_number',
-        'item_id'
+        'item_id',
     ];
 
     protected static $logAttributes = [
@@ -49,15 +48,16 @@ class Qrcode extends Model implements QrcodeConstants
         'start_at',
         'end_at',
         'user.name',
-        //'corporate.name_en',
+        // 'corporate.name_en',
         'corporate_assign_reference_number',
-        'item.title'
+        'item.title',
     ];
+
     protected static $logOnlyDirty = true;
 
     protected $casts = [
         'end_at' => 'datetime',
-        'start_at' => 'datetime'
+        'start_at' => 'datetime',
     ];
 
     public function typeTitle($type)
@@ -74,6 +74,7 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $query->where('user_id', $user_id);
     }
+
     public function scopeItem($query, $item_id)
     {
         return $query->where('item_id', $item_id);
@@ -83,11 +84,11 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->status = self::STATUS[$status];
     }
+
     public function scopeStatus($query, $status)
     {
         return $query->where('status', self::STATUS[$status]);
     }
-
 
     public function productPackagePivot()
     {
@@ -128,11 +129,11 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->belongsTo(Item::class)->withTrashed();
     }
+
     public function itemWithOutTrashed()
     {
         return $this->belongsTo(Item::class);
     }
-
 
     public function registerQrcode(Request $request)
     {
@@ -142,37 +143,45 @@ class Qrcode extends Model implements QrcodeConstants
             $QRCode->status == 3 ? $status = 4 : $status = 5;
             $QRCode->update([
                 'item_id' => $request->item_id,
-                'status' => $status
+                'status' => $status,
             ]);
             $this->addResponse(trans('messages.successfully_registered'))->addStatusCode(201);
             Log::INFO($this->response());
+
             return $this->response();
         } catch (Exception $e) {
             $this->addResponse($e->getMessage)->addStatusCode(409);
             Log::ERROR($this->response());
+
             return $this->response();
         }
     }
+
     public function scopeSingleAssign($query)
     {
         return $query->where('type', 1);
     }
+
     public function scopeMultiAssign($query)
     {
         return $query->where('type', 2);
     }
+
     public function scopeInStock($query)
     {
         return $query->where('status', 1);
     }
+
     public function scopeRegistered($query)
     {
         return $query->where('status', 4);
     }
+
     public function scopeReRegistered($query)
     {
         return $query->where('status', 5);
     }
+
     public function scopeExpired($query)
     {
         return $query->where('status', 6);
@@ -181,7 +190,7 @@ class Qrcode extends Model implements QrcodeConstants
     public function updateQrcodeToexpired()
     {
         return $this->update([
-            'status' => 6
+            'status' => 6,
         ]);
     }
 
@@ -189,29 +198,28 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->update([
             'item_id' => $item_id,
-            //'status' => 5,
+            // 'status' => 5,
             'status' => self::STATUS['Re-Registered'],
         ]);
     }
 
     public function assignQrcodeToItem($item_id)
     {
-        if($this->end_at == NULL)
-        {
+        if ($this->end_at == null) {
             return $this->update([
                 'item_id' => $item_id,
                 'status' => self::STATUS['Registered'],
-                //'status' => 4,
+                // 'status' => 4,
                 'start_at' => Carbon::now()->toDateTimeString(),
                 'end_at' => Carbon::now()->addDays($this->available_period),
             ]);
-        }else{
+        } else {
             return $this->update([
                 'item_id' => $item_id,
                 'status' => self::STATUS['Registered'],
-                //'status' => 4,
-               // 'start_at' => Carbon::now()->toDateTimeString(),
-               // 'end_at' => Carbon::now()->addDays($this->available_period),
+                // 'status' => 4,
+                // 'start_at' => Carbon::now()->toDateTimeString(),
+                // 'end_at' => Carbon::now()->addDays($this->available_period),
             ]);
         }
 
@@ -221,6 +229,7 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->type === 2;
     }
+
     public function isQrcodeSingleAssign()
     {
         return $this->type === 1;
@@ -230,10 +239,12 @@ class Qrcode extends Model implements QrcodeConstants
     {
         return $this->status == 4;
     }
+
     public function isQrcodeExpired()
     {
         return Carbon::now()->toDateTimeString() > $this->end_at;
     }
+
     public function scopeAvailableToUser($query)
     {
         return $query->where('status', 2);

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePackageProductMediaTable extends Migration
 {
@@ -18,8 +18,8 @@ class CreatePackageProductMediaTable extends Migration
             $table->string('media_path');
             $table->string('package_product_media_type');
             $table->integer('package_product_media_id');
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

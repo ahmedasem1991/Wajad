@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\SendSMSEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class RejectPostListener
 {
@@ -26,10 +24,10 @@ class RejectPostListener
      */
     public function handle($event)
     {
-        //$event->resource->open_status =1;
-       // $event->resource->appearance_status =0;
-        $event->resource->approval_status =0;
-        $event->resource->end_date=  null;
+        // $event->resource->open_status =1;
+        // $event->resource->appearance_status =0;
+        $event->resource->approval_status = 0;
+        $event->resource->end_date = null;
         $event->resource->save();
     }
 }

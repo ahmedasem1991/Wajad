@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePackageProductTable extends Migration
 {
@@ -18,8 +18,8 @@ class CreatePackageProductTable extends Migration
             $table->unsignedBigInteger('package_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('product_count');
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
             $table->unique(['package_id', 'product_id']);
         });
     }

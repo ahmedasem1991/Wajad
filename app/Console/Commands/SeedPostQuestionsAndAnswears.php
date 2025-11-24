@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Corporate;
 use App\Post;
 use App\Question;
 use App\User;
@@ -26,7 +25,7 @@ class SeedPostQuestionsAndAnswears extends Command
         foreach ($posts as $post) {
             for ($i = 0; $i < $each_question_for_each_post; $i++) {
                 $post->questions()->create([
-                    'question' => $faker->text() . ' ?'
+                    'question' => $faker->text().' ?',
                 ]);
             }
         }

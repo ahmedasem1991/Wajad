@@ -26,11 +26,11 @@ class UpdateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $post, $post2) {
             $browser->loginAs($user)
-                    ->visit(new Update('posts', $post->id))
-                    ->assertPathIs('/nova/403');
+                ->visit(new Update('posts', $post->id))
+                ->assertPathIs('/nova/403');
 
             $browser->visit(new Update('posts', $post2->id))
-                    ->assertPathIsNot('/nova/403');
+                ->assertPathIsNot('/nova/403');
 
             $browser->blank();
         });
@@ -49,10 +49,10 @@ class UpdateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit(new Update('users', 1))
-                    ->type('@name', 'Taylor Otwell upDATED')
-                    ->type('@password', 'secret')
-                    ->update();
+                ->visit(new Update('users', 1))
+                ->type('@name', 'Taylor Otwell upDATED')
+                ->type('@password', 'secret')
+                ->update();
 
             $user = User::find(1);
 
@@ -72,10 +72,10 @@ class UpdateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Update('users', 1))
-                    ->type('@name', ' ')
-                    ->update()
-                    ->assertSee('The Name field is required.');
+                ->visit(new Update('users', 1))
+                ->type('@name', ' ')
+                ->update()
+                ->assertSee('The Name field is required.');
 
             $browser->blank();
         });
@@ -90,10 +90,10 @@ class UpdateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Update('users', 1))
-                    ->type('@name', 'Taylor Otwell Updated')
-                    ->type('@password', 'secret')
-                    ->updateAndContinueEditing();
+                ->visit(new Update('users', 1))
+                ->type('@name', 'Taylor Otwell Updated')
+                ->type('@password', 'secret')
+                ->updateAndContinueEditing();
 
             $user = User::find(1);
 

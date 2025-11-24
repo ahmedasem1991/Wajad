@@ -11,14 +11,13 @@ class Brands extends Value
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
-        //return $this->count($request, Brand::class);
+        // return $this->count($request, Brand::class);
         return $this->result(Brand::count());
-        
+
     }
 
     /**
@@ -39,7 +38,7 @@ class Brands extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

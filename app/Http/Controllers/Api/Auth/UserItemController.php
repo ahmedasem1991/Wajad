@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-
-use Illuminate\Http\Request;
-use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
+use Illuminate\Http\Request;
 
 /**
  * @group Items
  */
 class UserItemController extends Controller
 {
-
-
     /**
      * User Items
+     *
      * @bodyParam token Barier-token required
-     * @response 
+     *
+     * @response
      *  {
      *    "data": [
      *      {
@@ -85,6 +83,7 @@ class UserItemController extends Controller
      *}
      *]
      *}
+     *
      * @return void
      */
     public function __invoke(Request $request)

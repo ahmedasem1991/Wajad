@@ -3,10 +3,9 @@
 namespace App\Nova;
 
 use App\Nova\Metrics\Cities;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\BelongsTo;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -17,7 +16,7 @@ class City extends Resource
      *
      * @var string
      */
-    public static $model = 'App\City';
+    public static $model = \App\City::class;
 
     /**
      * The logical group associated with the resource.
@@ -25,7 +24,6 @@ class City extends Resource
      * @var string
      */
     public static $group = 'Locations';
-
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,14 +49,14 @@ class City extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
-        'region' => [ 'name_en', 'name_ar'],
+        'region' => ['name_en', 'name_ar'],
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -69,28 +67,26 @@ class City extends Resource
             Text::make('City English Name', 'name_en')->rules(['required', 'min:2']),
             Text::make('City Arabic Name', 'name_ar')->rules(['required', 'min:2']),
             NovaBelongsToDepend::make('Area', 'region')
-            ->placeholder('Area')
-            ->options(\App\Region::all()),
+                ->placeholder('Area')
+                ->options(\App\Region::all()),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Cities()
+            new Cities,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -101,7 +97,6 @@ class City extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -112,23 +107,24 @@ class City extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/city.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/city.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
 
-    public   function authorizedToDelete(Request $request)
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }

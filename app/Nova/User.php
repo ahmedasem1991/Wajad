@@ -2,34 +2,21 @@
 
 namespace App\Nova;
 
-use App\Corporate;
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Avatar;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
+use Illuminate\Http\Request;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
-use Bissolli\NovaPhoneField\PhoneNumber;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
-use Tintnaingwin\EmailChecker\Rules\EmailExist;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaErrorField\Errors;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class User extends Resource
 {
@@ -38,7 +25,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $model = 'App\User';
+    public static $model = \App\User::class;
 
     /**
      * The logical group associated with the resource.
@@ -86,7 +73,6 @@ class User extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -99,7 +85,7 @@ class User extends Resource
                 ->thumbnail(function () {
                     return $this->getAvatar();
                 })
-                ->preview(function (){
+                ->preview(function () {
                     return $this->getAvatar();
                 })
                 ->disk('public')
@@ -114,8 +100,8 @@ class User extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->creationRules('required','email:rfc,dns','unique:users,email,NULL,id,type,1,deleted_at,NULL')
-                ->updateRules('required','email:rfc,dns','unique:users,email,{{resourceId}},id,type,1,deleted_at,NULL'),
+                ->creationRules('required', 'email:rfc,dns', 'unique:users,email,NULL,id,type,1,deleted_at,NULL')
+                ->updateRules('required', 'email:rfc,dns', 'unique:users,email,{{resourceId}},id,type,1,deleted_at,NULL'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -126,8 +112,8 @@ class User extends Resource
                 ->placeholder('Select Country')
                 ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required','unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
-                ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
+                ->creationRules('required', 'unique:users,mobile_number,NULL,id,type,1,deleted_at,NULL')
+                ->updateRules('required', 'unique:users,mobile_number,{{resourceId}},id,type,1,deleted_at,NULL'),
             Number::make('Posts Number', 'posts_number')
                 ->updateRules('required')
                 ->hideFromIndex()
@@ -140,7 +126,7 @@ class User extends Resource
                 ->updateRules('required'),
 
             HasMany::make('Items'),
-            Boolean::make('Active','status')
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
@@ -160,15 +146,13 @@ class User extends Resource
             BelongsToMany::make('Roles', 'roles', Role::class),
             HasMany::make('QR Code', 'qrcodes', Qrcode::class),
             HasMany::make('Posts', 'posts', AllPost::class),
-            HasMany::make('Assigned QR Codes', 'assigned_qrcodes', UserAssignQrcode::class)
-            ,
+            HasMany::make('Assigned QR Codes', 'assigned_qrcodes', UserAssignQrcode::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -181,7 +165,6 @@ class User extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -192,7 +175,6 @@ class User extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -203,7 +185,6 @@ class User extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -217,33 +198,33 @@ class User extends Resource
     {
         return $query->NormalUsers();
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public function getAvatar() :string
+    public function getAvatar(): string
     {
-        if (substr($this->image, 0, 4) === "http") {
+        if (substr($this->image, 0, 4) === 'http') {
             return $this->image;
-        }
-        else{
+        } else {
             if (file_exists($this->image) === false) {
                 return '/images/not2_bg_image.jpg';
-            }
-            else{
-                return env('APP_URL') . "/" . $this->image;
+            } else {
+                return env('APP_URL').'/'.$this->image;
             }
 
         }
 
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
 
-    public  function authorizedToRestore(Request $request)
+    public function authorizedToRestore(Request $request)
     {
         return false;
     }

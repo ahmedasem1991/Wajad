@@ -62,7 +62,6 @@ class Code extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  string  $requestAttribute
      * @param  object  $model
      * @param  string  $attribute
@@ -130,7 +129,7 @@ class Code extends Field
     /**
      * Set the visual height of the Code editor.
      *
-     * @param string|int $height
+     * @param  string|int  $height
      * @return $this
      */
     public function height($height)

@@ -2,29 +2,24 @@
 
 namespace App\Providers;
 
-use Auth;
+use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
 use App\Corporate;
-use App\WajadOffice;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
-use App\Nova\Metrics\QrCodes;
-use App\Nova\Metrics\PostsCount;
-use App\Nova\Metrics\UsersTypes;
+use App\Nova\Metrics\ActivationDevices;
+use App\Nova\Metrics\ApprovalPosts;
+use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\PostsPeriod;
 use App\Nova\Metrics\QRCodeCount;
+use App\Nova\Metrics\QrCodes;
 use App\Nova\Metrics\ReportPosts;
-use App\Nova\Metrics\UsersStatus;
-use App\Nova\Metrics\ApprovalPosts;
-use App\Nova\Metrics\UsersActivity;
-use Illuminate\Support\Facades\Gate;
-use Smartappco\GoogleMaps\GoogleMaps;
-use App\Nova\Metrics\ActivationDevices;
-use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
-use Remipou\NovaPageManager\PageResource;
-use Kristories\QrcodeManager\QrcodeManager;
-use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
+use App\Nova\Metrics\UsersActivity;
+use App\Nova\Metrics\UsersStatus;
+use App\Nova\Metrics\UsersTypes;
+use App\WajadOffice;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Smartappco\GoogleMaps\GoogleMaps;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -42,7 +37,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Nova::resourcesIn(app_path('Nova'));
         }
 
-        if (!Auth()->user()->isAdmin()) {
+        if (! Auth()->user()->isAdmin()) {
             Nova::resourcesIn(app_path('NovaCorporate'));
         }
     }
@@ -83,23 +78,24 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 array_push($array, new ReportPosts);
             }
             if (Auth()->user()->hasPermissionTo('view stock')) {
-                array_push($array,new QrCodes);
+                array_push($array, new QrCodes);
             }
             if (Auth()->user()->hasPermissionTo('view users')) {
-                array_push($array,new UsersActivity);
-                array_push($array,new UsersTypes);
-                array_push($array,new UsersStatus);
-                }
+                array_push($array, new UsersActivity);
+                array_push($array, new UsersTypes);
+                array_push($array, new UsersStatus);
+            }
 
-                if (Auth()->user()->hasPermissionTo('settings')) {
-                   // array_push($array,new \Tightenco\NovaGoogleAnalytics\PageViewsMetric);
-                    // array_push($array,new \Tightenco\NovaGoogleAnalytics\VisitorsMetric);
-                    //array_push($array,new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard);
-                    array_push($array,new ActivationDevices);
-                    array_push($array, (new GoogleMaps)->markers($Corporates)->offices($Offices));
-                     //new QRCodeCount,
+            if (Auth()->user()->hasPermissionTo('settings')) {
+                // array_push($array,new \Tightenco\NovaGoogleAnalytics\PageViewsMetric);
+                // array_push($array,new \Tightenco\NovaGoogleAnalytics\VisitorsMetric);
+                // array_push($array,new \Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard);
+                array_push($array, new ActivationDevices);
+                array_push($array, (new GoogleMaps)->markers($Corporates)->offices($Offices));
+                // new QRCodeCount,
                 // new \Marianvlad\NovaEnvCard\NovaEnvCard,
-                    }
+            }
+
             return $array;
 
         }
@@ -115,37 +111,37 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 array_push($array, new \App\NovaCorporate\Metrics\QRCodeCount);
                 array_push($array, new \App\NovaCorporate\Metrics\QrCodes);
             }
+
             return $array;
         }
+
         return [];
     }
 
     public function tools()
     {
 
-
         if (Auth()->user()->isCorporateAdmin()) {
             //  copy(config_path() . "/novapermissionsCorporate.php", config_path() . "/novapermissions.php");
             return [
                 new NovaSidebarIcons,
-                new \ClassicO\NovaMediaLibrary\NovaMediaLibrary(),
+                new \ClassicO\NovaMediaLibrary\NovaMediaLibrary,
                 // new \Pktharindu\NovaPermissions\NovaPermissions(),
                 \Pktharindu\NovaPermissions\NovaPermissions::make()
                     ->roleResource(\App\NovaCorporate\Role::class),
-                   // new \Bolechen\NovaActivitylog\NovaActivitylog(),
+                // new \Bolechen\NovaActivitylog\NovaActivitylog(),
             ];
         }
-
 
         if (Auth()->user()->isAdmin()) {
             // copy(config_path() . "/novapermissionsAdmin.php", config_path() . "/novapermissions.php");
             return [
                 new NovaSidebarIcons,
-                new \ClassicO\NovaMediaLibrary\NovaMediaLibrary(),
-                //new \Pktharindu\NovaPermissions\NovaPermissions(),
+                new \ClassicO\NovaMediaLibrary\NovaMediaLibrary,
+                // new \Pktharindu\NovaPermissions\NovaPermissions(),
                 \Pktharindu\NovaPermissions\NovaPermissions::make()
                     ->roleResource(\App\Nova\Role::class),
-                   // new \Bolechen\NovaActivitylog\NovaActivitylog(),
+                // new \Bolechen\NovaActivitylog\NovaActivitylog(),
             ];
         }
     }

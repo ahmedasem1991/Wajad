@@ -13,7 +13,7 @@ use Laravel\Nova\Tests\IntegrationTest;
 
 class ResourceAttachTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -28,11 +28,11 @@ class ResourceAttachTest extends IntegrationTest
         $role = factory(Role::class)->create();
 
         $response = $this->withExceptionHandling()
-                        ->postJson('/nova-api/users/'.$user->id.'/attach/roles', [
-                            'roles' => $role->id,
-                            'admin' => 'Y',
-                            'viaRelationship' => 'roles',
-                        ]);
+            ->postJson('/nova-api/users/'.$user->id.'/attach/roles', [
+                'roles' => $role->id,
+                'admin' => 'Y',
+                'viaRelationship' => 'roles',
+            ]);
 
         $response->assertStatus(200);
 
@@ -69,11 +69,11 @@ class ResourceAttachTest extends IntegrationTest
         Gate::policy(User::class, UserPolicy::class);
 
         $response = $this->withExceptionHandling()
-                ->postJson('/nova-api/users/'.$user->id.'/attach/roles', [
-                    'roles' => $role->id,
-                    'admin' => 'Y',
-                    'viaRelationship' => 'roles',
-                ]);
+            ->postJson('/nova-api/users/'.$user->id.'/attach/roles', [
+                'roles' => $role->id,
+                'admin' => 'Y',
+                'viaRelationship' => 'roles',
+            ]);
 
         unset($_SERVER['nova.user.authorizable']);
         unset($_SERVER['nova.user.attachRole']);
@@ -95,11 +95,11 @@ class ResourceAttachTest extends IntegrationTest
         $role = factory(Role::class)->create();
 
         $response = $this->withExceptionHandling()
-                        ->postJson('/nova-api/users/'.$user->id.'/attach/roles', [
-                            'roles' => $role->id,
-                            'admin' => 'Y',
-                            'viaRelationship' => 'roles',
-                        ]);
+            ->postJson('/nova-api/users/'.$user->id.'/attach/roles', [
+                'roles' => $role->id,
+                'admin' => 'Y',
+                'viaRelationship' => 'roles',
+            ]);
 
         $response->assertStatus(200);
 

@@ -51,19 +51,19 @@ class SeedPeople extends Command
                 'updated_at' => '2010-10-25 16:42:05',
                 'deleted_at' => '2010-10-25 16:42:05',
             ],
-           
+
         ];
 
         foreach ($People as $p) {
-            $person= new People;
-            $person->id=$p['id'];
-            $person->name=$p['name'];
-            $person->email=$p['email'];
-            $person->created_at=$p['created_at'];
-            $person->updated_at=$p['updated_at'];
-            $person->deleted_at=$p['deleted_at'];
+            $person = new People;
+            $person->id = $p['id'];
+            $person->name = $p['name'];
+            $person->email = $p['email'];
+            $person->created_at = $p['created_at'];
+            $person->updated_at = $p['updated_at'];
+            $person->deleted_at = $p['deleted_at'];
             $person->save();
-            $person->id=0;
+            $person->id = 0;
             $person->save();
         }
 

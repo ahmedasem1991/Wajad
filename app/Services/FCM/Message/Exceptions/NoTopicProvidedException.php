@@ -7,6 +7,4 @@ use Exception;
 /**
  * Class NoTopicProvidedException.
  */
-class NoTopicProvidedException extends Exception
-{
-}
+class NoTopicProvidedException extends Exception {}

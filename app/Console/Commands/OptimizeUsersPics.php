@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\User;
 use Illuminate\Console\Command;
-use function React\Promise\all;
 
 class OptimizeUsersPics extends Command
 {
@@ -42,25 +41,23 @@ class OptimizeUsersPics extends Command
         $admins = User::where('type', User::Types['admin'])->get();
         $corporates = User::where('type', User::Types['corporate'])->get();
 
-            foreach ($admins as $app)
-            {
-                if ((!empty($app->image)) && strpos($app->image, '/') !== 0){
-                    $this->info($app->image);
-                    $app->image = '/'.$app->image;
-                    $app->save();
-                    $this->info($app->image);
-                }
+        foreach ($admins as $app) {
+            if ((! empty($app->image)) && strpos($app->image, '/') !== 0) {
+                $this->info($app->image);
+                $app->image = '/'.$app->image;
+                $app->save();
+                $this->info($app->image);
             }
+        }
 
-            foreach ($corporates as $app)
-            {
-                if ((!empty($app->image)) && strpos($app->image, '/') !== 0){
-                    $this->info($app->image);
-                    $app->image = '/'.$app->image;
-                    $app->save();
-                    $this->info($app->image);
-                }
+        foreach ($corporates as $app) {
+            if ((! empty($app->image)) && strpos($app->image, '/') !== 0) {
+                $this->info($app->image);
+                $app->image = '/'.$app->image;
+                $app->save();
+                $this->info($app->image);
             }
+        }
 
     }
 }

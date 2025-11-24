@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class FcmUser extends Model
 {
-    protected $fillable = ['token', 'device' ,'user_id', 'lang'];
+    protected $fillable = ['token', 'device', 'user_id', 'lang'];
 
     /**
      * FCM Device user
+     *
      * @return [type] [description]
      */
     public function user()
@@ -17,12 +18,12 @@ class FcmUser extends Model
         return $this->belongsTo(\App\User::class);
     }
 
-
     /**
      * scope to get android devices
-     * @param  [type]  $query 
+     *
+     * @param  [type]  $query
      * @param  [integer]  $gender
-     * @return void      
+     * @return void
      */
     public function scopeAndroid($query)
     {
@@ -31,9 +32,10 @@ class FcmUser extends Model
 
     /**
      * scope to get ios devices
-     * @param  [type]  $query 
+     *
+     * @param  [type]  $query
      * @param  [integer]  $gender
-     * @return void      
+     * @return void
      */
     public function scopeIos($query)
     {
@@ -42,9 +44,10 @@ class FcmUser extends Model
 
     /**
      * scope to get ios devices
-     * @param  [type]  $query 
+     *
+     * @param  [type]  $query
      * @param  [integer]  $gender
-     * @return void      
+     * @return void
      */
     public function scopeLang($query, $lang = 'ar')
     {
@@ -53,12 +56,13 @@ class FcmUser extends Model
 
     /**
      * delete all tokens
+     *
      * @param  [integer]  $tokens
-     * @return void      
+     * @return void
      */
     public static function deleteTokens($tokens)
     {
-        if(!empty($tokens)){
+        if (! empty($tokens)) {
             self::whereIn('token', $tokens)->delete();
         }
     }

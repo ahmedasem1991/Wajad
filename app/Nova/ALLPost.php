@@ -2,41 +2,33 @@
 
 namespace App\Nova;
 
-use App\Item;
-use App\User;
+use App\Nova\Metrics\ApprovalPosts;
+use App\Nova\Metrics\OpenVsClosedPosts;
+use App\Nova\Metrics\PostsPeriod;
+use App\Nova\Metrics\ShowVsHiddenPosts;
 use App\People;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use NovaButton\Button;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
+use App\User;
+use Bissolli\NovaPhoneField\PhoneNumber;
+use Carbon\Carbon;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\PostsCount;
-use Laravel\Nova\Fields\Boolean;
+use Illuminate\Support\Facades\URL;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use App\Nova\Metrics\PostsPeriod;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\ApprovalPosts;
-use Illuminate\Support\Facades\URL;
-use NovaErrorField\Errors;
-use OwenMelbz\RadioField\RadioButton;
-use App\Nova\Metrics\OpenVsClosedPosts;
-use App\Nova\Metrics\ShowVsHiddenPosts;
-use Bissolli\NovaPhoneField\PhoneNumber;
-use ClassicO\NovaMediaLibrary\MediaField;
-use App\Services\Filters\ItemFilters\Lost;
-use Carbon\Carbon;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
+use Naif\Toggle\Toggle;
+use NovaButton\Button;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use EmilianoTisato\NovaBelongsToDepends\NovaBelongsToDepends;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use OwenMelbz\RadioField\RadioButton;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
 
 class AllPost extends Resource
@@ -46,7 +38,7 @@ class AllPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -59,6 +51,7 @@ class AllPost extends Resource
     {
         return (Auth()->User()->hasPermissionTo('view posts')) ? true : false;
     }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -102,6 +95,7 @@ class AllPost extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
         'color' => ['name_en', 'name_ar'],
         'subcategory' => ['name_en', 'name_ar'],
@@ -115,7 +109,6 @@ class AllPost extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -134,9 +127,11 @@ class AllPost extends Resource
                 ->rules('required'),
             Textarea::make('description')
                 ->rules('required'),
-            Textarea::make('Internal Note','notes'),
+            Textarea::make('Internal Note', 'notes'),
 
-            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request) {
+                return 1;
+            }),
             Toggle::make('Open Status', 'open_status')
                 ->hideWhenCreating(),
             DateTimeField::make('Post Closing Date', 'end_date')
@@ -180,9 +175,9 @@ class AllPost extends Resource
                 ->hideFromIndex()
                 ->rules('required'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class)
-            ->rules('required')->hideFromIndex(),
+                ->rules('required')->hideFromIndex(),
 
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
+            BelongsTo::make('Publisher', 'publisher', \App\Nova\User::class)->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Publisher type', 'publisher_type')
@@ -192,7 +187,7 @@ class AllPost extends Resource
 
             Select::make('Post Type', 'status')->options([
                 0 => 'Lost',
-                1 => 'Found'
+                1 => 'Found',
             ])
                 ->displayUsingLabels()
                 ->rules('required'),
@@ -216,42 +211,35 @@ class AllPost extends Resource
 
                 NovaDependencyContainer::make([
                     Select2::make('Person', 'owner_person_id')
-                    ->showAsLink(People::class)
-                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
-                    ->rules('required_if:owner_releated_to_system,0'),
+                        ->showAsLink(People::class)
+                        ->options(People::withTrashed()->orderBy('id', 'asc')->get()->pluck('name', 'id'))
+                        ->rules('required_if:owner_releated_to_system,0'),
 
+                    NovaDependencyContainer::make([
 
-                NovaDependencyContainer::make([
+                        Text::make('Name', 'owner_name')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
+                        Text::make('Email', 'owner_email')
+                            ->sortable()
+                            ->rules('required', 'email', 'max:254'),
 
-                    Text::make('Name','owner_name')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
+                        PhoneNumber::make('Mobile Number', 'owner_mobile_number')
+                            ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                            ->onlyCustomFormats(),
 
-                Text::make('Email','owner_email')
-                    ->sortable()
-                    ->rules('required', 'email', 'max:254'),
+                        Text::make('Address', 'owner_address')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
-                PhoneNumber::make('Mobile Number','owner_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats(),
-
-                Text::make('Address','owner_address')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
-
-
-
-                ])->dependsOn('owner_person_id', 0),
-
+                    ])->dependsOn('owner_person_id', 0),
 
                 ])->dependsOn('owner_releated_to_system', 0),
 
-
-
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -285,61 +273,55 @@ class AllPost extends Resource
                 NovaDependencyContainer::make([
 
                     Select2::make('Person', 'founder_person_id')
-                    ->showAsLink(People::class)
-                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
-                    ->rules('required_if:founder_releated_to_system,0'),
+                        ->showAsLink(People::class)
+                        ->options(People::withTrashed()->orderBy('id', 'asc')->get()->pluck('name', 'id'))
+                        ->rules('required_if:founder_releated_to_system,0'),
 
+                    NovaDependencyContainer::make([
 
-                NovaDependencyContainer::make([
+                        Text::make('Name', 'founder_name')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
+                        Text::make('Email', 'founder_email')
+                            ->sortable()
+                            ->rules('required', 'email', 'max:254'),
 
-                    Text::make('Name','founder_name')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
+                        PhoneNumber::make('Mobile Number', 'founder_mobile_number')
+                            ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                            ->onlyCustomFormats(),
 
-                Text::make('Email','founder_email')
-                    ->sortable()
-                    ->rules('required', 'email', 'max:254'),
+                        Text::make('Address', 'founder_address')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
-                PhoneNumber::make('Mobile Number','founder_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats(),
-
-                Text::make('Address','founder_address')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
-
-
-
-                ])->dependsOn('founder_person_id', 0),
-
+                    ])->dependsOn('founder_person_id', 0),
 
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get()),
                 ])
                     ->dependsOn('founder_releated_to_system', 1)
                     ->rules('required_if:founder_releated_to_system,1'),
 
-
-                    Text::make('Question 1', 'question_1')
+                Text::make('Question 1', 'question_1')
                     ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 Text::make('Question 2', 'question_2')
-                    //->creationRules('required_if:status,1')
+                    // ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
 
                 Text::make('Question 3', 'question_3')
-                    //->creationRules('required_if:status,1')
+                    // ->creationRules('required_if:status,1')
                     ->hideWhenUpdating()
                     ->hideFromDetail()
                     ->hideFromIndex(),
@@ -349,7 +331,7 @@ class AllPost extends Resource
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                 DateTimeField::make('Losted At')->hideFromIndex()
-                    //->dateFormat('YYYY-MM-DD')
+                    // ->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime()
                     ->Rules('required_if:status,0'),
@@ -365,39 +347,35 @@ class AllPost extends Resource
 
                 NovaDependencyContainer::make([
                     Select2::make('Person', 'owner_person_id')
-                    ->showAsLink(People::class)
-                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
-                    ->rules('required_if:owner_releated_to_system,0'),
+                        ->showAsLink(People::class)
+                        ->options(People::withTrashed()->orderBy('id', 'asc')->get()->pluck('name', 'id'))
+                        ->rules('required_if:owner_releated_to_system,0'),
 
+                    NovaDependencyContainer::make([
 
-                NovaDependencyContainer::make([
+                        Text::make('Name', 'owner_name')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
+                        Text::make('Email', 'owner_email')
+                            ->sortable()
+                            ->rules('required', 'email', 'max:254'),
 
-                    Text::make('Name','owner_name')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
+                        PhoneNumber::make('Mobile Number', 'owner_mobile_number')
+                            ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                            ->onlyCustomFormats(),
 
-                Text::make('Email','owner_email')
-                    ->sortable()
-                    ->rules('required', 'email', 'max:254'),
+                        Text::make('Address', 'owner_address')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
-                PhoneNumber::make('Mobile Number','owner_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats(),
-
-                Text::make('Address','owner_address')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
-
-
-
-                ])->dependsOn('owner_person_id', 0),
+                    ])->dependsOn('owner_person_id', 0),
 
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -439,38 +417,34 @@ class AllPost extends Resource
                     //     ->options(People::all())
                     //     ->rules('required_if:founder_releated_to_system,0'),
                     Select2::make('Person', 'founder_person_id')
-                    ->showAsLink(People::class)
-                    ->options(People::withTrashed()->orderBy('id','asc')->get()->pluck('name', 'id'))
-                    ->rules('required_if:founder_releated_to_system,0'),
+                        ->showAsLink(People::class)
+                        ->options(People::withTrashed()->orderBy('id', 'asc')->get()->pluck('name', 'id'))
+                        ->rules('required_if:founder_releated_to_system,0'),
 
+                    NovaDependencyContainer::make([
 
-                NovaDependencyContainer::make([
+                        Text::make('Name', 'founder_name')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
+                        Text::make('Email', 'founder_email')
+                            ->sortable()
+                            ->rules('required', 'email', 'max:254'),
 
-                    Text::make('Name','founder_name')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
+                        PhoneNumber::make('Mobile Number', 'founder_mobile_number')
+                            ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
+                            ->onlyCustomFormats(),
 
-                Text::make('Email','founder_email')
-                    ->sortable()
-                    ->rules('required', 'email', 'max:254'),
+                        Text::make('Address', 'founder_address')
+                            ->sortable()
+                            ->rules('required', 'max:255'),
 
-                PhoneNumber::make('Mobile Number','founder_mobile_number')
-                    ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
-                    ->onlyCustomFormats(),
-
-                Text::make('Address','founder_address')
-                    ->sortable()
-                    ->rules('required', 'max:255'),
-
-
-
-                ])->dependsOn('founder_person_id', 0),
+                    ])->dependsOn('founder_person_id', 0),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get()),
                 ])
@@ -506,22 +480,21 @@ class AllPost extends Resource
                 ->hideFromIndex(),
 
             Button::make('EN PDF')
-                ->link(URL::to('receipt?p=' . base64_encode($this->id)), '_blank')
+                ->link(URL::to('receipt?p='.base64_encode($this->id)), '_blank')
                 ->style('danger'),
 
             Button::make('AR PDF')
-                ->link(URL::to('ar_receipt?p=' . base64_encode($this->id)), '_blank')
+                ->link(URL::to('ar_receipt?p='.base64_encode($this->id)), '_blank')
                 ->style('danger'),
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
             $Questions,
-            $PostRequests
+            $PostRequests,
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -530,14 +503,13 @@ class AllPost extends Resource
             new PostsPeriod,
             new ShowVsHiddenPosts,
             new OpenVsClosedPosts,
-            new ApprovalPosts
+            new ApprovalPosts,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -545,8 +517,8 @@ class AllPost extends Resource
         return [];
     }
 
-//     public static function fill(NovaRequest $request, $model)
-// {
+    //     public static function fill(NovaRequest $request, $model)
+    // {
 
     // if ($request->input('email')) {
 
@@ -574,12 +546,11 @@ class AllPost extends Resource
 
     // return parent::fill($request, $model);
 
-// }
+    // }
 
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -590,18 +561,19 @@ class AllPost extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/post.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/post.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

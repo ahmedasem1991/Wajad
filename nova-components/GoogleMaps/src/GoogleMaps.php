@@ -12,18 +12,21 @@ class GoogleMaps extends Card
      * @var string
      */
     public $width = 'full';
-    public function markers($markers=null)
+
+    public function markers($markers = null)
     {
         return $this->withMeta([
-        'markers' => $markers
+            'markers' => $markers,
         ]);
     }
-    public function offices($offices=null)
+
+    public function offices($offices = null)
     {
         return $this->withMeta([
-        'offices' => $offices
+            'offices' => $offices,
         ]);
     }
+
     /**
      * Get the component name for the element.
      *

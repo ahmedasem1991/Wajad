@@ -25,9 +25,9 @@ class IndexAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('posts'))
-                    ->pause(250)
-                    ->assertPathIs('/nova/403');
+                ->visit(new Index('posts'))
+                ->pause(250)
+                ->assertPathIs('/nova/403');
 
             $browser->blank();
         });
@@ -48,12 +48,12 @@ class IndexAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post, $post2) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('posts'))
-                    ->waitFor('@posts-index-component', 25)
-                    ->within(new IndexComponent('posts'), function ($browser) use ($post, $post2) {
-                        $browser->assertMissing('@'.$post->id.'-edit-button');
-                        $browser->assertVisible('@'.$post2->id.'-edit-button');
-                    });
+                ->visit(new Index('posts'))
+                ->waitFor('@posts-index-component', 25)
+                ->within(new IndexComponent('posts'), function ($browser) use ($post, $post2) {
+                    $browser->assertMissing('@'.$post->id.'-edit-button');
+                    $browser->assertVisible('@'.$post2->id.'-edit-button');
+                });
 
             $browser->blank();
         });
@@ -74,12 +74,12 @@ class IndexAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post, $post2) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('posts'))
-                    ->waitFor('@posts-index-component', 25)
-                    ->within(new IndexComponent('posts'), function ($browser) use ($post, $post2) {
-                        $browser->assertMissing('@'.$post->id.'-delete-button');
-                        $browser->assertVisible('@'.$post2->id.'-delete-button');
-                    });
+                ->visit(new Index('posts'))
+                ->waitFor('@posts-index-component', 25)
+                ->within(new IndexComponent('posts'), function ($browser) use ($post, $post2) {
+                    $browser->assertMissing('@'.$post->id.'-delete-button');
+                    $browser->assertVisible('@'.$post2->id.'-delete-button');
+                });
 
             $browser->blank();
         });
@@ -99,17 +99,17 @@ class IndexAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('posts'))
-                    ->waitFor('@posts-index-component', 25)
-                    ->within(new IndexComponent('posts'), function ($browser) {
-                        $browser->clickCheckboxForId(3)
-                            ->clickCheckboxForId(2)
-                            ->clickCheckboxForId(1)
-                            ->deleteSelected()
-                            ->assertSeeResource(1)
-                            ->assertDontSeeResource(2)
-                            ->assertDontSeeResource(3);
-                    });
+                ->visit(new Index('posts'))
+                ->waitFor('@posts-index-component', 25)
+                ->within(new IndexComponent('posts'), function ($browser) {
+                    $browser->clickCheckboxForId(3)
+                        ->clickCheckboxForId(2)
+                        ->clickCheckboxForId(1)
+                        ->deleteSelected()
+                        ->assertSeeResource(1)
+                        ->assertDontSeeResource(2)
+                        ->assertDontSeeResource(3);
+                });
 
             $browser->blank();
         });
@@ -129,15 +129,15 @@ class IndexAuthorizationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('posts'))
-                    ->waitFor('@posts-index-component', 25)
-                    ->within(new IndexComponent('posts'), function ($browser) {
-                        $browser->selectAllMatching()
-                            ->deleteSelected()
-                            ->assertSeeResource(1)
-                            ->assertDontSeeResource(2)
-                            ->assertDontSeeResource(3);
-                    });
+                ->visit(new Index('posts'))
+                ->waitFor('@posts-index-component', 25)
+                ->within(new IndexComponent('posts'), function ($browser) {
+                    $browser->selectAllMatching()
+                        ->deleteSelected()
+                        ->assertSeeResource(1)
+                        ->assertDontSeeResource(2)
+                        ->assertDontSeeResource(3);
+                });
 
             $browser->blank();
         });

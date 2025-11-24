@@ -23,13 +23,13 @@ class IndexBelongsToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('posts'))
-                    ->waitFor('@posts-index-component', 25)
-                    ->within(new IndexComponent('posts'), function ($browser) use ($user) {
-                        $browser->clickLink($user->name);
-                    })
-                    ->pause(250)
-                    ->assertPathIs('/nova/resources/users/'.$user->id);
+                ->visit(new Index('posts'))
+                ->waitFor('@posts-index-component', 25)
+                ->within(new IndexComponent('posts'), function ($browser) use ($user) {
+                    $browser->clickLink($user->name);
+                })
+                ->pause(250)
+                ->assertPathIs('/nova/resources/users/'.$user->id);
 
             $browser->blank();
         });

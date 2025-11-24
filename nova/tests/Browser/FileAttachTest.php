@@ -25,10 +25,10 @@ class FileAttachTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('captains'))
-                    ->type('@name', 'Taylor Otwell')
-                    ->attach('@photo', __DIR__.'/Fixtures/StardewTaylor.png')
-                    ->create();
+                ->visit(new Create('captains'))
+                ->type('@name', 'Taylor Otwell')
+                ->attach('@photo', __DIR__.'/Fixtures/StardewTaylor.png')
+                ->create();
 
             // Verify the photo in the information in the database...
             $captain = Captain::orderBy('id', 'desc')->first();
@@ -38,12 +38,12 @@ class FileAttachTest extends DuskTestCase
 
             // Download the file...
             $browser->on(new Detail('captains', $captain->id))
-                    ->click('@photo-download-link')
-                    ->pause(250);
+                ->click('@photo-download-link')
+                ->pause(250);
 
             // Ensure file is not removed on blank update...
             $browser->visit(new Update('captains', $captain->id))
-                    ->update();
+                ->update();
 
             $captain = $captain->fresh();
             $this->assertNotNull($captain->photo);
@@ -51,10 +51,10 @@ class FileAttachTest extends DuskTestCase
 
             // Delete the file...
             $browser->visit(new Update('captains', $captain->id))
-                    ->click('@photo-delete-link')
-                    ->pause(250)
-                    ->click('@confirm-upload-delete-button')
-                    ->pause(250);
+                ->click('@photo-delete-link')
+                ->pause(250)
+                ->click('@confirm-upload-delete-button')
+                ->pause(250);
 
             // Clean up the file...
             $this->assertFalse(Storage::disk('public')->exists($captain->photo));

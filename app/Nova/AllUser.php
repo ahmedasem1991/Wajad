@@ -3,32 +3,21 @@
 namespace App\Nova;
 
 use App\Corporate;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Avatar;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
-use Bissolli\NovaPhoneField\PhoneNumber;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class AllUser extends Resource
 {
@@ -37,7 +26,7 @@ class AllUser extends Resource
      *
      * @var string
      */
-    public static $model = 'App\User';
+    public static $model = \App\User::class;
 
     /**
      * The logical group associated with the resource.
@@ -45,6 +34,7 @@ class AllUser extends Resource
      * @var string
      */
     public static $group = 'Users Management';
+
     public static $displayInNavigation = false;
 
     /**
@@ -86,7 +76,6 @@ class AllUser extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -115,11 +104,11 @@ class AllUser extends Resource
                 ->placeholder('Select Country')
                 ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required', 'min:9','max:14')
-                ->updateRules('nullable',  'min:9','max:14'),
+                ->creationRules('required', 'min:9', 'max:14')
+                ->updateRules('nullable', 'min:9', 'max:14'),
 
             HasMany::make('Items'),
-            Boolean::make('Active','status')
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
@@ -138,7 +127,7 @@ class AllUser extends Resource
 
             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
 
-            NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
+            NovaBelongsToDepend::make('Corporate', 'corporate', \App\Nova\Corporate::class)
                 ->placeholder('Corporate')
                 ->options(Corporate::all())
                 ->creationRules('required_if:type,2')
@@ -154,7 +143,6 @@ class AllUser extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -167,7 +155,6 @@ class AllUser extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -178,7 +165,6 @@ class AllUser extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -189,7 +175,6 @@ class AllUser extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -201,9 +186,10 @@ class AllUser extends Resource
 
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

@@ -10,10 +10,11 @@ use App\Http\Resources\UserResource;
  */
 class UserDataController extends Controller
 {
-
     /**
      * User Data
+     *
      * @bodyParam token Barier-token required
+     *
      * @response {
      *  "data": {
      *     "id": 2,
@@ -31,6 +32,7 @@ class UserDataController extends Controller
      *"image": "image.png"
      *}
      *}
+     *
      * @return void
      */
     public function __invoke()

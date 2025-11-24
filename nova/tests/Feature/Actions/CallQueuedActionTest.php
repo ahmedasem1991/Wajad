@@ -14,7 +14,7 @@ class CallQueuedActionTest extends IntegrationTest
     {
         factory(User::class, 10)->create();
 
-        $action = new Action();
+        $action = new Action;
         $method = 'handle';
         $fields = new ActionFields(collect(), collect());
 
@@ -32,7 +32,7 @@ class CallQueuedActionTest extends IntegrationTest
 
     public function test_it_can_serialize_and_unserialize_collections()
     {
-        $action = new Action();
+        $action = new Action;
         $method = 'handle';
         $fields = new ActionFields(collect(), collect());
 

@@ -2,15 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Post;
-use App\User;
 use App\Brand;
 use App\City;
 use App\Color;
 use App\Item;
 use App\Model;
-use App\PostImage;
+use App\Post;
 use App\SubCategory;
+use App\User;
 use Illuminate\Console\Command;
 
 class SeedPosts extends Command
@@ -29,13 +28,13 @@ class SeedPosts extends Command
         $citiesIds = City::get()->pluck('id');
         $itemsIds = Item::get()->pluck('id');
         $images = [
-            "images/posts/post1.jpg",
-            "images/posts/post2.jpg",
-            "images/posts/post3.jpg",
-            "images/posts/post4.jpg",
-            "images/posts/post5.jpg",
-            "images/posts/post6.jpg",
-            "images/posts/post7.jpg",
+            'images/posts/post1.jpg',
+            'images/posts/post2.jpg',
+            'images/posts/post3.jpg',
+            'images/posts/post4.jpg',
+            'images/posts/post5.jpg',
+            'images/posts/post6.jpg',
+            'images/posts/post7.jpg',
         ];
 
         $postsCount = $this->ask('Posts Count', 10);
@@ -60,14 +59,14 @@ class SeedPosts extends Command
                 'appearance_status' => 1,
                 'brand_id' => $brandIds->random(),
                 'city_id' => $citiesIds->random(),
-                'reward' => $faker->numberBetween(5, 1000) . 'USD',
-                'images' =>[
-                    "images/posts/post1.jpg",
-                    "images/posts/post2.jpg",
-                    "images/posts/post3.jpg",
-                    "images/posts/post4.jpg",
-                    "images/posts/post5.jpg",
-                ]
+                'reward' => $faker->numberBetween(5, 1000).'USD',
+                'images' => [
+                    'images/posts/post1.jpg',
+                    'images/posts/post2.jpg',
+                    'images/posts/post3.jpg',
+                    'images/posts/post4.jpg',
+                    'images/posts/post5.jpg',
+                ],
             ]);
         }
         $posts = Post::all();
@@ -75,13 +74,13 @@ class SeedPosts extends Command
         foreach ($posts as $post) {
             if ($post->isLost()) {
                 $post->update([
-                    'losted_at' => $faker->dateTime()
+                    'losted_at' => $faker->dateTime(),
                 ]);
             }
 
             if ($post->isFound()) {
                 $post->update([
-                    'founded_at' => $faker->dateTime()
+                    'founded_at' => $faker->dateTime(),
                 ]);
             }
         }
@@ -90,7 +89,7 @@ class SeedPosts extends Command
 
         $posts->each(function ($post) {
             $post->update([
-                'item_id' => Item::where('owner_id', $post->owner_id)->first()->id ?? null
+                'item_id' => Item::where('owner_id', $post->owner_id)->first()->id ?? null,
             ]);
         });
 

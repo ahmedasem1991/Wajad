@@ -146,7 +146,7 @@ class VaporFileFieldTest extends IntegrationTest
         $file->storeAs('tmp', $uuid, 's3');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
 
         $request = NovaRequest::create('/', 'GET', [
@@ -177,7 +177,7 @@ class VaporFileFieldTest extends IntegrationTest
         $file->storeAs('tmp', $uuid, 's3');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->storeAs(function () {
             return 'bar';
@@ -211,7 +211,7 @@ class VaporFileFieldTest extends IntegrationTest
         $file->storeAs('tmp', $uuid, 's3');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->path('foo');
 
@@ -242,7 +242,7 @@ class VaporFileFieldTest extends IntegrationTest
         $file->storeAs('tmp', $uuid, 's3');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->storeAs(function ($request) {
             return $request->input('vaporFile')['avatar']['key'].'.'.$request->input('vaporFile')['avatar']['extension'];
@@ -276,7 +276,7 @@ class VaporFileFieldTest extends IntegrationTest
         $file->storeAs('tmp', $uuid, 's3');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->storeAs(function ($request) {
             return $request->input('vaporFile')['avatar']['filename'];
@@ -309,10 +309,10 @@ class VaporFileFieldTest extends IntegrationTest
         $uuid = Uuid::uuid();
         $file = UploadedFile::fake()->image('wew.jpg');
         $file->storeAs('tmp', $uuid, 's3');
-//        $file->path('foo');
+        //        $file->path('foo');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->path('foo');
         $field->storeAs(function () {
@@ -346,7 +346,7 @@ class VaporFileFieldTest extends IntegrationTest
         $file->storeAs('tmp', $uuid, 's3');
         Storage::disk('s3')->assertExists('tmp/'.$uuid);
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->storeOriginalName('original_name');
 

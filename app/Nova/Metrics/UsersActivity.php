@@ -5,14 +5,12 @@ namespace App\Nova\Metrics;
 use App\ActiveLogin;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Trend;
-use App\User;
 
 class UsersActivity extends Trend
 {
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
@@ -39,7 +37,7 @@ class UsersActivity extends Trend
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

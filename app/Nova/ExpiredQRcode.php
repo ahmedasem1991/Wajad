@@ -2,23 +2,16 @@
 
 namespace App\Nova;
 
-use App\User;
-use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
+use App\Nova\Metrics\QrCodes;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
 class ExpiredQRcode extends Resource
 {
@@ -27,8 +20,10 @@ class ExpiredQRcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = \App\Qrcode::class;
+
     public static $perPageOptions = [50, 100, 150];
+
     /**
      * The logical group associated with the resource.
      *
@@ -75,7 +70,6 @@ class ExpiredQRcode extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -83,24 +77,24 @@ class ExpiredQRcode extends Resource
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Text::make('Unique Reference Number','unique_reference_number')
+            Text::make('Unique Reference Number', 'unique_reference_number')
                 ->hideWhenCreating(),
 
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', \App\Nova\GenerateQrcode::class)
                 ->readonly()
                 ->hideWhenCreating(),
 
-            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
+            BelongsTo::make('Assign Reference Number', 'assignqrcode', \App\Nova\AssignQrcode::class)
                 ->readonly()
                 ->hideWhenCreating(),
 
-            Text::make('Status',function(){
+            Text::make('Status', function () {
                 return $this->statusTitle($this->status);
             }),
 
             Text::make('QR CODE URL', 'qrcode_url', function () {
 
-                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+                return '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
@@ -123,11 +117,11 @@ class ExpiredQRcode extends Resource
                 ->hideWhenCreating()
                 ->readonly(),
 
-            Text::make('Start Date','start_at')
+            Text::make('Start Date', 'start_at')
                 ->hideWhenCreating()
                 ->readonly(),
 
-            DateTime::make('End Date','end_at')
+            DateTime::make('End Date', 'end_at')
                 ->hideWhenCreating(),
         ];
     }
@@ -135,7 +129,6 @@ class ExpiredQRcode extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -148,7 +141,6 @@ class ExpiredQRcode extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -159,7 +151,6 @@ class ExpiredQRcode extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -170,7 +161,6 @@ class ExpiredQRcode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -178,19 +168,22 @@ class ExpiredQRcode extends Resource
         return [];
     }
 
-
-    public static function label() {
+    public static function label()
+    {
         return 'Expired QRCode';
     }
+
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->expired();
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

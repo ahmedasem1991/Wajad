@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateAssignQrcodesTable extends Migration
 {
@@ -19,14 +19,14 @@ class CreateAssignQrcodesTable extends Migration
             $table->integer('assign_to');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('corporate_id')->unsigned()->nullable();
-            $table->integer('type')->default(1);//default  (single)
-            $table->integer('available_period')->default(1);//default 1day
+            $table->integer('type')->default(1); // default  (single)
+            $table->integer('available_period')->default(1); // default 1day
             $table->integer('quantity')->default(1);
             $table->integer('created_by')->nullable();
             $table->string('created_from')->default('web');
-            $table->string('status')->default('waiting');//finished
-           $table->softDeletes();
-$table->timestamps();
+            $table->string('status')->default('waiting'); // finished
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

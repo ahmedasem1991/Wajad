@@ -2,8 +2,8 @@
 
 namespace App\Services\Checkers\QrCodeCheckers;
 
-use App\Services\Filters\Constants\QrcodeConstants;
 use App\Services\Checkers\Contracts\CheckerContract;
+use App\Services\Filters\Constants\QrcodeConstants;
 
 class IsExpired implements CheckerContract, QrcodeConstants
 {

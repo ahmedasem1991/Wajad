@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Item;
 use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 

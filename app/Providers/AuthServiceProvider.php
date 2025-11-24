@@ -2,32 +2,32 @@
 
 namespace App\Providers;
 
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Pktharindu\NovaPermissions\Traits\ValidatesPermissions;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     use ValidatesPermissions;
 
     protected $policies = [
-       // 'App\Activity' => 'App\Policies\ActivityPolicy',
-        'App\Post' => 'App\Policies\PostPolicy',
-        'App\Brand' => 'App\Policies\BrandPolicy',
-        'App\Qrcode' => 'App\Policies\QrcodePolicy',
-        'App\GenerateQrcode' => 'App\Policies\GenerateQrcodePolicy',
-        'App\AssignQrcode' => 'App\Policies\AssignQrcodePolicy',
-        'App\User' => 'App\Policies\UserPolicy',
-        'App\Item' => 'App\Policies\ItemPolicy',
-        'App\Package' => 'App\Policies\PackagePolicy',
-        'App\Subscription' => 'App\Policies\SubscriptionPolicy',
-        'App\Subcategory' => 'App\Policies\SubcategoryPolicy',
-       // 'App\Item' => 'App\Policies\UserItemPolicy',
-       'App\Answer' => 'App\Policies\AnswerPolicy',
-       'App\PostRequest' => 'App\Policies\PostRequestPolicy',
-       'App\Role' => 'App\Policies\RolePolicy',
-       'App\Keyword' => 'App\Policies\KeywordPolicy',
-       'App\Setting' => 'App\Policies\SettingsPolicy',
+        // 'App\Activity' => 'App\Policies\ActivityPolicy',
+        \App\Post::class => \App\Policies\PostPolicy::class,
+        \App\Brand::class => \App\Policies\BrandPolicy::class,
+        \App\Qrcode::class => \App\Policies\QrcodePolicy::class,
+        \App\GenerateQrcode::class => \App\Policies\GenerateQrcodePolicy::class,
+        \App\AssignQrcode::class => \App\Policies\AssignQrcodePolicy::class,
+        \App\User::class => \App\Policies\UserPolicy::class,
+        \App\Item::class => \App\Policies\ItemPolicy::class,
+        \App\Package::class => \App\Policies\PackagePolicy::class,
+        \App\Subscription::class => \App\Policies\SubscriptionPolicy::class,
+        'App\Subcategory' => \App\Policies\SubcategoryPolicy::class,
+        // 'App\Item' => 'App\Policies\UserItemPolicy',
+        \App\Answer::class => \App\Policies\AnswerPolicy::class,
+        \App\PostRequest::class => \App\Policies\PostRequestPolicy::class,
+        \App\Role::class => \App\Policies\RolePolicy::class,
+        \App\Keyword::class => \App\Policies\KeywordPolicy::class,
+        \App\Setting::class => \App\Policies\SettingsPolicy::class,
     ];
 
     /**

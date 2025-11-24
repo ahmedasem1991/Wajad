@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateNotificationsTable extends Migration
 {
@@ -19,8 +19,8 @@ class CreateNotificationsTable extends Migration
             $table->morphs('notifiable');
             $table->text('data');
             $table->timestamp('read_at')->nullable();
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

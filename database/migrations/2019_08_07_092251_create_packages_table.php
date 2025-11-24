@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePackagesTable extends Migration
 {
@@ -27,8 +27,8 @@ class CreatePackagesTable extends Migration
             $table->boolean('is_active')->default(true);
             $table->boolean('incrementally')->default(false);
             $table->integer('max_increments')->default(0);
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

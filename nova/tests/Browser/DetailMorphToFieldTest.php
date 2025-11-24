@@ -26,14 +26,14 @@ class DetailMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post, $comment) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('comments', $comment->id))
-                    ->within(new DetailComponent('comments', $comment->id), function ($browser) use ($post) {
-                        $browser->waitForText('Comment Details', 15)
-                                ->assertSee('Post')
-                                ->clickLink($post->title);
-                    })
-                    ->waitForText('User Post Details: '.$post->id)
-                    ->assertPathIs('/nova/resources/posts/'.$post->id);
+                ->visit(new Detail('comments', $comment->id))
+                ->within(new DetailComponent('comments', $comment->id), function ($browser) use ($post) {
+                    $browser->waitForText('Comment Details', 15)
+                        ->assertSee('Post')
+                        ->clickLink($post->title);
+                })
+                ->waitForText('User Post Details: '.$post->id)
+                ->assertPathIs('/nova/resources/posts/'.$post->id);
 
             $browser->blank();
         });
@@ -51,9 +51,9 @@ class DetailMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('comments', 1))
-                    ->waitForText('Comment Details', 15)
-                    ->assertSee('User Post');
+                ->visit(new Detail('comments', 1))
+                ->waitForText('Comment Details', 15)
+                ->assertSee('User Post');
 
             $browser->blank();
         });
@@ -71,8 +71,8 @@ class DetailMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('comments', 1))
-                    ->assertSee('User Video');
+                ->visit(new Detail('comments', 1))
+                ->assertSee('User Video');
 
             $browser->blank();
         });
@@ -90,11 +90,11 @@ class DetailMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($comment, $link) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('comments', 1))
-                    ->within(new DetailComponent('comments', $comment->id), function ($browser) use ($link) {
-                        $browser->assertSee('Link')
-                                ->assertSee($link->title);
-                    });
+                ->visit(new Detail('comments', 1))
+                ->within(new DetailComponent('comments', $comment->id), function ($browser) use ($link) {
+                    $browser->assertSee('Link')
+                        ->assertSee($link->title);
+                });
 
             $browser->blank();
         });
@@ -114,10 +114,10 @@ class DetailMorphToFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($comment) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('comments', 1))
-                    ->within(new DetailComponent('comments', $comment->id), function ($browser) use ($comment) {
-                        $browser->assertSee('Illuminate\Foundation\Auth\User: '.$comment->commentable->id);
-                    });
+                ->visit(new Detail('comments', 1))
+                ->within(new DetailComponent('comments', $comment->id), function ($browser) use ($comment) {
+                    $browser->assertSee('Illuminate\Foundation\Auth\User: '.$comment->commentable->id);
+                });
 
             $browser->blank();
         });

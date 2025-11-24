@@ -10,7 +10,7 @@ class SmsProvider
     {
         SendMessageJob::dispatch($message, $mobile_number);
 
-        $basic  = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
+        $basic = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
         $client = new \Nexmo\Client($basic);
 
         // $client->message()->send([

@@ -3,36 +3,28 @@
 namespace App\Nova;
 
 use App\Nova\Metrics\LostVsFoundPosts;
-use App\People;
-use Carbon\Carbon;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use NovaButton\Button;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\PostsCount;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
-use App\Nova\Metrics\PostsPeriod;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use NovaErrorField\Errors;
-use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
-use Bissolli\NovaPhoneField\PhoneNumber;
+use App\People;
+use Carbon\Carbon;
 use ClassicO\NovaMediaLibrary\MediaField;
-use App\Services\Filters\ItemFilters\Lost;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Illuminate\Http\Request;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Naif\Toggle\Toggle;
+use NovaButton\Button;
+use NovaErrorField\Errors;
+use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use OwenMelbz\RadioField\RadioButton;
+use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
 
 class OpeningPost extends Resource
 {
@@ -41,7 +33,7 @@ class OpeningPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -93,6 +85,7 @@ class OpeningPost extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
         'color' => ['name_en', 'name_ar'],
         'subcategory' => ['name_en', 'name_ar'],
@@ -111,25 +104,26 @@ class OpeningPost extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
-        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        if($this->status==1)
-        {
-            $Questions=HasMany::make('Questions');
-            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+        $Questions = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if ($this->status == 1) {
+            $Questions = HasMany::make('Questions');
+            $PostRequests = HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
+
         return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Textarea::make('description')->rules('required'),
-            Textarea::make('Internal Note','notes'),
-            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
+            Textarea::make('Internal Note', 'notes'),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request) {
+                return 1;
+            }),
             Toggle::make('Open Status', 'open_status'),
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
@@ -153,8 +147,7 @@ class OpeningPost extends Resource
                 ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
-
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
+            BelongsTo::make('Publisher', 'publisher', \App\Nova\User::class)->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Publisher type', 'publisher_type')
@@ -162,9 +155,9 @@ class OpeningPost extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            Select::make('Post Type','status')->options([
+            Select::make('Post Type', 'status')->options([
                 0 => 'Lost',
-                1 => 'Found'
+                1 => 'Found',
             ])
                 ->displayUsingLabels()
                 ->rules('required'),
@@ -172,7 +165,7 @@ class OpeningPost extends Resource
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">Owner data</p>')->asHtml(),
                 DateTimeField::make('Losted At')->hideFromIndex()
-                    //->dateFormat('YYYY-MM-DD')
+                    // ->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime()
                     ->Rules('required_if:status,0'),
@@ -187,15 +180,15 @@ class OpeningPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -214,7 +207,7 @@ class OpeningPost extends Resource
                 Heading::make('<p class="text-info" style="margin-left:20%">Founder data</p>')->asHtml(),
                 DateTimeField::make(__('Founded at'), 'founded_at')->hideFromIndex()
                     ->Rules('required_if:status,1')
-                    //->dateFormat('YYYY-MM-DD')
+                    // ->dateFormat('YYYY-MM-DD')
                     ->maxDate(Carbon::today())
                     ->withTime(),
 
@@ -228,15 +221,15 @@ class OpeningPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get()),
                 ])
@@ -280,15 +273,15 @@ class OpeningPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -324,15 +317,15 @@ class OpeningPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get()),
                 ])
@@ -364,12 +357,12 @@ class OpeningPost extends Resource
             Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
@@ -379,10 +372,9 @@ class OpeningPost extends Resource
 
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
             $Questions,
-            $PostRequests
+            $PostRequests,
         ];
     }
-
 
     public static function fill(NovaRequest $request, $model)
     {
@@ -394,13 +386,12 @@ class OpeningPost extends Resource
             $request->offsetUnset('founder_releated_to_system');
         }
 
-
         return parent::fill($request, $model);
     }
+
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -408,14 +399,13 @@ class OpeningPost extends Resource
         return [
             new OpenVsClosedPosts,
             new ShowVsHiddenPosts,
-            new LostVsFoundPosts
+            new LostVsFoundPosts,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -426,7 +416,6 @@ class OpeningPost extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -437,27 +426,29 @@ class OpeningPost extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/open.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/open.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->IsOpen()->isApproved()->IsShow();
     }
+
     public static function authorizedToCreate(Request $request)
     {
         return false;
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

@@ -2,31 +2,20 @@
 
 namespace App\Nova;
 
-use App\Corporate;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
-use Bissolli\NovaPhoneField\PhoneNumber;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class SuperAdmin extends Resource
 {
@@ -35,7 +24,7 @@ class SuperAdmin extends Resource
      *
      * @var string
      */
-    public static $model = 'App\User';
+    public static $model = \App\User::class;
 
     /**
      * The logical group associated with the resource.
@@ -50,7 +39,6 @@ class SuperAdmin extends Resource
      * @var string
      */
     public static $title = 'name';
-
 
     /**
      * The columns that should be searched.
@@ -84,7 +72,6 @@ class SuperAdmin extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -94,7 +81,7 @@ class SuperAdmin extends Resource
             ID::make()->sortable(),
 
             MediaField::make('Profile Image', 'image')
-            ->rules('required'),
+                ->rules('required'),
 
             Text::make('Name')
                 ->sortable()
@@ -102,8 +89,8 @@ class SuperAdmin extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->creationRules('required','email','unique:users,email,NULL,id,type,3,deleted_at,NULL')
-                ->updateRules('required','unique:users,email,{{resourceId}},id,type,3,deleted_at,NULL'),
+                ->creationRules('required', 'email', 'unique:users,email,NULL,id,type,3,deleted_at,NULL')
+                ->updateRules('required', 'unique:users,email,{{resourceId}},id,type,3,deleted_at,NULL'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -118,10 +105,10 @@ class SuperAdmin extends Resource
             //     ->creationRules('required','unique:users,mobile_number,NULL,id,type,3,deleted_at,NULL')
             //     ->updateRules('required','unique:users,mobile_number,{{resourceId}},id,type,3,deleted_at,NULL'),
             Number::make('Mobile Number', 'mobile_number')
-            ->creationRules('required')
-            ->updateRules('required'),
+                ->creationRules('required')
+                ->updateRules('required'),
 
-            Boolean::make('Active','status')
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
@@ -136,7 +123,6 @@ class SuperAdmin extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -149,7 +135,6 @@ class SuperAdmin extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -160,7 +145,6 @@ class SuperAdmin extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -171,7 +155,6 @@ class SuperAdmin extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -184,7 +167,6 @@ class SuperAdmin extends Resource
     /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -192,11 +174,13 @@ class SuperAdmin extends Resource
     {
         return $query->SuperAdmin();
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

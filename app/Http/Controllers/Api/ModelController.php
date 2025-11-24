@@ -10,11 +10,12 @@ class ModelController extends Controller
 {
     public function index($brand_id = null)
     {
-        if (!is_null($brand_id)) {
+        if (! is_null($brand_id)) {
             return ModelResource::collection(
                 Model::where('brand_id', $brand_id)->get()
             );
         }
+
         return ModelResource::collection(Model::all());
     }
 

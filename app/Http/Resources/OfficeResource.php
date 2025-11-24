@@ -16,14 +16,14 @@ class OfficeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'details' => $this->{'details_' . app()->getLocale()} ?? '',
-            'address' => $this->{'address_' . app()->getLocale()} ?? '',
+            'name' => $this->{'name_'.app()->getLocale()},
+            'details' => $this->{'details_'.app()->getLocale()} ?? '',
+            'address' => $this->{'address_'.app()->getLocale()} ?? '',
             'location' => $this->location ?? '',
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'status' => (bool) $this->status ?? 0,
-            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'image' => $this->image ? env('APP_URL').'/'.$this->image : '',
         ];
     }
 }

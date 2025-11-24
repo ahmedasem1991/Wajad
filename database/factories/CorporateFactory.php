@@ -1,33 +1,41 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Corporate;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Faker\Generator as Faker;
 
-$factory->define(Corporate::class, function (Faker $faker) {
-    $data = [
-        'unique_id' => 'WJ-' . Str::random(15),
-        'location' => $faker->paragraph(5),
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
-        'status' => 1,
-        'image' => 'images/profile/default-profile.png',
-    ];
+class CorporateFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $data = [
+            'unique_id' => 'WJ-'.Str::random(15),
+            'location' => $this->faker->paragraph(5),
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
+            'status' => 1,
+            'image' => 'images/profile/default-profile.png',
+        ];
 
-    # English Data
-    $data['name_en'] =  $faker->text(20);
-    $data['details_en'] = $faker->paragraph(15);
-    $data['address_en'] = $faker->paragraph(15);
+        // English Data
+        $data['name_en'] = $this->faker->text(20);
+        $data['details_en'] = $this->faker->paragraph(15);
+        $data['address_en'] = $this->faker->paragraph(15);
 
-    # Arabic Data
-    $data['details_ar'] = $faker->text();
-    $data['address_ar'] = $faker->text(100);
+        // Arabic Data
+        $data['details_ar'] = $this->faker->text();
+        $data['address_ar'] = $this->faker->text(100);
 
-    $faker = \Faker\Factory::create('ar_JO');
+        $faker = \Faker\Factory::create('ar_JO');
 
-    $data['name_ar'] = $faker->company;
+        $data['name_ar'] = $this->faker->company;
 
-    return $data;
-});
+        return $data;
+    }
+}

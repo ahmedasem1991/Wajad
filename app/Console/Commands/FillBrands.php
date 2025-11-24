@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Brand;
 use App\Category;
-use App\SubCategory;
 use Illuminate\Console\Command;
 
 class FillBrands extends Command
@@ -289,15 +288,13 @@ class FillBrands extends Command
             ['name_en' => 'TRUE', 'name_ar' => 'ترو'],
         ];
         $category = Category::find(1);
-        foreach ($data as $item){
+        foreach ($data as $item) {
             $brand = Brand::create($item);
 
-            foreach ($category->subcategories as $subcategory){
+            foreach ($category->subcategories as $subcategory) {
                 $subcategory->brands()->attach($brand);
             }
         }
-
-
 
         $this->info('|----------------------------------|');
         $this->info('| Seeding Electronics Done Successfully |');

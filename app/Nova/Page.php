@@ -2,13 +2,10 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
-use Mpdf\Tag\TextArea as TagTextArea;
 use NovaErrorField\Errors;
 
 class Page extends Resource
@@ -18,7 +15,7 @@ class Page extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Page';
+    public static $model = \App\Page::class;
 
     /**
      * The logical group associated with the resource.
@@ -49,6 +46,7 @@ class Page extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static function availableForNavigation(Request $request)
     {
         return (Auth()->User()->hasPermissionTo('pages')) ? true : false;
@@ -57,7 +55,6 @@ class Page extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -66,20 +63,20 @@ class Page extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('key')->creationRules([
-                'required', 'min:3', 'unique:pages,key'
+                'required', 'min:3', 'unique:pages,key',
             ])->readonly(),
 
             Text::make('Title En')->rules([
-                'required', 'min:3'
+                'required', 'min:3',
             ]),
             Text::make('Title Ar')->rules([
-                'required', 'min:3'
+                'required', 'min:3',
             ]),
             TextArea::make('Body En')->rules([
-                'required', 'min:3'
+                'required', 'min:3',
             ]),
             TextArea::make('Body Ar')->rules([
-                'required', 'min:3'
+                'required', 'min:3',
             ]),
         ];
     }
@@ -87,7 +84,6 @@ class Page extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -98,7 +94,6 @@ class Page extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -109,7 +104,6 @@ class Page extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -120,27 +114,29 @@ class Page extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/settings.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/settings.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function authorizedToCreate(Request $request)
     {
         return false;
     }
-    public  function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

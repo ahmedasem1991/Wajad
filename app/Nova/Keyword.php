@@ -2,11 +2,10 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Keyword extends Resource
 {
@@ -15,7 +14,7 @@ class Keyword extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Keyword';
+    public static $model = \App\Keyword::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -30,7 +29,7 @@ class Keyword extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'keyword','searches'
+        'id', 'keyword', 'searches',
     ];
 
     public static $group = 'Resources';
@@ -43,7 +42,6 @@ class Keyword extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -58,7 +56,6 @@ class Keyword extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -73,7 +70,6 @@ class Keyword extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -84,7 +80,6 @@ class Keyword extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -95,7 +90,6 @@ class Keyword extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -105,9 +99,10 @@ class Keyword extends Resource
 
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Item;
-use Exception;
-use App\Qrcode;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Item;
 use App\Notifications\SendFCMNotification;
+use App\Qrcode;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @group QR Codes
@@ -20,15 +17,19 @@ class RegisterQRCodeController extends Controller
 {
     /**
      * Register QR Code
+     *
      * @urlParam qrcode_id required int exists in qrcodes
      * @urlParam item_id required int exists in items
+     *
      * @bodyParam token Barier-token required
+     *
      * @response
      * {
      * "success": true,
      * "message": "qrcode registered successfully.",
      * "status_code": 200
      *}
+     *
      * @return void
      */
     public function __invoke(Request $request)
@@ -44,7 +45,7 @@ class RegisterQRCodeController extends Controller
 
         $item = Item::where('id', $request->item_id)->Where('owner_id', auth('api')->user()->id)->first();
 
-        if (!$item) {
+        if (! $item) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 400);
         }
 
@@ -54,7 +55,7 @@ class RegisterQRCodeController extends Controller
             ->Where('status', 2)
             ->first();
 
-        if (!$qr_code) {
+        if (! $qr_code) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 
@@ -63,11 +64,10 @@ class RegisterQRCodeController extends Controller
         $this->addResponse(trans('messages.registered', ['model' => trans('messages.attributes.qrcode')]))->addStatusCode(201);
 
         // Send FCM
-        $badge =getBadge(auth('api')->user());
-        $data=sendAssignQRCodeFCM($item,$badge);
-        auth('api')->user()->notify(new SendFCMNotification( auth('api')->user(),$data));
+        $badge = getBadge(auth('api')->user());
+        $data = sendAssignQRCodeFCM($item, $badge);
+        auth('api')->user()->notify(new SendFCMNotification(auth('api')->user(), $data));
 
-                   
         return $this->response();
     }
 }

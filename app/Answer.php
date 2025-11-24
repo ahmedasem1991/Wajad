@@ -8,18 +8,20 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Answer extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use LogsActivity, SoftDeletes;
+
     protected $fillable = ['user_id', 'answers', 'question_id', 'post_request_id'];
+
     protected static $logAttributes = [
-        'user.name', 'answers', 'question.question', 'post_request_id'
+        'user.name', 'answers', 'question.question', 'post_request_id',
     ];
+
     protected static $logOnlyDirty = true;
 
     public function question()
     {
         return $this->belongsTo(Question::class);
     }
-
 
     public function user()
     {

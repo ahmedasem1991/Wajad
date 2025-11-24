@@ -14,11 +14,11 @@ class CategoryResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'description' => $this->{'description_' . app()->getLocale()} ?? '',
-            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'name' => $this->{'name_'.app()->getLocale()},
+            'description' => $this->{'description_'.app()->getLocale()} ?? '',
+            'image' => $this->image ? env('APP_URL').'/'.$this->image : '',
             'item_coount' => $this->item_count ?? 0,
-            'subCategories' => SubCategoryResource::collection($this->whenLoaded('subcategories'))
+            'subCategories' => SubCategoryResource::collection($this->whenLoaded('subcategories')),
         ];
     }
 }

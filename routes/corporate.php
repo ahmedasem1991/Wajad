@@ -1,10 +1,9 @@
 <?php
+
+use App\Http\Controllers\HomeController;
 use App\Item;
-use App\User;
-use App\Region;
 use App\Package;
-use App\Settings;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,29 +16,26 @@ use Illuminate\Support\Str;
 |
 */
 
- 
 /*
 Route::get('{slug}/{param?}', '\Remipou\NovaPageManager\PageController@page')
-	->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
-	->name('page-manager');
+    ->where('slug', '^((?!' . trim(config('nova.path'), '/') . '|nova-).)*$')
+    ->name('page-manager');
 */
 
 Auth::routes();
-Route::get('/', function(){
-	return 'welcome';
+Route::get('/', function () {
+    return 'welcome';
 });
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', function(){
-	// return htmlspecialchars(Item::where('id', 100)->first());
-	// $nexmo = app('Nexmo\Client');
-	// $nexmo->message()->send([
-	// 	'to'   => '201095781611',
-	// 	'from' => 'nexmo',
-	// 	'text' => 'Using the facade to send a message.'
-	// ]);
-	//getimagesize('');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/test', function () {
+    // return htmlspecialchars(Item::where('id', 100)->first());
+    // $nexmo = app('Nexmo\Client');
+    // $nexmo->message()->send([
+    // 	'to'   => '201095781611',
+    // 	'from' => 'nexmo',
+    // 	'text' => 'Using the facade to send a message.'
+    // ]);
+    // getimagesize('');
 
-	return Package::packagesPeriod();
+    return Package::packagesPeriod();
 });
-
- 

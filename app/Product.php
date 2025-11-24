@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+
 class Product extends Model
 {
     use LogsActivity,SoftDeletes;
@@ -15,6 +16,7 @@ class Product extends Model
         'description_en',
         'description_ar',
     ];
+
     protected static $logOnlyDirty = true;
 
     protected $guarded = [];

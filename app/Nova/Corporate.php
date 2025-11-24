@@ -2,26 +2,19 @@
 
 namespace App\Nova;
 
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Number;
-use Naif\MapAddress\MapAddress;
 use App\Nova\Metrics\Corporates;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsToMany;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Spatie\NovaTranslatable\Translatable;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Corporate extends Resource
@@ -31,8 +24,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Corporate';
-
+    public static $model = \App\Corporate::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -76,7 +68,6 @@ class Corporate extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -107,16 +98,16 @@ class Corporate extends Resource
                 ->placeholder('Select Country')
                 ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required','unique:corporates,mobile_number')
-                ->updateRules('required','unique:corporates,mobile_number,{{resourceId}}'),
-                Textarea::make('Corporate English Details', 'details_en')
+                ->creationRules('required', 'unique:corporates,mobile_number')
+                ->updateRules('required', 'unique:corporates,mobile_number,{{resourceId}}'),
+            Textarea::make('Corporate English Details', 'details_en')
                 ->rules(
                     'required',
                     'string',
                     'max:255',
                     'min:2'
                 ),
-                Textarea::make('Corporate Arabic Details', 'details_ar')
+            Textarea::make('Corporate Arabic Details', 'details_ar')
                 ->rules(
                     'required',
                     'string',
@@ -141,9 +132,9 @@ class Corporate extends Resource
                 'required'
             ),
 
-            DateTime::make('Availabe End Date','end_date'),
-            HasMany::make('Corporate Admins', 'users','\App\Nova\CorporateAdmin'),
-            Boolean::make('Active','status')
+            DateTime::make('Availabe End Date', 'end_date'),
+            HasMany::make('Corporate Admins', 'users', \App\Nova\CorporateAdmin::class),
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
@@ -152,29 +143,27 @@ class Corporate extends Resource
                 ->setAttributes('latitude', 'longitude')
                 ->hideFromIndex()
                 ->hideFromDetail(),
-            HasMany::make('Posts','posts','App\Nova\AllPost'),
+            HasMany::make('Posts', 'posts', 'App\Nova\AllPost'),
             HasMany::make('Subscriptions'),
-            HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
+            HasMany::make('QR Codes', 'qrcodes', \App\Nova\Qrcode::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Corporates()
+            new Corporates,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -185,7 +174,6 @@ class Corporate extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -196,18 +184,19 @@ class Corporate extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

@@ -21,7 +21,8 @@ trait ProvidesActionFields
                     'World',
                 ]),
 
-            new class('Callback', 'callback') extends Text {
+            new class('Callback', 'callback') extends Text
+            {
                 public function fill(NovaRequest $request, $model)
                 {
                     return function () {

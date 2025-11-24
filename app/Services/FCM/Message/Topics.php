@@ -2,8 +2,8 @@
 
 namespace App\Services\FCM\Message;
 
-use Closure;
 use App\Services\FCM\Message\Exceptions\NoTopicProvidedException;
+use Closure;
 
 /**
  * Class Topics.
@@ -22,8 +22,7 @@ class Topics
     /**
      * Add a topic, this method should be called before any conditional topic.
      *
-     * @param string $first topicName
-     *
+     * @param  string  $first  topicName
      * @return $this
      */
     public function topic($first)
@@ -58,8 +57,7 @@ class Topics
      *
      * > Note: Only two operators per expression are supported by fcm
      *
-     * @param string|Closure $first topicName or closure
-     *
+     * @param  string|Closure  $first  topicName or closure
      * @return Topics
      */
     public function orTopic($first)
@@ -92,8 +90,7 @@ class Topics
      *
      * > Note: Only two operators per expression are supported by fcm
      *
-     * @param string|Closure $first topicName or closure
-     *
+     * @param  string|Closure  $first  topicName or closure
      * @return Topics
      */
     public function andTopic($first)
@@ -103,9 +100,6 @@ class Topics
 
     /**
      * @internal
-     *
-     * @param $first
-     * @param $condition
      *
      * @return $this|Topics
      */
@@ -123,14 +117,11 @@ class Topics
     /**
      * @internal
      *
-     * @param Closure $callback
-     * @param         $condition
-     *
      * @return $this
      */
     public function nest(Closure $callback, $condition)
     {
-        $topic = new static();
+        $topic = new static;
 
         $callback($topic);
         if (count($topic->conditions)) {
@@ -168,8 +159,6 @@ class Topics
 
     /**
      * @internal
-     *
-     * @param $conditions
      *
      * @return string
      */
@@ -219,7 +208,7 @@ class Topics
      */
     private function checkIfOneTopicExist()
     {
-        if (!count($this->conditions)) {
+        if (! count($this->conditions)) {
             throw new NoTopicProvidedException('At least one topic must be provided');
         }
     }

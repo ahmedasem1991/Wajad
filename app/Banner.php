@@ -2,11 +2,9 @@
 
 namespace App;
 
-use App\Item;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -17,7 +15,7 @@ class Banner extends Model implements Sortable
 
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date'   => 'datetime'
+        'end_date' => 'datetime',
     ];
 
     public $sortable = [
@@ -36,7 +34,9 @@ class Banner extends Model implements Sortable
         'end_date',
         'clicks',
     ];
+
     protected static $logOnlyDirty = true;
+
     public function visits()
     {
         return $this->morphOne(Visit::class, 'visitable');

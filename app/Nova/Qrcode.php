@@ -2,22 +2,15 @@
 
 namespace App\Nova;
 
-use App\User;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Boolean;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Text;
+use NovaErrorField\Errors;
 
 class Qrcode extends Resource
 {
@@ -26,8 +19,10 @@ class Qrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = \App\Qrcode::class;
+
     public static $perPageOptions = [50, 100, 150];
+
     /**
      * The logical group associated with the resource.
      *
@@ -70,12 +65,12 @@ class Qrcode extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -87,10 +82,10 @@ class Qrcode extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', 'App\Nova\GenerateQrcode')
+            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', \App\Nova\GenerateQrcode::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
+            BelongsTo::make('Assign Reference Number', 'assignqrcode', \App\Nova\AssignQrcode::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Status', function () {
@@ -98,7 +93,7 @@ class Qrcode extends Resource
             }),
 
             Text::make('QR CODE URL', 'qrcode_url', function () {
-                return  '<a target="_blank" href=' . $this->qrcode_url . '>URL</a>';
+                return '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
@@ -112,14 +107,13 @@ class Qrcode extends Resource
                 ->deletable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-                HasMany::make('Qrcodelog'),
+            HasMany::make('Qrcodelog'),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -132,7 +126,6 @@ class Qrcode extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -143,7 +136,6 @@ class Qrcode extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -154,14 +146,12 @@ class Qrcode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
-
 
     public static function label()
     {
@@ -170,9 +160,10 @@ class Qrcode extends Resource
 
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

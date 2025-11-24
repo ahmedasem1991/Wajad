@@ -2,23 +2,16 @@
 
 namespace App\Nova;
 
-use App\Nova\Category;
-use App\Nova\Resource;
+use App\Nova\Metrics\Brands;
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use App\Nova\Metrics\Brands;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Brand extends Resource
 {
@@ -27,7 +20,8 @@ class Brand extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Brand';
+    public static $model = \App\Brand::class;
+
     public static $group = 'Categories';
 
     /**
@@ -57,7 +51,6 @@ class Brand extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -66,10 +59,10 @@ class Brand extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Brand English Name', 'name_en')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Text::make('Brand Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Textarea::make('Brand English Body', 'description_en'),
             Textarea::make('Brand Arabic Body', 'description_ar'),
@@ -87,20 +80,18 @@ class Brand extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Brands()
+            new Brands,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -111,7 +102,6 @@ class Brand extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -122,19 +112,19 @@ class Brand extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/brand.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/brand.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
