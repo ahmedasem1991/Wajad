@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\PDFController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\UpdatePasswordController;
 use App\AssignQrcode;
 use App\Brand;
 use App\Corporate;
 use App\Events\SendFCMEvent;
-// use Throwable;
 use App\Events\TestEvent;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PDFController;
+// use Throwable;
+use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\PostResource;
 use App\Item;
@@ -564,7 +564,7 @@ Route::get('/quicksession', function () {
     $token = $response['session']['token'];
     session(['token' => $token]);
 
-    return  $token;
+    return $token;
 
 });
 
@@ -583,7 +583,7 @@ Route::get('/quickgetusers', function () {
     );
     $response = json_decode($response->getBody(), true);
 
-    return  $response;
+    return $response;
 });
 
 Route::get('/quickcreateuser', function () {
@@ -659,7 +659,7 @@ Route::get('/quicklogin', function () {
     );
     $response = json_decode($response->getBody(), true);
 
-    return  $response;
+    return $response;
 
 });
 

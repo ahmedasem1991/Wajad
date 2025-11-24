@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Api\ResponseTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -12,7 +12,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Post extends MasterModel
 {
     use HasFactory;
-
     use LogsActivity, ResponseTrait, SoftDeletes;
 
     protected $fillable = [

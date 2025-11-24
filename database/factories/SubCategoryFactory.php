@@ -1,11 +1,8 @@
 <?php
 
-
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\SubCategory;
 
 class SubCategoryFactory extends Factory
 {

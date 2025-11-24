@@ -2,16 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Http\Request;
-use Illuminate\Cache\RateLimiting\Limit;
 use App\Exceptions\Api\ApiException;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-
     protected $api_namespace = 'App\Http\Controllers\Api';
 
     protected $corporate_namespace = 'App\Http\Controllers\Corporate';
@@ -29,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
 
             //
         });
-Route::bind('qr_code', function ($qr_code) {
+        Route::bind('qr_code', function ($qr_code) {
             $qr_code = \App\Qrcode::where('qrcode_url', $qr_code)->first();
             if (! $qr_code) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
@@ -53,8 +52,8 @@ Route::bind('qr_code', function ($qr_code) {
             }
 
             return $item;
-        });    }
-
+        });
+    }
 
     protected function mapWebRoutes()
     {

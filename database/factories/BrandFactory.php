@@ -1,12 +1,9 @@
 <?php
 
-
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Brand;
 use App\SubCategory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BrandFactory extends Factory
 {

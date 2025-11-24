@@ -10,7 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Page extends Model
 {
     use HasFactory;
-
     use LogsActivity, SoftDeletes;
 
     protected $fillable = [

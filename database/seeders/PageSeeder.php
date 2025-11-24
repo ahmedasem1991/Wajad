@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Page;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PageSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class PageSeeder extends Seeder
             'contact-us',
         ];
 
-        \DB::table('pages')->truncate();
+        DB::table('pages')->truncate();
 
         foreach ($pages as $page) {
             Page::create([

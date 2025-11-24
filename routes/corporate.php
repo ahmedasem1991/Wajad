@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
 use App\Item;
 use App\Package;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

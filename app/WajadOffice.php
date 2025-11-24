@@ -10,7 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class WajadOffice extends Model
 {
     use HasFactory;
-
     use LogsActivity,SoftDeletes;
 
     protected static $logAttributes = [

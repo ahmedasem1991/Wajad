@@ -10,7 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Color extends MasterModel
 {
     use HasFactory;
-
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'icon'];
