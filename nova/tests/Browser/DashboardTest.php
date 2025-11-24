@@ -18,8 +18,8 @@ class DashboardTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Dashboard())
-                    ->assertSee('Get Started');
+                ->visit(new Dashboard)
+                ->assertSee('Get Started');
 
             $browser->blank();
         });
@@ -34,9 +34,9 @@ class DashboardTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Dashboard('foobar'))
-                    ->waitForText('404', 15)
-                    ->assertPathIs('/nova/404');
+                ->visit(new Dashboard('foobar'))
+                ->waitForText('404', 15)
+                ->assertPathIs('/nova/404');
 
             $browser->blank();
         });

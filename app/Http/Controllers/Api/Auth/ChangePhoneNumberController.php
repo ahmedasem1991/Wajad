@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Exceptions\Api\ApiException;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Validator;
@@ -15,9 +14,11 @@ class ChangePhoneNumberController extends Controller
 {
     /**
      * Change Phone Number
+     *
      * @bodyParam mobile_number numeric required digits_between:9,14 unique:user ignore:user-id
      * @bodyParam mobile_country_id numeric exists:countries,id
      * @bodyParam token Barier-token required
+     *
      * @response {
      *  "success": true,
      *  "message": "Verification code sent.",
@@ -29,12 +30,12 @@ class ChangePhoneNumberController extends Controller
         $user = auth('api')->user();
 
         request()->merge([
-            'mobile_number' => ltrim((string) request('mobile_number'), 0)
+            'mobile_number' => ltrim((string) request('mobile_number'), 0),
         ]);
 
         $validate_request = Validator::make(request()->all(), [
             'mobile_number' => ['required', 'numeric', 'digits_between:9,14', 'unique:users,mobile_number,NULL,id,deleted_at,NULL'],
-            
+
             'mobile_country_id' => ['required', 'int', 'exists:countries,id'],
         ]);
 
@@ -42,16 +43,15 @@ class ChangePhoneNumberController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-
         // session()->put('v_mobile_number', request('mobile_number'));
         // session()->put('v_mobile_country_id',request('mobile_country_id'));
-      
+
         $user->update([
             'v_mobile_number' => request('mobile_number'),
             'v_mobile_country_id' => request('mobile_country_id'),
-            'is_mobile_number_verified' => false
+            'is_mobile_number_verified' => false,
         ]);
-       // dd( $user->v_mobile_country_id);
+        // dd( $user->v_mobile_country_id);
 
         if ((new UserService)->createAndSendActivationCodeForUpdateMobile($user)) {
             $this->addResponse(trans('auth.verification_code_sent'))->addStatusCode(200);

@@ -25,5 +25,6 @@ class Page extends Model
         'title_ar',
         'body_ar',
     ];
+
     protected static $logOnlyDirty = true;
 }

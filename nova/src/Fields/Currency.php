@@ -99,9 +99,8 @@ class Currency extends Number
     /**
      * Convert the value to a Money instance.
      *
-     * @param mixed $value
-     * @param null|string $currency
-     *
+     * @param  mixed  $value
+     * @param  null|string  $currency
      * @return \Brick\Money\Money
      */
     public function toMoneyInstance($value, $currency = null)
@@ -120,7 +119,6 @@ class Currency extends Number
      * @param  mixed  $value
      * @param  null|string  $currency
      * @param  null|string  $locale
-     *
      * @return string
      */
     public function formatMoney($value, $currency = null, $locale = null)
@@ -214,7 +212,6 @@ class Currency extends Number
     /**
      * Set the context used to create the Money instance.
      *
-     * @param Context $context
      * @return $this
      */
     public function context(Context $context)
@@ -227,7 +224,7 @@ class Currency extends Number
     /**
      * Check value for null value.
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return bool
      */
     protected function isNullValue($value)

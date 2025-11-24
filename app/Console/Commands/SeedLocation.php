@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Settings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-
 
 class SeedLocation extends Command
 {

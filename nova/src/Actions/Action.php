@@ -19,7 +19,7 @@ use ReflectionClass;
 
 class Action implements JsonSerializable
 {
-    use Metable, AuthorizedToSee, ProxiesCanSeeToGate, Makeable;
+    use AuthorizedToSee, Makeable, Metable, ProxiesCanSeeToGate;
 
     /**
      * The displayable name of the action.
@@ -143,7 +143,6 @@ class Action implements JsonSerializable
     /**
      * Determine if the action is executable for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return bool
      */
@@ -238,8 +237,8 @@ class Action implements JsonSerializable
     /**
      * Execute the action for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
      * @return mixed
+     *
      * @throws MissingActionHandlerException
      */
     public function handleRequest(ActionRequest $request)
@@ -288,9 +287,7 @@ class Action implements JsonSerializable
     /**
      * Handle chunk results.
      *
-     * @param  \Laravel\Nova\Fields\ActionFields  $fields
      * @param  array  $results
-     *
      * @return mixed
      */
     public function handleResult(ActionFields $fields, $results)
@@ -485,7 +482,6 @@ class Action implements JsonSerializable
     /**
      * Set the callback to be run to authorize running the action.
      *
-     * @param  \Closure  $callback
      * @return $this
      */
     public function canRun(Closure $callback)
@@ -700,6 +696,7 @@ class Action implements JsonSerializable
      * Prepare the instance for serialization.
      *
      * @return array
+     *
      * @throws \ReflectionException
      */
     public function __sleep()

@@ -2,8 +2,8 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 
@@ -34,15 +34,14 @@ class Visit extends Resource
 
     public static $group = 'Resources';
 
-
     public static function availableForNavigation(Request $request)
     {
         return (Auth()->User()->hasPermissionTo('visits')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -53,14 +52,13 @@ class Visit extends Resource
                 AllPost::class,
                 Banner::class,
             ])->readonly(),
-            Text::make('Visits')->sortable()->readonly()
+            Text::make('Visits')->sortable()->readonly(),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -71,7 +69,6 @@ class Visit extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -82,7 +79,6 @@ class Visit extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -93,7 +89,6 @@ class Visit extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -105,19 +100,23 @@ class Visit extends Resource
     {
         return false;
     }
-    public  function authorizedToUpdate(Request $request)
+
+    public function authorizedToUpdate(Request $request)
     {
         return false;
     }
-    public  function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/analytics.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/analytics.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

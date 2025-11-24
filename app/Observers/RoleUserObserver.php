@@ -3,15 +3,14 @@
 namespace App\Observers;
 
 use App\Role;
-use App\User;
 use App\RoleUser;
+use App\User;
 
 class RoleUserObserver
 {
     /**
      * Handle the role user "created" event.
      *
-     * @param  \App\RoleUser  $roleUser
      * @return void
      */
     public function created(RoleUser $roleUser)
@@ -22,18 +21,18 @@ class RoleUserObserver
     public function saving(RoleUser $roleUser)
     {
         logger('saving test role user');
-        $user=User::find($roleUser->user_id);
-        $role=Role::find($roleUser->role_id);
-        $user->max_posts_number=$role->limitation_of_posts;
+        $user = User::find($roleUser->user_id);
+        $role = Role::find($roleUser->role_id);
+        $user->max_posts_number = $role->limitation_of_posts;
         $user->save();
     }
 
     public function saved(RoleUser $roleUser)
     {
         logger('test role user');
-        $user=User::find($roleUser->user_id);
-        $role=Role::find($roleUser->role_id);
-        $user->max_posts_number=$role->limitation_of_posts;
+        $user = User::find($roleUser->user_id);
+        $role = Role::find($roleUser->role_id);
+        $user->max_posts_number = $role->limitation_of_posts;
         $user->save();
 
     }
@@ -41,7 +40,6 @@ class RoleUserObserver
     /**
      * Handle the role user "updated" event.
      *
-     * @param  \App\RoleUser  $roleUser
      * @return void
      */
     public function updated(RoleUser $roleUser)
@@ -52,7 +50,6 @@ class RoleUserObserver
     /**
      * Handle the role user "deleted" event.
      *
-     * @param  \App\RoleUser  $roleUser
      * @return void
      */
     public function deleted(RoleUser $roleUser)
@@ -63,7 +60,6 @@ class RoleUserObserver
     /**
      * Handle the role user "restored" event.
      *
-     * @param  \App\RoleUser  $roleUser
      * @return void
      */
     public function restored(RoleUser $roleUser)
@@ -74,7 +70,6 @@ class RoleUserObserver
     /**
      * Handle the role user "force deleted" event.
      *
-     * @param  \App\RoleUser  $roleUser
      * @return void
      */
     public function forceDeleted(RoleUser $roleUser)

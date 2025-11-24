@@ -2,20 +2,15 @@
 
 namespace App\Nova;
 
-use App\Nova\User;
-use App\SubCategory;
 use App\Nova\Metrics\Items;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\HasOne;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -61,18 +56,18 @@ class Item extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
         'owner' => ['name', 'email', 'mobile_number'],
-        'brand' => [ 'name_en', 'name_ar'],
-        'subcategory' => [ 'name_en', 'name_ar'],
-        'model' => [ 'name_en', 'name_ar'],
-        'color' => [ 'name_en', 'name_ar'],
+        'brand' => ['name_en', 'name_ar'],
+        'subcategory' => ['name_en', 'name_ar'],
+        'model' => ['name_en', 'name_ar'],
+        'color' => ['name_en', 'name_ar'],
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -81,10 +76,10 @@ class Item extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->rules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Textarea::make('Details')->rules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
 
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
@@ -92,7 +87,7 @@ class Item extends Resource
                 ->options(\App\SubCategory::with('brands')->get())
                 ->rules('required'),
 
-            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
@@ -115,10 +110,10 @@ class Item extends Resource
                 ->rules('required')
                 ->showAsLink(User::class)
                 ->configuration([
-                    'placeholder'             => __('Choose an option'),
-                    'allowClear'              => true,
+                    'placeholder' => __('Choose an option'),
+                    'allowClear' => true,
                     'minimumResultsForSearch' => 1,
-                    'multiple'                => false,
+                    'multiple' => false,
                 ]),
             NovaBelongsToDepend::make('Color')
                 ->placeholder('Color')
@@ -136,20 +131,18 @@ class Item extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Items()
+            new Items,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -160,7 +153,6 @@ class Item extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -171,18 +163,19 @@ class Item extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/sales.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

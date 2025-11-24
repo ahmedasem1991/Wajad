@@ -2,20 +2,18 @@
 
 namespace App\Services;
 
-use App\Item;
-use App\Qrcode;
-use Illuminate\Support\Str;
-use App\Events\SendFCMEvent;
 use App\Exceptions\Api\ApiException;
-use Illuminate\Support\Facades\Validator;
+use App\Item;
 use App\Notifications\SendFCMNotification;
-use App\Services\Filters\QRCodeFilters\FindWhere;
+use App\Qrcode;
 use App\Services\Checkers\QrCodeCheckers\IsExpired;
-use App\Services\Filters\QRCodeFilters\FindWhereId;
-use Intervention\Image\ImageManagerStatic as Image;
-use App\Services\Filters\QRCodeFilters\AssignedToUser;
 use App\Services\Checkers\QrCodeCheckers\IsSingleAssign;
 use App\Services\Filters\QRCodeFilters\AssignedToSpecificUser;
+use App\Services\Filters\QRCodeFilters\AssignedToUser;
+use App\Services\Filters\QRCodeFilters\FindWhereId;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ItemService
 {
@@ -36,7 +34,7 @@ class ItemService
                 'brand_id',
                 'color_id',
                 'sub_category_id',
-                'owner_id'
+                'owner_id',
             ])
         );
 
@@ -44,11 +42,11 @@ class ItemService
 
             $qr_code = Qrcode::withFilters(
                 new FindWhereId($request->qrcode_id),
-                new AssignedToSpecificUser//,
-               // new AssignedToUser
+                new AssignedToSpecificUser// ,
+                // new AssignedToUser
             )->first();
 
-            if (!$qr_code) {
+            if (! $qr_code) {
                 throw new ApiException(
                     trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]),
                     400
@@ -70,16 +68,15 @@ class ItemService
 
         if ($request->has('images') && count($request->images) > 0) {
             $item->fill([
-                'images' => $this->uploadImages($request->images)
+                'images' => $this->uploadImages($request->images),
             ]);
         }
 
         $item->save();
         // Send FCM
-        $badge =getBadge($item->owner);
-        $data=sendCreateItemFCM($item,$badge);
-        $item->owner->notify(new SendFCMNotification($item->owner,$data));
-
+        $badge = getBadge($item->owner);
+        $data = sendCreateItemFCM($item, $badge);
+        $item->owner->notify(new SendFCMNotification($item->owner, $data));
 
     }
 
@@ -100,11 +97,11 @@ class ItemService
         if ($request->has('qrcode_id') && $request->qrcode_id !== '' && $request->qrcode_id != null) {
             $qr_code = Qrcode::withFilters(
                 new FindWhereId($request->qrcode_id),
-                new AssignedToSpecificUser//,
-              //  new AssignedToUser
+                new AssignedToSpecificUser// ,
+                //  new AssignedToUser
             )->first();
 
-            if (!$qr_code) {
+            if (! $qr_code) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
             }
 
@@ -114,14 +111,14 @@ class ItemService
         if ($request->has('images') && count($request->images) > 0) {
 
             $item->fill([
-                'images' => $this->uploadImages($request->images)
+                'images' => $this->uploadImages($request->images),
             ]);
 
             $item->save();
             // Send FCM
-            $badge =getBadge($item->owner);
-            $data=sendUpdateItemFCM($item,$badge);
-            $item->owner->notify(new SendFCMNotification($item->owner,$data));
+            $badge = getBadge($item->owner);
+            $data = sendUpdateItemFCM($item, $badge);
+            $item->owner->notify(new SendFCMNotification($item->owner, $data));
 
         }
     }
@@ -149,16 +146,17 @@ class ItemService
     {
         $item_images = [];
         foreach ($images as $image) {
-            if (preg_match("/^data:image/", $image)) {
-                $image_name = Str::random(15) . '.' . 'png';
-                $path = public_path('/images//' . $image_name);
+            if (preg_match('/^data:image/', $image)) {
+                $image_name = Str::random(15).'.'.'png';
+                $path = public_path('/images//'.$image_name);
                 Image::make(file_get_contents($image))->save($path);
-                array_push($item_images, '/images//' . $image_name);
+                array_push($item_images, '/images//'.$image_name);
             }
-            if (!preg_match("/^data:image/", $image)) {
+            if (! preg_match('/^data:image/', $image)) {
                 array_push($item_images, $image);
             }
         }
+
         return $item_images;
     }
 }

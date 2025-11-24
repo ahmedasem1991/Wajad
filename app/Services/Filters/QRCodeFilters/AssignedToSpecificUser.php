@@ -2,9 +2,9 @@
 
 namespace App\Services\Filters\QRCodeFilters;
 
-use Illuminate\Database\Eloquent\Builder;
-use App\Services\Filters\Contracts\FilterContract;
 use App\Services\Filters\Constants\QrcodeConstants;
+use App\Services\Filters\Contracts\FilterContract;
+use Illuminate\Database\Eloquent\Builder;
 
 class AssignedToSpecificUser implements FilterContract, QrcodeConstants
 {
@@ -18,7 +18,7 @@ class AssignedToSpecificUser implements FilterContract, QrcodeConstants
     /**
      * Construct Assigned To Specific User
      *
-     * @param int|null $user_id default will be auth('api')->user()->id
+     * @param  int|null  $user_id  default will be auth('api')->user()->id
      */
     public function __construct($user_id = null)
     {

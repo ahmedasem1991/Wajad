@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Helpers\Traits;
 
 use Intervention\Image\Facades\Image;

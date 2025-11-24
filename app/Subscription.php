@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Subscription extends Model
 {
     use SoftDeletes;
+
     protected $table = 'package_user';
 
     protected $fillable = [
-        'user_id','package_id','corporate_id','subscriber','created_from'
+        'user_id', 'package_id', 'corporate_id', 'subscriber', 'created_from',
     ];
 
     protected static $logAttributes = [
-        'user.name','package.name_en','corporate.name_en','subscriber'
+        'user.name', 'package.name_en', 'corporate.name_en', 'subscriber',
     ];
+
     protected static $logOnlyDirty = true;
 
     public function user()
@@ -36,13 +38,14 @@ class Subscription extends Model
 
     public function assignqrcode()
     {
-        return $this->belongsTo(AssignQrcode::class,'assign_id');
+        return $this->belongsTo(AssignQrcode::class, 'assign_id');
     }
 
     public function qrcodes()
     {
-        if($this->assignqrcode)
-        return $this->assignqrcode->qrcodes();
-        
+        if ($this->assignqrcode) {
+            return $this->assignqrcode->qrcodes();
+        }
+
     }
 }

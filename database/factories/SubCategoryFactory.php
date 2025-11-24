@@ -14,6 +14,6 @@ $factory->define(SubCategory::class, function (Faker $faker) {
         'image' => 'images/posts/post1.jpg',
         'category_id' => function () {
             return factory(App\Category::class)->create()->id;
-        }
+        },
     ];
 });

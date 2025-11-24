@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+
 class Country extends Model
 {
-    use SoftDeletes;
     use LogsActivity;
+    use SoftDeletes;
 
     protected static $logAttributes = [
         'name_en',
@@ -16,7 +17,9 @@ class Country extends Model
         'iso_code',
         'country_code',
     ];
+
     protected static $logOnlyDirty = true;
+
     public function regions()
     {
         return $this->hasMany(Region::class);

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateActivityLogTable extends Migration
 {
@@ -21,7 +21,7 @@ class CreateActivityLogTable extends Migration
             $table->unsignedBigInteger('causer_id')->nullable();
             $table->string('causer_type')->nullable();
             $table->json('properties')->nullable();
-           
+
             $table->softDeletes();
             $table->timestamps();
 

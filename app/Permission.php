@@ -12,6 +12,7 @@ class Permission extends Model
      * @var string
      */
     protected $primaryKey = 'permission_slug';
+
     public $incrementing = false;
 
     /**
@@ -44,7 +45,7 @@ class Permission extends Model
     /**
      * Determine if any users have access to this permission.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasUsers()
     {

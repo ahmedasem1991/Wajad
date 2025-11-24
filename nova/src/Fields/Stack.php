@@ -36,8 +36,8 @@ class Stack extends Field
      * Create a new Stack field.
      *
      * @param  string  $name
-     * @param  string|array|null $attribute
-     * @param  array $lines
+     * @param  string|array|null  $attribute
+     * @param  array  $lines
      * @return void
      */
     public function __construct($name, $attribute = null, $lines = [])
@@ -80,7 +80,7 @@ class Stack extends Field
      * Prepare each line for serialization.
      *
      * @param  mixed  $resource
-     * @param string $attribute
+     * @param  string  $attribute
      * @return void
      */
     public function prepareLines($resource, $attribute = null)

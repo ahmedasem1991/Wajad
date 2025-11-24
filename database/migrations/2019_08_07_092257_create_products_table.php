@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProductsTable extends Migration
 {
@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('name_ar');
             $table->mediumText('description_en');
             $table->mediumText('description_ar');
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

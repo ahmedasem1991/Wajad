@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\SendSMSEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendSMSListener
 {
@@ -21,7 +19,6 @@ class SendSMSListener
     /**
      * Handle the event.
      *
-     * @param  SendSMSEvent  $event
      * @return void
      */
     public function handle(SendSMSEvent $event)

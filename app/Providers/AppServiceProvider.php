@@ -2,49 +2,49 @@
 
 namespace App\Providers;
 
-use App\Observers\UserVerificationsObserver;
-use App\Post;
-use App\Role;
-use App\User;
-use App\People;
-use App\Qrcode;
-use App\Question;
-use App\RoleUser;
-use App\Permission;
-use App\PostRequest;
-use App\AssignQrcode;
-use App\Subscription;
-use App\QrcodeRequest;
-use App\GenerateQrcode;
 use App\AdminNotification;
+use App\AssignQrcode;
 use App\CorporateAssignQrcode;
+use App\GenerateQrcode;
 use App\Jobs\GenerateQrcodeJob;
-use App\Observers\PostObserver;
-use App\Observers\RoleObserver;
-use App\Observers\UserObserver;
-use App\Observers\PeopleObserver;
-use App\Observers\QrcodeObserver;
-use App\Observers\QuestionObserver;
-use App\Observers\RoleUserObserver;
-use App\UserVerifications;
-use Illuminate\Support\Facades\Log;
-use App\Observers\RoleUserObserver2;
-use Illuminate\Support\Facades\Queue;
-use App\Observers\PostRequestObserver;
-use Illuminate\Support\Facades\Schema;
+use App\Observers\CorporateQrcodeAssignObserver;
 use App\Observers\MediaLibraryObserver;
 use App\Observers\NotificationObserver;
+use App\Observers\PeopleObserver;
+use App\Observers\PostObserver;
+use App\Observers\PostRequestObserver;
 use App\Observers\QrcodeAssignObserver;
-use App\Observers\SubscriptionObserver;
-use Illuminate\Support\ServiceProvider;
-use App\Observers\QrcodeRequestObserver;
 use App\Observers\QrcodeGenerateObserver;
+use App\Observers\QrcodeObserver;
+use App\Observers\QrcodeRequestObserver;
+use App\Observers\QuestionObserver;
+use App\Observers\RoleObserver;
+use App\Observers\RoleUserObserver;
+use App\Observers\SubscriptionObserver;
+use App\Observers\UserObserver;
+use App\Observers\UserVerificationsObserver;
+use App\People;
+use App\Permission;
+use App\Post;
+use App\PostRequest;
+use App\Qrcode;
+use App\QrcodeRequest;
+use App\Question;
+use App\RoleUser;
+use App\Subscription;
+use App\User;
+use App\UserVerifications;
 use ClassicO\NovaMediaLibrary\Core\Model;
 use Illuminate\Database\Eloquent\Builder;
-use App\Observers\CorporateQrcodeAssignObserver;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 
-class LaravelLoggerProxy {
-    public function log( $msg ) {
+class LaravelLoggerProxy
+{
+    public function log($msg)
+    {
         Log::info($msg);
     }
 }
@@ -68,9 +68,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::enableForeignKeyConstraints();
-       // Schema::defaultStringLength(191);
+        // Schema::defaultStringLength(191);
         $pusher = $this->app->make('pusher');
-        $pusher->set_logger( new LaravelLoggerProxy() );
+        $pusher->set_logger(new LaravelLoggerProxy);
 
         RoleUser::observe(RoleUserObserver::class);
         Subscription::observe(SubscriptionObserver::class);
@@ -88,14 +88,12 @@ class AppServiceProvider extends ServiceProvider
         \App\Role::observe(RoleObserver::class);
         UserVerifications::observe(UserVerificationsObserver::class);
 
-        Model::addGlobalScope(function (Builder $builder){
-            if (auth()->user()->isCorporateAdmin()){
-            $builder->where('corporate_id',auth()->user()->corporate->id);
+        Model::addGlobalScope(function (Builder $builder) {
+            if (auth()->user()->isCorporateAdmin()) {
+                $builder->where('corporate_id', auth()->user()->corporate->id);
             }
         });
         Model::observe(MediaLibraryObserver::class);
-
-
 
         // $Text='';
         // $Permissions=Permission::all()->pluck('name');
@@ -113,8 +111,6 @@ class AppServiceProvider extends ServiceProvider
         //     session(['Permission' => $Text]);
         //     logger($Text);
         // }
-
-
 
         // Queue::after(function (GenerateQrcodeJob $event) {
         // $event->generateQrcode->status='finished';

@@ -2,26 +2,21 @@
 
 namespace App\Nova;
 
-use App\Nova\Resource;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
+use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
-use Benjaminhirsch\NovaSlugField\Slug;
-use Laravel\Nova\Fields\BelongsToMany;
 use Pktharindu\NovaPermissions\Checkboxes;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Benjaminhirsch\NovaSlugField\TextWithSlug;
-use Pktharindu\NovaPermissions\Role as RoleModel;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-//use Silvanite\NovaFieldCheckboxes\Checkboxes;
+
+// use Silvanite\NovaFieldCheckboxes\Checkboxes;
 
 class Role extends Resource
 {
@@ -31,6 +26,7 @@ class Role extends Resource
      * @var string
      */
     public static $model = 'App\Role';
+
     public static $displayInNavigation = true;
 
     /**
@@ -80,7 +76,6 @@ class Role extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -92,7 +87,6 @@ class Role extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -104,7 +98,6 @@ class Role extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -144,10 +137,10 @@ class Role extends Resource
                     ->options(collect(config('novapermissionsAdmin.permissions'))
                         ->map(function ($permission, $key) {
                             return [
-                                'group'        => ucfirst($permission['group']),
-                                'option'       => $key,
-                                'label'        => $permission['display_name'],
-                                'description'  => $permission['description'],
+                                'group' => ucfirst($permission['group']),
+                                'option' => $key,
+                                'label' => $permission['display_name'],
+                                'description' => $permission['description'],
                             ];
                         })->groupBy('group')->toArray()),
 
@@ -171,7 +164,6 @@ class Role extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -188,7 +180,6 @@ class Role extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -201,16 +192,18 @@ class Role extends Resource
     {
         return __('Role');
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public  function authorizedToDelete(Request $request)
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

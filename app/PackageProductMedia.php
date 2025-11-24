@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PackageProductMedia extends Model
 {
     use SoftDeletes;
+
     /**
      * Define Morph Relation
      *

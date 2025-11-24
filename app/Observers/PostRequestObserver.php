@@ -2,79 +2,77 @@
 
 namespace App\Observers;
 
-use App\Post;
-use App\User;
-use App\PostRequest;
 use App\Events\ClosePostEvent;
 use App\Notifications\SendFCMNotification;
+use App\Post;
+use App\PostRequest;
+use App\User;
 
 class PostRequestObserver
 {
-
     public function saving(PostRequest $postRequest)
     {
 
-            if($postRequest->is_request_valid==0){
-                $postRequest->rejected_at=now()->toDatetimeString();
-            }else{
-            $postRequest->rejected_at=NULL;
-            $Post= Post::find($postRequest->post_id);
-            $Post->owner_id=$postRequest->user_id;
+        if ($postRequest->is_request_valid == 0) {
+            $postRequest->rejected_at = now()->toDatetimeString();
+        } else {
+            $postRequest->rejected_at = null;
+            $Post = Post::find($postRequest->post_id);
+            $Post->owner_id = $postRequest->user_id;
             $Post->save();
-            event( new ClosePostEvent($Post, null));
-      }
- 
+            event(new ClosePostEvent($Post, null));
+        }
+
     }
+
     public function saved(PostRequest $postRequest)
     {
-        $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
-            
-        $dispatcher = PostRequest::getEventDispatcher();
-        if($postRequest->is_request_valid==1){
-           
-            PostRequest::unsetEventDispatcher();
-                foreach($PostRequests as $PostRequest)
-                {
-                    $PostRequest->is_request_valid=0;
-                    $PostRequest->rejected_at=now()->toDatetimeString();
-                    $PostRequest->comment='Rejected by system';
-                    $PostRequest->save();
-                }
-                PostRequest::setEventDispatcher($dispatcher);
+        $PostRequests = PostRequest::where('post_id', $postRequest->post_id)->where('id', '!=', $postRequest->id)->get();
 
-                if (Auth()->check() ) {
-                $request_user=User::find($postRequest->user_id);
-                $post=Post::find($postRequest->post_id);
-                //send FCM
-                $badge =getBadge($request_user);
-                $data=sendAcceptPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
-                $request_user->notify(new SendFCMNotification($request_user,$data));
-                }
-            }else{
-                if (Auth()->check() && Auth()->user()->isAdmin()) {
-                $request_user=User::find($postRequest->user_id);
-                $post=Post::find($postRequest->post_id);
-                //send FCM
-                $badge =getBadge($request_user);
-                $data=sendRejectPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
-                $request_user->notify(new SendFCMNotification($request_user,$data));
-                }
-                if (Auth()->check() && Auth()->user()->isCorporateAdmin()) {
-                    $request_user=User::find($postRequest->user_id);
-                    $post=Post::find($postRequest->post_id);
-                    //send FCM
-                    $badge =getBadge($request_user);
-                    $data=sendRejectPostRequestFCM(auth()->user(),$post,$badge,$postRequest->id);
-                    $request_user->notify(new SendFCMNotification($request_user,$data));
-                    }
+        $dispatcher = PostRequest::getEventDispatcher();
+        if ($postRequest->is_request_valid == 1) {
+
+            PostRequest::unsetEventDispatcher();
+            foreach ($PostRequests as $PostRequest) {
+                $PostRequest->is_request_valid = 0;
+                $PostRequest->rejected_at = now()->toDatetimeString();
+                $PostRequest->comment = 'Rejected by system';
+                $PostRequest->save();
             }
-         
-            
+            PostRequest::setEventDispatcher($dispatcher);
+
+            if (Auth()->check()) {
+                $request_user = User::find($postRequest->user_id);
+                $post = Post::find($postRequest->post_id);
+                // send FCM
+                $badge = getBadge($request_user);
+                $data = sendAcceptPostRequestFCM(auth()->user(), $post, $badge, $postRequest->id);
+                $request_user->notify(new SendFCMNotification($request_user, $data));
+            }
+        } else {
+            if (Auth()->check() && Auth()->user()->isAdmin()) {
+                $request_user = User::find($postRequest->user_id);
+                $post = Post::find($postRequest->post_id);
+                // send FCM
+                $badge = getBadge($request_user);
+                $data = sendRejectPostRequestFCM(auth()->user(), $post, $badge, $postRequest->id);
+                $request_user->notify(new SendFCMNotification($request_user, $data));
+            }
+            if (Auth()->check() && Auth()->user()->isCorporateAdmin()) {
+                $request_user = User::find($postRequest->user_id);
+                $post = Post::find($postRequest->post_id);
+                // send FCM
+                $badge = getBadge($request_user);
+                $data = sendRejectPostRequestFCM(auth()->user(), $post, $badge, $postRequest->id);
+                $request_user->notify(new SendFCMNotification($request_user, $data));
+            }
+        }
+
     }
+
     /**
      * Handle the post request "created" event.
      *
-     * @param  \App\PostRequest  $postRequest
      * @return void
      */
     public function created(PostRequest $postRequest)
@@ -82,39 +80,35 @@ class PostRequestObserver
         //
     }
 
-        /**
+    /**
      * Handle the post request "updated" event.
      *
-     * @param  \App\PostRequest  $postRequest
      * @return void
      */
     public function updating(PostRequest $postRequest)
     {
-  
-         
-            if($postRequest->is_request_valid==0){
-                $postRequest->rejected_at=now()->toDatetimeString();
-            }else{
-            $postRequest->rejected_at=NULL;
-            $Post= Post::find($postRequest->post_id);
-            $Post->owner_id=$postRequest->user_id;
-            $Post->save();
-            event( new ClosePostEvent($Post, null));
-            }
 
- 
+        if ($postRequest->is_request_valid == 0) {
+            $postRequest->rejected_at = now()->toDatetimeString();
+        } else {
+            $postRequest->rejected_at = null;
+            $Post = Post::find($postRequest->post_id);
+            $Post->owner_id = $postRequest->user_id;
+            $Post->save();
+            event(new ClosePostEvent($Post, null));
+        }
+
     }
 
     /**
      * Handle the post request "updated" event.
      *
-     * @param  \App\PostRequest  $postRequest
      * @return void
      */
     public function updated(PostRequest $postRequest)
-     {     
+    {
         // $PostRequests=PostRequest::where('post_id',$postRequest->post_id)->where('id','!=',$postRequest->id)->get();
-            
+
         // $dispatcher = PostRequest::getEventDispatcher();
         // if($postRequest->is_request_valid==1){
         // PostRequest::unsetEventDispatcher();
@@ -126,15 +120,14 @@ class PostRequestObserver
         //         $PostRequest->save();
         //     }
         //     PostRequest::setEventDispatcher($dispatcher);
-       
+
         // }
-   
+
     }
 
     /**
      * Handle the post request "deleted" event.
      *
-     * @param  \App\PostRequest  $postRequest
      * @return void
      */
     public function deleted(PostRequest $postRequest)
@@ -145,7 +138,6 @@ class PostRequestObserver
     /**
      * Handle the post request "restored" event.
      *
-     * @param  \App\PostRequest  $postRequest
      * @return void
      */
     public function restored(PostRequest $postRequest)
@@ -156,7 +148,6 @@ class PostRequestObserver
     /**
      * Handle the post request "force deleted" event.
      *
-     * @param  \App\PostRequest  $postRequest
      * @return void
      */
     public function forceDeleted(PostRequest $postRequest)

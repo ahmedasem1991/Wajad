@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Item;
-use App\Qrcode;
-use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use App\Qrcode;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Notifications\SendFCMNotification;
 
 /**
  * @group QR Codes
@@ -17,13 +15,16 @@ class UnRegisterQRCodeController extends Controller
 {
     /**
      * UnRegister QR Code
+     *
      * @urlParam qrcode_id required int exists in qrcodes
+     *
      * @response
      * {
      * "success": true,
      * "message": "qrcode Unregistered successfully.",
      * "status_code": 200
      *}
+     *
      * @return void
      */
     public function __invoke(Request $request)
@@ -39,15 +40,15 @@ class UnRegisterQRCodeController extends Controller
         $qr_code = Qrcode::where('id', $request->qrcode_id)
             ->first();
 
-        if (!$qr_code) {
+        if (! $qr_code) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 
-        if ( $qr_code->isQrcodeExpired()){
+        if ($qr_code->isQrcodeExpired()) {
             throw new ApiException(trans('messages.expired', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 
-        if ($qr_code->type !== 2 ){
+        if ($qr_code->type !== 2) {
             throw new ApiException(trans('messages.single_assign', ['model' => trans('messages.attributes.qrcode')]), 400);
         }
 

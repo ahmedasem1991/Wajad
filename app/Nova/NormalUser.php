@@ -2,29 +2,18 @@
 
 namespace App\Nova;
 
-use App\Corporate;
-use App\Nova\Resource;
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\UsersTypes;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Http\Request;
 use KossShtukert\LaravelNovaSelect2\Select2;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use NovaErrorField\Errors;
 
 class NormalUser extends Resource
 {
@@ -34,6 +23,7 @@ class NormalUser extends Resource
      * @var string
      */
     public static $model = 'App\User';
+
     public static $displayInNavigation = false;
 
     /**
@@ -81,12 +71,12 @@ class NormalUser extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('view users')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('view users')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -111,16 +101,16 @@ class NormalUser extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            PhoneNumber::make('Mobile Number','mobile_number')
+            PhoneNumber::make('Mobile Number', 'mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
 
-            Boolean::make('Active','status')
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
 
-            HasMany::make('Activity', 'activities',Activity::class)
+            HasMany::make('Activity', 'activities', Activity::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Select2::make('Type', 'type')
@@ -135,7 +125,6 @@ class NormalUser extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -146,7 +135,6 @@ class NormalUser extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -157,7 +145,6 @@ class NormalUser extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -168,7 +155,6 @@ class NormalUser extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -182,13 +168,14 @@ class NormalUser extends Resource
     {
         return $query->Normalusers();
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
-
 }

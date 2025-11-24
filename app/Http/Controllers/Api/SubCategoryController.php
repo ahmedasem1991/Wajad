@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
-use App\SubCategory;
-use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SubCategoryResource;
-use Illuminate\Database\Eloquent\Builder;
+use App\SubCategory;
 
 class SubCategoryController extends Controller
 {
@@ -22,7 +19,7 @@ class SubCategoryController extends Controller
 
     public function index($type = null)
     {
-        if (!is_null($type) && in_array($type, self::TYPES)) {
+        if (! is_null($type) && in_array($type, self::TYPES)) {
             if ($type == 'lost') {
                 return $this->subCategoryLostPosts();
             }
@@ -30,6 +27,7 @@ class SubCategoryController extends Controller
                 return $this->subCategoryFoundPosts();
             }
         }
+
         return SubCategoryResource::collection(SubCategory::all());
     }
 
@@ -38,7 +36,7 @@ class SubCategoryController extends Controller
         return SubCategoryResource::collection(SubCategory::with([
             'posts' => function ($qurey) {
                 $qurey->appearance()->isApproved();
-            }
+            },
         ])->withCount('lostposts')->get());
     }
 
@@ -47,7 +45,7 @@ class SubCategoryController extends Controller
         return SubCategoryResource::collection(SubCategory::with([
             'posts' => function ($qurey) {
                 $qurey->appearance()->isApproved();
-            }
+            },
         ])->withCount('lostposts')->get());
     }
 

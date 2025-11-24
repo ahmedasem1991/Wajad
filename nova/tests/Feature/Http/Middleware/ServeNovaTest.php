@@ -10,7 +10,7 @@ use Laravel\Nova\Tests\IntegrationTest;
 
 class ServeNovaTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -110,7 +110,7 @@ class ServeNovaTest extends IntegrationTest
 
         $request = Request::create('http://nova.app/nova-api/users');
 
-        $serveNova = new ServeNova();
+        $serveNova = new ServeNova;
 
         $response = $serveNova->handle($request, function (Request $request) {
             return 'OK';
@@ -130,7 +130,7 @@ class ServeNovaTest extends IntegrationTest
 
         $request = Request::create('http://nova.app/nova-api/users');
 
-        $serveNova = new ServeNova();
+        $serveNova = new ServeNova;
 
         $response = $serveNova->handle($request, function (Request $request) {
             return 'OK';
@@ -150,7 +150,7 @@ class ServeNovaTest extends IntegrationTest
 
         $request = Request::create('http://nova.app/nova-api/users');
 
-        $serveNova = new ServeNova();
+        $serveNova = new ServeNova;
 
         $response = $serveNova->handle($request, function (Request $request) {
             return 'OK';
@@ -170,7 +170,7 @@ class ServeNovaTest extends IntegrationTest
 
         $request = Request::create('http://nova.app:8080/nova-api/users');
 
-        $serveNova = new ServeNova();
+        $serveNova = new ServeNova;
 
         $response = $serveNova->handle($request, function (Request $request) {
             return 'OK';
@@ -190,7 +190,7 @@ class ServeNovaTest extends IntegrationTest
 
         $request = Request::create('http://httpsnova.app/nova-api/users');
 
-        $serveNova = new ServeNova();
+        $serveNova = new ServeNova;
 
         $response = $serveNova->handle($request, function (Request $request) {
             return 'OK';

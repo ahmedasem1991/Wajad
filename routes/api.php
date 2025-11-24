@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('csrf-token', function(){
+Route::post('csrf-token', function () {
     return 'we are done';
 })->middleware('csrf_api_token');
-# Auth
+// Auth
 Route::group(['namespace' => 'Auth'], function () {
     Route::get('/countrycodes', 'AuthController@getCountries');
     Route::post('/login', 'AuthController@login');
@@ -17,8 +17,8 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/newresetPassword', 'SendResetPasswordController');
     Route::post('/verify_password', 'VerifyPasswordController');
     Route::post('/newchangePassword', 'NewChangePasswordController');
-    Route::post('/delete-account/request','AuthController@verifyDeleteAccount')->name('delete-account-verify');
-    Route::post('/delete-account/verify','AuthController@confirmDeleteAccount');
+    Route::post('/delete-account/request', 'AuthController@verifyDeleteAccount')->name('delete-account-verify');
+    Route::post('/delete-account/verify', 'AuthController@confirmDeleteAccount');
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/userData', 'UserDataController');
         Route::post('/verify/{type}', 'VerifyPhoneOrEmailController');
@@ -46,34 +46,34 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('/{item}', 'ItemsController@destroy');
         });
     });
-            Route::prefix('fcm')->group(function () {
-            Route::get('/', 'FcmController@index');
-            Route::post('/create', 'FcmController@store');
-            Route::delete('/delete', 'FcmController@destroy');
-            Route::post('/readfcm', 'FcmController@readfcm');
-            });
-           // Route::post('request/{post}/accept', 'PostsController@testAccept');
+    Route::prefix('fcm')->group(function () {
+        Route::get('/', 'FcmController@index');
+        Route::post('/create', 'FcmController@store');
+        Route::delete('/delete', 'FcmController@destroy');
+        Route::post('/readfcm', 'FcmController@readfcm');
+    });
+    // Route::post('request/{post}/accept', 'PostsController@testAccept');
     Route::middleware('phone_verified')->group(function () {
         Route::prefix('request')->group(function () {
 
-             //accept this request send fcm
+            // accept this request send fcm
             Route::post('/post/{post}', 'PostRequestController');
 
-            //accept this request send fcm
+            // accept this request send fcm
             Route::post('/{post}/accept', 'PostsController@acceptRequest');
 
-             //reject this request send fcm
+            // reject this request send fcm
             Route::post('/{post}/reject', 'PostsController@rejectRequest');
         });
 
-         //report  this post send fcm
+        // report  this post send fcm
         Route::post('/report/post/{post}', 'PostsController@report');
 
-         // this my item send fcm
+        // this my item send fcm
         Route::post('/post/{post}/answer', 'AnswerController');
     });
 
-     // Send FCM and SMS
+    // Send FCM and SMS
     Route::post('/qrcodes/create', 'GenerateAndAssignQRCodeController@store');
     Route::post('/qrcodes/rename', 'QrcodeController@rename');
     Route::post('/qrcodes/renew', 'QrcodeController@renew');
@@ -82,7 +82,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/qrcodelog/{qrcode_id}', 'QrcodeLogController@show');
     // Route::post('/qrcodes/register/', 'ScanQrcodeController@registerQrcodes');
 
-    //Send FCM
+    // Send FCM
     Route::post('/unregister/qrcode', 'UnRegisterQRCodeController');
     Route::post('/register/qrcode', 'RegisterQRCodeController');
     Route::post('/reregister/qrcode', 'ReregisterQRCodeController');
@@ -99,67 +99,65 @@ Route::prefix('home')->group(function () {
     });
 });
 
-# Categories
+// Categories
 Route::prefix('categories')->group(function () {
     Route::get('/', 'CategoryController@index');
     Route::get('/{category}', 'CategoryController@show');
 });
 
-# Sub Categories
+// Sub Categories
 Route::prefix('subCategories')->group(function () {
     Route::get('/{type?}', 'SubCategoryController@index');
     Route::get('/{subCategory}', 'SubCategoryController@show');
 });
 
-# Brands
+// Brands
 Route::prefix('brands')->group(function () {
     Route::get('/{subcategory_id?}', 'BrandController@index');
     Route::get('/{brand}', 'BrandController@show');
 });
 
-# Models
+// Models
 Route::prefix('models')->group(function () {
     Route::get('/{brand_id?}', 'ModelController@index');
     Route::get('/{model}', 'ModelController@show');
 });
 
-# Colors
+// Colors
 Route::prefix('colors')->group(function () {
     Route::get('/', 'ColorController@index');
     Route::get('/{color}', 'ColorController@show');
 });
 
-# Wajad Offices
+// Wajad Offices
 Route::get('/offices', 'OfficeController@index');
 
-# Maps
+// Maps
 Route::get('/maps/{type?}', 'MapController');
 
-# Countries
+// Countries
 Route::get('/countries', 'LocationsController@index');
 
-# Regions
+// Regions
 Route::get('/regions', 'RegionController@index');
 
-# Support
+// Support
 Route::post('/contact-us', 'SupportController@store');
 
-# Qr Code
+// Qr Code
 Route::get('/scan-qr-code/{qr_code}', 'ScanQrcodeController')->name('scan-qrcode-api');
 
-# Qr Code
+// Qr Code
 
-
-# Packages
+// Packages
 Route::get('/packages', 'PackageController');
 
-# Pages
+// Pages
 Route::get('/pages/{page?}', 'PageController');
 
-# Posts
+// Posts
 Route::prefix('posts')->group(function () {
     Route::get('/{post}', 'PostsController@show');
-
 
     // Send FCM
     Route::middleware(['auth:api', 'phone_verified'])->group(function () {
@@ -170,7 +168,6 @@ Route::prefix('posts')->group(function () {
     });
 });
 
-
 Route::view('mario', 'mario');
 
 Route::post('/test', 'TestController');
@@ -178,24 +175,21 @@ Route::post('/test', 'TestController');
 /**
  * Fcm APIS
  */
-
-
-
 Route::get('paywithpaypal', function () {
-    return  redirect(Nova::path());
- });
+    return redirect(Nova::path());
+});
 
-Route::match(['get', 'post'],'/mesibo/notification', 'MesiboNotificationController');
+Route::match(['get', 'post'], '/mesibo/notification', 'MesiboNotificationController');
 
 Route::get('/share-post/{id}', 'SharePostController')->name('share-post');
 
 Route::get('mesibo_add', function () {
-    $url = "https://api.mesibo.com/api.php?op=useradd&token=kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j&addr=ahmed-test555&appid=com.smartappco.wajad&name=ahmed";
+    $url = 'https://api.mesibo.com/api.php?op=useradd&token=kyiy639elg9i7g4r4wes6swhknerfgzhr1enoorf1zwc67eitl1wj5kkg3vnop2j&addr=ahmed-test555&appid=com.smartappco.wajad&name=ahmed';
     $client = new \GuzzleHttp\Client([
-       'headers' => ['Content-Type' => 'application/json']
+        'headers' => ['Content-Type' => 'application/json'],
     ]);
-   
+
     $response = $client->get($url);
-    dd( $response);
-    ;
+    dd($response);
+
 });

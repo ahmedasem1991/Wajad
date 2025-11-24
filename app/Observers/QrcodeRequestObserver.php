@@ -9,19 +9,17 @@ class QrcodeRequestObserver
     /**
      * Handle the qrcode request "created" event.
      *
-     * @param  \App\QrcodeRequest  $qrcodeRequest
      * @return void
      */
     public function saving(QrcodeRequest $qrcodeRequest)
     {
-        $qrcodeRequest->corporate_id=Auth()->user()->corporate->id;
-        $qrcodeRequest->corporate_admin_id=Auth()->User()->id;
+        $qrcodeRequest->corporate_id = Auth()->user()->corporate->id;
+        $qrcodeRequest->corporate_admin_id = Auth()->User()->id;
     }
 
     /**
      * Handle the qrcode request "updated" event.
      *
-     * @param  \App\QrcodeRequest  $qrcodeRequest
      * @return void
      */
     public function updated(QrcodeRequest $qrcodeRequest)
@@ -32,7 +30,6 @@ class QrcodeRequestObserver
     /**
      * Handle the qrcode request "deleted" event.
      *
-     * @param  \App\QrcodeRequest  $qrcodeRequest
      * @return void
      */
     public function deleted(QrcodeRequest $qrcodeRequest)
@@ -43,7 +40,6 @@ class QrcodeRequestObserver
     /**
      * Handle the qrcode request "restored" event.
      *
-     * @param  \App\QrcodeRequest  $qrcodeRequest
      * @return void
      */
     public function restored(QrcodeRequest $qrcodeRequest)
@@ -54,7 +50,6 @@ class QrcodeRequestObserver
     /**
      * Handle the qrcode request "force deleted" event.
      *
-     * @param  \App\QrcodeRequest  $qrcodeRequest
      * @return void
      */
     public function forceDeleted(QrcodeRequest $qrcodeRequest)

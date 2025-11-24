@@ -11,29 +11,28 @@ class QrCodesTypes extends Partition
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, AppQrcodes::where('status',1), 'type')
-        ->label(function ($value) {
-            switch ($value) {
-                case 1:
-                    return 'Single Assign';
-                case 2:
-                    return 'Multi Assign';
-               
-                default:
-                    return ucfirst($value);
-            }
-        });
+        return $this->count($request, AppQrcodes::where('status', 1), 'type')
+            ->label(function ($value) {
+                switch ($value) {
+                    case 1:
+                        return 'Single Assign';
+                    case 2:
+                        return 'Multi Assign';
+
+                    default:
+                        return ucfirst($value);
+                }
+            });
     }
 
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

@@ -2,17 +2,11 @@
 
 namespace App\Nova;
 
-
 use App\Nova\Metrics\Regions;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-
-
-
-use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -31,7 +25,6 @@ class Area extends Resource
      * @var string
      */
     public static $group = 'Locations';
-
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -56,12 +49,12 @@ class Area extends Resource
     ];
 
     public static $searchRelations = [
-        'country' => [ 'name_en', 'name_ar'],
+        'country' => ['name_en', 'name_ar'],
     ];
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -72,8 +65,8 @@ class Area extends Resource
             Text::make('Area Arabic Name', 'name_ar')->rules(['required', 'string', 'max:255']),
             Text::make('Area English Name', 'name_en')->rules(['required', 'string', 'max:255']),
             NovaBelongsToDepend::make('Country')
-            ->placeholder('Country')
-            ->options(\App\Country::all()),
+                ->placeholder('Country')
+                ->options(\App\Country::all()),
             HasMany::make('City', 'cities', 'App\Nova\City'),
         ];
     }
@@ -81,20 +74,18 @@ class Area extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Regions()
+            new Regions,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -105,7 +96,6 @@ class Area extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -116,23 +106,24 @@ class Area extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/chart.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
-    public   function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }

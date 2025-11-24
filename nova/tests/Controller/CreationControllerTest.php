@@ -9,7 +9,7 @@ use Laravel\Nova\Tests\IntegrationTest;
 
 class CreationControllerTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -102,16 +102,16 @@ class CreationControllerTest extends IntegrationTest
         ]);
 
         $response = $this->withExceptionHandling()
-                        ->getJson("/nova-api/categories/creation-fields?{$params}")
-                        ->assertOk()
-                        ->assertJson([
-                            'fields' => [
-                                [
-                                    'label' => 'Category Resources',
-                                    'reverse' => true,
-                                ],
-                            ],
-                        ]);
+            ->getJson("/nova-api/categories/creation-fields?{$params}")
+            ->assertOk()
+            ->assertJson([
+                'fields' => [
+                    [
+                        'label' => 'Category Resources',
+                        'reverse' => true,
+                    ],
+                ],
+            ]);
     }
 
     public function test_panel_are_returned()

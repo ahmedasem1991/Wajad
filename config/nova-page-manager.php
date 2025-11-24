@@ -2,7 +2,7 @@
 
 return [
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Table name
   |--------------------------------------------------------------------------
@@ -11,10 +11,9 @@ return [
   |
   */
 
-  'table' => 'nova_page_manager',
+    'table' => 'nova_page_manager',
 
-
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Max locales shown on index
   |--------------------------------------------------------------------------
@@ -25,10 +24,9 @@ return [
   |
   */
 
-  'max_locales_shown_on_index' => 4,
+    'max_locales_shown_on_index' => 4,
 
-
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Overwrite the page resource with a custom implementation
   |--------------------------------------------------------------------------
@@ -36,10 +34,9 @@ return [
   | Add a custom implementation of the Page resource
   |
   */
-  'page_resource' => null,
+    'page_resource' => null,
 
-
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Overwrite the region resource with a custom implementation
   |--------------------------------------------------------------------------
@@ -47,6 +44,6 @@ return [
   | Add a custom implementation of the Region resource
   |
   */
-  'region_resource' => null
+    'region_resource' => null,
 
 ];

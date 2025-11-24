@@ -3,18 +3,18 @@
 namespace App\NovaCorporate;
 
 use App\Nova\Resource;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
 use Benjaminhirsch\NovaSlugField\Slug;
-use Laravel\Nova\Fields\BelongsToMany;
-//use Pktharindu\NovaPermissions\Checkboxes;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\ID;
+// use Pktharindu\NovaPermissions\Checkboxes;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
-use Pktharindu\NovaPermissions\Role as RoleModel;
 use Silvanite\NovaFieldCheckboxes\Checkboxes;
-//use Fourstacks\NovaCheckboxes\Checkboxes;
+
+// use Fourstacks\NovaCheckboxes\Checkboxes;
 
 class Role extends Resource
 {
@@ -24,6 +24,7 @@ class Role extends Resource
      * @var string
      */
     public static $model = \App\Role::class;
+
     public static $displayInNavigation = true;
 
     /**
@@ -68,7 +69,6 @@ class Role extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -80,7 +80,6 @@ class Role extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -92,26 +91,23 @@ class Role extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
-
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('view roles')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('view roles')) ? true : false;
     }
 
     public function fields(Request $request)
     {
-        $array=[];
-        foreach(Auth()->User()->roles as $role)
-        {
-            foreach($role->permissions as $permission)
-            {
-                $array[$permission]= $permission;
+        $array = [];
+        foreach (Auth()->User()->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $array[$permission] = $permission;
             }
         }
+
         return [
             Errors::make(),
             ID::make()->sortable(),
@@ -128,10 +124,10 @@ class Role extends Resource
                 ->sortable(),
 
             Checkboxes::make(__('Permissions'), 'permissions')
-                ->options( $array)
+                ->options($array)
                 ->hideFromIndex()
                 ->columns(3)
-                -> withoutTypeCasting(),
+                ->withoutTypeCasting(),
 
             Text::make(__('Users'), function () {
                 return \count($this->users);
@@ -145,7 +141,6 @@ class Role extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -162,7 +157,6 @@ class Role extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -175,16 +169,18 @@ class Role extends Resource
     {
         return __('Role');
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/lock.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('corporate_id',Auth()->User()->corporate_id);
+        return $query->where('corporate_id', Auth()->User()->corporate_id);
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

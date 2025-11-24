@@ -11,12 +11,11 @@ class ReportPosts extends Value
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
-        return $this->result(Post::where('reports_number','!=',0)->count());
+        return $this->result(Post::where('reports_number', '!=', 0)->count());
     }
 
     /**
@@ -37,7 +36,7 @@ class ReportPosts extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

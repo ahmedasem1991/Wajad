@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PackageResource;
 use App\Package;
+use App\Qrcode;
 use App\Services\Filters\QRCodeFilters\InStock;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Http\Resources\PackageResource;
-use App\Qrcode;
 
 /**
  * @group Packages
@@ -17,7 +16,9 @@ class PackageController extends Controller
 {
     /**
      * Packages
+     *
      * @bodyParam token Barier-token required
+     *
      * @response
      * {
      *    "data": [
@@ -35,10 +36,11 @@ class PackageController extends Controller
      * }
      * ]
      *}
+     *
      * @return void
      */
     public function __invoke(Request $request)
     {
-        return PackageResource::collection(Package::where('quantity','<',Qrcode::withFilters(new InStock)->count())->where('is_active',1)->paginate(env('PAGINATION_PER_PAGE', 15), '*', 'per_page'));
+        return PackageResource::collection(Package::where('quantity', '<', Qrcode::withFilters(new InStock)->count())->where('is_active', 1)->paginate(env('PAGINATION_PER_PAGE', 15), '*', 'per_page'));
     }
 }

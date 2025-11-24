@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Support;
-use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SupportController extends Controller
@@ -18,7 +17,6 @@ class SupportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -32,6 +30,7 @@ class SupportController extends Controller
         ]);
         if ($validate_request->fails()) {
             $this->addResponse($validate_request->errors())->addStatusCode(400);
+
             return $this->response();
         }
 
@@ -42,8 +41,7 @@ class SupportController extends Controller
             'message' => request('message'),
 
         ]);
-        $this->addResponse(trans( 'messages.successfully_contactus' ))->addStatusCode(201);
-
+        $this->addResponse(trans('messages.successfully_contactus'))->addStatusCode(201);
 
         return $this->response();
     }
@@ -62,7 +60,6 @@ class SupportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

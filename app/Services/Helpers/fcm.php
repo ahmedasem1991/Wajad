@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Resources\ItemResource;
-use App\Http\Resources\PostResource;
 use App\Http\Resources\FCMPostResource;
 use App\Http\Resources\SmallItemResource;
 
@@ -10,151 +8,151 @@ function getBadge($user)
     return $user->notifications()->whereNull('read_at')->count() == 0 ? 1 : $user->notifications()->whereNull('read_at')->count();
 }
 
-
-function sendPostRequestFCM($founder,$request_user,$post,$badge,$id)
+function sendPostRequestFCM($founder, $request_user, $post, $badge, $id)
 {
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($post->images)
-    {
-    if($post->images[0])
-    $ImageURL= env('ADMIN_URL').$post->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($post->images) {
+        if ($post->images[0]) {
+            $ImageURL = env('ADMIN_URL').$post->images[0];
+        }
     }
 
-    $type='post_lost';
-    if ($post->isFound())
-        $type='post_found';
+    $type = 'post_lost';
+    if ($post->isFound()) {
+        $type = 'post_found';
+    }
     $data = [
         'ar' => [
             'title' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك'.$post->title,
             'body' => ' لقد إستلمت طلب حق ملكية للمنشور الخاص لديك'
-            .$post->title . ' '
-            . $post->description
-            . ' من المستخدم  ' .
-             $request_user->name
+            .$post->title.' '
+            .$post->description
+            .' من المستخدم  '.
+             $request_user->name,
         ],
         'en' => [
             'title' => 'You have received a copyright request for your  post '.$post->title,
             'body' => 'You have received a copyright request for your  post  '
-            .$post->title . ' '
-            . $post->description
-            . ' from user  ' .
-             $request_user->name
+            .$post->title.' '
+            .$post->description
+            .' from user  '.
+             $request_user->name,
         ],
         'type' => 'post_request',
         'deeplink' => $type,
-        'image' =>$ImageURL ,
+        'image' => $ImageURL,
         'post' => new FCMPostResource($post),
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-function sendAcceptPostRequestFCM($founder,$post,$badge,$id)
+function sendAcceptPostRequestFCM($founder, $post, $badge, $id)
 {
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($post->images)
-    {
-    if($post->images[0])
-    $ImageURL= env('ADMIN_URL').$post->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($post->images) {
+        if ($post->images[0]) {
+            $ImageURL = env('ADMIN_URL').$post->images[0];
+        }
     }
 
-    $type='post_lost';
-    if ($post->isFound())
-        $type='post_found';
+    $type = 'post_lost';
+    if ($post->isFound()) {
+        $type = 'post_found';
+    }
     $data = [
         'ar' => [
             'title' => ' لقد تم الموافقة على  طلب حق ملكية للمنشور'.$post->title,
             'body' => ' لقد تم الموافقة على  طلب حق ملكية للمنشور'
-            .$post->title . ' '
-            . $post->description
-            . ' من صاحب المنشور  ' .
-             $founder->name
+            .$post->title.' '
+            .$post->description
+            .' من صاحب المنشور  '.
+             $founder->name,
         ],
         'en' => [
             'title' => 'The copyright request has been approved  for the post '.$post->title,
             'body' => 'The copyright request has been approved  for the post  '
-            .$post->title . ' '
-            . $post->description
-            . 'by  the owner of the post  ' .
-             $founder->name
+            .$post->title.' '
+            .$post->description
+            .'by  the owner of the post  '.
+             $founder->name,
         ],
         'type' => 'post_request',
         'deeplink' => $type,
-        'image' => $ImageURL ,
+        'image' => $ImageURL,
         'post' => new FCMPostResource($post),
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendRejectPostRequestFCM($founder,$post,$badge,$id)
+function sendRejectPostRequestFCM($founder, $post, $badge, $id)
 {
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($post->images)
-    {
-    if($post->images[0])
-    $ImageURL= env('ADMIN_URL').$post->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($post->images) {
+        if ($post->images[0]) {
+            $ImageURL = env('ADMIN_URL').$post->images[0];
+        }
     }
 
-
-    $type='post_lost';
-    if ($post->isFound())
-        $type='post_found';
+    $type = 'post_lost';
+    if ($post->isFound()) {
+        $type = 'post_found';
+    }
     $data = [
         'ar' => [
             'title' => ' لقد تم رفض  طلب حق ملكية للمنشور'.$post->title,
             'body' => ' لقد تم رفض  طلب حق ملكية للمنشور'
-            .$post->title . ' '
-            . $post->description
-            . ' من صاحب المنشور  ' .
-             $founder->name
+            .$post->title.' '
+            .$post->description
+            .' من صاحب المنشور  '.
+             $founder->name,
         ],
         'en' => [
             'title' => 'The copyright request has been rejected  for the post '.$post->title,
             'body' => 'The copyright request has been rejected  for the post  '
-            .$post->title . ' '
-            . $post->description
-            . 'by  the owner of the post  ' .
-             $founder->name
+            .$post->title.' '
+            .$post->description
+            .'by  the owner of the post  '.
+             $founder->name,
         ],
         'type' => 'post_request',
         'deeplink' => $type,
-        'image' =>$ImageURL ,
+        'image' => $ImageURL,
         'post' => new FCMPostResource($post),
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
+function sendScanQRCodeFCM($item, $badge, $lat, $lng, $id)
 {
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
     // if($item->images)
     // {
     // if($item->images[0])
     // $ImageURL= env('ADMIN_URL').$item->images[0];
     // }
 
-
-    $title='';
-    if($item)
-    {
-        $title=$item->title;
-        if($item->images)
-        {
-        if($item->images[0])
-        $ImageURL= env('ADMIN_URL').$item->images[0];
+    $title = '';
+    if ($item) {
+        $title = $item->title;
+        if ($item->images) {
+            if ($item->images[0]) {
+                $ImageURL = env('ADMIN_URL').$item->images[0];
+            }
         }
 
     }
@@ -163,104 +161,104 @@ function sendScanQRCodeFCM($item,$badge,$lat,$lng,$id)
         'ar' => [
             'title' => '  هناك شخص  قرأ رمز التعريف  الخاص بك'.$title,
             'body' => 'هناك شخص  قرأ رمز التعريف  الخاص بك'
-            .$title . ' '
+            .$title.' '
 
-            . 'يمكنك اللإطلاع على الخريطة . '
+            .'يمكنك اللإطلاع على الخريطة . ',
         ],
         'en' => [
-            'title' => 'Your Item '.$title . ' Got Scanned.',
-            'body' => 'Your Item '.$title . ' Got Scanned. Check The Location on The Map.'
+            'title' => 'Your Item '.$title.' Got Scanned.',
+            'body' => 'Your Item '.$title.' Got Scanned. Check The Location on The Map.',
         ],
         'type' => 'scan_qrcode',
         'deeplink' => 'item',
-        'image' => $ImageURL ,
-        'post' =>null,
+        'image' => $ImageURL,
+        'post' => null,
         'item' => new SmallItemResource($item),
         'url' => 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng,
         'id' => $id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-function sendCreateItemFCM($item,$badge)
+function sendCreateItemFCM($item, $badge)
 {
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($item->images)
-    {
-    if($item->images[0])
-    $ImageURL= env('ADMIN_URL').$item->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($item->images) {
+        if ($item->images[0]) {
+            $ImageURL = env('ADMIN_URL').$item->images[0];
+        }
     }
 
-   // logger($item);
+    // logger($item);
     $data = [
         'ar' => [
             'title' => '  المقتنى الخاص لديك '.$item->title,
             'body' => ' تم إضافة المقتنى الخاص لديك '
-            .$item->title . ' '
-            . $item->details
-            . ' بنجاح . '
+            .$item->title.' '
+            .$item->details
+            .' بنجاح . ',
         ],
         'en' => [
             'title' => '  The Item '.$item->title,
             'body' => 'Your Item  '
-            .$item->title . ' '
-            . $item->details
-            . ' added successfully . '
+            .$item->title.' '
+            .$item->details
+            .' added successfully . ',
         ],
         'type' => 'create',
         'deeplink' => 'item',
-        'image' =>$ImageURL ,
+        'image' => $ImageURL,
         'item' => new SmallItemResource($item),
         'post' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $item->id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendUpdateItemFCM($item,$badge)
+function sendUpdateItemFCM($item, $badge)
 {
 
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($item->images)
-    {
-    if($item->images[0])
-    $ImageURL= env('ADMIN_URL').$item->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($item->images) {
+        if ($item->images[0]) {
+            $ImageURL = env('ADMIN_URL').$item->images[0];
+        }
     }
-
 
     $data = [
         'ar' => [
             'title' => '  المقتنى الخاص لديك '.$item->title,
             'body' => ' تم تعديل المقتنى الخاص لديك  '
-            .$item->title . ' '
-            . $item->details
-            . ' بنجاح . '
+            .$item->title.' '
+            .$item->details
+            .' بنجاح . ',
         ],
         'en' => [
             'title' => 'The Item '.$item->title,
             'body' => 'Your Item  '
-            .$item->title . ' '
-            . $item->details
-            . ' updated successfully . '
+            .$item->title.' '
+            .$item->details
+            .' updated successfully . ',
         ],
         'type' => 'update',
         'id' => $item->id,
         'deeplink' => 'item',
-        'image' => $ImageURL ,
+        'image' => $ImageURL,
         'post' => null,
         'item' => new SmallItemResource($item),
-        'url' => null ,
-        'badge' => $badge
+        'url' => null,
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendCustomUsersFCM($body,$badge)
+function sendCustomUsersFCM($body, $badge)
 {
 
     $data = [
@@ -271,90 +269,89 @@ function sendCustomUsersFCM($body,$badge)
         ],
         'en' => [
             'title' => '  WAJAD ',
-            'body' => $body
+            'body' => $body,
 
         ],
         'type' => '',
         'id' => null,
         'deeplink' => 'topic',
-        'image' =>env('ADMIN_URL').'/images/111.png' ,
+        'image' => env('ADMIN_URL').'/images/111.png',
         'post' => null,
         'item' => null,
-        'url' => null ,
-        'badge' => $badge
+        'url' => null,
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendReportPostFCM($postReport,$badge)
+function sendReportPostFCM($postReport, $badge)
 {
 
-
-    $type='post_lost';
-    if ($postReport->post->isFound())
-        $type='post_found';
+    $type = 'post_lost';
+    if ($postReport->post->isFound()) {
+        $type = 'post_found';
+    }
     $data = [
         'ar' => [
             'title' => '  قام '.
-            $postReport->user->name .
+            $postReport->user->name.
              ' بالإبلاغ عن منشورك ',
             'body' => '  قام '.
-            $postReport->user->name .
-             ' بالإبلاغ عن منشورك ' .  $postReport->post->title
+            $postReport->user->name.
+             ' بالإبلاغ عن منشورك '.$postReport->post->title,
         ],
         'en' => [
-            'title' =>$postReport->user->name .
+            'title' => $postReport->user->name.
              ' has reported your post ',
-            'body' => $postReport->user->name .
-            ' has reported your post ' .  $postReport->post->title
+            'body' => $postReport->user->name.
+            ' has reported your post '.$postReport->post->title,
         ],
         'type' => 'report',
         'deeplink' => $type,
-        'image' =>$postReport->image ,
+        'image' => $postReport->image,
         'post' => new FCMPostResource($postReport->post),
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $postReport->id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendBuyPackageFCM($package,$badge)
+function sendBuyPackageFCM($package, $badge)
 {
-
 
     $data = [
         'ar' => [
             'title' => '  لقد قمت بشراء '.
-            $package->name_ar .
+            $package->name_ar.
              ' بنجاح. ',
             'body' => '  لقد قمت بشراء '.
-            $package->name_ar .
-             ' وتحتوي على  ' .  $package->quantity . ' QRCodes '
+            $package->name_ar.
+             ' وتحتوي على  '.$package->quantity.' QRCodes ',
         ],
         'en' => [
             'title' => 'You have purchased '.
-            $package->name_en .
+            $package->name_en.
              ' successfully. ',
             'body' => 'You have purchased '.
-            $package->name_en .
-             ' and contain  ' .  $package->quantity . ' QRCodes '
+            $package->name_en.
+             ' and contain  '.$package->quantity.' QRCodes ',
         ],
         'type' => 'package',
         'deeplink' => 'qrcode',
-        'image' =>  env('ADMIN_URL').'/images/Success.jpg' ,
+        'image' => env('ADMIN_URL').'/images/Success.jpg',
         'post' => null,
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $package->id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
-
 
 function sendFreeQRCodeFCM($badge)
 {
@@ -362,91 +359,88 @@ function sendFreeQRCodeFCM($badge)
         'ar' => [
             'title' => '  تهانينا !',
             'body' => '  لقد تم إضافة'.
-            defaultGroup()->free_qrcodes .
-             ' QRCodes لك مجانا لكونك مستخد جديد .  '
+            defaultGroup()->free_qrcodes.
+             ' QRCodes لك مجانا لكونك مستخد جديد .  ',
         ],
         'en' => [
             'title' => '  Congratulations ! ',
-            'body' =>  '' .  defaultGroup()->free_qrcodes . ' QR Code have been added to you because you are a new user'
+            'body' => ''.defaultGroup()->free_qrcodes.' QR Code have been added to you because you are a new user',
 
         ],
         'type' => 'free_qrcodes',
         'deeplink' => 'qrcode',
-        'image' => env('ADMIN_URL').'/images/cong.png'  ,
+        'image' => env('ADMIN_URL').'/images/cong.png',
         'post' => null,
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => null,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-
-function sendAssignQRCodesToUserFCM($badge,$quantity)
+function sendAssignQRCodesToUserFCM($badge, $quantity)
 {
     $data = [
         'ar' => [
             'title' => '  تهانينا !',
             'body' => '  لقد تم إضافة'.
-            $quantity .
-             ' QRCodes لك  .  '
+            $quantity.
+             ' QRCodes لك  .  ',
         ],
         'en' => [
             'title' => 'Congratulations ! ',
-            'body' =>  '' .  $quantity . ' QR Code have been added to you .'
+            'body' => ''.$quantity.' QR Code have been added to you .',
 
         ],
         'type' => 'assign_qrcodes',
         'deeplink' => 'qrcode',
-        'image' =>env('ADMIN_URL').'/images/qrcodeicon.png' ,
+        'image' => env('ADMIN_URL').'/images/qrcodeicon.png',
         'post' => null,
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => null,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-
-function sendCorporateAssignQRCodeFCM($quantity,$name,$badge)
+function sendCorporateAssignQRCodeFCM($quantity, $name, $badge)
 {
     $data = [
         'ar' => [
             'title' => '   لقد تم إضافة رموز التعريف الخاصة لديك',
             'body' => '  لقد تم إضافة'.
-            $quantity .
-             ' QRCodes ' .' من مؤسسة ' . $name
+            $quantity.
+             ' QRCodes '.' من مؤسسة '.$name,
         ],
         'en' => [
             'title' => ' Your QRCode has been assigned ',
-            'body' =>  '' .  $quantity . 'QR Code have been assigned to you from '  . $name . ' Corporate.'
+            'body' => ''.$quantity.'QR Code have been assigned to you from '.$name.' Corporate.',
 
         ],
         'type' => 'assign_qrcode',
         'deeplink' => 'qrcode',
-        'image' =>env('ADMIN_URL').'/images/qrcodeicon.png'  ,
+        'image' => env('ADMIN_URL').'/images/qrcodeicon.png',
         'post' => null,
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => null,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-
-function sendCreatePostFCM($post,$badge,$type)
+function sendCreatePostFCM($post, $badge, $type)
 {
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($post->images)
-    {
-    if($post->images[0])
-    $ImageURL= env('ADMIN_URL').$post->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($post->images) {
+        if ($post->images[0]) {
+            $ImageURL = env('ADMIN_URL').$post->images[0];
+        }
     }
 
     $data = [
@@ -454,94 +448,93 @@ function sendCreatePostFCM($post,$badge,$type)
             'title' => '  المنشور الخاص لديك '.$post->title,
             'body' => 'تم إضافة المنشور الخاص لديك  '
           //  .$item->title . ' '
-            . $post->description . ' '
-            . ' بنجاح . '
+            .$post->description.' '
+            .' بنجاح . ',
         ],
         'en' => [
             'title' => 'The Post '.$post->title,
             'body' => 'Your Post  '
            // .$post->title . ' '
-            . $post->description. ' '
-            . ' added successfully . '
+            .$post->description.' '
+            .' added successfully . ',
         ],
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
-        'image' => $ImageURL ,
+        'image' => $ImageURL,
         'post' => new FCMPostResource($post),
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $post->id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-function sendUpdatePostFCM($post,$badge,$type)
+function sendUpdatePostFCM($post, $badge, $type)
 {
 
-    $ImageURL=env('ADMIN_URL').'/images/111.png';
-    if($post->images)
-    {
-    if($post->images[0])
-    $ImageURL= env('ADMIN_URL').$post->images[0];
+    $ImageURL = env('ADMIN_URL').'/images/111.png';
+    if ($post->images) {
+        if ($post->images[0]) {
+            $ImageURL = env('ADMIN_URL').$post->images[0];
+        }
     }
-
 
     $data = [
         'ar' => [
             'title' => '  المنشور الخاص لديك'.$post->title,
             'body' => 'تم تعديل المنشور الخاص لديك'
           //  .$item->title . ' '
-            . $post->description . ' '
-            . ' بنجاح . '
+            .$post->description.' '
+            .' بنجاح . ',
         ],
         'en' => [
             'title' => 'The Post '.$post->title,
             'body' => 'Your Post  '
            // .$post->title . ' '
-            . $post->description. ' '
-            . ' updated successfully . '
+            .$post->description.' '
+            .' updated successfully . ',
         ],
         'type' => 'post_'.$type,
         'deeplink' => 'post_'.$type,
-        'image' =>$ImageURL ,
+        'image' => $ImageURL,
         'post' => new FCMPostResource($post),
         'item' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $post->id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }
 
-
-
-function sendAssignQRCodeFCM($item,$badge)
+function sendAssignQRCodeFCM($item, $badge)
 {
     $data = [
         'ar' => [
             'title' => ' تم إضافة رمز التعريف الخاص لديك',
             'body' => 'تم إضافة رمز التعريف الخاص لديك'
             .' إلي '
-            . $item->title . ' '
-            . ' بنجاح . '
+            .$item->title.' '
+            .' بنجاح . ',
         ],
         'en' => [
             'title' => 'Your QRCode has been assigned ',
             'body' => 'Your QRCode has been assigned  '
-             . '  to '
-            . $item->title. ' '
-            . '  successfully . '
+             .'  to '
+            .$item->title.' '
+            .'  successfully . ',
         ],
         'type' => 'assign_qrcode',
         'deeplink' => 'item',
-        'image' =>env('ADMIN_URL').'/images/qrcodeicon.png'  ,
-        'item' =>new SmallItemResource($item),
+        'image' => env('ADMIN_URL').'/images/qrcodeicon.png',
+        'item' => new SmallItemResource($item),
         'post' => null,
-        'url' => null ,
+        'url' => null,
         'id' => $item->id,
-        'badge' => $badge
+        'badge' => $badge,
     ];
+
     return $data;
 }

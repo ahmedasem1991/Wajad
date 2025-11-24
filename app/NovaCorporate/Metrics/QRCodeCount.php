@@ -11,12 +11,11 @@ class QRCodeCount extends Value
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, Qrcode::where('corporate_id',Auth()->user()->corporate->id));
+        return $this->count($request, Qrcode::where('corporate_id', Auth()->user()->corporate->id));
     }
 
     /**
@@ -45,7 +44,7 @@ class QRCodeCount extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Item;
-use App\Qrcode;
-use App\ItemImage;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Services\ItemService;
-use Spatie\QueryBuilder\Filter;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
-use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Support\Facades\Validator;
+use App\Item;
+use App\Qrcode;
+use App\Services\ItemService;
+use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
 /**
@@ -36,6 +30,7 @@ class ItemsController extends Controller
 
     /**
      * Create Item
+     *
      * @bodyParam title min:6,max:255 required
      * @bodyParam details min:20,max:500 required
      * @bodyParam color_id exists:colors,id required
@@ -46,11 +41,13 @@ class ItemsController extends Controller
      * @bodyParam images array required between:1,5
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
+     *
      * @response {
      * "success": true,
      *  "message": "Item created successfully.",
      *   "status_code": 200
      *}
+     *
      * @return void
      */
     public function store(Request $request)
@@ -64,8 +61,11 @@ class ItemsController extends Controller
 
     /**
      * Show Item
+     *
      * @urlParam item required int Item id. Example:1
+     *
      * @bodyParam token Barier-token required
+     *
      * @response {
      *  "data": {
      *     "id": 1,
@@ -151,15 +151,19 @@ class ItemsController extends Controller
      *]
      *}
      *}
+     *
      * @return void
      */
     public function show(Item $item)
     {
         return new ItemResource($item);
     }
+
     /**
      * Edit Item
+     *
      * @urlParam item required int Item id. Example: 1
+     *
      * @bodyParam title min:6,max:255 required
      * @bodyParam details min:20,max:500 required
      * @bodyParam color_id exists:colors,id required
@@ -170,18 +174,20 @@ class ItemsController extends Controller
      * @bodyParam images array required between:1,5
      * @bodyParam images.* image required mimes:jpeg,jpg,png,gif max:5012
      * @bodyParam token Barier-token required
+     *
      * @response {
      *  "success": true,
      * "message": "Item updated successfully.",
      *"status_code": 200
      *}
+     *
      * @return void
      */
     public function update(Request $request, Item $item)
     {
         $user = auth('api')->user();
 
-        if (!$user->can('update', $item)) {
+        if (! $user->can('update', $item)) {
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
 
@@ -194,29 +200,33 @@ class ItemsController extends Controller
 
     /**
      * Delete Item
+     *
      * @urlParam item required Item id. Example: 1
+     *
      * @bodyParam token Barier-token required
+     *
      * @response {
      *  "success": true,
      * "message": "Item deleted successfully.",
      *"status_code": 200
      *}
+     *
      * @return void
      */
     public function destroy(Item $item)
     {
         $user = auth('api')->user();
 
-        if (!$user->can('destroy', $item)) {
+        if (! $user->can('destroy', $item)) {
             throw new ApiException(trans('auth.not_authorized'), 400);
         }
-        if($item->qrcode !== null){
-            if ($item->qrcode->type === 2){
+        if ($item->qrcode !== null) {
+            if ($item->qrcode->type === 2) {
                 $item->qrcode->status = 2;
                 $item->qrcode->item_id = null;
                 $item->qrcode->save();
             }
-            if ($item->qrcode->type === 1){
+            if ($item->qrcode->type === 1) {
                 $item->qrcode->status = 6;
                 $item->qrcode->end_at = now();
                 $item->qrcode->save();
@@ -227,11 +237,11 @@ class ItemsController extends Controller
 
         $this->addResponse(trans('messages.deleted', ['model' => trans('messages.attributes.item')]))->addStatusCode(200);
 
-        return  $this->response();
+        return $this->response();
     }
 
     public function userItems()
     {
-        return  ItemResource::collection(auth('api')->user()->items()->get());
+        return ItemResource::collection(auth('api')->user()->items()->get());
     }
 }

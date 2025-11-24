@@ -102,8 +102,8 @@ return [
     */
 
     'ttl' => null,
-    //'ttl' => env('JWT_TTL', 60*60*7),
-   // 'ttl' => env('JWT_TTL', 1),
+    // 'ttl' => env('JWT_TTL', 60*60*7),
+    // 'ttl' => env('JWT_TTL', 1),
 
     /*
     |--------------------------------------------------------------------------
@@ -124,8 +124,8 @@ return [
 
     'refresh_ttl' => null,
 
-    //'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
-    //'refresh_ttl' => env('JWT_REFRESH_TTL', 1),
+    // 'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
+    // 'refresh_ttl' => env('JWT_REFRESH_TTL', 1),
 
     /*
     |--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return [
     'required_claims' => [
         'iss',
         'iat',
-        //'exp',
+        // 'exp',
         'nbf',
         'sub',
         'jti',
@@ -280,7 +280,7 @@ return [
         |
         */
 
-        //'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
+        // 'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
         'jwt' => Tymon\JWTAuth\Providers\JWT\Namshi::class,
         /*
         |--------------------------------------------------------------------------

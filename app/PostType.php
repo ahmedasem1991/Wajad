@@ -8,11 +8,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class PostType extends Model
 {
-    use  LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes;
+
     protected $fillable = ['title', 'description'];
 
     protected static $logAttributes = [
-        'title', 'description'
+        'title', 'description',
     ];
+
     protected static $logOnlyDirty = true;
 }

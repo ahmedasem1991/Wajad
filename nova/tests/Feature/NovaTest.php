@@ -161,9 +161,7 @@ class NovaTest extends IntegrationTest
     }
 }
 
-class CustomActionEvent extends ActionEvent
-{
-}
+class CustomActionEvent extends ActionEvent {}
 
 class CustomActionResource extends ActionResource
 {

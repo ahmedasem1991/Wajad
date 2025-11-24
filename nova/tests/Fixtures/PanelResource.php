@@ -29,7 +29,6 @@ class PanelResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -39,8 +38,8 @@ class PanelResource extends Resource
                 ID::make('ID', 'id'),
 
                 Text::make('Name', 'name')
-                            ->creationRules('required', 'string', 'max:255')
-                            ->updateRules('required', 'string', 'max:255'),
+                    ->creationRules('required', 'string', 'max:255')
+                    ->updateRules('required', 'string', 'max:255'),
 
                 $this->when(false, function () {
                     return Text::make('Exclude', 'exclude');

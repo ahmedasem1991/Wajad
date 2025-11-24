@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use function React\Promise\all;
 
 class OptimizeMedia extends Command
 {
@@ -52,11 +51,10 @@ class OptimizeMedia extends Command
         ];
 
         foreach ($models as $model) {
-            $apps =  "\\App\\".$model;
+            $apps = '\\App\\'.$model;
 
-            foreach ($apps::all() as $app)
-            {
-                if ((!empty($app->image)) && strpos($app->image, '/') !== 0){
+            foreach ($apps::all() as $app) {
+                if ((! empty($app->image)) && strpos($app->image, '/') !== 0) {
                     $this->info($app->image);
                     $app->image = '/'.$app->image;
                     $app->save();

@@ -2,25 +2,15 @@
 
 namespace App\Nova;
 
-use App\Nova\Resource;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
+use App\NovaCorporate\Metrics\ApprovalPosts;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
-
-use Laravel\Nova\Http\Requests\NovaRequest;
-use App\NovaCorporate\Metrics\ApprovalPosts;
-
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class PostRequest extends Resource
 {
@@ -30,7 +20,9 @@ class PostRequest extends Resource
      * @var string
      */
     public static $model = 'App\PostRequest';
+
     public static $displayInNavigation = false;
+
     /**
      * The logical group associated with the resource.
      *
@@ -64,16 +56,16 @@ class PostRequest extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
-        session()->put('user_id',$this->user_id);
+        session()->put('user_id', $this->user_id);
+
         return [
             Errors::make(),
             ID::make()->sortable(),
-            RadioButton::make('Valid Status','is_request_valid')
+            RadioButton::make('Valid Status', 'is_request_valid')
                 ->options([
                     0 => 'Not Valid',
                     1 => 'Valid',
@@ -82,7 +74,7 @@ class PostRequest extends Resource
                 ->readonly(),
 
             HasMany::make('Answers'),
-            BelongsTo::make('Claim user','postrequestuser',\App\Nova\NormalUser::class)
+            BelongsTo::make('Claim user', 'postrequestuser', \App\Nova\NormalUser::class)
                 ->readonly(),
             DateTime::make('Rejected At')
                 ->hideFromIndex()
@@ -95,20 +87,18 @@ class PostRequest extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new ApprovalPosts
+            new ApprovalPosts,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -119,7 +109,6 @@ class PostRequest extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -130,18 +119,19 @@ class PostRequest extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

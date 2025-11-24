@@ -25,8 +25,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Server specific setup. It may share alot with the main setUp() method, but
      * should exclude things like DB migrations so we don't end up wiping the
      * DB content mid test. Using this method means we can be explicit.
-     *
-     * @return void
      */
     protected function setUpDuskServer(): void
     {
@@ -52,7 +50,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Get package providers.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return array
      */
     protected function getPackageProviders($app)
@@ -68,7 +65,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Get application aliases.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return array
      */
     protected function getApplicationAliases($app)
@@ -80,7 +76,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Get application providers.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return array
      */
     protected function getApplicationProviders($app)
@@ -106,7 +101,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Resolve application Console Kernel implementation.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return void
      */
     protected function resolveApplicationConsoleKernel($app)
@@ -118,7 +112,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Resolve application HTTP Kernel implementation.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return void
      */
     protected function resolveApplicationHttpKernel($app)
@@ -130,7 +123,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
      * Resolve application HTTP exception handler.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return void
      */
     protected function resolveApplicationExceptionHandler($app)
@@ -153,10 +145,9 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
     /**
      * Setup Laravel for the test.
      *
-     * @param  callable|null  $callback
      * @return void
      */
-    protected function setupLaravel(callable $callback = null)
+    protected function setupLaravel(?callable $callback = null)
     {
         if (is_callable($callback)) {
             $callback($this->app);
@@ -166,7 +157,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
     /**
      * Run the given callback with searchable functionality enabled.
      *
-     * @param  callable  $callback
      * @return void
      */
     protected function whileSearchable(callable $callback)
@@ -183,7 +173,6 @@ abstract class DuskTestCase extends \Orchestra\Testbench\Dusk\TestCase
     /**
      * Run the given callback with inline-create functionality enabled.
      *
-     * @param  callable  $callback
      * @return void
      */
     protected function whileInlineCreate(callable $callback)

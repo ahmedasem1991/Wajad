@@ -1,24 +1,27 @@
-<?php 
-namespace App\Http\Controllers; 
-use Illuminate\Http\Request; 
-use App\Support; 
-use Mail; 
+<?php
 
-class ContactController extends Controller { 
+namespace App\Http\Controllers;
 
-      public function getContact() { 
+use App\Support;
+use Illuminate\Http\Request;
 
-       return view('contact_us'); 
-     } 
+class ContactController extends Controller
+{
+    public function getContact()
+    {
 
-      public function saveContact(Request $request) { 
+        return view('contact_us');
+    }
+
+    public function saveContact(Request $request)
+    {
 
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required',
             'phone_number' => 'required',
-            'message' => 'required'
+            'message' => 'required',
         ]);
 
         $contact = new Support;
@@ -32,18 +35,17 @@ class ContactController extends Controller {
         $contact->save();
 
         \Mail::send('emails.contact_email',
-        array(
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'subject' => $request->get('subject'),
-            'phone_number' => $request->get('phone_number'),
-            'user_message' => $request->get('message'),
-        ), function($message) use ($request)
-          {
-             $message->from(env('MAIL_FROM_ADDRESS'));
-             $message->to('info@wajad.co');
-          });
-        
+            [
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'subject' => $request->get('subject'),
+                'phone_number' => $request->get('phone_number'),
+                'user_message' => $request->get('message'),
+            ], function ($message) {
+                $message->from(env('MAIL_FROM_ADDRESS'));
+                $message->to('info@wajad.co');
+            });
+
         return back()->with('success', 'Thank you for contact us!');
 
     }

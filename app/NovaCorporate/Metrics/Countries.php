@@ -3,7 +3,6 @@
 namespace App\Nova\Metrics;
 
 use App\Country;
-use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Value;
 
 class Countries extends Value
@@ -37,7 +36,7 @@ class Countries extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

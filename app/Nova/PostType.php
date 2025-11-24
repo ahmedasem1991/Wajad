@@ -2,13 +2,11 @@
 
 namespace App\Nova;
 
-use App\Nova\Metrics\PostImages;
 use App\Nova\Metrics\PostTypes;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class PostType extends Resource
 {
@@ -25,7 +23,9 @@ class PostType extends Resource
      * @var string
      */
     public static $group = 'Posts';
+
     public static $displayInNavigation = false;
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -50,7 +50,6 @@ class PostType extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -65,20 +64,18 @@ class PostType extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new PostTypes()
+            new PostTypes,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -89,7 +86,6 @@ class PostType extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -100,18 +96,19 @@ class PostType extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-    return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

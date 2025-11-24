@@ -2,38 +2,28 @@
 
 namespace App\Nova;
 
-use App\User;
-use App\People;
-use Carbon\Carbon;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use NovaButton\Button;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\PostsCount;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
-use App\Nova\Metrics\PostsPeriod;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use NovaErrorField\Errors;
-use OwenMelbz\RadioField\RadioButton;
 use App\Nova\Metrics\OpenVsClosedPosts;
 use App\Nova\Metrics\ShowVsHiddenPosts;
-use Bissolli\NovaPhoneField\PhoneNumber;
+use App\People;
+use Carbon\Carbon;
 use ClassicO\NovaMediaLibrary\MediaField;
-use App\Services\Filters\ItemFilters\Lost;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Illuminate\Http\Request;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
+use Naif\Toggle\Toggle;
+use NovaButton\Button;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class ClosedPost extends Resource
 {
@@ -94,6 +84,7 @@ class ClosedPost extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
         'color' => ['name_en', 'name_ar'],
         'subcategory' => ['name_en', 'name_ar'],
@@ -109,36 +100,38 @@ class ClosedPost extends Resource
     {
         return (Auth()->User()->hasPermissionTo('closed posts')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
 
-        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        if($this->status==1)
-        {
-            $Questions=HasMany::make('Questions');
-            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+        $Questions = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if ($this->status == 1) {
+            $Questions = HasMany::make('Questions');
+            $PostRequests = HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
+
         return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Title')->readonly(),
             Textarea::make('description')->readonly(),
-            Textarea::make('Internal Note','notes'),
+            Textarea::make('Internal Note', 'notes'),
 
-            Select::make('Post Type','status')->options([
+            Select::make('Post Type', 'status')->options([
                 0 => 'Lost',
-                1 => 'Found'
+                1 => 'Found',
             ])
                 ->displayUsingLabels()
                 ->readonly(),
-            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request) {
+                return 1;
+            }),
             Toggle::make('Open Status', 'open_status'),
             DateTimeField::make('Post Closing Date', 'end_date')
                 ->maxDate(Carbon::today())
@@ -151,11 +144,9 @@ class ClosedPost extends Resource
                 ->rules('required')
                 ->readonly(),
 
-
             BelongsTo::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->rules('required')
                 ->readonly(),
-
 
             BelongsTo::make('Model', 'model', \App\Nova\Model::class)
                 ->rules('required')
@@ -220,7 +211,6 @@ class ClosedPost extends Resource
                     ->options(People::all())
                     ->rules('required_if:founder_releated_to_system,0'),
 
-
             ])->dependsOn('founder_releated_to_system', 0),
 
             BelongsTo::make('Founder', 'founder', 'App\Nova\NormalUser')
@@ -244,7 +234,7 @@ class ClosedPost extends Resource
 
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
             $Questions,
-            $PostRequests
+            $PostRequests,
         ];
     }
 
@@ -258,14 +248,12 @@ class ClosedPost extends Resource
             $request->offsetUnset('founder_releated_to_system');
         }
 
-
         return parent::fill($request, $model);
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -280,7 +268,6 @@ class ClosedPost extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -291,7 +278,6 @@ class ClosedPost extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -302,16 +288,16 @@ class ClosedPost extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/rejected.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/rejected.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
@@ -324,7 +310,7 @@ class ClosedPost extends Resource
         return false;
     }
 
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

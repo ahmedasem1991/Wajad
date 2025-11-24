@@ -2,61 +2,53 @@
 
 namespace App\Observers;
 
-use App\QrCode;
-use Carbon\Carbon;
 use App\GenerateQrcode;
-use Illuminate\Support\Str;
 use App\Jobs\GenerateQrcodeJob;
-use Illuminate\Support\Facades\Log;
-use Auth;
+use Carbon\Carbon;
+
 class QrcodeGenerateObserver
 {
     /**
      * Handle the GenerateQrcode "created" event.
      *
-     * @param  \App\GenerateQrcode $GenerateQrcode
+     * @param  \App\GenerateQrcode  $GenerateQrcode
      * @return void
      */
     public function saving(GenerateQrcode $generateQrcode)
-    { 
-            if($generateQrcode->created_from=='web')
-            {
-                $now = Carbon::now();
-                $generateQrcode->generate_reference_number='N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
-                $generateQrcode->created_by=Auth()->User()->id;
-            }
-           
-        
-        
-         
+    {
+        if ($generateQrcode->created_from == 'web') {
+            $now = Carbon::now();
+            $generateQrcode->generate_reference_number = 'N-'.$now->year.$now->month.$now->day.'-'.$now->hour.$now->minute.$now->second;
+            $generateQrcode->created_by = Auth()->User()->id;
+        }
+
     }
+
     public function saved(GenerateQrcode $generateQrcode)
     {
-        if($generateQrcode->created_from=='web' || $generateQrcode->created_from=='system')
-        {
-        GenerateQrcodeJob::dispatch($generateQrcode);
+        if ($generateQrcode->created_from == 'web' || $generateQrcode->created_from == 'system') {
+            GenerateQrcodeJob::dispatch($generateQrcode);
         }
     }
 
     /**
      * Handle the GenerateQrcode "updated" event.
      *
-     * @param  \App\GenerateQrcode $GenerateQrcode
      * @return void
      */
     public function updated(GenerateQrcode $GenerateQrcode)
     {
-     //   return false;
+        //   return false;
     }
+
     public function updating(GenerateQrcode $GenerateQrcode)
     {
-       // return false;
+        // return false;
     }
 
     /**
      * Handle the GenerateQrcode "deleted" event.
      *
-     * @param  \App\GenerateQrcode $GenerateQrcode
      * @return void
      */
     public function deleted(GenerateQrcode $GenerateQrcode)
@@ -67,7 +59,6 @@ class QrcodeGenerateObserver
     /**
      * Handle the GenerateQrcode "restored" event.
      *
-     * @param  \App\GenerateQrcode $GenerateQrcode
      * @return void
      */
     public function restored(GenerateQrcode $GenerateQrcode)
@@ -78,7 +69,6 @@ class QrcodeGenerateObserver
     /**
      * Handle the GenerateQrcode "force deleted" event.
      *
-     * @param  \App\GenerateQrcode $GenerateQrcode
      * @return void
      */
     public function forceDeleted(GenerateQrcode $GenerateQrcode)

@@ -4,25 +4,15 @@ namespace App\NovaCorporate;
 
 use App\Nova\Resource;
 use ClassicO\NovaMediaLibrary\MediaField;
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Number;
-use Naif\MapAddress\MapAddress;
-use App\Nova\Metrics\Corporates;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\BelongsToMany;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use Spatie\NovaTranslatable\Translatable;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 class Corporate extends Resource
@@ -75,13 +65,12 @@ class Corporate extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  false;
+        return false;
     }
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -106,8 +95,8 @@ class Corporate extends Resource
                 ->placeholder('Select Country')
                 ->options(\App\Country::all()),
             Number::make('Mobile Number', 'mobile_number')
-                ->creationRules('required','unique:corporates,mobile_number')
-                ->updateRules('required','unique:corporates,mobile_number,{{resourceId}}'),
+                ->creationRules('required', 'unique:corporates,mobile_number')
+                ->updateRules('required', 'unique:corporates,mobile_number,{{resourceId}}'),
             Trix::make('Corporate English Details', 'details_en')
                 ->rules(
                     'required',
@@ -149,7 +138,6 @@ class Corporate extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -160,7 +148,6 @@ class Corporate extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -171,7 +158,6 @@ class Corporate extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -182,16 +168,16 @@ class Corporate extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/company.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
@@ -203,7 +189,8 @@ class Corporate extends Resource
     {
         return true;
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

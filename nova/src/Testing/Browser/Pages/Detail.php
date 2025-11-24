@@ -8,6 +8,7 @@ use Laravel\Nova\Nova;
 class Detail extends Page
 {
     public $resourceName;
+
     public $resourceId;
 
     /**
@@ -39,11 +40,11 @@ class Detail extends Page
     public function runAction(Browser $browser, $uriKey)
     {
         $browser->select('@action-select', $uriKey)
-                    ->pause(100)
-                    ->click('@run-action-button')
-                    ->pause(250)
-                    ->click('@confirm-action-button')
-                    ->pause(250);
+            ->pause(100)
+            ->click('@run-action-button')
+            ->pause(250)
+            ->click('@confirm-action-button')
+            ->pause(250);
     }
 
     /**
@@ -52,10 +53,10 @@ class Detail extends Page
     public function runInstantAction(Browser $browser, $uriKey)
     {
         $browser->select('@action-select', $uriKey)
-                    ->pause(100)
-                    ->click('@run-action-button')
-                    ->assertDontSee('@cancel-action-button')
-                    ->pause(250);
+            ->pause(100)
+            ->click('@run-action-button')
+            ->assertDontSee('@cancel-action-button')
+            ->pause(250);
     }
 
     /**
@@ -64,11 +65,11 @@ class Detail extends Page
     public function cancelAction(Browser $browser, $uriKey)
     {
         $browser->select('@action-select', 'mark-as-active')
-                    ->pause(100)
-                    ->click('@run-action-button')
-                    ->pause(250)
-                    ->click('@cancel-action-button')
-                    ->pause(250);
+            ->pause(100)
+            ->click('@run-action-button')
+            ->pause(250)
+            ->click('@cancel-action-button')
+            ->pause(250);
     }
 
     /**
@@ -77,9 +78,9 @@ class Detail extends Page
     public function delete(Browser $browser)
     {
         $browser->click('@open-delete-modal-button')
-                    ->pause(500)
-                    ->click('#confirm-delete-button')
-                    ->pause(1000);
+            ->pause(500)
+            ->click('#confirm-delete-button')
+            ->pause(1000);
     }
 
     /**
@@ -88,9 +89,9 @@ class Detail extends Page
     public function restore(Browser $browser)
     {
         $browser->click('@open-restore-modal-button')
-                    ->pause(500)
-                    ->click('#confirm-restore-button')
-                    ->pause(1000);
+            ->pause(500)
+            ->click('#confirm-restore-button')
+            ->pause(1000);
     }
 
     /**
@@ -99,15 +100,14 @@ class Detail extends Page
     public function forceDelete(Browser $browser)
     {
         $browser->click('@open-force-delete-modal-button')
-                    ->pause(500)
-                    ->click('#confirm-delete-button')
-                    ->pause(1000);
+            ->pause(500)
+            ->click('#confirm-delete-button')
+            ->pause(1000);
     }
 
     /**
      * Assert that the browser is on the page.
      *
-     * @param  Browser  $browser
      * @return void
      */
     public function assert(Browser $browser)

@@ -3,20 +3,20 @@
 namespace App\Jobs;
 
 use App\User;
-use App\PostRequest;
-use App\AssignQrcode;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class DeleteUserChat implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $user;
 
-    private $user, $token;
+    private $token;
+
     /**
      * Create a new job instance.
      *
@@ -35,9 +35,9 @@ class DeleteUserChat implements ShouldQueue
     public function handle()
     {
 
-        $url = "https://api.mesibo.com/api.php?op=userdel&token=".env('MESIBO_APP_TOKEN')."&uid=". $this->user->mesibo_uid;
+        $url = 'https://api.mesibo.com/api.php?op=userdel&token='.env('MESIBO_APP_TOKEN').'&uid='.$this->user->mesibo_uid;
         $client = new \GuzzleHttp\Client([
-            'headers' => ['Content-Type' => 'application/json']
+            'headers' => ['Content-Type' => 'application/json'],
         ]);
         $response = $client->get($url);
         $response = json_decode($response->getBody(), true);
@@ -52,10 +52,9 @@ class DeleteUserChat implements ShouldQueue
     //     $url = "https://api.quickblox.com/session.json";
     //     $Now = \Carbon\Carbon::now()->timestamp;
     //     $Data = 'application_id=' . env('QUICKBLOX_APPLICATION_ID') . '&auth_key=' . env('QUICKBLOX_AUTH_KEY') . '&nonce=&timestamp=' . $Now.'&user[login]=SmartAppCo&user[password]=Smart@12345';
-      
+
     //     //logger( $Data );
     //     $Hash = hash_hmac('SHA1', $Data, env('QUICKBLOX_AUTH_SECRET'));
-       
 
     //     $form_params['application_id'] = env('QUICKBLOX_APPLICATION_ID');
     //     $form_params['auth_key'] = env('QUICKBLOX_AUTH_KEY');
@@ -66,7 +65,7 @@ class DeleteUserChat implements ShouldQueue
     //     $form_params['user']['password'] = 'Smart@12345';
 
     //     $data = json_encode($form_params);
- 
+
     //     $client = new \GuzzleHttp\Client([
     //         'headers' => ['Content-Type' => 'application/json']
     //     ]);
@@ -77,17 +76,14 @@ class DeleteUserChat implements ShouldQueue
     //     $response = json_decode($response->getBody(), true);
 
     //     $this->token = $response['session']['token'];
-      
+
     // }
-
-
 
     // public function deleteQuickUser()
     // {
     //     $token=$this->token;
     //     $url = "https://api.quickblox.com/users/".$this->user->quick_user_id.".json";
- 
- 
+
     //     $client = new \GuzzleHttp\Client([
     //         'headers' => [
     //             //'Content-Type' => 'application/json',
@@ -96,10 +92,7 @@ class DeleteUserChat implements ShouldQueue
     //         ]
     //     ]);
 
-       
     //     $response = $client->delete($url);
-       
-      
-  
+
     // }
 }

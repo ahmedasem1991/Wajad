@@ -23,9 +23,9 @@ class CustomFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('flights'))
-                    ->type('@name', 'Test Flight')
-                    ->create();
+                ->visit(new Create('flights'))
+                ->type('@name', 'Test Flight')
+                ->create();
 
             $flight = Flight::latest()->first();
             $browser->assertPathIs('/nova/resources/flights/'.$flight->id);
@@ -45,9 +45,9 @@ class CustomFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('flights'))
-                    ->create()
-                    ->assertSee('The Name field is required.');
+                ->visit(new Create('flights'))
+                ->create()
+                ->assertSee('The Name field is required.');
 
             $browser->blank();
         });
@@ -64,11 +64,11 @@ class CustomFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($flight) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Index('flights'))
-                    ->waitFor('@flights-index-component', 25)
-                    ->within(new IndexComponent('flights'), function ($browser) use ($flight) {
-                        $browser->assertSee($flight->name);
-                    });
+                ->visit(new Index('flights'))
+                ->waitFor('@flights-index-component', 25)
+                ->within(new IndexComponent('flights'), function ($browser) use ($flight) {
+                    $browser->assertSee($flight->name);
+                });
 
             $browser->blank();
         });
@@ -85,9 +85,9 @@ class CustomFieldTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($flight) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('flights', $flight->id))
-                    ->pause(250)
-                    ->assertSee($flight->name);
+                ->visit(new Detail('flights', $flight->id))
+                ->pause(250)
+                ->assertSee($flight->name);
 
             $browser->blank();
         });

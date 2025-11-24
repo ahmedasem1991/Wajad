@@ -1,10 +1,7 @@
 <?php
 
-use Barryvdh\DomPDF\Facade;
-//use App\Services\FCM\Facades\FCM;
-use App\Services\FCM\Facades\FCMGroup;
+// use App\Services\FCM\Facades\FCM;
 use App\Services\FCM\FCMServiceProvider;
-use Barryvdh\DomPDF\ServiceProvider;
 
 return [
 
@@ -174,9 +171,6 @@ return [
         FCMServiceProvider::class,
         Multicaret\Unifonic\UnifonicServiceProvider::class,
 
-        
-
-
         /*
          * Package Service Providers...
          */
@@ -192,14 +186,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Pusher\Laravel\PusherServiceProvider::class,
-        
+
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-    
-        //\SocialiteProviders\Manager\ServiceProvider::class,
-],
 
-
+        // \SocialiteProviders\Manager\ServiceProvider::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -257,9 +249,6 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
         'Unifonic' => Multicaret\Unifonic\UnifonicFacade::class,
-
-        
-
 
     ],
 

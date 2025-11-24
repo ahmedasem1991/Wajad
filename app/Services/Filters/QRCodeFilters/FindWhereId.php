@@ -2,9 +2,9 @@
 
 namespace App\Services\Filters\QRCodeFilters;
 
-use Illuminate\Database\Eloquent\Builder;
-use App\Services\Filters\Contracts\FilterContract;
 use App\Services\Filters\Constants\QrcodeConstants;
+use App\Services\Filters\Contracts\FilterContract;
+use Illuminate\Database\Eloquent\Builder;
 
 class FindWhereId implements FilterContract, QrcodeConstants
 {

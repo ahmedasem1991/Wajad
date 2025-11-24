@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Category;
 use Illuminate\Console\Command;
 
 class SeedSubCategories extends Command

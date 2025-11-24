@@ -138,7 +138,7 @@ class FileFieldTest extends IntegrationTest
         Storage::fake();
         Storage::fake('public');
 
-        $model = new Model();
+        $model = new Model;
         $field = $this->makeField();
         $field->storeAs(function () {
             return 'david.jpg';

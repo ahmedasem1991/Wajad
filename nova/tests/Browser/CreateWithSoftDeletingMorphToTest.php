@@ -38,16 +38,16 @@ class CreateWithSoftDeletingMorphToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($video) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Detail('videos', $video->id))
-                    ->waitFor('@comments-index-component', 25)
-                    ->within(new IndexComponent('comments'), function ($browser) {
-                        $browser->click('@create-button');
-                    })
-                    ->on(new Create('comments'))
-                    ->assertDisabled('@commentable-type')
-                    ->assertDisabled('@commentable-select')
-                    ->type('@body', 'Test Comment')
-                    ->create();
+                ->visit(new Detail('videos', $video->id))
+                ->waitFor('@comments-index-component', 25)
+                ->within(new IndexComponent('comments'), function ($browser) {
+                    $browser->click('@create-button');
+                })
+                ->on(new Create('comments'))
+                ->assertDisabled('@commentable-type')
+                ->assertDisabled('@commentable-select')
+                ->type('@body', 'Test Comment')
+                ->create();
 
             $this->assertCount(1, $video->fresh()->comments);
 
@@ -67,25 +67,25 @@ class CreateWithSoftDeletingMorphToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($video, $video2) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('comments'))
-                    ->select('@commentable-type', 'videos')
-                    ->searchRelation('commentable', $video->id)
-                    ->pause(1500)
-                    ->assertMissing('@commentable-search-input-result-0')
-                    ->searchRelation('commentable', $video2->id)
-                    ->pause(1500)
-                    ->assertSeeIn('@commentable-search-input-result-0', $video2->title);
+                ->visit(new Create('comments'))
+                ->select('@commentable-type', 'videos')
+                ->searchRelation('commentable', $video->id)
+                ->pause(1500)
+                ->assertMissing('@commentable-search-input-result-0')
+                ->searchRelation('commentable', $video2->id)
+                ->pause(1500)
+                ->assertSeeIn('@commentable-search-input-result-0', $video2->title);
 
             $browser->visit(new Create('comments'))
-                    ->select('@commentable-type', 'videos')
-                    ->pause(750)
-                    ->withTrashedRelation('commentable')
-                    ->searchRelation('commentable', $video->id)
-                    ->pause(1500)
-                    ->assertSeeIn('@commentable-search-input-result-0', $video->title)
-                    ->selectCurrentRelation('commentable')
-                    ->type('@body', 'Test Comment')
-                    ->create();
+                ->select('@commentable-type', 'videos')
+                ->pause(750)
+                ->withTrashedRelation('commentable')
+                ->searchRelation('commentable', $video->id)
+                ->pause(1500)
+                ->assertSeeIn('@commentable-search-input-result-0', $video->title)
+                ->selectCurrentRelation('commentable')
+                ->type('@body', 'Test Comment')
+                ->create();
 
             $this->assertCount(1, $video->fresh()->comments);
 
@@ -105,17 +105,17 @@ class CreateWithSoftDeletingMorphToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($video) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('comments'))
-                    ->select('@commentable-type', 'videos')
-                    ->pause(175)
-                    ->withTrashedRelation('commentable')
-                    ->searchAndSelectFirstRelation('commentable', $video->id)
-                    ->pause(1500)
-                    ->withoutTrashedRelation('commentable')
-                    ->type('@body', 'Test Comment')
-                    ->create()
-                    ->pause(175)
-                    ->assertSee('This Commentable may not be associated with this resource.');
+                ->visit(new Create('comments'))
+                ->select('@commentable-type', 'videos')
+                ->pause(175)
+                ->withTrashedRelation('commentable')
+                ->searchAndSelectFirstRelation('commentable', $video->id)
+                ->pause(1500)
+                ->withoutTrashedRelation('commentable')
+                ->type('@body', 'Test Comment')
+                ->create()
+                ->pause(175)
+                ->assertSee('This Commentable may not be associated with this resource.');
 
             $this->assertCount(0, $video->fresh()->comments);
 
@@ -135,19 +135,19 @@ class CreateWithSoftDeletingMorphToTest extends DuskTestCase
 
             $this->browse(function (Browser $browser) use ($video) {
                 $browser->loginAs(User::find(1))
-                        ->visit(new Create('comments'))
-                        ->select('@commentable-type', 'videos')
-                        ->searchRelation('commentable', '1')
-                        ->pause(1500)
-                        ->assertNoRelationSearchResults('commentable');
+                    ->visit(new Create('comments'))
+                    ->select('@commentable-type', 'videos')
+                    ->searchRelation('commentable', '1')
+                    ->pause(1500)
+                    ->assertNoRelationSearchResults('commentable');
 
                 $browser->visit(new Create('comments'))
-                        ->select('@commentable-type', 'videos')
-                        ->pause(175)
-                        ->withTrashedRelation('commentable')
-                        ->searchAndSelectFirstRelation('commentable', '1')
-                        ->type('@body', 'Test Comments')
-                        ->create();
+                    ->select('@commentable-type', 'videos')
+                    ->pause(175)
+                    ->withTrashedRelation('commentable')
+                    ->searchAndSelectFirstRelation('commentable', '1')
+                    ->type('@body', 'Test Comments')
+                    ->create();
 
                 $this->assertCount(1, $video->fresh()->comments);
 

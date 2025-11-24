@@ -2,15 +2,11 @@
 
 namespace App;
 
-
-use App\Brand;
-use App\Model;
-use Carbon\Carbon;
 use App\Helpers\Api\ResponseTrait;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as MasterModel;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Post extends MasterModel
 {
@@ -43,7 +39,7 @@ class Post extends MasterModel
         'question_3',
         'show_name',
         'region_id',
-        'show_number'
+        'show_number',
     ];
 
     protected static $logAttributes = [
@@ -73,15 +69,16 @@ class Post extends MasterModel
         'question_2',
         'question_3',
         'show_name',
-        'show_number'
+        'show_number',
     ];
+
     protected static $logOnlyDirty = true;
 
     protected $casts = [
         'losted_at' => 'datetime',
         'founded_at' => 'datetime',
         'end_date' => 'datetime',
-        'images' => 'array'
+        'images' => 'array',
     ];
 
     const APPROVALSTATUS = [
@@ -90,7 +87,7 @@ class Post extends MasterModel
         2 => 'rejected',
         'pending' => 0,
         'approved' => 1,
-        'rejected' => 2
+        'rejected' => 2,
     ];
 
     const PUBLISHER_TYPE = [
@@ -99,28 +96,28 @@ class Post extends MasterModel
         3 => 'admin',
         'user' => 1,
         'corporate' => 2,
-        'admin' => 3
+        'admin' => 3,
     ];
 
     const Status = [
         0 => 'lost',
         1 => 'found',
         'lost' => 0,
-        'found' => 1
+        'found' => 1,
     ];
 
     const APPEARANCESTATUS = [
         0 => 'hidden',
         1 => 'show',
         'hidden' => 0,
-        'show' => 1
+        'show' => 1,
     ];
 
     const OPENSTATUS = [
         0 => 'closed',
         1 => 'open',
         'closed' => 0,
-        'open' => 1
+        'open' => 1,
     ];
 
     public function visits()
@@ -135,6 +132,7 @@ class Post extends MasterModel
     {
         return $this->belongsTo(Item::class)->withTrashed();
     }
+
     /**
      * Define The User was Published The Post with Post
      */
@@ -150,6 +148,7 @@ class Post extends MasterModel
     {
         return $this->belongsTo(User::class, 'founder_id')->withTrashed();
     }
+
     /**
      * Define The Owner Of The Item "In Case Of Lost Item"
      */
@@ -157,6 +156,7 @@ class Post extends MasterModel
     {
         return $this->belongsTo(User::class, 'owner_id')->withTrashed();
     }
+
     public function region()
     {
         return $this->belongsTo(Region::class, 'region_id')->withTrashed();
@@ -169,6 +169,7 @@ class Post extends MasterModel
     {
         return $this->belongsTo(PostType::class, 'post_type_id');
     }
+
     /**
      * Define The corporate Of The Post
      */
@@ -179,11 +180,12 @@ class Post extends MasterModel
 
     public function ownerPerson()
     {
-        return $this->belongsTo(People::class,'owner_person_id')->withTrashed();
+        return $this->belongsTo(People::class, 'owner_person_id')->withTrashed();
     }
+
     public function founderPerson()
     {
-        return $this->belongsTo(People::class,'founder_person_id')->withTrashed();
+        return $this->belongsTo(People::class, 'founder_person_id')->withTrashed();
     }
 
     /**
@@ -201,6 +203,7 @@ class Post extends MasterModel
     {
         return $this->belongsTo(Brand::class, 'brand_id')->withTrashed()->withTrashed();
     }
+
     /**
      * Define The Model Of The Post
      */
@@ -208,6 +211,7 @@ class Post extends MasterModel
     {
         return $this->belongsTo(Model::class, 'model_id')->withTrashed()->withTrashed();
     }
+
     /**
      * Define The Color Of The Post
      */
@@ -217,14 +221,13 @@ class Post extends MasterModel
     }
 
     /**
-     *
      * Post Reports
-     *
      */
     public function reports()
     {
         return $this->hasMany(PostReport::class);
     }
+
     /**
      * Define The Item  Of Post
      */
@@ -232,26 +235,26 @@ class Post extends MasterModel
     {
         return $query->where('item_id', $item_id);
     }
+
     /**
      * Define The Publisher  Of Post
      */
-
     public function scopePublisher($query, $publisher_id)
     {
         return $query->where('publisher_id', $publisher_id);
     }
+
     /**
      * Define The Owner  Of Item
      */
-
     public function scopeOwner($query, $owner_id)
     {
         return $query->where('owner_id', $owner_id);
     }
+
     /**
      * Define The Founder  Of Item
      */
-
     public function scopeFounder($query, $founder_id)
     {
         return $query->where('founder_id', $founder_id);
@@ -290,6 +293,7 @@ class Post extends MasterModel
     public function scopeStatus($query, $status)
     {
         $status = ($status == 'lost') ? 0 : 1;
+
         return $query->where('status', $status);
     }
 
@@ -303,11 +307,11 @@ class Post extends MasterModel
         return $query->where('open_status', false);
     }
 
-
     public function scopeAppearance($query)
     {
         return $query->where('appearance_status', true);
     }
+
     public function scopeIsShow($query, $status = 1)
     {
         return $query->where('appearance_status', true);
@@ -332,6 +336,7 @@ class Post extends MasterModel
     {
         return $query->where('approval_status', 2);
     }
+
     public function scopeIsReported($query)
     {
         return $query->where('reports_number', '!=', 0);
@@ -346,8 +351,6 @@ class Post extends MasterModel
     {
         return $query->where('status', 1);
     }
-
-
 
     /**
      * Define The post type Of Post
@@ -376,18 +379,20 @@ class Post extends MasterModel
 
     public function getPublisherTypeAttribute($value)
     {
-        if ($value == 1)
+        if ($value == 1) {
             return 'user';
-        if ($value == 2)
+        }
+        if ($value == 2) {
             return 'corporate';
-        if ($value == 3)
+        }
+        if ($value == 3) {
             return 'admin';
+        }
     }
-
 
     public function ended()
     {
-        return ($this->end_date < Carbon::now()) ? true :  false;
+        return ($this->end_date < Carbon::now()) ? true : false;
     }
 
     // public function getOwnerReleatedToSystemAttribute($value)
@@ -409,7 +414,7 @@ class Post extends MasterModel
 
     public function deleteQuestions()
     {
-        return   $this->questions()->delete();
-       // return parent::delete();
+        return $this->questions()->delete();
+        // return parent::delete();
     }
 }

@@ -26,12 +26,12 @@ use stdClass;
 
 class FieldTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
@@ -177,7 +177,8 @@ class FieldTest extends IntegrationTest
         $request = Request::create('/', 'GET');
 
         $request->setUserResolver(function () {
-            return new class {
+            return new class
+            {
                 public function can($ability, $arguments = [])
                 {
                     $_SERVER['__nova.ability'] = $ability;
@@ -386,14 +387,13 @@ class FieldTest extends IntegrationTest
 
         $request->setMethod('POST');
         $request->setRouteResolver(function () use ($request) {
-            return tap(new Route('POST', '/{resource}', function () {
-            }), function (Route $route) use ($request) {
+            return tap(new Route('POST', '/{resource}', function () {}), function (Route $route) use ($request) {
                 $route->bind($request);
                 $route->setParameter('resource', UserResource::class);
             });
         });
 
-        $model = new stdClass();
+        $model = new stdClass;
 
         Text::make('Resource')->fill($request, $model);
         Password::make('Query')->fill($request, $model);

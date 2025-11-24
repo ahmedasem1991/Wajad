@@ -2,101 +2,94 @@
 
 namespace App\Observers;
 
-use App\User;
 use App\AssignQrcode;
 use App\Jobs\DeleteUserChat;
 use App\Jobs\PrepereNewUser;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class UserObserver
 {
+    public function creating(User $User)
+    {
+        if (auth()->check() && ! auth()->user()->isUser()) {
+            //     if($User->type==1)
+            // {
+            //   $check=  User::withTrashed()->where('email',$User->email)->where('type',User::Types['user'])->first();
+            //   if( $check)
+            //   throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
 
+            $DeletedUser = \App\User::where('email', $User->email)
+                ->orWhere('mobile_number', $User->mobile_number)
+                ->where('deleted_at', '!=', null)->withTrashed()->first();
 
-    public function creating(User $User) {
-        if(auth()->check() && !auth()->user()->isUser())
-        {
-    //     if($User->type==1)
-    // {
-    //   $check=  User::withTrashed()->where('email',$User->email)->where('type',User::Types['user'])->first();
-    //   if( $check)
-    //   throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
+            $NormalUserCount = \App\User::where('email', $User->email)
+                ->orWhere('mobile_number', $User->mobile_number)
+                ->where('deleted_at', null)->count();
 
+            if ($DeletedUser && $NormalUserCount > 1) {
+                throw \Illuminate\Validation\ValidationException::withMessages(['email' => ['This email already exit.']]);
+            }
 
-      $DeletedUser=\App\User::where('email',$User->email)
-      ->orWhere('mobile_number',$User->mobile_number)
-      ->where('deleted_at' ,'!=',NULL)->withTrashed()->first();
+            // }
 
-      $NormalUserCount=\App\User::where('email',$User->email)
-      ->orWhere('mobile_number',$User->mobile_number)
-      ->where('deleted_at' ,NULL)->count();
+            //   $check=  User::withTrashed()->where('email',$User->email)->where('type',$User->type)->first();
+            //   if($check)
+            //   throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
 
-    
-      if( $DeletedUser &&  $NormalUserCount>1)
-      {
-        throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit.'], ]);
-      }
-
-
-    //}
- 
-    //   $check=  User::withTrashed()->where('email',$User->email)->where('type',$User->type)->first();
-    //   if($check)
-    //   throw \Illuminate\Validation\ValidationException::withMessages([ 'email' => ['This email already exit , please restore this user or force delete it'], ]);
-    
+        }
     }
-    }
+
     public function saving(User $User)
     {
-        if ($User->mobile_number != '' || $User->mobile_number != null){
-            $User->mobile_number =   ltrim($User->mobile_number,0);
+        if ($User->mobile_number != '' || $User->mobile_number != null) {
+            $User->mobile_number = ltrim($User->mobile_number, 0);
         }
-       // $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
+        // $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
         if (Auth::check() && Auth()->User()->isCorporateAdmin()) {
 
             $User->corporate_id = Auth()->User()->corporate_id;
         }
 
         if (Auth::check() && Auth()->User()->isAdmin()) {
-           $User->created_from = 'web';
-           $User->max_posts_number = defaultGroup()->limitation_of_posts;
+            $User->created_from = 'web';
+            $User->max_posts_number = defaultGroup()->limitation_of_posts;
         }
 
-
     }
-
 
     public function saved(User $User)
     {
 
+        if ($User->created_from == 'web' && $User->type == 1) {
 
-        if( $User->created_from=='web' && $User->type==1) {
- 
-            //for new user
-            if(count($User->qrcodes) == 0 ){
-              AssignQrcode::create([
-                'assign_to'=>1,
-                'type'=>1,
-                'user_id'=>$User->id,
-                'quantity'=>defaultGroup()->free_qrcodes ,
-                'available_period'=>defaultGroup()->available_period_qrcodes ,
-                'created_from'=>'new_register' ,
-               ]);
+            // for new user
+            if (count($User->qrcodes) == 0) {
+                AssignQrcode::create([
+                    'assign_to' => 1,
+                    'type' => 1,
+                    'user_id' => $User->id,
+                    'quantity' => defaultGroup()->free_qrcodes,
+                    'available_period' => defaultGroup()->available_period_qrcodes,
+                    'created_from' => 'new_register',
+                ]);
             }
-                if($User->mesibo_token ==NULL)
+            if ($User->mesibo_token == null) {
                 PrepereNewUser::dispatch($User);
+            }
 
         }
 
-
     }
+
     public function updating(User $User)
     {
-       // $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
+        // $User->mobile_number=   str_replace(' ', '',$User->mobile_number);
     }
+
     /**
      * Handle the user "created" event.
      *
-     * @param  \App\User  $user
      * @return void
      */
     public function created(User $user)
@@ -107,7 +100,6 @@ class UserObserver
     /**
      * Handle the user "updated" event.
      *
-     * @param  \App\User  $user
      * @return void
      */
     public function updated(User $user)
@@ -118,21 +110,20 @@ class UserObserver
     /**
      * Handle the user "deleted" event.
      *
-     * @param  \App\User  $user
      * @return void
      */
     public function deleted(User $user)
     {
         // logger('user deletd');
-         if($user->isUser())
-        DeleteUserChat::dispatch($user);
+        if ($user->isUser()) {
+            DeleteUserChat::dispatch($user);
+        }
         // DeleteUserChat::dispatch($user);
     }
 
     /**
      * Handle the user "restored" event.
      *
-     * @param  \App\User  $user
      * @return void
      */
     public function restored(User $user)
@@ -143,7 +134,6 @@ class UserObserver
     /**
      * Handle the user "force deleted" event.
      *
-     * @param  \App\User  $user
      * @return void
      */
     public function forceDeleted(User $user)
@@ -152,6 +142,6 @@ class UserObserver
         // logger('user soft deletd');
         // if($user->isUser())
         // DeleteUserChat::dispatch($user);
-       
+
     }
 }

@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use Faker\Factory;
 use GuzzleHttp\Client;
 
-
 class TestController extends Controller
 {
-    public function  __invoke()
+    public function __invoke()
     {
         $client = new Client([
             'base_uri' => 'http://api.wajad.test/api/',
@@ -27,12 +26,13 @@ class TestController extends Controller
                     'password' => bcrypt('123456789'),
                     'mobile_number' => $faker->phoneNumber,
                     'device_type' => 'ios',
-                ]
+                ],
             ]
         );
 
         // $this->assertSame(200, $response->getStatusCode());
         $obj = json_decode($response->getBody()->getContents(), true);
+
         return $obj;
     }
 }

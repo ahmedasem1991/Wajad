@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\FCM\Facades;
 
 use Illuminate\Support\Facades\Facade;

@@ -15,6 +15,6 @@ $factory->define(Brand::class, function (Faker $faker) {
         'image' => $faker->image(),
         'sub_category_id' => function () {
             return factory(SubCategory::class)->create()->id;
-        }
+        },
     ];
 });

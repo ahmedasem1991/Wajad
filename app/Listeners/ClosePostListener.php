@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\SendSMSEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ClosePostListener
 {
@@ -26,9 +24,9 @@ class ClosePostListener
      */
     public function handle($event)
     {
-        $event->resource->open_status =0;
-        $event->resource->appearance_status =0;
-        $event->resource->end_date=  now();
+        $event->resource->open_status = 0;
+        $event->resource->appearance_status = 0;
+        $event->resource->end_date = now();
         $event->resource->save();
     }
 }

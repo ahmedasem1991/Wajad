@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Exceptions\Api\ApiException;
-use App\Post;
-use App\SubCategory;
 use App\Helpers\Api\ResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\SubCategoryPostResource;
+use App\Post;
+use App\SubCategory;
 
 /**
  * @group Home
@@ -19,13 +19,15 @@ class SubCategoryPostController extends Controller
 
     const TYPES = [
         'lost',
-        'found'
+        'found',
     ];
 
     /**
      * Posts
+     *
      * @urlParam status required string lost or found
      * @urlParam subcategory_id int, sub_category_id, exists in sub_categories  Example: 1
+     *
      * @response
      * {
      *"data": [
@@ -176,23 +178,24 @@ class SubCategoryPostController extends Controller
      *}
      *]
      *}
+     *
      * @return void
      */
 
-    # request to filter posts based on subcategories and previuos status
+    // request to filter posts based on subcategories and previuos status
     public function index($status, $subcategory_id = null)
     {
-        if (!in_array($status, self::TYPES)) {
+        if (! in_array($status, self::TYPES)) {
             throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.category')]), 400);
         }
 
-        $subCategory = SubCategory::whereHas($status . 'posts', function ($query) {
+        $subCategory = SubCategory::whereHas($status.'posts', function ($query) {
             return $query->isShow()->isOpen()->isApproved();
         })->get();
 
         $parentCategory = [
             'subCategoryName' => trans('keywords.all'),
-            'subCategoryIcon' => env('APP_URL') . '/images/' . 'subcategories/all.png',
+            'subCategoryIcon' => env('APP_URL').'/images/'.'subcategories/all.png',
             'subCategoryPostsCount' => Post::$status()->isShow()->isOpen()->isApproved()->count(),
         ];
 
@@ -202,7 +205,7 @@ class SubCategoryPostController extends Controller
             }
         })
 //            ->orderBy('id', 'desc')->get();
-        ->orderBy('created_at', 'desc')->paginate(20);
+            ->orderBy('created_at', 'desc')->paginate(20);
 
         return SubCategoryPostResource::collection($subCategory)->additional([
             'total' => $posts->total(),

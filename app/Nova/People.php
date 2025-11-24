@@ -2,28 +2,12 @@
 
 namespace App\Nova;
 
-use App\Corporate;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\UsersTypes;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
 use Bissolli\NovaPhoneField\PhoneNumber;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class People extends Resource
 {
@@ -48,20 +32,18 @@ class People extends Resource
      */
     public static $title = 'name';
 
-
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email','mobile_number','address'
+        'id', 'name', 'email', 'mobile_number', 'address',
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -78,7 +60,7 @@ class People extends Resource
                 ->sortable()
                 ->rules('required', 'email', 'max:254'),
 
-            PhoneNumber::make('Mobile Number','mobile_number')
+            PhoneNumber::make('Mobile Number', 'mobile_number')
                 ->withCustomFormats('+20 ## ########', '+996 ## ### ####')
                 ->onlyCustomFormats(),
 
@@ -87,7 +69,7 @@ class People extends Resource
                 ->rules('required', 'max:255'),
 
             NovaBelongsToDepend::make('Corporate')
-            //->rules('required')
+            // ->rules('required')
                 ->placeholder('Corporate')
                 ->options(\App\Corporate::all()),
         ];
@@ -96,7 +78,6 @@ class People extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -107,7 +88,6 @@ class People extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -118,7 +98,6 @@ class People extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -129,7 +108,6 @@ class People extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -139,47 +117,58 @@ class People extends Resource
 
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/admin.png" style="height:22px;width:22px;margin=10px" />';
     }
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('people')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('people')) ? true : false;
     }
 
- 
-    public  function authorizedToUpdate(Request $request)
+    public function authorizedToUpdate(Request $request)
     {
-        if($this->id ==0)
-        return false;
-        else return true;
+        if ($this->id == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
-    public  function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
-        if($this->id ==0)
-        return false;
-        else return true;
+        if ($this->id == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
+
     // public  function authorizedToForceDelete(Request $request)
     // {
     //     if($this->id ==0)
     //     return false;
     //     else return true;
     // }
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
-    public  function authorizedToRestore(Request $request)
+
+    public function authorizedToRestore(Request $request)
     {
-        if($this->id ==0)
-        return false;
-        else return true;
+        if ($this->id == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
-    public  function authorizedToView(Request $request)
+
+    public function authorizedToView(Request $request)
     {
-        if($this->id ==0)
-        return false;
-        else return true;
+        if ($this->id == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

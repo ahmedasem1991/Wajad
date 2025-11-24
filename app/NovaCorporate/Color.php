@@ -2,19 +2,11 @@
 
 namespace App\NovaCorporate;
 
-use App\Nova\Category;
-use App\Nova\Metrics\Brands;
 use App\Nova\Metrics\Colors;
 use App\Nova\Resource;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
 
 class Color extends Resource
@@ -25,7 +17,9 @@ class Color extends Resource
      * @var string
      */
     public static $model = 'App\Color';
+
     public static $group = 'Categories';
+
     public static $displayInNavigation = false;
 
     /**
@@ -53,7 +47,6 @@ class Color extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -62,10 +55,10 @@ class Color extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Color English Name', 'name_en')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Text::make('Color Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
         ];
     }
@@ -73,20 +66,18 @@ class Color extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Colors()
+            new Colors,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -97,7 +88,6 @@ class Color extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -108,18 +98,19 @@ class Color extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/colors.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/colors.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

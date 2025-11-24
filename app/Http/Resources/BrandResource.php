@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\SubCategory;
 
 class BrandResource extends JsonResource
 {
@@ -11,10 +10,10 @@ class BrandResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'description' => $this->{'description_' . app()->getLocale()} ?? '',
-            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
-            'models' => ModelResource::collection($this->whenLoaded('models'))
+            'name' => $this->{'name_'.app()->getLocale()},
+            'description' => $this->{'description_'.app()->getLocale()} ?? '',
+            'image' => $this->image ? env('APP_URL').'/'.$this->image : '',
+            'models' => ModelResource::collection($this->whenLoaded('models')),
         ];
     }
 }

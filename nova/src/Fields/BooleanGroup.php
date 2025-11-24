@@ -96,7 +96,7 @@ class BooleanGroup extends Field
     /**
      * Set the text to be used when there are no booleans to show.
      *
-     * @param string $text
+     * @param  string  $text
      * @return $this
      */
     public function noValueText($text)
@@ -109,7 +109,6 @@ class BooleanGroup extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  string  $requestAttribute
      * @param  object  $model
      * @param  string  $attribute

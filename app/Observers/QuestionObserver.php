@@ -9,20 +9,18 @@ class QuestionObserver
     /**
      * Handle the question "Saving" event.
      *
-     * @param  \App\Question  $question
      * @return void
      */
     public function saving(Question $question)
     {
         if (Auth()->User()->isCorporateAdmin()) {
-            $question->corporate_id=Auth()->User()->corporate_id;
+            $question->corporate_id = Auth()->User()->corporate_id;
         }
     }
 
-        /**
+    /**
      * Handle the question "created" event.
      *
-     * @param  \App\Question  $question
      * @return void
      */
     public function created(Question $question)
@@ -33,7 +31,6 @@ class QuestionObserver
     /**
      * Handle the question "updated" event.
      *
-     * @param  \App\Question  $question
      * @return void
      */
     public function updated(Question $question)
@@ -44,7 +41,6 @@ class QuestionObserver
     /**
      * Handle the question "deleted" event.
      *
-     * @param  \App\Question  $question
      * @return void
      */
     public function deleted(Question $question)
@@ -55,7 +51,6 @@ class QuestionObserver
     /**
      * Handle the question "restored" event.
      *
-     * @param  \App\Question  $question
      * @return void
      */
     public function restored(Question $question)
@@ -66,7 +61,6 @@ class QuestionObserver
     /**
      * Handle the question "force deleted" event.
      *
-     * @param  \App\Question  $question
      * @return void
      */
     public function forceDeleted(Question $question)

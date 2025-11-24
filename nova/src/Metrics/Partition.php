@@ -144,7 +144,6 @@ abstract class Partition extends Metric
     /**
      * Create a new partition metric result.
      *
-     * @param  array  $value
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
     public function result(array $value)

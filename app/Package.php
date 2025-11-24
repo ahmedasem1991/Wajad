@@ -4,12 +4,12 @@ namespace App;
 
 use App\Services\Filters\Constants\QrcodeConstants;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model implements QrcodeConstants
 {
     use SoftDeletes;
+
     protected $guarded = [];
 
     /**
@@ -37,17 +37,17 @@ class Package extends Model implements QrcodeConstants
      * Define Period Attribute
      * Mutate Period Row
      *
-     * @param integer $value
+     * @param  int  $value
      * @return void
      */
     public function getPeriod()
     {
-        return $this->period . ' Day/s';
+        return $this->period.' Day/s';
     }
 
     public function getPrice()
     {
-        return $this->price . ' - ' . env('CURRENCY', 'USD');
+        return $this->price.' - '.env('CURRENCY', 'USD');
     }
 
     public function subscription()

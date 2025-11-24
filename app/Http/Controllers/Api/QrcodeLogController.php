@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QrcodeLogResource;
 use App\QrcodeLog;
-use Illuminate\Http\Request;
 
 /**
  * @group QR Codes
@@ -14,6 +13,7 @@ class QrcodeLogController extends Controller
 {
     /**
      * Get All QR Code Log
+     *
      * @response
      * {
      *  "data": [
@@ -174,6 +174,7 @@ class QrcodeLogController extends Controller
      *   }
      *   ],
      *}
+     *
      * @return object
      */
     public function index()
@@ -183,7 +184,9 @@ class QrcodeLogController extends Controller
 
     /**
      * Get Single QR Code Log
+     *
      * @urlParam qrcode_id int required exists in qrcodes,id
+     *
      * @response
      * {
      *  "data": [
@@ -344,11 +347,13 @@ class QrcodeLogController extends Controller
      *      }
      *      ],
      *}
+     *
      * @return object
      */
     public function show($qrcode_id)
     {
-        $log = QrcodeLog::where('qrcode_id',$qrcode_id)->orderBy('id','desc')->get();
+        $log = QrcodeLog::where('qrcode_id', $qrcode_id)->orderBy('id', 'desc')->get();
+
         return QrcodeLogResource::collection($log);
     }
 }

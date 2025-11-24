@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Exceptions\Api\ApiException;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -15,10 +14,12 @@ class ChangePasswordController extends Controller
 {
     /**
      * Change Password
+     *
      * @bodyParam old_password string required 'min:6' 'max:255'
      * @bodyParam new_password string required 'confirmed' 'min:6', 'max:255'
      * @bodyParam new_password_confirmation string required confirm new password
      * @bodyParam token Barier-token required
+     *
      * @response {
      *  "success": true,
      *  "message": "Password Updated Successfully",
@@ -36,12 +37,12 @@ class ChangePasswordController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        if (!Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
+        if (! Hash::check(request('old_password'), auth('api')->user()->getAuthPassword())) {
             throw new ApiException(trans('passwords.invalid'), 400);
         }
 
         auth('api')->user()->update([
-            'password' => bcrypt(request('new_password'))
+            'password' => bcrypt(request('new_password')),
         ]);
 
         $this->addResponse(trans('passwords.updated'))->addStatusCode(201);

@@ -3,36 +3,42 @@
 namespace App\Providers;
 
 use App\Exceptions\Api\ApiException;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
     protected $namespace = 'App\Http\Controllers';
+
     protected $api_namespace = 'App\Http\Controllers\Api';
+
     protected $corporate_namespace = 'App\Http\Controllers\Corporate';
+
     public function boot()
     {
         Route::bind('qr_code', function ($qr_code) {
             $qr_code = \App\Qrcode::where('qrcode_url', $qr_code)->first();
-            if (!$qr_code) {
+            if (! $qr_code) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
             }
+
             return $qr_code;
         });
 
         Route::bind('post', function ($post) {
             $post = \App\Post::whereId($post)->first();
-            if (!$post) {
+            if (! $post) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.post')]), 400);
             }
+
             return $post;
         });
         Route::bind('item', function ($item) {
             $item = \App\Item::whereId($item)->first();
-            if (!$item) {
+            if (! $item) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.item')]), 400);
             }
+
             return $item;
         });
         parent::boot();

@@ -21,6 +21,7 @@ class MakeableTest
     use Makeable;
 
     public $first;
+
     public $second;
 
     public function __construct($first, $second)

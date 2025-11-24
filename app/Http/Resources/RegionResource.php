@@ -17,10 +17,11 @@ class RegionResource extends JsonResource
         if ($request->has('countries')) {
             $this->load('country');
         }
+
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'countries' => new LocationResource($this->whenLoaded('country'))
+            'name' => $this->{'name_'.app()->getLocale()},
+            'countries' => new LocationResource($this->whenLoaded('country')),
         ];
     }
 }

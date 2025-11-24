@@ -21,5 +21,5 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => Carbon::now()->toDateTimeString(),
         'receive_emails' => 1,
         'posts_number' => 0,
-     ];
+    ];
 });

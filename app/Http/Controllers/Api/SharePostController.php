@@ -2,40 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
-
-use App\Qrcode;
-use Carbon\Carbon;
-use App\Mail\ScanQRCode;
-use App\Events\SendFCMEvent;
-use App\Events\SendSMSEvent;
-use Illuminate\Http\Request;
-use App\Services\SmsProvider;
-use Spatie\QueryBuilder\Filter;
-use App\Services\QrcodeLogService;
-use http\Exception\BadUrlException;
-use Illuminate\Support\Facades\Log;
-use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
-use Illuminate\Support\Facades\Mail;
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Http\Resources\QrcodeResource;
-use App\Jobs\ScanQRCodeNotificationJob;
-use Illuminate\Support\Facades\Validator;
-use App\Notifications\SendFCMNotification;
-use App\Notifications\ScanQRCodeNotification;
+use App\Post;
+use Illuminate\Http\Request;
 
 /**
  * @group Posts
  */
 class SharePostController extends Controller
 {
-     /**
+    /**
      * Show Post
      *
      * @urlParam id required int Post Id
+     *
      * @bodyParam token Barier-token required
+     *
      * @response
      *  {
      * "data":
@@ -179,17 +162,14 @@ class SharePostController extends Controller
      *}
      *}
      */
-    public function __invoke(Request $request,$post)
+    public function __invoke(Request $request, $post)
     {
-          $post=Post::find($post);
-        if ($request->expectsJson())
-        {
+        $post = Post::find($post);
+        if ($request->expectsJson()) {
             return new PostResource($post);
-        }else{
-            return view('webview.post', compact('post')) ;
+        } else {
+            return view('webview.post', compact('post'));
         }
- 
-    }
 
-  
+    }
 }

@@ -15,7 +15,7 @@ class PageSeeder extends Seeder
         $pages = [
             'about-us',
             'privacy-and-policy',
-            'contact-us'
+            'contact-us',
         ];
 
         \DB::table('pages')->truncate();

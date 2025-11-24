@@ -2,16 +2,15 @@
 
 namespace App\Nova\Metrics;
 
+use App\Post;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Value;
-use App\Post;
 
 class PostsCount extends Value
 {
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
@@ -38,7 +37,7 @@ class PostsCount extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

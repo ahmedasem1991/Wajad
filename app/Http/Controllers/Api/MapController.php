@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
 use App\Corporate;
-use Location\Coordinate;
-use Illuminate\Http\Request;
-use Location\Distance\Vincenty;
-use App\Helpers\Api\ResponseTrait;
-use App\Http\Resources\MapResource;
 use App\Exceptions\Api\ApiException;
+use App\Helpers\Api\ResponseTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MapResource;
+use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Location\Coordinate;
+use Location\Distance\Vincenty;
 
 /**
  * @group Map
@@ -24,11 +24,14 @@ class MapController extends Controller
         'lost',
         'found',
         'office',
-        'all'
+        'all',
     ];
+
     /**
      * Map
+     *
      * @urlParam type required in:lost,found,office,all
+     *
      * @bodyParam longitude string required
      * @bodyParam latitude string required
      * @bodyParam radius int required
@@ -152,7 +155,7 @@ class MapController extends Controller
             'longitude' => ['required'],
             'latitude' => ['required'],
             'radius' => ['required', 'integer'],
-            'unit' => ['required', 'in:kilo,mile']
+            'unit' => ['required', 'in:kilo,mile'],
         ]);
 
         if ($validate_request->fails()) {
@@ -172,6 +175,7 @@ class MapController extends Controller
         $office = Corporate::active()->get();
         $office = $this->getItemsBasedOnLocation($request, $office);
         $data = $items->merge($office);
+
         return MapResource::collection($data);
     }
 
@@ -209,8 +213,9 @@ class MapController extends Controller
         return $items->filter(function ($item) use ($request) {
             $coordinate1 = new Coordinate($item->latitude, $item->longitude);
             $coordinate2 = new Coordinate($request->latitude, $request->longitude);
-            $calculator  = new Vincenty();
+            $calculator = new Vincenty;
             $item->distance = ($calculator->getDistance($coordinate1, $coordinate2)) / 1000;
+
             return $item->distance < (int) $request->radius;
         });
     }

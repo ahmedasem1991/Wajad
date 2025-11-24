@@ -4,9 +4,8 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Corporate extends Model
 {
@@ -26,7 +25,7 @@ class Corporate extends Model
         'image',
         'location',
         'unique_id',
-        'end_date'
+        'end_date',
     ];
 
     protected static $logAttributes = [
@@ -43,12 +42,13 @@ class Corporate extends Model
         'image',
         'location',
         'unique_id',
-        'end_date'
+        'end_date',
     ];
+
     protected static $logOnlyDirty = true;
 
     protected $casts = [
-        'end_date'   => 'datetime'
+        'end_date' => 'datetime',
     ];
 
     // public function users()
@@ -59,10 +59,12 @@ class Corporate extends Model
     {
         return $this->hasMany(User::class);
     }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
@@ -77,6 +79,7 @@ class Corporate extends Model
     {
         return $this->hasMany(User::class);
     }
+
     public function isActive()
     {
         return ($this->status == 1) ? true : false;
@@ -96,6 +99,7 @@ class Corporate extends Model
     {
         return $query->where('status', 1);
     }
+
     public function country()
     {
         return $this->belongsTo(Country::class, 'mobile_country_id')->withTrashed();

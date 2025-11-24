@@ -3,34 +3,20 @@
 namespace App\NovaCorporate;
 
 use App\Corporate;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Naif\Toggle\Toggle;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\Metrics\NewUsers;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Avatar;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use App\Nova\Metrics\UsersTypes;
+use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
+use KossShtukert\LaravelNovaSelect2\Select2;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\UsersActivity;
-use Laravel\Nova\Fields\BelongsToMany;
-use Bissolli\NovaPhoneField\PhoneNumber;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Manmohanjit\BelongsToDependency\BelongsToDependency;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use App\Nova\Resource;
 
 class CorporateAdmin extends Resource
 {
@@ -54,6 +40,7 @@ class CorporateAdmin extends Resource
      * @var string
      */
     public static $title = 'name';
+
     public static $displayInNavigation = false;
 
     /**
@@ -88,7 +75,6 @@ class CorporateAdmin extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -105,8 +91,8 @@ class CorporateAdmin extends Resource
 
             Text::make('Email')
                 ->sortable()
-                ->creationRules('required','email','unique:users,email,NULL,id,type,2,deleted_at,NULL')
-                ->updateRules('required','unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
+                ->creationRules('required', 'email', 'unique:users,email,NULL,id,type,2,deleted_at,NULL')
+                ->updateRules('required', 'unique:users,email,{{resourceId}},id,type,2,deleted_at,NULL'),
 
             Password::make('Password')
                 ->onlyOnForms()
@@ -122,7 +108,7 @@ class CorporateAdmin extends Resource
                 ->creationRules('required')
                 ->updateRules('required'),
 
-            Boolean::make('Active','status')
+            Boolean::make('Active', 'status')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['value' => $this->status ?? true]),
@@ -149,7 +135,6 @@ class CorporateAdmin extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -162,7 +147,6 @@ class CorporateAdmin extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -173,7 +157,6 @@ class CorporateAdmin extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -184,7 +167,6 @@ class CorporateAdmin extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -194,16 +176,19 @@ class CorporateAdmin extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('type',2)->where('corporate_id', auth()->user()->corporate_id);
+        return $query->where('type', 2)->where('corporate_id', auth()->user()->corporate_id);
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/users.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
+
     // public function authorizedToView(Request $request): bool
     // {
     //     return auth()->user()->id === $this->id;
@@ -212,6 +197,7 @@ class CorporateAdmin extends Resource
     {
         return auth()->user()->id === $this->id;
     }
+
     public static function authorizedToViewAny(Request $request)
     {
         return true;

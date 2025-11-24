@@ -3,15 +3,14 @@
 namespace App\NovaCorporate;
 
 use App\Nova\Metrics\Categories;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Laravel\Nova\Fields\Heading;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\HasMany;
 use App\Nova\Resource;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
 
 class Category extends Resource
@@ -22,13 +21,16 @@ class Category extends Resource
      * @var string
      */
     public static $model = 'App\Category';
+
     public static $displayInNavigation = false;
+
     /**
      * The logical group associated with the resource.
      *
      * @var string
      */
     public static $group = 'Categories';
+
     public static $title = 'name_en';
 
     /**
@@ -51,7 +53,6 @@ class Category extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -62,25 +63,25 @@ class Category extends Resource
 
             Text::make('Category English Name', 'name_en')
                 ->creationRules([
-                    'required', 'max:255', 'min:3', 'unique:categories,name_en'
+                    'required', 'max:255', 'min:3', 'unique:categories,name_en',
                 ])
                 ->updateRules([
-                    'max:255', 'min:3', 'unique:categories,name_en,{{resourceId}}'
+                    'max:255', 'min:3', 'unique:categories,name_en,{{resourceId}}',
                 ]),
 
             Text::make('Category Arabic Name', 'name_ar')
                 ->creationRules([
-                    'required', 'max:255', 'min:3', 'unique:categories,name_ar'
+                    'required', 'max:255', 'min:3', 'unique:categories,name_ar',
                 ])
                 ->updateRules([
-                    'max:255', 'min:3', 'unique:categories,name_ar,{{resourceId}}'
+                    'max:255', 'min:3', 'unique:categories,name_ar,{{resourceId}}',
                 ]),
 
             Toggle::make('Use Default Image For Items In Category', 'items_has_default_image')->color('#4099de'),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
             MediaField::make('Category Items Default Image', 'default_image')->rules([
-                'required_if:has_default_image,1'
+                'required_if:has_default_image,1',
             ]),
             Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                 ->asHtml()->hideFromDetail(),
@@ -88,27 +89,25 @@ class Category extends Resource
                 ->rules('required'),
 
             HasMany::make('Item', 'items', \App\Nova\Item::class),
-            HasMany::make('Brand', 'brands', \App\Nova\Brand::class)
+            HasMany::make('Brand', 'brands', \App\Nova\Brand::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Categories()
+            new Categories,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -119,7 +118,6 @@ class Category extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -130,14 +128,14 @@ class Category extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

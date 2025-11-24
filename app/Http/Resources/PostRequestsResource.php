@@ -9,10 +9,11 @@ class PostRequestsResource extends JsonResource
     public function toArray($request)
     {
 
-       if($this->postRequestUser) 
-       return new UserPostAnswersResource($this);
-    //    else
-    //    return null;
+        if ($this->postRequestUser) {
+            return new UserPostAnswersResource($this);
+        }
+        //    else
+        //    return null;
 
         // return [
         //     'id' => $this->id,

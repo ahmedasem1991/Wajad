@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
 use App\Color;
-use App\Region;
-use App\Category;
-use App\Keyword;
-use Carbon\Carbon;
-use App\SubCategory;
-use Illuminate\Http\Request;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
 use App\Http\Resources\ColorResource;
+use App\Http\Resources\PostResource;
 use App\Http\Resources\RegionResource;
-use App\Http\Resources\CategoryResource;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SubCategoryResource;
+use App\Keyword;
+use App\Post;
+use App\Region;
+use App\SubCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @group Search
@@ -26,7 +23,9 @@ class SearchController extends Controller
 {
     /**
      * Search By KeyWords
+     *
      * @urlParam keywords string required
+     *
      * @response
      * {
      *     "total": 0,
@@ -92,16 +91,17 @@ class SearchController extends Controller
      * ]
      * }
      * @response
+     *
      * @return void
      */
     public function searchByKeyWords(Request $request)
     {
-        $keywords = $request->keywords ?? "";
+        $keywords = $request->keywords ?? '';
 
         $exp_keywords = explode(' ', $keywords);
-        foreach ($exp_keywords as $key){
+        foreach ($exp_keywords as $key) {
             $keyword = strtolower($key);
-            $found = Keyword::firstOrNew(['keyword'=>$keyword]);
+            $found = Keyword::firstOrNew(['keyword' => $keyword]);
             $found->increment('searches');
             $found->save();
         }
@@ -109,7 +109,7 @@ class SearchController extends Controller
         $posts = Post::isApproved()->isShow()->isOpen()
             ->where('title', 'like', '%'.$keywords.'%')
             ->orWhere('description', 'like', '%'.$keywords.'%')
-             ->orWhereHas('item', function ($query) use ($keywords) {
+            ->orWhereHas('item', function ($query) use ($keywords) {
                 $query->where('title', 'like', '%'.$keywords.'%');
             })
             ->orWhereHas('item', function ($query) use ($keywords) {
@@ -123,17 +123,20 @@ class SearchController extends Controller
             'per_page' => $posts->perPage(),
             'current_page' => $posts->currentPage(),
             'total_pages' => $posts->lastPage(),
-            'data' => PostResource::collection($posts)
+            'data' => PostResource::collection($posts),
         ]);
     }
+
     /**
      * Search Filter
+     *
      * @bodyParam model int exist in models.
      * @bodyParam color int exist in colors.
      * @bodyParam brand int exist in brands.
      * @bodyParam subcategory int exist in subcategories.
      * @bodyParam date date
      * @bodyParam status int in:0,1,0 for lost, 1 for found
+     *
      * @response
      * {
      *     "total": 0,
@@ -198,6 +201,7 @@ class SearchController extends Controller
      * }
      * ]
      * }
+     *
      * @return void
      */
     public function searchFilter(Request $request)
@@ -210,60 +214,60 @@ class SearchController extends Controller
             throw new ApiException($validate_request->errors()->first(), 400);
         }
 
-        $posts = Post::isShow()->isApproved()->isOpen()->where(function($query_master) use($request){
-            if ($request->has('color') && $request->color != "") {
+        $posts = Post::isShow()->isApproved()->isOpen()->where(function ($query_master) use ($request) {
+            if ($request->has('color') && $request->color != '') {
                 $query_master->whereHas('color', function ($query) use ($request) {
                     $query->where('id', '=', $request->color);
                 });
             }
-            if ($request->has('model') && $request->model != "") {
+            if ($request->has('model') && $request->model != '') {
                 $query_master->whereHas('model', function ($query) use ($request) {
                     $query->where('id', $request->model);
                 });
             }
-            if ($request->has('brand') && $request->brand != "") {
+            if ($request->has('brand') && $request->brand != '') {
                 $query_master->whereHas('brand', function ($query) use ($request) {
                     $query->where('id', $request->brand);
                 });
             }
-          
-    
-            if ($request->has('region_id') && $request->region_id != "") {
-                $query_master->where('region_id', '=',  $request->region_id);
+
+            if ($request->has('region_id') && $request->region_id != '') {
+                $query_master->where('region_id', '=', $request->region_id);
             }
-    
-            if ($request->has('subcategory') && $request->subcategory != "") {
+
+            if ($request->has('subcategory') && $request->subcategory != '') {
                 $query_master->whereHas('subcategory', function ($query) use ($request) {
                     $query->where('id', $request->subcategory);
                 });
             }
-    
-            if ($request->has('status') && $request->status != ""  && !is_null($request->status)) {
+
+            if ($request->has('status') && $request->status != '' && ! is_null($request->status)) {
                 $query_master->where('status', (int) $request->status);
             }
-           
 
         }
-    )
-    ->where(function ($query_master) use($request) {
-        if ($request->has('date') && $request->date != "") {
-            $query_master->whereDate('losted_at', '=',  $request->date)
-                ->orWhereDate('founded_at', '=',  $request->date);
-        }
-    })->paginate(25);
-       
-       // $posts = $posts;
+        )
+            ->where(function ($query_master) use ($request) {
+                if ($request->has('date') && $request->date != '') {
+                    $query_master->whereDate('losted_at', '=', $request->date)
+                        ->orWhereDate('founded_at', '=', $request->date);
+                }
+            })->paginate(25);
+
+        // $posts = $posts;
         return collect([
             'total' => $posts->total(),
             'count' => $posts->count(),
             'per_page' => $posts->perPage(),
             'current_page' => $posts->currentPage(),
             'total_pages' => $posts->lastPage(),
-            'data' => PostResource::collection($posts)
+            'data' => PostResource::collection($posts),
         ]);
     }
+
     /**
      * Get search data in Dropdown lists
+     *
      * @response
      * {
      *   "regions": [
@@ -304,22 +308,23 @@ class SearchController extends Controller
      *}
      *]
      *}
+     *
      * @return void
      */
     public function fetchSearchData()
     {
-        $subcategories = SubCategory::orderBy('name_'. app()->getLocale(),'asc')->get();
+        $subcategories = SubCategory::orderBy('name_'.app()->getLocale(), 'asc')->get();
 
-        $subcategories->load(['brands' => function($q){
-            $q->orderBy('name_'. app()->getLocale(),'asc');
-        },'brands.models' => function($q){
-            $q->orderBy('name_'. app()->getLocale(),'asc');
+        $subcategories->load(['brands' => function ($q) {
+            $q->orderBy('name_'.app()->getLocale(), 'asc');
+        }, 'brands.models' => function ($q) {
+            $q->orderBy('name_'.app()->getLocale(), 'asc');
         }]);
 
         $data = [
             'regions' => RegionResource::collection(Region::all()),
             'subcategories' => SubCategoryResource::collection($subcategories),
-            'colors' => ColorResource::collection(Color::all())
+            'colors' => ColorResource::collection(Color::all()),
         ];
 
         return response()->json($data);

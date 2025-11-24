@@ -19,11 +19,11 @@ class CreateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('users'))
-                    ->type('@name', 'Adam Wathan')
-                    ->type('@email', 'adam@laravel.com')
-                    ->type('@password', 'secret')
-                    ->create();
+                ->visit(new Create('users'))
+                ->type('@name', 'Adam Wathan')
+                ->type('@email', 'adam@laravel.com')
+                ->type('@password', 'secret')
+                ->create();
 
             $user = User::orderBy('id', 'desc')->first();
 
@@ -46,11 +46,11 @@ class CreateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('users'))
-                    ->create()
-                    ->assertSee('The Name field is required.')
-                    ->assertSee('The Email field is required.')
-                    ->assertSee('The Password field is required.');
+                ->visit(new Create('users'))
+                ->create()
+                ->assertSee('The Name field is required.')
+                ->assertSee('The Email field is required.')
+                ->assertSee('The Password field is required.');
 
             $browser->blank();
         });
@@ -65,11 +65,11 @@ class CreateTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Create('users'))
-                    ->type('@name', 'Adam Wathan')
-                    ->type('@email', 'adam@laravel.com')
-                    ->type('@password', 'secret')
-                    ->createAndAddAnother();
+                ->visit(new Create('users'))
+                ->type('@name', 'Adam Wathan')
+                ->type('@email', 'adam@laravel.com')
+                ->type('@password', 'secret')
+                ->createAndAddAnother();
 
             $user = User::orderBy('id', 'desc')->first();
 

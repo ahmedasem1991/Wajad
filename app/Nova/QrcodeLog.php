@@ -2,19 +2,12 @@
 
 namespace App\Nova;
 
-use App\User;
-use URL;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use NovaButton\Button;
 use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use URL;
 
 class QrcodeLog extends Resource
 {
@@ -24,7 +17,9 @@ class QrcodeLog extends Resource
      * @var string
      */
     public static $model = 'App\QrcodeLog';
+
     public static $perPageOptions = [50, 100, 150];
+
     /**
      * The logical group associated with the resource.
      *
@@ -51,58 +46,56 @@ class QrcodeLog extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
         return [
-           // Errors::make(),
+            // Errors::make(),
             ID::make()->sortable(),
             Button::make('Location')
-            ->link(URL::to($this->location),'_blank')
-            ->style('success'),
+                ->link(URL::to($this->location), '_blank')
+                ->style('success'),
             Text::make('IP', 'ip')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-                Text::make('Scan time', 'created_at', function () {
-                    return   $this->created_at->format('Y-m-d H:i:s');
-                })
+            Text::make('Scan time', 'created_at', function () {
+                return $this->created_at->format('Y-m-d H:i:s');
+            })
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
 
-                Text::make('Device Type', 'device_type')
+            Text::make('Device Type', 'device_type')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
- 
+
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-           // new QrCodes,
+            // new QrCodes,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -113,7 +106,6 @@ class QrcodeLog extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -124,14 +116,12 @@ class QrcodeLog extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
-
 
     public static function label()
     {
@@ -140,21 +130,25 @@ class QrcodeLog extends Resource
 
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/qrcode.svg" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
-    public   function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }
-    public   function authorizedToUpdate(Request $request)
+
+    public function authorizedToUpdate(Request $request)
     {
         return false;
     }
-    public static  function authorizedToCreate(Request $request)
+
+    public static function authorizedToCreate(Request $request)
     {
         return false;
     }

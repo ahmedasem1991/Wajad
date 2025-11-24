@@ -10,6 +10,6 @@ interface ItemConstants
         2 => 'mine',
         'lost' => 0,
         'found' => 1,
-        'mine' => 2
+        'mine' => 2,
     ];
 }

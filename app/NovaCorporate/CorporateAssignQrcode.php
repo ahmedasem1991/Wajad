@@ -2,34 +2,22 @@
 
 namespace App\NovaCorporate;
 
-use App\User;
-use App\Qrcode;
-use App\Corporate;
 use App\Nova\Resource;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
+use App\Qrcode;
+use App\User;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
-use App\Nova\Metrics\QrCodes;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use NovaAjaxSelect\AjaxSelect;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Status;
-use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaAjaxSelect\AjaxSelect;
+use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
 use Razorcreations\AjaxField\AjaxField;
-use ZiffMedia\NovaSelectPlus\SelectPlus;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class CorporateAssignQrcode extends Resource
 {
@@ -77,42 +65,41 @@ class CorporateAssignQrcode extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
-        $SingleCount=  count(Qrcode::type('Single Assign')
-            ->where('corporate_id',Auth()->user()->corporate->id)
-            ->where('status','3')
+        $SingleCount = count(Qrcode::type('Single Assign')
+            ->where('corporate_id', Auth()->user()->corporate->id)
+            ->where('status', '3')
             ->whereNull('user_id')->get());
-        $MultiCount=  count(Qrcode::type('Multi Assign')
-            ->where('corporate_id',Auth()->user()->corporate->id)
-            ->where('status','3')
+        $MultiCount = count(Qrcode::type('Multi Assign')
+            ->where('corporate_id', Auth()->user()->corporate->id)
+            ->where('status', '3')
             ->whereNull('user_id')->get());
 
         return [
             Errors::make(),
             ID::make()->sortable(),
-            Text::make('Reference Number','corporate_assign_reference_number')
+            Text::make('Reference Number', 'corporate_assign_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-              // Text::make('Foo', 'corporate_assign_reference_number'),
-	
-                // Create ajax field, with parent method 
-                //AjaxField::make('Bar')->setUrl('/api/ajaxselect/foo')->parent('foo'),
-                // AjaxField::make('User','user_id')->setUrl('/smart-search')->setValueKey('id')->setLabelKey('name')
-                // ->responsive()
-                // ->hideWhenUpdating()
-                // ->hideFromDetail()
-                // ->hideFromIndex(),
+            // Text::make('Foo', 'corporate_assign_reference_number'),
 
-                Text::make('Search by email or phone', 'search')
+            // Create ajax field, with parent method
+            // AjaxField::make('Bar')->setUrl('/api/ajaxselect/foo')->parent('foo'),
+            // AjaxField::make('User','user_id')->setUrl('/smart-search')->setValueKey('id')->setLabelKey('name')
+            // ->responsive()
+            // ->hideWhenUpdating()
+            // ->hideFromDetail()
+            // ->hideFromIndex(),
+
+            Text::make('Search by email or phone', 'search')
                 ->hideWhenUpdating()
                 ->hideFromIndex()
-                ->hideFromDetail(), 
+                ->hideFromDetail(),
 
-                AjaxSelect::make('Search User','search_user')
+            AjaxSelect::make('Search User', 'search_user')
                 ->get('/smart-search/{search}')
                 ->parent('search')
                 ->hideWhenUpdating()
@@ -124,32 +111,31 @@ class CorporateAssignQrcode extends Resource
             BelongsTo::make('User')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            RadioButton::make('Type','type')
+            RadioButton::make('Type', 'type')
                 ->options([
                     1 => 'Single Assign',
                     2 => 'Multi Assign',
-                 ])
-                //->rules('required'),
-                ->rules('required', function($attribute, $value, $fail) {
+                ])
+                // ->rules('required'),
+                ->rules('required', function ($attribute, $value, $fail) {
                     logger($value);
-                    if ( $value >2 || $value <1) {
+                    if ($value > 2 || $value < 1) {
                         return $fail('The '.$attribute.' field is required.');
                     }
                 }),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Single Assign QR Codes Is : <big>'.$SingleCount.' </big> </p>')
                     ->asHtml()->hideFromDetail(),
-                Number::make('Quantity Of QR Codes','quantity')
+                Number::make('Quantity Of QR Codes', 'quantity')
                     ->min(1)->max($SingleCount)->step(1)
-                    ->rules('required','max:'.$SingleCount),
+                    ->rules('required', 'max:'.$SingleCount),
             ])->dependsOn('type', '1'),
             NovaDependencyContainer::make([
                 Heading::make('<p class="text-info" style="margin-left:20%">  Available Multi Assign QR Codes Is : <big>'.$MultiCount.' </big> </p>')
-                    ->asHtml()->hideFromDetail()
-                ,
-                Number::make('Quantity Of QR Codes','quantity')
+                    ->asHtml()->hideFromDetail(),
+                Number::make('Quantity Of QR Codes', 'quantity')
                     ->min(1)->max($MultiCount)->step(1)
-                    ->rules('required','max:'.$MultiCount),
+                    ->rules('required', 'max:'.$MultiCount),
             ])->dependsOn('type', '2'),
 
             RadioButton::make('Created From')
@@ -162,14 +148,13 @@ class CorporateAssignQrcode extends Resource
             Text::make('Created From')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            HasMany::make('QR Codes','qrcodes', \App\Nova\Qrcode::class),
+            HasMany::make('QR Codes', 'qrcodes', \App\Nova\Qrcode::class),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -180,22 +165,21 @@ class CorporateAssignQrcode extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
     {
         return [];
     }
+
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('view assign qr code')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('view assign qr code')) ? true : false;
     }
 
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -206,7 +190,6 @@ class CorporateAssignQrcode extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -214,20 +197,22 @@ class CorporateAssignQrcode extends Resource
         return [];
     }
 
-    public static function label() {
+    public static function label()
+    {
         return 'Assign';
     }
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereIn('created_by',Auth()->user()->corporate->users->pluck('id'));
+        return $query->whereIn('created_by', Auth()->user()->corporate->users->pluck('id'));
     }
 
-    public  function authorizedToUpdate(Request $request)
+    public function authorizedToUpdate(Request $request)
     {
         return false;
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

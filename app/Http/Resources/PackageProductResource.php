@@ -20,7 +20,7 @@ class PackageProductResource extends JsonResource
             'package_description' => $this->package->description,
             'products_title' => $this->product->title,
             'products_description' => $this->product->description,
-            'package_product_code' => $this->package_product_name
+            'package_product_code' => $this->package_product_name,
         ];
     }
 }

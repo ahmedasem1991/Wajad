@@ -2,14 +2,14 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Setting;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SettingsPolicy
 {
     use HandlesAuthorization;
-    
+
     public function viewAny(User $user)
     {
         return true;
@@ -43,7 +43,6 @@ class SettingsPolicy
     /**
      * Determine whether the user can permanently delete the settings.
      *
-     * @param  \App\User  $user
      * @param  \App\Settings  $settings
      * @return mixed
      */

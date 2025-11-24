@@ -2,20 +2,17 @@
 
 namespace App;
 
-
-use App\Answer;
-use App\Question;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Pktharindu\NovaPermissions\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Pktharindu\NovaPermissions\Traits\HasRoles;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, LogsActivity,  HasRoles, SoftDeletes;
+    use HasRoles, LogsActivity,  Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -61,6 +58,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'is_social_user',
         'social_id',
     ];
+
     protected static $logOnlyDirty = true;
 
     protected $hidden = [
@@ -77,7 +75,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         3 => 'admin',
         'user' => 1,
         'corporate' => 2,
-        'admin' => 3
+        'admin' => 3,
     ];
 
     const Status = [
@@ -92,22 +90,22 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     // //     if (!$image) {
     // //        return DEFAULT_PHOTO;
     // //     }
-        
+
     // }
     // public function status($status)
     // {
     //     return $this->type === self::Types[$status];
     // }
 
-
     public function getImageAttribute($value)
-{
-    if ($value) {
-        return asset($value);
-    } else {
-        return asset('images/profile/default-profile.png');
+    {
+        if ($value) {
+            return asset($value);
+        } else {
+            return asset('images/profile/default-profile.png');
+        }
     }
-}
+
     public function assigned_qrcodes()
     {
         return $this->hasMany(AssignQrcode::class);
@@ -116,26 +114,24 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getNameAttribute()
     {
         $URL = \URL::current();
-       // logger( $URL);
+        // logger( $URL);
 
-        if ((strstr($URL, 'all-posts') || strstr($URL, 'notifications')|| strstr($URL, 'banners') ) && strstr($URL, 'creation-fields')) {
-            return "{$this->email} - {$this->mobile_number} -  (" . $this->attributes['name'].")";
+        if ((strstr($URL, 'all-posts') || strstr($URL, 'notifications') || strstr($URL, 'banners')) && strstr($URL, 'creation-fields')) {
+            return "{$this->email} - {$this->mobile_number} -  (".$this->attributes['name'].')';
         }
 
-        if( isset($this->attributes['name']) and $this->attributes['name'])
-        {
+        if (isset($this->attributes['name']) and $this->attributes['name']) {
             return $this->attributes['name'];
         }
 
-
-      //return   $this->name;
+        // return   $this->name;
 
     }
+
     public function firstTimeLogin()
     {
         return $this->first_time_login === 1;
     }
-
 
     public function isActive()
     {
@@ -151,7 +147,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->type === self::Types['admin'];
     }
-
 
     public function isCorporateAdmin()
     {
@@ -181,12 +176,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $query->where('type', self::Types['corporate']);
     }
+
     public function scopeNormalusers($query)
     {
         return $query->where('type', self::Types['user']);
     }
 
-    # Relations Starts
+    // Relations Starts
     public function answers()
     {
         return $this->hasMany(Answer::class, 'user_id');
@@ -265,19 +261,21 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $query->where('corporate_id', $corporate_id);
     }
+
     public function scopeNotSuperAdmin($query, $user_id = 3)
     {
         return $query->where('type', '!=', $user_id);
     }
+
     public function scopeSuperAdmin($query, $user_id = 3)
     {
         return $query->where('type', $user_id);
     }
+
     public function scopeCorporateAdmin($query, $user_id = 2)
     {
         return $query->where('type', '=', $user_id);
     }
-
 
     /**
      * The channels the user receives notification broadcasts on.
@@ -286,13 +284,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function receivesBroadcastNotificationsOn()
     {
-        return 'users.' . $this->id;
+        return 'users.'.$this->id;
         //  return 'nova-notifications';
     }
 
     public function exceededPostLimitation()
     {
-       return $this->posts_number > defaultGroup()->limitation_of_posts;
+        return $this->posts_number > defaultGroup()->limitation_of_posts;
     }
 
     public function routeNotificationForNexmo($notification)
@@ -324,18 +322,21 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->belongsTo(Country::class, 'mobile_country_id')->withTrashed();
     }
+
     public function devices()
     {
         return $this->hasMany(\App\FcmUser::class);
     }
+
     public function setLanguage($language)
     {
-       $this->language=$language;
-       $this->save();
+        $this->language = $language;
+        $this->save();
     }
+
     public function getLanguage()
     {
-      return  $this->language;
+        return $this->language;
 
     }
 }

@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Services\UserService;
-use App\Mail\EmailVerificationCode;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 /**
  * @group User Profile
  */
-
 class ChangeEmailController extends Controller
 {
     /**
      * Change Email
+     *
      * @bodyParam email email required
      * @bodyParam token Barier-token required
+     *
      * @response
      *{
      * "success": true,
@@ -31,7 +31,7 @@ class ChangeEmailController extends Controller
         $user = auth('api')->user();
 
         $validate_email_request = Validator::make(request()->all(), [
-            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)]
+            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
         ]);
 
         if ($validate_email_request->fails()) {
@@ -41,15 +41,15 @@ class ChangeEmailController extends Controller
         $user->update([
             'email' => request('email'),
             'email_verified_at' => null,
-            'receive_emails' => false
+            'receive_emails' => false,
         ]);
 
-        if ((new UserService())->createAndSendActivationCode($user, 'email')) {
+        if ((new UserService)->createAndSendActivationCode($user, 'email')) {
             $this->addResponse(trans('auth.verification_code_sent'));
             $this->addStatusCode(201);
+
             return $this->response();
         }
-
 
         throw new ApiException(trans('email.verified'), 400);
     }

@@ -1,25 +1,22 @@
 <?php
 
 namespace App\Nova;
-use App\User;
+
 use App\Corporate;
-use App\Nova\Resource;
-use App\Nova\AssignQrcode;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\Text;
-use NovaAjaxSelect\AjaxSelect;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\BelongsTo;
-use OwenMelbz\RadioField\RadioButton;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use App\User;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Illuminate\Http\Request;
+use KossShtukert\LaravelNovaSelect2\Select2;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaAjaxSelect\AjaxSelect;
+use NovaErrorField\Errors;
+use OwenMelbz\RadioField\RadioButton;
 
 class Subscription extends Resource
 {
@@ -29,6 +26,7 @@ class Subscription extends Resource
      * @var string
      */
     public static $model = 'App\Subscription';
+
     public static $displayInNavigation = true;
 
     /**
@@ -63,7 +61,7 @@ class Subscription extends Resource
     ];
 
     public static $searchRelations = [
-        'corporate' => [ 'name_en'],
+        'corporate' => ['name_en'],
         'user' => ['name', 'email', 'mobile_number'],
         'package' => ['name_en'],
     ];
@@ -71,7 +69,6 @@ class Subscription extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -89,18 +86,18 @@ class Subscription extends Resource
             NovaDependencyContainer::make([
 
                 Text::make('', 'search_user')
-                ->hideWhenUpdating()
-                ->hideFromIndex()
-                ->hideFromDetail(), 
+                    ->hideWhenUpdating()
+                    ->hideFromIndex()
+                    ->hideFromDetail(),
 
-                AjaxSelect::make('User','user_id')
-                ->get('/smart-search/{search_user}')
-                ->parent('search_user')
-                ->hideWhenUpdating()
-                ->hideFromIndex()
-                ->hideFromDetail()
-                ->withMeta(['ignoreOnSaving'])
-                ->rules('required'),
+                AjaxSelect::make('User', 'user_id')
+                    ->get('/smart-search/{search_user}')
+                    ->parent('search_user')
+                    ->hideWhenUpdating()
+                    ->hideFromIndex()
+                    ->hideFromDetail()
+                    ->withMeta(['ignoreOnSaving'])
+                    ->rules('required'),
 
                 // Select2::make('User Email','user_id')
                 //     ->sortable()
@@ -114,77 +111,74 @@ class Subscription extends Resource
                 //         'multiple'                => false,
                 //     ])
 
-            ]) ->hideFromDetail()->dependsOn('subscriber', '1'),
+            ])->hideFromDetail()->dependsOn('subscriber', '1'),
             NovaDependencyContainer::make([
-                Select2::make('Corporate Name','corporate_id')
+                Select2::make('Corporate Name', 'corporate_id')
                     ->hideFromDetail()
                     ->sortable()
-                    ->options(Corporate::get()->pluck('name_en','id'))
+                    ->options(Corporate::get()->pluck('name_en', 'id'))
                     ->rules('required_if:subscriber,2')
                     ->configuration([
-                        'placeholder'             => __('Choose an option'),
-                        'allowClear'              => true,
+                        'placeholder' => __('Choose an option'),
+                        'allowClear' => true,
                         'minimumResultsForSearch' => 1,
-                        'multiple'                => false,
-                    ])
+                        'multiple' => false,
+                    ]),
 
             ])->hideFromDetail()->dependsOn('subscriber', '2'),
 
             BelongsTo::make('User')->hideWhenCreating()->hideWhenUpdating(),
             BelongsTo::make('Corporate')->hideWhenCreating()->hideWhenUpdating(),
-            BelongsTo::make('QR Codes Details','assignqrcode',AssignQrcode::class)->hideWhenCreating()->hideWhenUpdating(),
+            BelongsTo::make('QR Codes Details', 'assignqrcode', AssignQrcode::class)->hideWhenCreating()->hideWhenUpdating(),
 
             BelongsTo::make('Package')
                 ->rules('required'),
 
-               Text::make('Package Price',function( $request){
-                if($request->package)
-                return   $request->package->price . ' SR';
-                else
-                return false;
-               })
-               ->hideWhenCreating()
-               ->hideWhenUpdating(),
+            Text::make('Package Price', function ($request) {
+                if ($request->package) {
+                    return $request->package->price.' SR';
+                } else {
+                    return false;
+                }
+            })
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
+            Text::make('QR Codes Quantity', function ($request) {
+                if ($request->package) {
+                    return $request->package->quantity.' QR Code';
+                } else {
+                    return false;
+                }
+            })
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
-               Text::make('QR Codes Quantity',function( $request){
-                if($request->package)
-                return   $request->package->quantity .' QR Code';
-                else
-                return false;
-               })
-               ->hideWhenCreating()
-               ->hideWhenUpdating(),
+            Text::make('QR Codes Available Period', function ($request) {
+                if ($request->package) {
+                    return $request->package->period.' Days';
+                } else {
+                    return false;
+                }
+            })
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
-
-
-               Text::make('QR Codes Available Period',function( $request){
-                if($request->package)
-                return   $request->package->period . ' Days';
-                else
-                return false;
-               })
-               ->hideWhenCreating()
-               ->hideWhenUpdating(),
-
-          
-
-            DateTime::make('Subscription Date','created_at')
+            DateTime::make('Subscription Date', 'created_at')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
-            RadioButton::make('Subscription From','created_from')
+            RadioButton::make('Subscription From', 'created_from')
                 ->options([
                     'web' => 'web',
                 ])->default('web')
                 ->hideFromIndex()
                 ->hideFromDetail(), // optional,
 
-            Text::make('Subscription From','created_from')
+            Text::make('Subscription From', 'created_from')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                HasMany::make('qrcodes'),
-               
+            HasMany::make('qrcodes'),
 
         ];
     }
@@ -194,6 +188,7 @@ class Subscription extends Resource
         if ($request->input('search_user')) {
             $request->offsetUnset('search_user');
         }
+
         return parent::fill($request, $model);
     }
 
@@ -213,7 +208,6 @@ class Subscription extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -224,7 +218,6 @@ class Subscription extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -235,7 +228,6 @@ class Subscription extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -246,18 +238,19 @@ class Subscription extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

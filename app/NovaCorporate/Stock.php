@@ -2,25 +2,18 @@
 
 namespace App\NovaCorporate;
 
-use App\User;
+use App\Nova\Actions\DownloadQRCode;
+use App\Nova\Actions\DownloadQRCodeZIP;
 use App\Nova\Resource;
+use App\NovaCorporate\Metrics\QrCodes;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Actions\DownloadQRCode;
-use App\NovaCorporate\Metrics\QrCodes;
-use App\Nova\Actions\DownloadQRCodeZIP;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Smartappco\QrcodeGenerator\QrcodeGenerator;
-use Kristories\Qrcode\Qrcode as QrcodeImgGenerator;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Smartappco\DownloadQrcodeImage\DownloadQrcodeImage;
 
 class Stock extends Resource
 {
@@ -30,7 +23,9 @@ class Stock extends Resource
      * @var string
      */
     public static $model = 'App\Qrcode';
+
     public static $perPageOptions = [50, 100, 150];
+
     /**
      * The logical group associated with the resource.
      *
@@ -76,12 +71,12 @@ class Stock extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('view stock')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('view stock')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -90,16 +85,16 @@ class Stock extends Resource
             Errors::make(),
             ID::make()->sortable(),
 
-            Text::make('Unique Reference Number','unique_reference_number')
+            Text::make('Unique Reference Number', 'unique_reference_number')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            Text::make('Status',function(){
+            Text::make('Status', function () {
                 return $this->statusTitle($this->status);
             }),
 
             Text::make('QR CODE URL', 'qrcode_url', function () {
-                return  '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
+                return '<a target="_blank" href='.$this->qrcode_url.'>URL</a>';
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideFromIndex(),
@@ -113,7 +108,7 @@ class Stock extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-            Toggle::make('Print Status','printed')
+            Toggle::make('Print Status', 'printed')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
         ];
@@ -122,7 +117,6 @@ class Stock extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -135,7 +129,6 @@ class Stock extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -146,7 +139,6 @@ class Stock extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -157,14 +149,13 @@ class Stock extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [
 
-            (new DownloadQRCode)->canRun(function(NovaRequest $request) {
+            (new DownloadQRCode)->canRun(function (NovaRequest $request) {
                 return true;
             }),
             (new DownloadQRCodeZIP)->canRun(function (NovaRequest $request) {
@@ -173,16 +164,18 @@ class Stock extends Resource
         ];
     }
 
-
-    public static function label() {
+    public static function label()
+    {
         return 'Stock';
     }
+
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->whereNull('corporate_assign_reference_number')
-            ->where('corporate_id',Auth()->user()->corporate->id);
+            ->where('corporate_id', Auth()->user()->corporate->id);
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

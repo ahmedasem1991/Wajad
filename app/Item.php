@@ -2,30 +2,25 @@
 
 namespace App;
 
-use Log;
-use App\Color;
-use App\Model;
-use App\ItemImages;
-use Illuminate\Http\Request;
 use App\Helpers\Api\ResponseTrait;
-use Illuminate\Support\Facades\Validator;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as MasterModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Item extends MasterModel
 {
-    use SoftDeletes, LogsActivity,  ResponseTrait;
+    use LogsActivity, ResponseTrait,  SoftDeletes;
 
     protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images', 'status'];
 
     protected static $logAttributes = [
-        'title', 'details', 'owner.name', 'model.name_en', 'color.name_en', 'sub_category.name_en', 'brand.name_en', 'images', 'status'
+        'title', 'details', 'owner.name', 'model.name_en', 'color.name_en', 'sub_category.name_en', 'brand.name_en', 'images', 'status',
     ];
+
     protected static $logOnlyDirty = true;
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
     ];
 
     /**
@@ -39,9 +34,10 @@ class Item extends MasterModel
         2 => 'mine',
         'lost' => 0,
         'found' => 1,
-        'mine' => 2
+        'mine' => 2,
     ];
-    protected $images_path = "/images/items/";
+
+    protected $images_path = '/images/items/';
 
     /**
      * Define Owner OF The Item
@@ -60,10 +56,10 @@ class Item extends MasterModel
 
     public function getStatus()
     {
-        return self::ITEM_STATUS[$this->status] ?? "";
+        return self::ITEM_STATUS[$this->status] ?? '';
     }
 
-    //This relations for Depend
+    // This relations for Depend
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -83,10 +79,12 @@ class Item extends MasterModel
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
+
     public function model()
     {
         return $this->belongsTo(Model::class, 'model_id');
     }
+
     public function color()
     {
         return $this->belongsTo(Color::class);
@@ -125,8 +123,8 @@ class Item extends MasterModel
     /**
      * Scope Item Of Specific Category
      *
-     * @param object $query
-     * @param int $category_id
+     * @param  object  $query
+     * @param  int  $category_id
      * @return void
      */
     public function scopeCategory($query, $category_id)
@@ -147,8 +145,8 @@ class Item extends MasterModel
     /**
      * Scope Items That Owned By This User
      *
-     * @param object $query
-     * @param int $owner_id
+     * @param  object  $query
+     * @param  int  $owner_id
      * @return void
      */
     public function scopeOwner($query, $owner_id)
@@ -159,8 +157,8 @@ class Item extends MasterModel
     /**
      * Scope Items That Founded By This User
      *
-     * @param object $query
-     * @param int $founder_id
+     * @param  object  $query
+     * @param  int  $founder_id
      * @return void
      */
     public function scopeFounder($query, $founder_id)
@@ -171,14 +169,13 @@ class Item extends MasterModel
     /**
      * Scope Public Items Only
      *
-     * @param object $query
+     * @param  object  $query
      * @return void
      */
     public function scopePublicItems($query)
     {
         return $query->where('is_public', true);
     }
-
 
     public function scopePrivateItemsForAuthUser($query, $user_id)
     {

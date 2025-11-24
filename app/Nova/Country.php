@@ -3,12 +3,11 @@
 namespace App\Nova;
 
 use App\Nova\Metrics\Countries;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use NovaErrorField\Errors;
 
 class Country extends Resource
@@ -53,7 +52,6 @@ class Country extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -63,8 +61,8 @@ class Country extends Resource
             ID::make()->sortable(),
             Text::make('Country English Name', 'name_en')->rules(['required']),
             Text::make('Country Arabic Name', 'name_ar')->rules(['required']),
-            Text::make('Country Iso Code', 'iso_code')->rules('required','between:1,2')->creationRules([
-                'unique:countries,iso_code'
+            Text::make('Country Iso Code', 'iso_code')->rules('required', 'between:1,2')->creationRules([
+                'unique:countries,iso_code',
             ]),
             Number::make('Country Code', 'country_code')->rules(['required']),
             HasMany::make('Area', 'regions'),
@@ -74,20 +72,18 @@ class Country extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Countries()
+            new Countries,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -98,7 +94,6 @@ class Country extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -109,22 +104,24 @@ class Country extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/flag.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/flag.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }
-    public   function authorizedToDelete(Request $request)
+
+    public function authorizedToDelete(Request $request)
     {
         return false;
     }

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Faker\Factory;
 use GuzzleHttp\Client;
+use Illuminate\Console\Command;
 
 class SeedTest extends Command
 {
@@ -55,7 +55,7 @@ class SeedTest extends Command
                         'firstname' => $faker->name,
                         'lastname' => $faker->name,
                         'email' => $faker->email,
-                        'pass' =>   $password,
+                        'pass' => $password,
                         'confirmPass' => $password,
                         'birthdateYear' => rand(1970, 2010),
                         'birthdateMonth' => rand(1, 12),
@@ -63,14 +63,15 @@ class SeedTest extends Command
                         'phone' => rand(10000000, 99999999),
                         'termsOfServices' => 'on',
                         'countryCode' => '002010',
-                    ]
+                    ],
                 ]
             );
-            echo $i . " " . $faker->email . "  ";
+            echo $i.' '.$faker->email.'  ';
         }
 
         // $this->assertSame(200, $response->getStatusCode());
         $obj = json_decode($response->getBody()->getContents(), true);
+
         return $obj;
     }
 }

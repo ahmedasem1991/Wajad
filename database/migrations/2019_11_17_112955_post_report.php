@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class PostReport extends Migration
 {
@@ -19,8 +19,8 @@ class PostReport extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->text('details')->nullable();
             $table->string('image', 500)->nullable();
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -49,10 +49,8 @@ abstract class IntegrationTest extends TestCase
 
     /**
      * Setup the test case.
-     *
-     * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -194,17 +192,17 @@ abstract class IntegrationTest extends TestCase
         $app['config']->set('database.default', 'sqlite');
 
         $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 
     /**
      * Assert a top-level subset for an array.
      *
-     * @param array $subset
-     * @param array $array
+     * @param  array  $subset
+     * @param  array  $array
      * @return void
      */
     public function assertSubset($subset, $array)

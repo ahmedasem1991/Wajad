@@ -13,15 +13,14 @@ trait HasRoles
      */
     public function roles()
     {
-        return $this->belongsTo(Role::class,'role_id')->with('getPermissions');
+        return $this->belongsTo(Role::class, 'role_id')->with('getPermissions');
     }
 
     /**
      * Scope a query to eager load `roles` relationship
      * to reduce database queries.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeWithRoles($query)
@@ -33,26 +32,24 @@ trait HasRoles
      * Determine if any of the assigned roles to this user
      * have a specific permission.
      *
-     * @param string $permission
-     *
+     * @param  string  $permission
      * @return bool
      */
     public function hasPermissionTo($permission)
     {
         logger($this->roles);
-       // return $this->roles->contains(function ($role) use ($permission) {
-            return $this->roles->getPermissions->contains('permission_slug', $permission);
-        //});
+
+        // return $this->roles->contains(function ($role) use ($permission) {
+        return $this->roles->getPermissions->contains('permission_slug', $permission);
+        // });
     }
 
     /**
      * Determine if the model has any of the given permissions.
      *
-     * @param array ...$permissions
+     * @param  array  ...$permissions
      *
      * @throws \Exception
-     *
-     * @return bool
      */
     public function hasAnyPermission(...$permissions): bool
     {
@@ -72,11 +69,9 @@ trait HasRoles
     /**
      * Determine if the model has all of the given permissions.
      *
-     * @param array ...$permissions
+     * @param  array  ...$permissions
      *
      * @throws \Exception
-     *
-     * @return bool
      */
     public function hasAllPermissions(...$permissions): bool
     {
@@ -96,8 +91,7 @@ trait HasRoles
     /**
      * Assign a role to this user.
      *
-     * @param string|Role $role
-     *
+     * @param  string|Role  $role
      * @return bool
      */
     public function assignRole($role)
@@ -112,8 +106,7 @@ trait HasRoles
     /**
      * Remove a role from this user.
      *
-     * @param string|Role $role
-     *
+     * @param  string|Role  $role
      * @return bool
      */
     public function removeRole($role)
@@ -128,7 +121,7 @@ trait HasRoles
     /**
      * Reassign roles from an id or an array of role Ids.
      *
-     * @param int|array $roles
+     * @param  int|array  $roles
      */
     public function setRolesById($roles)
     {

@@ -39,7 +39,7 @@ class CorporateSeeder extends Command
     public function handle()
     {
         Corporate::create([
-            'unique_id' => time() . '-WAJAD-Corporate',
+            'unique_id' => time().'-WAJAD-Corporate',
             'name_en' => 'WAJAD Corporate',
             'name_ar' => 'مؤسسة وجد',
             'details_en' => 'WAJAD Corporate For Haj & Omra',

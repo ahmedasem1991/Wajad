@@ -9,7 +9,7 @@ class PostgresSearchControllerTest extends PostgresIntegrationTest
 {
     use SearchControllerTests;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->skipIfNotRunning();
 
@@ -18,7 +18,7 @@ class PostgresSearchControllerTest extends PostgresIntegrationTest
         $this->authenticate();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Resource::$maxPrimaryKeySize = PHP_INT_MAX;
 

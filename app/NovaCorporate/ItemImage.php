@@ -1,18 +1,19 @@
 <?php
+
 //
-//namespace App\NovaCorporate;
-//use App\Nova\Metrics\ItemImages;
-//use Laravel\Nova\Fields\Heading;
-//use Laravel\Nova\Fields\ID;
-//use Laravel\Nova\Fields\Image;
-//use App\Nova\Resource;
-//use Illuminate\Http\Request;
-//use Laravel\Nova\Fields\BelongsTo;
-//use Laravel\Nova\Http\Requests\NovaRequest;
-//use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+// namespace App\NovaCorporate;
+// use App\Nova\Metrics\ItemImages;
+// use Laravel\Nova\Fields\Heading;
+// use Laravel\Nova\Fields\ID;
+// use Laravel\Nova\Fields\Image;
+// use App\Nova\Resource;
+// use Illuminate\Http\Request;
+// use Laravel\Nova\Fields\BelongsTo;
+// use Laravel\Nova\Http\Requests\NovaRequest;
+// use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 //
-//class ItemImage extends Resource
-//{
+// class ItemImage extends Resource
+// {
 //    /**
 //     * The model the resource corresponds to.
 //     *
@@ -125,4 +126,4 @@
 //    {
 //        return [];
 //    }
-//}
+// }

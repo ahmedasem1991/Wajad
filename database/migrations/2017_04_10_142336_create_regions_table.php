@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRegionsTable extends Migration
 {
@@ -18,8 +18,8 @@ class CreateRegionsTable extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->unsignedInteger('country_id')->nullable();
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

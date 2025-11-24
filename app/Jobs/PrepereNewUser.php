@@ -3,20 +3,18 @@
 namespace App\Jobs;
 
 use App\User;
-use App\PostRequest;
-use App\AssignQrcode;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class PrepereNewUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-
     private $user;
+
     /**
      * Create a new job instance.
      *
@@ -34,20 +32,20 @@ class PrepereNewUser implements ShouldQueue
      */
     public function handle()
     {
-        $url = "https://api.mesibo.com/api.php?op=useradd&token=".env('MESIBO_APP_TOKEN')."&addr=".$this->user->name.'-'.$this->user->id."&appid=com.smartappco.wajad&name=".$this->user->name;
+        $url = 'https://api.mesibo.com/api.php?op=useradd&token='.env('MESIBO_APP_TOKEN').'&addr='.$this->user->name.'-'.$this->user->id.'&appid=com.smartappco.wajad&name='.$this->user->name;
         $client = new \GuzzleHttp\Client([
-            'headers' => ['Content-Type' => 'application/json']
+            'headers' => ['Content-Type' => 'application/json'],
         ]);
         $response = $client->get($url);
         $response = json_decode($response->getBody(), true);
-        $this->user->mesibo_uid= $response['user']['uid']??null;
-        $this->user->mesibo_token= $response['user']['token']??null;
-        $this->user->mesibo_address=$this->user->name.'-'.$this->user->id;
-          $dispatcher = User::getEventDispatcher();
-          User::unsetEventDispatcher();
-          $this->user->save();
-          User::setEventDispatcher($dispatcher);
-       
+        $this->user->mesibo_uid = $response['user']['uid'] ?? null;
+        $this->user->mesibo_token = $response['user']['token'] ?? null;
+        $this->user->mesibo_address = $this->user->name.'-'.$this->user->id;
+        $dispatcher = User::getEventDispatcher();
+        User::unsetEventDispatcher();
+        $this->user->save();
+        User::setEventDispatcher($dispatcher);
+
         logger($this->user);
     }
 
@@ -79,8 +77,6 @@ class PrepereNewUser implements ShouldQueue
     //     $this->token = $response['session']['token'];
     //     logger( $this->token);
     // }
-
-
 
     // public function createQuickUser()
     // {
@@ -117,7 +113,7 @@ class PrepereNewUser implements ShouldQueue
     //     $response = json_decode($response->getBody(), true);
 
     //      if($response['user']['id'] &&  $new_user->quick_user_id ==NULL)
-    //   {  
+    //   {
     //       $new_user->quick_user_id= $response['user']['id'];
     //       $dispatcher = User::getEventDispatcher();
     //       User::unsetEventDispatcher();
@@ -126,6 +122,6 @@ class PrepereNewUser implements ShouldQueue
     //       logger('test id');
     //   }
     //     //logger($response);
-       
+
     // }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SubCategoryResource extends JsonResource
@@ -17,9 +16,9 @@ class SubCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'description' => $this->{'description_' . app()->getLocale()},
-            'image' =>  $this->image ? env('APP_URL') . "/" . $this->image : '',
+            'name' => $this->{'name_'.app()->getLocale()},
+            'description' => $this->{'description_'.app()->getLocale()},
+            'image' => $this->image ? env('APP_URL').'/'.$this->image : '',
             'brands' => BrandResource::collection($this->whenLoaded('brands')),
         ];
     }

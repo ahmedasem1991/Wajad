@@ -16,8 +16,8 @@ class LocationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'iso_code' => $this->iso_code  ?? '',
+            'name' => $this->{'name_'.app()->getLocale()},
+            'iso_code' => $this->iso_code ?? '',
             'country_code' => $this->country_code ?? '',
         ];
     }

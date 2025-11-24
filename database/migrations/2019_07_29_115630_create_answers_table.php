@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateAnswersTable extends Migration
 {
-
     public function up()
     {
         Schema::create('answers', function (Blueprint $table) {
@@ -15,8 +14,8 @@ class CreateAnswersTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('post_request_id')->nullable();
 
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

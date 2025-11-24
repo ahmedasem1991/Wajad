@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 $categories = [
     'Electronics' => 'اليكترونيات',
-    'Clothes'  =>  'ملابس',
-    'Cars' =>    'سيارات',
-    'Books' =>     'كتب',
+    'Clothes' => 'ملابس',
+    'Cars' => 'سيارات',
+    'Books' => 'كتب',
     'Home' => 'منزل',
-    'Fashon' =>  'موضة',
-    'Food' =>  'طعام',
+    'Fashon' => 'موضة',
+    'Food' => 'طعام',
 ];
 
 DB::transaction(function () {
@@ -24,8 +24,8 @@ foreach ($categories as $key => $value) {
     $factory->define(Category::class, function (Faker $faker) use ($key, $value) {
         return [
             'name_en' => $key,
-            'name_ar' =>  $value,
-            'description_en' =>  $faker->paragraph(),
+            'name_ar' => $value,
+            'description_en' => $faker->paragraph(),
             'description_ar' => $faker->paragraph(),
             'image' => 'images/profile/default-profile.png',
 

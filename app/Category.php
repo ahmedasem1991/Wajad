@@ -2,22 +2,21 @@
 
 namespace App;
 
-use App\Brand;
 use App\Services\Helpers\Traits\ModelObserveImage;
-use App\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
-    use LogsActivity, SoftDeletes, ModelObserveImage;
+    use LogsActivity, ModelObserveImage, SoftDeletes;
 
-    protected $fillable=['name_en','name_ar','description_en','description_ar','image'];
+    protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image'];
 
     protected static $logAttributes = [
-        'name_en','name_ar','description_en','description_ar','image'
+        'name_en', 'name_ar', 'description_en', 'description_ar', 'image',
     ];
+
     protected static $logOnlyDirty = true;
 
     public function scopeCategory($query, $category_id)
@@ -29,22 +28,20 @@ class Category extends Model
     {
         return $query->where('sub_category_id', $sub_category_id);
     }
+
     public function scopeName($query, $name)
     {
-        return $query->where('name_ar', $name)->orWhere('name_en',$name) ?? null;
+        return $query->where('name_ar', $name)->orWhere('name_en', $name) ?? null;
     }
 
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class);
     }
+
     public function alldata()
     {
         return $this->hasMany(SubCategory::class)
-        ->with('brands.models.items');
+            ->with('brands.models.items');
     }
-
-
-
-
 }

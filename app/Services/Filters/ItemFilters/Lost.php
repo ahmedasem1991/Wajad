@@ -2,9 +2,9 @@
 
 namespace App\Services\Filters\ItemFilters;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Services\Filters\Constants\ItemConstants;
 use App\Services\Filters\Contracts\FilterContract;
+use Illuminate\Database\Eloquent\Builder;
 
 class Lost implements FilterContract, ItemConstants
 {

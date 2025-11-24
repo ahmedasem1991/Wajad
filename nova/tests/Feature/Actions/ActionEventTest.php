@@ -13,7 +13,7 @@ class ActionEventTest extends IntegrationTest
     {
         $requestUser = factory(User::class)->create();
 
-        $model = (new User())->forceFill([
+        $model = (new User)->forceFill([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
             'password' => bcrypt('password'),
@@ -32,11 +32,11 @@ class ActionEventTest extends IntegrationTest
         $this->assertSame(2, ActionEvent::where('actionable_type', User::class)->where('actionable_id', $model->id)->count());
 
         $response = $this->withExceptionHandling()
-                        ->actingAs($requestUser)
-                        ->deleteJson('/nova-api/users', [
-                            'resources' => [$model->id],
-                        ])
-                        ->assertOk();
+            ->actingAs($requestUser)
+            ->deleteJson('/nova-api/users', [
+                'resources' => [$model->id],
+            ])
+            ->assertOk();
 
         $this->assertSame(3, ActionEvent::where('actionable_type', User::class)->where('actionable_id', $model->id)->count());
 
@@ -49,7 +49,7 @@ class ActionEventTest extends IntegrationTest
     {
         $requestUser = factory(User::class)->create();
 
-        $model = (new User())->forceFill([
+        $model = (new User)->forceFill([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
             'password' => bcrypt('password'),
@@ -68,11 +68,11 @@ class ActionEventTest extends IntegrationTest
         $this->assertSame(2, ActionEvent::where('actionable_type', User::class)->where('actionable_id', $model->id)->count());
 
         $response = $this->withExceptionHandling()
-                        ->actingAs($requestUser)
-                        ->deleteJson('/nova-api/users/force', [
-                            'resources' => [$model->id],
-                        ])
-                        ->assertOk();
+            ->actingAs($requestUser)
+            ->deleteJson('/nova-api/users/force', [
+                'resources' => [$model->id],
+            ])
+            ->assertOk();
 
         $this->assertSame(1, ActionEvent::where('actionable_type', User::class)->where('actionable_id', $model->id)->count());
 
@@ -82,7 +82,7 @@ class ActionEventTest extends IntegrationTest
 
     public function test_it_belongs_to_default_user_model()
     {
-        $action = new ActionEvent();
+        $action = new ActionEvent;
 
         $relation = $action->user();
 
@@ -94,7 +94,7 @@ class ActionEventTest extends IntegrationTest
      */
     public function test_it_belongs_to_custom_user_model()
     {
-        $action = new ActionEvent();
+        $action = new ActionEvent;
 
         $relation = $action->user();
 

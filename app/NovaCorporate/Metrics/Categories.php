@@ -11,13 +11,12 @@ class Categories extends Value
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function calculate(Request $request)
     {
-       // return $this->count($request, Category::class);
-       return $this->result(Category::count());
+        // return $this->count($request, Category::class);
+        return $this->result(Category::count());
     }
 
     /**
@@ -38,7 +37,7 @@ class Categories extends Value
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

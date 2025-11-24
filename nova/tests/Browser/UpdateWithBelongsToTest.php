@@ -22,10 +22,10 @@ class UpdateWithBelongsToTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($post) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Update('posts', $post->id))
-                    ->select('@user', 2)
-                    ->update()
-                    ->waitForText('The user post was updated');
+                ->visit(new Update('posts', $post->id))
+                ->select('@user', 2)
+                ->update()
+                ->waitForText('The user post was updated');
 
             $this->assertCount(0, User::find(1)->posts);
             $this->assertCount(1, User::find(2)->posts);

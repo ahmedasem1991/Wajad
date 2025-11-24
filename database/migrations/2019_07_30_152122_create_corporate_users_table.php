@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCorporateUsersTable extends Migration
 {
@@ -17,8 +17,8 @@ class CreateCorporateUsersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('corporate_id')->nullable();
-           $table->softDeletes();
-$table->timestamps();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

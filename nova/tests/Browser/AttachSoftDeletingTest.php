@@ -23,9 +23,9 @@ class AttachSoftDeletingTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($captain, $ship) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Attach('captains', $captain->id, 'ships'))
-                    ->searchAndSelectFirstRelation('ships', $ship->id)
-                    ->clickAttach();
+                ->visit(new Attach('captains', $captain->id, 'ships'))
+                ->searchAndSelectFirstRelation('ships', $ship->id)
+                ->clickAttach();
 
             $this->assertCount(1, $captain->fresh()->ships);
 
@@ -45,10 +45,10 @@ class AttachSoftDeletingTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($captain, $ship) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Attach('captains', $captain->id, 'ships'))
-                    ->withTrashedRelation('ships')
-                    ->searchAndSelectFirstRelation('ships', $ship->id)
-                    ->clickAttach();
+                ->visit(new Attach('captains', $captain->id, 'ships'))
+                ->withTrashedRelation('ships')
+                ->searchAndSelectFirstRelation('ships', $ship->id)
+                ->clickAttach();
 
             $this->assertCount(0, $captain->fresh()->ships);
             $this->assertCount(1, $captain->fresh()->ships()->withTrashed()->get());
@@ -70,9 +70,9 @@ class AttachSoftDeletingTest extends DuskTestCase
         $this->whileSearchable(function () use ($captain, $ship) {
             $this->browse(function (Browser $browser) use ($captain, $ship) {
                 $browser->loginAs(User::find(1))
-                        ->visit(new Attach('captains', $captain->id, 'ships'))
-                        ->searchAndSelectFirstRelation('ships', $ship->id)
-                        ->clickAttach();
+                    ->visit(new Attach('captains', $captain->id, 'ships'))
+                    ->searchAndSelectFirstRelation('ships', $ship->id)
+                    ->clickAttach();
 
                 $this->assertCount(1, $captain->fresh()->ships);
 
@@ -94,10 +94,10 @@ class AttachSoftDeletingTest extends DuskTestCase
 
             $this->browse(function (Browser $browser) use ($captain, $ship) {
                 $browser->loginAs(User::find(1))
-                        ->visit(new Attach('captains', $captain->id, 'ships'))
-                        ->withTrashedRelation('ships')
-                        ->searchAndSelectFirstRelation('ships', $ship->id)
-                        ->clickAttach();
+                    ->visit(new Attach('captains', $captain->id, 'ships'))
+                    ->withTrashedRelation('ships')
+                    ->searchAndSelectFirstRelation('ships', $ship->id)
+                    ->clickAttach();
 
                 $this->assertCount(0, $captain->fresh()->ships);
                 $this->assertCount(1, $captain->fresh()->ships()->withTrashed()->get());

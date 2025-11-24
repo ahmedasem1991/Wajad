@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Exceptions\Api\ApiException;
+use Closure;
 
 class CheckIfPhoneActive
 {

@@ -12,8 +12,8 @@ trait HasSearchableRelations
     public function searchRelation(Browser $browser, $attribute, $search)
     {
         $browser->click('[dusk="'.$attribute.'-search-input"]')
-                    ->pause(100)
-                    ->type('[dusk="'.$attribute.'-search-input"] input', $search);
+            ->pause(100)
+            ->type('[dusk="'.$attribute.'-search-input"] input', $search);
     }
 
     /**

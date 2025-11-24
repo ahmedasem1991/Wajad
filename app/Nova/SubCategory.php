@@ -2,19 +2,14 @@
 
 namespace App\Nova;
 
-use App\Nova\Category;
 use App\Nova\Metrics\SubCategories;
-use App\Nova\Resource;
 use ClassicO\NovaMediaLibrary\MediaField;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
@@ -26,6 +21,7 @@ class SubCategory extends Resource
      * @var string
      */
     public static $model = 'App\SubCategory';
+
     public static $group = 'Categories';
 
     public static function availableForNavigation(Request $request)
@@ -57,13 +53,14 @@ class SubCategory extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
-        'category' => [ 'name_en', 'name_ar'],
+        'category' => ['name_en', 'name_ar'],
     ];
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -72,10 +69,10 @@ class SubCategory extends Resource
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Sub-Category English Name', 'name_en')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Text::make('Sub-Category Arabic Name', 'name_ar')->creationRules([
-                'required', 'min:2'
+                'required', 'min:2',
             ]),
             Textarea::make('Sub-Category English Body', 'description_en'),
             Textarea::make('Sub-Category Arabic Body', 'description_ar'),
@@ -93,20 +90,18 @@ class SubCategory extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new SubCategories()
+            new SubCategories,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -117,7 +112,6 @@ class SubCategory extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -128,18 +122,19 @@ class SubCategory extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/subcategory.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

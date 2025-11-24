@@ -13,20 +13,18 @@ class ActivityPolicy
     /**
      * Determine whether the user can view any posts.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
     {
-       // if (Auth()->User()->isAdmin()) {
-           return $user->hasPermissionTo('activities');
-        //}
+        // if (Auth()->User()->isAdmin()) {
+        return $user->hasPermissionTo('activities');
+        // }
     }
 
     /**
      * Determine whether the user can view the post.
      *
-     * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return mixed
      */
@@ -38,7 +36,6 @@ class ActivityPolicy
     /**
      * Determine whether the user can create posts.
      *
-     * @param  \App\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -49,7 +46,6 @@ class ActivityPolicy
     /**
      * Determine whether the user can update the post.
      *
-     * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return mixed
      */
@@ -61,7 +57,6 @@ class ActivityPolicy
     /**
      * Determine whether the user can delete the post.
      *
-     * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return mixed
      */
@@ -73,7 +68,6 @@ class ActivityPolicy
     /**
      * Determine whether the user can restore the post.
      *
-     * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return mixed
      */
@@ -85,7 +79,6 @@ class ActivityPolicy
     /**
      * Determine whether the user can permanently delete the post.
      *
-     * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return mixed
      */

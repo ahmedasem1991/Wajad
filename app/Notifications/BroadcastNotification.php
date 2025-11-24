@@ -2,28 +2,25 @@
 
 namespace App\Notifications;
 
-use Illuminate\Http\Request;
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\NexmoMessage;
 use Coreproc\NovaNotificationFeed\Notifications\NovaBroadcastMessage;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class BroadcastNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected $level,$message,$url;
-   
+
+    protected $level;
+
+    protected $message;
+
+    protected $url;
 
     /**
      * Create a new notification instance.
-     *
-     * @param $level
-     * @param $message
-     * @param $url
      */
-    public function __construct($level, $message ,$url)
+    public function __construct($level, $message, $url)
     {
         $this->level = $level;
         $this->message = $message;
@@ -33,7 +30,7 @@ class BroadcastNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -47,7 +44,7 @@ class BroadcastNotification extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)
@@ -56,25 +53,24 @@ class BroadcastNotification extends Notification implements ShouldQueue
             'level' => $this->level,
             'message' => $this->message,
             'url' => $this->url,
-            'target' => '_self'
+            'target' => '_self',
         ];
     }
 
-    
     public function toDatabase($notifiable)
     {
         return [
             'level' => $this->level,
             'message' => $this->message,
             'url' => $this->url,
-            'target' => '_self'
+            'target' => '_self',
         ];
     }
 
     /**
      * Get the broadcastable representation of the notification.
      *
-     * @param  mixed $notifiable
+     * @param  mixed  $notifiable
      * @return BroadcastMessage
      */
     public function toBroadcast($notifiable)
@@ -91,5 +87,5 @@ class BroadcastNotification extends Notification implements ShouldQueue
     // {
     //     return 'broadcast-notification-created';
     // }
-    
+
 }

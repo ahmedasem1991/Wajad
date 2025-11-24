@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\QrcodeLog;
 
-class QrcodeLogService{
-
+class QrcodeLogService
+{
     public static function LogQrcode($request, $qrcode)
     {
         $lat = $request->lat ?? '21.4498898';
@@ -13,7 +13,7 @@ class QrcodeLogService{
         $location = self::getLocation($lat, $lng);
         $ip = $request->ip ?? '127.0.0.1';
         $device_type = $request->device_type ?? 'web';
-        $log = new QrcodeLog();
+        $log = new QrcodeLog;
         $log->ip = $ip;
         $log->location = $location;
         $log->lat = $lat;
@@ -27,5 +27,4 @@ class QrcodeLogService{
     {
         return 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng;
     }
-
 }

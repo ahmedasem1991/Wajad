@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-
-use App\User;
-use Illuminate\Http\Request;
-use App\Services\UserService;
 use App\Exceptions\Api\ApiException;
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -17,35 +16,36 @@ class VerifyPasswordController extends Controller
 {
     private $verification_types = [
         'phone',
-        'email'
+        'email',
     ];
 
     /**
-     * Verify Password Code 
+     * Verify Password Code
+     *
      * @bodyParam code numeric required digits:4 Example:1234
-     * @bodyParam user_id numeric required 
+     * @bodyParam user_id numeric required
+     *
      * @response {
      *         "success": true,
      *         "message": "Password is verified Successfully!",
      *         "status_code": 200
      * }
+     *
      * @return void
      */
     public function __invoke(Request $request)
     {
-       
 
         $validate_for_code = Validator::make($request->all(), [
             'code' => ['required', 'numeric', 'digits:4'],
-            'user_id' => ['required', 'exists:users,id']
+            'user_id' => ['required', 'exists:users,id'],
         ]);
-  
 
         if ($validate_for_code->fails()) {
             throw new ApiException($validate_for_code->errors()->first(), 400);
         }
         $user = User::find($request->user_id);
-      //  dd($user);
+        //  dd($user);
 
         (new UserService)->verifyActivationPassword($user, $request->code);
 

@@ -4,7 +4,6 @@ namespace App\NovaCorporate;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
-use App\NovaCorporate\Role;
 
 class NovaPermissions extends Tool
 {
@@ -28,8 +27,6 @@ class NovaPermissions extends Tool
     }
 
     /**
-     * @param string $roleResource
-     *
      * @return mixed
      */
     public function roleResource(string $roleResource)
@@ -40,7 +37,8 @@ class NovaPermissions extends Tool
 
         return $this;
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

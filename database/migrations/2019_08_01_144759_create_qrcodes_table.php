@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateQrcodesTable extends Migration
 {
@@ -20,7 +20,7 @@ class CreateQrcodesTable extends Migration
             $table->string('assign_reference_number')->nullable();
             $table->string('corporate_assign_reference_number')->nullable();
             $table->string('name')->nullable();
-            $table->integer('type')->default(1); //default  (single)
+            $table->integer('type')->default(1); // default  (single)
             $table->integer('status')->default(1); // default (In stock)
             $table->integer('quantity')->default(1);
             $table->string('qrcode_url')->unique();

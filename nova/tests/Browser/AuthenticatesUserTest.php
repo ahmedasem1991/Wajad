@@ -16,11 +16,11 @@ class AuthenticatesUserTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/nova/resources/users/3')
-                    ->assertPathIs('/nova/login')
-                    ->type('email', 'nova@laravel.com')
-                    ->type('password', 'password')
-                    ->click('button[type="submit"]')
-                    ->assertPathIs('/nova/resources/users/3');
+                ->assertPathIs('/nova/login')
+                ->type('email', 'nova@laravel.com')
+                ->type('password', 'password')
+                ->click('button[type="submit"]')
+                ->assertPathIs('/nova/resources/users/3');
 
             $browser->blank();
         });

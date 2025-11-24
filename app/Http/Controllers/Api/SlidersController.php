@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Banner;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Http\Request;
 
 class SlidersController extends Controller
 {
@@ -17,7 +16,6 @@ class SlidersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,7 +37,6 @@ class SlidersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

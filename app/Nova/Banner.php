@@ -2,32 +2,28 @@
 
 namespace App\Nova;
 
-use App\Item;
-use App\User;
-use ClassicO\NovaMediaLibrary\MediaField;
-use Laravel\Nova\Fields\Heading;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use App\Nova\Metrics\Banners;
 use App\Services\Filters\ItemFilters\Found;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
+use App\Services\Filters\ItemFilters\Lost;
+use App\User;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use KossShtukert\LaravelNovaSelect2\Select2;
 use NovaErrorField\Errors;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use App\Services\Filters\ItemFilters\Lost;
 
 class Banner extends Resource
 {
     use HasSortableRows;
+
     /**
      * The model the resource corresponds to.
      *
@@ -72,7 +68,6 @@ class Banner extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -86,25 +81,26 @@ class Banner extends Resource
             DateTime::make('Start Date')->rules(['required']),
             DateTime::make('End Date')->rules(['required', 'after:start_date']),
             Text::make('Status', function () {
-                if ($this->notStarted())
+                if ($this->notStarted()) {
                     return "<span style='color:orange'> Not Started </span>";
-                else if ($this->ended())
+                } elseif ($this->ended()) {
                     return "<span style='color:red'>Expired </span>";
-                else
+                } else {
                     return "<span style='color:green'> Active </span>";
+                }
             })->asHtml()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
             Number::make('Period to appear in seconds', 'show_period')
                 ->rules('required'),
-               // ->hideWhenCreating(),
+            // ->hideWhenCreating(),
             Number::make('Number of clicks', 'clicks')
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
             Select::make('Banner Type', 'type')->options([
-                "ads" => "Advertisement",
-                "url" => "URL",
-                "post" => "Post"
+                'ads' => 'Advertisement',
+                'url' => 'URL',
+                'post' => 'Post',
             ])->rules(['required', 'in:ads,url,post'])->displayUsingLabels(),
 
             NovaDependencyContainer::make([
@@ -119,14 +115,14 @@ class Banner extends Resource
                 Heading::make('<p class="text-info" style="margin-left:20%">  Allowed Extensions Are: <b>jpeg,bmp,png.</b> Maximum Size is: 5 MB. <b>Images Will Be Resized</b> </p>')
                     ->asHtml()->hideFromDetail(),
                 MediaField::make('Url Image', 'image')
-                    ->nullable()
+                    ->nullable(),
             ])->dependsOn('type', 'url'),
 
             NovaDependencyContainer::make([
-//                Select::make('Post Type', 'item_type')->options([
-//                    0 => 'Lost',
-//                    1 => 'Found'
-//                ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
+                //                Select::make('Post Type', 'item_type')->options([
+                //                    0 => 'Lost',
+                //                    1 => 'Found'
+                //                ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
 
                 NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
                     ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
@@ -145,16 +141,16 @@ class Banner extends Resource
             ])->dependsOn('type', 'post'),
         ];
     }
+
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new Banners(),
+            new Banners,
         ];
     }
 
@@ -183,7 +179,6 @@ class Banner extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -194,7 +189,6 @@ class Banner extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -205,19 +199,19 @@ class Banner extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/slider.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/slider.png" style="height:22px;width:22px;margin=10px" />';
     }
 
-    public   function authorizedToForceDelete(Request $request)
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

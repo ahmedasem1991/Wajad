@@ -2,39 +2,28 @@
 
 namespace App\Nova;
 
-use App\Post;
-use App\User;
+use App\Nova\Metrics\ApprovalPosts;
 use App\People;
+use App\Post;
 use Carbon\Carbon;
-use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
-use NovaButton\Button;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
+use ClassicO\NovaMediaLibrary\MediaField;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use App\Nova\Metrics\PostsCount;
-use Laravel\Nova\Fields\Boolean;
+use Jfeid\NovaGoogleMaps\NovaGoogleMaps;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
-use App\Nova\Metrics\PostsPeriod;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Metrics\ApprovalPosts;
-use NovaErrorField\Errors;
-use OwenMelbz\RadioField\RadioButton;
-use App\Nova\Metrics\OpenVsClosedPosts;
-use App\Nova\Metrics\ShowVsHiddenPosts;
-use Bissolli\NovaPhoneField\PhoneNumber;
-use ClassicO\NovaMediaLibrary\MediaField;
-use App\Services\Filters\ItemFilters\Lost;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Naif\Toggle\Toggle;
+use NovaButton\Button;
+use NovaErrorField\Errors;
 use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
+use OwenMelbz\RadioField\RadioButton;
 use Techouse\IntlDateTime\IntlDateTime as DateTimeField;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 
 class PendingPost extends Resource
 {
@@ -95,6 +84,7 @@ class PendingPost extends Resource
         'created_at',
         'updated_at',
     ];
+
     public static $searchRelations = [
         'color' => ['name_en', 'name_ar'],
         'subcategory' => ['name_en', 'name_ar'],
@@ -109,28 +99,28 @@ class PendingPost extends Resource
     {
         return (Auth()->User()->hasPermissionTo('pending posts')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
 
-        $Questions=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        $PostRequests=ID::make()->sortable()->hideFromDetail()->hideFromIndex();
-        if($this->status==1)
-        {
-            $Questions=HasMany::make('Questions');
-            $PostRequests=HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
+        $Questions = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        $PostRequests = ID::make()->sortable()->hideFromDetail()->hideFromIndex();
+        if ($this->status == 1) {
+            $Questions = HasMany::make('Questions');
+            $PostRequests = HasMany::make('Post Requests', 'postrequests', \App\Nova\PostRequest::class);
         }
+
         return [
             Errors::make(),
             ID::make()->sortable(),
             Text::make('Title'),
             Textarea::make('description'),
-            Textarea::make('Internal Note','notes'),
+            Textarea::make('Internal Note', 'notes'),
             RadioButton::make('Approval Status', 'approval_status')
                 ->options([
                     0 => 'Pending',
@@ -139,13 +129,15 @@ class PendingPost extends Resource
                 ])
                 ->stack()
                 ->default(0),
-            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request){return 1;}),
+            Toggle::make('Appearance Status', 'appearance_status')->default(function ($request) {
+                return 1;
+            }),
             NovaBelongsToDepend::make('Subcategory', 'subcategory', \App\Nova\SubCategory::class)
                 ->placeholder('Select Sub category')
                 ->options(\App\SubCategory::with('brands')->get())
                 ->rules('required'),
 
-            NovaBelongsToDepend::make('Brand','brand',\App\Nova\Brand::class)
+            NovaBelongsToDepend::make('Brand', 'brand', \App\Nova\Brand::class)
                 ->placeholder('Select Brand')
                 ->optionsResolve(function ($subcategory) {
                     return $subcategory->brands;
@@ -171,9 +163,9 @@ class PendingPost extends Resource
                 ->hideWhenUpdating()
                 ->readonly(),
 
-            Select::make('Post Type','status')->options([
+            Select::make('Post Type', 'status')->options([
                 0 => 'Lost',
-                1 => 'Found'
+                1 => 'Found',
             ])
                 ->displayUsingLabels()
                 ->rules('required'),
@@ -385,10 +377,9 @@ class PendingPost extends Resource
 
             HasMany::make('Post Reports', 'reports', \App\Nova\PostReport::class),
             $Questions,
-            $PostRequests
+            $PostRequests,
         ];
     }
-
 
     public static function fill(NovaRequest $request, $model)
     {
@@ -400,26 +391,24 @@ class PendingPost extends Resource
             $request->offsetUnset('founder_releated_to_system');
         }
 
-
         return parent::fill($request, $model);
     }
+
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new ApprovalPosts
+            new ApprovalPosts,
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -430,7 +419,6 @@ class PendingPost extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -441,22 +429,22 @@ class PendingPost extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        $count=Post::IsPending()->count();
-        $span='';
-        if($count!=0)
-        {
-            $span= '<span style="background-color:red;padding: 1px 2px;border-radius: 50%;">'.$count.'</span>';
+        $count = Post::IsPending()->count();
+        $span = '';
+        if ($count != 0) {
+            $span = '<span style="background-color:red;padding: 1px 2px;border-radius: 50%;">'.$count.'</span>';
         }
-        return  '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />'.$span ;
+
+        return '<img class="sidebar-icon" src="/images/icons/it.png" style="height:22px;width:22px;margin=10px" />'.$span;
     }
 
     public static function indexQuery(NovaRequest $request, $query)
@@ -468,7 +456,8 @@ class PendingPost extends Resource
     {
         return false;
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

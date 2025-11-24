@@ -23,6 +23,7 @@ class WajadOffice extends Model
         'status',
         'image',
     ];
+
     protected static $logOnlyDirty = true;
 
     public function scopeActive($query)

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class VaporFileFieldControllerTest extends IntegrationTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -112,54 +112,54 @@ class VaporFileFieldControllerTest extends IntegrationTest
         $this->assertEquals('new_avatar.jpg', $file->original_name);
     }
 
-//    public function test_update_prunable_file_with_custom_delete_callback()
-//    {
-//        $_SERVER['nova.fileResource.imageField'] = function () {
-//            return Image::make('Avatar', 'avatar')
-//                ->prunable()
-//                ->delete(function ($request, $model, $disk, $path) {
-//                    Storage::disk($disk)->delete($path);
-//                });
-//        };
-//
-//        $response = $this->withExceptionHandling()
-//            ->postJson('/nova-api/files', [
-//                'avatar' => UploadedFile::fake()->image('avatar.png'),
-//            ]);
-//
-//        $response->assertStatus(201);
-//
-//        $_SERVER['__nova.fileResource.imageName'] = 'avatar2.png';
-//
-//        $file = File::first();
-//
-//        $filename = $file->avatar;
-//        Storage::disk('public')->assertExists($file->avatar);
-//
-//        $this->withExceptionHandling()
-//            ->postJson('/nova-api/files/'.$file->id, [
-//                '_method'=>'PUT',
-//                'avatar' => UploadedFile::fake()->image('avatar2.png'),
-//            ]);
-//
-//        unset($_SERVER['nova.fileResource.imageField']);
-//
-//        $file = File::first();
-//
-//        Storage::disk('public')->assertMissing($filename);
-//        Storage::disk('public')->assertExists($file->avatar);
-//        $this->assertnotEquals($filename, $file->avatar);
-//    }
-//
+    //    public function test_update_prunable_file_with_custom_delete_callback()
+    //    {
+    //        $_SERVER['nova.fileResource.imageField'] = function () {
+    //            return Image::make('Avatar', 'avatar')
+    //                ->prunable()
+    //                ->delete(function ($request, $model, $disk, $path) {
+    //                    Storage::disk($disk)->delete($path);
+    //                });
+    //        };
+    //
+    //        $response = $this->withExceptionHandling()
+    //            ->postJson('/nova-api/files', [
+    //                'avatar' => UploadedFile::fake()->image('avatar.png'),
+    //            ]);
+    //
+    //        $response->assertStatus(201);
+    //
+    //        $_SERVER['__nova.fileResource.imageName'] = 'avatar2.png';
+    //
+    //        $file = File::first();
+    //
+    //        $filename = $file->avatar;
+    //        Storage::disk('public')->assertExists($file->avatar);
+    //
+    //        $this->withExceptionHandling()
+    //            ->postJson('/nova-api/files/'.$file->id, [
+    //                '_method'=>'PUT',
+    //                'avatar' => UploadedFile::fake()->image('avatar2.png'),
+    //            ]);
+    //
+    //        unset($_SERVER['nova.fileResource.imageField']);
+    //
+    //        $file = File::first();
+    //
+    //        Storage::disk('public')->assertMissing($filename);
+    //        Storage::disk('public')->assertExists($file->avatar);
+    //        $this->assertnotEquals($filename, $file->avatar);
+    //    }
+    //
     public function test_proper_response_returned_when_required_file_not_provided()
     {
         $this->setupVaporFilesystem();
         $_SERVER['nova.vaporFile.required'] = true;
 
         $response = $this->withExceptionHandling()
-                        ->postJson('/nova-api/vapor-files', [
-                            'avatar' => null,
-                        ]);
+            ->postJson('/nova-api/vapor-files', [
+                'avatar' => null,
+            ]);
 
         $response->assertStatus(422);
         $this->assertEmpty(Storage::disk('s3')->allFiles());
@@ -172,7 +172,7 @@ class VaporFileFieldControllerTest extends IntegrationTest
         $this->saveVaporFile($uuid);
 
         $response = $this->withExceptionHandling()
-                        ->getJson('/nova-api/vapor-files/'.VaporFile::first()->id);
+            ->getJson('/nova-api/vapor-files/'.VaporFile::first()->id);
 
         $response->assertStatus(200);
         $file = $response->original['resource']['fields'][1]->jsonSerialize();
@@ -187,7 +187,7 @@ class VaporFileFieldControllerTest extends IntegrationTest
         $this->saveVaporFile($uuid);
 
         $response = $this->withExceptionHandling()
-                        ->get('/nova-api/vapor-files/'.VaporFile::first()->id.'/download/avatar');
+            ->get('/nova-api/vapor-files/'.VaporFile::first()->id.'/download/avatar');
 
         $response->assertStatus(200);
         $this->assertInstanceOf(StreamedResponse::class, $response->baseResponse);
@@ -200,7 +200,7 @@ class VaporFileFieldControllerTest extends IntegrationTest
         $this->saveVaporFile($uuid);
 
         $response = $this->withoutExceptionHandling()
-                        ->deleteJson('/nova-api/vapor-files/'.VaporFile::first()->id.'/field/avatar');
+            ->deleteJson('/nova-api/vapor-files/'.VaporFile::first()->id.'/field/avatar');
 
         $response->assertStatus(200);
         $this->assertCount(2, VaporFile::first()->actions);
@@ -217,9 +217,9 @@ class VaporFileFieldControllerTest extends IntegrationTest
         $this->saveVaporFile($uuid);
 
         $response = $this->withoutExceptionHandling()
-                        ->deleteJson('/nova-api/vapor-files', [
-                            'resources' => [VaporFile::first()->id],
-                        ]);
+            ->deleteJson('/nova-api/vapor-files', [
+                'resources' => [VaporFile::first()->id],
+            ]);
 
         $response->assertStatus(200);
         $this->assertEquals(0, VaporFile::count());

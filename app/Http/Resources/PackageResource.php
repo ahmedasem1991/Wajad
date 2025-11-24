@@ -18,8 +18,8 @@ class PackageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->{'name_' . app()->getLocale()},
-            'description' => $this->{'description_' . app()->getLocale()},
+            'name' => $this->{'name_'.app()->getLocale()},
+            'description' => $this->{'description_'.app()->getLocale()},
             'qrcodes_count' => $this->quantity,
             'price' => $this->getOriginal('price'),
             'currency' => env('CURRENCY', 'USD'),

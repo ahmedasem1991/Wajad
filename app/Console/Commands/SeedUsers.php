@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\User;
 use App\Corporate;
+use App\User;
 use Illuminate\Console\Command;
 
 class SeedUsers extends Command
@@ -40,9 +40,8 @@ class SeedUsers extends Command
     public function handle()
     {
 
-        
         Corporate::create([
-            'unique_id' => time() . '-WAJAD-Corporate',
+            'unique_id' => time().'-WAJAD-Corporate',
             'name_en' => 'WAJAD Corporate',
             'name_ar' => 'مؤسسة وجد',
             'details_en' => 'WAJAD Corporate For Haj & Omra',
@@ -55,8 +54,6 @@ class SeedUsers extends Command
             'image' => 'images/corporates/default-profile.png',
             'end_date' => '2030-01-12 19:15:23',
         ]);
-
-
 
         $this->line('|-------------------------------|');
         $this->line('|------- Superadmin Seed -------|');
@@ -72,7 +69,7 @@ class SeedUsers extends Command
             'password' => bcrypt($password),
             'type' => User::Types['admin'],
             'mobile_number' => '01006994920',
-            'mobile_country_id' => 1
+            'mobile_country_id' => 1,
         ]);
 
         $this->line('|----------------------------------|');
@@ -82,7 +79,6 @@ class SeedUsers extends Command
         $this->line("|------ Password : $password ------|");
         $this->line('|----------------------------------|');
 
-      
         $this->line('|-------------------------------------|');
         $this->line('|-------- Nova Corporate Seed --------|');
         $this->line('|-------------------------------------|');
@@ -98,7 +94,7 @@ class SeedUsers extends Command
             'type' => User::Types['corporate'],
             'mobile_number' => '+201095781611',
             'corporate_id' => 1,
-            'mobile_country_id' => 1
+            'mobile_country_id' => 1,
         ]);
 
         $this->line('|---------------------------------|');
@@ -116,7 +112,6 @@ class SeedUsers extends Command
         $email = $this->ask('Nova Email Address', 'user@wajad.com');
         $password = $this->ask('Nova Password', 123456789);
 
-
         User::create([
             'name' => $username,
             'email' => $email,
@@ -126,9 +121,8 @@ class SeedUsers extends Command
             'corporate_id' => 1,
             'mobile_country_id' => 1,
             'is_mobile_number_verified' => 1,
-            'posts_number' => 0
+            'posts_number' => 0,
         ]);
-
 
         $this->line('|---------------------------------|');
         $this->line('|-Nova User Created Successfully -|');
@@ -137,18 +131,16 @@ class SeedUsers extends Command
         $this->line("|------ Password : $password -----|");
         $this->line('|---------------------------------|');
 
-
-        
         User::create([
             'name' => 'ahmed gamal',
             'email' => 'a@nova.com',
             'password' => bcrypt('123456'),
             'type' => User::Types['user'],
             'mobile_number' => '01143416124',
-            'corporate_id' => NULL,
+            'corporate_id' => null,
             'mobile_country_id' => 1,
             'is_mobile_number_verified' => 1,
-            'posts_number' => 0
+            'posts_number' => 0,
         ]);
 
         User::create([
@@ -157,10 +149,10 @@ class SeedUsers extends Command
             'password' => bcrypt('123456789'),
             'type' => User::Types['user'],
             'mobile_number' => '01142516124',
-            'corporate_id' => NULL,
+            'corporate_id' => null,
             'mobile_country_id' => 1,
             'is_mobile_number_verified' => 1,
-            'posts_number' => 0
+            'posts_number' => 0,
         ]);
     }
 }

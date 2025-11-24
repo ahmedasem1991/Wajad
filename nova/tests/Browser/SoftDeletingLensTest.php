@@ -23,10 +23,10 @@ class SoftDeletingLensTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
-                    ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
-                        $browser->deleteResourceById(1);
-                    });
+                ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
+                ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
+                    $browser->deleteResourceById(1);
+                });
 
             $this->assertEquals(1, Dock::withTrashed()->count());
         });
@@ -45,12 +45,12 @@ class SoftDeletingLensTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
-                    ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
-                        $browser->clickCheckboxForId(3)
-                            ->clickCheckboxForId(2)
-                            ->deleteSelected();
-                    });
+                ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
+                ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
+                    $browser->clickCheckboxForId(3)
+                        ->clickCheckboxForId(2)
+                        ->deleteSelected();
+                });
         });
 
         $this->assertEquals(2, Dock::onlyTrashed()->count());
@@ -69,12 +69,12 @@ class SoftDeletingLensTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
-                    ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
-                        $browser->clickCheckboxForId(3)
-                            ->clickCheckboxForId(2)
-                            ->restoreSelected();
-                    });
+                ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
+                ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
+                    $browser->clickCheckboxForId(3)
+                        ->clickCheckboxForId(2)
+                        ->restoreSelected();
+                });
         });
 
         $this->assertEquals(3, Dock::count());
@@ -93,15 +93,15 @@ class SoftDeletingLensTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
-                    ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
-                        $browser->clickCheckboxForId(3)
-                            ->clickCheckboxForId(2)
-                            ->forceDeleteSelected()
-                            ->assertSeeResource(1)
-                            ->assertDontSeeResource(2)
-                            ->assertDontSeeResource(3);
-                    });
+                ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
+                ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
+                    $browser->clickCheckboxForId(3)
+                        ->clickCheckboxForId(2)
+                        ->forceDeleteSelected()
+                        ->assertSeeResource(1)
+                        ->assertDontSeeResource(2)
+                        ->assertDontSeeResource(3);
+                });
         });
     }
 
@@ -189,11 +189,11 @@ class SoftDeletingLensTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
-                    ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
-                    ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
-                        $browser->deleteResourceById(1)
-                                ->restoreResourceById(1);
-                    });
+                ->visit(new Lens('docks', 'passthrough-with-trashed-lens'))
+                ->within(new LensComponent('docks', 'passthrough-with-trashed-lens'), function ($browser) {
+                    $browser->deleteResourceById(1)
+                        ->restoreResourceById(1);
+                });
 
             $this->assertEquals(1, Dock::count());
         });

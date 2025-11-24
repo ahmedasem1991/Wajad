@@ -7,7 +7,7 @@ trait ResponseTrait
     /**
      * Define Response Status Code
      *
-     * @var integer
+     * @var int
      */
     public $status_code;
 
@@ -44,44 +44,47 @@ trait ResponseTrait
     /**
      * Add Response
      *
-     * @param string $response
-     * @param string $response
+     * @param  string  $response
+     * @param  string  $response
      * @return object
      */
     public function addResponse($response)
     {
         $this->response = $response;
+
         return $this;
     }
 
     /**
      * Add MultibleResponse As Single Array With Values
      *
-     * @param array $responses
+     * @param  array  $responses
      * @return void
      */
     public function addMultibleResponse($responses)
     {
         $this->responses[0] = $responses[0];
+
         return $this;
     }
 
     /**
      * Add Status Code
      *
-     * @param integer $code
+     * @param  int  $code
      * @return object
      */
     public function addStatusCode($code)
     {
         $this->status_code = $code;
+
         return $this;
     }
 
     /**
      * Response With Json Format
      *
-     * @param object $response
+     * @param  object  $response
      * @return void
      */
     public function jsonResponse($response)
@@ -100,7 +103,7 @@ trait ResponseTrait
             [
                 'success' => true,
                 'message' => $this->response,
-                'status_code' => 200
+                'status_code' => 200,
             ],
             (int) $this->status_code
         );

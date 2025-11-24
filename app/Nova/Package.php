@@ -3,19 +3,16 @@
 namespace App\Nova;
 
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Naif\Paypal\Paypal;
-use Naif\Toggle\Toggle;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\MorphMany;
+use Naif\Toggle\Toggle;
 use NovaErrorField\Errors;
 use OwenMelbz\RadioField\RadioButton;
-use Laravel\Nova\Fields\BelongsToMany;
 
 class Package extends Resource
 {
@@ -40,13 +37,13 @@ class Package extends Resource
      */
     public function title()
     {
-        return $this->name_en . ' - ' . $this->quantity. ' QR Code' ;
+        return $this->name_en.' - '.$this->quantity.' QR Code';
 
     }
 
     public function subtitle()
     {
-        return  $this->price . ' $';
+        return $this->price.' $';
     }
 
     /**
@@ -74,7 +71,6 @@ class Package extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -127,7 +123,6 @@ class Package extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -138,7 +133,7 @@ class Package extends Resource
     /**
      * Get the filters available for the resource.
      *-
-     * @param  \Illuminate\Http\Request  $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -149,7 +144,6 @@ class Package extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -160,18 +154,19 @@ class Package extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/package.png" style="height:22px;width:22px;margin=10px" />';
     }
-    public   function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

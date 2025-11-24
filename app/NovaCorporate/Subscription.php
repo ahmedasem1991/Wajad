@@ -1,22 +1,18 @@
 <?php
 
 namespace App\NovaCorporate;
-use App\User;
+
 use App\Corporate;
 use App\Nova\Resource;
-use NovaErrorField\Errors;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\BelongsTo;
-use OwenMelbz\RadioField\RadioButton;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use KossShtukert\LaravelNovaSelect2\Select2;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaErrorField\Errors;
+use OwenMelbz\RadioField\RadioButton;
 
 class Subscription extends Resource
 {
@@ -26,6 +22,7 @@ class Subscription extends Resource
      * @var string
      */
     public static $model = 'App\Subscription';
+
     public static $displayInNavigation = true;
 
     /**
@@ -61,12 +58,12 @@ class Subscription extends Resource
 
     public static function availableForNavigation(Request $request)
     {
-        return  (Auth()->User()->hasPermissionTo('subscription')) ? true :false;
+        return (Auth()->User()->hasPermissionTo('subscription')) ? true : false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -76,7 +73,7 @@ class Subscription extends Resource
             ID::make()->sortable(),
 
             Select2::make('Corporate', 'corporate_id')
-                ->options(Corporate::find(auth()->user()->corporate_id)->first()->pluck('name_en','id'))
+                ->options(Corporate::find(auth()->user()->corporate_id)->first()->pluck('name_en', 'id'))
                 ->hideWhenCreating(),
 
             // Select2::make('Package', 'package_id')
@@ -108,7 +105,6 @@ class Subscription extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -119,7 +115,6 @@ class Subscription extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -130,7 +125,6 @@ class Subscription extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -141,23 +135,25 @@ class Subscription extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
     public static function icon()
     {
-        return  '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
+        return '<img class="sidebar-icon" src="/images/icons/rating.png" style="height:22px;width:22px;margin=10px" />';
     }
+
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query
-            ->where('corporate_id',Auth()->user()->corporate->id);
+            ->where('corporate_id', Auth()->user()->corporate->id);
     }
-    public  function authorizedToForceDelete(Request $request)
+
+    public function authorizedToForceDelete(Request $request)
     {
         return false;
     }

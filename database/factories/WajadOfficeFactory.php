@@ -2,13 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-
 use App\WajadOffice;
 use Faker\Generator as Faker;
 
-
 $factory->define(WajadOffice::class, function (Faker $faker) {
-    # Data
+    // Data
     $data = [
         'location' => $faker->paragraph(5),
         'latitude' => $faker->latitude,
@@ -17,12 +15,12 @@ $factory->define(WajadOffice::class, function (Faker $faker) {
         'image' => 'images/profile/default-profile.png',
     ];
 
-    # English Data
+    // English Data
     $data['name_en'] = $faker->sentence;
     $data['details_en'] = $faker->paragraph(15);
     $data['address_en'] = $faker->paragraph(15);
 
-    # Arabic Data
+    // Arabic Data
     $data['details_ar'] = $faker->text();
     $data['address_ar'] = $faker->text();
 
