@@ -12,7 +12,7 @@
         "ext-json": "*",
         "anaseqal/nova-sidebar-icons": "^0.0.3",
         "barryvdh/laravel-dompdf": "^0.8.6",
-        "beyondcode/laravel-websockets": "^1.3",
+        "beyondcode/laravel-websockets": "^1.7",
         "bissolli/nova-phone-field": "^0.0.4",
         "bolechen/nova-activitylog": "^0.1.4",
         "classic-o/nova-media-library": "^0.5.4",
@@ -26,20 +26,19 @@
         "dillingham/nova-errors": "^1.0",
         "emilianotisato/nova-belongsto-depends": "^0.1.4",
         "epartment/nova-dependency-container": "^1.1",
-        "facade/ignition": "^2.0",
-        "fideloper/proxy": "^4.2",
+        "facade/ignition": "^2.5",
         "fruitcake/laravel-cors": "^2.2",
-        "genealabs/nova-map-marker-field": "^0.1.12",
+        "genealabs/nova-map-marker-field": "^0.4",
         "intervention/image": "^2.5",
         "jfeid/nova-google-maps": "^1.1",
         "khalin/nova-link-field": "^1.1",
         "koss-shtukert/laravel-nova-select2-auto-complete": "^1.19",
         "laracasts/generators": "^2.0",
-        "laravel/framework": "^7.0",
+        "laravel/framework": "^8.83",
         "laravel/nova": "^3.16.3",
-        "laravel/socialite": "^4.4",
-        "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0",
+        "laravel/socialite": "^5.0",
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.0",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "manmohanjit/nova-belongs-to-dependency": "^1.1",
         "mjaschen/phpgeo": "^2.1",
@@ -66,26 +65,27 @@
         "socialiteproviders/instagram": "^3.0",
         "socialiteproviders/microsoft": "^3.0",
         "socialiteproviders/twitter": "^3.0",
-        "spatie/laravel-permission": "^3.2",
-        "spatie/laravel-query-builder": "^3.2",
+        "spatie/laravel-permission": "^3.16",
+        "spatie/laravel-query-builder": "^4.0",
         "spatie/laravel-searchable": "^1.7",
-        "srmklive/paypal": "^1.6",
+        "srmklive/paypal": "^3.0",
         "stephenlake/nova-fixed-bars": "^1.1",
         "stichoza/google-translate-php": "^4.1",
         "techouse/intl-date-time": "^1.6",
         "tightenco/nova-google-analytics": "*",
         "tintnaingwin/email-checker": "^2.0",
         "titasgailius/search-relations": "^1.0",
-        "tymon/jwt-auth": "1.0.*"
+        "tymon/jwt-auth": "1.0.*",
+        "guzzlehttp/guzzle": "^7.0.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.5",
         "filp/whoops": "^2.0",
-        "fzaninotto/faker": "^1.4",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^4.1",
-        "phpunit/phpunit": "^8.5",
-        "symfony/thanks": "^1.2"
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "phpunit/phpunit": "^9.5.10",
+        "symfony/thanks": "^1.2",
+        "fakerphp/faker": "^1.9.1"
     },
     "config": {
         "optimize-autoloader": true,
@@ -133,7 +133,8 @@
             "@php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan nova:publish"
+            "@php artisan nova:publish",
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ]
     },
     "repositories": [
