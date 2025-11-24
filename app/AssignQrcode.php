@@ -27,7 +27,7 @@ class AssignQrcode extends Model
 
     public function qrcodes()
     {
-        return $this->hasMany('App\Qrcode', 'assign_reference_number', 'assign_reference_number');
+        return $this->hasMany(\App\Qrcode::class, 'assign_reference_number', 'assign_reference_number');
     }
 
     public function user()

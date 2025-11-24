@@ -26,7 +26,7 @@ class CorporateAssignQrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\CorporateAssignQrcode';
+    public static $model = \App\CorporateAssignQrcode::class;
 
     /**
      * The logical group associated with the resource.

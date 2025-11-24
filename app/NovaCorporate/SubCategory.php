@@ -21,7 +21,7 @@ class SubCategory extends Resource
      *
      * @var string
      */
-    public static $model = 'App\SubCategory';
+    public static $model = \App\SubCategory::class;
 
     public static $group = 'Categories';
 

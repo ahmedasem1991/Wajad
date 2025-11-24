@@ -32,7 +32,7 @@ class ClosedPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -182,7 +182,7 @@ class ClosedPost extends Resource
                 ->hideWhenCreating(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            NovaBelongsToDepend::make('Person', 'founderPerson', 'App\NovaCorporate\People')
+            NovaBelongsToDepend::make('Person', 'founderPerson', \App\NovaCorporate\People::class)
                 ->placeholder('Select Person')
                 ->options(People::where('corporate_id', auth()->user()->corporate->id)->get())
                 ->rules('required')
@@ -207,7 +207,7 @@ class ClosedPost extends Resource
             Button::make('Open')
                 ->style('info')
                 ->reload()
-                ->event('App\Events\OpenPostEvent')
+                ->event(\App\Events\OpenPostEvent::class)
                 ->reload(),
 
             NovaGoogleMaps::make('Location')

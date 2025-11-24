@@ -15,7 +15,7 @@ class Answer extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Answer';
+    public static $model = \App\Answer::class;
 
     public static $group = 'Posts';
 

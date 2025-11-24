@@ -19,7 +19,7 @@ class Qrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = \App\Qrcode::class;
 
     public static $perPageOptions = [50, 100, 150];
 
@@ -82,10 +82,10 @@ class Qrcode extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->readonly(),
-            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', 'App\Nova\GenerateQrcode')
+            BelongsTo::make('Generate Reference Number', 'qrcodegenerate', \App\Nova\GenerateQrcode::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            BelongsTo::make('Assign Reference Number', 'assignqrcode', 'App\Nova\AssignQrcode')
+            BelongsTo::make('Assign Reference Number', 'assignqrcode', \App\Nova\AssignQrcode::class)
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Status', function () {

@@ -14,7 +14,7 @@ class Permissions extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Permission';
+    public static $model = \App\Permission::class;
 
     /**
      * The logical group associated with the resource.

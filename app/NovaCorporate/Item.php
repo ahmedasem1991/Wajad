@@ -22,7 +22,7 @@ class Item extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Item';
+    public static $model = \App\Item::class;
 
     /**
      * The logical group associated with the resource.
@@ -98,7 +98,7 @@ class Item extends Resource
                 ->placeholder('Owner')
                 ->options(\App\User::all()),
 
-            NovaBelongsToDepend::make('Color', 'color', 'App\Nova\Color')
+            NovaBelongsToDepend::make('Color', 'color', \App\Nova\Color::class)
                 ->placeholder('Color')
                 ->options(Color::all()),
 

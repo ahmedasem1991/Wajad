@@ -16,7 +16,7 @@ class Support extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Support';
+    public static $model = \App\Support::class;
 
     /**
      * The logical group associated with the resource.

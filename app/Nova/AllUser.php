@@ -26,7 +26,7 @@ class AllUser extends Resource
      *
      * @var string
      */
-    public static $model = 'App\User';
+    public static $model = \App\User::class;
 
     /**
      * The logical group associated with the resource.
@@ -127,7 +127,7 @@ class AllUser extends Resource
 
             Heading::make('<p class="text-info" style="margin-left:20%"> This Is Required If The Type Is Corpoare Admin.</p>')->asHtml()->hideFromDetail(),
 
-            NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
+            NovaBelongsToDepend::make('Corporate', 'corporate', \App\Nova\Corporate::class)
                 ->placeholder('Corporate')
                 ->options(Corporate::all())
                 ->creationRules('required_if:type,2')

@@ -16,7 +16,7 @@ class Question extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Question';
+    public static $model = \App\Question::class;
 
     public static $group = 'Posts';
 

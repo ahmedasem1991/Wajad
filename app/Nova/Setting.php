@@ -16,7 +16,7 @@ class Setting extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Setting';
+    public static $model = \App\Setting::class;
 
     /**
      * The logical group associated with the resource.

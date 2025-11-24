@@ -20,7 +20,7 @@ class Category extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Category';
+    public static $model = \App\Category::class;
 
     public static $displayInNavigation = false;
 

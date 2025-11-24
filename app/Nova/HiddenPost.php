@@ -32,7 +32,7 @@ class HiddenPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -119,7 +119,7 @@ class HiddenPost extends Resource
                 ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
+            BelongsTo::make('Publisher', 'publisher', \App\Nova\User::class)->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Publisher type', 'publisher_type')
@@ -153,15 +153,15 @@ class HiddenPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -193,7 +193,7 @@ class HiddenPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
@@ -201,8 +201,8 @@ class HiddenPost extends Resource
 
                 NovaDependencyContainer::make([
 
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get()),
                 ])
@@ -246,15 +246,15 @@ class HiddenPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -288,15 +288,15 @@ class HiddenPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(User::NormalUsers()->get()),
                 ])
@@ -330,7 +330,7 @@ class HiddenPost extends Resource
             Button::make('Show')
                 ->style('primary')
                 ->reload()
-                ->event('App\Events\ShowPostEvent'),
+                ->event(\App\Events\ShowPostEvent::class),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)

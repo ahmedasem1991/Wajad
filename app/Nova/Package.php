@@ -21,7 +21,7 @@ class Package extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Package';
+    public static $model = \App\Package::class;
 
     /**
      * The logical group associated with the resource.

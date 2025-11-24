@@ -21,7 +21,7 @@ class Item extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Item';
+    public static $model = \App\Item::class;
 
     /**
      * The logical group associated with the resource.

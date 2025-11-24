@@ -14,7 +14,7 @@ class Visit extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Visit';
+    public static $model = \App\Visit::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

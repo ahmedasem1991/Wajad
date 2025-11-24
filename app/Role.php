@@ -53,7 +53,7 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(config('novapermissions.userModel', 'App\User'));
+        return $this->belongsToMany(config('novapermissions.userModel', \App\User::class));
     }
 
     /**

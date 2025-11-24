@@ -19,7 +19,7 @@ class PostReport extends Resource
      *
      * @var string
      */
-    public static $model = 'App\PostReport';
+    public static $model = \App\PostReport::class;
 
     public static $displayInNavigation = false;
 

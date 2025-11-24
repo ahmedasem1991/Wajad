@@ -19,7 +19,7 @@ class Model extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Model';
+    public static $model = \App\Model::class;
 
     public static $group = 'Categories';
 

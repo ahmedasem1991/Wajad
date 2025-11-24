@@ -19,7 +19,7 @@ class PostRequest extends Resource
      *
      * @var string
      */
-    public static $model = 'App\PostRequest';
+    public static $model = \App\PostRequest::class;
 
     public static $displayInNavigation = false;
 

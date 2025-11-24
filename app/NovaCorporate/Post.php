@@ -41,7 +41,7 @@ class Post extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -253,12 +253,12 @@ class Post extends Resource
             Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             Button::make('EN PDF')
                 ->link(URL::to('receipt?p='.base64_encode($this->id)), '_blank')

@@ -33,7 +33,7 @@ class AssignQrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\AssignQrcode';
+    public static $model = \App\AssignQrcode::class;
 
     /**
      * The logical group associated with the resource.

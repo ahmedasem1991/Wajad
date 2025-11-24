@@ -30,7 +30,7 @@ class ReportedPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -154,7 +154,7 @@ class ReportedPost extends Resource
                 ->dependsOn('Brand'),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class),
 
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
+            BelongsTo::make('Publisher', 'publisher', \App\Nova\User::class)->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Publisher type', 'publisher_type')
@@ -187,15 +187,15 @@ class ReportedPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(\App\People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -227,15 +227,15 @@ class ReportedPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(\App\People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get()),
                 ])
@@ -280,15 +280,15 @@ class ReportedPost extends Resource
                     ->hideFromIndex(),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(\App\People::all())
                         ->rules('required_if:owner_releated_to_system,0'),
                 ])->dependsOn('owner_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Owner', 'owner', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Owner', 'owner', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get())
                         ->rules('required_if:owner_releated_to_system,1'),
@@ -323,15 +323,15 @@ class ReportedPost extends Resource
                     ->hideFromIndex()
                     ->default(2),
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                    NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                         ->placeholder('Select Person')
                         ->options(\App\People::all())
                         ->rules('required_if:founder_releated_to_system,0'),
                 ])->dependsOn('founder_releated_to_system', 0),
 
                 NovaDependencyContainer::make([
-                    NovaBelongsToDepend::make('Founder', 'founder', 'App\Nova\NormalUser')
-                        ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                    NovaBelongsToDepend::make('Founder', 'founder', \App\Nova\NormalUser::class)
+                        ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                         ->placeholder('Select Owner')
                         ->options(\App\User::NormalUsers()->get()),
                 ])
@@ -363,12 +363,12 @@ class ReportedPost extends Resource
             Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             Heading::make('<p class="text-info" style="margin-left:20%"></p>')->asHtml(),
 

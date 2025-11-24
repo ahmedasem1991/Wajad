@@ -29,7 +29,7 @@ class Banner extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Banner';
+    public static $model = \App\Banner::class;
 
     /**
      * The logical group associated with the resource.
@@ -124,8 +124,8 @@ class Banner extends Resource
                 //                    1 => 'Found'
                 //                ])->displayUsingLabels()->hideFromDetail()->hideFromIndex(),
 
-                NovaBelongsToDepend::make('User', 'user', 'App\Nova\NormalUser')
-                    ->withMeta(['calledFromClass' => 'App\Nova\NormalUser'])
+                NovaBelongsToDepend::make('User', 'user', \App\Nova\NormalUser::class)
+                    ->withMeta(['calledFromClass' => \App\Nova\NormalUser::class])
                     ->placeholder('Select User')
                     ->options(User::NormalUsers()->get())
                     ->rules('required'),

@@ -19,7 +19,7 @@ class WajadOffice extends Resource
      *
      * @var string
      */
-    public static $model = 'App\WajadOffice';
+    public static $model = \App\WajadOffice::class;
 
     public static $displayInNavigation = false;
 

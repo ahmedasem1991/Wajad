@@ -20,7 +20,7 @@ class Brand extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Brand';
+    public static $model = \App\Brand::class;
 
     public static $group = 'Categories';
 

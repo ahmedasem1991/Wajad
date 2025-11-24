@@ -17,7 +17,7 @@ class Country extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Country';
+    public static $model = \App\Country::class;
 
     /**
      * The logical group associated with the resource.

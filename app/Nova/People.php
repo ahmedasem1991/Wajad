@@ -16,7 +16,7 @@ class People extends Resource
      *
      * @var string
      */
-    public static $model = 'App\People';
+    public static $model = \App\People::class;
 
     /**
      * The logical group associated with the resource.
