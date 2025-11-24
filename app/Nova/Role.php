@@ -30,7 +30,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Role';
+    public static $model = \App\Role::class;
     public static $displayInNavigation = true;
 
     /**
@@ -164,7 +164,7 @@ class Role extends Resource
                 Number::make('Number Of Free QRCodes', 'free_qrcodes')->min(1)->max(100)->step(1)->rules('required'),
                 Number::make('Available Period OF Free QRCodes', 'available_period_qrcodes')->min(1)->max(100)->step(1)->rules('required'),
             ])->dependsOn('mobile_group', 1),
-            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', 'App\Nova\AllUser'))->searchable(),
+            BelongsToMany::make(__('Users'), 'users', config('novapermissionsAdmin.userResource', \App\Nova\AllUser::class))->searchable(),
         ];
     }
 

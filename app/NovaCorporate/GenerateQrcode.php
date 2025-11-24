@@ -29,7 +29,7 @@ class GenerateQrcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\GenerateQrcode';
+    public static $model = \App\GenerateQrcode::class;
 
     /**
      * The logical group associated with the resource.

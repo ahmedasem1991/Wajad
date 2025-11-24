@@ -18,7 +18,7 @@ class Activity extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Activity';
+    public static $model = \App\Activity::class;
 
     /**
      * The logical group associated with the resource.

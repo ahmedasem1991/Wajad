@@ -27,7 +27,7 @@ class ExpiredQRcode extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Qrcode';
+    public static $model = \App\Qrcode::class;
     public static $perPageOptions = [50, 100, 150];
     /**
      * The logical group associated with the resource.
@@ -91,11 +91,11 @@ class ExpiredQRcode extends Resource
             Text::make('Unique Reference Number','unique_reference_number')
                 ->hideWhenCreating(),
 
-            BelongsTo::make('Generate Reference Number','qrcodegenerate','App\Nova\GenerateQrcode')
+            BelongsTo::make('Generate Reference Number','qrcodegenerate',\App\Nova\GenerateQrcode::class)
                 ->readonly()
                 ->hideWhenCreating(),
 
-            BelongsTo::make('Assign Reference Number','assignqrcode','App\Nova\AssignQrcode')
+            BelongsTo::make('Assign Reference Number','assignqrcode',\App\Nova\AssignQrcode::class)
                 ->readonly()
                 ->hideWhenCreating(),
 

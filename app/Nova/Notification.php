@@ -30,7 +30,7 @@ class Notification extends Resource
      *
      * @var string
      */
-    public static $model = 'App\AdminNotification';
+    public static $model = \App\AdminNotification::class;
     public static $group = 'Notification';
 
     /**

@@ -23,7 +23,7 @@ class QrcodeLog extends Resource
      *
      * @var string
      */
-    public static $model = 'App\QrcodeLog';
+    public static $model = \App\QrcodeLog::class;
     public static $perPageOptions = [50, 100, 150];
     /**
      * The logical group associated with the resource.

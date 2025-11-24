@@ -15,7 +15,7 @@ class Keyword extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Keyword';
+    public static $model = \App\Keyword::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

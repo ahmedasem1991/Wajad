@@ -42,7 +42,7 @@ class ClosedPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -162,7 +162,7 @@ class ClosedPost extends Resource
                 ->readonly(),
             BelongsTo::make('Color', 'color', \App\Nova\Color::class)
                 ->readonly(),
-            BelongsTo::make('Publisher', 'publisher', 'App\Nova\User')->readonly()
+            BelongsTo::make('Publisher', 'publisher', \App\Nova\User::class)->readonly()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
             Text::make('Publisher type', 'publisher_type')
@@ -185,7 +185,7 @@ class ClosedPost extends Resource
                 ->readonly(),
 
             NovaDependencyContainer::make([
-                NovaBelongsToDepend::make('Person', 'ownerPerson', 'App\Nova\People')
+                NovaBelongsToDepend::make('Person', 'ownerPerson', \App\Nova\People::class)
                     ->placeholder('Select Person')
                     ->options(People::all())
                     ->rules('required_if:owner_releated_to_system,0')
@@ -193,7 +193,7 @@ class ClosedPost extends Resource
 
             ])->dependsOn('owner_releated_to_system', 0),
 
-            BelongsTo::make('Owner', 'owner', 'App\Nova\NormalUser')
+            BelongsTo::make('Owner', 'owner', \App\Nova\NormalUser::class)
                 ->rules('required_if:owner_releated_to_system,1')
                 ->readonly(),
 
@@ -215,7 +215,7 @@ class ClosedPost extends Resource
                 ->readonly(),
 
             NovaDependencyContainer::make([
-                NovaBelongsToDepend::make('Person', 'founderPerson', 'App\Nova\People')
+                NovaBelongsToDepend::make('Person', 'founderPerson', \App\Nova\People::class)
                     ->placeholder('Select Person')
                     ->options(People::all())
                     ->rules('required_if:founder_releated_to_system,0'),
@@ -223,7 +223,7 @@ class ClosedPost extends Resource
 
             ])->dependsOn('founder_releated_to_system', 0),
 
-            BelongsTo::make('Founder', 'founder', 'App\Nova\NormalUser')
+            BelongsTo::make('Founder', 'founder', \App\Nova\NormalUser::class)
                 ->readonly(),
             MediaField::make('Item Image', 'images')->listing(),
 
@@ -234,7 +234,7 @@ class ClosedPost extends Resource
             Button::make('Open')
                 ->style('success')
                 ->reload()
-                ->event('App\Events\OpenPostEvent'),
+                ->event(\App\Events\OpenPostEvent::class),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)

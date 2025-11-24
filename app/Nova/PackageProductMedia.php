@@ -19,7 +19,7 @@ class PackageProductMedia extends Resource
      *
      * @var string
      */
-    public static $model = 'App\PackageProductMedia';
+    public static $model = \App\PackageProductMedia::class;
     public static $displayInNavigation = false;
 
     /**

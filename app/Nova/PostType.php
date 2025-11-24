@@ -17,7 +17,7 @@ class PostType extends Resource
      *
      * @var string
      */
-    public static $model = 'App\PostType';
+    public static $model = \App\PostType::class;
 
     /**
      * The logical group associated with the resource.

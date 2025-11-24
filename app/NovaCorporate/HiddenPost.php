@@ -42,7 +42,7 @@ class HiddenPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -159,7 +159,7 @@ class HiddenPost extends Resource
                 ->hideWhenCreating(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            NovaBelongsToDepend::make('Person', 'founderPerson', 'App\NovaCorporate\People')
+            NovaBelongsToDepend::make('Person', 'founderPerson', \App\NovaCorporate\People::class)
                 ->placeholder('Select Person')
                 ->options(People::where('corporate_id', auth()->user()->corporate->id)->get())
                 ->rules('required')
@@ -183,13 +183,13 @@ class HiddenPost extends Resource
 
             Button::make('Close')
                 ->style('danger')
-                ->event('App\Events\ClosePostEvent')
+                ->event(\App\Events\ClosePostEvent::class)
                 ->reload(),
 
             Button::make('Show')
                 ->style('success')
                 ->reload()
-                ->event('App\Events\ShowPostEvent'),
+                ->event(\App\Events\ShowPostEvent::class),
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
                 ->setAttributes('latitude', 'longitude')

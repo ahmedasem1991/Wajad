@@ -48,7 +48,7 @@ class GenerateQrcode extends Model
 
      public function qrcodes()
     {
-        return $this->hasMany('App\Qrcode', 'generate_reference_number', 'generate_reference_number');
+        return $this->hasMany(\App\Qrcode::class, 'generate_reference_number', 'generate_reference_number');
     }
 
 

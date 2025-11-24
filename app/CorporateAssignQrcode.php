@@ -24,7 +24,7 @@ class CorporateAssignQrcode extends Model
 
    public function qrcodes()
    {
-       return $this->hasMany('App\Qrcode', 'corporate_assign_reference_number', 'corporate_assign_reference_number');
+       return $this->hasMany(\App\Qrcode::class, 'corporate_assign_reference_number', 'corporate_assign_reference_number');
    }
 
    public function user()

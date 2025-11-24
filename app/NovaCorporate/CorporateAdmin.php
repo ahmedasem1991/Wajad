@@ -39,7 +39,7 @@ class CorporateAdmin extends Resource
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = \App\User::class;
 
     /**
      * The logical group associated with the resource.
@@ -137,7 +137,7 @@ class CorporateAdmin extends Resource
                 ->rules('required')
                 ->displayUsingLabels(),
 
-            NovaBelongsToDepend::make('Corporate', 'corporate', 'App\Nova\Corporate')
+            NovaBelongsToDepend::make('Corporate', 'corporate', \App\Nova\Corporate::class)
                 ->placeholder('Corporate')
                 ->options(Corporate::all())
                 ->creationRules('required_if:type,2')

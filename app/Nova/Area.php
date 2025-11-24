@@ -23,7 +23,7 @@ class Area extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Region';
+    public static $model = \App\Region::class;
 
     /**
      * The logical group associated with the resource.
@@ -74,7 +74,7 @@ class Area extends Resource
             NovaBelongsToDepend::make('Country')
             ->placeholder('Country')
             ->options(\App\Country::all()),
-            HasMany::make('City', 'cities', 'App\Nova\City'),
+            HasMany::make('City', 'cities', \App\Nova\City::class),
         ];
     }
 

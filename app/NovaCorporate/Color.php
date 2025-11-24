@@ -24,7 +24,7 @@ class Color extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Color';
+    public static $model = \App\Color::class;
     public static $group = 'Categories';
     public static $displayInNavigation = false;
 

@@ -18,7 +18,7 @@ class Page extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Page';
+    public static $model = \App\Page::class;
 
     /**
      * The logical group associated with the resource.

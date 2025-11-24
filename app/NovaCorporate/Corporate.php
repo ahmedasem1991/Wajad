@@ -32,7 +32,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Corporate';
+    public static $model = \App\Corporate::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

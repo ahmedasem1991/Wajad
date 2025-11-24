@@ -17,7 +17,7 @@ class City extends Resource
      *
      * @var string
      */
-    public static $model = 'App\City';
+    public static $model = \App\City::class;
 
     /**
      * The logical group associated with the resource.

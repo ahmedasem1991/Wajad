@@ -18,37 +18,37 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\AddPostEvent' => [
-            'App\Listeners\AddPostListener',
+        \App\Events\AddPostEvent::class => [
+            \App\Listeners\AddPostListener::class,
         ],
-        'App\Events\SendFCMEvent' => [
-            'App\Listeners\SendFCMListener',
+        \App\Events\SendFCMEvent::class => [
+            \App\Listeners\SendFCMListener::class,
         ],
-        'App\Events\SendSMSEvent' => [
-            'App\Listeners\SendSMSListener',
+        \App\Events\SendSMSEvent::class => [
+            \App\Listeners\SendSMSListener::class,
         ],
-        'App\Events\ClosePostEvent' => [
-            'App\Listeners\ClosePostListener',
+        \App\Events\ClosePostEvent::class => [
+            \App\Listeners\ClosePostListener::class,
         ],
-        'App\Events\OpenPostEvent' => [
-            'App\Listeners\OpenPostListener',
-        ],
-
-        'App\Events\ShowPostEvent' => [
-            'App\Listeners\ShowPostListener',
+        \App\Events\OpenPostEvent::class => [
+            \App\Listeners\OpenPostListener::class,
         ],
 
-
-        'App\Events\HiddenPostEvent' => [
-            'App\Listeners\HiddenPostListener',
+        \App\Events\ShowPostEvent::class => [
+            \App\Listeners\ShowPostListener::class,
         ],
 
-        'App\Events\ApprovePostEvent' => [
-            'App\Listeners\ApprovePostListener',
+
+        \App\Events\HiddenPostEvent::class => [
+            \App\Listeners\HiddenPostListener::class,
         ],
 
-        'App\Events\RejectPostEvent' => [
-            'App\Listeners\RejectPostListener',
+        \App\Events\ApprovePostEvent::class => [
+            \App\Listeners\ApprovePostListener::class,
+        ],
+
+        \App\Events\RejectPostEvent::class => [
+            \App\Listeners\RejectPostListener::class,
         ],
         // \SocialiteProviders\Manager\SocialiteWasCalled::class => [
         //     'SocialiteProviders\\Apple\\AppleExtendSocialite@handle',

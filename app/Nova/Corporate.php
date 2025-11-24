@@ -31,7 +31,7 @@ class Corporate extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Corporate';
+    public static $model = \App\Corporate::class;
 
 
     /**
@@ -142,7 +142,7 @@ class Corporate extends Resource
             ),
 
             DateTime::make('Availabe End Date','end_date'),
-            HasMany::make('Corporate Admins', 'users','\App\Nova\CorporateAdmin'),
+            HasMany::make('Corporate Admins', 'users',\App\Nova\CorporateAdmin::class),
             Boolean::make('Active','status')
                 ->trueValue(1)
                 ->falseValue(0)

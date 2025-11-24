@@ -44,7 +44,7 @@ class ReportedPost extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Post';
+    public static $model = \App\Post::class;
 
     /**
      * The logical group associated with the resource.
@@ -130,7 +130,7 @@ class ReportedPost extends Resource
                 ->hideWhenCreating(),
 
             Heading::make('<p class="text-info" style="margin-left:20%">Founder Data</p>')->asHtml(),
-            NovaBelongsToDepend::make('Person', 'founderPerson', 'App\NovaCorporate\People')
+            NovaBelongsToDepend::make('Person', 'founderPerson', \App\NovaCorporate\People::class)
                 ->placeholder('Select Person')
                 ->options(People::where('corporate_id',auth()->user()->corporate->id)->get())
                 ->rules('required')
@@ -155,12 +155,12 @@ class ReportedPost extends Resource
             Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             NovaGoogleMaps::make('Location')
                 ->setValue($this->latitude, $this->longitude)
@@ -187,12 +187,12 @@ class ReportedPost extends Resource
                 Button::make('Close')
                 ->style('danger')
                 ->reload()
-                ->event('App\Events\ClosePostEvent'),
+                ->event(\App\Events\ClosePostEvent::class),
 
             Button::make('Hidden')
                 ->style('grey')
                 ->reload()
-                ->event('App\Events\HiddenPostEvent'),
+                ->event(\App\Events\HiddenPostEvent::class),
 
             HasMany::make('Post Reports', 'reports', \App\NovaCorporate\PostReport::class),
             $Questions,
