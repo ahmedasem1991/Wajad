@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Api\ResponseTrait;
 use Illuminate\Database\Eloquent\Model as MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,6 +10,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Item extends MasterModel
 {
+    use HasFactory;
+
     use LogsActivity, ResponseTrait,  SoftDeletes;
 
     protected $fillable = ['title', 'details', 'owner_id', 'model_id', 'color_id', 'sub_category_id', 'brand_id', 'images', 'status'];

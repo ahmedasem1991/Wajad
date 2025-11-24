@@ -1,16 +1,27 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Page;
-use Faker\Generator as Faker;
 
-$factory->define(Page::class, function (Faker $faker) {
-    return [
-        'key' => $faker->slug(),
-        'title_en' => $faker->sentence(6),
-        'body_en' => $faker->paragraph(25),
-        'title_ar' => $faker->sentence(6),
-        'body_ar' => $faker->paragraph(25),
-    ];
-});
+class PageFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'key' => $this->faker->slug(),
+            'title_en' => $this->faker->sentence(6),
+            'body_en' => $this->faker->paragraph(25),
+            'title_ar' => $this->faker->sentence(6),
+            'body_ar' => $this->faker->paragraph(25),
+        ];
+    }
+}

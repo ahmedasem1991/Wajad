@@ -1,9 +1,11 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Category;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\DB;
 
 $categories = [
@@ -21,14 +23,24 @@ DB::transaction(function () {
 });
 
 foreach ($categories as $key => $value) {
-    $factory->define(Category::class, function (Faker $faker) use ($key, $value) {
+}
+
+class CategoryFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
             'name_en' => $key,
             'name_ar' => $value,
-            'description_en' => $faker->paragraph(),
-            'description_ar' => $faker->paragraph(),
+            'description_en' => $this->faker->paragraph(),
+            'description_ar' => $this->faker->paragraph(),
             'image' => 'images/profile/default-profile.png',
 
         ];
-    });
+    }
 }

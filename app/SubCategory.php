@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Services\Helpers\Traits\ModelObserveImage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,6 +10,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class SubCategory extends Model
 {
+    use HasFactory;
+
     use LogsActivity, ModelObserveImage, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar', 'image', 'category_id'];

@@ -1,20 +1,31 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Brand;
 use App\SubCategory;
-use Faker\Generator as Faker;
 
-$factory->define(Brand::class, function (Faker $faker) {
-    return [
-        'name_en' => $faker->sentence(),
-        'name_ar' => $faker->sentence(),
-        'description_en' => $faker->sentence(),
-        'description_ar' => $faker->sentence(),
-        'image' => $faker->image(),
-        'sub_category_id' => function () {
-            return factory(SubCategory::class)->create()->id;
-        },
-    ];
-});
+class BrandFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name_en' => $this->faker->sentence(),
+            'name_ar' => $this->faker->sentence(),
+            'description_en' => $this->faker->sentence(),
+            'description_ar' => $this->faker->sentence(),
+            'image' => $this->faker->image(),
+            'sub_category_id' => function () {
+                return SubCategory::factory()->create()->id;
+            },
+        ];
+    }
+}

@@ -2,12 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Color extends MasterModel
 {
+    use HasFactory;
+
     use LogsActivity, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'icon'];
