@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Http\Request;
+use Illuminate\Cache\RateLimiting\Limit;
 use App\Exceptions\Api\ApiException;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +19,18 @@ class RouteServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Route::bind('qr_code', function ($qr_code) {
+        $this->configureRateLimiting();
+
+        $this->routes(function () {
+            $this->mapApiRoutes();
+
+            $this->mapWebRoutes();
+
+            $this->mapCorporateRoutes();
+
+            //
+        });
+Route::bind('qr_code', function ($qr_code) {
             $qr_code = \App\Qrcode::where('qrcode_url', $qr_code)->first();
             if (! $qr_code) {
                 throw new ApiException(trans('messages.not_found', ['model' => trans('messages.attributes.qrcode')]), 400);
@@ -40,20 +54,8 @@ class RouteServiceProvider extends ServiceProvider
             }
 
             return $item;
-        });
-        parent::boot();
-    }
+        });    }
 
-    public function map()
-    {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        $this->mapCorporateRoutes();
-
-        //
-    }
 
     protected function mapWebRoutes()
     {
@@ -88,5 +90,17 @@ class RouteServiceProvider extends ServiceProvider
             ->domain(env('API_URL', 'api-wajad.smartappco.dev'))
             ->namespace($this->api_namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     *
+     * @return void
+     */
+    protected function configureRateLimiting()
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+        });
     }
 }
